@@ -48,7 +48,7 @@ Compilation is now done by performing the following steps:
 
 <li>Compile the program by running Allwmake:
 
-        cd SedFoam
+        cd sedfoam
         source $FOAM_ETC/bashrc # load the openfoam environment
         ./Allwmake
 

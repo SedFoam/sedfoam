@@ -10,10 +10,14 @@ This repository provides the SedFoam solver (version OpenFOAM classic).
 
 ### Deployment instructions ###
 
-* svn co https://servforge.legi.grenoble-inp.fr/svn/soft-sedfoam/trunk sedfoam
+* git clone https://bitbucket.org/sedfoam/sedfoam.git sedfoam
 * cd sedfoam
 * ./Allwclean
 * ./Allwmake
+
+### Tutorials webpage ###
+
+* http://servforge.legi.grenoble-inp.fr/pub/soft-sedfoam
 
 ### Contacts ###
 
