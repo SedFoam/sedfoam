@@ -1,0 +1,64 @@
+/******************************************************************************
+ *
+ * 
+ *
+ * Copyright (C) 2016 by Julien Chauchat, Cyrille Bonamy, Tim Nagel, Zhen Cheng
+ * and Tian-Jian Hsu.
+ *
+ * Permission to use, copy, modify, and distribute this software and its
+ * documentation under the terms of the GNU General Public License is hereby 
+ * granted. No representations are made about the suitability of this software 
+ * for any purpose. It is provided "as is" without express or implied warranty.
+ * See the GNU General Public License for more details.
+ *
+ *
+ */
+/*! 
+\mainpage 
+<!--SedFOAM Manual-->
+
+<h2>Introduction</h2>
+A three-dimensional two-phase flow solver, SedFoam, is presented for sediment transport applications. The solver is based on twoPhaseEulerFoam available in the 2.1.0 release of the open-source CFD software OpenFOAM. In this approach the sediment phase is modeled as a continuum, and constitutive laws have to be prescribed for the sediment stresses. In the proposed solver, two different inter-granular stress models are implemented: the kinetic theory of granular flows and the dense granular flow rheology $\mu(I)$. For the fluid stress, laminar or turbulent flow regimes can be simulated and three different turbulence models are available for sediment transport: a simple mixing length model (one-dimensional configuration only), a $k-\epsilon$ and a $k-\omega$ model. The numerical implementation is first demonstrated by two validation test cases, sedimentation of suspension and laminar bed-load, and two applications are then shown to illustrate the capabilities of \sedFoam to deal with complex turbulent sediment transport problems. Different combinations of inter-granular stress and turbulence models are tested. The source code and tutorial cases are disseminated at the public website: https://bitbucket.org/sedfoam/sedfoam and detailed tutorial description and documentation can be found at http://servforge.legi.grenoble-inp.fr/pub/soft-sedfoam/.
+
+This manual is written as the documentation of the open-source solver SedFOAM, it includes the installation procedure and a description of the model input/output files.  The details concerning the mathematical formulation and the numerical implementation can be found in Chauchat, Cheng, Bonamy, Nagel, Hsu (Geophysical Model Development, submitted).
+
+The documentation is divided into two parts, the first one is the user manual:
+<ul>
+<li>Section \ref install explains how to download, compile and install SedFoam.
+<li>Section \ref starting gives informations on how the case directory is organised. 
+<li>Section \ref tutorials describes the tutorials provided with SedFoam sources including postprocessing using a python toolbox also provided with the source and the expected results. 
+<li>Section \ref faq gives answers to frequently asked questions. 
+<li>Section \ref trouble gives some basic answers about what to do in case of problems.
+</ul>
+
+
+The second part provides informations for developers.
+
+\n<h2>SedFOAM license</h2>
+\addindex license
+\addindex GPL
+
+Copyright &copy; 2016 by
+<a href="mailto:cyrille.bonamy@legi.cnrs.fr">Cyrille Bonamy</a>,
+Julien Chauchat, Tim Nagel, Zhen Cheng and Tian-Jian Hsu.<p>
+
+Permission to use, copy, modify, and distribute this software and its
+documentation under the terms of the GNU General Public License is hereby 
+granted. No representations are made about the suitability of this software 
+for any purpose. It is provided "as is" without express or implied warranty.
+See the 
+<a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">
+GNU General Public License</a>
+for more details.
+<p>
+
+<h2>Acknowledgments</h2>
+\addindex acknowledgments
+This study is supported by National Science Foundation (CMMI-1135026; OCE-1356855), Office of Naval Research (N00014-1e4-1-0586, Littoral Geosciences and Optics Program), the R\'egion Rhones-Alpes (COOPERA project and Explora Pro grant) and the French national programme EC2CO-LEFE MODSED. We gratefully acknowledge developers involved in OpenFOAM, which is the foundation of the new solver SedFoam
+
+\htmlonly
+Go to the <a href="install.html">next</a> section.
+\endhtmlonly
+
+*/
+

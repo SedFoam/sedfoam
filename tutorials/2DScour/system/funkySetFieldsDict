@@ -1,0 +1,156 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+expressions
+ (
+	sedimentvelocity
+	{
+	field Ua; //field to initialise
+	fields
+	(
+	z Ua
+	);
+	lookuptables (
+	{
+	name inletprofilesedvel;
+	outOfBounds clamp;
+	fileName "$FOAM_CASE/1d_profil/Ua.xy";
+	}
+	{
+	name inletprofilesedvelv;
+	outOfBounds clamp;
+	fileName "$FOAM_CASE/1d_profil/Va.xy";
+	}
+	{
+	name inletprofilesedvelw;
+	outOfBounds clamp;
+	fileName "$FOAM_CASE/1d_profil/Wa.xy";
+	}
+	);
+        value uniform (1 0 0);
+	expression "vector(inletprofilesedvel(pos().y)*1.3360,inletprofilesedvelv(pos().y),0)";
+	keepPatches 1;
+        }
+
+	fluidvelocity
+	{
+	field Ub; //field to initialise
+	fields
+	(
+	z Ub
+	);
+	lookuptables (
+	{
+	name inletprofilefvel;
+	outOfBounds clamp;
+	fileName "$FOAM_CASE/1d_profil/Ub.xy";
+	}
+	{
+	name inletprofilefvelv;
+	outOfBounds clamp;
+	fileName "$FOAM_CASE/1d_profil/Vb.xy";
+	}
+	{
+	name inletprofilefvelw;
+	outOfBounds clamp;
+	fileName "$FOAM_CASE/1d_profil/Wb.xy";
+	}
+	);
+        value uniform (1 0 0);
+	expression "vector(inletprofilefvel(pos().y)*1.3360,inletprofilefvelv(pos().y),0)";
+	keepPatches 1;
+        }
+
+       alpha
+        {
+        field alpha; //field to initialise
+        fields
+        (
+        z alpha
+        );
+        lookuptables (
+        {
+        name inletprofilealpha;
+        outOfBounds clamp;
+        fileName "$FOAM_CASE/1d_profil/alpha.xy";
+        }
+        );
+        expression "inletprofilealpha(pos().y)";
+        keepPatches 1;
+        }
+
+       k
+        {
+        field k; //field to initialise
+        fields
+        (
+        z k
+        );
+        lookuptables (
+        {
+        name inletprofilek;
+        outOfBounds clamp;
+        fileName "$FOAM_CASE/1d_profil/k.xy";
+        }
+        );
+        expression "inletprofilek(pos().y)";
+        keepPatches 1;
+        }
+
+       epsilon
+        {
+        field epsilon; //field to initialise
+        fields
+        (
+        z epsilon
+        );
+        lookuptables (
+        {
+        name inletprofilepsilon;
+        outOfBounds clamp;
+        fileName "$FOAM_CASE/1d_profil/epsilon.xy";
+        }
+        );
+        expression "inletprofilepsilon(pos().y)";
+        keepPatches 1;
+        }
+        
+        omega
+    	{
+		field omega;
+                fields
+                    (
+                        z dum
+                    );
+                lookuptables (
+                    {
+                        name inletprofilek;
+                        outOfBounds clamp;
+                        fileName "$FOAM_CASE/1d_profil/k.xy";
+                    }
+                    {
+                        name inletprofilepsilon;
+                        outOfBounds clamp;
+                        fileName "$FOAM_CASE/1d_profil/epsilon.xy";
+                    }
+                );
+                expression "inletprofilepsilon(pos().y)/(0.09*inletprofilek(pos().y))";
+		keepPatches 1;		
+	}
+ );
+
+// ************************************************************************* //

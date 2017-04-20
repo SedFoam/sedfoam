@@ -1,0 +1,12 @@
+AUTHORS
+
+ * Zhen Cheng (University of Delaware) 
+   zcheng (A) udel.edu
+ * Julien Chauchat (LEGI UMR 5519 - Grenoble - France)
+   Julien.Chauchat (A) univ-grenoble-alpes.fr
+ * Tian-Jian Hsu (University of Delaware)
+   thsu (A) udel.edu
+ * Cyrille Bonamy (LEGI UMR 5519 - Grenoble - France)
+   Cyrille.Bonamy (A) legi.cnrs.fr
+ * Tim Nagel (LEGI UMR 5519 - Grenoble - France)
+   Tim.Nagel (A) legi.cnrs.fr

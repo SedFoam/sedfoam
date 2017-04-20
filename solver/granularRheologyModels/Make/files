@@ -1,0 +1,23 @@
+granularRheologyModel/granularRheologyModel.C
+
+FrictionModel/FrictionModel/FrictionModel.C
+FrictionModel/FrictionModel/newFrictionModel.C
+FrictionModel/none/noneFriction.C
+FrictionModel/Coulomb/Coulomb.C
+FrictionModel/MuI/MuI.C
+FrictionModel/MuIv/MuIv.C
+
+PPressureModel/PPressureModel/PPressureModel.C
+PPressureModel/PPressureModel/newPPressureModel.C
+PPressureModel/none/nonePPressure.C
+PPressureModel/MuIPPressure/MuIPPressure.C
+PPressureModel/MuIvPPressure/MuIvPPressure.C
+
+FluidViscosityModel/FluidViscosityModel/FluidViscosityModel.C
+FluidViscosityModel/FluidViscosityModel/newFluidViscosityModel.C
+FluidViscosityModel/none/noneViscosity.C
+FluidViscosityModel/Einstein/EinsteinViscosity.C
+FluidViscosityModel/KriegerDougherty/KriegerDoughertyViscosity.C
+FluidViscosityModel/BoyerEtAl/BoyerEtAlViscosity.C
+
+LIB = $(FOAM_USER_LIBBIN)/libgranularRheologySedModel

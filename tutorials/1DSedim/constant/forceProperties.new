@@ -1,0 +1,28 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      forceProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// * * * * * * * * * * * * * following are for presure * * * * * * * * * * * * * * * //
+tilt             tilt             [ 0  0  0 0 0 0 0 ] 0;
+gradPAMP1        gradPAMP1        [ 1 -2 -2 0 0 0 0 ] (0 0 0 );       // pressure osci amp
+gradPAMP2        gradPAMP2        [ 1 -2 -2 0 0 0 0 ] ( 0 0 0 );      // pressure osci amp
+gradPOSC         gradPOSC         [ 1 -2 -2 0 0 0 0 ] (0 0 0 ); // pressure osci real value
+gradPMEAN        gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (0 0 0 ); // mean pressure
+oscpT            oscpT            [ 0  0  0 0 0 0 0 ] 0.0;            // osci period
+
+debugInfo	true;
+ 
+// * * * * * * * * * * * * end of definition of pressure * * * * * * * * * * * * * //

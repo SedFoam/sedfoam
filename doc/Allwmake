@@ -1,0 +1,13 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+set -x
+
+umask 22
+rm -rf html latex man
+doxygen --version
+doxygen
+
+# fix permissions (NB: '+X' and not '+x'!)
+chmod -R a+rX ./
+
+# ----------------------------------------------------------------- end-of-file

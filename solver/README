@@ -1,0 +1,8 @@
+Change Log:
+1. Remove the cutting off of granular temperature at low concentration (previously, the granular temperature is set to zero when the sediment concentration is lower than 5e-4), in this way, the stability of the kinetic theory is improved. However, in order to bound the granular temperature, the viscosity model is switched to Syalmal, and the conductivity model is also switched to Syalmal.
+
+2. Incorperate the momentum predictor option, so that it can be switched on or off in the system/fvSolution. The momentum predictor is found to give a better convergence for some cases. If it causes any instability, turn it off will solve the problem.
+
+3. The vertical velocity oscilation is resolved by improving the velocity-pressure coupling.
+
+4. The B value in the turbulence modulation model is calibrated to be 0.22, and it is calibrated using experiment data of Sumer et al. (1996)

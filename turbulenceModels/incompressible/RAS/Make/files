@@ -1,0 +1,12 @@
+twophasekOmega/twophasekOmega.C
+twophasekEpsilon/twophasekEpsilon.C
+twophaseMixingLength/twophaseMixingLength.C
+
+/* Wall functions */
+wallFunctions = derivedFvPatchFields/wallFunctions
+omegaWallFunctions = $(wallFunctions)/omegaWallFunctions
+kWallFunctions = $(wallFunctions)/kWallFunctions
+$(omegaWallFunctions)/RoulundOmegaWallFunction/RoulundOmegaWallFunctionFvPatchScalarField.C
+$(omegaWallFunctions)/WilcoxOmegaWallFunction/WilcoxOmegaWallFunctionFvPatchScalarField.C
+
+LIB = $(FOAM_USER_LIBBIN)/libmyincompressibleRASModels
