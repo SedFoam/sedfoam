@@ -48,15 +48,6 @@ autoPtr<phaseModel> phaseb = phaseModel::New
     "b"
 );
 
-volVectorField& Ua = phasea->U();
-surfaceScalarField& phia = phasea->phi();
-const dimensionedScalar& rhoa = phasea->rho();
-const dimensionedScalar& nua = phasea->nu();
-
-volVectorField& Ub = phaseb->U();
-surfaceScalarField& phib = phaseb->phi();
-const dimensionedScalar& rhob = phaseb->rho();
-const dimensionedScalar& nub = phaseb->nu();
 
 Info<< "Reading field alpha\n" << endl;
 volScalarField alpha
@@ -84,6 +75,31 @@ volScalarField beta
     ),
     scalar(1.0) - alpha
 );
+
+volVectorField& Ub = phaseb->U();
+surfaceScalarField& phib = phaseb->phi();
+const dimensionedScalar& rhob = phaseb->rho();
+const dimensionedScalar& nub = phaseb->nu();
+
+volVectorField& Ua = phasea->U();
+surfaceScalarField& phia = phasea->phi();
+const dimensionedScalar& rhoa = phasea->rho();
+const dimensionedScalar& nua = phasea->nu();
+
+Info<< "Calculating face flux field phi\n" << endl;
+surfaceScalarField phi
+(
+    IOobject
+    (
+        "phi",
+        runTime.timeName(),
+        mesh
+    ),
+    fvc::interpolate(alpha)*phia + fvc::interpolate(beta)*phib
+);
+
+#include "UaUbLimiter.H"
+Ua.correctBoundaryConditions();
 
 Info<< "Reading field p\n" << endl;
 volScalarField p
@@ -124,17 +140,7 @@ volVectorField U
     ),
     alpha*Ua + beta*Ub
 );
-Info<< "Calculating face flux field phi\n" << endl;
-surfaceScalarField phi
-(
-    IOobject
-    (
-        "phi",
-        runTime.timeName(),
-        mesh
-    ),
-    fvc::interpolate(alpha)*phia + fvc::interpolate(beta)*phib
-);
+
 volScalarField rho
 (
     IOobject
@@ -308,7 +314,6 @@ volScalarField pff
     dimensionedScalar("zero", dimensionSet(1 , -1 ,-2 ,0 , 0), 0.0)
 );
 
-#include "createGradP.H"
 label pRefCell = 0;
 scalar pRefValue = 0.0;
 setRefCell(p, mesh.solutionDict().subDict("PIMPLE"), pRefCell, pRefValue);

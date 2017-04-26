@@ -64,6 +64,7 @@ int main(int argc, char *argv[])
     #include "createMesh.H"
 
     #include "readGravitationalAcceleration.H"
+    #include "createGradP.H"
     #include "createFields.H"
     #include "createRASTurbulence.H"
 

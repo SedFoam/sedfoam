@@ -170,11 +170,12 @@
             phia = phiaHbyA - rUaAf*SfGradp/rhoa;
             phib = phibHbyA - rUbAf*SfGradp/rhob;
             phi = phiHbyA - pEqn.flux();
-            #   include "continuityErrs.H"
+            #include "continuityErrs.H"
             // Velocity correction step    
             Ub = HbbyA + rUbA*fvc::reconstruct(phiDragb/rUbAf-SfGradp/rhob);
             Ub.correctBoundaryConditions();
             Ua = HabyA + rUaA*fvc::reconstruct(phiDraga/rUaAf-SfGradp/rhoa);
+            #include "UaUbLimiter.H"
             Ua.correctBoundaryConditions();
             // Update mixture velocity    
             U = alpha*Ua + beta*Ub;
