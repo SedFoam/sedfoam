@@ -10,7 +10,7 @@ This repository provides the SedFoam solver (version OpenFOAM classic).
 
 ### Deployment instructions ###
 
-* git clone https://bitbucket.org/sedfoam/sedfoam.git sedfoam
+* git clone https://github.com/sedfoam/sedfoam sedfoam
 * cd sedfoam
 * ./Allwclean
 * ./Allwmake

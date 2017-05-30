@@ -44,7 +44,7 @@
     // grad(Pf)
     // - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf() 
     // diagonal part of stress
-      - (oneOverAlpha/rhoa*fvc::snGrad(lambdaUa*tr(gradUaT)))*rUaAf*mesh.magSf()
+      + (oneOverAlpha/rhoa*fvc::snGrad(lambdaUa*tr(gradUaT)))*rUaAf*mesh.magSf()
     // diagonal part of stress 2
       - (
             scalar(2.0/3.0)*oneOverAlpha

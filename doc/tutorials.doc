@@ -343,7 +343,7 @@ maxDeltaT       1e-2;
 
 The numerical schemes and linear solvers are set in the system/fvSchemes and system/fvSolution files respectively. 
 
-Concerning the numerical schemes, the time discretisation is a Euler implicit scheme, the divergence terms are of Gauss limitedLinear type (2nd order centered schemes with a Sweby limiter) and the laplacian scheme is Gauss linear corrected for all terms. The fvSchme file is shown below:
+Concerning the numerical schemes, the time discretisation is a Euler implicit scheme, the divergence terms are of Gauss limitedLinear type (2nd order centered schemes with a Sweby limiter) and the laplacian scheme is Gauss linear corrected for all terms. The fvScheme file is shown below:
 
 \verbatim
 ddtSchemes
@@ -523,11 +523,6 @@ and you should see the following figures:
 
 @image html "res2_tuto1.png" "Figure 3: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for solid phase volume fraction profiles (dashed blue lines: experiment ; solid red lines: model)." width=100px
 @image latex "res2_tuto1.png" "Figure 3: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for solid phase volume fraction profiles (dashed blue lines: experiment ; solid red lines: model). " 
-
-
-
-// -------------------------------------------------------------------------------------------------------------------- //
-
 
 \section BedLoadCLB Laminar bedLoad: 1DBedload
 
@@ -716,9 +711,6 @@ that results in the following figures:
 @image html "res2_tuto2.png" "Figure 5: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a mu(Iv) rheology between two infinite parallel planes obtained by numerical simulations with  one-dimensional numerical solution presented in Aussillous et al. (2013) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles." width=100px
 @image latex "res2_tuto2.png" "Figure 5: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a mu(Iv) rheology between two infinite parallel planes obtained by numerical simulations with  one-dimensional numerical solution presented in Aussillous et al. (2013) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles. "
 
-// -------------------------------------------------------------------------------------------------------------------- //
-
-
 \section SheetFlow Turbulent sheet-flows: 1DSheetFlow
 
 In this tutorial, the turbulent flow over a flat erodible bed drives sediment transport in the intense turbulent bedload tranpsort regime usually referred to as sheet-flow. The results are compared with experimental data from Revil-Baudard et al. (2015). Light-weight non-spherical PMMA particles of median diameter d=3 mm are used having a settling velocity in quiescent water of about \f$W_{fall}=0.059\f$ m/s. The averaged flow velocity is about U=0.52 m/s corresponding to a bed friction velocity of \f$u_*=0.05\f$ m/s and a dimensionless bed shear stress, the so-called Shields number \f$\theta\f$, equal to 0.44.
@@ -780,7 +772,7 @@ alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
 
 The physical property of the particles (diameter and density) and of the fluid (density and kinematic viscosity) have been set to the experimental values from Revil-Baudard et al. (2015).  
 
-In the dictionary *interfacialProperties* file the drag model from GidaspowShcillerNaumann is used and the shape factor sF is taken to 0.5 to match the settling velocity of a single particle with the measured data (w_fall = 0.056 m/s).
+In the dictionary *interfacialProperties* file the drag model from GidaspowSchillerNaumann is used and the shape factor sF is taken to 0.5 to match the settling velocity of a single particle with the measured data (w_fall = 0.056 m/s).
  
 The *granularRheologyProperties* is similar to the one for the 1DBedLoadMuI case:
 
@@ -814,7 +806,75 @@ For this case, the dense granular flow rheology \f$\mu(I)\f$ is used and the par
 
 \subsubsection Disc_solvSF Discretisation and linear-solver settings
 
-The numerical schemes and the solvers are the same as in the 1DSedim case.
+The numerical schemes and the solvers are the same as in the 1DSedim case except that numerical schemes for the turbulent quantities (k,\f$\varepsilon\f$,\f$\omega\f$) have been added:
+
+\verbatim
+ddtSchemes
+{
+    default         Euler implicit;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+divSchemes
+{
+    default         none;
+// alphaEqn
+    div(phi,alpha)  Gauss limitedLinear01 1;
+    div(phir,alpha) Gauss limitedLinear01 1;
+// UEqn
+    div(phia,Ua)    Gauss limitedLinearV 1;
+    div(phib,Ub)    Gauss limitedLinearV 1;
+    div(phiRa,Ua)   Gauss limitedLinear 1;
+    div(phiRb,Ub)   Gauss limitedLinear 1;
+// pEqn
+    div(alpha,nu)   Gauss linear;
+// k, EpsilonEqn and OmegaEqn
+    div(phib,k)     Gauss limitedLinear 1;
+    div(phib,epsilon) Gauss limitedLinear 1;
+    div(phib,omega) Gauss limitedLinear 1;
+// ThetaEqn
+    div(phi,Theta)  Gauss limitedLinear 1;
+}
+
+laplacianSchemes
+{
+    default         none;
+// UEqn
+    laplacian(nuEffa,Ua) Gauss linear corrected;
+    laplacian(nuEffb,Ub) Gauss linear corrected;
+    laplacian(nuFra,Ua)  Gauss linear corrected;
+// pEqn
+    laplacian((rho*(1|A(U))),p) Gauss linear corrected;
+// k and EpsilonEqn
+    laplacian(DkEff,k) Gauss linear corrected;
+    laplacian(DkEff,beta) Gauss linear corrected;
+    laplacian(DepsilonEff,epsilon) Gauss linear corrected;
+    laplacian(DepsilonEff,beta) Gauss linear corrected;
+    laplacian(DomegaEff,omega) Gauss linear corrected;
+//ThetaEqn
+    laplacian(kappa,Theta) Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default  linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+fluxRequired
+{
+    default         no;
+    p               ;
+}
+\endverbatim
   
 \subsubsection control_sedFoamSF Control
 
@@ -874,8 +934,6 @@ and you should see the following figures:
 @image html "res1_tuto3.png" "Figure 6: Comparison of two-phase numerical results with experiments of Revil-Baudard et al. (2015) in terms of velocity profiles (left panel), volume fraction (center panel) and Reynolds shear stress (right panel) using the dense granular flow rheology mu(I) with the Mixing Length (ML) turbulence model.  " width=100px
 @image latex "res1_tuto3.png" "Figure 6: Comparison of two-phase numerical results with experiments of Revil-Baudard et al. (2015) in terms of velocity profiles (left panel), volume fraction (center panel) and Reynolds shear stress (right panel) using the dense granular flow rheology mu(I) with the Mixing Length (ML) turbulence model."
 
-// -------------------------------------------------------------------------------------------------------------------- //
-
 \section Scour Scour downstream of an apron: 2DScourApron
 
 In this 2D configuration, we are looking at the scour development downstream of an apron. Following the numerical study of Amoudry & Liu (2009) and Cheng et al. (2017), the scour problem
@@ -897,9 +955,175 @@ The mesh is generated by running blockMesh from within the case directory:
 blockMesh
 \endverbatim
 
+\subsubsection  BC_initiSA Boundary and initial conditions
 
-... to be finished
+The case is set up to start at time t = 0 s, as for the previous 1D tutorials the initial fields data are stored in the 0_org sub-directory of the case directory.
 
+The bottom boundary, the lower part of the inlet (forming the step) and of the outlet are set as wall boundaries. The upper part of the inlet is an inlet boundary where the velocity profile is imposed according to the rough wall log law (eq. (73) in Chauchat et al. (2017)) via the GroovyBC utility. Turbulent quantities are imposed as constant values following recommendation from esi group (http://www.esi-cfd.com/content/view/877/192/). At the outlet, a directionMixed boundary condition is used for the velocities of both phases (zeroGradient for streamwise component and zero value for the vertical one) and the hydrostatic pressure is imposed thanks to the GroovyBC utility. 
+As initial condition, the velocity of both phases, the sediment concentration, the TKE and the TKE dissipation are set based on one-dimensional simulation results using funkySetFields. The details of the boundary conditions are summarized in the following table:
+
+<table>
+<caption id="multi_row">Summary of the boundary conditions implemented in the 2D scour downstream of an apron configuration: zG = \textit{zeroGradient}, fV = \textit{fixedValue}, dM = \textit{directionMixed}, fFP = \textit{fixedFluxPressure} and hp=hydrostatic pressure.</caption>
+<tr><th>Boundary  	<th>type  	<th>\f$\alpha\f$  <th>k  			<th>\f$\varepsilon\f$ or \f$\omega\f$   <th>\f$u^k\f$  		<th>p  	    <th>\f$\theta\f$ (for KT)
+<tr><td>top	  	<td>patch	<td>zG       	  <td>zG       			<td>zG       				<td>zG         		<td>zG       <td>zG
+<tr><td>bottom    	<td>wall        <td>zG            <td>zG       			<td>zG       				<td>fV,\f$u^k=0\f$      <td>fFP      <td>zG
+<tr><td>inlet (flow)    <td>patch       <td>1dprof    	  <td>fV, k=1\f$\times 10^{-4}\f$ <td>zG                                  <td>Gbc          <td>zG       <td>fV, k=1\f$\times 10^{-6}\f$
+<tr><td>inlet (sed)     <td>wall        <td>zG            <td>fV, k=1\f$\time 10^{-12}\f$<td>zG                                  <td>fV,\f$u^k=0\f$      <td>zG       <td>zG
+<tr><td>outlet (flow)   <td>patch       <td>zG            <td>zG                        <td>zG                                  <td>dM                  <td>hp       <td>zG
+<tr><td>outlet (sed)    <td>wall        <td>zG            <td>fV, k=1\f$\time 10^{-12}\f$<td>zG                                  <td>fV,\f$u^k=0\f$      <td>hp       <td>zG
+</table> 
+
+\subsubsection PhysPropSA Physical properties
+
+The transportProperties file for the 2DScourApron case is shown below:
+
+\verbatim
+phasea
+{
+    rho             rho [ 1 -3 0 0 0 ] 2650;
+    nu              nu [ 0 2 -1 0 0 ] 1e-6;
+    d               d [ 0 1 0 0 0 0 0 ] 0.25e-3;
+    sF              sF   [ 0 0  0 0 0 0 0 ] 1.;    // shape Factor to adjust settling velocity for non-spherical particles
+    hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;  // hindrance exponent for drag: beta^(-hExp) (2.65 by default)
+}
+
+phaseb
+{
+    rho             rho [ 1 -3 0 0 0 ] 1000;
+    nu              nu [ 0 2 -1 0 0 ] 1.e-06;
+    d               d [ 0 1 0 0 0 0 0 ] 10e-6;
+    sF              sF   [ 0 0  0 0 0 0 0 ] 1.;
+    hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;
+}
+//*********************************************************************** //
+
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
+
+alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
+
+Cvm             Cvm [ 0 0 0 0 0 ] 0;                // Virtual/Added Mass coefficient
+
+Cl              Cl [ 0 0 0 0 0 ] 0;                 // Lift force coefficient
+
+Ct              Ct [ 0 0 0 0 0 ] 0;                 // Eddy diffusivity coefficient for phase a
+
+
+transportModel  Newtonian;
+
+nu              nu [ 0 2 -1 0 0 0 0 ] 1e-06;
+
+nuMax        nuMax [0 2 -1 0 0 0 0] 0.1;      // viscosity limiter for the Frictional model (required for stability)
+\endverbatim
+
+The physical property of the particles (diameter and density) and of the fluid (density and kinematic viscosity) have been set to the values given in Amoudry & Liu (2009).
+
+For this case, the dense granular flow rheology \f$\mu(I)\f$ is used and the parameters are set according to Chauchat (2017). Furthermore a shear induced pressure (PPressureModel) and an effective fluid viscosity model (FluidViscosityModel) from Boyer et al. (2011) are used:
+
+\verbatim
+granularRheology   on;
+
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
+
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.4;
+
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.9;
+
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.6;
+
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.66;
+
+n               n [ 0 0 0 0 0 0 0 ] 2.5;
+
+Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
+
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 5e-2;
+
+zbed         zbed [ 0 1 0 0 0 0 0 ] 0.0;
+
+FrictionModel  MuI;
+
+PPressureModel MuI;
+
+FluidViscosityModel  BoyerEtAl;
+\endverbatim
+
+\subsubsection Disc_solvSF Discretisation and linear-solver settings
+
+The numerical schemes and the solvers are the same as in the 1DSheetFlow case.
+
+\subsubsection control_sedFoamSF Control
+
+The system/controlDict file indicates that for this case the time step is equal to \f$ 2.10^{-4}\f$ s and that the computation ends at 60s of dynamics. The output write interval has been set to 5s by default. The user is invited to reduce it in order to capture the evolution of the scour hole more accurately.   
+
+\verbatim
+application     sedFoam;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         60;
+
+deltaT          2e-4;
+
+writeControl    runTime;
+
+writeInterval   5;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  6;
+
+writeCompression uncompressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable off;
+
+adjustTimeStep  false;
+
+maxCo           0.1;
+
+maxAlphaCo      0.1;
+
+maxDeltaT       2e-4;
+\endverbatim
+
+\subsubsection  lauch_SA Computation launching
+
+As for the previous cases, you can lauch the computation by executing <EM> Allrun </EM>. This shell script contains two lines specific to the present multidimensionnal case:
+
+\verbatim
+# Decompose the case in order to run in parallel (on 4 cores)
+decomposePar
+
+# Run sedFoam in parallel
+mpirun -np 4 sedFoam -parallel > log&
+\endverbatim
+First of all, as the mesh is composed of 37500 cells, computation runs faster on several processors (the best compromise is of 10000 cells per core). Here, the <EM> decomposePar  </EM> command decompose the initial time (specified in the <EM> controlDict </EM> file) in the number of part specified in the </EM> system/decomposeParDict </EM> file.
+
+The second command specify that the computation is launched in parallel with </EM> mpirun </EM>.
+
+\subsection postSF Post-processing using python
+
+You just have to run the python script *plot_tuto2DScour.py* located in the folder *tutorials/Py*:
+
+\verbatim
+python plot_tuto2DScour.py
+\endverbatim
+
+and you should see the following figures:
+
+@image html "res1_tuto4.png" "Figure 7: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology." width=100px
+@image latex "res1_tuto4.png" "Figure 7: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
+@image html "res2_tuto4.png" "Figure 8: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology.  " width=100px
+@image latex "res2_tuto4.png" "Figure 8: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
 
 \section appendix Variables list 
 

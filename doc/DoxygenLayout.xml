@@ -4,7 +4,7 @@
   <navindex>
     <tab type="mainpage" visible="yes" title="Home"/>
     <tab type="pages" visible="yes" title="" intro=""/>
-    <tab type="user" url="https://bitbucket.org/sedfoam/sedfoam" title="Download" />
+    <tab type="user" url="http://github.com/sedfoam/sedfoam" title="Download" />
     <tab type="modules" visible="no" title="" intro=""/>
     <tab type="namespaces" visible="no" title="">
       <tab type="namespacelist" visible="no" title="" intro=""/>

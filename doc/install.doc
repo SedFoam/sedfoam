@@ -19,7 +19,7 @@
 \tableofcontents
 
 First go to the 
-<a href="https://bitbucket.org/sedfoam/sedfoam/">official SedFoam page</a>
+<a href="http://github.com/sedfoam/sedfoam/">official SedFoam page</a>
 to get the latest distribution, if you have not downloaded SedFoam already.
 
 \section install_src_unix Compiling from source with OpenFOAM-2.4.0
@@ -44,7 +44,7 @@ Compilation is now done by performing the following steps:
 <ol>
 <li>Download the official SedFoam package:
    
-        git clone https://bitbucket.org/sedfoam/sedfoam.git
+        git clone http://github.com/sedfoam/sedfoam
 
 <li>Compile the program by running Allwmake:
 
