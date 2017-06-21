@@ -56,7 +56,7 @@ def readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N):
 
     k = -1
     for t in timeRange:
-        print 'Reading time: ', t, ' s'
+        print("Reading time: " + str(t) + " s")
         k = k + 1
         alphad = fluidfoam.readscalar(
             sol, t + '/', 'alpha')
@@ -83,9 +83,9 @@ h0 = 0.15
 #
 # Call the reading function
 #
-print '-------------------------'
-print '        case 1'
-print '-------------------------'
+print("-------------------------")
+print("        case 1"
+print("-------------------------")
 Nx = 1000
 Ny = 264
 Nz = 1

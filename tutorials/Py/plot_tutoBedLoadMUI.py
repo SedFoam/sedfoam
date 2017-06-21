@@ -124,7 +124,7 @@ Ny = np.size(Y)
 U = np.zeros(Ny)
 U = alpha[:] * Ua[0, :] + (1 - alpha[:]) * Ub[0, :]
 
-print 'max(Ub)=', np.amax(Ub), ' m/s'
+print("max(Ub)=" str(np.amax(Ub)) + " m/s")
 
 #
 # figure 1

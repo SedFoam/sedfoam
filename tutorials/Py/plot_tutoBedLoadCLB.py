@@ -46,7 +46,7 @@ drho = rho_p - rho_f
 g = 9.81
 
 hp = 0.03225 / D
-print 'hp=', hp
+print("hp=" + str(hp))
 # pressure gradient
 dpdx = -100. / (drho * g)
 
@@ -77,7 +77,7 @@ uex = uex * U0
 xex = xex * D
 pex = pex * drho * g * D
 
-print 'max(uex)=', np.max(uex), ' m/s'
+print("max(uex)=" + str(np.max(uex)) + " m/s")
 #########################################
 # Loading OpenFoam results
 #########################################
@@ -111,7 +111,7 @@ Ny = np.size(Y)
 U = np.zeros(Ny)
 U = alpha[:] * Ua[0, :] + (1 - alpha[:]) * Ub[0, :]
 
-print 'max(Ub)=', np.amax(Ub), ' m/s'
+print("max(Ub)=" + str(np.amax(Ub)) + " m/s")
 
 #########################################
 # figure 1

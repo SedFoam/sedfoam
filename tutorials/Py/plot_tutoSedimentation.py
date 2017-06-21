@@ -72,7 +72,7 @@ alphat = np.zeros((Ny, Nt))
 
 k = -1
 for t in tread:
-    print 'Reading time: ', t, ' s'
+    print("Reading time: %s s" % t)
     k = k + 1
 
     alphat[:, k] = fluidfoam.readscalar(sol, t + '/', 'alpha')
@@ -153,7 +153,7 @@ for i in np.arange(4):
         inum = Nt - 1
     else:
         inum = titi[0][0]
-    print 'texp=', t_pvb[0][iexp] + tadj, 's - tnum=', time[inum], 's'
+    print('texp= ' + str(t_pvb[0][iexp] + tadj) + 's - tnum='+ str(time[inum]) + 's')
 
     ax.plot(alphat[:, inum], Y[:], '-r',
             as_pvb[:, iexp], z_pvb[:, iexp] + 0.1, '--b')
