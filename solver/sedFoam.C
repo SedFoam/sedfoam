@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     #include "createTime.H"
     #include "createMesh.H"
 
-    #include "readGravitationalAcceleration.H"
+    #include "readGravity.H"
     #include "createGradP.H"
     #include "createFields.H"
     #include "createRASTurbulence.H"
@@ -101,6 +101,8 @@ int main(int argc, char *argv[])
         runTime++;
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
+        #include "gravityRamp.H"
+        
 //      Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
         {

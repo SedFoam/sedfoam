@@ -1,0 +1,3 @@
+#!/bin/sh
+# print out current time
+tail -f log | grep -v "Clock" | grep "Time"
