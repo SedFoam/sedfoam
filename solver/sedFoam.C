@@ -139,7 +139,9 @@ int main(int argc, char *argv[])
 	    while (pimple.correct())
 	    {
                 #include "pEqn.H"
-
+                // openfoam-6.0 : uncomment the following line
+                // if (!pimple.finalPISOIter()) 
+                // openfoam-6.0 : comment the following line
                 if (pimple.corrPISO()<pimple.nCorrPISO())
                 {
                     if (correctAlpha)
