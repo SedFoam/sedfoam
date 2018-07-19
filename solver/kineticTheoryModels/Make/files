@@ -16,6 +16,7 @@ conductivityModel/HrenyaSinclair/HrenyaSinclairConductivity.C
 radialModel/radialModel/radialModel.C
 radialModel/radialModel/newRadialModel.C
 radialModel/CarnahanStarling/CarnahanStarlingRadial.C
+radialModel/Torquato/TorquatoRadial.C
 radialModel/Gidaspow/GidaspowRadial.C
 radialModel/LunSavage/LunSavageRadial.C
 radialModel/SinclairJackson/SinclairJacksonRadial.C
@@ -24,6 +25,7 @@ granularPressureModel/granularPressureModel/granularPressureModel.C
 granularPressureModel/granularPressureModel/newGranularPressureModel.C
 granularPressureModel/Lun/LunPressure.C
 granularPressureModel/SyamlalRogersOBrien/SyamlalRogersOBrienPressure.C
+granularPressureModel/Torquato/TorquatoPressure.C
 
 frictionalStressModel/frictionalStressModel/frictionalStressModel.C
 frictionalStressModel/frictionalStressModel/newFrictionalStressModel.C

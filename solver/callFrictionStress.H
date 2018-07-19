@@ -12,11 +12,11 @@ pff =
 //
 surfaceScalarField gradPff = fvc::snGrad(pff)*mesh.magSf();
 
-forAll(p.boundaryField(), patchi)
+forAll(p_rbgh.boundaryField(), patchi)
 {
-    if (isA<zeroGradientFvPatchScalarField>(p.boundaryField()[patchi]))
+    if (isA<zeroGradientFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
     {
-        gradPff.boundaryField()[patchi] = 0.0;
+        gradPff.boundaryFieldRef()[patchi] = 0.0;
     }
 }
 
@@ -38,11 +38,11 @@ if (kineticTheory.on())
         scalar(1.0e-40)
     );
 
-    scalar pi = constant::mathematical::pi;
+    //scalar pi = constant::mathematical::pi;
     // T && T = T_ij*T_ij
     volScalarField muEff_f =
     (
-        pff*Foam::sin(scalar(28.0/180.0)*pi)
+        pff*Foam::sin(kineticTheory.phi())
        /sqrt(scalar(2.0)*(devS && devS) + I2Dsmall)
     );
 // the actual expression for nuFra depends on the way this term is discretized
@@ -61,6 +61,15 @@ if (kineticTheory.on())
 //
 else if (granularRheology.on())
 {
+// Compute kinetic effects based on equilibrium approach (if Ck >0)
+    if (Ck.value() > 0)
+    {
+        kineticTheory.updateRheo(turbulenceb->k(),turbulenceb->epsilon(), B);
+        
+        // Kinetic Pressure
+        pff = pff + 3*Ck *kineticTheory.pa();
+    }
+    
 // solving granular rheology
     granularRheology.solve(gradUaT,pff,alphaSmall,runTime.deltaT());
 
@@ -92,7 +101,7 @@ else if (granularRheology.on())
     nuFra = granularRheology.mua()/ rhoa;
 //     nuFra = granularRheology.mua()/((alpha+alphaSmall)*rhoa);
 
-    nuEffa = sqr(Ct)*turbulenceb->nut() + nua;
+    nuEffa = sqr(Ct)*turbulenceb->nut() + Ck*kineticTheory.mua()/rhoa + nua;
 
 // Compute nuEffb the total fluid phase viscosity
     nuEffb = turbulenceb->nut() + granularRheology.nuvb();

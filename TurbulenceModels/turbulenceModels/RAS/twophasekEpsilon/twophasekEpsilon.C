@@ -1,0 +1,311 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     |
+    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
+     \\/     M anipulation  |
+-------------------------------------------------------------------------------
+License
+    This file is part of OpenFOAM.
+
+    OpenFOAM is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+    for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+
+\*---------------------------------------------------------------------------*/
+
+#include "twophasekEpsilon.H"
+#include "fvOptions.H"
+#include "bound.H"
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+namespace Foam
+{
+namespace RASModels
+{
+
+// * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * * //
+
+template<class BasicTurbulenceModel>
+void twophasekEpsilon<BasicTurbulenceModel>::correctNut()
+{
+   this->nut_ = Cmu_*sqr(k_)/epsilon_;
+    
+    this->nut_.min(nutMax_);
+    this->nut_.correctBoundaryConditions();
+    fv::options::New(this->mesh_).correct(this->nut_);
+
+    BasicTurbulenceModel::correctNut();
+}
+
+
+// * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
+template<class BasicTurbulenceModel>
+twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
+(
+    const alphaField& alpha,
+    const rhoField& rho,
+    const volVectorField& U,
+    const surfaceScalarField& alphaRhoPhi,
+    const surfaceScalarField& phi,
+    const transportModel& transport,
+    const word& propertiesName,
+    const word& type
+)
+:
+    eddyViscosity<RASModel<BasicTurbulenceModel>>
+    (
+        type,
+        alpha,
+        rho,
+        U,
+        alphaRhoPhi,
+        phi,
+        transport,
+        propertiesName
+    ),
+    twophaseRASProperties_
+    (
+        IOobject
+        (
+            "twophaseRASProperties",
+            this->runTime_.constant(),
+            this->mesh_,
+            IOobject::MUST_READ,
+            IOobject::NO_WRITE
+        )
+    ),
+    C3ep_
+    (
+        twophaseRASProperties_.lookup("C3ep")
+    ),
+    C4ep_
+    (
+        twophaseRASProperties_.lookup("C4ep")
+    ),
+    KE2_
+    (
+        twophaseRASProperties_.lookup("KE2")
+    ),
+    KE4_
+    (
+        twophaseRASProperties_.lookup("KE4")
+    ),    
+    B_
+    (
+        twophaseRASProperties_.lookup("B")
+    ),
+    Cmu_
+    (
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "Cmu",
+            this->coeffDict_,
+            0.09
+        )
+    ),
+    C1_
+    (
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "C1",
+            this->coeffDict_,
+            1.44
+        )
+    ),
+    C2_
+    (
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "C2",
+            this->coeffDict_,
+            1.92
+        )
+    ),
+        kSmall_
+    (
+        twophaseRASProperties_.lookup("kSmall")
+    ),
+    nutMax_
+    (
+        twophaseRASProperties_.lookup("nutMax")
+    ),
+    alphak_
+    (
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "alphak",
+            this->coeffDict_,
+            1.0
+        )
+    ),
+        alphaEps_
+    (
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "alphaEps",
+            this->coeffDict_,
+	    1.3
+        )
+    ),
+//    alpha_(U.db().lookupObject<volScalarField> ("alpha")),
+    tmfexp_(U.db().lookupObject<volScalarField> ("tmfexp")),
+    ESD3_(U.db().lookupObject<volScalarField> ("ESD3")),
+    ESD4_(U.db().lookupObject<volScalarField> ("ESD4")),
+    ESD5_(U.db().lookupObject<volScalarField> ("ESD5")),
+    ESD_(U.db().lookupObject<volScalarField> ("ESD")),
+    
+    k_
+    (
+        IOobject
+        (
+            IOobject::groupName("k", U.group()),
+            this->runTime_.timeName(),
+            this->mesh_,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        this->mesh_
+    ),
+    epsilon_
+    (
+        IOobject
+        (
+            IOobject::groupName("epsilon", U.group()),
+            this->runTime_.timeName(),
+            this->mesh_,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        this->mesh_
+    )
+{
+    bound(k_, this->kMin_);
+    bound(epsilon_, this->epsilonMin_);
+
+    if (type == typeName)
+    {
+        this->printCoeffs(type);
+    }
+}
+
+
+// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
+template<class BasicTurbulenceModel>
+bool twophasekEpsilon<BasicTurbulenceModel>::read()
+{
+    if (eddyViscosity<RASModel<BasicTurbulenceModel>>::read())
+    {
+        Cmu_.readIfPresent(this->coeffDict_);
+        C1_.readIfPresent(this->coeffDict_);
+        C2_.readIfPresent(this->coeffDict_);
+	// sigmaEps_.readIfPresent(coeffDict());
+	alphak_.readIfPresent(this->coeffDict_);
+        alphaEps_.readIfPresent(this->coeffDict_);
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+template<class BasicTurbulenceModel>
+void twophasekEpsilon<BasicTurbulenceModel>::correct()
+{
+    if (!this->turbulence_)
+    {
+        return;
+    }
+
+    // Local references
+    //const alphaField& alpha = this->alpha_;
+    const volVectorField& U = this->U_;
+    volScalarField& nut = this->nut_;
+    const surfaceScalarField& phi = this->phi_;
+    fv::options& fvOptions(fv::options::New(this->mesh_));
+
+    eddyViscosity<RASModel<BasicTurbulenceModel>>::correct();
+
+    volScalarField divU(fvc::div(fvc::absolute(this->phi(), U)));
+
+    volTensorField GradU = fvc::grad(U);
+    volSymmTensorField Sij(symm(GradU));
+
+    //volScalarField::Internal G
+    volScalarField G
+    (
+        this->GName(),
+        nut*(GradU && dev(twoSymm(GradU)))
+    );
+    
+    // Update omega and G at the wall
+    epsilon_.boundaryFieldRef().updateCoeffs();
+
+    // Dissipation equation
+    tmp<fvScalarMatrix> epsEqn
+    (
+        fvm::ddt(epsilon_)
+      + fvm::div(phi, epsilon_)
+      - fvm::Sp(fvc::div(phi),epsilon_)
+      - fvm::laplacian(DepsilonEff(), epsilon_)
+     ==
+      - fvm::SuSp(-C1_*G/k_, epsilon_)
+      + fvm::Sp(-C2_*epsilon_/k_, epsilon_)
+      + fvm::Sp(C3ep_*ESD_,epsilon_)
+      + ESD2()*fvm::Sp(C3ep_*KE2_,epsilon_)
+      + fvm::Sp(C4ep_*KE4_*ESD5_*nut/k_,epsilon_)
+      //+ fvm::Sp((C4ep_*KE4_*ESD5_*nut_/max(k_,kSmall_)),epsilon_)
+    );
+
+    epsEqn.ref().relax();
+
+    epsEqn.ref().boundaryManipulate(epsilon_.boundaryFieldRef());
+
+    solve(epsEqn);
+    bound(epsilon_, this->epsilonMin_);
+
+
+    // Turbulent kinetic energy equation
+    tmp<fvScalarMatrix> kEqn
+    (
+        fvm::ddt(k_)
+      + fvm::div(phi, k_)
+      - fvm::Sp(fvc::div(phi), k_)
+      - fvm::laplacian(DkEff(), k_)
+     ==
+      - fvm::SuSp(-G/k_, k_)
+      - fvm::Sp(epsilon_/k_, k_)
+      + fvm::Sp(ESD_, k_)
+      + fvm::Sp(KE4_*ESD4_*nut/k_, k_)
+      + ESD2()*fvm::Sp(KE2_, k_)
+    );
+
+    kEqn.ref().relax();
+    solve(kEqn);
+    bound(k_, this->kMin_);
+
+    correctNut();
+}
+
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+} // End namespace RASModels
+} // End namespace Foam
+
+// ************************************************************************* //

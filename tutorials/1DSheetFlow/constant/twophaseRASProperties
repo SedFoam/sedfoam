@@ -33,6 +33,7 @@ kSmall          kSmall [0 2 -2 0 0 0 0] 1e-20;
 nutMax          nutMax [0 2 -1 0 0 0 0] 1e-1;
 
 // parameters for the mixing length model
+expoLM         expoLM [ 0 0 0 0 0 0 0 ] 1.;
 kappaLM         kappaLM [ 0 0 0 0 0 0 0 ] 0.225;
 alphaMaxLM      alphaMaxLM [ 0 0 0 0 0 0 0 ] 0.55;
 

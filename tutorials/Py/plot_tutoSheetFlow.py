@@ -17,10 +17,10 @@ def readOpenFoam(sol):
     proc = subprocess.Popen(
         ['foamListTimes', '-case', sol, '-latestTime'], stdout=subprocess.PIPE)
     output = proc.stdout.read()
-    tread = output.rstrip() + '/'
+    tread = output.decode().rstrip() + '/'
     Nt = 1
-    Y = fluidfoam.readscalar(sol, '0/', 'ccy')
-    alpha = fluidfoam.readscalar(sol, tread, 'alpha')
+    X, Y, Z = fluidfoam.readmesh(sol)
+    alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
     Ua = fluidfoam.readvector(sol, tread, 'Ua')
     Ub = fluidfoam.readvector(sol, tread, 'Ub')
     Tauf = fluidfoam.readtensor(sol, tread, 'Tauf')
@@ -78,14 +78,13 @@ Nx = 1
 Ny = 400
 Nz = 1
 
-casedir = '1DSheetFlow/'
+casedir = '1DSheetflow/'
 label = '$\mu(I)$+ML'
 
 ############################################
 # case 1
 #
 solpath = basepath + casedir
-
 Nt, y, ua, ub, alpha0, Tauxy, Tausxy = readOpenFoam(solpath)
 
 #

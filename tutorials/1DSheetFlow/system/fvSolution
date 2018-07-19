@@ -17,7 +17,7 @@ FoamFile
 
 solvers
 {
-    p
+    p_rbgh
     {
         solver          GAMG;
         tolerance       1e-06;
@@ -32,9 +32,9 @@ solvers
         mergeLevels     1;
     }
 
-    pFinal
+    p_rbghFinal
     {
-        $p;
+        $p_rbgh;
         tolerance       1e-6;
         relTol          0;
     }
@@ -54,14 +54,14 @@ solvers
         tolerance       1e-6;
         relTol          0;
     }
-    alpha
+    alpha_a
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-15;
         relTol          0;
     }
-    alphaFinal
+    alpha_aFinal
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -87,7 +87,8 @@ solvers
 
 PIMPLE
 {
-    momentumPredictor no;
+    momentumPredictor 0;
+    nOuterCorrectors  1;
     nCorrectors     1;
     nNonOrthogonalCorrectors 0;
     correctAlpha    0;
@@ -95,5 +96,21 @@ PIMPLE
     pRefCell        0;
     pRefValue       0;
 }
+
+relaxationFactors
+{
+    fields
+    {
+        p_rbgh               0.3;
+    }
+    equations
+    {
+        Ua            0.7;
+        Ub            0.7;
+        k             0.9;
+        omega         0.9;
+    }
+}
+
 
 // ************************************************************************* //

@@ -73,6 +73,9 @@ class phaseModel
         //- Velocity
         volVectorField U_;
 
+        //- Concentration
+        volScalarField alpha_;
+
         //- Fluxes
         autoPtr<surfaceScalarField> phiPtr_;
 
@@ -144,6 +147,16 @@ public:
         volVectorField& U()
         {
             return U_;
+        }
+
+        const volScalarField& alpha() const
+        {
+            return alpha_;
+        }
+
+        volScalarField& alpha()
+        {
+            return alpha_;
         }
 
         const surfaceScalarField& phi() const

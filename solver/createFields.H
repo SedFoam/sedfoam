@@ -33,7 +33,16 @@ dimensionedScalar nuMax
 (
     transportProperties.lookup("nuMax")
 );
- 
+
+dimensionedScalar nuMaxExp
+(
+    transportProperties.lookupOrDefault
+    (
+       "nuMaxExp",
+       nuMax
+    )
+); 
+
 autoPtr<phaseModel> phasea = phaseModel::New
 (
     mesh,
@@ -49,34 +58,12 @@ autoPtr<phaseModel> phaseb = phaseModel::New
 );
 
 
-Info<< "Reading field alpha\n" << endl;
-volScalarField alpha
-(
-    IOobject
-    (
-        "alpha",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
-volScalarField beta
-(
-    IOobject
-    (
-        "beta",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    scalar(1.0) - alpha
-);
-
+volScalarField& alpha = phasea->alpha();
 volVectorField& Ub = phaseb->U();
+volScalarField& beta = phaseb->alpha();
+Info<< "Warning : alpha_b read but not used!\n" << endl;
+Info<< "alpha_b is set to 1 - alpha_a\n" << endl;
+beta = 1 - alpha;
 surfaceScalarField& phib = phaseb->phi();
 const dimensionedScalar& rhob = phaseb->rho();
 const dimensionedScalar& nub = phaseb->nu();
@@ -101,12 +88,12 @@ surfaceScalarField phi
 #include "UaUbLimiter.H"
 Ua.correctBoundaryConditions();
 
-Info<< "Reading field p\n" << endl;
-volScalarField p
+Info<< "Reading field p_rbgh\n" << endl;
+volScalarField p_rbgh
 (
     IOobject
     (
-        "p",
+        "p_rbgh",
         runTime.timeName(),
         mesh,
         IOobject::MUST_READ,
@@ -168,6 +155,7 @@ volVectorField DDtUb =
 
 Info<< "Calculating field g.h\n" << endl;
 volScalarField gh("gh", g & mesh.C());
+surfaceScalarField ghf("ghf", g & mesh.Cf());
 
 IOdictionary interfacialProperties
 (
@@ -184,7 +172,6 @@ IOdictionary interfacialProperties
 autoPtr<dragModel> draga = dragModel::New
 (
     interfacialProperties,
-    alpha,
     phasea,
     phaseb
 );
@@ -192,7 +179,6 @@ autoPtr<dragModel> draga = dragModel::New
 autoPtr<dragModel> dragb = dragModel::New
 (
     interfacialProperties,
-    beta,
     phaseb,
     phasea
 );
@@ -213,12 +199,22 @@ if (interfacialProperties.found("dragPhase"))
     }
 }
 
+
 Info << "dragPhase is " << dragPhase << endl;
+
+
+#include "calculateUfall.H"
+dimensionedScalar Ufall
+(
+   "Ufall",
+   dimensionSet(0,1,-1,0,0,0,0),
+   max(UfallField).value()
+);
+
 kineticTheoryModel kineticTheory
 (
     phasea,
     Ub,
-    alpha,
     draga
 );
 
@@ -226,8 +222,6 @@ granularRheologyModel granularRheology
 (
     phasea,
     phaseb,
-    alpha,
-    draga,
     pa
 );
 
@@ -314,6 +308,51 @@ volScalarField pff
     dimensionedScalar("zero", dimensionSet(1 , -1 ,-2 ,0 , 0), 0.0)
 );
 
+volScalarField SUStilde
+(
+    IOobject
+    (
+        "SUStilde",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("one", dimensionSet(0, 0, 0, 0, 0), 1.0)
+);
+
+volScalarField p
+(
+    IOobject
+    (
+        "p",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    p_rbgh + rhob*gh
+);
+
 label pRefCell = 0;
 scalar pRefValue = 0.0;
-setRefCell(p, mesh.solutionDict().subDict("PIMPLE"), pRefCell, pRefValue);
+setRefCell
+(
+    p,
+    p_rbgh,
+    mesh.solutionDict().subDict("PIMPLE"),
+    pRefCell,
+    pRefValue
+);
+if (p_rbgh.needReference())
+{
+    p += dimensionedScalar
+    (
+        "p",
+        p.dimensions(),
+        pRefValue - getRefCellValue(p, pRefCell)
+    );
+    p_rbgh = p - rhob*gh;
+}
+

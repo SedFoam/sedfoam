@@ -77,6 +77,12 @@ class kineticTheoryModel
         //- use generation == dissipation
         Switch equilibrium_;
 
+         //- use collisions
+        Switch collisions_;
+
+        //- use extended kinetic theory
+        Switch extended_;
+
         autoPtr<kineticTheoryModels::viscosityModel> viscosityModel_;
 
         autoPtr<conductivityModel> conductivityModel_;
@@ -102,8 +108,14 @@ class kineticTheoryModel
         //- angle of internal friction
         const dimensionedScalar phi_;
 
+        //- Relaxation factor for pa
+        const dimensionedScalar relaxPaKin_;
+
         //- The granular energy/temperature
         volScalarField Theta_;
+
+//	//- The sqrt granular energy/temperature
+      //  volScalarField ThetaSqrt_;
 
         //- The granular viscosity
         volScalarField mua_;
@@ -150,7 +162,6 @@ public:
         (
             const phaseModel& phasea,
             const volVectorField& Ub,
-            const volScalarField& alpha,
             const dragModel& draga
         );
 
@@ -162,6 +173,8 @@ public:
     // Member Functions
 
         void solve(const surfaceScalarField& galpha, const volTensorField& gradUat, const volScalarField& kb,const volScalarField& epsilonb,const volScalarField& nuft,const dimensionedScalar& B,const dimensionedScalar& tt);
+
+        void updateRheo(const volScalarField& kb, const volScalarField& epsilonb, const dimensionedScalar& B);
 
         bool on() const
         {
@@ -207,6 +220,12 @@ public:
         {
             return kappa_;
         }
+
+	const dimensionedScalar& phi() const
+        {
+            return phi_;
+        }
+	
 };
 
 

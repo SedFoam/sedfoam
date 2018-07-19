@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # Create the mesh
 blockMesh
 
@@ -8,10 +9,7 @@ cp -r 0_org 0
 # Initialize the alpha field
 funkySetFields -time 0
 
-# Write the mesh in folder 0/
-writeCellCentres -time 0
-
 # Run sedFoam
-sedFoam > log&
+sedFoam_rbgh > log&
 
 

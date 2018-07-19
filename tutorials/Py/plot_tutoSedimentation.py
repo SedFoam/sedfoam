@@ -33,8 +33,8 @@ figheight2 = 12
 #
 # Loading experimental results
 #
-execfile('DATA/exp_lmsgc.py')
-
+#execfile('DATA/exp_lmsgc.py')
+exec(open("DATA/exp_lmsgc.py").read())
 #########################################
 # Loading OpenFoam results
 #
@@ -62,20 +62,24 @@ except:
     print("Do you have load OpenFoam environement?")
     sys.exit(0)
 output = proc.stdout.read()
-tread = list(output.split('\n'))
+#tread = list(output.split('\n'))
+tread = output.decode().rstrip().split('\n')
+
+
 del tread[-1]
 Nt = len(tread)
-
+print(Nt)
 time = np.zeros(Nt)
-Y = fluidfoam.readscalar(sol, '0/', 'ccy')
+X, Y, Z = fluidfoam.readmesh(sol)
 alphat = np.zeros((Ny, Nt))
 
 k = -1
 for t in tread:
+    print(t)
     print("Reading time: %s s" % t)
     k = k + 1
 
-    alphat[:, k] = fluidfoam.readscalar(sol, t + '/', 'alpha')
+    alphat[:, k] = fluidfoam.readscalar(sol, t + '/', 'alpha_a')
     time[k] = float(t)
 
 
@@ -173,5 +177,7 @@ for i in np.arange(4):
 savefig('Figures/res2_tuto1.png', facecolor='w', edgecolor='w', format='png')
 
 show(block=False)
-
-tto = raw_input("Hit a key to close the figure")
+# Fix Python 2.x.
+try: input = raw_input
+except NameError: pass
+tto = input("Hit a key to close the figure")

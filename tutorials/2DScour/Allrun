@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # create the mesh
 blockMesh
 
@@ -9,10 +10,13 @@ cp -r 0_org 0
 funkySetFields -time 0
 
 # Write the mesh in folder 0/
-writeCellCentres -time 0
+postProcess -func writeCellCentres -time 0
+ln -s Cx 0/ccx
+ln -s Cy 0/ccy
+ln -s Cz 0/ccz
 
 # Decompose the case in order to run in parallel (on 4 cores)
 decomposePar
 
 # Run sedFoam in parallel
-mpirun -np 4 sedFoam -parallel > log&
+mpirun -np 4 sedFoam_rbgh -parallel > log&

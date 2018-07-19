@@ -38,7 +38,7 @@ def readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N):
     tlist = t0 + np.arange(Nt) * Dt
     timeRange = [(repr(item).rstrip('0')).rstrip('.') for item in tlist]
 
-    Xd, Yd, Zd = fluidfoam.readmesh(sol + '0/')  # ,shape=(Nx,Ny,Nz))
+    Xd, Yd, Zd = fluidfoam.readmesh(sol)  # ,shape=(Nx,Ny,Nz))
     toto = np.where(Xd >= 0)
     shape = (Nx, Ny, Nz)
 
@@ -59,7 +59,7 @@ def readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N):
         print("Reading time: " + str(t) + " s")
         k = k + 1
         alphad = fluidfoam.readscalar(
-            sol, t + '/', 'alpha')
+            sol, t + '/', 'alpha_a')
         # if the shape is prescribed, reshape the arrays
         if (max(shape) != 1):
             alpha = np.reshape(alphad[toto], shape, order="F")
@@ -74,8 +74,8 @@ def readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N):
 
 # Parameters
 t0 = 0.
-Nt = 8
-Dt = 2
+Nt = 3
+Dt = 0.5
 
 
 h0 = 0.15
@@ -84,7 +84,7 @@ h0 = 0.15
 # Call the reading function
 #
 print("-------------------------")
-print("        case 1"
+print("        case 1           ")
 print("-------------------------")
 Nx = 1000
 Ny = 264
@@ -109,7 +109,7 @@ alphap, Xp, Yp, tlist, ybed = readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N)
 #
 fig = plt.figure(num=1, figsize=(18, 8), dpi=100, facecolor='w', edgecolor='w')
 ax0 = fig.add_subplot(gs1[0, 0])
-tplot = [0, 1, 3, 6]
+tplot = [0, 0.5, 1]
 nplot = -1
 sym = ['--+', '-.', '--', '.']
 for k in range(len(tplot)):
@@ -140,7 +140,7 @@ nplot = -1
 for k in range(len(tfig)):
     nplot = nplot + 1
     alphat = np.transpose(alphap[:, :, 0, tfig[k]])
-    alphat2 = np.transpose(alphap[:, :, 0, tfig2[k]])
+#    alphat2 = np.transpose(alphap[:, :, 0, tfig2[k]])
 
     ax1 = fig.add_subplot(gs2[nplot, 0])
     title('t=' + str(tfig[nplot] * Dt) + ' s')
@@ -159,9 +159,9 @@ for k in range(len(tfig)):
     yticks([-0.025, 0, 0.025], ['-0.025', '0', '0.025'])
 
     ax2 = fig.add_subplot(gs2[nplot, 1])
-    title('t=' + str(tfig2[nplot] * Dt) + ' s')
-    CS_colors = plt.contourf(Xp, Yp, alphat2, nlevels,  cmap=plt.cm.coolwarm)
-    l0 = ax2.plot(Xp, ybed[:, tfig2[k]], '--k', linewidth=1)
+#    title('t=' + str(tfig2[nplot] * Dt) + ' s')
+#    CS_colors = plt.contourf(Xp, Yp, alphat2, nlevels,  cmap=plt.cm.coolwarm)
+#    l0 = ax2.plot(Xp, ybed[:, tfig2[k]], '--k', linewidth=1)
     axis([0, 0.5, -0.03, 0.03])
     xticks([], [])
     yticks([], [])

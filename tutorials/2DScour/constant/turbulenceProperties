@@ -15,6 +15,14 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-simulationType RASModel;
+simulationType RAS;
+
+RAS{
+RASModel twophasekOmega2006;
+
+printCoeffs     on;
+turbulence      on;
+popeCorrection  off;
+}
 
 // ************************************************************************* //

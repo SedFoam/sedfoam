@@ -34,17 +34,15 @@ Foam::kineticTheoryModel::kineticTheoryModel
 (
     const Foam::phaseModel& phasea,
     const Foam::volVectorField& Ub,
-    const Foam::volScalarField& alpha,
     const Foam::dragModel& draga
 )
 :
     phasea_(phasea),
     Ua_(phasea.U()),
     Ub_(Ub),
-    alpha_(alpha),
+    alpha_(phasea.alpha()),
     phia_(phasea.phi()),
     draga_(draga),
-
     rhoa_(phasea.rho()),
     da_(phasea.d()),
     nua_(phasea.nu()),
@@ -62,7 +60,8 @@ Foam::kineticTheoryModel::kineticTheoryModel
     ),
     kineticTheory_(kineticTheoryProperties_.lookup("kineticTheory")),
     equilibrium_(kineticTheoryProperties_.lookup("equilibrium")),
-
+    collisions_(kineticTheoryProperties_.lookupOrDefault("collisions_", false)),
+    extended_(kineticTheoryProperties_.lookupOrDefault("extended_", false)),
     viscosityModel_
     (
         kineticTheoryModels::viscosityModel::New
@@ -105,6 +104,8 @@ Foam::kineticTheoryModel::kineticTheoryModel
     ttone(kineticTheoryProperties_.lookup("ttone")),
     MaxTheta(kineticTheoryProperties_.lookup("MaxTheta")),
     phi_(dimensionedScalar(kineticTheoryProperties_.lookup("phi"))*M_PI/180.0),
+    //    relaxPaKin_(kineticTheoryProperties_.lookupOrDefault(("relaxPaKin"),1.0),
+    relaxPaKin_(kineticTheoryProperties_.lookupOrDefault("relaxPaKin_",dimensionedScalar("relaxPaKin_",dimensionSet(0,0,0,0,0,0,0), 1 ))),
     Theta_
     (
         IOobject
@@ -285,6 +286,7 @@ void Foam::kineticTheoryModel::solve(const surfaceScalarField& galpha, const vol
     volSymmTensorField D = symm(dU);         //0.5*(dU + dU.T)
     volSymmTensorField dUU = dev(D);
 
+
     // NB, drag = K*alpha*beta,
     // (the alpha and beta has been extracted from the drag function for
     // numerical reasons)
@@ -319,10 +321,19 @@ void Foam::kineticTheoryModel::solve(const surfaceScalarField& galpha, const vol
     // particle viscosity (Table 3.2, p.47)
 // limit the production
     mua_ = viscosityModel_->mua(alpha_,min(Theta_,(2.0/3.0)*max(kb)), gs0_, rhoa_, da_, e_);    
-    
+
+    // classical kinetic theory
+    volScalarField Lc = da_*(alpha_+alphaSmall)/(alpha_+alphaSmall);
+
+    if (extended_)
+    {
+        // extended kinetic theory Jenkins (2007)
+        Lc = da_*max(1.,0.5*pow(30./(1.+sqr(sqrtPi)/12.)*(1-e_)*sqr(alpha_)*gs0_,1./3.));
+    }
+
     // dissipation (Eq. 3.24, p.50)
     volScalarField gammaCoeff =
-              3.0*(1.0 - sqr(e_))*sqr(alpha_)*rhoa_*gs0_*((4.0/da_)*ThetaSqrt/sqrtPi-tr(D));
+                3.0*(1.0 - sqr(e_))*sqr(alpha_)*rhoa_*gs0_*((4.0/Lc)*ThetaSqrt/sqrtPi-tr(D));
 
     // Eq. 3.25, p. 50 Js = J1 - J2
     volScalarField J1 = 3.0*alpha_*betaPrim;
@@ -361,10 +372,12 @@ void Foam::kineticTheoryModel::solve(const surfaceScalarField& galpha, const vol
           + scalar(2.0/3.0)*J1*tmf_*kb
         );
 
+
         ThetaEqn.relax();
         ThetaEqn.solve();
     }
-    else
+    else 
+
     {
         // equilibrium => dissipation == production
         // Eq. 4.14, p.82
@@ -427,7 +440,8 @@ void Foam::kineticTheoryModel::solve(const surfaceScalarField& galpha, const vol
 // particle viscosity (Table 3.2, p.47)
     mua_ = viscosityModel_->mua(alpha_, Theta_, gs0_, rhoa_, da_, e_);
 
-    /* pf_ is now computed outside the kineticTheory module, see callFrictionStress.H 
+    /* pf_ is now computed outside the  1.19877
+kineticTheory module, see callFrictionStress.H 
     pf_ = frictionalStressModel_->frictionalPressure
     (
         alpha_,
@@ -448,13 +462,14 @@ void Foam::kineticTheoryModel::solve(const surfaceScalarField& galpha, const vol
     pa_ = PsCoeff*Theta_;
 
 
-    /* muf_ is now computed outside the kineticTheory module, see callFrictionStress.H
+    /* muf_ is now computed outside the module, see callFrictionStress.H
     // frictional shear stress, Eq. 3.30, p. 52
     muf_ = frictionalStressModel_->muf
     (
         alpha_,
         Theta_,
-        alphaMinFriction_,
+        alphaMinFriction_, 1.19877
+
         alphaMax_,
         pf_,
         D,
@@ -491,6 +506,82 @@ void Foam::kineticTheoryModel::solve(const surfaceScalarField& galpha, const vol
     */
 
 }
+
+// test function for callFrictionStress.H
+void Foam::kineticTheoryModel::updateRheo (const volScalarField& kb,const volScalarField& epsilonb, const dimensionedScalar& B)
+{  
+    const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    
+
+    dimensionedScalar alphaSmall
+    	(
+       	   "small",
+           dimensionSet(0 , 0 ,0 ,0 , 0, 0, 0),
+           scalar(1.0e-4)
+    	);
+
+    dimensionedScalar Tpsmall_
+    (
+         "Tpsmall_",
+         dimensionSet(1, -1, -3, 0, 0, 0, 0),
+         scalar(1e-30)
+    );
+
+   dimensionedScalar Kasmall_
+   (
+
+         "Kasmall_",
+         dimensionSet(1, -3, -1, 0, 0, 0, 0),
+         scalar(1e-12)
+    );
+
+     // NB, drag = K*alpha*beta,
+    // (the alpha and beta has been extracted from the drag function for
+    // numerical reasons)
+    // this is inconsistent with momentum equation, since the following form missed
+    // the drift velocity
+    volScalarField Ur_ = mag(Ua_ - Ub_);
+    volScalarField Ka = draga_.K(Ur_);
+    volScalarField betaPrim = (1.0 - alpha_)*Ka;
+    // The following is to calculate parameter tmf_ in u_f*u_s correlation
+    volScalarField tmf_ = Foam::exp(-B*rhoa_*scalar(6.0)*epsilonb/(max(kb*betaPrim,Tpsmall_)));
+    
+     gs0_ = radialModel_->g0
+      (
+        min(alpha_, alphaMax_ - alphaSmall),
+        alphaMax_
+       );
+
+   volScalarField F_ = (1.0/6.0)*alpha_*sqrtPi;
+
+   //volScalarField F_ = 0.12*alpha_*Foam::exp(-600*pow(alpha_,5));
+   //volScalarField F_ = 0.12*alpha_*Foam::exp(-600*pow(alpha_,7));
+  
+  
+ if (collisions_)
+   {
+     volScalarField dum = 1.0/(1.0+((1.0-e_*e_)/(Ka+Kasmall_))*(4*rhoa_*alpha_*gs0_/(da_*sqrtPi))*pow(Theta_,0.5)); 
+     Theta_ = dum*(2.0/3.0)*tmf_*kb;
+     Info<< "run avec collisions " << endl;
+   }
    
+   else
+   {
+   Theta_ = (2.0/3.0)*tmf_*kb;
+   }
+
+   mua_= rhoa_*F_*da_*pow(Theta_,0.5);
+   //volScalarField paOld = pa_;
+   pa_ = rhoa_*alpha_*Theta_;
+   //pa_ = paOld + relaxPaKin_*(pa_ - paOld);
+   //Info<< "Theta = " << Theta_ << endl;
+   //Info<< "mua = " << mua_ << endl;
+}
+
+
+
+
+   
+//} 
 
 // ************************************************************************* //

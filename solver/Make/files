@@ -1,2 +1,2 @@
 sedFoam.C
-EXE = $(FOAM_USER_APPBIN)/sedFoam
+EXE = $(FOAM_USER_APPBIN)/sedFoam_rbgh

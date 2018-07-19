@@ -3,6 +3,6 @@ cd ${0%/*} || exit 1    # run from this directory
 makeType=${1:-libso}
 set -x
 
-turbulenceModels/Allwmake $*
+TurbulenceModels/Allwmake $*
 solver/Allwmake $*
 # ----------------------------------------------------------------- end-of-file

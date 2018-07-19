@@ -4,9 +4,9 @@ This repository provides the SedFoam solver (version OpenFOAM classic).
 
 ### What is this repository for? ###
 
-* OpenFOAM
-* Version 2.0
-* Supported OpenFoam Versions : 2.4.0
+* SedFOAM
+* Version 3.alpha
+* Supported OpenFoam Versions : 5.0
 
 ### Deployment instructions ###
 
@@ -19,10 +19,11 @@ This repository provides the SedFoam solver (version OpenFOAM classic).
 
 * http://servforge.legi.grenoble-inp.fr/pub/soft-sedfoam
 
-### Contacts ###
+### Developers ###
 
 * Cyrille Bonamy
 * Julien Chauchat
-* Tim Nagel
 * Zhen Cheng
 * Tian-Jian Hsu
+* Tim Nagel
+* Antoine Mathieu

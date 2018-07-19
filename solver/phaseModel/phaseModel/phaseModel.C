@@ -80,6 +80,19 @@ Foam::phaseModel::phaseModel
             IOobject::AUTO_WRITE
         ),
         mesh
+    ),
+    alpha_
+    (
+        IOobject
+        (
+            "alpha_" + phaseName,
+            mesh.time().timeName(),
+            mesh,
+            IOobject::READ_IF_PRESENT,
+            IOobject::AUTO_WRITE
+        ),
+        mesh,
+        dimensionedScalar("alpha", dimless, 0)
     )
 {
     const word phiName = "phi" + phaseName;
@@ -92,7 +105,8 @@ Foam::phaseModel::phaseModel
         IOobject::NO_READ
     );
 
-    if (phiHeader.headerOk())
+    if (phiHeader.typeHeaderOk<surfaceScalarField>(true))
+//    if (phiHeader.headerOk())
     {
         Info<< "Reading face flux field " << phiName << endl;
 

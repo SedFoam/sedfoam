@@ -46,12 +46,11 @@ namespace Foam
 Foam::GidaspowErgunWenYu::GidaspowErgunWenYu
 (
     const dictionary& interfaceDict,
-    const volScalarField& alpha,
     const phaseModel& phasea,
     const phaseModel& phaseb
 )
 :
-    dragModel(interfaceDict, alpha, phasea, phaseb)
+    dragModel(interfaceDict, phasea, phaseb)
 {}
 
 
@@ -72,22 +71,19 @@ Foam::tmp<Foam::volScalarField> Foam::GidaspowErgunWenYu::K
 
     //    volScalarField bp = pow(beta, -2.65);
     volScalarField bp = pow(beta, -phasea_.hExp());
-    volScalarField Re = max(beta*Ur*phasea_.d()*phasea_.sF()/phaseb_.nu(), scalar(1.0e-12));
+    volScalarField Re = max(beta*Ur*phasea_.d()*phasea_.sF()/phaseb_.nu(), scalar(1.0e-9));
 
-    volScalarField Cds = 24.0*(1.0 + 0.15*pow(Re, 0.687))/Re;
+    volScalarField Cds
+    (
+        neg(Re - 1000)*(24.0*(1.0 + 0.15*pow(Re, 0.687))/Re)
+      + pos(Re - 1000)*0.44
+    );
 
-    forAll(Re, celli)
-    {
-        if (Re[celli] > 1000.0)
-        {
-            Cds[celli] = 0.44;
-        }
-    }
-    Cds.correctBoundaryConditions();
-
+/*
     // Wen and Yu (1966)
     // modified in May 17, 2012, by C.Z.
-    tmp<volScalarField> tKWenYu = (0.75*Cds*phaseb_.rho()*Ur*bp/(phasea_.d()*phasea_.sF()));
+    //tmp<volScalarField> tKWenYu = (0.75*Cds*phaseb_.rho()*Ur*bp/(phasea_.d()*phasea_.sF()));
+    volScalarField tKWenYu = (0.75*Cds*phaseb_.rho()*Ur*bp/(phasea_.d()*phasea_.sF()));
     volScalarField& KWenYu = tKWenYu();
     
     // Ergun
@@ -95,7 +91,7 @@ Foam::tmp<Foam::volScalarField> Foam::GidaspowErgunWenYu::K
     {
          if (beta[cellj] < 0.8)
          {
-              KWenYu[cellj] =
+              tKWenYu[cellj] =
                       150.0*alpha_[cellj]*phaseb_.nu().value()*phaseb_.rho().value()
                       /sqr(beta[cellj]*phasea_.d().value())
                       + 1.75*phaseb_.rho().value()*Ur[cellj]
@@ -103,10 +99,16 @@ Foam::tmp<Foam::volScalarField> Foam::GidaspowErgunWenYu::K
          }
     }
 // WARNING: remove this line will makes the parallel computations "instable"
-    KWenYu.correctBoundaryConditions();
+    tKWenYu.correctBoundaryConditions();
     
-    return tKWenYu;
-
+    return KWenYu;
+*/
+    return
+//        pos0(beta - 0.8)*(0.75*Cds*phaseb_.rho()*Ur*bp/(phasea_.d()*phasea_.sF()))    //line for sedfoam-5.0
+        pos(beta - 0.8)*(0.75*Cds*phaseb_.rho()*Ur*bp/(phasea_.d()*phasea_.sF()))      //line for sedfoam plus
+      + neg(beta - 0.8)*(150.0*alpha_*phaseb_.nu()*phaseb_.rho()/sqr(beta*phasea_.d())
+                      + 1.75*phaseb_.rho()*Ur/(beta*phasea_.d()));
 }
+
 
 // ************************************************************************* //

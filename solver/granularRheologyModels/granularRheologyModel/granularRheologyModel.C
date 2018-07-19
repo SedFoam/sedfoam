@@ -37,23 +37,15 @@ Foam::granularRheologyModel::granularRheologyModel
 (
     const Foam::phaseModel& phasea,
     const Foam::phaseModel& phaseb,
-    const Foam::volScalarField& alpha,
-    const Foam::dragModel& draga,
     const Foam::volScalarField& pa
 )
 :
-    phasea_(phasea),
-    phaseb_(phaseb),
-    Ua_(phasea.U()),
-    Ub_(phaseb.U()),
-    alpha_(alpha),
+    alpha_(phasea.alpha()),
     phia_(phasea.phi()),
-    draga_(draga),
     paOld(pa),
 
     rhoa_(phasea.rho()),
     da_(phasea.d()),
-    nua_(phasea.nu()),
 
     rhob_(phaseb.rho()),
     nub_(phaseb.nu()),
@@ -63,8 +55,8 @@ Foam::granularRheologyModel::granularRheologyModel
         IOobject
         (
             "granularRheologyProperties",
-            Ua_.time().constant(),
-            Ua_.mesh(),
+            alpha_.time().constant(),
+            alpha_.mesh(),
             IOobject::MUST_READ,
             IOobject::NO_WRITE
         )
@@ -104,12 +96,12 @@ Foam::granularRheologyModel::granularRheologyModel
         IOobject
         (
             "muI",
-            Ua_.time().timeName(),
-            Ua_.mesh(),
+            alpha_.time().timeName(),
+            alpha_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
         ),
-        Ua_.mesh(),
+        alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
     ),
     mua_
@@ -117,12 +109,12 @@ Foam::granularRheologyModel::granularRheologyModel
         IOobject
         (
             "mua",
-            Ua_.time().timeName(),
-            Ua_.mesh(),
+            alpha_.time().timeName(),
+            alpha_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
         ),
-        Ua_.mesh(),
+        alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
     ),
     lambda_
@@ -130,12 +122,12 @@ Foam::granularRheologyModel::granularRheologyModel
         IOobject
         (
             "lambda",
-            Ua_.time().timeName(),
-            Ua_.mesh(),
+            alpha_.time().timeName(),
+            alpha_.mesh(),
             IOobject::NO_READ,
             IOobject::NO_WRITE
         ),
-        Ua_.mesh(),
+        alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
     ),
 
@@ -144,12 +136,12 @@ Foam::granularRheologyModel::granularRheologyModel
         IOobject
         (
             "pa",
-            Ua_.time().timeName(),
-            Ua_.mesh(),
+            alpha_.time().timeName(),
+            alpha_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
         ),
-        Ua_.mesh(),
+        alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
     ),
 
@@ -158,12 +150,12 @@ Foam::granularRheologyModel::granularRheologyModel
         IOobject
         (
             "nuvb",
-            Ua_.time().timeName(),
-            Ua_.mesh(),
+            alpha_.time().timeName(),
+            alpha_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
         ),
-        Ua_.mesh(),
+        alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(0, 2, -1, 0, 0), 0.0)
      )
 {}
@@ -199,7 +191,9 @@ void Foam::granularRheologyModel::solve
     //
     // compute the particulate velocity shear rate
     //
+    //volSymmTensorField D = dev(symm(gradUat));
     volSymmTensorField D = symm(gradUat);
+   
     volScalarField magD = ::sqrt(2.0)*mag(D);
     volScalarField magD2 = pow(magD,2);
 
@@ -217,13 +211,13 @@ void Foam::granularRheologyModel::solve
     pa_ = paOld + relaxPa_*(pa_-paOld);
 
     // Add contact pressure to the shear induced contribution
-    patot_ = pa_ + pf ; //+ psmall;    
+    patot_ = pa_ + pf;    
     
     //  Compute the particulate friction coefficient
     muI_ = FrictionModel_->muI(mus_, mu2_, I0_, patot_, rhoa_, da_, rhob_, nub_, magD, Dsmall_);
 
     //  Compute the regularized particulate viscosity
-    mua_ = muI_*patot_/pow(magD2 + Dsmall2, 0.5);
+    mua_ = muI_* patot_ / pow(magD2 + Dsmall2, 0.5);
     //mua_ = muI_ * patot_ / (magD+Dsmall_);
    
 // Compute mua_ on the bottom patch
@@ -231,12 +225,19 @@ void Foam::granularRheologyModel::solve
     {
         if (isA<zeroGradientFvPatchScalarField>(alpha_.boundaryField()[patchi]))
         {
-            mua_.boundaryField()[patchi] =
+            mua_.boundaryFieldRef()[patchi] =
             (
-                muI_.boundaryField()[patchi]*patot_.boundaryField()[patchi]
-               /pow(magD2.boundaryField()[patchi] + Dsmall2.value(), 0.5)
+                muI_.boundaryFieldRef()[patchi]*patot_.boundaryFieldRef()[patchi]
+                /pow(magD2.boundaryFieldRef()[patchi] + Dsmall2.value(), 0.5)
             );
         }
+/*        if (isA<zeroGradientFvPatchVectorField>(Ua_.boundaryField()[patchi]))
+        {
+            mua_.boundaryFieldRef()[patchi] = 0;
+            muI_.boundaryFieldRef()[patchi] = 0;
+            //Info <<mua_.boundaryFieldRef()[patchi]<<nl<<endl;
+        }
+*/
     }
     // Set bulk viscosity to zero
     lambda_ = scalar(0.0)*mua_;
