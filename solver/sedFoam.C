@@ -169,10 +169,10 @@ int main(int argc, char *argv[])
         }
         if (debugInfo)
 	{
-            Info<< "min(Ua) = " << min(Ua).value()
-                << "max(Ua) = " << max(Ua).value() << endl;
-            Info<< "min(Ub) = " << min(Ub).value()
-                << "max(Ub) = " << max(Ub).value() << nl << endl;
+            Info<< "min(Ua) = " << gMin(Ua)
+                << "max(Ua) = " << gMax(Ua) << endl;
+            Info<< "min(Ub) = " << gMin(Ub)
+                << "max(Ub) = " << gMax(Ub) << nl << endl;
         }
         #include "OutputGradPOSC.H"
         #include "writeTau.H"

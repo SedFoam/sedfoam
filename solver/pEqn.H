@@ -55,10 +55,10 @@
     // - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf() 
     // diagonal part of stress
       + (oneOverAlpha/rhoa*fvc::snGrad(lambdaUa*tr(gradUaT)))*rUaAf*mesh.magSf()
-    // diagonal part of stress 2 normalement  sqr(Ct) à la place de 0
+    // diagonal part of stress 2
       - (
             scalar(2.0/3.0)*oneOverAlpha
-           *fvc::snGrad((alpha+alphaSmall)*(0*turbulenceb->k()
+           *fvc::snGrad((alpha+alphaSmall)*(sqr(Ct)*turbulenceb->k()
           + nuEffa*tr(gradUaT)))
         )
        *rUaAf*mesh.magSf() 
@@ -194,7 +194,6 @@
 
             surfaceScalarField phias = phiaHbyA - rUaAf*SfGradp/rhoa;
             surfaceScalarField phibs = phibHbyA - rUbAf*SfGradp/rhob;
-//            phi = alphaf*phia + betaf*phib;
             phi = phiHbyA - pEqn.flux();
 
             surfaceScalarField phir
@@ -226,12 +225,6 @@
             Ub.correctBoundaryConditions();
             //fvOptions.correct(Ub);
             
-/*            phia = phiaHbyA - rUaAf*SfGradp/rhoa;
-            phib = phibHbyA - rUbAf*SfGradp/rhob;
-            phi = phiHbyA - pEqn.flux();
-
-            #include "continuityErrs.H"
-*/
             p = p_rbgh + rhob*gh;
             if (p_rbgh.needReference())
             {
@@ -243,12 +236,6 @@
                 );
                 p_rbgh = p - rhob*gh;
             }
-/*
-            // Velocity correction step    
-            Ub = HbbyA + rUbA*fvc::reconstruct(phiDragb/rUbAf-SfGradp/rhob);
-            Ub.correctBoundaryConditions();
-            Ua = HabyA + rUaA*fvc::reconstruct(phiDraga/rUaAf-SfGradp/rhoa);
-*/
             #include "UaUbLimiter.H"
             Ua.correctBoundaryConditions();
             // Update mixture velocity    

@@ -61,14 +61,6 @@ if (kineticTheory.on())
 //
 else if (granularRheology.on())
 {
-// Compute kinetic effects based on equilibrium approach (if Ck >0)
-    if (Ck.value() > 0)
-    {
-        kineticTheory.updateRheo(turbulenceb->k(),turbulenceb->epsilon(), B);
-        
-        // Kinetic Pressure
-        pff = pff + 3*Ck *kineticTheory.pa();
-    }
     
 // solving granular rheology
     granularRheology.solve(gradUaT,pff,alphaSmall,runTime.deltaT());
@@ -77,10 +69,10 @@ else if (granularRheology.on())
     pa = granularRheology.pa();
     if (debugInfo)
     {
-        Info<< "Particulate pressure: Max =" << max(mag(pa+pff)).value()
-            <<",Min =" << min(mag(pa+pff)).value()<<endl;
-        Info<< "Shear induced pressure : Max =" << max(mag(pa)).value()
-            <<",Min =" << min(mag(pa)).value()<<endl;
+        Info<< "Pff pressure: Max =" << gMax(pff)
+            <<",Min =" << gMin(pff)<<endl;
+        Info<< "Shear induced pressure : Max =" << gMax(pa)
+            <<",Min =" << gMin(pa)<<endl;
     }
 /*
 // Compute the shear induced pressure gradient contribution (not used inthis version)
@@ -101,7 +93,7 @@ else if (granularRheology.on())
     nuFra = granularRheology.mua()/ rhoa;
 //     nuFra = granularRheology.mua()/((alpha+alphaSmall)*rhoa);
 
-    nuEffa = sqr(Ct)*turbulenceb->nut() + Ck*kineticTheory.mua()/rhoa + nua;
+    nuEffa = sqr(Ct)*turbulenceb->nut() + nua;
 
 // Compute nuEffb the total fluid phase viscosity
     nuEffb = turbulenceb->nut() + granularRheology.nuvb();
