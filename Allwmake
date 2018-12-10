@@ -1,8 +1,12 @@
 #!/bin/sh
 cd ${0%/*} || exit 1    # run from this directory
-makeType=${1:-libso}
 set -x
 
-TurbulenceModels/Allwmake $*
-solver/Allwmake $*
+# Export OpenFOAM version
+export OF_VERSION=`echo $WM_PROJECT_VERSION"-00" | sed -e 's/v//' -e 's/+//' -e 's/\.x/-9/' -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -3 | tr -d '\n' | head -c3`
+
+TurbulenceModels/Allwmake
+solver/Allwmake
+solverMULES/Allwmake
+
 # ----------------------------------------------------------------- end-of-file

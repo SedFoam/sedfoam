@@ -24,17 +24,31 @@
         );
 
         // Limit to 0.99*alphaMax to avoid extremely small time steps
-        MULES::explicitSolve
-        (
-            geometricOneField(),
-            alpha,
-            phi,
-            phiAlpha,
-            zeroField(),
-            zeroField(),
-            0.99*alphaMax,
-            0
-        );
+        #if OFVERSION >= 600
+            MULES::explicitSolve
+            (
+                geometricOneField(),
+                alpha,
+                phi,
+                phiAlpha,
+                zeroField(),
+                zeroField(),
+                UniformField<scalar>(0.99*alphaMax),
+                zeroField()
+            );
+        #else
+            MULES::explicitSolve
+            (
+                geometricOneField(),
+                alpha,
+                phi,
+                phiAlpha,
+                zeroField(),
+                zeroField(),
+                0.99*alphaMax,
+                0
+            );
+        #endif
 
         /*if (packingLimiter)
         {

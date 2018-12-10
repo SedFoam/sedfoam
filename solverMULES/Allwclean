@@ -5,5 +5,9 @@ set -x
 wclean
 
 cd ../solver
-./Allwclean
+wclean libso phaseModel
+wclean libso interfacialModels
+wclean libso kineticTheoryModels
+wclean libso granularRheologyModels
 
+# ----------------------------------------------------------------- end-of-file

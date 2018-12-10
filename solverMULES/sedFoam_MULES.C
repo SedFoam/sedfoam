@@ -43,6 +43,7 @@ Description
 * Changelog [Higuera]
 * August 27, 2018 - Adapted solver to use MULES advection instead of solving
 * the advection equation for improvement of conservation and limiter.
+* December 10, 2018 - Adapted to compile automatically with OpenFOAM 6.
 */
 
 #include "fvCFD.H"
@@ -96,17 +97,17 @@ int main(int argc, char *argv[])
     }
     else
     {
-       if (max(SUS).value()==0)
+       if (max(SUS).value() == 0)
        {
            Info<< "Turbulence suspension term is neglected" << endl;
        }
-       else if (max(SUS).value()>0)
+       else if (max(SUS).value() > 0)
        {
            Info<< "Turbulence suspension term is included" << endl;
        }
        else
        {
-           Info<< "Turbulence suspension coeffcient SUS can't be negative" << endl;
+           Info<< "Turbulence suspension coefficient SUS can't be negative" << endl;
        }
     }
 
@@ -145,10 +146,12 @@ int main(int argc, char *argv[])
 	    while (pimple.correct())
 	    {
                 #include "pEqn.H"
-                // openfoam-6.0 : uncomment the following line
-                // if (!pimple.finalPISOIter()) 
-                // openfoam-6.0 : comment the following line
-                if (pimple.corrPISO()<pimple.nCorrPISO())
+
+                #if OFVERSION >= 600
+                    if (!pimple.finalPISOIter())
+                #else
+                    if (pimple.corrPISO() < pimple.nCorrPISO())
+                #endif
                 {
                     if (correctAlpha)
                     {
@@ -165,7 +168,7 @@ int main(int argc, char *argv[])
 
 		if (debugInfo)
 		{
-		    Info<<" max(nutb) = "<<max(turbulenceb->nut()).value()<< endl;
+		    Info<< " max(nutb) = " << max(turbulenceb->nut()).value() << endl;
 		}
             }
 

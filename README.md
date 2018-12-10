@@ -6,7 +6,7 @@ This repository provides the SedFoam solver (version OpenFOAM classic).
 
 * SedFOAM
 * Version 3.alpha
-* Supported OpenFoam Versions : 5.0
+* Supported OpenFoam Versions : 5.0 & 6.0
 
 ### Deployment instructions ###
 

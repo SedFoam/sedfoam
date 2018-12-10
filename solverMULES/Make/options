@@ -1,4 +1,5 @@
 EXE_INC = \
+    -DOFVERSION=$(OF_VERSION) \
     -I../solver \
     -I$(LIB_SRC)/transportModels/twoPhaseMixture/lnInclude \
     -I$(LIB_SRC)/transportModels \
