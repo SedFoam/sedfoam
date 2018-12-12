@@ -4,5 +4,6 @@ set -x
 
 TurbulenceModels/Allwclean $*
 solver/Allwclean $*
+solverMULES/Allwclean $*
 
 # ----------------------------------------------------------------- end-of-file

@@ -41,10 +41,13 @@ Description
  */
 /*
 * Changelog [Higuera]
+* August 27, 2018 - Adapted solver to use MULES advection instead of solving
+* the advection equation for improvement of conservation and limiter.
 * December 10, 2018 - Adapted to compile automatically with OpenFOAM 6.
 */
 
 #include "fvCFD.H"
+#include "CMULES.H"
 #include "singlePhaseTransportModel.H"
 #include "PhaseIncompressibleTurbulenceModel.H"
 
@@ -175,10 +178,10 @@ int main(int argc, char *argv[])
         }
         if (debugInfo)
 	{
-            Info<< "min(Ua) = " << gMin(Ua)
-                << "max(Ua) = " << gMax(Ua) << endl;
-            Info<< "min(Ub) = " << gMin(Ub)
-                << "max(Ub) = " << gMax(Ub) << nl << endl;
+            Info<< "min(Ua) = " << min(Ua).value()
+                << "max(Ua) = " << max(Ua).value() << endl;
+            Info<< "min(Ub) = " << min(Ub).value()
+                << "max(Ub) = " << max(Ub).value() << nl << endl;
         }
         #include "OutputGradPOSC.H"
         #include "writeTau.H"
