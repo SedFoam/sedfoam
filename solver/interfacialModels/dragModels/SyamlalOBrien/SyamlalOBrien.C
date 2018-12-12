@@ -46,12 +46,11 @@ namespace Foam
 Foam::SyamlalOBrien::SyamlalOBrien
 (
     const dictionary& interfaceDict,
-    const volScalarField& alpha,
     const phaseModel& phasea,
     const phaseModel& phaseb
 )
 :
-    dragModel(interfaceDict, alpha, phasea, phaseb)
+    dragModel(interfaceDict, phasea, phaseb)
 {}
 
 

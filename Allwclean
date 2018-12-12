@@ -2,7 +2,8 @@
 cd ${0%/*} || exit 1    # run from this directory
 set -x
 
-turbulenceModels/Allwclean $*
+TurbulenceModels/Allwclean $*
 solver/Allwclean $*
+solverMULES/Allwclean $*
 
 # ----------------------------------------------------------------- end-of-file

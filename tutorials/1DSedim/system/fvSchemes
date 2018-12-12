@@ -44,11 +44,11 @@ laplacianSchemes
 {
     default         none;
 // UEqn
-    laplacian(nuEffa,Ua) Gauss linear uncorrected;
-    laplacian(nuEffb,Ub) Gauss linear uncorrected;
-    laplacian(nuFra,Ua)  Gauss linear uncorrected;
+    laplacian(nuEffa,Ua) Gauss linear corrected;
+    laplacian(nuEffb,Ub) Gauss linear corrected;
+    laplacian(nuFra,Ua)  Gauss linear corrected;
 // pEqn
-    laplacian((rho*(1|A(U))),p) Gauss linear uncorrected;
+    laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
 }
 
 interpolationSchemes
@@ -58,13 +58,13 @@ interpolationSchemes
 
 snGradSchemes
 {
-    default         uncorrected;
+    default         corrected;
 }
 
 fluxRequired
 {
     default         no;
-    p               ;
+    p_rbgh               ;
 }
 
 

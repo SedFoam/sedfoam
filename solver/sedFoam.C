@@ -33,16 +33,20 @@ Description
  * \file sedFoam.C
  * \brief 2 phases Solver
  * \author Julien Chauchat, Cyrille Bonamy, Tim Nagel, Zhen Cheng and Tian-Jian Hsu.
- * \version 2.0
- * \date Septembre 01, 2016
+ * \version 3.0
+ * \date July 12, 2018
  *
  * Solver for a system of 2 phases with one phase dispersed
  *
  */
+/*
+* Changelog [Higuera]
+* December 10, 2018 - Adapted to compile automatically with OpenFOAM 6.
+*/
 
 #include "fvCFD.H"
 #include "singlePhaseTransportModel.H"
-#include "turbulenceModel.H"
+#include "PhaseIncompressibleTurbulenceModel.H"
 
 #include "symmetryFvPatchFields.H"
 #include "fixedFluxPressureFvPatchScalarField.H" 
@@ -53,40 +57,55 @@ Description
 #include "kineticTheoryModel.H"
 #include "granularRheologyModel.H"
 #include "pimpleControl.H"
+#include "fvOptions.H"
+#include "fixedValueFvsPatchFields.H"
+//#include "IOMRFZoneList.H"
+//#include "IOMRFZoneList.H"
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
 {
+ //   #include "postProcess.H"
     #include "setRootCase.H"
-
     #include "createTime.H"
     #include "createMesh.H"
+    #include "createControl.H"
 
+//    #include "readGravitationalAcceleration.H"
     #include "readGravity.H"
     #include "createGradP.H"
     #include "createFields.H"
     #include "createRASTurbulence.H"
-
+    #include "createFvOptions.H"
+    
     #include "readPPProperties.H"
     #include "initContinuityErrs.H"
-    #include "readTimeControls.H"
+    #include "createTimeControls.H"
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
-    pimpleControl pimple(mesh);
+ //   pimpleControl pimple(mesh);
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-    if (SUS.value()==0)
+    if (SUSlocal)
     {
-        Info<< "Turbulence suspension term is neglected" << endl;
-    }
-    else if (SUS.value()>0)
-    {
-        Info<< "Turbulence suspension term is included" << endl;
+        Info<< "\nLocal Schmidt number activated" << endl;
     }
     else
     {
-        Info<< "Turbulence suspension coeffcient SUS can't be negative" << endl;
+       if (max(SUS).value() == 0)
+       {
+           Info<< "Turbulence suspension term is neglected" << endl;
+       }
+       else if (max(SUS).value() > 0)
+       {
+           Info<< "Turbulence suspension term is included" << endl;
+       }
+       else
+       {
+           Info<< "Turbulence suspension coefficient SUS can't be negative" << endl;
+       }
     }
 
     Info<< "\nStarting time loop\n" << endl;
@@ -109,17 +128,6 @@ int main(int argc, char *argv[])
             #include "alphaEqn.H"
 	  
             #include "liftDragCoeffs.H"
-	  
-	    if (pimple.turbCorr())
-            {
-                #include "updateTwoPhaseRASTurbulence.H"
-                turbulenceb->correct();
-
-		if (debugInfo)
-		{
-		    Info<<" max(nutb) = "<<max(turbulenceb->nut()).value()<< endl;
-		}
-            }
 	    
 //          Compute the Kinetic Theory parameters: nuEffa and lambdaUa from the
 //          solution of the Granular temperature equation
@@ -138,7 +146,11 @@ int main(int argc, char *argv[])
 	    {
                 #include "pEqn.H"
 
-                if (pimple.corrPISO()<pimple.nCorrPISO())
+                #if OFVERSION >= 600
+                    if (!pimple.finalPISOIter())
+                #else
+                    if (pimple.corrPISO() < pimple.nCorrPISO())
+                #endif
                 {
                     if (correctAlpha)
                     {
@@ -148,16 +160,27 @@ int main(int argc, char *argv[])
                     #include "callKineticTheory.H"
                     #include "callFrictionStress.H"
                 }
+	    if (pimple.turbCorr())
+            {
+                #include "updateTwoPhaseRASTurbulence.H"
+                turbulenceb->correct();
+
+		if (debugInfo)
+		{
+		    Info<< " max(nutb) = " << max(turbulenceb->nut()).value() << endl;
+		}
+            }
+
             }
 	    
             #include "DDtU.H"
         }
         if (debugInfo)
 	{
-            Info<< "min(Ua) = " << min(Ua).value()
-                << "max(Ua) = " << max(Ua).value() << endl;
-            Info<< "min(Ub) = " << min(Ub).value()
-                << "max(Ub) = " << max(Ub).value() << nl << endl;
+            Info<< "min(Ua) = " << gMin(Ua)
+                << "max(Ua) = " << gMax(Ua) << endl;
+            Info<< "min(Ub) = " << gMin(Ub)
+                << "max(Ub) = " << gMax(Ub) << nl << endl;
         }
         #include "OutputGradPOSC.H"
         #include "writeTau.H"

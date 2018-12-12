@@ -19,7 +19,7 @@ expressions
  (
 	alpha1
     	{
-		field alpha;
+		field alpha_a;
 		expression "0.53*0.5*(1.0+tanh((0.0211-pos().y)/0.05*10.0))";
 		keepPatches 1;
 	}

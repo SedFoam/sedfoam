@@ -12,11 +12,11 @@ pff =
 //
 surfaceScalarField gradPff = fvc::snGrad(pff)*mesh.magSf();
 
-forAll(p.boundaryField(), patchi)
+forAll(p_rbgh.boundaryField(), patchi)
 {
-    if (isA<zeroGradientFvPatchScalarField>(p.boundaryField()[patchi]))
+    if (isA<zeroGradientFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
     {
-        gradPff.boundaryField()[patchi] = 0.0;
+        gradPff.boundaryFieldRef()[patchi] = 0.0;
     }
 }
 
@@ -38,11 +38,11 @@ if (kineticTheory.on())
         scalar(1.0e-40)
     );
 
-    scalar pi = constant::mathematical::pi;
+    //scalar pi = constant::mathematical::pi;
     // T && T = T_ij*T_ij
     volScalarField muEff_f =
     (
-        pff*Foam::sin(scalar(28.0/180.0)*pi)
+        pff*Foam::sin(kineticTheory.phi())
        /sqrt(scalar(2.0)*(devS && devS) + I2Dsmall)
     );
 // the actual expression for nuFra depends on the way this term is discretized
@@ -61,6 +61,7 @@ if (kineticTheory.on())
 //
 else if (granularRheology.on())
 {
+    
 // solving granular rheology
     granularRheology.solve(gradUaT,pff,alphaSmall,runTime.deltaT());
 
@@ -68,10 +69,10 @@ else if (granularRheology.on())
     pa = granularRheology.pa();
     if (debugInfo)
     {
-        Info<< "Particulate pressure: Max =" << max(mag(pa+pff)).value()
-            <<",Min =" << min(mag(pa+pff)).value()<<endl;
-        Info<< "Shear induced pressure : Max =" << max(mag(pa)).value()
-            <<",Min =" << min(mag(pa)).value()<<endl;
+        Info<< "Pff pressure: Max =" << gMax(pff)
+            <<",Min =" << gMin(pff)<<endl;
+        Info<< "Shear induced pressure : Max =" << gMax(pa)
+            <<",Min =" << gMin(pa)<<endl;
     }
 /*
 // Compute the shear induced pressure gradient contribution (not used inthis version)

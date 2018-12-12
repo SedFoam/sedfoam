@@ -54,19 +54,13 @@ class granularRheologyModel
 {
     // Private data
 
-    const phaseModel& phasea_;
-    const phaseModel& phaseb_;
-    const volVectorField& Ua_;
-    const volVectorField& Ub_;
     const volScalarField& alpha_;
     const surfaceScalarField& phia_;
 
-    const dragModel& draga_;
     const volScalarField& paOld;
 
     const dimensionedScalar& rhoa_;
     const dimensionedScalar& da_;
-    const dimensionedScalar& nua_;
 
     const dimensionedScalar& rhob_;
     const dimensionedScalar& nub_;
@@ -147,8 +141,6 @@ public:
     (
         const phaseModel& phasea,
         const phaseModel& phaseb,
-        const volScalarField& alpha,
-        const dragModel& draga,
         const volScalarField& pa
     );
 

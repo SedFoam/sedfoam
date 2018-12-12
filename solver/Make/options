@@ -1,16 +1,18 @@
 EXE_INC = \
-    -I. \
+    -DOFVERSION=$(OF_VERSION) \
     -I$(LIB_SRC)/transportModels/twoPhaseMixture/lnInclude \
     -I$(LIB_SRC)/transportModels \
     -I$(LIB_SRC)/transportModels/incompressible/lnInclude \
-    -I$(LIB_SRC)/turbulenceModels/incompressible/turbulenceModel \
+    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/incompressible/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/phaseIncompressible/lnInclude \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/sampling/lnInclude \
     -IkineticTheoryModels/lnInclude \
     -IgranularRheologyModels/lnInclude \
     -IinterfacialModels/lnInclude \
     -IphaseModel/lnInclude \
-    -I../turbulenceModels/incompressible/RAS/lnInclude \
     -Iaveraging
 
 EXE_LIBS = \
@@ -18,11 +20,12 @@ EXE_LIBS = \
     -lEulerianInterfacialSedModels \
     -lfiniteVolume \
     -lmeshTools \
+    -lfvOptions \
+    -lsampling \
     -lphaseModel \
     -lkineticTheorySedModel\
     -lgranularRheologySedModel\
     -lincompressibleTransportModels \
-    -lincompressibleTurbulenceModel \
-    -lincompressibleRASModels \
-    -lmyincompressibleRASModels \
-    -lincompressibleLESModels 
+    -lturbulenceModels \
+    -lincompressibleTurbulenceModels \
+    -lmytwoPhaseTurbulenceModels

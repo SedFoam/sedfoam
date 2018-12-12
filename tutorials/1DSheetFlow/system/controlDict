@@ -17,7 +17,7 @@ FoamFile
 
 application     sedFoam;
 
-startFrom       startTime;
+startFrom      latestTime;
 
 startTime       0;
 
@@ -52,5 +52,9 @@ maxCo           0.1;
 maxAlphaCo      0.1;
 
 maxDeltaT       2e-4;
+
+//libs (
+//"libmytwoPhaseTurbulenceModels.so"
+//     );
 
 // ************************************************************************* //

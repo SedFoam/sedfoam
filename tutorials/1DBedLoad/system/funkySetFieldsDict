@@ -19,13 +19,13 @@ expressions
  (
 	alpha1
     	{
-		field alpha;
+		field alpha_a;
 		expression "0.55*0.5*(1.0+tanh((pos().y-0.035)/(0.03-pos().y)*10.0))";
                 keepPatches 1;
 	}
 	alpha2
         {
-                field alpha;
+                field alpha_a;
                 expression "0.55";
                 condition "pos().y < 0.03";
 		keepPatches 1;

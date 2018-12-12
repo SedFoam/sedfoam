@@ -75,11 +75,10 @@ public:
             dictionary,
             (
                 const dictionary& interfaceDict,
-                const volScalarField& alpha,
                 const phaseModel& phasea,
                 const phaseModel& phaseb
             ),
-            (interfaceDict, alpha, phasea, phaseb)
+            (interfaceDict, phasea, phaseb)
         );
 
 
@@ -88,7 +87,6 @@ public:
         dragModel
         (
             const dictionary& interfaceDict,
-            const volScalarField& alpha,
             const phaseModel& phasea,
             const phaseModel& phaseb
         );
@@ -103,7 +101,6 @@ public:
         static autoPtr<dragModel> New
         (
             const dictionary& interfaceDict,
-            const volScalarField& alpha,
             const phaseModel& phasea,
             const phaseModel& phaseb
         );

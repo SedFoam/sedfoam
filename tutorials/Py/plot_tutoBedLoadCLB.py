@@ -88,7 +88,7 @@ sol = basepath + case + '/'
 proc = subprocess.Popen(
     ['foamListTimes', '-case', sol, '-latestTime'], stdout=subprocess.PIPE)
 output = proc.stdout.read()
-tread = output.rstrip() + '/'
+tread = output.decode().rstrip() + '/'
 
 Nx = 1
 Ny = 200
@@ -100,8 +100,8 @@ eps_file = sol + case + '.eps'
 # Reading SedFoam results
 #########################################
 
-Y = fluidfoam.readscalar(sol, '0/', 'ccy')
-alpha = fluidfoam.readscalar(sol, tread, 'alpha')
+X, Y, Z = fluidfoam.readmesh(sol)
+alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
 Ua = fluidfoam.readvector(sol, tread, 'Ua')
 Ub = fluidfoam.readvector(sol, tread, 'Ub')
 pff = fluidfoam.readscalar(sol, tread, 'pff')
@@ -148,4 +148,7 @@ savefig('Figures/res1_tuto2.png', facecolor='w', edgecolor='w', format='png')
 
 show(block=True)
 
-toto = raw_input("Hit a key to close the figure")
+# Fix Python 2.x.
+try: input = raw_input
+except NameError: pass
+toto = input("Hit a key to close the figure")

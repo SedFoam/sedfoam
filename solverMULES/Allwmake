@@ -1,0 +1,17 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+set -x
+
+# Export OpenFOAM version
+export OF_VERSION=`echo $WM_PROJECT_VERSION"-00" | sed -e 's/v//' -e 's/+//' -e 's/\.x/-9/' -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -3 | tr -d '\n' | head -c3`
+
+cd ../solver
+wmake libso phaseModel
+wmake libso interfacialModels
+wmake libso kineticTheoryModels
+wmake libso granularRheologyModels
+
+cd -
+wmake
+
+# ----------------------------------------------------------------- end-of-file

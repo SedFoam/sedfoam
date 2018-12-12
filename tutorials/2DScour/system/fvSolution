@@ -17,7 +17,7 @@ FoamFile
 
 solvers
 {
-    p
+    p_rbgh
     {
         solver          GAMG;
         tolerance       1e-06;
@@ -32,9 +32,9 @@ solvers
         mergeLevels     1;
     }
 
-    pFinal
+    p_rbghFinal
     {
-        $p;
+        $p_rbgh;
         tolerance       1e-6;
         relTol          0;
     }
@@ -71,14 +71,14 @@ solvers
         relTol          0;
     }
 
-    alpha
+    alpha_a
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-15;
         relTol          0;
     }
-    alphaFinal
+    alpha_aFinal
     {
         solver          PBiCG;
         preconditioner  DILU;

@@ -1,7 +1,53 @@
-dimensionedScalar SUS
+dimensionedScalar SUSread
 (
     twophaseRASProperties.lookup("SUS")
 );
+dimensionedScalar SUS_I
+(
+    twophaseRASProperties.lookupOrDefault
+    (
+        "SUS_I",
+        dimensionedScalar("SUS_I",dimensionSet(0,0,0,0,0,0,0), 1 )
+    )
+);
+
+dimensionedScalar SUS_A
+(
+    twophaseRASProperties.lookupOrDefault
+    (
+        "SUS_A",
+        dimensionedScalar("SUS_A",dimensionSet(0,0,0,0,0,0,0), 0 )
+    )
+);
+
+volScalarField SUS
+(
+    IOobject
+    (
+        "SUS",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    SUSread
+);
+
+Switch SUSlocal
+(
+    twophaseRASProperties.lookupOrDefault("SUSlocal", false)
+);
+
+dimensionedScalar Usmall
+(
+    transportProperties.lookupOrDefault
+    (
+        "Usmall",
+        dimensionedScalar("Usmall",dimensionSet(0, 1, -1, 0, 0, 0, 0), 1e-6)
+    )
+);
+
 dimensionedScalar KE1
 (
     twophaseRASProperties.lookup("KE1")

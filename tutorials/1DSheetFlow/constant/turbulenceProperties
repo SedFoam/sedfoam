@@ -15,7 +15,20 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-simulationType  RASModel;
+simulationType  RAS;
 
+RAS{
+RASModel        twophaseMixingLength;
+//RASModel        twophasekEpsilon;
+//RASModel        twophasekOmega;
+
+turbulence      on;
+printCoeffs     on;
+
+twophasekOmega2006Coeffs
+{
+    popeCorrection  false;
+}
+}
 
 // ************************************************************************* //

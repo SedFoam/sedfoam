@@ -49,18 +49,18 @@ laplacianSchemes
 {
     default         none;
 // UEqn
-    laplacian(nuEffa,Ua) Gauss linear uncorrected;
-    laplacian(nuEffb,Ub) Gauss linear uncorrected;
-    laplacian(nuFra,Ua)  Gauss linear uncorrected;
+    laplacian(nuEffa,Ua) Gauss linear corrected;
+    laplacian(nuEffb,Ub) Gauss linear corrected;
+    laplacian(nuFra,Ua)  Gauss linear corrected;
 // pEqn
-    laplacian((rho*(1|A(U))),p) Gauss linear uncorrected;
+    laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
 // k and EpsilonEqn 
-    laplacian(DkEff,k) Gauss linear uncorrected;
-    laplacian(DkEff,beta) Gauss linear uncorrected;
-    laplacian(DepsilonEff,epsilon) Gauss linear uncorrected;
-    laplacian(DepsilonEff,beta) Gauss linear uncorrected;
+    laplacian(DkEff,k) Gauss linear corrected;
+    laplacian(DkEff,beta) Gauss linear corrected;
+    laplacian(DepsilonEff,epsilon) Gauss linear corrected;
+    laplacian(DepsilonEff,beta) Gauss linear corrected;
 //ThetaEqn
-    laplacian(kappa,Theta) Gauss linear uncorrected;
+    laplacian(kappa,Theta) Gauss linear corrected;
 }
 
 interpolationSchemes
@@ -70,13 +70,13 @@ interpolationSchemes
 
 snGradSchemes
 {
-    default         uncorrected;
+    default         corrected;
 }
 
 fluxRequired
 {
     default         no;
-    p               ;
+    p_rbgh               ;
 }
 
 

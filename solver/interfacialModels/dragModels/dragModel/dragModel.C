@@ -39,13 +39,12 @@ namespace Foam
 Foam::dragModel::dragModel
 (
     const dictionary& interfaceDict,
-    const volScalarField& alpha,
     const phaseModel& phasea,
     const phaseModel& phaseb
 )
 :
     interfaceDict_(interfaceDict),
-    alpha_(alpha),
+    alpha_(phasea.alpha()),
     phasea_(phasea),
     phaseb_(phaseb)
 {}

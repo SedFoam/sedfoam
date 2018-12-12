@@ -1,11 +1,22 @@
 #include "createTwoPhaseRASTurbulence.H"
 
-    singlePhaseTransportModel phasebTransport(Ub, phib);
+singlePhaseTransportModel phasebTransport(Ub, phib);
 
-    autoPtr<incompressible::turbulenceModel> turbulenceb
+surfaceScalarField alphacf("alphacf", fvc::interpolate(alpha));
+surfaceScalarField alphaPhic("alphaPhic", alphacf*phib);
+
+autoPtr<PhaseIncompressibleTurbulenceModel<singlePhaseTransportModel>>
+turbulenceb
+(
+    PhaseIncompressibleTurbulenceModel<singlePhaseTransportModel>::New
     (
-        incompressible::turbulenceModel::New(Ub, phib, phasebTransport)
-    );
+        alpha,
+        Ub,
+        alphaPhic,
+        phib,
+        phasebTransport
+    )
+);
 
 Info<< "Calculating field nuEffa\n" << endl;
 volScalarField nuEffa
@@ -16,7 +27,7 @@ volScalarField nuEffa
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
-        IOobject::NO_WRITE
+        IOobject::AUTO_WRITE
     ),
     mesh,
     dimensionedScalar("zero", dimensionSet(0, 2, -1, 0, 0), 0.0)
@@ -30,7 +41,7 @@ volScalarField nuFra
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
-        IOobject::NO_WRITE
+        IOobject::AUTO_WRITE
     ),
     mesh,
     dimensionedScalar("zero", dimensionSet(0, 2, -1, 0, 0), 0.0)
@@ -45,7 +56,7 @@ volScalarField nuEffb
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
-        IOobject::NO_WRITE
+        IOobject::AUTO_WRITE
     ),
     mesh,
     dimensionedScalar("zero", dimensionSet(0, 2, -1, 0, 0), 0.0)

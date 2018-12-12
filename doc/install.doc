@@ -2,8 +2,8 @@
  *
  * 
  *
- * Copyright (C) 2016 by Julien Chauchat, Cyrille Bonamy, Tim Nagel, Zhen Cheng
- * and Tian-Jian Hsu.
+ * Copyright (C) 2018 by Cyrille Bonamy, Julien Chauchat, Tim Nagel,
+ * Antoine Mathieu, Zhen Cheng and Tian-Jian Hsu.
  *
  * Permission to use, copy, modify, and distribute this software and its
  * documentation under the terms of the GNU General Public License is hereby 
@@ -22,12 +22,12 @@ First go to the
 <a href="http://github.com/sedfoam/sedfoam/">official SedFoam page</a>
 to get the latest distribution, if you have not downloaded SedFoam already.
 
-\section install_src_unix Compiling from source with OpenFOAM-2.4.0
+\section install_src_unix Compiling from source with OpenFOAM-5.0
 
-You need at least OpenFOAM-2.4.0 to build the executable:
+You need at least OpenFOAM-5.0 (or OpenFOAM-v1806) to build the executable:
 <ul>
-<li>First go to the <a href="http://openfoam.org/version/2-4-0/">download</a> page of the software
-<li><a href="https://openfoamwiki.net/index.php/Installation/Linux/OpenFOAM-2.4.0">Install OpenFOAM-2.4.0</a>.
+<li>First go to the <a href="http://openfoam.org/version/5-0/">download</a> page of the software
+<li><a href="https://openfoamwiki.net/index.php/Installation/Linux/OpenFOAM-5.0">Install OpenFOAM-5.0</a>.
 </ul>
 
 To take full advantage of SedFoam the following additional tools should be installed.

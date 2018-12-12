@@ -80,7 +80,6 @@ dimensionedScalar Ct
 (
     forceProperties.lookup("Ct")
 );
-
 dimensionedScalar initTheta
 (
     forceProperties.lookupOrDefault
