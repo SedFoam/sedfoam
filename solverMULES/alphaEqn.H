@@ -88,13 +88,13 @@ License
         alpha.max(0);
         beta = scalar(1.0) - alpha;
 
-	if (debugInfo)
-	{
-	    Info<< "Dispersed phase volume fraction = "
-		<< alpha.weightedAverage(mesh.V()).value()
-		<< "  Min(alpha) = " << gMin(alpha)
-		<< "  Max(alpha) = " << gMax(alpha)
-		<< endl;
+        if (debugInfo)
+        {
+            Info<< "Dispersed phase volume fraction = "
+            << alpha.weightedAverage(mesh.V()).value()
+            << "  Min(alpha) = " << gMin(alpha)
+            << "  Max(alpha) = " << gMax(alpha)
+            << endl;
         }
     }
 }
