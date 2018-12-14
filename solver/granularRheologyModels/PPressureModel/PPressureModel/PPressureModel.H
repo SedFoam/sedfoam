@@ -54,21 +54,21 @@ class PPressureModel
 {
     // Private member functions
 
-        //- Disallow default bitwise copy construct
-        PPressureModel(const PPressureModel&);
+    //- Disallow default bitwise copy construct
+    PPressureModel(const PPressureModel&);
 
-        //- Disallow default bitwise assignment
-        void operator=(const PPressureModel&);
+    //- Disallow default bitwise assignment
+    void operator=(const PPressureModel&);
 
 
-protected:
+    protected:
 
     // Protected data
 
-        const dictionary& dict_;
+    const dictionary& dict_;
 
 
-public:
+    public:
 
     //- Runtime type information
     TypeName("PPressureModel");
@@ -88,16 +88,16 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        PPressureModel(const dictionary& dict);
+    // Construct from components
+    PPressureModel(const dictionary& dict);
 
 
     // Selectors
 
-        static autoPtr<PPressureModel> New
-        (
-            const dictionary& dict
-        );
+    static autoPtr<PPressureModel> New
+    (
+        const dictionary& dict
+    );
 
 
     //- Destructor
@@ -106,19 +106,19 @@ public:
 
     // Member Functions
 
-        virtual tmp<volScalarField> pa
-        (
-	 const volScalarField& pf,
-	 const dimensionedScalar& Bphi,
-	 const dimensionedScalar& rhoa,
-	 const dimensionedScalar& da,
-	 const dimensionedScalar& rhob,
-	 const dimensionedScalar& nub,
-	 const volScalarField& magD,
-	 const volScalarField& alpha,
-	 const dimensionedScalar& alphaMax,
-	 const dimensionedScalar& Alphasmall
-        ) const = 0;
+    virtual tmp<volScalarField> pa
+    (
+        const volScalarField& pf,
+        const dimensionedScalar& Bphi,
+        const dimensionedScalar& rhoa,
+        const dimensionedScalar& da,
+        const dimensionedScalar& rhob,
+        const dimensionedScalar& nub,
+        const volScalarField& magD,
+        const volScalarField& alpha,
+        const dimensionedScalar& alphaMax,
+        const dimensionedScalar& Alphasmall
+    ) const = 0;
 };
 
 

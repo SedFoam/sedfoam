@@ -55,20 +55,20 @@ Foam::granularRheologyModels::MuIv::~MuIv()
 
 Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIv::muI
 (
-	 const dimensionedScalar& mus,
-	 const dimensionedScalar& mu2,
-	 const dimensionedScalar& I0,
-	 const volScalarField& pa,
-	 const dimensionedScalar& rhoa,
-	 const dimensionedScalar& da,
-	 const dimensionedScalar& rhob,
-	 const dimensionedScalar& nub,
-	 const volScalarField& magD,
-	 const dimensionedScalar& Dsmall
+    const dimensionedScalar& mus,
+    const dimensionedScalar& mu2,
+    const dimensionedScalar& I0,
+    const volScalarField& pa,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& magD,
+    const dimensionedScalar& Dsmall
 ) const
 {
-  // MuI viscous regime Friction model: : mu(Iv) = mus + (mu2-mus)/(I0/Iv+1) 
-  //          with Iv = rhob nub magD / pa
-  return mus + ( mu2 - mus ) * magD / ( I0 * pa / ( rhob * nub ) + magD + Dsmall ) ;
+    // MuI viscous regime Friction model: : mu(Iv) = mus + (mu2-mus)/(I0/Iv+1)
+    //          with Iv = rhob nub magD / pa
+    return mus + (mu2 - mus)*magD / (I0*pa/(rhob*nub) + magD + Dsmall);
 }
 // ************************************************************************* //

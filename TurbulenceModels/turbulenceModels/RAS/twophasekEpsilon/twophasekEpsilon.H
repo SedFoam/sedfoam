@@ -180,7 +180,10 @@ public:
         {
             return tmp<volScalarField>
             (
-                new volScalarField("DepsilonEff", this->nut_/alphaEps_ + this->nu())
+                new volScalarField
+                (
+                    "DepsilonEff", this->nut_/alphaEps_ + this->nu()
+                )
             );
         }
 
@@ -195,21 +198,9 @@ public:
         {
             return epsilon_;
         }
-
-/*          //- Return the fluid volume fraction
-        tmp<volScalarField> beta() const
+        virtual tmp<volScalarField> omega() const
         {
             return tmp<volScalarField>
-            (
-                new volScalarField("beta", 1.0 - alpha)
-            );
-        }
-*/
-            virtual tmp<volScalarField> omega() const
-        {
-	  //   return  epsilon_/(Cmu_*k_);
-	    // /*
-	  return tmp<volScalarField>
             (
                 new volScalarField
                 (
@@ -223,12 +214,10 @@ public:
                     epsilon_.boundaryField().types()
                 )
             );
-	 // */
         }
-
-          virtual tmp<volScalarField> tmf() const
+        virtual tmp<volScalarField> tmf() const
         {
-	  return Foam::exp(tmfexp_*omega());
+            return Foam::exp(tmfexp_*omega());
         }
 
         virtual tmp<volScalarField> ESD2() const

@@ -52,7 +52,7 @@ class nonePPressure
     public PPressureModel
 {
 
-public:
+    public:
 
     //- Runtime type information
     TypeName("none");
@@ -60,8 +60,8 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        nonePPressure(const dictionary& dict);
+    //- Construct from components
+    nonePPressure(const dictionary& dict);
 
 
     //- Destructor
@@ -69,19 +69,19 @@ public:
 
 
     // Member functions
-        tmp<volScalarField> pa
-        (
-	 const volScalarField& pf,
-	 const dimensionedScalar& Bphi,
-	 const dimensionedScalar& rhoa,
-	 const dimensionedScalar& da,
-	 const dimensionedScalar& rhob,
-	 const dimensionedScalar& nub,
-	 const volScalarField& magD,
-	 const volScalarField& alpha,
-	 const dimensionedScalar& alphaMax,
-	 const dimensionedScalar& Alphasmall
-	 ) const; 
+    tmp<volScalarField> pa
+    (
+        const volScalarField& pf,
+        const dimensionedScalar& Bphi,
+        const dimensionedScalar& rhoa,
+        const dimensionedScalar& da,
+        const dimensionedScalar& rhob,
+        const dimensionedScalar& nub,
+        const volScalarField& magD,
+        const volScalarField& alpha,
+        const dimensionedScalar& alphaMax,
+        const dimensionedScalar& Alphasmall
+    ) const;
 };
 
 

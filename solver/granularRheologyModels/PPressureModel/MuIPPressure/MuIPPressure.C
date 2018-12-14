@@ -55,22 +55,23 @@ Foam::granularRheologyModels::MuIPPressure::~MuIPPressure()
 
 Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIPPressure::pa
 (
-         const volScalarField& pf,
-	 const dimensionedScalar& Bphi,
-	 const dimensionedScalar& rhoa,
-	 const dimensionedScalar& da,
-	 const dimensionedScalar& rhob,
-	 const dimensionedScalar& nub,
-	 const volScalarField& magD,
-	 const volScalarField& alpha,
-	 const dimensionedScalar& alphaMax,
-	 const dimensionedScalar& Alphasmall
+    const volScalarField& pf,
+    const dimensionedScalar& Bphi,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& magD,
+    const volScalarField& alpha,
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& Alphasmall
 ) const
 {
-  //
-  // MuI inertial regime: pa = (b alpha / (alphaMax - alpha))^2 rhoa da^2 magD^2
-  return pow(Bphi*alpha/max(alphaMax - alpha, scalar(1e-3)),2)*rhoa*pow(da,2)*pow(magD,2);
-
+    //
+    // MuI inertial regime:
+    // pa = (b alpha / (alphaMax - alpha))^2 rhoa da^2 magD^2
+    return pow(Bphi*alpha/max(alphaMax - alpha, scalar(1e-3)), 2)
+          *rhoa*pow(da, 2)*pow(magD, 2);
 }
 
 // ************************************************************************* //

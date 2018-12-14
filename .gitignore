@@ -1,7 +1,12 @@
+*~
+*linux64Gcc*
+*.dep
+*lnInclude
+callgrind*
+*.pyc
+*.swp
 *.dep
 *.o
-lnInclude
-linux64GccDPOpt
 linux*
 .gz
 0
@@ -16,4 +21,3 @@ linux*
 *new
 *bak
 process*
-*.*~

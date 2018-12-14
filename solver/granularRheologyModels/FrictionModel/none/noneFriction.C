@@ -55,19 +55,19 @@ Foam::granularRheologyModels::noneFriction::~noneFriction()
 
 Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::noneFriction::muI
 (
-	 const dimensionedScalar& mus,
-	 const dimensionedScalar& mu2,
-	 const dimensionedScalar& I0,
-	 const volScalarField& pa,
-	 const dimensionedScalar& rhoa,
-	 const dimensionedScalar& da,
-	 const dimensionedScalar& rhob,
-	 const dimensionedScalar& nub,
-	 const volScalarField& magD,
-	 const dimensionedScalar& Dsmall
+    const dimensionedScalar& mus,
+    const dimensionedScalar& mu2,
+    const dimensionedScalar& I0,
+    const volScalarField& pa,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& magD,
+    const dimensionedScalar& Dsmall
 ) const
 {
-     return scalar(0.0)*magD/(magD+Dsmall);
+    return scalar(0.0)*magD/(magD+Dsmall);
 }
 
 

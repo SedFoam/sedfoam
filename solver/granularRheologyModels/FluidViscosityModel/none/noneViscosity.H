@@ -47,38 +47,37 @@ namespace granularRheologyModels
                            Class noneViscosity Declaration
 \*---------------------------------------------------------------------------*/
 
-class noneViscosity
-:
+class noneViscosity:
     public FluidViscosityModel
-{
+    {
 
-public:
+        public:
 
-    //- Runtime type information
-    TypeName("none");
+        //- Runtime type information
+        TypeName("none");
 
 
-    // Constructors
+        // Constructors
 
         //- Construct from components
         noneViscosity(const dictionary& dict);
 
 
-    //- Destructor
-    virtual ~noneViscosity();
+        //- Destructor
+        virtual ~noneViscosity();
 
 
-    // Member functions
+        // Member functions
 
         tmp<volScalarField> nuvb
-	(
-	 const volScalarField& alpha,
-	 const dimensionedScalar& nub,
-	 const dimensionedScalar& alphaMax,
-	 const dimensionedScalar& Alphasmall,
-	 const dimensionedScalar& n
+        (
+            const volScalarField& alpha,
+            const dimensionedScalar& nub,
+            const dimensionedScalar& alphaMax,
+            const dimensionedScalar& Alphasmall,
+            const dimensionedScalar& n
         ) const;
-};
+    };
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

@@ -32,7 +32,8 @@ Description
 /**
  * \file sedFoam.C
  * \brief 2 phases Solver
- * \author Julien Chauchat, Cyrille Bonamy, Tim Nagel, Zhen Cheng and Tian-Jian Hsu.
+ * \author Julien Chauchat, Cyrille Bonamy, Tim Nagel,
+           Zhen Cheng and Tian-Jian Hsu.
  * \version 3.0
  * \date July 12, 2018
  *
@@ -52,7 +53,7 @@ Description
 #include "PhaseIncompressibleTurbulenceModel.H"
 
 #include "symmetryFvPatchFields.H"
-#include "fixedFluxPressureFvPatchScalarField.H" 
+#include "fixedFluxPressureFvPatchScalarField.H"
 
 #include "dragModel.H"
 #include "phaseModel.H"
@@ -82,7 +83,7 @@ int main(int argc, char *argv[])
     #include "createFields.H"
     #include "createRASTurbulence.H"
     #include "createFvOptions.H"
-    
+
     #include "readPPProperties.H"
     #include "initContinuityErrs.H"
     #include "createTimeControls.H"
@@ -107,12 +108,13 @@ int main(int argc, char *argv[])
        }
        else
        {
-           Info<< "Turbulence suspension coefficient SUS can't be negative" << endl;
+           Info<< "Turbulence suspension coefficient SUS can't be negative"
+               << endl;
        }
     }
 
     Info<< "\nStarting time loop\n" << endl;
-    
+
     while (runTime.run())
     {
         #include "readTwoPhaseEulerFoamControls.H"
@@ -127,61 +129,66 @@ int main(int argc, char *argv[])
         while (pimple.loop())
         {
             #include "alphaEqn.H"
-	  
+
             #include "liftDragCoeffs.H"
-	    
+
 //          Compute the Kinetic Theory parameters: nuEffa and lambdaUa from the
 //          solution of the Granular temperature equation
             #include "callKineticTheory.H"
-	    
 //          Compute the contact pressure pff and the Frictional stress nuFra
-//          from a Coulomb model if using the kinetic theory 
-//          and from the mu(I) rheology if using the granular rheology 
+//          from a Coulomb model if using the kinetic theory
+//          and from the mu(I) rheology if using the granular rheology
             #include "callFrictionStress.H"
-	    
+
 //          Create the momentum balance equations for both phases a and b
             #include "UEqns.H"
 
 //          Pressure corrector loop
-	    while (pimple.correct())
-	    {
+            while (pimple.correct())
+            {
                 #include "pEqn.H"
-
                 #if OFVERSION >= 600
-                    if (!pimple.finalPISOIter())
+                    if (not pimple.finalPISOIter())
+                    {
+                        if (correctAlpha)
+                        {
+                            #include "alphaEqn.H"
+                        }
+                        #include "liftDragCoeffs.H"
+                        #include "callKineticTheory.H"
+                        #include "callFrictionStress.H"
+                    }
                 #else
                     if (pimple.corrPISO() < pimple.nCorrPISO())
-                #endif
-                {
-                    if (correctAlpha)
                     {
-                        #include "alphaEqn.H"
+                        if (correctAlpha)
+                        {
+                            #include "alphaEqn.H"
+                        }
+                        #include "liftDragCoeffs.H"
+                        #include "callKineticTheory.H"
+                        #include "callFrictionStress.H"
                     }
-                    #include "liftDragCoeffs.H"
-                    #include "callKineticTheory.H"
-                    #include "callFrictionStress.H"
+                #endif
+                if (pimple.turbCorr())
+                {
+                    #include "updateTwoPhaseRASTurbulence.H"
+                    turbulenceb->correct();
+                    if (debugInfo)
+                    {
+                        Info << " max(nutb) = "
+                             << max(turbulenceb->nut()).value() << endl;
+                    }
                 }
-	    if (pimple.turbCorr())
-            {
-                #include "updateTwoPhaseRASTurbulence.H"
-                turbulenceb->correct();
-
-		if (debugInfo)
-		{
-		    Info<< " max(nutb) = " << max(turbulenceb->nut()).value() << endl;
-		}
             }
-
-            }
-	    
             #include "DDtU.H"
         }
         if (debugInfo)
-	{
-            Info<< "min(Ua) = " << min(Ua).value()
-                << "max(Ua) = " << max(Ua).value() << endl;
-            Info<< "min(Ub) = " << min(Ub).value()
-                << "max(Ub) = " << max(Ub).value() << nl << endl;
+        {
+            Info<< "min(Ua) = " << gMin(Ua)
+                << "max(Ua) = " << gMax(Ua) << endl;
+            Info<< "min(Ub) = " << gMin(Ub)
+                << "max(Ub) = " << gMax(Ub) << nl << endl;
         }
         #include "OutputGradPOSC.H"
         #include "writeTau.H"
@@ -195,6 +202,4 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
-
 // ************************************************************************* //

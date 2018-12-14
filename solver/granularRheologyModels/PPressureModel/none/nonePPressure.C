@@ -39,7 +39,10 @@ namespace granularRheologyModels
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::granularRheologyModels::nonePPressure::nonePPressure(const dictionary& dict)
+Foam::granularRheologyModels::nonePPressure::nonePPressure
+(
+    const dictionary& dict
+)
 :
     PPressureModel(dict)
 {}
@@ -55,20 +58,20 @@ Foam::granularRheologyModels::nonePPressure::~nonePPressure()
 
 Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::nonePPressure::pa
 (
-         const volScalarField& pf,
-	 const dimensionedScalar& Bphi,
-	 const dimensionedScalar& rhoa,
-	 const dimensionedScalar& da,
-	 const dimensionedScalar& rhob,
-	 const dimensionedScalar& nub,
-	 const volScalarField& magD,
-	 const volScalarField& alpha,
-	 const dimensionedScalar& alphaMax,
-	 const dimensionedScalar& Alphasmall
+    const volScalarField& pf,
+    const dimensionedScalar& Bphi,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& magD,
+    const volScalarField& alpha,
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& Alphasmall
 ) const
 {
-  // No shear induced pressure 
-     return scalar(0.0)*pf;
+    // No shear induced pressure
+    return scalar(0.0)*pf;
 }
 
 

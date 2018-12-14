@@ -39,8 +39,10 @@ namespace granularRheologyModels
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::granularRheologyModels::noneViscosity::noneViscosity(const dictionary& dict)
-:
+Foam::granularRheologyModels::noneViscosity::noneViscosity
+(
+    const dictionary& dict
+):
     FluidViscosityModel(dict)
 {}
 
@@ -52,17 +54,17 @@ Foam::granularRheologyModels::noneViscosity::~noneViscosity()
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
-
-Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::noneViscosity::nuvb
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::
+                                      noneViscosity::nuvb
 (
-	 const volScalarField& alpha,
-	 const dimensionedScalar& nub,
-	 const dimensionedScalar& alphaMax,
-	 const dimensionedScalar& Alphasmall,
-	 const dimensionedScalar& n
+    const volScalarField& alpha,
+    const dimensionedScalar& nub,
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& Alphasmall,
+    const dimensionedScalar& n
 ) const
 {
-  return nub/(1-alpha);
+    return nub/(1-alpha);
 }
 
 

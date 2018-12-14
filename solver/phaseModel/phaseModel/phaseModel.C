@@ -48,9 +48,9 @@ Foam::phaseModel::phaseModel
     sF_
     (
         dict_.lookupOrDefault
-	(
-	    "sF",
-	    dimensionedScalar("sF",dimensionSet(0,0,0,0,0,0,0), 1) 
+        (
+            "sF",
+            dimensionedScalar("sF", dimensionSet(0, 0, 0, 0, 0, 0, 0), 1)
         )
     ),
     hExp_
@@ -58,7 +58,7 @@ Foam::phaseModel::phaseModel
         dict_.lookupOrDefault
         (
             "hExp",
-            dimensionedScalar("hExp",dimensionSet(0,0,0,0,0,0,0), 2.65)
+            dimensionedScalar("hExp", dimensionSet(0, 0, 0, 0, 0, 0, 0), 2.65)
         )
     ),
     nu_

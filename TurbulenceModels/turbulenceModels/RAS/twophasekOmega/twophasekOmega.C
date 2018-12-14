@@ -40,7 +40,7 @@ template<class BasicTurbulenceModel>
 void twophasekOmega<BasicTurbulenceModel>::correctNut()
 {
     this->nut_ = k_/omega_;
-    
+
     this->nut_.min(nutMax_);
     this->nut_.correctBoundaryConditions();
     fv::options::New(this->mesh_).correct(this->nut_);
@@ -112,10 +112,14 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     KE4_
     (
         twophaseRASProperties_.lookup("KE4")
-    ),    
+    ),
     omegaBC_
     (
-        twophaseRASProperties_.lookupOrDefault("omegaBC",dimensionedScalar("omegaBC",dimensionSet(0,0,-1,0,0,0,0), 0 ))
+        twophaseRASProperties_.lookupOrDefault
+        (
+            "omegaBC",
+            dimensionedScalar("omegaBC", dimensionSet(0, 0, -1, 0, 0, 0, 0), 0)
+        )
     ),
     B_
     (
@@ -236,7 +240,7 @@ bool twophasekOmega<BasicTurbulenceModel>::read()
 template<class BasicTurbulenceModel>
 void twophasekOmega<BasicTurbulenceModel>::correct()
 {
-    if (!this->turbulence_)
+    if (not this->turbulence_)
     {
         return;
     }
@@ -261,7 +265,7 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
         nut*2*magSqr(symm(GradU))
 //        nut*(GradU && dev(twoSymm(GradU)))
     );
-    
+
     // Update omega and G at the wall
     omega_.boundaryFieldRef().updateCoeffs();
 /*
@@ -281,11 +285,11 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
     (
         fvm::ddt(omega_)
       + fvm::div(phi, omega_)
-      - fvm::Sp(fvc::div(phi),omega_)
+      - fvm::Sp(fvc::div(phi), omega_)
       - fvm::laplacian(DomegaEff(), omega_, "laplacian(DomegaEff,omega)")
       ==
-      - fvm::SuSp (-alphaOmega_*G/max(k_,kSmall_), omega_)
-      - fvm::Sp(ESD_,omega_)
+      - fvm::SuSp (-alphaOmega_*G/max(k_, kSmall_), omega_)
+      - fvm::Sp(ESD_, omega_)
       - fvm::Sp(betaOmega_*omega_, omega_)
       + ESD2()*fvm::Sp(C3om_*KE2_, omega_)
       + fvm::Sp((C4om_*KE4_*ESD5_*nut/k_), omega_)

@@ -177,14 +177,14 @@ void Foam::granularRheologyModel::solve
     const dimensionedScalar& dt
 )
 {
-    if (!granularRheology_)
+    if (not granularRheology_)
     {
         return;
     }
     dimensionedScalar Dsmall2
     (
         "Dsmall2",
-        dimensionSet(0 , 0 ,-2 ,0 , 0, 0, 0),
+        dimensionSet(0, 0, -2, 0, 0, 0, 0),
         1e-8
     );
     Dsmall2 = sqr(Dsmall_);
@@ -193,14 +193,14 @@ void Foam::granularRheologyModel::solve
     //
     //volSymmTensorField D = dev(symm(gradUat));
     volSymmTensorField D = symm(gradUat);
-   
+
     volScalarField magD = ::sqrt(2.0)*mag(D);
-    volScalarField magD2 = pow(magD,2);
+    volScalarField magD2 = pow(magD, 2);
 
     volScalarField patot_ = pf*scalar(0.0);
 
     //
-    //      Shear induced particulate pressure 
+    // Shear induced particulate pressure
     //
     pa_ = PPressureModel_->pa
     (
@@ -211,23 +211,27 @@ void Foam::granularRheologyModel::solve
     pa_ = paOld + relaxPa_*(pa_-paOld);
 
     // Add contact pressure to the shear induced contribution
-    patot_ = pa_ + pf;    
-    
+    patot_ = pa_ + pf;
+
     //  Compute the particulate friction coefficient
-    muI_ = FrictionModel_->muI(mus_, mu2_, I0_, patot_, rhoa_, da_, rhob_, nub_, magD, Dsmall_);
+    muI_ = FrictionModel_->muI(mus_, mu2_, I0_, patot_, rhoa_, da_, rhob_,
+                               nub_, magD, Dsmall_);
 
     //  Compute the regularized particulate viscosity
     mua_ = muI_* patot_ / pow(magD2 + Dsmall2, 0.5);
     //mua_ = muI_ * patot_ / (magD+Dsmall_);
-   
 // Compute mua_ on the bottom patch
     forAll(alpha_.boundaryField(), patchi)
     {
-        if (isA<zeroGradientFvPatchScalarField>(alpha_.boundaryField()[patchi]))
+        if
+        (
+            isA<zeroGradientFvPatchScalarField>(alpha_.boundaryField()[patchi])
+        )
         {
             mua_.boundaryFieldRef()[patchi] =
             (
-                muI_.boundaryFieldRef()[patchi]*patot_.boundaryFieldRef()[patchi]
+                muI_.boundaryFieldRef()[patchi]
+                *patot_.boundaryFieldRef()[patchi]
                 /pow(magD2.boundaryFieldRef()[patchi] + Dsmall2.value(), 0.5)
             );
         }
@@ -243,6 +247,7 @@ void Foam::granularRheologyModel::solve
     lambda_ = scalar(0.0)*mua_;
 
     // Compute the Effective fluid viscosity
-    nuvb_ = FluidViscosityModel_->nuvb(alpha_, nub_, alphaMaxG_, alphaSmall, n_);
+    nuvb_ = FluidViscosityModel_->nuvb(alpha_, nub_, alphaMaxG_, alphaSmall,
+                                       n_);
 }
 // ************************************************************************* //

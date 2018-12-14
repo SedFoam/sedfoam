@@ -47,12 +47,11 @@ namespace granularRheologyModels
                            Class MuIv Declaration
 \*---------------------------------------------------------------------------*/
 
-class MuIv
-:
-    public FrictionModel
+class MuIv:
+public FrictionModel
 {
 
-public:
+    public:
 
     //- Runtime type information
     TypeName("MuIv");
@@ -60,8 +59,8 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        MuIv(const dictionary& dict);
+    //- Construct from components
+    MuIv(const dictionary& dict);
 
 
     //- Destructor
@@ -70,19 +69,19 @@ public:
 
     // Member functions
 
-        tmp<volScalarField> muI
-        (
-	 const dimensionedScalar& mus,
-	 const dimensionedScalar& mu2,
-	 const dimensionedScalar& I0,
-	 const volScalarField& pa,
-	 const dimensionedScalar& rhoa,
-	 const dimensionedScalar& da,
-	 const dimensionedScalar& rhob,
-	 const dimensionedScalar& nub,
-	 const volScalarField& magD,
-	 const dimensionedScalar& Dsmall
-        ) const;
+    tmp<volScalarField> muI
+    (
+        const dimensionedScalar& mus,
+        const dimensionedScalar& mu2,
+        const dimensionedScalar& I0,
+        const volScalarField& pa,
+        const dimensionedScalar& rhoa,
+        const dimensionedScalar& da,
+        const dimensionedScalar& rhob,
+        const dimensionedScalar& nub,
+        const volScalarField& magD,
+        const dimensionedScalar& Dsmall
+    ) const;
 };
 
 

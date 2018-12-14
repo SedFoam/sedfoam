@@ -72,9 +72,8 @@ frictionalPressure
 ) const
 {
 
-    return
-        Fr*pow(max(alpha - alphaMinFriction, scalar(0)), eta)
-       /pow(max(alphaMax - alpha, scalar(1.0e-9)), p);
+    return Fr*pow(max(alpha - alphaMinFriction, scalar(0)), eta)
+          /pow(max(alphaMax - alpha, scalar(1.0e-9)), p);
 }
 
 

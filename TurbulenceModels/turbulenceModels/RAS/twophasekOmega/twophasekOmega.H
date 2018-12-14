@@ -110,7 +110,7 @@ protected:
             const volScalarField& ESD3_;
             const volScalarField& ESD4_;
             const volScalarField& ESD5_;
-            const volScalarField& ESD_;    
+            const volScalarField& ESD_;
             scalar alphaMax_;
 
         // Fields

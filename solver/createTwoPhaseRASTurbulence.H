@@ -1,3 +1,27 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     |
+    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
+     \\/     M anipulation  |
+-------------------------------------------------------------------------------
+License
+    This file is part of OpenFOAM.
+
+    OpenFOAM is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+    for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+
+\*---------------------------------------------------------------------------*/
 dimensionedScalar SUSread
 (
     twophaseRASProperties.lookup("SUS")
@@ -7,7 +31,7 @@ dimensionedScalar SUS_I
     twophaseRASProperties.lookupOrDefault
     (
         "SUS_I",
-        dimensionedScalar("SUS_I",dimensionSet(0,0,0,0,0,0,0), 1 )
+        dimensionedScalar("SUS_I", dimensionSet(0, 0, 0, 0, 0, 0, 0), 1)
     )
 );
 
@@ -16,7 +40,7 @@ dimensionedScalar SUS_A
     twophaseRASProperties.lookupOrDefault
     (
         "SUS_A",
-        dimensionedScalar("SUS_A",dimensionSet(0,0,0,0,0,0,0), 0 )
+        dimensionedScalar("SUS_A", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
     )
 );
 
@@ -44,18 +68,18 @@ dimensionedScalar Usmall
     transportProperties.lookupOrDefault
     (
         "Usmall",
-        dimensionedScalar("Usmall",dimensionSet(0, 1, -1, 0, 0, 0, 0), 1e-6)
+        dimensionedScalar("Usmall", dimensionSet(0, 1, -1, 0, 0, 0, 0), 1e-6)
     )
 );
 
 dimensionedScalar KE1
 (
     twophaseRASProperties.lookup("KE1")
-);  
+);
 dimensionedScalar Tpsmall
 (
     twophaseRASProperties.lookup("Tpsmall")
-);  
+);
 dimensionedScalar KE3
 (
     twophaseRASProperties.lookup("KE3")
@@ -78,7 +102,7 @@ volScalarField tmfexp
         IOobject::NO_READ,
         IOobject::NO_WRITE
     ),
-    -B*rhoa*6.0*Cmu/(max(beta*K,Tpsmall))
+    -B*rhoa*6.0*Cmu/(max(beta*K, Tpsmall))
 );
 
 volScalarField rtemp = (Ub-Ua) & g;
@@ -122,7 +146,7 @@ volScalarField ESD5
         IOobject::NO_READ,
         IOobject::NO_WRITE
     ),
-    max((-(SUS/beta)*(rhoa/rhob-1.0)*g & fvc::grad(alpha)),scalar(0.0)*ESD1)
+    max((-(SUS/beta)*(rhoa/rhob-1.0)*g & fvc::grad(alpha)), scalar(0.0)*ESD1)
     + KE1*ESD1
 );
 

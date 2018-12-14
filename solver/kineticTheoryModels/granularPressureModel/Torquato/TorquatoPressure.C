@@ -70,7 +70,8 @@ Foam::tmp<Foam::volScalarField> Foam::TorquatoPressure::granularPressureCoeff
 }
 
 
-Foam::tmp<Foam::volScalarField> Foam::TorquatoPressure::granularPressureCoeffPrime
+Foam::tmp<Foam::volScalarField> Foam::TorquatoPressure::
+                                      granularPressureCoeffPrime
 (
     const volScalarField& alpha,
     const volScalarField& g0,

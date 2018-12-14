@@ -54,7 +54,8 @@ Foam::SrivastavaSundaresanFrictionalStress::SrivastavaSundaresanFrictionalStress
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::SrivastavaSundaresanFrictionalStress::~SrivastavaSundaresanFrictionalStress()
+Foam::SrivastavaSundaresanFrictionalStress::
+     ~SrivastavaSundaresanFrictionalStress()
 {}
 
 
@@ -71,10 +72,8 @@ frictionalPressure
     const dimensionedScalar& p
 ) const
 {
-
-    return
-        Fr*pow(max(alpha - alphaMinFriction, scalar(0)), eta)
-       /pow(max(alphaMax - alpha, scalar(1.0e-20)), p);
+    return Fr*pow(max(alpha - alphaMinFriction, scalar(0)), eta)
+          /pow(max(alphaMax - alpha, scalar(1.0e-20)), p);
 }
 
 
@@ -111,21 +110,21 @@ Foam::tmp<Foam::volScalarField> Foam::SrivastavaSundaresanFrictionalStress::muf
 
     //Creating muf assuming it should be 0 on the boundary which may not be
     // true
-       volScalarField tmuf
-       (
-          IOobject
-          (
-             "muf",
-             alpha.mesh().time().timeName(),
-             alpha.mesh()
-          ),
-          alpha.mesh(),
-          dimensionedScalar("muf", dimensionSet(1, -1, -1, 0, 0), 1e00)
+    volScalarField tmuf
+    (
+        IOobject
+        (
+            "muf",
+            alpha.mesh().time().timeName(),
+            alpha.mesh()
+        ),
+        alpha.mesh(),
+        dimensionedScalar("muf", dimensionSet(1, -1, -1, 0, 0), 1e00)
     );
-    
+
     volScalarField& muff = tmuf;
-   
-      forAll(D, celli)
+
+    forAll(D, celli)
     {
         if (alpha[celli] >= alphaMinFriction.value())
         {
@@ -146,8 +145,7 @@ Foam::tmp<Foam::volScalarField> Foam::SrivastavaSundaresanFrictionalStress::muf
     }
 
     muff.correctBoundaryConditions();
-
     return tmuf;
 }
- 
+
 // ************************************************************************* //

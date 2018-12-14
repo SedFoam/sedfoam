@@ -72,7 +72,10 @@ Foam::tmp<Foam::volScalarField> Foam::GidaspowSchillerNaumann::K
     volScalarField bp(pow(beta, -phasea_.hExp()));
 
     //volScalarField Re(max(beta*Ur*phasea_.d()/phaseb_.nu(), scalar(1.0e-3)));
-    volScalarField Re(max(beta*Ur*phasea_.d()*phasea_.sF()/phaseb_.nu(), scalar(1.0e-9)));
+    volScalarField Re
+    (
+        max(beta*Ur*phasea_.d()*phasea_.sF()/phaseb_.nu(), scalar(1.0e-9))
+    );
 
     volScalarField Cds
     (

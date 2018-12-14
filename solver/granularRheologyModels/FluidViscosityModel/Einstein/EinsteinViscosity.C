@@ -30,39 +30,41 @@ License
 
 namespace Foam
 {
-namespace granularRheologyModels
-{
-    defineTypeNameAndDebug(EinsteinViscosity, 0);
-    addToRunTimeSelectionTable(FluidViscosityModel, EinsteinViscosity, dictionary);
-}
+    namespace granularRheologyModels
+    {
+        defineTypeNameAndDebug(EinsteinViscosity, 0);
+        addToRunTimeSelectionTable
+        (
+            FluidViscosityModel, EinsteinViscosity, dictionary
+        );
+    }
 }
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::granularRheologyModels::EinsteinViscosity::EinsteinViscosity(const dictionary& dict)
-:
+Foam::granularRheologyModels::EinsteinViscosity::EinsteinViscosity
+(
+    const dictionary& dict
+):
     FluidViscosityModel(dict)
 {}
-
-
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
 Foam::granularRheologyModels::EinsteinViscosity::~EinsteinViscosity()
 {}
-
-
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::EinsteinViscosity::nuvb
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::
+                                      EinsteinViscosity::nuvb
 (
-	 const volScalarField& alpha,
-	 const dimensionedScalar& nub,
-	 const dimensionedScalar& alphaMax,
-	 const dimensionedScalar& Alphasmall,
-	 const dimensionedScalar& n
+    const volScalarField& alpha,
+    const dimensionedScalar& nub,
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& Alphasmall,
+    const dimensionedScalar& n
 ) const
 {
-  return nub*(1.0 + 2.5 * alpha)/(1-alpha);
+    return nub*(1.0 + 2.5 * alpha)/(1-alpha);
 }
 
 

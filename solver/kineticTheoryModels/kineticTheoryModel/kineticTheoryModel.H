@@ -114,8 +114,8 @@ class kineticTheoryModel
         //- The granular energy/temperature
         volScalarField Theta_;
 
-//	//- The sqrt granular energy/temperature
-      //  volScalarField ThetaSqrt_;
+        // The sqrt granular energy/temperature
+        //  volScalarField ThetaSqrt_;
 
         //- The granular viscosity
         volScalarField mua_;
@@ -130,8 +130,8 @@ class kineticTheoryModel
 
         //- frictional stress
         volScalarField pf_;
-	
-	//- The granular pressure derivative
+
+    //- The granular pressure derivative
         volScalarField ppMagf_;
 
         //- The granular temperature conductivity
@@ -139,8 +139,8 @@ class kineticTheoryModel
 
         //- The radial distribution function
         volScalarField gs0_;
-	
-	//- The derivative of the radial distribution function
+
+    //- The derivative of the radial distribution function
         volScalarField gs0Prime_;
 
 
@@ -166,15 +166,29 @@ public:
         );
 
 
-    //- Destructor
-    virtual ~kineticTheoryModel();
+        //- Destructor
+        virtual ~kineticTheoryModel();
 
 
     // Member Functions
 
-        void solve(const surfaceScalarField& galpha, const volTensorField& gradUat, const volScalarField& kb,const volScalarField& epsilonb,const volScalarField& nuft,const dimensionedScalar& B,const dimensionedScalar& tt);
+        void solve
+        (
+            const surfaceScalarField& galpha,
+            const volTensorField& gradUat,
+            const volScalarField& kb,
+            const volScalarField& epsilonb,
+            const volScalarField& nuft,
+            const dimensionedScalar& B,
+            const dimensionedScalar& tt
+        );
 
-        void updateRheo(const volScalarField& kb, const volScalarField& epsilonb, const dimensionedScalar& B);
+        void updateRheo
+        (
+            const volScalarField& kb,
+            const volScalarField& epsilonb,
+            const dimensionedScalar& B
+        );
 
         bool on() const
         {
@@ -184,7 +198,7 @@ public:
         const volScalarField& Theta() const
         {
             return Theta_;
-        }        
+        }
 
         const volScalarField& mua() const
         {
@@ -200,7 +214,7 @@ public:
         {
             return pa_;
         }
- 
+
         const volScalarField& pf() const
         {
             return pf_;
@@ -209,7 +223,7 @@ public:
         const volScalarField& ppMagf() const
         {
             return ppMagf_;
-        }        
+        }
 
         const volScalarField& lambda() const
         {
@@ -221,11 +235,11 @@ public:
             return kappa_;
         }
 
-	const dimensionedScalar& phi() const
+        const dimensionedScalar& phi() const
         {
             return phi_;
         }
-	
+
 };
 
 

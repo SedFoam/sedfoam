@@ -60,8 +60,8 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        KriegerDoughertyViscosity(const dictionary& dict);
+    //- Construct from components
+    KriegerDoughertyViscosity(const dictionary& dict);
 
 
     //- Destructor
@@ -70,14 +70,14 @@ public:
 
     // Member functions
 
-        tmp<volScalarField> nuvb
-	(
-	 const volScalarField& alpha,
-	 const dimensionedScalar& nub,
-	 const dimensionedScalar& alphaMax,
-	 const dimensionedScalar& Alphasmall,
-	 const dimensionedScalar& n
-        ) const;
+    tmp<volScalarField> nuvb
+    (
+        const volScalarField& alpha,
+        const dimensionedScalar& nub,
+        const dimensionedScalar& alphaMax,
+        const dimensionedScalar& Alphasmall,
+        const dimensionedScalar& n
+    ) const;
 };
 
 

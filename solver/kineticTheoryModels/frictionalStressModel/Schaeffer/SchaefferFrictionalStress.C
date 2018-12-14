@@ -71,9 +71,8 @@ frictionalPressure
     const dimensionedScalar& p
 ) const
 {
-    return
-        dimensionedScalar("1e24", dimensionSet(1, -1, -2, 0, 0), 1e24)
-       *pow(Foam::max(alpha - alphaMinFriction, scalar(0)), 10.0);
+    return dimensionedScalar("1e24", dimensionSet(1, -1, -2, 0, 0), 1e24)
+          *pow(Foam::max(alpha - alphaMinFriction, scalar(0)), 10.0);
 }
 
 
@@ -88,9 +87,8 @@ frictionalPressurePrime
     const dimensionedScalar& p
 ) const
 {
-    return
-        dimensionedScalar("1e25", dimensionSet(1, -1, -2, 0, 0), 1e25)
-       *pow(Foam::max(alpha - alphaMinFriction, scalar(0)), 9.0);
+    return dimensionedScalar("1e25", dimensionSet(1, -1, -2, 0, 0), 1e25)
+          *pow(Foam::max(alpha - alphaMinFriction, scalar(0)), 9.0);
 }
 
 

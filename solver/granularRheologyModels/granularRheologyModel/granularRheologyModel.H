@@ -90,22 +90,22 @@ class granularRheologyModel
     //- Dynamic friction coefficient
     const dimensionedScalar mu2_;
 
-    //- Empirical rheology coefficient 
+    //- Empirical rheology coefficient
     const dimensionedScalar I0_;
 
-    //- Empirical Dilatancy coefficient 
+    //- Empirical Dilatancy coefficient
     const dimensionedScalar Bphi_;
-        
+
     //- Exponent of the Krieger-Dougherty viscosity
     const dimensionedScalar n_;
 
-    //- Regularisation parameter 
+    // Regularisation parameter
     const dimensionedScalar Dsmall_;
-  
+
     //- Relaxation factor for pa
     const dimensionedScalar relaxPa_;
 
-    //-bed elevation for hydrostatic pressure 
+    // bed elevation for hydrostatic pressure
     const dimensionedScalar zbed_;
 
     //- The friction coefficient

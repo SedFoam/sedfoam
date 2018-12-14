@@ -147,23 +147,22 @@ bool twophaseMixingLength<BasicTurbulenceModel>::read()
 template<class BasicTurbulenceModel>
 void twophaseMixingLength<BasicTurbulenceModel>::correct()
 {
-    if (!this->turbulence_)
+    if (not this->turbulence_)
     {
         return;
     }
 
 //
-//
-// Mixing Lenght turbulence model (only for 1D cases with Y the wall-normal direction)
-//
+// Mixing Lenght turbulence model
+// (only for 1D cases with Y the wall-normal direction)
 //
     dimensionedScalar LmSmall
-      (
-       "LmSmall",
-       dimensionSet(0, 1, 0, 0, 0, 0, 0),
-       scalar(1e-4)
-       );
-    
+    (
+        "LmSmall",
+        dimensionSet(0, 1, 0, 0, 0, 0, 0),
+        scalar(1e-4)
+    );
+
 // Local references
     const volScalarField& alpha = this->alpha_;
     const volVectorField& U = this->U_;
@@ -177,7 +176,7 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
 
     tmp<volTensorField> gradU = fvc::grad(U);
     volSymmTensorField D = symm(gradU);
-    volScalarField magD = ::sqrt(2.0)*mag(D);	
+    volScalarField magD = ::sqrt(2.0)*mag(D);
     gradU.clear();
 
     volVectorField centres = U.mesh().C();
@@ -198,28 +197,31 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
     nut.storePrevIter();
     //forAll(YCells, cellI)
     forAll(U, cellI)
-      {
+    {
         if (cellI==0)
-	    dY = Y[cellI+1]-Y[cellI]; 
+        {
+            dY = Y[cellI+1]-Y[cellI];
+        }
         else
-	    dY = Y[cellI]-Y[cellI-1];
-	LmPhi = LmPhi
-	  + kappaLMs*max(scalar(1.0) - Foam::pow(min(alpha[cellI]/alphaMaxLMs,scalar(1.0))
-						 ,expoLM), 0.)*dY;
-	Lm = LmPhi;
-	nut[cellI] = pow(Lm,2)*magD[cellI];
-	// for kinetic theory k is required
-	k_[cellI] = pow(nut[cellI]/(0.8*max(Lm,1e-4)),2);
-	epsilon_[cellI] = cmu34*Foam::pow(k_[cellI],1.5)/max(Lm,1e-4);
-
-      }
+        {
+            dY = Y[cellI]-Y[cellI-1];
+        }
+        LmPhi = LmPhi
+              + kappaLMs*max
+              (
+                  scalar(1.0)
+                - Foam::pow(min(alpha[cellI]/alphaMaxLMs, scalar(1.0)),
+                            expoLM), 0.
+              )*dY;
+        Lm = LmPhi;
+        nut[cellI] = pow(Lm, 2)*magD[cellI];
+        // for kinetic theory k is required
+        k_[cellI] = pow(nut[cellI]/(0.8*max(Lm, 1e-4)), 2);
+        epsilon_[cellI] = cmu34*Foam::pow(k_[cellI], 1.5)/max(Lm, 1e-4);
+    }
     nut.relax();
-
 }
-
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
 } // End namespace RASModels
 } // End namespace Foam
 

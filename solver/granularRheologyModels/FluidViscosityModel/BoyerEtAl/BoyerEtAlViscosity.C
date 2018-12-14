@@ -60,7 +60,8 @@ Foam::granularRheologyModels::BoyerEtAlViscosity::~BoyerEtAlViscosity()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::BoyerEtAlViscosity::nuvb
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::
+                                      BoyerEtAlViscosity::nuvb
 (
     const volScalarField& alpha,
     const dimensionedScalar& nub,
@@ -69,11 +70,11 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::BoyerEtAlViscosity
     const dimensionedScalar& n
 ) const
 {
-    return
-    (
-        nub*(1.0 +2.5 * alpha *pow(1.0 - min(alpha/alphaMax, scalar(0.99)),-1))
-       /(1.0-alpha)
-    );
+    return nub*(1.0 + 2.5*alpha*pow
+                                (
+                                    1.0 - min(alpha/alphaMax, scalar(0.99)),
+                                    -1
+                                ))/(1.0-alpha);
 }
 
 

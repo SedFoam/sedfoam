@@ -39,7 +39,10 @@ namespace granularRheologyModels
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::granularRheologyModels::MuIvPPressure::MuIvPPressure(const dictionary& dict)
+Foam::granularRheologyModels::MuIvPPressure::MuIvPPressure
+(
+    const dictionary& dict
+)
 :
     PPressureModel(dict)
 {}
@@ -55,20 +58,20 @@ Foam::granularRheologyModels::MuIvPPressure::~MuIvPPressure()
 
 Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIvPPressure::pa
 (
-         const volScalarField& pf,
-	 const dimensionedScalar& Bphi,
-	 const dimensionedScalar& rhoa,
-	 const dimensionedScalar& da,
-	 const dimensionedScalar& rhob,
-	 const dimensionedScalar& nub,
-	 const volScalarField& magD,
-	 const volScalarField& alpha,
-	 const dimensionedScalar& alphaMax,
-	 const dimensionedScalar& Alphasmall
+    const volScalarField& pf,
+    const dimensionedScalar& Bphi,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& magD,
+    const volScalarField& alpha,
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& Alphasmall
 ) const
 {
-// MuI viscous regime: pa = (b alpha / (alphaMax - alpha))^2 nub rhob magD
-  return pow(Bphi*alpha / max(alphaMax - alpha, scalar(1e-3)),2)*nub*rhob*magD;
+    // MuI viscous regime: pa = (b alpha / (alphaMax - alpha))^2 nub rhob magD
+    return pow(Bphi*alpha / max(alphaMax-alpha, scalar(1e-3)), 2)*nub*rhob*magD;
 }
 
 

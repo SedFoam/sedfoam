@@ -39,8 +39,7 @@ namespace RASModels
 template<class BasicTurbulenceModel>
 void twophasekEpsilon<BasicTurbulenceModel>::correctNut()
 {
-   this->nut_ = Cmu_*sqr(k_)/epsilon_;
-    
+    this->nut_ = Cmu_*sqr(k_)/epsilon_;
     this->nut_.min(nutMax_);
     this->nut_.correctBoundaryConditions();
     fv::options::New(this->mesh_).correct(this->nut_);
@@ -101,7 +100,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     KE4_
     (
         twophaseRASProperties_.lookup("KE4")
-    ),    
+    ),
     B_
     (
         twophaseRASProperties_.lookup("B")
@@ -156,16 +155,15 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
         (
             "alphaEps",
             this->coeffDict_,
-	    1.3
+            1.3
         )
     ),
-//    alpha_(U.db().lookupObject<volScalarField> ("alpha")),
     tmfexp_(U.db().lookupObject<volScalarField> ("tmfexp")),
     ESD3_(U.db().lookupObject<volScalarField> ("ESD3")),
     ESD4_(U.db().lookupObject<volScalarField> ("ESD4")),
     ESD5_(U.db().lookupObject<volScalarField> ("ESD5")),
     ESD_(U.db().lookupObject<volScalarField> ("ESD")),
-    
+
     k_
     (
         IOobject
@@ -211,10 +209,8 @@ bool twophasekEpsilon<BasicTurbulenceModel>::read()
         Cmu_.readIfPresent(this->coeffDict_);
         C1_.readIfPresent(this->coeffDict_);
         C2_.readIfPresent(this->coeffDict_);
-	// sigmaEps_.readIfPresent(coeffDict());
-	alphak_.readIfPresent(this->coeffDict_);
+        alphak_.readIfPresent(this->coeffDict_);
         alphaEps_.readIfPresent(this->coeffDict_);
-
         return true;
     }
     else
@@ -227,7 +223,7 @@ bool twophasekEpsilon<BasicTurbulenceModel>::read()
 template<class BasicTurbulenceModel>
 void twophasekEpsilon<BasicTurbulenceModel>::correct()
 {
-    if (!this->turbulence_)
+    if (not this->turbulence_)
     {
         return;
     }
@@ -252,7 +248,7 @@ void twophasekEpsilon<BasicTurbulenceModel>::correct()
         this->GName(),
         nut*(GradU && dev(twoSymm(GradU)))
     );
-    
+
     // Update omega and G at the wall
     epsilon_.boundaryFieldRef().updateCoeffs();
 
@@ -261,14 +257,14 @@ void twophasekEpsilon<BasicTurbulenceModel>::correct()
     (
         fvm::ddt(epsilon_)
       + fvm::div(phi, epsilon_)
-      - fvm::Sp(fvc::div(phi),epsilon_)
+      - fvm::Sp(fvc::div(phi), epsilon_)
       - fvm::laplacian(DepsilonEff(), epsilon_)
      ==
       - fvm::SuSp(-C1_*G/k_, epsilon_)
       + fvm::Sp(-C2_*epsilon_/k_, epsilon_)
-      + fvm::Sp(C3ep_*ESD_,epsilon_)
-      + ESD2()*fvm::Sp(C3ep_*KE2_,epsilon_)
-      + fvm::Sp(C4ep_*KE4_*ESD5_*nut/k_,epsilon_)
+      + fvm::Sp(C3ep_*ESD_, epsilon_)
+      + ESD2()*fvm::Sp(C3ep_*KE2_, epsilon_)
+      + fvm::Sp(C4ep_*KE4_*ESD5_*nut/k_, epsilon_)
       //+ fvm::Sp((C4ep_*KE4_*ESD5_*nut_/max(k_,kSmall_)),epsilon_)
     );
 

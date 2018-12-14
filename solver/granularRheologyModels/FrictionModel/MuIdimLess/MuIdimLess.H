@@ -25,7 +25,7 @@ Class
     Foam::MuIdimLess
 
 Description
-    MuI rheology in dimensionless form. Lengths are made dimensionless by d the 
+    MuI rheology in dimensionless form. Lengths are made dimensionless by d the
     particle diameter and velocity by sqrt(g d).
 
 SourceFiles

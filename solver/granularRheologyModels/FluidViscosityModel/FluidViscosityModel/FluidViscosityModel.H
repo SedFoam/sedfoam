@@ -43,83 +43,70 @@ SourceFiles
 
 namespace Foam
 {
-namespace granularRheologyModels
-{
+    namespace granularRheologyModels
+    {
 
 /*---------------------------------------------------------------------------*\
                            Class FluidViscosityModel Declaration
 \*---------------------------------------------------------------------------*/
+        class FluidViscosityModel
+        {
+            // Private member functions
+            //- Disallow default bitwise copy construct
+            FluidViscosityModel(const FluidViscosityModel&);
+            //- Disallow default bitwise assignment
+            void operator=(const FluidViscosityModel&);
 
-class FluidViscosityModel
-{
-    // Private member functions
+            protected:
+            // Protected data
+            const dictionary& dict_;
 
-        //- Disallow default bitwise copy construct
-        FluidViscosityModel(const FluidViscosityModel&);
+            public:
+            //- Runtime type information
+            TypeName("FluidViscosityModel");
 
-        //- Disallow default bitwise assignment
-        void operator=(const FluidViscosityModel&);
+            // Declare runtime constructor selection table
+            declareRunTimeSelectionTable
+            (
+                autoPtr,
+                FluidViscosityModel,
+                dictionary,
+                (
+                    const dictionary& dict
+                ),
+                (dict)
+            );
 
+            // Constructors
 
-protected:
+            //- Construct from components
+            FluidViscosityModel(const dictionary& dict);
 
-    // Protected data
-
-        const dictionary& dict_;
-
-
-public:
-
-    //- Runtime type information
-    TypeName("FluidViscosityModel");
-
-    // Declare runtime constructor selection table
-    declareRunTimeSelectionTable
-    (
-        autoPtr,
-        FluidViscosityModel,
-        dictionary,
-        (
-            const dictionary& dict
-        ),
-        (dict)
-    );
-
-
-    // Constructors
-
-        //- Construct from components
-        FluidViscosityModel(const dictionary& dict);
+            // Selectors
+            static autoPtr<FluidViscosityModel> New
+            (
+                const dictionary& dict
+            );
 
 
-    // Selectors
-
-        static autoPtr<FluidViscosityModel> New
-        (
-            const dictionary& dict
-        );
+            //- Destructor
+            virtual ~FluidViscosityModel();
 
 
-    //- Destructor
-    virtual ~FluidViscosityModel();
+            // Member Functions
 
-
-    // Member Functions
-
-        virtual tmp<volScalarField> nuvb
-        (
-	 const volScalarField& alpha,
-	 const dimensionedScalar& nub,
-	 const dimensionedScalar& alphaMax,
-	 const dimensionedScalar& Alphasmall,
-	 const dimensionedScalar& n
-        )const = 0;
-};
-
+            virtual tmp<volScalarField> nuvb
+            (
+                const volScalarField& alpha,
+                const dimensionedScalar& nub,
+                const dimensionedScalar& alphaMax,
+                const dimensionedScalar& Alphasmall,
+                const dimensionedScalar& n
+            )const = 0;
+        };
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-} // End namespace granularRheologyModels
+    } // End namespace granularRheologyModels
 } // End namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

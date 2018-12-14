@@ -73,9 +73,8 @@ Foam::tmp<Foam::volScalarField> Foam::GidaspowRadial::g0prime
     const dimensionedScalar& alphaMax
 ) const
 {
-    return
-        (1.0/5.0)*pow(max(alpha,1e-9)/alphaMax, -2.0/3.0)
-       /(alphaMax*sqr(1.0 - pow(alpha/alphaMax, 1.0/3.0)));
+    return (1.0/5.0)*pow(max(alpha, 1e-9)/alphaMax, -2.0/3.0)
+          /(alphaMax*sqr(1.0 - pow(alpha/alphaMax, 1.0/3.0)));
 }
 
 

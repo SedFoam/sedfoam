@@ -1,7 +1,31 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     |
+    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
+     \\/     M anipulation  |
+-------------------------------------------------------------------------------
+License
+    This file is part of OpenFOAM.
+
+    OpenFOAM is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+    for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+
+\*---------------------------------------------------------------------------*/
 scalar pi = constant::mathematical::pi;
 
 // following is general form of mean flow + sine wave and 2nd order stokes waves
-// Add oscilitary pressure gradient 
+// Add oscilitary pressure gradient
 gradPOSC =
 (
     gradPMEAN
@@ -16,25 +40,26 @@ rho = alpha*rhoa+beta*rhob;
 //added tensor (comment if not added)
 dimensionedTensor iso
 (
-	"iso",
-	dimensionSet(0, 0, 0, 0, 0, 0, 0),
-	tensor(1e0, 0e0 , 0e0, 0e0, 1e0, 0e0, 0e0, 0e0 ,1e0)
-	//      XX, XY,   XZ,   YX, YY,  YZ,  ZX,  ZY,  ZZ
+  "iso",
+  dimensionSet(0, 0, 0, 0, 0, 0, 0),
+  tensor(1e0, 0e0 , 0e0, 0e0, 1e0, 0e0, 0e0, 0e0 ,1e0)
+  //      XX, XY,   XZ,   YX, YY,  YZ,  ZX,  ZY,  ZZ
 );
 
 dimensionedTensor aniso
 (
-	"aniso",
-	dimensionSet(0, 0, 0, 0, 0, 0, 0),
-	tensor(0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0 ,0.0)
-	//      XX, XY,  XZ,  YX,  YY,  YZ,  ZX,  ZY,  ZZ
+  "aniso",
+  dimensionSet(0, 0, 0, 0, 0, 0, 0),
+  tensor(0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0 ,0.0)
+  //      XX, XY,  XZ,  YX,  YY,  YZ,  ZX,  ZY,  ZZ
 );
 
 volVectorField susa
 (
     "susa",
     //turbulence suspension
-    SUS*(K/rhoa)*beta/(alpha+alphaSmall)*turbulenceb->nut()*((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha))
+    SUS*(K/rhoa)*beta/(alpha+alphaSmall)*turbulenceb->nut()
+    *((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha))
 );
 volVectorField susb
 (
@@ -67,15 +92,14 @@ fvVectorMatrix UaEqn
   + fvm::div(phiRa, Ua, "div(phiRa,Ua)")
   - fvm::Sp(fvc::div(phiRa), Ua)
     ==
-//    fvm::Sp(-beta/rhoa*K,Ua)                  // implicit drag term
-//+ beta/rhoa*K*Ub                        // explicit drag transfered to p-equation
-    // Hugo  -susa                                 // term to add with tensor
-//- gradPs                                // shear induced pressure gradient moved to p-equation
-  - gradPf                                // contact pressure gradient moved to p-equation
+//    fvm::Sp(-beta/rhoa*K,Ua)        // implicit drag term
+//+ beta/rhoa*K*Ub                    // explicit drag transfered to p-equation
+    // Hugo  -susa                    // term to add with tensor
+//- gradPs              // shear induced pressure gradient moved to p-equation
+  - gradPf                  // contact pressure gradient moved to p-equation
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
-    //    + fvOptions(Ua)
+  //    + fvOptions(Ua)
 );
-          
 UaEqn.relax();
 UaEqn += fvm::Sp(beta/rhoa*K, Ua);
 //fvOptions.constrain(UaEqn());
@@ -100,7 +124,7 @@ fvVectorMatrix UbEqn
     ==
 //    fvm::Sp(-alpha/rhob*K,Ub)                 // implicit drag term
     // Hugo   susb                                 //term to add with tensor
-//+ alpha/rhob*K*Ua                       // Explicit drag transfered to p-equation
+//+ alpha/rhob*K*Ua                 // Explicit drag transfered to p-equation
     alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift and added mass forces
 //  + fvOptions(Ub)
 );
@@ -113,8 +137,8 @@ UbEqn += fvm::Sp(alpha/rhob*K, Ub);
     {
     word schemeA("div(alpha,nu)");
 
-    // limiter for the explicit stress terms to avoid numerical instability and/or
-    // too strong limitation on the time step
+// limiter for the explicit stress terms to avoid numerical instability and/or
+// too strong limitation on the time step
     volScalarField nuFraExp = nuFra;
     nuFraExp.min(nub*1e3);
     nuFraExp.correctBoundaryConditions();
@@ -134,7 +158,7 @@ UbEqn += fvm::Sp(alpha/rhob*K, Ub);
             UbEqn()
          ==
             alpha/rhob*K*Ua
-          - fvc::grad(p_rbgh)/rhob 
+          - fvc::grad(p_rbgh)/rhob
           + (SUS*(K/rhob)*turbulenceb->nut())*fvc::grad(alpha)
           - (scalar(2.0)/(beta*scalar(3.0)))
             *fvc::grad(((nuEffb*tr(gradUbT)))*beta)
@@ -152,6 +176,5 @@ UbEqn += fvm::Sp(alpha/rhob*K, Ub);
           (
           )
         );
-       
     }
 */

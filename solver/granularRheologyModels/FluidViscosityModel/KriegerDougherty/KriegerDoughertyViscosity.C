@@ -30,39 +30,44 @@ License
 
 namespace Foam
 {
-namespace granularRheologyModels
-{
-    defineTypeNameAndDebug(KriegerDoughertyViscosity, 0);
-    addToRunTimeSelectionTable(FluidViscosityModel, KriegerDoughertyViscosity, dictionary);
-}
+    namespace granularRheologyModels
+    {
+        defineTypeNameAndDebug(KriegerDoughertyViscosity, 0);
+        addToRunTimeSelectionTable
+        (
+            FluidViscosityModel, KriegerDoughertyViscosity, dictionary
+        );
+    }
 }
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::granularRheologyModels::KriegerDoughertyViscosity::KriegerDoughertyViscosity(const dictionary& dict)
-:
+Foam::granularRheologyModels::KriegerDoughertyViscosity::
+                              KriegerDoughertyViscosity(const dictionary& dict):
     FluidViscosityModel(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::granularRheologyModels::KriegerDoughertyViscosity::~KriegerDoughertyViscosity()
+Foam::granularRheologyModels::KriegerDoughertyViscosity::
+                             ~KriegerDoughertyViscosity()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::KriegerDoughertyViscosity::nuvb
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::
+                                      KriegerDoughertyViscosity::nuvb
 (
-	 const volScalarField& alpha,
-	 const dimensionedScalar& nub,
-	 const dimensionedScalar& alphaMax,
-	 const dimensionedScalar& Alphasmall,
-	 const dimensionedScalar& n
+    const volScalarField& alpha,
+    const dimensionedScalar& nub,
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& Alphasmall,
+    const dimensionedScalar& n
 ) const
 {
-  return nub*pow(1.0 - min(alpha/alphaMax,0.99),-n)/(1.0-alpha);
+    return nub*pow(1.0 - min(alpha/alphaMax, 0.99), -n)/(1.0-alpha);
 }
 
 // ************************************************************************* //

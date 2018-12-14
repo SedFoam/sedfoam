@@ -63,9 +63,7 @@ Foam::tmp<Foam::volScalarField> Foam::TorquatoRadial::g0
     const dimensionedScalar& alphaMax
 ) const
 {
-
-    return
-          0.85/(alphaMax - alpha);
+    return 0.85/(alphaMax - alpha);
 }
 
 
@@ -75,12 +73,11 @@ Foam::tmp<Foam::volScalarField> Foam::TorquatoRadial::g0prime
     const dimensionedScalar& alphaMax
 ) const
 {
-    return
-// need to be updated: actual version is CarnahanStarling
-        1.0/sqr(1.0 - alpha)
-        + (3.0*(1.0 - alpha) + 6.0*alpha)/(2.0*(1.0 - alpha))
-        + (2.0*alpha*(1.0 - alpha) + 3.0*pow(alpha, 2))
-         /(2.0*pow(1.0 - alpha, 4));
+    // need to be updated: actual version is CarnahanStarling
+    return 1.0/sqr(1.0 - alpha)
+         + (3.0*(1.0 - alpha) + 6.0*alpha)/(2.0*(1.0 - alpha))
+         + (2.0*alpha*(1.0 - alpha) + 3.0*pow(alpha, 2))
+          /(2.0*pow(1.0 - alpha, 4));
 }
 
 

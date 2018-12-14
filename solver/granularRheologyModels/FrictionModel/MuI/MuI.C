@@ -67,8 +67,8 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuI::muI
     const dimensionedScalar& Dsmall
 ) const
 {
-  // MuI inertial regime friction model: mu(I) = mus + (mu2-mus)/(I0/I+1) 
-  //          with I=da magD / sqrt(pa/rhoa)
+    // MuI inertial regime friction model: mu(I) = mus + (mu2-mus)/(I0/I+1)
+    //          with I=da magD / sqrt(pa/rhoa)
     return mus + (mu2 - mus)*magD/(I0*pow(pa/rhoa, 0.5)/da + magD + Dsmall);
 }
 

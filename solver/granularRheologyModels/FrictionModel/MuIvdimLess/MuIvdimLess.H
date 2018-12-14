@@ -25,7 +25,7 @@ Class
     Foam::MuIvdimLess
 
 Description
-    MuI rheology in dimensionless form. Lengths are made dimensionless by d the 
+    MuI rheology in dimensionless form. Lengths are made dimensionless by d the
     particle diameter and velocity by sqrt(g d).
 
 SourceFiles
@@ -62,8 +62,8 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        MuIvdimLess(const dictionary& dict);
+    //- Construct from components
+    MuIvdimLess(const dictionary& dict);
 
 
     //- Destructor
@@ -72,19 +72,19 @@ public:
 
     // Member functions
 
-        tmp<volScalarField> muI
-        (
-	 const dimensionedScalar& mus,
-	 const dimensionedScalar& mu2,
-	 const dimensionedScalar& I0,
-	 const volScalarField& pa,
-	 const dimensionedScalar& rhoa,
-	 const dimensionedScalar& da,
-	 const dimensionedScalar& rhob,
-	 const dimensionedScalar& nub,
-	 const volScalarField& magD,
-	 const dimensionedScalar& Dsmall
-        ) const;
+    tmp<volScalarField> muI
+    (
+        const dimensionedScalar& mus,
+        const dimensionedScalar& mu2,
+        const dimensionedScalar& I0,
+        const volScalarField& pa,
+        const dimensionedScalar& rhoa,
+        const dimensionedScalar& da,
+        const dimensionedScalar& rhob,
+        const dimensionedScalar& nub,
+        const volScalarField& magD,
+        const dimensionedScalar& Dsmall
+    ) const;
 };
 
 
