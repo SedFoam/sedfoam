@@ -24,8 +24,8 @@ License
 \*---------------------------------------------------------------------------*/
 #include "readGravitationalAcceleration.H"
 
-Info<< "\nStoring g as gEnd\n";
-uniformDimensionedVectorField gEnd (g); // gMax already in use in CourantNo.H
+Info<< "\nStoring g as gravity\n";
+uniformDimensionedVectorField gravity (g); // gMax already in use in CourantNo.H
 
 // in newer OF versions, this should be expanded to also read g itself
 IOdictionary gravitationalProperties
@@ -43,4 +43,4 @@ IOdictionary gravitationalProperties
 const scalar gRampTime(gravitationalProperties.lookupOrDefault("gRampTime",
                                                                 scalar(0)));
 
-Info << "rampTime for g set to " << gRampTime << "\n";
+Info << "rampTime for gravity set to " << gRampTime << "\n";

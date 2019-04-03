@@ -101,9 +101,9 @@ License
     // gravity
       + rUaAf
        *(
-           (1.0-rhob/rhoa)*(g & mesh.Sf())
+           (1.0-rhob/rhoa)*(gravity & mesh.Sf())
         )
-//      + rUaAf*(g & mesh.Sf())
+//      + rUaAf*(gravity & mesh.Sf())
     // mean pressure gradient
       + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
     );
@@ -124,8 +124,8 @@ License
        *fvc::interpolate(fvc::div(beta*nuEffb*gradUbT, schemeA)) & mesh.Sf())
 // Gravity force
 //      - rUbAf
-//           (g & mesh.Sf())
-//       +rUbAf*(g & mesh.Sf())
+//           (gravity & mesh.Sf())
+//       +rUbAf*(gravity & mesh.Sf())
 // driving force
       + rUbAf*((gradPOSC/rhob) & mesh.Sf())
     );

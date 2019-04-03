@@ -82,7 +82,7 @@ scalar iter=0;
 while ((err > eps)||(iter < 10))
 {
     iter = iter + 1;
-    UfallField = mag(g)*(rhoa-rhob)/draga->K(Ufalltmp);
+    UfallField = mag(gravity)*(rhoa-rhob)/draga->K(Ufalltmp);
     err = max(mag(UfallField - Ufalltmp));
     // under-relaxation for convergence stability
     Ufalltmp = 0.5*Ufalltmp+0.5*UfallField;

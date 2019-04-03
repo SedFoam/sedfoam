@@ -178,8 +178,8 @@ volVectorField DDtUb =
 
 
 Info<< "Calculating field g.h\n" << endl;
-volScalarField gh("gh", g & mesh.C());
-surfaceScalarField ghf("ghf", g & mesh.Cf());
+volScalarField gh("gh", gravity & mesh.C());
+surfaceScalarField ghf("ghf", gravity & mesh.Cf());
 
 IOdictionary interfacialProperties
 (
