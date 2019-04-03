@@ -146,7 +146,11 @@ volScalarField ESD5
         IOobject::NO_READ,
         IOobject::NO_WRITE
     ),
-    max((-(SUS/beta)*(rhoa/rhob-1.0)*gravity & fvc::grad(alpha)), scalar(0.0)*ESD1)
+    max
+    (
+        -(SUS/beta)*(rhoa/rhob-1.0)*gravity & fvc::grad(alpha),
+        scalar(0.0)*ESD1
+    )
     + KE1*ESD1
 );
 

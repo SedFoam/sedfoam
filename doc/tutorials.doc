@@ -26,7 +26,7 @@ This tutorial will describe how to pre-process, run and post-process a case corr
 
 \subsection preproc Pre-processing
 
-Like in OpenFOAM, cases are setup by editing case files using a text editor such as emacs, vi, gedit, nedit, etc. The I/O uses a dictionary format with keywords. A case involves data for mesh, fields, properties, control parameters, etc  that are stored in a set of files within a case directory rather than in a single case file. The case directory is given a suitably descriptive name. This tutorial consists of a set of cases located in the sedFoam distribution under the folder sedFoamDirectory/tutorials/1DSedim. 
+Like in OpenFOAM, cases are setup by editing case files using a text editor such as atome, vscode/vscodium, emacs, vi, gedit, nedit, etc. The I/O uses a dictionary format with keywords. A case involves data for mesh, fields, properties, control parameters, etc  that are stored in a set of files within a case directory rather than in a single case file. The case directory is given a suitably descriptive name. This tutorial consists of a set of cases located in the sedFoam distribution under the folder sedFoamDirectory/tutorials/1DSedim. 
 
 \subsubsection meshgen Mesh generation
 
