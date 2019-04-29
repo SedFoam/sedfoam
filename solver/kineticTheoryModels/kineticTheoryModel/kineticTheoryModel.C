@@ -373,9 +373,11 @@ void Foam::kineticTheoryModel::solve
 
     // Eq. 3.25, p. 50 Js = J1 - J2
     volScalarField J1 = 3.0*alpha_*betaPrim;
+    /*
     volScalarField J2 =
         0.25*alpha_*sqr(betaPrim)*da_*sqr(Ur_)
        /(rhoa_*sqrtPi*ThetaSqrt);
+    */
 
     // bulk viscosity  p. 45 (Lun et al. 1984).
 // limit production
