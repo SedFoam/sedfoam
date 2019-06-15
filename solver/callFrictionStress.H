@@ -37,14 +37,14 @@ pff =
 //
 surfaceScalarField gradPff = fvc::snGrad(pff)*mesh.magSf();
 
-forAll(p_rbgh.boundaryField(), patchi)
+/*forAll(p_rbgh.boundaryField(), patchi)
 {
     if (isA<zeroGradientFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
     {
         gradPff.boundaryFieldRef()[patchi] = 0.0;
     }
 }
-
+*/
 gradPf = (fvc::reconstruct(gradPff))/(rhoa*(alpha + alphaSmall));
 //
 //

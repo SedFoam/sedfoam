@@ -46,7 +46,7 @@ basepath = '../'
 sol = basepath + case + '/'
 
 Nx = 1
-Ny = 200
+Ny = 120
 Nz = 1
 
 eps_file = sol + case + '.eps'

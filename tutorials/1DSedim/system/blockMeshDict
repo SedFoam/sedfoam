@@ -30,7 +30,7 @@ vertices
 
 blocks          
 (
-    hex (0 1 5 4 3 2 6 7) (1 1 200) simpleGrading (1 1 1)
+    hex (0 1 5 4 3 2 6 7) (1 1 120) simpleGrading (1 1 1)
 );
 
 edges           

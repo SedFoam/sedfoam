@@ -20,7 +20,7 @@ solvers
     p_rbgh
     {
         solver          GAMG;
-        tolerance       1e-09;
+        tolerance       1e-9;
         relTol          0.0001;
         smoother        DIC;
         nPreSweeps      0;
@@ -42,14 +42,14 @@ solvers
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-15;
+        tolerance       1e-9;
         relTol          0;
     }
     "(alpha_aFinal|UaFinal|UbFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-15;
+        tolerance       1e-9;
         relTol          0;
     }
 }
@@ -57,7 +57,7 @@ solvers
 PIMPLE
 {
     momentumPredictor 0;
-    nOuterCorrectors  2;
+    nOuterCorrectors  1;
     nCorrectors     1;
     nNonOrthogonalCorrectors 0;
     correctAlpha    0;
@@ -71,12 +71,12 @@ relaxationFactors
 {
     fields
     {
-        p_rbgh               0.3;
+        p_rbgh               1.;
         p_rbghFinal          1;
     }
     equations
     {
-        "Ua|Ub|k|omega"             0.7;
+        "Ua|Ub|k|omega"             1.;
         "(Ua|Ub|k|omega)Final"      1;
     }
 

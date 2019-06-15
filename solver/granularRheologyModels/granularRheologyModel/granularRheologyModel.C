@@ -192,9 +192,11 @@ void Foam::granularRheologyModel::solve
     // compute the particulate velocity shear rate
     //
     //volSymmTensorField D = dev(symm(gradUat));
+    //volSymmTensorField D = symm(gradUat);
     volSymmTensorField D = symm(gradUat);
+    volSymmTensorField devS = D - (scalar(1.0)/scalar(3.0))*tr(D)*I;
+    volScalarField magD = ::sqrt(2.0)*mag(devS);
 
-    volScalarField magD = ::sqrt(2.0)*mag(D);
     volScalarField magD2 = pow(magD, 2);
 
     volScalarField patot_ = pf*scalar(0.0);
