@@ -16,7 +16,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 // * * * * * * * * * * * * * following are for presure * * * * * * * * * * * * * * * //
-gradPMEAN        gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (80 0 0 ); // mean pressure
+gradPMEAN        gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (0 0 0 ); // mean pressure
 
 Cvm             Cvm [ 0 0 0 0 0 ] 0;                // Virtual/Added Mass coefficient
 

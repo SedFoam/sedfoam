@@ -33,9 +33,9 @@ Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
 relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1e-4;
 
-FrictionModel   MuIv;//Coulomb;//MuIv;
+FrictionModel   Coulomb;
 
-PPressureModel  MuIv;//none;//MuIv;
+PPressureModel  none;
 
 FluidViscosityModel Einstein;
 
