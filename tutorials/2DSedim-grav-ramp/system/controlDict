@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     sedFoam;
+application     sedFoam_rbgh;
 
 startFrom       latestTime;
 
@@ -53,11 +53,5 @@ maxAlphaCo      0.1;
 
 maxDeltaT       2e-4;
 
-libs (
-"libincompressibleRASModels.so"
-"libmyincompressibleRASModels.so"
-"libgroovyBC.so"
-"libgroovyStandardBCs.so"
-     );
 
 // ************************************************************************* //

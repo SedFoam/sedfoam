@@ -1,6 +1,6 @@
 #!/bin/sh
 # Remove the mesh
-foamClearPolyMesh
+foamCleanPolyMesh
 
 # Remove time folders
 foamListTimes -rm -time 0: -withZero

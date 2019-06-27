@@ -11,7 +11,7 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      alpha;
+    object      alpha_a;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -28,24 +28,19 @@ boundaryField
     inandouthalf12
     {
         type            cyclic;
-//       type            zeroGradient;
     }
     inandouthalf21
     {
         type            cyclic;
-//	type		zeroGradient;
     }
     inandouthalf22
     {
         type            cyclic;
-//	type		zeroGradient;
     }
     top
     {
         type            fixedValue;
-	    value 		    uniform 0;
-//        type            symmetryPlane;
-//        type            zeroGradient;
+	value           uniform 0;
     }
     walls
     {

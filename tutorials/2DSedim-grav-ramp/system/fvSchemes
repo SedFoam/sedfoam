@@ -58,7 +58,7 @@ laplacianSchemes
     laplacian(nuEffb,Ub) Gauss linear corrected;
     laplacian(nuFra,Ua)  Gauss linear corrected;
 // pEqn
-    laplacian((rho*(1|A(U))),p) Gauss linear corrected;
+    laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
 // k and EpsilonEqn 
     laplacian(DkEff,k) Gauss linear corrected;
     laplacian(DkEff,beta) Gauss linear corrected;
@@ -82,7 +82,7 @@ snGradSchemes
 fluxRequired
 {
     default         no;
-    p               ;
+    p_rbgh            ;
 }
 
 
