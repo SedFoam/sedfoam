@@ -1,6 +1,6 @@
 #source : https://github.com/turbinesFoam/turbinesFoam
 sudo: required
-dist: bionic
+dist: xenial
 language: cpp
 
 env:

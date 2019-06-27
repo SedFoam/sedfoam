@@ -17,7 +17,7 @@ FoamFile
 
 expressions
  (
-	alpha1
+/*	alpha1
     	{
 		field alpha_a;
 		expression "0.55*0.5*(1.0+tanh((pos().y-0.035)/(0.03-pos().y)*10.0))";
@@ -30,6 +30,7 @@ expressions
                 condition "pos().y < 0.03";
 		keepPatches 1;
         }
+*/
         Ua
         {
                 field Ua;
