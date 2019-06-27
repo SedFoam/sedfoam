@@ -1,3 +1,4 @@
+gradPOSC.txt
 *~
 polyMesh
 dynamicCode
@@ -20,6 +21,9 @@ linux*
 7*
 8*
 9*
+10*
+15*
+log
 *new
 *bak
 process*
