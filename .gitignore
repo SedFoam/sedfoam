@@ -1,4 +1,6 @@
 *~
+polyMesh
+dynamicCode
 *linux64Gcc*
 *.dep
 *lnInclude
