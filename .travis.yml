@@ -12,6 +12,7 @@ env:
 before_install:
     - sudo apt-get -y install python3-pip python-dev
     - sudo pip3 install -U setuptools
+    - pip3 install fluidfoam
     - sudo add-apt-repository http://dl.openfoam.org/ubuntu
     - sudo sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
     - sudo apt-get update -qq
@@ -27,8 +28,6 @@ before_install:
     # conda install -q pandas numpy nose
 
 install:
-    - pip3 install --upgrade pip
-    - pip3 install fluidfoam
     - source /opt/openfoam${OF_VERS}/etc/bashrc
     - ./Allwmake
 
