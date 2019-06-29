@@ -1,6 +1,7 @@
 #source : https://github.com/turbinesFoam/turbinesFoam
 sudo: required
 dist: xenial
+python: 3.7
 language: cpp
 
 env:
@@ -23,6 +24,8 @@ before_install:
     # conda install -q pandas numpy nose
 
 install:
+    - pip3 install --upgrade pip
+    - pip3 install fluidfoam
     - source /opt/openfoam${OF_VERS}/etc/bashrc
     - ./Allwmake
 
@@ -32,7 +35,8 @@ before_script:
 script:
     - ./foamStyleCheck/checkStyle
     - cd test-ci/1DBedLoad && ./Allrun
-    - cd ../1DSedim && ./Allrun
+    - cd ../1DSedim && blockMesh && cp -r 0_org 0 && sedFoam_rbgh
+    - cd ../Py && python testSedimentation.py 
 
 notifications:
   slack:
