@@ -11,8 +11,9 @@ env:
 
 before_install:
     - sudo apt-get -y install python3-pip python-dev
-    - sudo pip3 install -U setuptools
-    - pip3 install fluidfoam
+    - sudo pip3 install -U setuptools pip3
+    - sudo python3 -V
+    - sudo pip3 install fluidfoam
     - sudo add-apt-repository http://dl.openfoam.org/ubuntu
     - sudo sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
     - sudo apt-get update -qq
@@ -38,7 +39,7 @@ script:
     - ./foamStyleCheck/checkStyle
     - cd test-ci/1DBedLoad && ./Allrun
     - cd ../1DSedim && blockMesh && cp -r 0_org 0 && sedFoam_rbgh
-    - cd ../Py && python testSedimentation.py 
+    - cd ../Py && python3 testSedimentation.py 
 
 notifications:
   slack:
