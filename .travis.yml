@@ -40,7 +40,7 @@ script:
     - ./foamStyleCheck/checkStyle
     - cd test-ci/1DBedLoad && ./Allrun
     - cd ../1DSedim && ./Allrun
-    - python3 testSedimentation.py 
+    - pwd && python3 test_Sedimentation.py 
 
 notifications:
   slack:
