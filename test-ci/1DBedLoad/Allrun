@@ -6,9 +6,6 @@ blockMesh
 # create the intial time folder
 cp -r 0_org 0
 
-# Initialize the alpha field
-funkySetFields -time 0
-
 # Write the mesh in folder 0/
 postProcess -func writeCellCentres -time 0
 ln -s Cx 0/ccx

@@ -17,7 +17,45 @@ FoamFile
 
 dimensions      [0 0 0 0 0 0 0];
 
-internalField   uniform 0.; 
+internalField   #codeStream
+{
+    codeInclude
+    #{
+        #include "fvCFD.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+    codeLibs
+    #{
+        -lfiniteVolume \
+        -lmeshTools
+    #};
+    code
+    #{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+	    const fvMesh& mesh = refCast<const fvMesh>(d.db());
+        scalarField alpha_a(mesh.nCells(), 0);
+
+        forAll(mesh.C(), i)
+        {
+            scalar y = mesh.C()[i].y();
+            if (y < 0.049)
+            {
+                alpha_a[i] = 0.5;
+            }
+            else
+            {
+                alpha_a[i] = 0.5*0.5*(1.0+tanh((y-0.054)/(0.0490-y)*10.0));
+            }
+        }
+        alpha_a.writeEntry("", os);
+    #};
+
+};
 
 boundaryField
 {
