@@ -12,7 +12,7 @@ import fluidfoam
 # Loading experimental results
 #
 #execfile('DATA/exp_lmsgc.py')
-exec(open("DATA/exp_lmsgc.py").read())
+exec(open("../../tutorials/Py/DATA/exp_lmsgc.py").read())
 #########################################
 # Loading OpenFoam results
 #
