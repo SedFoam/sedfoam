@@ -96,6 +96,6 @@ if Nt > 1:
  
     zint_pvb_interp = np.interp(t_pvb+tadj, time, zint);
     zint2_pvb_interp = np.interp(t_pvb+tadj, time, zint2);
-    assert(np.allclose(zint_pvb +0.1, zint_pvb_interp, atol=1e-3))
-    assert(np.allclose(zint2_pvb +0.1, zint2_pvb_interp, atol=1e-3))
+    assert(np.allclose(zint_pvb +0.1, zint_pvb_interp, atol=1e-2))
+    assert(np.allclose(zint2_pvb +0.1, zint2_pvb_interp, atol=1e-2))
     
