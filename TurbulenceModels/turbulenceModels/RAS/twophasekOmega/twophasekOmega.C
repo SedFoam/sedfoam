@@ -314,7 +314,6 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
       - fvm::Sp(fvc::div(phi), k_)
       - fvm::laplacian(DkEff(), k_, "laplacian(DkEff,k)")
       ==
-        //G
       - fvm::SuSp(-G/k_, k_)
       + fvm::Sp(-Cmu_*omega_, k_)
       + fvm::Sp(ESD_, k_)
