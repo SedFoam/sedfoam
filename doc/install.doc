@@ -53,7 +53,7 @@ Compilation is now done by performing the following steps:
         ./Allwmake
 
     The program should compile without problems and the binary
-    <code>sedFoam</code> and associated libraries
+    <code>sedFoam_rbgh</code> and associated libraries
     should be available in the $FOAM_USER_APPBIN and $FOAM_USER_LIBBIN directories.
 
 <li>Optional: Generate the user manual.
