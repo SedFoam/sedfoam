@@ -24,30 +24,21 @@ boundaryField
     inandouthalf11
     {
         type            cyclic;
-//        type            calculated;
-//        value           uniform 0;
     }
     inandouthalf12
     {
         type            cyclic;
-//        type            calculated;
-//        value           uniform 0;
     }
     inandouthalf21
     {
         type            cyclic;
-//        type            calculated;
-//        value           uniform 0;
     }
     inandouthalf22
     {
         type            cyclic;
-//        type            calculated;
-//        value           uniform 0;
     }
     top
     {
-//        type            symmetryPlane;
         type            calculated;
         value           uniform 0;
     }
@@ -55,7 +46,6 @@ boundaryField
     {
         type            calculated;
         value           uniform 0; 
-       //type            zeroGradient;
     }
     frontAndBackPlanes
     {

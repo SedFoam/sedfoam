@@ -269,10 +269,10 @@ void twophasekEpsilon<BasicTurbulenceModel>::correct()
     );
 
     epsEqn.ref().relax();
-
+    fvOptions.constrain(epsEqn.ref());
     epsEqn.ref().boundaryManipulate(epsilon_.boundaryFieldRef());
-
     solve(epsEqn);
+    fvOptions.correct(epsilon_);
     bound(epsilon_, this->epsilonMin_);
 
 
@@ -292,7 +292,9 @@ void twophasekEpsilon<BasicTurbulenceModel>::correct()
     );
 
     kEqn.ref().relax();
+    fvOptions.constrain(kEqn.ref());
     solve(kEqn);
+    fvOptions.correct(k_);
     bound(k_, this->kMin_);
 
     correctNut();

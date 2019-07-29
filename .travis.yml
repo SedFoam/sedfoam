@@ -1,6 +1,8 @@
 #source : https://github.com/turbinesFoam/turbinesFoam
 sudo: required
-dist: bionic
+python:
+  - "3.7"
+dist: xenial
 language: cpp
 
 env:
@@ -8,6 +10,11 @@ env:
   - OF_VERS=6
 
 before_install:
+    - sudo python3 -V
+    - sudo apt-get -y install python3-pip python-dev
+    - sudo pip3 install --upgrade pip
+    - sudo pip3 install -U setuptools
+    - sudo pip3 install fluidfoam
     - sudo add-apt-repository http://dl.openfoam.org/ubuntu
     - sudo sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
     - sudo apt-get update -qq
@@ -33,6 +40,7 @@ script:
     - ./foamStyleCheck/checkStyle
     - cd test-ci/1DBedLoad && ./Allrun
     - cd ../1DSedim && ./Allrun
+    - python3 test_Sedimentation.py 
 
 notifications:
   slack:

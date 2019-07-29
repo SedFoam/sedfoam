@@ -3,6 +3,7 @@ sedfoam
 
 [![Release](https://img.shields.io/badge/release-3.0alpha-blue.svg)](http://github.com/SedFoam/sedfoam)
 [![Build Status](https://travis-ci.com/SedFoam/sedfoam.svg?branch=master)](https://travis-ci.com/SedFoam/sedfoam)
+[![OpenFOAM v1812](https://img.shields.io/badge/OpenFOAM-v1812-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v1806](https://img.shields.io/badge/OpenFOAM-v1806-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v1712](https://img.shields.io/badge/OpenFOAM-v1712-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM 6](https://img.shields.io/badge/OpenFOAM-6-brightgreen.svg)](https://openfoam.org/)

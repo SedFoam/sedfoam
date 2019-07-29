@@ -24,27 +24,21 @@ boundaryField
     inandouthalf11
     {
         type            cyclic;
-//        type            fixedValue;
-//        value           uniform 1e-6;
     }
     inandouthalf12
     {
         type            cyclic;
-//        type            zeroGradient;
     }
     inandouthalf21
     {
         type            cyclic;
-//        type            zeroGradient;
     }
     inandouthalf22
     {
         type            cyclic;
-//        type            zeroGradient;
     }
     top
     {
-//        type            symmetryPlane;
         type            zeroGradient;
     }
     walls

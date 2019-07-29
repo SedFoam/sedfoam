@@ -6,15 +6,10 @@ blockMesh
 # create the intial time folder
 cp -r 0_org 0
 
-# Initialize the alpha field
-funkySetFields -time 0
-
 # Write the mesh in folder 0/
 postProcess -func writeCellCentres -time 0
 ln -s Cx 0/ccx
 ln -s Cy 0/ccy
 ln -s Cz 0/ccz
 # Run sedFoam
-sedFoam_rbgh > log2&
-
-
+sedFoam_rbgh > log&

@@ -56,7 +56,7 @@ eps_file = sol + case + '.eps'
 #
 try:
     proc = subprocess.Popen(
-        ['foamListTimes', '-withZero', '-case', sol], stdout=subprocess.PIPE)
+        ['foamListTimes', '-case', sol], stdout=subprocess.PIPE)
 except:
     print("foamListTimes : command not found")
     print("Do you have load OpenFoam environement?")
@@ -68,14 +68,12 @@ tread = output.decode().rstrip().split('\n')
 
 del tread[-1]
 Nt = len(tread)
-print(Nt)
 time = np.zeros(Nt)
 X, Y, Z = fluidfoam.readmesh(sol)
 alphat = np.zeros((Ny, Nt))
 
 k = -1
 for t in tread:
-    print(t)
     print("Reading time: %s s" % t)
     k = k + 1
 

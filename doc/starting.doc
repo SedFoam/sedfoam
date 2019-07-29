@@ -16,7 +16,7 @@
 /*! \page starting Getting started
 \tableofcontents
 
-The executable \c sedFoam is the main program that allows to launch a computation. 
+The executable \c sedFoam_rbgh is the main program that allows to launch a computation. 
 
 This page gives some practical details about the computation set-up and the input/output files.
 

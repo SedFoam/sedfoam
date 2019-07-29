@@ -12,4 +12,4 @@ setFields
 decomposePar
 
 # Run sedFoam in parallel
-mpirun -np 4 sedFoam -parallel > log 2> err &
+mpirun -np 4 sedFoam_rbgh -parallel > log 2> err &

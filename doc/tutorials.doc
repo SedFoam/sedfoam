@@ -142,7 +142,7 @@ The running status of blockMesh is reported in the terminal window. Any mistakes
 
 \subsubsection BC_init Boundary and initial conditions
 
-Once the mesh generation is complete, the user can look at this initial fields set up for this case. The case is set up to start at time t = 0 s, so the initial field data is stored in a 0_org sub-directory of the 1DSedim directory. The 0_org sub-directory contains several files: alpha, Ua, Ub, p, muI, pa, Theta, one for each of the solid phase volume fraction (alpha), velocities of solid and fluid phases (Ua and Ub), the pressure (p) fields whose initial values and boundary conditions must be set. Let us examine file Ua:
+Once the mesh generation is complete, the user can look at this initial fields set up for this case. The case is set up to start at time t = 0 s, so the initial field data is stored in a 0_org sub-directory of the 1DSedim directory. The 0_org sub-directory contains several files: alpha_a, Ua, Ub, p_rbgh, muI, pa, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. Let us examine file Ua:
 
 \verbatim
 dimensions      [0 1 -1 0 0 0 0];
@@ -218,11 +218,11 @@ nu              nu [ 0 2 -1 0 0 0 0 ] 2.105e-05;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e-1;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha_a
 
 \endverbatim
 
-The hindrance function exponent of the Richardson-Zaki law can be tuned using the parameter hExp. This is important for this first test case which is in the laminar regime for the drag. The transportModel has to be prescribed when using turbulence model, it is present here for compatibility with the other test cases. The nuMax value is a viscosity limiter for the all the viscosities, it allows the user to control the numerical stability of the solver and will be discussed in the second test case. It is especially important as some shear stress terms are discretized explicitely and that the frictional viscosity can reach huge values. The alphaSmall value is used to regularise the division by alpha in the source code, the default value is set to \f$ 10^{-6} \f$. 
+The hindrance function exponent of the Richardson-Zaki law can be tuned using the parameter hExp. This is important for this first test case which is in the laminar regime for the drag. The transportModel has to be prescribed when using turbulence model, it is present here for compatibility with the other test cases. The nuMax value is a viscosity limiter for the all the viscosities, it allows the user to control the numerical stability of the solver and will be discussed in the second test case. It is especially important as some shear stress terms are discretized explicitely and that the frictional viscosity can reach huge values. The alphaSmall value is used to regularise the division by alpha_a in the source code, the default value is set to \f$ 10^{-6} \f$. 
  
 The dictionary *interfacialProperties* allows to specify the drag model:
 
@@ -299,7 +299,7 @@ As the simulation progresses we wish to write results at certain intervals of ti
 OpenFOAM creates a new directory named after the current time, e.g. 0.1 s, on each occasion that it writes a set of data, as discussed in full in section 4.1. In the icoFoam solver, it writes out the results for each field, U and p, into the time directories. For this case, the entries in the controlDict are shown below: 
 
 \verbatim
-application     sedFoam;
+application     sedFoam_rbgh;
 
 startFrom       startTime;
 
@@ -404,7 +404,7 @@ In the system/fvSolution file, the user can specify the linear solver he/she wan
 \verbatim
 solvers
 {
-    p
+    p_rbgh
     {
         solver          GAMG;
         tolerance       1e-09;
@@ -419,20 +419,20 @@ solvers
         mergeLevels     1;
     }
 
-    pFinal
+    p_rbghFinal
     {
-        $p;
+        $p_rbgh;
         tolerance       1e-9;
         relTol          0;
     }
-    alpha
+    alpha_a
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-15;
         relTol          0;
     }
-    alphaFinal
+    alpha_aFinal
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -450,7 +450,7 @@ PIMPLE
 \endverbatim
 // \subsection viewmesh Viewing the mesh
 
-\subsection run_sedFoam Running sedFoam
+\subsection run_sedFoam Running sedFoam_rbgh
 
 The easiest way to run the test case is to run the shell script:
 
@@ -461,14 +461,14 @@ blockMesh
 # create the intial time folder
 cp -r 0_org 0
 
-# Initialize the alpha field
+# Initialize the alpha_a field
 funkySetFields -time 0
 
 # Write the mesh in folder 0/
 writeCellCentres -time 0
 
-# Run sedFoam
-sedFoam > log&
+# Run sedFoam_rbgh
+sedFoam_rbgh > log&
 \endverbatim
 
 The script is self documented, the blockMesh command has already been introduced. The initial condition stored in the 0_org folder is first copied to the zero (0) folder. The command funkySetFields (require swak4foam library) allows to set the initial solid phase volume fraction profile following an hyperbolic tangent profile described in the dictionnary *system/funkySetFieldsDict* as folows:
@@ -478,13 +478,13 @@ expressions
  (      
         alpha1
         {
-                field alpha;
+                field alpha_a;
                 expression "0.5*0.5*(1.0+tanh((pos().y-0.054)/(0.0490-pos().y)*10.0))";
                 keepPatches 1;
         }       
         alpha2
         {
-                field alpha;
+                field alpha_a;
                 expression "0.5";
                 condition "pos().y < 0.049";
                 keepPatches 1;
@@ -494,7 +494,7 @@ expressions
 
 The command writeCellCentres write the coordinates of the cell centers in the 0 folder for future postprocessing using python.
 
-The code is run using the command sedFoam in the terminal. The "> log &" allows to run the code in batch and write the output in the file log. The run can be monitored using the command 
+The code is run using the command sedFoam_rbgh in the terminal. The "> log &" allows to run the code in batch and write the output in the file log. The run can be monitored using the command 
 
 \verbatim
 tail -100 log
@@ -533,7 +533,7 @@ flow driven by a pressure gradient in a horizontal channel. This situation has b
 
 \subsection preprocBL Pre-processing
 
-This tutorial is distributed with sedFoam2.0 under the folder sedFoamDirectory/tutorials/1DBedLoad.
+This tutorial is distributed with sedFoam3.0 under the folder sedFoamDirectory/tutorials/1DBedLoad.
 
 \subsubsection meshgenBL Mesh generation
 
@@ -547,7 +547,7 @@ blockMesh
 
 \subsubsection BC_initiBL Boundary and initial conditions
 
-The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha, Ua, Ub, p, muI, pa, Theta, one for each of the solid phase volume fraction (alpha), velocities of solid and fluid phases (Ua and Ub), the pressure (p) fields whose initial values and boundary conditions must be set. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.   
+The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, Ua, Ub, p_rbgh, muI, pa, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.   
 
 \subsubsection PhysPropBL Physical properties
 
@@ -575,7 +575,7 @@ nu              nu [ 0 2 -1 0 0 0 0 ] 2.52e-4;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e1;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha_a
 
 \endverbatim
 
@@ -623,7 +623,7 @@ The numerical schemes and the solvers are the same as in the 1DSedim case.
 The system/controlDict file is modified compared with the sedimentation test case. The endTime is fixed to 250 s with an output every 50 s with an adjustable time step limited to 5e-3 s.
 
 \verbatim
-application     sedFoam;
+application     sedFoam_rbgh;
 
 startFrom       startTime;
 
@@ -697,7 +697,7 @@ FrictionModel  MuIv;
 And run the code again using the command:
 
 \verbatim
-sedFoam > log2&
+sedFoam_rbgh > log2&
 \endverbatim
 
 At the end of the run, the run can be post-processed using the python script:
@@ -718,7 +718,7 @@ In this tutorial, the turbulent flow over a flat erodible bed drives sediment tr
 
 \subsection preprocSF Pre-processing
 
-This tutorial is distributed with sedFoam2.0 under the folder sedFoamDirectory/tutorials/1DSheetFlow.
+This tutorial is distributed with sedFoam3.0 under the folder sedFoamDirectory/tutorials/1DSheetFlow.
 
 \subsubsection meshgenSF Mesh generation
 
@@ -732,7 +732,7 @@ blockMesh
 
 \subsubsection BC_initiSF Boundary and initial conditions
 
-The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha, Ua, Ub, p, muI, pa, Theta, k, epsilon, omega and nut one for each of the solid phase volume fraction (alpha), velocities of solid and fluid phases (Ua and Ub), the pressure (p) fields whose initial values and boundary conditions must be set. No-slip boundary conditions are imposed at the bottom and zero gradient at the top for both phase velocities.
+The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, Ua, Ub, p_rbgh, muI, pa, Theta, k, epsilon, omega and nut one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. No-slip boundary conditions are imposed at the bottom and zero gradient at the top for both phase velocities.
 
 \subsubsection PhysPropSF Physical properties
 
@@ -764,7 +764,7 @@ nu              nu [ 0 2 -1 0 0 0 0 ] 1.e-6;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e-1;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha_a
 
 alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
 
@@ -881,7 +881,7 @@ fluxRequired
 The system/controlDict file is modified compared with the laminar bed load test case, the time step is reduced to \f$ 2.10^{-4}\f$ s and the endTime is reduced to 150 s that is enough for the steady state to be reached.
 
 \verbatim
-application     sedFoam;
+application     sedFoam_rbgh;
 
 startFrom       startTime;
 
@@ -942,7 +942,7 @@ is simplified and sketched in figure 7.
 
 \subsection preprocSA Pre-processing
 
-This tutorial is distributed with sedFoam2.0 under the folder sedFoamDirectory/tutorials/2DScourApron.
+This tutorial is distributed with sedFoam3.0 under the folder sedFoamDirectory/tutorials/2DScourApron.
 
 \subsubsection meshgenSA Mesh generation
 
@@ -1001,7 +1001,7 @@ phaseb
 }
 //*********************************************************************** //
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha_a
 
 alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
 
@@ -1060,7 +1060,7 @@ The numerical schemes and the solvers are the same as in the 1DSheetFlow case.
 The system/controlDict file indicates that for this case the time step is equal to \f$ 2.10^{-4}\f$ s and that the computation ends at 60s of dynamics. The output write interval has been set to 5s by default. The user is invited to reduce it in order to capture the evolution of the scour hole more accurately.   
 
 \verbatim
-application     sedFoam;
+application     sedFoam_rbgh;
 
 startFrom       latestTime;
 
@@ -1107,8 +1107,8 @@ As for the previous cases, you can lauch the computation by executing <EM> Allru
 # Decompose the case in order to run in parallel (on 4 cores)
 decomposePar
 
-# Run sedFoam in parallel
-mpirun -np 4 sedFoam -parallel > log&
+# Run sedFoam_rbgh in parallel
+mpirun -np 4 sedFoam_rbgh -parallel > log&
 \endverbatim
 First of all, as the mesh is composed of 37500 cells, computation runs faster on several processors (the best compromise is of 10000 cells per core). Here, the <EM> decomposePar  </EM> command decompose the initial time (specified in the <EM> controlDict </EM> file) in the number of part specified in the </EM> system/decomposeParDict </EM> file.
 
@@ -1132,10 +1132,10 @@ and you should see the following figures:
 \section appendix Variables list 
 
 <ul>
-<li>alpha: Sediment phase volume fraction field.
+<li>alpha_a: Sediment phase volume fraction field.
 <li>Ua: Sediment phase velocity field.
 <li>Ub: Fluid phase velocity field.
-<li>p: Fluid pressure field.
+<li>p_rbgh: Fluid reduced pressure field (equal to p-rhob*g*h).
 <li>pa: Sediment phase pressure (collisional/shear induced) field.
 <li>Theta: Granular temperature (for kinetic theory model only).
 <li>k: Fluid turbulent kinetic energy.

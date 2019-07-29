@@ -17,7 +17,7 @@ FoamFile
 
 application     sedFoam;
 
-startFrom       latestTime;
+startFrom       startTime;
 
 startTime       0;
 
@@ -45,10 +45,10 @@ runTimeModifiable on;
 
 adjustTimeStep  on;
 
-maxCo           0.9;
+maxCo           0.3;
 
-maxAlphaCo      0.9;
+maxAlphaCo      0.3;
 
-maxDeltaT       7e-3;
+maxDeltaT       2e-1;
 
 // ************************************************************************* //

@@ -28,26 +28,17 @@ boundaryField
     inandouthalf12
     {
         type            cyclic;
-//        type            directionMixed;
-//        refValue uniform (0 0 0);
-//        refGradient uniform (0 0 0);
-//        valueFraction uniform (0 0 0 1 0 1);
     }
     inandouthalf21
     {
         type            cyclic;
-//        type            fixedValue;
-//        value           uniform (0 0 0);
     }
     inandouthalf22
     {
         type            cyclic;
-//      type            fixedValue;
-//      value           uniform (0 0 0);
     }
     top
     {
-//        type            symmetryPlane;
         type            zeroGradient;
     }
     walls

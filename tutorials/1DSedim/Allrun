@@ -6,9 +6,6 @@ blockMesh
 # create the intial time folder
 cp -r 0_org 0
 
-# Initialize the alpha field
-funkySetFields -time 0
-
 # Run sedFoam
 sedFoam_rbgh > log&
 

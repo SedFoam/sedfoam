@@ -96,7 +96,6 @@ twophaseMixingLength<BasicTurbulenceModel>::twophaseMixingLength
     (
         twophaseRASProperties_.lookup("kappaLM")
     ),
-    //alpha_(U.db().lookupObject<volScalarField>("alpha")),
     k_
     (
         IOobject
@@ -167,8 +166,7 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
     const volScalarField& alpha = this->alpha_;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
-    const surfaceScalarField& phi = this->phi_;
-    fv::options& fvOptions(fv::options::New(this->mesh_));
+//    fv::options& fvOptions(fv::options::New(this->mesh_));
 
     eddyViscosity<RASModel<BasicTurbulenceModel>>::correct();
 
@@ -181,9 +179,6 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
 
     volVectorField centres = U.mesh().C();
     volScalarField Y = centres.component(1);
-//    scalarField& alphaCells = alpha_.internalField();
-//    scalarField& magDCells = magD.internalField();
-//    scalarField& YCells = Y.internalField();
 
     scalar Lm = 0.;
     scalar dY;
@@ -195,7 +190,6 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
 
 
     nut.storePrevIter();
-    //forAll(YCells, cellI)
     forAll(U, cellI)
     {
         if (cellI==0)
