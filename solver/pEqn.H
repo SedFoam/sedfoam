@@ -137,11 +137,11 @@ License
     // Fix for gravity on outlet boundary.
     forAll(p_rbgh.boundaryField(), patchi)
     {
-        if (isA<zeroGradientFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
-        {
-            phiDraga.boundaryFieldRef()[patchi] = 0.0;
-            phiDragb.boundaryFieldRef()[patchi] = 0.0;
-        }
+//        if (isA<zeroGradientFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
+//        {
+//            phiDraga.boundaryFieldRef()[patchi] = 0.0;
+//            phiDragb.boundaryFieldRef()[patchi] = 0.0;
+//        }
         if (isA<symmetryFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
         {
             phiDraga.boundaryFieldRef()[patchi] = 0.0;
