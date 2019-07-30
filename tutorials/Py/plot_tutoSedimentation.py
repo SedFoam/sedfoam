@@ -90,7 +90,7 @@ zmax = np.max(Y)
 tmax = 1800.
 tadj = 172.
 
-fontsize = 18.
+
 #
 # calcul zint et zint2
 #
