@@ -60,6 +60,18 @@ License
                 UniformField<scalar>(0.99*alphaMax),
                 zeroField()
             );
+        #elif OFVERSION == 190
+            MULES::explicitSolve
+            (
+                geometricOneField(),
+                alpha,
+                phi,
+                phiAlpha,
+                zeroField(),
+                zeroField(),
+                UniformField<scalar>(0.99*alphaMax),
+                zeroField()
+            );
         #else
             MULES::explicitSolve
             (
