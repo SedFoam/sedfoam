@@ -147,29 +147,27 @@ int main(int argc, char *argv[])
             while (pimple.correct())
             {
                 #include "pEqn.H"
-                #if OFVERSION >= 600
-                    if (not pimple.finalPISOIter())
-                    {
-                        if (correctAlpha)
-                        {
-                            #include "alphaEqn.H"
-                        }
-                        #include "liftDragCoeffs.H"
-                        #include "callKineticTheory.H"
-                        #include "callFrictionStress.H"
-                    }
+
+                if
+                (
+                #if OFVERSION >= 700
+                    not pimple.finalPisoIter()
+                #elif OFVERSION >= 600
+                    not pimple.finalPISOIter()
                 #else
-                    if (pimple.corrPISO() < pimple.nCorrPISO())
-                    {
-                        if (correctAlpha)
-                        {
-                            #include "alphaEqn.H"
-                        }
-                        #include "liftDragCoeffs.H"
-                        #include "callKineticTheory.H"
-                        #include "callFrictionStress.H"
-                    }
+                    pimple.corrPISO() < pimple.nCorrPISO()
                 #endif
+                )
+                {
+                    if (correctAlpha)
+                    {
+                        #include "alphaEqn.H"
+                    }
+                    #include "liftDragCoeffs.H"
+                    #include "callKineticTheory.H"
+                    #include "callFrictionStress.H"
+                }
+
                 if (pimple.turbCorr())
                 {
                     #include "updateTwoPhaseRASTurbulence.H"
