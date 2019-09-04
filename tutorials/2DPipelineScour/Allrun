@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# create the mesh
+foamCleanPolyMesh
+blockMesh
+snappyHexMesh -overwrite
+extrudeMesh
+
+# create the intial time folder
+cp -r 0_org 0
+
+# Initialize fields
+funkySetFields -time 0
+
+# Decompose the case in order to run in parallel (on 16 cores)
+decomposePar
+
+# Run sedFoam in parallel
+mpirun -np 16 sedFoam_rbgh -parallel > log&
