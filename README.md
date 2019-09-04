@@ -8,6 +8,7 @@ sedfoam
 [![OpenFOAM v1712](https://img.shields.io/badge/OpenFOAM-v1712-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM 6](https://img.shields.io/badge/OpenFOAM-6-brightgreen.svg)](https://openfoam.org/)
 [![OpenFOAM 5.x](https://img.shields.io/badge/OpenFOAM-5.x-brightgreen.svg)](https://openfoam.org/)
+[![OpenFOAM 7.x](https://img.shields.io/badge/OpenFOAM-7.x-brightgreen.svg)](https://openfoam.org/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1320016.svg)](https://doi.org/10.5281/zenodo.1320016)
 
 This repository provides the SedFoam solver (version OpenFOAM classic).
@@ -24,7 +25,7 @@ Pull requests are encouraged!
 Features
 --------
 
-A three-dimensional two-phase flow solver, SedFoam-3.0, has been developed for sediment transport applications. The solver is extended from twoPhaseEulerFoam available in the 2.1.0 release of the open-source CFD (computational fluid dynamics) toolbox OpenFOAM. In this approach the sediment phase is modeled as a continuum, and constitutive laws have to be prescribed for the sediment stresses. In the proposed solver, two different intergranular stress models are implemented: the kinetic theory of granular flows and the dense granular flow rheology μ(I). For the fluid stress, laminar or turbulent flow regimes can be simulated and three different turbulence models are available for sediment transport: a simple mixing length model (one-dimensional configuration only), a k − ε, and a k − ω model.
+A three-dimensional two-phase flow solver, SedFoam-3.0, has been developed for sediment transport applications. The solver is extended from twoPhaseEulerFoam available in the 2.1.0 release of the open-source CFD (computational fluid dynamics) toolbox OpenFOAM. In this approach the sediment phase is modeled as a continuum, and constitutive laws have to be prescribed for the sediment stresses. In the proposed solver, two different intergranular stress models are implemented: the kinetic theory of granular flows and the dense granular flow rheology μ(I). For the fluid stress, laminar or turbulent flow regimes can be simulated and three different turbulence models are available for sediment transport: a simple mixing length model (one-dimensional configuration only), a k − ε, a classical k − ω and a k − ω from Wilcox (2006).
 
 Installation
 ------------
@@ -48,6 +49,8 @@ Publications
 ------------
 
 Julien Chauchat, Zhen Cheng, Tim Nagel, Cyrille Bonamy, and Tian-Jian Hsu (2017) [SedFoam-2.0: a 3-D two-phase flow numerical model for sediment transport ](Geosci. Model Dev., 10, 4367-4392) [![DOI](https://img.shields.io/badge/DOI-10.5195%2Fgmd_10_4367_2017-blue.svg)](https://doi.org/10.5194/gmd-10-4367-2017)
+
+Antoine Mathieu, Julien Chauchat, Cyrille Bonamy, Tim Nagel(2019) [Two-phase flow simulation of tunnel and lee-wake erosion of scour below a submarine pipeline](Water, 11, 8) [![DOI](https://img.shields.io/badge/DOI-10.3390%2Fw11081727-blue.svg)](https://www.mdpi.com/2073-4441/11/8/1727)
 
 How to cite
 -----------
