@@ -3,12 +3,13 @@ sedfoam
 
 [![Release](https://img.shields.io/badge/release-3.0alpha-blue.svg)](http://github.com/SedFoam/sedfoam)
 [![Build Status](https://travis-ci.com/SedFoam/sedfoam.svg?branch=master)](https://travis-ci.com/SedFoam/sedfoam)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ec10f23d2f7c4996b67a7cc795e7fbf0)](https://www.codacy.com/manual/CyrilleBonamy/sedfoam?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SedFoam/sedfoam&amp;utm_campaign=Badge_Grade)
 [![OpenFOAM v1812](https://img.shields.io/badge/OpenFOAM-v1812-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v1806](https://img.shields.io/badge/OpenFOAM-v1806-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v1712](https://img.shields.io/badge/OpenFOAM-v1712-brightgreen.svg)](https://openfoam.com/)
+[![OpenFOAM 7.x](https://img.shields.io/badge/OpenFOAM-7-brightgreen.svg)](https://openfoam.org/)
 [![OpenFOAM 6](https://img.shields.io/badge/OpenFOAM-6-brightgreen.svg)](https://openfoam.org/)
 [![OpenFOAM 5.x](https://img.shields.io/badge/OpenFOAM-5.x-brightgreen.svg)](https://openfoam.org/)
-[![OpenFOAM 7.x](https://img.shields.io/badge/OpenFOAM-7.x-brightgreen.svg)](https://openfoam.org/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1320016.svg)](https://doi.org/10.5281/zenodo.1320016)
 
 This repository provides the SedFoam solver (version OpenFOAM classic).
