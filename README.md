@@ -39,12 +39,10 @@ cd sedfoam
 ./Allwmake
 ```
 
-
 Usage
 -----
 
-There are tutorials located in `tutorials` and details can be found here : http://servforge.legi.grenoble-inp.fr/pub/soft-sedfoam
-
+There are tutorials located in `tutorials` and details can be found [here.](http://servforge.legi.grenoble-inp.fr/pub/soft-sedfoam)
 
 Publications
 ------------
@@ -58,17 +56,15 @@ How to cite
 
 The sedfoam solver can be cited via DOI thanks to Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1320016.svg)](https://doi.org/10.5281/zenodo.1320016)
 
-
 Developers
 ----------
 
-* Cyrille Bonamy
-* Julien Chauchat
-* Zhen Cheng
-* Tian-Jian Hsu
-* Tim Nagel
-* Antoine Mathieu
-
+  * Cyrille Bonamy
+  * Julien Chauchat
+  * Zhen Cheng
+  * Tian-Jian Hsu
+  * Tim Nagel
+  * Antoine Mathieu
 
 Acknowledgements
 ----------------

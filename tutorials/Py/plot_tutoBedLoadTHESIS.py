@@ -45,7 +45,7 @@ drho = rho_p - rho_f
 etaf = 2.105e-5*rho_f
 g = 9.81
 
-hp = 0.0455/D 
+hp = 0.0455/D
 print("hp=" + str(hp))
 # pressure gradient
 dpdx = -80e0 / (drho * g)
