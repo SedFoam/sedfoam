@@ -32,10 +32,10 @@ Description
 /**
  * \file sedFoam.C
  * \brief 2 phases Solver
- * \author Julien Chauchat, Cyrille Bonamy, Tim Nagel,
+ * \author Julien Chauchat, Cyrille Bonamy, Antoine Mathieu, Tim Nagel,
            Zhen Cheng and Tian-Jian Hsu.
- * \version 3.0
- * \date July 12, 2018
+ * \version 3.1
+ * \date September 16, 2019
  *
  * Solver for a system of 2 phases with one phase dispersed
  *
