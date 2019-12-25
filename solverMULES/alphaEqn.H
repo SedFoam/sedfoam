@@ -60,7 +60,7 @@ License
                 UniformField<scalar>(0.99*alphaMax),
                 zeroField()
             );
-        #elif OFVERSION == 190
+        #elif OFVERSION == 190 or OFVERSION == 191
             MULES::explicitSolve
             (
                 geometricOneField(),
