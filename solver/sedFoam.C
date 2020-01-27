@@ -167,15 +167,15 @@ int main(int argc, char *argv[])
                     #include "callFrictionStress.H"
                 }
 
-                if (pimple.turbCorr())
+            }
+            if (pimple.turbCorr())
+            {
+                #include "updateTwoPhaseRASTurbulence.H"
+                turbulenceb->correct();
+                if (debugInfo)
                 {
-                    #include "updateTwoPhaseRASTurbulence.H"
-                    turbulenceb->correct();
-                    if (debugInfo)
-                    {
-                        Info << " max(nutb) = "
-                             << max(turbulenceb->nut()).value() << endl;
-                    }
+                    Info << " max(nutb) = "
+                         << max(turbulenceb->nut()).value() << endl;
                 }
             }
             #include "DDtU.H"

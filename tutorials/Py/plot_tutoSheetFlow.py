@@ -78,7 +78,7 @@ Nx = 1
 Ny = 400
 Nz = 1
 
-casedir = '1DSheetflow/'
+casedir = '1DSheetFlow/'
 label = '$\mu(I)$+ML'
 
 ############################################

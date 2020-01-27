@@ -18,8 +18,8 @@ FoamFile
 simulationType  RAS;
 
 RAS{
-RASModel        twophaseMixingLength;
-//RASModel        twophasekEpsilon;
+//RASModel        twophaseMixingLength;
+RASModel        twophasekEpsilon;
 //RASModel        twophasekOmega;
 
 turbulence      on;
