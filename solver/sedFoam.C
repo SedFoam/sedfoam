@@ -142,32 +142,10 @@ int main(int argc, char *argv[])
 //          Create the momentum balance equations for both phases a and b
             #include "UEqns.H"
 
-//          Pressure corrector loop
-            while (pimple.correct())
-            {
-                #include "pEqn.H"
+            #include "pEqn.H"
 
-                if
-                (
-                #if OFVERSION >= 700
-                    not pimple.finalPisoIter()
-                #elif OFVERSION >= 600
-                    not pimple.finalPISOIter()
-                #else
-                    pimple.corrPISO() < pimple.nCorrPISO()
-                #endif
-                )
-                {
-                    if (correctAlpha)
-                    {
-                        #include "alphaEqn.H"
-                    }
-                    #include "liftDragCoeffs.H"
-                    #include "callKineticTheory.H"
-                    #include "callFrictionStress.H"
-                }
+            #include "DDtU.H"
 
-            }
             if (pimple.turbCorr())
             {
                 #include "updateTwoPhaseRASTurbulence.H"
@@ -178,7 +156,6 @@ int main(int argc, char *argv[])
                          << max(turbulenceb->nut()).value() << endl;
                 }
             }
-            #include "DDtU.H"
         }
         if (debugInfo)
         {
