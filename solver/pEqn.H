@@ -70,8 +70,8 @@ License
         volVectorField HbbyA = Ub;
         HbbyA = rUbA*UbEqn.H();
 
-        // Momentum fluxes computed on the faces for the particle phase phiDraga and
-        // the fluid phase phiDragb
+        // Momentum fluxes computed on the faces for the particle phase phiDraga
+        // and the fluid phase phiDragb
         surfaceScalarField phiDraga =
         (
         // explicit drag term : now tricks
@@ -82,15 +82,16 @@ License
             (
                 SUS*(K/rhoa)*turbulenceb->nut()*(beta/(alpha + alphaSmall))
             )
-            *fvc::snGrad(alpha))*rUaAf*mesh.magSf()
+           *fvc::snGrad(alpha))*rUaAf*mesh.magSf()
             // grad(pa)
-           -(oneOverAlpha/rhoa*fvc::snGrad(pa))*rUaAf*mesh.magSf()
-           // grad(Pf)
-           // - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
-           // diagonal part of stress
-           +(oneOverAlpha/rhoa*fvc::snGrad(lambdaUa*tr(gradUaT)))*rUaAf*mesh.magSf()
-           // diagonal part of stress 2
-           -(
+          - (oneOverAlpha/rhoa*fvc::snGrad(pa))*rUaAf*mesh.magSf()
+            // grad(Pf)
+            // - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
+            // diagonal part of stress
+          + (oneOverAlpha/rhoa*fvc::snGrad(lambdaUa*tr(gradUaT)))
+           *rUaAf*mesh.magSf()
+            // diagonal part of stress 2
+          - (
                 scalar(2.0/3.0)*oneOverAlpha
                *fvc::snGrad((alpha+alphaSmall)*(sqr(Ct)*turbulenceb->k()
               + nuEffa*tr(gradUaT)))
@@ -100,7 +101,10 @@ License
            *rUaAf*mesh.magSf()
            // stress part 3
           + rUaAf*(oneOverAlpha
-           *fvc::interpolate(fvc::div((alpha+alphaSmall)*nuEffa*gradUaT, schemeA))
+           *fvc::interpolate
+            (
+                fvc::div((alpha+alphaSmall)*nuEffa*gradUaT, schemeA)
+            )
           & mesh.Sf())
           + rUaAf*(oneOverAlpha
            *fvc::interpolate(fvc::div(nuFraExp*gradUaT, schemeA)) & mesh.Sf())
@@ -120,14 +124,17 @@ License
         //bonamy        fvc::interpolate(alpha/rhob*K*rUbA)*phia
         // turbulent suspension term
         // WARNING : comment the next 2 lines if suspension term in UbEqn: susb
-            (fvc::interpolate(SUS*(K/rhob)*turbulenceb->nut())*fvc::snGrad(alpha))
+            fvc::interpolate(SUS*(K/rhob)*turbulenceb->nut())*fvc::snGrad(alpha)
             *rUbAf*mesh.magSf()
             // diagnoal part of stress
           - (fvc::interpolate(scalar(2.0)/(beta*scalar(3.0)))
            *fvc::snGrad(((nuEffb*tr(gradUbT)))*beta))*rUbAf*mesh.magSf()
            // stress part 3
           + rUbAf*(fvc::interpolate(scalar(1.0)/beta)
-           *fvc::interpolate(fvc::div(beta*nuEffb*gradUbT, schemeA)) & mesh.Sf())
+           *fvc::interpolate
+            (
+                fvc::div(beta*nuEffb*gradUbT, schemeA)) & mesh.Sf()
+            )
           // driving force
           + rUbAf*((gradPOSC/rhob) & mesh.Sf())
         );
@@ -139,7 +146,10 @@ License
         // Fix for gravity on outlet boundary.
         forAll(p_rbgh.boundaryField(), patchi)
         {
-            if (isA<zeroGradientFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
+            if (isA<zeroGradientFvPatchScalarField>
+               (
+                   p_rbgh.boundaryField()[patchi]
+               ))
             {
                 phiDraga.boundaryFieldRef()[patchi] = 0.0;
                 phiDragb.boundaryFieldRef()[patchi] = 0.0;
