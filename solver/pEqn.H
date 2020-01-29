@@ -186,9 +186,6 @@ License
             (fvc::interpolate(HbbyA) & mesh.Sf()) + rUbAf*fvc::ddtCorr(Ub, phib)
         );
 
-
-
-
         surfaceScalarField phiaHbyA = phiUa + phiDraga;
         surfaceScalarField phibHbyA = phiUb + phiDragb;
 
