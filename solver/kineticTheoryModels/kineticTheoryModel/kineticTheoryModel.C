@@ -164,8 +164,8 @@ Foam::kineticTheoryModel::kineticTheoryModel
             "phi",
             dimensionedScalar("phi",
                           dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0.5585)*M_PI/180.0) //32° angle of repose
-        )
+                          0.5585)*M_PI/180.0
+        ) //32° angle of repose
     ),
     relaxPaKin_
     (
