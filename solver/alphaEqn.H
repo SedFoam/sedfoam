@@ -44,7 +44,7 @@ License
         if (packingLimiter)
         {
             int i=0;
-            while (i<100 && max(alpha).value()>=alphaMax.value())
+            while (i<100 && max(alpha).value()>=alphaMax)
             {
                 #include "packingLimiter.H"
                 i++;

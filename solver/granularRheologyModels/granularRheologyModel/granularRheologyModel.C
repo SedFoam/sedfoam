@@ -153,16 +153,6 @@ Foam::granularRheologyModel::granularRheologyModel
                           1e-6)
         )
     ),
-    BulkFactor_
-    (
-        granularRheologyProperties_.lookupOrDefault
-        (
-                "BulkFactor",
-                dimensionedScalar("BulkFactor",
-                    dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                    0)
-        )
-    ),
     relaxPa_
     (
         granularRheologyProperties_.lookupOrDefault

@@ -88,7 +88,7 @@ else if (granularRheology.on())
 {
 
 // solving granular rheology
-    granularRheology.solve(gradUaT, pff, alphaSmall, runTime.deltaT());
+    granularRheology.solve(gradUaT, pff, alphaSmall);
 
 // Particulate pressure and viscosity
     pa = granularRheology.pa();
