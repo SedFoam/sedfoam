@@ -37,8 +37,7 @@ License
     // limiter for the explicit stress terms to avoid numerical instability and
     // too strong limitation on the time step
     volScalarField nuFraExp = nuFra;
-    nuFraExp.min(nub*1e3);
-
+    nuFraExp.min(nuMaxExp);
     nuFraExp.correctBoundaryConditions();
 
     // interpolate 1/(alpha+alphaSmall) on the faces

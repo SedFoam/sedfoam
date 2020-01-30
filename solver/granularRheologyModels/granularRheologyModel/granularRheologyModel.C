@@ -83,14 +83,96 @@ Foam::granularRheologyModel::granularRheologyModel
             granularRheologyProperties_
         )
     ),
-    alphaMaxG_(granularRheologyProperties_.lookup("alphaMaxG")),
-    mus_(granularRheologyProperties_.lookup("mus")),
-    mu2_(granularRheologyProperties_.lookup("mu2")),
-    I0_(granularRheologyProperties_.lookup("I0")),
-    Bphi_(granularRheologyProperties_.lookup("Bphi")),
-    n_(granularRheologyProperties_.lookup("n")),
-    Dsmall_(granularRheologyProperties_.lookup("Dsmall")),
-    relaxPa_(granularRheologyProperties_.lookup("relaxPa")),
+    alphaMaxG_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+            "alphaMaxG",
+            dimensionedScalar("alphaMaxG",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.6)
+        )
+    ),
+    mus_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+            "mus",
+            dimensionedScalar("mus",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.38)
+        )
+    ),
+    mu2_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+            "mu2",
+            dimensionedScalar("mu2",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.64)
+        )
+    ),
+    I0_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+            "I0",
+            dimensionedScalar("I0",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.3)
+        )
+    ),
+    Bphi_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+            "Bphi",
+            dimensionedScalar("Bphi",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.31)
+        )
+    ),
+    n_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+            "n",
+            dimensionedScalar("n",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          2.5)
+        )
+    ),
+    Dsmall_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+            "Dsmall",
+            dimensionedScalar("Dsmall",
+                          dimensionSet(0, 0, -1, 0, 0, 0, 0),
+                          1e-6)
+        )
+    ),
+    BulkFactor_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+                "BulkFactor",
+                dimensionedScalar("BulkFactor",
+                    dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                    0)
+        )
+    ),
+    relaxPa_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+            "relaxPa",
+            dimensionedScalar("relaxPa",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          5e-6)
+        )
+    ),
     muI_
     (
         IOobject
@@ -102,7 +184,7 @@ Foam::granularRheologyModel::granularRheologyModel
             IOobject::AUTO_WRITE
         ),
         alpha_.mesh(),
-        dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
+        dimensionedScalar("zero", alpha_.dimensions(), 0.0)
     ),
     mua_
     (
@@ -112,7 +194,7 @@ Foam::granularRheologyModel::granularRheologyModel
             alpha_.time().timeName(),
             alpha_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
@@ -139,7 +221,7 @@ Foam::granularRheologyModel::granularRheologyModel
             alpha_.time().timeName(),
             alpha_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
@@ -153,7 +235,7 @@ Foam::granularRheologyModel::granularRheologyModel
             alpha_.time().timeName(),
             alpha_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(0, 2, -1, 0, 0), 0.0)
@@ -173,8 +255,7 @@ void Foam::granularRheologyModel::solve
 (
     const volTensorField& gradUat,
     const volScalarField& pf,
-    const dimensionedScalar& alphaSmall,
-    const dimensionedScalar& dt
+    const dimensionedScalar& alphaSmall
 )
 {
     if (not granularRheology_)
@@ -192,7 +273,6 @@ void Foam::granularRheologyModel::solve
     // compute the particulate velocity shear rate
     //
     //volSymmTensorField D = dev(symm(gradUat));
-    //volSymmTensorField D = symm(gradUat);
     volSymmTensorField D = symm(gradUat);
     volSymmTensorField devS = D - (scalar(1.0)/scalar(3.0))*tr(D)*I;
     volScalarField magD = ::sqrt(2.0)*mag(devS);
@@ -221,7 +301,7 @@ void Foam::granularRheologyModel::solve
 
     //  Compute the regularized particulate viscosity
     mua_ = muI_* patot_ / pow(magD2 + Dsmall2, 0.5);
-    //mua_ = muI_ * patot_ / (magD+Dsmall_);
+
 // Compute mua_ on the bottom patch
     forAll(alpha_.boundaryField(), patchi)
     {

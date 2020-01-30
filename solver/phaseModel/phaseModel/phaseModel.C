@@ -43,7 +43,11 @@ Foam::phaseModel::phaseModel
     name_(phaseName),
     d_
     (
-        dict_.lookup("d")
+       dict_.lookupOrDefault
+        (
+            "d",
+            dimensionedScalar("d", dimensionSet(0, 1, 0, 0, 0, 0, 0), 200e-6)
+        )
     ),
     sF_
     (
@@ -63,11 +67,19 @@ Foam::phaseModel::phaseModel
     ),
     nu_
     (
-        dict_.lookup("nu")
+        dict_.lookupOrDefault
+        (
+            "nu",
+            dimensionedScalar("nu", dimensionSet(0, 2, -1, 0, 0, 0, 0), 1e-6)
+        )
     ),
     rho_
     (
-        dict_.lookup("rho")
+        dict_.lookupOrDefault
+        (
+            "rho",
+            dimensionedScalar("rho", dimensionSet(1, -3, 0, 0, 0, 0, 0), 1e3)
+        )
     ),
     U_
     (

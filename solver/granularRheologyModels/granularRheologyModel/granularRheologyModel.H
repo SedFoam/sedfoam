@@ -155,8 +155,7 @@ public:
     (
         const volTensorField& gradUat,
         const volScalarField& pf,
-        const dimensionedScalar& alphaSmall,
-        const dimensionedScalar& dt
+        const dimensionedScalar& alphaSmall
     );
 
     bool on() const

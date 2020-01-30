@@ -24,29 +24,30 @@ License
 \*---------------------------------------------------------------------------*/
 if (runTime.outputTime())
 {
-    volTensorField Tauf
-    (
-       IOobject
-       (
-            "Tauf",
-            runTime.timeName(),
-            mesh,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-       ),
-       nuEffb*(fvc::grad(Ub)+fvc::grad(Ub)().T())
-    );
-    volTensorField Taus
+    volTensorField Taub
     (
         IOobject
         (
-            "Taus",
+            "Taub",
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
         ),
-        (nuEffa+nuFra/(alpha+alphaSmall))*(fvc::grad(Ua)+fvc::grad(Ua)().T())
+        rhob*(scalar(1.0)-alpha)*nuEffb*dev(fvc::grad(Ub))
+        );
+
+    volTensorField Taua
+    (
+        IOobject
+        (
+            "Taua",
+             runTime.timeName(),
+             mesh,
+             IOobject::NO_READ,
+             IOobject::AUTO_WRITE
+        ),
+        rhoa*(alpha*nuEffa+nuFra)*dev(fvc::grad(Ua))
     );
 
     runTime.write();

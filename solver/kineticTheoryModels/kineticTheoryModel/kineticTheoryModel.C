@@ -97,14 +97,76 @@ Foam::kineticTheoryModel::kineticTheoryModel
             kineticTheoryProperties_
         )
     ),
-    e_(kineticTheoryProperties_.lookup("e")),
-    alphaMax_(kineticTheoryProperties_.lookup("alphaMax")),
-    DiluteCut_(kineticTheoryProperties_.lookup("DiluteCut")),
-    ttzero(kineticTheoryProperties_.lookup("ttzero")),
-    ttone(kineticTheoryProperties_.lookup("ttone")),
-    MaxTheta(kineticTheoryProperties_.lookup("MaxTheta")),
-    phi_(dimensionedScalar(kineticTheoryProperties_.lookup("phi"))*M_PI/180.0),
-    //relaxPaKin_(kineticTheoryProperties_.lookupOrDefault(("relaxPaKin"),1.0),
+    e_
+    (
+        kineticTheoryProperties_.lookupOrDefault
+        (
+            "e",
+            dimensionedScalar("e",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.9)
+        )
+    ),
+    alphaMax_
+    (
+        kineticTheoryProperties_.lookupOrDefault
+        (
+            "alphaMax",
+            dimensionedScalar("alphaMax",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.6)
+        )
+    ),
+    DiluteCut_
+    (
+        kineticTheoryProperties_.lookupOrDefault
+        (
+            "DiluteCut",
+            dimensionedScalar("DiluteCut",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          1e-4)
+        )
+    ),
+    ttzero
+    (
+        kineticTheoryProperties_.lookupOrDefault
+        (
+            "ttzero",
+            dimensionedScalar("ttzero",
+                          dimensionSet(0, 0, 1, 0, 0, 0, 0),
+                          0)
+        )
+    ),
+    ttone
+    (
+        kineticTheoryProperties_.lookupOrDefault
+        (
+            "ttone",
+            dimensionedScalar("ttone",
+                          dimensionSet(0, 0, 1, 0, 0, 0, 0),
+                          0)
+        )
+    ),
+    MaxTheta
+    (
+        kineticTheoryProperties_.lookupOrDefault
+        (
+            "MaxTheta",
+            dimensionedScalar("MaxTheta",
+                          dimensionSet(0, 2, -2, 0, 0, 0, 0),
+                          1e3)
+        )
+    ),
+    phi_
+    (
+        kineticTheoryProperties_.lookupOrDefault
+        (
+            "phi",
+            dimensionedScalar("phi",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.5585)*M_PI/180.0) //32° angle of repose
+        )
+    ),
     relaxPaKin_
     (
         kineticTheoryProperties_.lookupOrDefault
@@ -138,7 +200,7 @@ Foam::kineticTheoryModel::kineticTheoryModel
             Ua_.time().timeName(),
             Ua_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         Ua_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
@@ -151,7 +213,7 @@ Foam::kineticTheoryModel::kineticTheoryModel
             Ua_.time().timeName(),
             Ua_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         Ua_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
@@ -203,7 +265,7 @@ Foam::kineticTheoryModel::kineticTheoryModel
             Ua_.time().timeName(),
             Ua_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         Ua_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
@@ -366,19 +428,6 @@ void Foam::kineticTheoryModel::solve
         );
     }
 
-    // dissipation (Eq. 3.24, p.50)
-    volScalarField gammaCoeff =
-        3.0*(1.0 - sqr(e_))*sqr(alpha_)*rhoa_*gs0_
-        *((4.0/Lc)*ThetaSqrt/sqrtPi-tr(D));
-
-    // Eq. 3.25, p. 50 Js = J1 - J2
-    volScalarField J1 = 3.0*alpha_*betaPrim;
-    /*
-    volScalarField J2 =
-        0.25*alpha_*sqr(betaPrim)*da_*sqr(Ur_)
-       /(rhoa_*sqrtPi*ThetaSqrt);
-    */
-
     // bulk viscosity  p. 45 (Lun et al. 1984).
 // limit production
     lambda_ = (4.0/3.0)*sqr(alpha_)*rhoa_*da_*gs0_*(1.0+e_)
@@ -388,6 +437,19 @@ void Foam::kineticTheoryModel::solve
 
     if (not equilibrium_)
     {
+        // dissipation (Eq. 3.24, p.50)
+        volScalarField gammaCoeff =
+            3.0*(1.0 - sqr(e_))*sqr(alpha_)*rhoa_*gs0_
+            *((4.0/Lc)*ThetaSqrt/sqrtPi-tr(D));
+        // Eq. 3.25, p. 50 Js = J1 - J2
+        volScalarField J1 = 3.0*alpha_*betaPrim;
+        /*
+        volScalarField J2 =
+            0.25*alpha_*sqr(betaPrim)*da_*sqr(Ur_)
+           /(rhoa_*sqrtPi*ThetaSqrt);
+        */
+
+
         // construct the granular temperature equation (Eq. 3.20, p. 44)
         // NB. note that there are two typos in Eq. 3.20
         // no grad infront of Ps
