@@ -27,8 +27,8 @@ dimensionedScalar SUSread
 (
     twophaseRASProperties.lookupOrDefault
     (
-        "SUSread",
-        dimensionedScalar("SUSread", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+        "SUS",
+        dimensionedScalar("SUS", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
     )
 );
 dimensionedScalar SUS_I
