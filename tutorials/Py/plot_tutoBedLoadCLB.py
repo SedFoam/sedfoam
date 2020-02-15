@@ -85,10 +85,7 @@ case = '1DBedLoad'
 basepath = '../'
 sol = basepath + case + '/'
 
-proc = subprocess.Popen(
-    ['foamListTimes', '-case', sol, '-latestTime'], stdout=subprocess.PIPE)
-output = proc.stdout.read()
-tread = output.decode().rstrip() + '/'
+tread = 'latestTime'
 
 Nx = 1
 Ny = 200

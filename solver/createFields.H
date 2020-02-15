@@ -50,22 +50,38 @@ IOdictionary twophaseRASProperties
 
 dimensionedScalar alphaSmall
 (
-    transportProperties.lookup("alphaSmall")
+    transportProperties.lookupOrDefault
+    (
+        "alphaSmall",
+        dimensionedScalar("alphaSmall",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          1e-6)
+    )
 );
 
 dimensionedScalar nuMax
 (
-    transportProperties.lookup("nuMax")
+    transportProperties.lookupOrDefault
+    (
+        "nuMax",
+        dimensionedScalar("nuMax",
+                          dimensionSet(0, 1, -2, 0, 0, 0, 0),
+                          1e0)
+    )
 );
 
 dimensionedScalar nuMaxExp
 (
     transportProperties.lookupOrDefault
     (
-       "nuMaxExp",
-       nuMax
+        "nuMaxExp",
+        dimensionedScalar("nuMaxExp",
+                          dimensionSet(0, 1, -2, 0, 0, 0, 0),
+                          1e0)
     )
 );
+
+// Initialize phase a and b variables
 
 autoPtr<phaseModel> phasea = phaseModel::New
 (
@@ -80,7 +96,6 @@ autoPtr<phaseModel> phaseb = phaseModel::New
     transportProperties,
     "b"
 );
-
 
 volScalarField& alpha = phasea->alpha();
 volVectorField& Ub = phaseb->U();
@@ -147,7 +162,7 @@ volVectorField U
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
-        IOobject::AUTO_WRITE
+        IOobject::NO_WRITE
     ),
     alpha*Ua + beta*Ub
 );
@@ -162,7 +177,6 @@ volScalarField rho
     ),
     alpha*rhoa + beta*rhob
 );
-
 
 Info<< "Calculating field DDtUa and DDtUb\n" << endl;
 
@@ -180,6 +194,8 @@ volVectorField DDtUb =
 Info<< "Calculating field g.h\n" << endl;
 volScalarField gh("gh", gravity & mesh.C());
 surfaceScalarField ghf("ghf", gravity & mesh.Cf());
+
+// Read interfacial properties
 
 IOdictionary interfacialProperties
 (
@@ -226,7 +242,7 @@ if (interfacialProperties.found("dragPhase"))
 
 Info << "dragPhase is " << dragPhase << endl;
 
-
+// Compute fall velocity
 #include "calculateUfall.H"
 dimensionedScalar Ufall
 (
@@ -242,6 +258,7 @@ kineticTheoryModel kineticTheory
     draga
 );
 
+// Initialize granular rheology
 granularRheologyModel granularRheology
 (
     phasea,
@@ -249,6 +266,7 @@ granularRheologyModel granularRheology
     pa
 );
 
+// Declare variables
 surfaceScalarField rUaAf
 (
     IOobject

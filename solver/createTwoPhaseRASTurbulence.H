@@ -22,9 +22,14 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 \*---------------------------------------------------------------------------*/
+
 dimensionedScalar SUSread
 (
-    twophaseRASProperties.lookup("SUS")
+    twophaseRASProperties.lookupOrDefault
+    (
+        "SUS",
+        dimensionedScalar("SUS", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+    )
 );
 dimensionedScalar SUS_I
 (
@@ -74,23 +79,43 @@ dimensionedScalar Usmall
 
 dimensionedScalar KE1
 (
-    twophaseRASProperties.lookup("KE1")
+    twophaseRASProperties.lookupOrDefault
+    (
+        "KE1",
+        dimensionedScalar("KE1", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+    )
 );
 dimensionedScalar Tpsmall
 (
-    twophaseRASProperties.lookup("Tpsmall")
+    twophaseRASProperties.lookupOrDefault
+    (
+        "Tpsmall",
+        dimensionedScalar("Tpsmall", dimensionSet(0, 0, 1, 0, 0, 0, 0), 1e-6)
+    )
 );
 dimensionedScalar KE3
 (
-    twophaseRASProperties.lookup("KE3")
+    twophaseRASProperties.lookupOrDefault
+    (
+        "KE3",
+        dimensionedScalar("KE3", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+    )
 );
 dimensionedScalar Cmu
 (
-    twophaseRASProperties.lookup("Cmu")
+    twophaseRASProperties.lookupOrDefault
+    (
+        "Cmu",
+        dimensionedScalar("Cmu", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0.09)
+    )
 );
 dimensionedScalar B
 (
-    twophaseRASProperties.lookup("B")
+    twophaseRASProperties.lookupOrDefault
+    (
+        "B",
+        dimensionedScalar("B", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0.25)
+    )
 );
 volScalarField tmfexp
 (

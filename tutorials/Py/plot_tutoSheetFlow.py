@@ -14,17 +14,14 @@ def readOpenFoam(sol):
     # Reading SedFoam results
     #
     #
-    proc = subprocess.Popen(
-        ['foamListTimes', '-case', sol, '-latestTime'], stdout=subprocess.PIPE)
-    output = proc.stdout.read()
-    tread = output.decode().rstrip() + '/'
+    tread = 'latestTime'
     Nt = 1
     X, Y, Z = fluidfoam.readmesh(sol)
     alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
     Ua = fluidfoam.readvector(sol, tread, 'Ua')
     Ub = fluidfoam.readvector(sol, tread, 'Ub')
-    Tauf = fluidfoam.readtensor(sol, tread, 'Tauf')
-    Taus = fluidfoam.readtensor(sol, tread, 'Taus')
+    Tauf = fluidfoam.readtensor(sol, tread, 'Taub')
+    Taus = fluidfoam.readtensor(sol, tread, 'Taua')
 
     return Nt, Y, Ua[0, :], Ub[0, :], alpha, Tauf[1, :], Taus[1, :]
 

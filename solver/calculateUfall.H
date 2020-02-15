@@ -95,5 +95,5 @@ if (iter == 10)
          << "velocity calculation"<<endl;
 }
 Info << "Settling velocity in quiescent water: Ufall="
-     << max(UfallField).value()
-     << " with residual:" << err << endl;
+     << max(UfallField.internalField()).value()
+     << " with residual:" << max(err).value() << endl;
