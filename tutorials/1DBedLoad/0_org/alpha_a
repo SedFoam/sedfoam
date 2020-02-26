@@ -52,7 +52,8 @@ internalField      #codeStream
                 alpha_a[i] = 0.55*0.5*(1.0+tanh((y-0.035)/(0.03-y)*10.0));
             }
         }
-        alpha_a.writeEntry("", os);
+        //alpha_a.writeEntry("", os);
+        writeEntry(os, "", alpha_a);
     #};
 
 };
