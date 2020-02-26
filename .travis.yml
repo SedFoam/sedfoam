@@ -7,7 +7,6 @@ language: cpp
 
 env:
   - OF_VERS=6
-  - OF_VERS=7
 
 before_install:
     - sudo python3 -V
