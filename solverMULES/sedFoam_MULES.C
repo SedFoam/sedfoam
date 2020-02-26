@@ -32,7 +32,7 @@ Description
     \verbatim
         Version 2.0:
         Chauchat J., Cheng Z., Nagel T., Bonamy C., & Hsu T-J. (2017).
-        SedFoam-2.0: a 3D two-phase flow numerical model for sediment transport 
+        SedFoam-2.0: a 3D two-phase flow numerical model for sediment transport
         Geosci. Model Dev. Discuss.
         http://dx.doi.org/10.5194/gmd-2017-101
     \endverbatim
