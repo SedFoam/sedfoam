@@ -26,7 +26,17 @@ Application
 
 Description
     Solver for a system of 2 phases with one phase dispersed,
-    e.g. gas bubbles in a liquid or solid particles in a gas.
+    e.g.  solid particles in a fluid.
+
+    Reference:
+    \verbatim
+        Version 2.0:
+        Chauchat J., Cheng Z., Nagel T., Bonamy C., & Hsu T-J. (2017).
+        SedFoam-2.0: a 3D two-phase flow numerical model for sediment transport
+        Geosci. Model Dev. Discuss.
+        http://dx.doi.org/10.5194/gmd-2017-101
+    \endverbatim
+
 
 \*---------------------------------------------------------------------------*/
 /**
