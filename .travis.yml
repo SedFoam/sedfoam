@@ -2,12 +2,12 @@
 sudo: required
 python:
   - "3.7"
-dist: xenial
+dist: bionic
 language: cpp
 
 env:
-  - OF_VERS=5
   - OF_VERS=6
+  - OF_VERS=7
 
 before_install:
     - sudo python3 -V
