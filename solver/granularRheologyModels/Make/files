@@ -20,4 +20,4 @@ FluidViscosityModel/Einstein/EinsteinViscosity.C
 FluidViscosityModel/KriegerDougherty/KriegerDoughertyViscosity.C
 FluidViscosityModel/BoyerEtAl/BoyerEtAlViscosity.C
 
-LIB = $(FOAM_USER_LIBBIN)/libgranularRheologySedModel
+LIB = $(FOAM_LIBBIN)/libgranularRheologySedModel

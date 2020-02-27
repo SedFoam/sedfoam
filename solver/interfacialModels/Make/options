@@ -3,5 +3,5 @@ EXE_INC = \
     -I../phaseModel/lnInclude
 
 LIB_LIBS = \
-    -L$(FOAM_USER_LIBBIN)\
-    -lphaseModel
+    -L$(FOAM_LIBBIN)\
+    -ltwoPhaseModel

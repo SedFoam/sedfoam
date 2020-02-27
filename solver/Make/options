@@ -16,16 +16,16 @@ EXE_INC = \
     -Iaveraging
 
 EXE_LIBS = \
-    -L$(FOAM_USER_LIBBIN)\
+    -L$(FOAM_LIBBIN)\
     -lEulerianInterfacialSedModels \
     -lfiniteVolume \
     -lmeshTools \
     -lfvOptions \
     -lsampling \
-    -lphaseModel \
+    -ltwoPhaseModel \
     -lkineticTheorySedModel\
     -lgranularRheologySedModel\
     -lincompressibleTransportModels \
     -lturbulenceModels \
     -lincompressibleTurbulenceModels \
-    -lmytwoPhaseTurbulenceModels
+    -ltwoPhaseTurbulenceModels

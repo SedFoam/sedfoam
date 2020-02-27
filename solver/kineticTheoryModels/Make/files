@@ -33,4 +33,4 @@ frictionalStressModel/JohnsonJackson/JohnsonJacksonFrictionalStress.C
 frictionalStressModel/SrivastavaSundaresan/SrivastavaSundaresanFrictionalStress.C
 frictionalStressModel/Schaeffer/SchaefferFrictionalStress.C
 
-LIB = $(FOAM_USER_LIBBIN)/libkineticTheorySedModel
+LIB = $(FOAM_LIBBIN)/libkineticTheorySedModel
