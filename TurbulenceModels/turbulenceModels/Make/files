@@ -1,3 +1,3 @@
 twophaseTurbulenceModels.C
 
-LIB = $(FOAM_USER_LIBBIN)/libmytwoPhaseTurbulenceModels
+LIB = $(FOAM_USER_LIBBIN)/libtwoPhaseTurbulenceModels
