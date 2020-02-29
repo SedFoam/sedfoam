@@ -22,10 +22,10 @@ EXE_LIBS = \
     -lmeshTools \
     -lfvOptions \
     -lsampling \
-    -lphaseModel \
+    -ltwoPhaseModel \
     -lkineticTheorySedModel\
     -lgranularRheologySedModel\
     -lincompressibleTransportModels \
     -lturbulenceModels \
     -lincompressibleTurbulenceModels \
-    -lmytwoPhaseTurbulenceModels
+    -ltwoPhaseTurbulenceModels
