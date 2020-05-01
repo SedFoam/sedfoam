@@ -64,15 +64,11 @@ License
 
       Info<<"ustarmax"<<max(ustar).value()<<endl;
     }
-    // Momentum fluxes computed on the faces for the particle phase phiDraga and
-    // the fluid phase phiDragb
+    // Momentum fluxes computed on the faces for the particle phase phiDraga
     surfaceScalarField phiDraga =
     (
-    // explicit drag term
-        //bonamy fvc::interpolate(beta/rhoa*K*rUaA)*phib
-    // turbulent suspension term (comment the next 2 lines
-    // if suspension term in UaEqn: susa)
-          - (fvc::interpolate
+    // turbulent suspension term
+        - (fvc::interpolate
             (
                 SUS*(K/rhoa)*turbulenceb->nut()*(beta/(alpha + alphaSmall))
             )
@@ -81,23 +77,6 @@ License
       - (oneOverAlpha/rhoa*fvc::snGrad(pa))*rUaAf*mesh.magSf()
     // grad(Pf)
     // - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
-    // diagonal part of stress
-      + (oneOverAlpha/rhoa*fvc::snGrad(lambdaUa*tr(gradUaT)))*rUaAf*mesh.magSf()
-    // diagonal part of stress 2
-      - (
-            scalar(2.0/3.0)*oneOverAlpha
-           *fvc::snGrad((alpha+alphaSmall)*(sqr(Ct)*turbulenceb->k()
-          + nuEffa*tr(gradUaT)))
-        )
-       *rUaAf*mesh.magSf()
-      - (scalar(2.0/3.0)*oneOverAlpha*fvc::snGrad(nuFraExp*tr(gradUaT)))
-       *rUaAf*mesh.magSf()
-    // stress part 3
-      + rUaAf*(oneOverAlpha
-       *fvc::interpolate(fvc::div((alpha+alphaSmall)*nuEffa*gradUaT, schemeA))
-      & mesh.Sf())
-      + rUaAf*(oneOverAlpha
-       *fvc::interpolate(fvc::div(nuFraExp*gradUaT, schemeA)) & mesh.Sf())
     // gravity
       + rUaAf
        *(
@@ -108,24 +87,12 @@ License
       + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
     );
 
+// Momentum fluxes computed on the faces for the fluid phase phiDragb
     surfaceScalarField phiDragb =
     (
-// explicit drag term
-//bonamy        fvc::interpolate(alpha/rhob*K*rUbA)*phia
 // turbulent suspension term
-// WARNING : comment the next 2 lines if suspension term in UbEqn: susb
         (fvc::interpolate(SUS*(K/rhob)*turbulenceb->nut())*fvc::snGrad(alpha))
         *rUbAf*mesh.magSf()
-// diagnoal part of stress
-      - (fvc::interpolate(scalar(2.0)/(beta*scalar(3.0)))
-       *fvc::snGrad(((nuEffb*tr(gradUbT)))*beta))*rUbAf*mesh.magSf()
-// stress part 3
-      + rUbAf*(fvc::interpolate(scalar(1.0)/beta)
-       *fvc::interpolate(fvc::div(beta*nuEffb*gradUbT, schemeA)) & mesh.Sf())
-// Gravity force
-//      - rUbAf
-//           (gravity & mesh.Sf())
-//       +rUbAf*(gravity & mesh.Sf())
 // driving force
       + rUbAf*((gradPOSC/rhob) & mesh.Sf())
     );

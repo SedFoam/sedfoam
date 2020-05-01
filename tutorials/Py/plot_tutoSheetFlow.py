@@ -18,6 +18,7 @@ def readOpenFoam(sol):
         ['foamListTimes', '-case', sol, '-latestTime'], stdout=subprocess.PIPE)
     output = proc.stdout.read()
     tread = output.decode().rstrip() + '/'
+    tread='150/'
     Nt = 1
     X, Y, Z = fluidfoam.readmesh(sol)
     alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
@@ -78,7 +79,7 @@ Nx = 1
 Ny = 400
 Nz = 1
 
-casedir = '1DSheetflow/'
+casedir = '1DSheetFlow/'
 label = '$\mu(I)$+ML'
 
 ############################################

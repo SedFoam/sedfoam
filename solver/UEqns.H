@@ -35,42 +35,11 @@ gradPOSC =
 
 rho = alpha*rhoa+beta*rhob;
 
-
-/* JC Contribution from Hugo commented
-//added tensor (comment if not added)
-dimensionedTensor iso
+volTensorField Rca
 (
-  "iso",
-  dimensionSet(0, 0, 0, 0, 0, 0, 0),
-  tensor(1e0, 0e0 , 0e0, 0e0, 1e0, 0e0, 0e0, 0e0 ,1e0)
-  //      XX, XY,   XZ,   YX, YY,  YZ,  ZX,  ZY,  ZZ
+    "Rca",
+    ((2.0/3.0)*I)*nuEffa*tr(gradUaT) - nuEffa*gradUaT
 );
-
-dimensionedTensor aniso
-(
-  "aniso",
-  dimensionSet(0, 0, 0, 0, 0, 0, 0),
-  tensor(0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0 ,0.0)
-  //      XX, XY,  XZ,  YX,  YY,  YZ,  ZX,  ZY,  ZZ
-);
-
-volVectorField susa
-(
-    "susa",
-    //turbulence suspension
-    SUS*(K/rhoa)*beta/(alpha+alphaSmall)*turbulenceb->nut()
-    *((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha))
-);
-volVectorField susb
-(
-    "susb",
-    //turbulence suspension
-    SUS*(K/rhob)*turbulenceb->nut()*((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha))
-);
-//end added tensor
-// end contribution from Hugo
-    */
-
 
 surfaceScalarField phiRa =
 (
@@ -85,24 +54,32 @@ fvVectorMatrix UaEqn
       + fvm::div(phia, Ua, "div(phia,Ua)")
       - fvm::Sp(fvc::div(phia), Ua)
     )
+  + fvc::div(Rca)
 // effective stress term from dispersed phase
   - scalar(1.0)/(alpha+alphaSmall)*fvm::laplacian(nuFra, Ua)
 //- fvm::laplacian(nuFra, Ua)
   - fvm::laplacian(nuEffa, Ua)
   + fvm::div(phiRa, Ua, "div(phiRa,Ua)")
   - fvm::Sp(fvc::div(phiRa), Ua)
+  + (fvc::grad(alpha)/(alpha+alphaSmall) & Rca)
     ==
-//    fvm::Sp(-beta/rhoa*K,Ua)        // implicit drag term
-//+ beta/rhoa*K*Ub                    // explicit drag transfered to p-equation
-    // Hugo  -susa                    // term to add with tensor
-//- gradPs              // shear induced pressure gradient moved to p-equation
   - gradPf                  // contact pressure gradient moved to p-equation
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
-  //    + fvOptions(Ua)
+  + fvOptions(alpha, Ua)
 );
 UaEqn.relax();
 UaEqn += fvm::Sp(beta/rhoa*K, Ua);
-//fvOptions.constrain(UaEqn());
+fvOptions.constrain(UaEqn);
+Ua.correctBoundaryConditions();
+fvOptions.correct(Ua);
+
+// Fluid phase
+
+volTensorField Rcb
+(
+    "Rcb",
+    ((2.0/3.0)*I)*nuEffb*tr(gradUbT) - nuEffb*gradUbT
+);
 
 surfaceScalarField phiRb =
 (
@@ -118,20 +95,21 @@ fvVectorMatrix UbEqn
       + fvm::div(phib, Ub, "div(phib,Ub)")
       - fvm::Sp(fvc::div(phib), Ub)
     )
+  + fvc::div(Rcb)
   - fvm::laplacian(nuEffb, Ub)
   + fvm::div(phiRb, Ub, "div(phiRb,Ub)")
   - fvm::Sp(fvc::div(phiRb), Ub)
+  + (fvc::grad(beta)/(beta) & Rcb)
     ==
-//    fvm::Sp(-alpha/rhob*K,Ub)                 // implicit drag term
-    // Hugo   susb                                 //term to add with tensor
-//+ alpha/rhob*K*Ua                 // Explicit drag transfered to p-equation
     alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift and added mass forces
-//  + fvOptions(Ub)
+  + fvOptions(beta, Ub)
 );
 UbEqn.relax();
 UbEqn += fvm::Sp(alpha/rhob*K, Ub);
 
-//fvOptions.constrain(UbEqn());
+fvOptions.constrain(UbEqn);
+Ub.correctBoundaryConditions();
+fvOptions.correct(Ub);
 
 /*    if (pimple.momentumPredictor())
     {
