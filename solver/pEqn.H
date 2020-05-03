@@ -38,12 +38,6 @@ License
     HbbyA = rUbA*UbEqn.H();
     word schemeA("div(alpha,nu)");
 
-    // limiter for the explicit stress terms to avoid numerical instability and
-    // too strong limitation on the time step
-    volScalarField nuFraExp = nuFra;
-    nuFraExp.min(nuMaxExp);
-    nuFraExp.correctBoundaryConditions();
-
     // interpolate 1/(alpha+alphaSmall) on the faces
     surfaceScalarField oneOverAlpha =
     (
@@ -73,27 +67,26 @@ License
                 SUS*(K/rhoa)*turbulenceb->nut()*(beta/(alpha + alphaSmall))
             )
            *fvc::snGrad(alpha))*rUaAf*mesh.magSf()
-    // grad(pa)
+    // shear induced pressure gradient
       - (oneOverAlpha/rhoa*fvc::snGrad(pa))*rUaAf*mesh.magSf()
-    // grad(Pf)
+    // elastic/contact pressure gradient
       - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
     // gravity
       + rUaAf
        *(
            (1.0-rhob/rhoa)*(gravity & mesh.Sf())
         )
-//      + rUaAf*(gravity & mesh.Sf())
-    // mean pressure gradient
+      // mean pressure gradient
       + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
     );
 
 // Momentum fluxes computed on the faces for the fluid phase phiDragb
     surfaceScalarField phiDragb =
     (
-// turbulent suspension term
+    // turbulent suspension term
         (fvc::interpolate(SUS*(K/rhob)*turbulenceb->nut())*fvc::snGrad(alpha))
         *rUbAf*mesh.magSf()
-// driving force
+    // driving force
       + rUbAf*((gradPOSC/rhob) & mesh.Sf())
     );
 
@@ -145,7 +138,7 @@ License
     (
         (fvc::interpolate(HbbyA) & mesh.Sf()) + rUbAf*fvc::ddtCorr(Ub, phib)
     );
-
+    // Compute total flux on faces
     surfaceScalarField phiaHbyA = phiUa + phiDraga;
     surfaceScalarField phibHbyA = phiUb + phiDragb;
 
@@ -153,14 +146,12 @@ License
     surfaceScalarField rAUKda(fvc::interpolate(beta/rhoa*K*rUaA));
     surfaceScalarField rAUKdb(fvc::interpolate(alpha/rhob*K*rUbA));
 
+    // add semi-implicit drag terms to mixture flux on the faces
     surfaceScalarField phiHbyA = alphaf*(phiaHbyA + rAUKda*phib)
                                + betaf*(phibHbyA + rAUKdb*phia);
-
-//    surfaceScalarField phiHbyA = alphaf*phiaHbyA + betaf*phibHbyA;
-
 //    adjustPhi(phiHbyA, U, p_rbgh);
 
-    // Poisson equation for the pressure
+    // Build the Poisson equation for the pressure
     surfaceScalarField Dp
     (
         "(rho*(1|A(U)))",
@@ -193,25 +184,26 @@ License
 
         if (pimple.finalNonOrthogonalIter())
         {
+            // Compute pressure gradient on the cell faces
             surfaceScalarField SfGradp = pEqn.flux()/Dp;
-
+            // Compute the corrected fluxes on the cell faces for each phase and the mixture
             surfaceScalarField phias = phiaHbyA - rUaAf*SfGradp/rhoa;
             surfaceScalarField phibs = phibHbyA - rUbAf*SfGradp/rhob;
             phi = phiHbyA - pEqn.flux();
-
+            // Compute the relative flux between the phases
             surfaceScalarField phir
             (
                 ((phias + rAUKda*phibs) - (phibs + rAUKdb*phias))
                /(1 - rAUKda*rAUKdb)
             );
-
+            // Correct the flux for each phase using the relative flux
             phia = phi + betaf*(phir);
             phib = phi - alphaf*(phir);
 
             #include "continuityErrs.H"
             p_rbgh.relax();
             SfGradp = pEqn.flux()/Dp;
-            // Velocity correction step
+            // Velocity correction step: reconstruction of the solution at the cell center for each phase
             volVectorField Ubs =
             (
                 HbbyA + rUbA*fvc::reconstruct(phiDragb/rUbAf-SfGradp/rhob)
@@ -223,8 +215,9 @@ License
             volScalarField Da(beta/rhoa*K*rUaA);
             volScalarField Db(alpha/rhob*K*rUbA);
             U = alpha*(Uas + Da*Ub) + beta*(Ubs + Db*Ua);
+            // Compute the relative velocity
             volVectorField Ur(((1 - Db)*Uas - (1 - Da)*Ubs)/(1 - Da*Db));
-
+            // Correct the phase velocities to account for the drag force
             Ua = U + beta*Ur;
             Ua.correctBoundaryConditions();
             //fvOptions.correct(Ua);
