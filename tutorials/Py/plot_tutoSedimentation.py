@@ -65,14 +65,16 @@ output = proc.stdout.read()
 #tread = list(output.split('\n'))
 tread = output.decode().rstrip().split('\n')
 
+#print (tread)
+#for i in range(8):
+#    del tread[0]
+#print(tread)
 
-del tread[-1]
 Nt = len(tread)
-print(Nt)
 time = np.zeros(Nt)
 X, Y, Z = fluidfoam.readmesh(sol)
 alphat = np.zeros((Ny, Nt))
-
+print(tread)
 k = -1
 for t in tread:
     print(t)

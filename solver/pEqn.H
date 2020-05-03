@@ -76,7 +76,7 @@ License
     // grad(pa)
       - (oneOverAlpha/rhoa*fvc::snGrad(pa))*rUaAf*mesh.magSf()
     // grad(Pf)
-    // - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
+      - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
     // gravity
       + rUaAf
        *(
@@ -125,6 +125,11 @@ License
             phiDragb.boundaryFieldRef()[patchi] = 0.0;
         }
         if (p_rbgh.boundaryField().types()[patchi] == "outletInlet")
+        {
+            phiDraga.boundaryFieldRef()[patchi] = 0.0;
+            phiDragb.boundaryFieldRef()[patchi] = 0.0;
+        }
+        if (p_rbgh.boundaryField().types()[patchi] == "fixedFluxPressure")
         {
             phiDraga.boundaryFieldRef()[patchi] = 0.0;
             phiDragb.boundaryFieldRef()[patchi] = 0.0;

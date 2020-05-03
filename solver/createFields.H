@@ -66,7 +66,14 @@ dimensionedScalar nuMaxExp
        nuMax
     )
 );
-
+dimensionedScalar nuFraMax
+(
+    transportProperties.lookupOrDefault
+    (
+       "nuFraMax",
+        nuMax
+    )
+);
 autoPtr<phaseModel> phasea = phaseModel::New
 (
     mesh,

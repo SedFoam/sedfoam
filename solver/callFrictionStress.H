@@ -33,21 +33,6 @@ pff =
     /pow(max(alphaMax - alpha, scalar(1.0e-20)), eta1_)
 );
 //
-// Compute the gradient of pff that enter the momentum balance equation
-//
-surfaceScalarField gradPff = fvc::snGrad(pff)*mesh.magSf();
-
-forAll(p_rbgh.boundaryField(), patchi)
-{
-    if (isA<zeroGradientFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
-    {
-        gradPff.boundaryFieldRef()[patchi] = 0.0;
-    }
-}
-
-gradPf = (fvc::reconstruct(gradPff))/(rhoa*(alpha + alphaSmall));
-//
-//
 //  Kinetic THEORY PART
 //
 //
@@ -86,7 +71,6 @@ if (kineticTheory.on())
 //
 else if (granularRheology.on())
 {
-
 // solving granular rheology
     granularRheology.solve(gradUaT, pff, alphaSmall, runTime.deltaT());
 
@@ -99,27 +83,13 @@ else if (granularRheology.on())
         Info<< "Shear induced pressure : Max =" << gMax(pa)
             <<",Min =" << gMin(pa)<<endl;
     }
-/*
-// Compute the shear induced pressure gradient contribution
-// (not used inthis version)
-     surfaceScalarField gradPsf = fvc::snGrad(pa)*mesh.magSf();
-
-     forAll(p.boundaryField(), patchi)
-     {
-        if (isA<zeroGradientFvPatchScalarField>(p.boundaryField()[patchi]))
-          {
-            gradPsf.boundaryField()[patchi] = 0.0;
-          }
-     }
-
-     gradPs = (fvc::reconstruct(gradPsf))/(rhoa*(alpha+alphaSmall));
-*/
 // the actual expression for nuFra depends on the way this term is discretized
 // in UaEqn
     nuFra = granularRheology.mua()/ rhoa;
 //     nuFra = granularRheology.mua()/((alpha+alphaSmall)*rhoa);
 
     nuEffa = sqr(Ct)*turbulenceb->nut() + nua;
+    lambdaUa = rhoa*nua*scalar(0.0);
 
 // Compute nuEffb the total fluid phase viscosity
     nuEffb = turbulenceb->nut() + granularRheology.nuvb();
@@ -138,6 +108,7 @@ else
     pa = pa*scalar(0.0);
     nuFra = nua*scalar(0.0);
     nuEffa = nua;
+    lambdaUa = rhoa*nua*scalar(0.0);
 }
 // Add a numerical viscosity to damp the instabilities close to the outlet
 if (spongeLayer)
@@ -156,6 +127,6 @@ if (spongeLayer)
 }
 
 // Limit viscosities for numerical stability
-nuFra.min(nuMax);
+nuFra.min(nuFraMax);
 nuEffa.min(nuMax);
 nuEffb.min(nuMax);

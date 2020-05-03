@@ -89,7 +89,7 @@ proc = subprocess.Popen(
     ['foamListTimes', '-case', sol, '-latestTime'], stdout=subprocess.PIPE)
 output = proc.stdout.read()
 tread = output.decode().rstrip() + '/'
-
+#tread='50/'
 Nx = 1
 Ny = 200
 Nz = 1
