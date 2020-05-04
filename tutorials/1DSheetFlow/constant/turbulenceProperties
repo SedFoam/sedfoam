@@ -25,10 +25,6 @@ RASModel        twophasekEpsilon;
 turbulence      on;
 printCoeffs     on;
 
-twophasekOmega2006Coeffs
-{
-    popeCorrection  false;
-}
 }
 
 // ************************************************************************* //

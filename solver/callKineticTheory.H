@@ -44,30 +44,13 @@ if (kineticTheory.on())
     nuEffa = kineticTheory.mua()/((alpha + alphaSmall)*rhoa);
     lambdaUa = kineticTheory.lambda();
     pa = kineticTheory.pa();
-
-    /*
-    // Compute the gradient of collisional pressure
-    // WARNING : not used in the current version
-    surfaceScalarField gradPsf = fvc::snGrad(pa)*mesh.magSf();
-    forAll(p.boundaryField(), patchi)
+    if (debugInfo)
     {
-        if (isA<zeroGradientFvPatchScalarField>(p.boundaryField()[patchi]))
-        {
-            gradPsf.boundaryField()[patchi] = 0.0;
-        }
+        Info<< "Collisional/kinetic pressure : Max =" << gMax(pa)
+            <<",Min =" << gMin(pa)<<endl;
     }
-    gradPs = (fvc::reconstruct(gradPsf))/(rhoa*(alpha+alphaSmall));
-    */
 }
 else               // If not using kinetic theory is using Ct model
 {
     nuEffa = sqr(Ct)*turbulenceb->nut() + nua;
-}
-
-if (kineticTheory.on() && debugInfo)
-{
-    Info<< "Max gradPs =" << max(mag(gradPs)).value()
-        << ",Min gradPs =" << min(mag(gradPs)).value() << endl;
-    Info<< "Max gradPf =" << max(mag(gradPf)).value()
-        << ",Min gradPf =" << min(mag(gradPf)).value() << endl;
 }

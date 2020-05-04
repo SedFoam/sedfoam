@@ -34,12 +34,6 @@ License
     rUaAf = fvc::interpolate(rUaA);
     surfaceScalarField rUbAf = fvc::interpolate(rUbA);
 
-    // limiter for the explicit stress terms to avoid numerical instability and
-    // too strong limitation on the time step
-    volScalarField nuFraExp = nuFra;
-    nuFraExp.min(nuMaxExp);
-    nuFraExp.correctBoundaryConditions();
-
     // interpolate 1/(alpha+alphaSmall) on the faces
     surfaceScalarField oneOverAlpha =
     (
@@ -70,71 +64,34 @@ License
         HbbyA = rUbA*UbEqn.H();
 
         // Momentum fluxes computed on the faces for the particle phase phiDraga
-        // and the fluid phase phiDragb
         surfaceScalarField phiDraga =
         (
-        // explicit drag term : now tricks
-        //bonamy fvc::interpolate(beta/rhoa*K*rUaA)*phib
-        // turbulent suspension term (comment the next 2 lines
-        // if suspension term in UaEqn: susa)
+        // turbulent suspension term 
            -(fvc::interpolate
             (
                 SUS*(K/rhoa)*turbulenceb->nut()*(beta/(alpha + alphaSmall))
             )
            *fvc::snGrad(alpha))*rUaAf*mesh.magSf()
-            // grad(pa)
+        // shear induced pressure gradient
           - (oneOverAlpha/rhoa*fvc::snGrad(pa))*rUaAf*mesh.magSf()
-            // grad(Pf)
-            // - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
-            // diagonal part of stress
-          + (oneOverAlpha/rhoa*fvc::snGrad(lambdaUa*tr(gradUaT)))
-           *rUaAf*mesh.magSf()
-            // diagonal part of stress 2
-          - (
-                scalar(2.0/3.0)*oneOverAlpha
-               *fvc::snGrad((alpha+alphaSmall)*(sqr(Ct)*turbulenceb->k()
-              + nuEffa*tr(gradUaT)))
-            )
-           *rUaAf*mesh.magSf()
-          - (scalar(2.0/3.0)*oneOverAlpha*fvc::snGrad(nuFraExp*tr(gradUaT)))
-           *rUaAf*mesh.magSf()
-           // stress part 3
-          + rUaAf*(oneOverAlpha
-           *fvc::interpolate
-            (
-                fvc::div((alpha+alphaSmall)*nuEffa*gradUaT, schemeA)
-            )
-          & mesh.Sf())
-          + rUaAf*(oneOverAlpha
-           *fvc::interpolate(fvc::div(nuFraExp*gradUaT, schemeA)) & mesh.Sf())
-            // gravity
+        // elastic/contact pressure gradient
+          - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
+        // gravity
           + rUaAf
            *(
                (1.0-rhob/rhoa)*(gravity & mesh.Sf())
             )
-        // + rUaAf*(gravity & mesh.Sf())
         // mean pressure gradient
           + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
         );
 
+// Momentum fluxes computed on the faces for the fluid phase phiDragb
         surfaceScalarField phiDragb =
         (
-        // explicit drag term
-        //bonamy        fvc::interpolate(alpha/rhob*K*rUbA)*phia
         // turbulent suspension term
-        // WARNING : comment the next 2 lines if suspension term in UbEqn: susb
             fvc::interpolate(SUS*(K/rhob)*turbulenceb->nut())*fvc::snGrad(alpha)
             *rUbAf*mesh.magSf()
-            // diagnoal part of stress
-          - (fvc::interpolate(scalar(2.0)/(beta*scalar(3.0)))
-           *fvc::snGrad(((nuEffb*tr(gradUbT)))*beta))*rUbAf*mesh.magSf()
-           // stress part 3
-          + rUbAf*(fvc::interpolate(scalar(1.0)/beta)
-           *fvc::interpolate
-            (
-                fvc::div(beta*nuEffb*gradUbT, schemeA)) & mesh.Sf()
-            )
-          // driving force
+        // mean pressure gradient
           + rUbAf*((gradPOSC/rhob) & mesh.Sf())
         );
 
@@ -184,7 +141,7 @@ License
         (
             (fvc::interpolate(HbbyA) & mesh.Sf()) + rUbAf*fvc::ddtCorr(Ub, phib)
         );
-
+        // Compute total flux on faces
         surfaceScalarField phiaHbyA = phiUa + phiDraga;
         surfaceScalarField phibHbyA = phiUb + phiDragb;
 
@@ -192,14 +149,13 @@ License
         surfaceScalarField rAUKda(fvc::interpolate(beta/rhoa*K*rUaA));
         surfaceScalarField rAUKdb(fvc::interpolate(alpha/rhob*K*rUbA));
 
+        // add semi-implicit drag terms to mixture flux on the faces
         surfaceScalarField phiHbyA = alphaf*(phiaHbyA + rAUKda*phib)
                                    + betaf*(phibHbyA + rAUKdb*phia);
 
-    //    surfaceScalarField phiHbyA = alphaf*phiaHbyA + betaf*phibHbyA;
-
     //    adjustPhi(phiHbyA, U, p_rbgh);
 
-        // Poisson equation for the pressure
+        // Build the Poisson equation for the pressure
         surfaceScalarField Dp
         (
             "(rho*(1|A(U)))",
@@ -237,24 +193,27 @@ License
 
             if (pimple.finalNonOrthogonalIter())
             {
+                // Compute pressure gradient on the cell faces
                 surfaceScalarField SfGradp = pEqn.flux()/Dp;
+                // Compute the corrected fluxes on the cell faces for each phase 
                 surfaceScalarField phias = phiaHbyA - rUaAf*SfGradp/rhoa;
                 surfaceScalarField phibs = phibHbyA - rUbAf*SfGradp/rhob;
                 phi = phiHbyA - pEqn.flux();
-
+                // Compute the relative flux between the phases
                 surfaceScalarField phir
                 (
                     ((phias + rAUKda*phibs) - (phibs + rAUKdb*phias))
                    /(1 - rAUKda*rAUKdb)
                 );
-
+                // Correct the flux for each phase using the relative flux
                 phia = phi + betaf*(phir);
                 phib = phi - alphaf*(phir);
 
                 #include "continuityErrs.H"
+                // Compute the pressure gradient on the cell faces
                 p_rbgh.relax();
                 SfGradp = pEqn.flux()/Dp;
-                // Velocity correction step
+                // Velocity correction step: reconstruction of the velocity at the cell centers
                 volVectorField Ubs =
                 (
                     HbbyA + rUbA*fvc::reconstruct(phiDragb/rUbAf-SfGradp/rhob)
@@ -263,11 +222,14 @@ License
                 (
                     HabyA + rUaA*fvc::reconstruct(phiDraga/rUaAf-SfGradp/rhoa)
                 );
+                // Cell-center drag coefficients
                 volScalarField Da(beta/rhoa*K*rUaA);
                 volScalarField Db(alpha/rhob*K*rUbA);
+                // Compute mixture velocity at cell centers
                 U = alpha*(Uas + Da*Ub) + beta*(Ubs + Db*Ua);
+                // Compute the relative velocity at cell centers
                 volVectorField Ur(((1 - Db)*Uas - (1 - Da)*Ubs)/(1 - Da*Db));
-
+                // Correct the phase velocities to account for the drag force
                 Ua = U + beta*Ur;
                 Ua.correctBoundaryConditions();
                 //fvOptions.correct(Ua);
