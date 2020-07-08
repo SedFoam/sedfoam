@@ -151,8 +151,12 @@ class twophasekOmega2006
 
 
     //- Destructor
-    virtual ~twophasekOmega2006()
-    {}
+    #if (OFVERSION < 220 and OFVERSION >= 200) or OFVERSION == 00
+        virtual ~twophasekOmega2006() = default;
+    #else
+        virtual ~twophasekOmega2006()
+        {}
+    #endif
 
 
     // Member Functions
