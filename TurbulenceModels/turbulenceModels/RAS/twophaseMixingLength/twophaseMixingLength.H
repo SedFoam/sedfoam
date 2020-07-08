@@ -101,15 +101,12 @@ protected:
             dimensionedScalar alphaMaxLM_;
             dimensionedScalar kappaLM_;
 
-        // flow information
-//            volScalarField alpha_;
 
         // Fields
             volScalarField k_;
             volScalarField epsilon_;
 
     // Protected Member Functions
-
         virtual void correctNut();
 
 
@@ -140,8 +137,12 @@ public:
 
 
     //- Destructor
-    virtual ~twophaseMixingLength()
-    {}
+    #if (OFVERSION < 220 and OFVERSION >= 200) or OFVERSION == 00
+        virtual ~twophaseMixingLength() = default;
+    #else
+        virtual ~twophaseMixingLength()
+        {}
+    #endif
 
 
     // Member Functions
@@ -161,7 +162,23 @@ public:
         {
             return epsilon_;
         }
-
+        virtual tmp<volScalarField> omega() const
+        {
+            return tmp<volScalarField>
+            (
+                new volScalarField
+                (
+                    IOobject
+                    (
+                        "omega",
+                        this->mesh_.time().timeName(),
+                        this->mesh_
+                    ),
+                    epsilon_/(k_),
+                    epsilon_.boundaryField().types()
+                )
+            );
+        }
 
         //- Solve the turbulence equations and correct the turbulence viscosity
         virtual void correct();
