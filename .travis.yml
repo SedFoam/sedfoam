@@ -20,6 +20,7 @@ before_install:
     - sudo apt-get install -qq openfoam${OF_VERS}
     - sudo apt-get install -qq vera++
     - sudo apt-get install -qq doxygen
+    - sudo apt-get install graphviz
     ## http://conda.pydata.org/docs/travis.html#the-travis-yml-file
     # wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     # bash miniconda.sh -b -p $HOME/miniconda
@@ -44,8 +45,8 @@ script:
     - cd ../../doc/
     - doxygen
     - mv html ../public/
-    - cp twitter.png ../public/
-    - cp github.png ../public/
+    - cp images/twitter.png ../public/
+    - cp images/github.png ../public/
 
 deploy:
   # Utiliser le processus de déploiement des pages Github
@@ -60,7 +61,6 @@ deploy:
   # La branche Git sur laquelle on souhaite déployer (master, gh-pages, foo...)
   target_branch: gh-pages
   on:
-    # Quelle branche déclenchera le déploiement
     branch: master
 
 notifications:
