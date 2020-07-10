@@ -3,7 +3,7 @@
  *
  *
  * Copyright (C) 2018 by Cyrille Bonamy, Julien Chauchat, Tim Nagel,
- * Antoine Mathieu, Zhen Cheng and Tian-Jian Hsu.
+ * Antoine Mathieu, Eduard Puig Montella, Zhen Cheng and Tian-Jian Hsu.
  *
  * Permission to use, copy, modify, and distribute this software and its
  * documentation under the terms of the GNU General Public License is hereby
@@ -34,7 +34,7 @@ OpenFOAM always operates in a 3 dimensional Cartesian coordinate system and all 
 
 The sedimentation domain consists of a square of side length L = 0.006 m in the x–y plane and of height h=0.06 m in the vertical direction z. The side lentgh is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 100 cells will be used. The block structure is shown in Figure 1.
 
-@image html "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=100px
+@image html "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
 @image latex "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
 
 
@@ -282,7 +282,7 @@ FluidViscosityModel KriegerDougherty;
 
 \endverbatim 
 
-On the first line the switch granularRheology allows to turn on and off this module. The keywords FrictionModel, PPressureModel and FluidViscosityModel allow to choose the friction model between none, Coulomb, MuI and MuIv, the shear induced particle pressure model between none, MuI and MuIv and the effective viscosity model between none (=pure fluid), Einstein, KriegerDougherty and BoyerEtAl.  
+On the first line the switch granularRheology allows to turn on and off this module. The keywords FrictionModel, PPressureModel and FluidViscosityModel allow to choose the friction model, the shear induced particle pressure model and the effective viscosity model (see \ref inputs for details).  
 
 For the present case the granularRheology is set to Coulomb and the FluidViscosityModel is used for the effective viscosity model and a Krieger and Dougherty (1959) model is used. All the details concerning the different models can be found in the Geophysical Model Development paper on sedFoam.  
 
@@ -518,10 +518,10 @@ python plot_tutoSedimentation.py
 
 and you should see the following figures:
 
-@image html "res1_tuto1.png" "Figure 2: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for the settling curves: time evolution of the lower and upper interface positions (circles: experiments ; lines: model).  " width=100px
+@image html "res1_tuto1.png" "Figure 2: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for the settling curves: time evolution of the lower and upper interface positions (circles: experiments ; lines: model).  " width=20px
 @image latex "res1_tuto1.png" "Figure 2: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for the settling curves: time evolution of the lower and upper interface positions (circles: experiments ; lines: model)."
 
-@image html "res2_tuto1.png" "Figure 3: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for solid phase volume fraction profiles (dashed blue lines: experiment ; solid red lines: model)." width=100px
+@image html "res2_tuto1.png" "Figure 3: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for solid phase volume fraction profiles (dashed blue lines: experiment ; solid red lines: model)." width=20px
 @image latex "res2_tuto1.png" "Figure 3: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for solid phase volume fraction profiles (dashed blue lines: experiment ; solid red lines: model). " 
 
 \section BedLoadCLB Laminar bedLoad: 1DBedload
@@ -804,7 +804,7 @@ FluidViscosityModel  BoyerEtAl;
              
 For this case, the dense granular flow rheology \f$\mu(I)\f$ is used and the parameters are set according to Chauchat (2017). The differences with the laminar bed load case is the use of the inertial regime of the \f$\mu(I)\f$ rheology instead of the viscous one, the use of the shear induced pressure (PPressureModel) and the effective fluid viscosity model (FluidViscosityModel) from Boyer et al. (2011) is used.
 
-\subsubsection Disc_solvSF Discretisation and linear-solver settings
+\subsubsection Disc_solvSF1 Discretisation and linear-solver settings
 
 The numerical schemes and the solvers are the same as in the 1DSedim case except that numerical schemes for the turbulent quantities (k,\f$\varepsilon\f$,\f$\omega\f$) have been added:
 
@@ -934,10 +934,198 @@ and you should see the following figures:
 @image html "res1_tuto3.png" "Figure 6: Comparison of two-phase numerical results with experiments of Revil-Baudard et al. (2015) in terms of velocity profiles (left panel), volume fraction (center panel) and Reynolds shear stress (right panel) using the dense granular flow rheology mu(I) with the Mixing Length (ML) turbulence model.  " width=100px
 @image latex "res1_tuto3.png" "Figure 6: Comparison of two-phase numerical results with experiments of Revil-Baudard et al. (2015) in terms of velocity profiles (left panel), volume fraction (center panel) and Reynolds shear stress (right panel) using the dense granular flow rheology mu(I) with the Mixing Length (ML) turbulence model."
 
+
+
+
+
+\section  dryavalanche Dry granular avalanche: 1DAvalancheMuI
+
+
+We consider a fluid-solid mixture avalanche flowing under a steady-state moving down a planar slope as illustrated in figure 7. 
+In this example, dense granular flow is reproduced by means of the dense granular flow rheology \f$\mu(I)\f$.
+Numerical results are contrasted with the analytical solution (Bagnold's solution). 
+
+
+@image html "scheme1Davalanche.png" "Figure 7: Schematic section of the dry avalanche flowing down on a uniform slope.  The coordinate system and main lengths are defined." width=500px
+@image latex "scheme1Davalanche.png" "Figure 7: Schematic section of the dry avalanche flowing down on a uniform slope.  The coordinate system and main lengths are defined."
+
+
+\subsection preprocAva Pre-processing
+
+
+This tutorial is distributed with sedFoam5.0 under the folder *sedFoamDirectory/tutorials/1DAvalancheMuI*.
+
+\subsubsection meshgenAva Mesh generation
+
+Because the avalanche is assumed to be in a stationary state, the simulation can be easily reduced to a one-dimensional problem.  The numerical domain consists of a square of side length L = 0.00025 m in the x-y plane and of height h=0.025 m in the vertical direction z. 
+A uniform mesh of 1 by 1 by 100 cells will be used (see \f$ n_{x}\f$=1 and \f$ n_{z}\f$=100 in figure 7). The block structure is the same as for the Sedimentation test case and is shown in figure 1.
+
+
+
+The mesh is generated by running blockMesh from within the case directory:
+
+\verbatim
+blockMesh
+\endverbatim
+
+
+\subsubsection  BC_initiAva Boundary and initial conditions
+
+
+
+
+The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, Ua, Ub, p_rbgh, muI, pa, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. 
+No-slip boundary conditions are imposed for both phases at the top and bottom boundaries (zero velocity at the solid boundaries).  Additionally, cyclic boundaries are considered in the inlet and outlet (upstream and downstream boundaries in figure 7.). Cyclic boundaries are imposed to connect two equal meshes.
+The frontAndBack patch represents the front and back planes of the 2D case and therefore must be set as empty. 
+
+
+\subsubsection PhysPropAva Physical properties
+
+
+The following variables are considered:
+
+
+<table>
+<caption id="multi_row">Main physical parameters.</caption>
+<tr><th>Properties  	<th>Value  	
+<tr><td>Solid density  	<td>\f$\rho_p=2650 \frac{kg}{m^3}\f$  
+<tr><td>Fluid density	  	<td>\f$\rho_f=1 \frac{kg}{m^3}\f$	
+<tr><td>Fluid viscosity    	<td>\f$\nu^f=1 \cdot 10^{-3} \frac{m^2}{s}\f$       
+<tr><td>Mean particle diameter    <td>\f$d=500 \cdot 10^{-6} m\f$    
+<tr><td>Slope inclined at the angle    <td>\f$\theta=26^o \f$       
+<tr><td>Solid phase thickness   <td>\f$h=0.0125 m\f$ 
+<tr><td>Initial solid volume fraction   <td>\f$\phi=0.6\f$   
+</table> 
+
+  
+
+The *transportProperties* file for the 1DAvalancheMuI case is shown below:
+
+\verbatim
+// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
+phasea
+{
+    rho             rho [ 1 -3 0 0 0 ] 2650;
+    nu              nu [ 0 2 -1 0 0 ] 1e-6;
+    d               d [ 0 1 0 0 0 0 0 ] 500.e-6;
+}
+
+// * * * * * * * * * * * * Fluid properties * * * * * * * * * * * * //
+phaseb
+{
+    rho             rho [ 1 -3 0 0 0 ] 1.;
+    nu              nu [ 0 2 -1 0 0 ] 1e-3;
+    d               d [ 0 1 0 0 0 0 0 ] 2.e-3;
+}
+//*********************************************************************** //
+transportModel  Newtonian;
+
+nu              nu [ 0 2 -1 0 0 0 0 ] 1e-3;
+
+// Diffusivity for mass conservation resolution (avoid num instab around shocks)
+alphaDiffusion  alphaDiffusion [0 2 -1 0 0 0 0] 1e-8;
+
+nuMax           nuMax [0 2 -1 0 0 0 0] 1e0;      // viscosity limiter for the Frictional model (required for stability)
+
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
+
+\endverbatim
+
+
+Dense granular flow rheology \f$\mu(I)\f$ is used as shown in *granularRheologyProperties*:
+
+
+
+
+\verbatim
+
+granularRheology   on;
+
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
+
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.38;
+
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.64;
+
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.3;
+
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.31;
+
+n               n [ 0 0 0 0 0 0 0 ] 2.5;
+
+Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
+
+BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 1e0;
+
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 5e-6;
+
+FrictionModel   MuI;
+
+//PPressureModel  none;
+PPressureModel  MuI;
+
+FluidViscosityModel  none;
+
+\endverbatim
+
+
+
+
+Additionally,  *FluidViscosityModel* model is set to *none*. Even though no *FluidViscosityModel* is specified,  the shear induced contribution associated to the fluid phase is still present. However, it has insignificant influence 
+on the results due to the low fluid viscosity. On the contrary, the analytical solution assumes that shear induced contribution to the fluid phase is null. 
+
+
+Finally, the file  *constant/g* is modified to take into account the \f$y\f$-axis  component of gravity. In this work the plane is inclined  to \f$\theta=26^o \f$, however, other angles may be considered.
+
+
+
+
+\verbatim
+
+dimensions      [0 1 -2 0 0 0 0];
+// tiltangle = 23° 
+//value           ( 0 -9.03015261236844 0 );
+
+// tilt angfle = 26°
+value           ( 0 -8.817169594194828 0);
+
+\endverbatim
+
+
+
+
+\subsection postSF2 Post-processing using python
+
+
+The user can execute post-processing functions after the simulation is complete using the *postProcess* utility. 
+Simple functions can be executed using the *-func* option. For instance, we can compute the shear rate of the solid phase as:
+
+\verbatim
+postProcess -func 'grad(Ua)'
+\endverbatim
+
+
+Finally, the analytical and SedFoam results are obtained running the python script *plot_tutoAvalanche.py* located in the folder *tutorials/Py*:
+
+
+\verbatim
+python plot_tutoAvalanche.py
+\endverbatim
+
+and you should see the following figure:
+
+@image html "res1_tuto_avalanche.png" "Figure 8: Evolution of a) solid volume fraction, b) velocity, c) solid phase pressure, d) mu(I), e) shear stress f) frictional viscosity, and g) shear rate in function of height (y). Results are expressed in dimensionless terms." width=800px
+@image latex "res1_tuto_avalanche.png" "Figure 8: Evolution of a) solid volume fraction, b) velocity, c) solid phase pressure, d) mu(I), e) shear stress f) frictional viscosity, and g) shear rate in function of height (y). Results are expressed in dimensionless terms."
+
+
+
+
+
+
 \section Scour Scour downstream of an apron: 2DScourApron
 
 In this 2D configuration, we are looking at the scour development downstream of an apron. Following the numerical study of Amoudry & Liu (2009) and Cheng et al. (2017), the scour problem
-is simplified and sketched in figure 7.
+is simplified and sketched in figure 8.
 
 
 \subsection preprocSA Pre-processing
@@ -947,11 +1135,11 @@ This tutorial is distributed with sedFoam3.0 under the folder sedFoamDirectory/t
 \subsubsection meshgenSA Mesh generation
 
 The numerical domain consists of a rectangle of side length L = 0.5 m in the x-y plane and of height h=0.25 m in the vertical direction z, where the flow depth is chosen to be  \f$h_0\f$ = 0.15m, and
-the initial bed depth is  \f$h_b\f$ = 0.05m. A regular grid is used in the vertical direction for the sediment bed (50 elements along the vertical direction) and in horizontal direction (250 elements). Inside the water column, 100 grid points are used with an increasing cell ratio of 2 along the vertical direction. Please note that this coarse mesh is for tutorial purpose only. If you want a finer mesh you may refer to Chauchat et al. (2017). The block structure is shown in Figure 7.
+the initial bed depth is  \f$h_b\f$ = 0.05m. A regular grid is used in the vertical direction for the sediment bed (50 elements along the vertical direction) and in horizontal direction (250 elements). Inside the water column, 100 grid points are used with an increasing cell ratio of 2 along the vertical direction. Please note that this coarse mesh is for tutorial purpose only. If you want a finer mesh you may refer to Chauchat et al. (2017). The block structure is shown in Figure 8.
 
 
-@image html "sketch_apron_charlie.png" "Figure 7: Sketch of the scour downstream an apron." width=100px
-@image latex "sketch_apron_charlie.png" "Figure 7: Sketch of the scour downstream an apron."
+@image html "sketch_apron_charlie.png" "Figure 8: Sketch of the scour downstream an apron." width=600px
+@image latex "sketch_apron_charlie.png" "Figure 8: Sketch of the scour downstream an apron."
 
 The mesh is generated by running blockMesh from within the case directory:
 
@@ -967,7 +1155,7 @@ The bottom boundary, the lower part of the inlet (forming the step) and of the o
 As initial condition, the velocity of both phases, the sediment concentration, the TKE and the TKE dissipation are set based on one-dimensional simulation results using funkySetFields. The details of the boundary conditions are summarized in the following table:
 
 <table>
-<caption id="multi_row">Summary of the boundary conditions implemented in the 2D scour downstream of an apron configuration: zG = \textit{zeroGradient}, fV = \textit{fixedValue}, dM = \textit{directionMixed}, fFP = \textit{fixedFluxPressure} and hp=hydrostatic pressure.</caption>
+<caption id="multi_row">Summary of the boundary conditions implemented in the 2D scour downstream of an apron configuration: zG = zeroGradient, fV = fixedValue, dM = directionMixed, fFP = fixedFluxPressure and hp=hydrostatic pressure.</caption>
 <tr><th>Boundary  	<th>type  	<th>\f$\alpha\f$  <th>k  			<th>\f$\varepsilon\f$ or \f$\omega\f$   <th>\f$u^k\f$  		<th>p  	    <th>\f$\theta\f$ (for KT)
 <tr><td>top	  	<td>patch	<td>zG       	  <td>zG       			<td>zG       				<td>zG         		<td>zG       <td>zG
 <tr><td>bottom    	<td>wall        <td>zG            <td>zG       			<td>zG       				<td>fV,\f$u^k=0\f$      <td>fFP      <td>zG
@@ -1051,11 +1239,11 @@ PPressureModel MuI;
 FluidViscosityModel  BoyerEtAl;
 \endverbatim
 
-\subsubsection Disc_solvSF Discretisation and linear-solver settings
+\subsubsection Disc_solvSF2 Discretisation and linear-solver settings
 
 The numerical schemes and the solvers are the same as in the 1DSheetFlow case.
 
-\subsubsection control_sedFoamSF Control
+\subsubsection control_sedFoamSF2 Control
 
 The system/controlDict file indicates that for this case the time step is equal to \f$ 2.10^{-4}\f$ s and that the computation ends at 60s of dynamics. The output write interval has been set to 5s by default. The user is invited to reduce it in order to capture the evolution of the scour hole more accurately.   
 
@@ -1101,7 +1289,7 @@ maxDeltaT       2e-4;
 
 \subsubsection  lauch_SA Computation launching
 
-As for the previous cases, you can lauch the computation by executing <EM> Allrun </EM>. This shell script contains two lines specific to the present multidimensionnal case:
+As for the previous cases, you can lauch the computation by executing * Allrun *. This shell script contains two lines specific to the present multidimensionnal case:
 
 \verbatim
 # Decompose the case in order to run in parallel (on 4 cores)
@@ -1110,11 +1298,11 @@ decomposePar
 # Run sedFoam_rbgh in parallel
 mpirun -np 4 sedFoam_rbgh -parallel > log&
 \endverbatim
-First of all, as the mesh is composed of 37500 cells, computation runs faster on several processors (the best compromise is of 10000 cells per core). Here, the <EM> decomposePar  </EM> command decompose the initial time (specified in the <EM> controlDict </EM> file) in the number of part specified in the </EM> system/decomposeParDict </EM> file.
+First of all, as the mesh is composed of 37500 cells, computation runs faster on several processors (the best compromise is of 10000 cells per core). Here, the *decomposePar* command decompose the initial time (specified in the *controlDict* file) in the number of part specified in the *system/decomposeParDict* file.
 
-The second command specify that the computation is launched in parallel with </EM> mpirun </EM>.
+The second command specify that the computation is launched in parallel with *mpirun*.
 
-\subsection postSF Post-processing using python
+\subsection postSF2 Post-processing using python
 
 You just have to run the python script *plot_tuto2DScour.py* located in the folder *tutorials/Py*:
 
@@ -1124,10 +1312,19 @@ python plot_tuto2DScour.py
 
 and you should see the following figures:
 
-@image html "res1_tuto4.png" "Figure 8: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology." width=100px
-@image latex "res1_tuto4.png" "Figure 8: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
-@image html "res2_tuto4.png" "Figure 9: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology.  " width=100px
-@image latex "res2_tuto4.png" "Figure 9: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
+@image html "res1_tuto4.png" "Figure 9: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology." width=100px
+@image latex "res1_tuto4.png" "Figure 9: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
+@image html "res2_tuto4.png" "Figure 10: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology.  " width=100px
+@image latex "res2_tuto4.png" "Figure 10: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
+
+
+
+
+
+
+
+
+
 
 \section appendix Variables list 
 

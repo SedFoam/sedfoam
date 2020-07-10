@@ -19,6 +19,7 @@ before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -qq openfoam${OF_VERS}
     - sudo apt-get install -qq vera++
+    - sudo apt-get install -qq doxygen
     ## http://conda.pydata.org/docs/travis.html#the-travis-yml-file
     # wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     # bash miniconda.sh -b -p $HOME/miniconda
@@ -40,12 +41,24 @@ script:
     - cd test-ci/1DBedLoad && ./Allrun
     - cd ../1DSedim && ./Allrun
     - python3 test_Sedimentation.py
-    
+    - cd ../../doc/
+    - doxygen
+    - mv html ../public/
+    - cp images/twitter.png ../public/
+    - cp images/github.png ../public/
+
 deploy:
+  # Utiliser le processus de déploiement des pages Github
   provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-  keep_history: true
+  skip-cleanup: true
+  # Répertoire où se trouvent les fichiers générés
+  local_dir: public
+  # Github security/auth token
+  github-token: $GITHUB_TOKEN
+  # Conserve les anciens fichiers/constructions des déploiements précédents
+  keep-history: true
+  # La branche Git sur laquelle on souhaite déployer (master, gh-pages, foo...)
+  target_branch: gh-pages
   on:
     branch: master
 
