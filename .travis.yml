@@ -51,13 +51,13 @@ script:
 deploy:
   # Utiliser le processus de déploiement des pages Github
   provider: pages
-  skip-cleanup: true
+  skip_cleanup: true
   # Répertoire où se trouvent les fichiers générés
   local_dir: public
   # Github security/auth token
-  github-token: $GITHUB_TOKEN
+  github_token: $GITHUB_TOKEN
   # Conserve les anciens fichiers/constructions des déploiements précédents
-  keep-history: true
+  keep_history: true
   # La branche Git sur laquelle on souhaite déployer (master, gh-pages, foo...)
   target_branch: gh-pages
   on:
