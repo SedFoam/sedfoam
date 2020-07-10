@@ -1,0 +1,6 @@
+<map id="Foam::granularRheologyModels::FluidViscosityModel" name="Foam::granularRheologyModels::FluidViscosityModel">
+<area shape="rect" id="node2" href="$class_foam_1_1granular_rheology_models_1_1_boyer_et_al_viscosity.html" title="Foam::granularRheologyModels\l::BoyerEtAlViscosity" alt="" coords="276,5,499,47"/>
+<area shape="rect" id="node3" href="$class_foam_1_1granular_rheology_models_1_1_einstein_viscosity.html" title="Foam::granularRheologyModels\l::EinsteinViscosity" alt="" coords="276,71,499,112"/>
+<area shape="rect" id="node4" href="$class_foam_1_1granular_rheology_models_1_1_krieger_dougherty_viscosity.html" title="Foam::granularRheologyModels\l::KriegerDoughertyViscosity" alt="" coords="276,136,499,177"/>
+<area shape="rect" id="node5" href="$class_foam_1_1granular_rheology_models_1_1none_viscosity.html" title="Foam::granularRheologyModels\l::noneViscosity" alt="" coords="276,201,499,243"/>
+</map>
