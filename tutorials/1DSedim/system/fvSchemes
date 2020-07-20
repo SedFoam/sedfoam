@@ -38,6 +38,10 @@ divSchemes
     div(phiRb,Ub)   Gauss limitedLinear 1;
 // pEqn
     div(alpha,nu)   Gauss linear;
+// alphaPlastic
+    div(phia,alphaPlastic)   Gauss upwind;
+// pa
+    div(phia,pa_new_value)   Gauss upwind;
 }
 
 laplacianSchemes

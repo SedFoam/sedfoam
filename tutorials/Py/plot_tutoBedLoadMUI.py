@@ -99,7 +99,7 @@ basepath = '../'
 # basepath='../../'
 sol = basepath + case + '/'
 
-tread = 'latestTime'
+tread = '350'
 
 Nx = 1
 Ny = 200

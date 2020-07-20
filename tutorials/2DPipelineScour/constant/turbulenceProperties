@@ -18,9 +18,9 @@ FoamFile
 simulationType  RAS;
 
 RAS{
-//RASModel        twophasekEpsilon;
+RASModel        twophasekEpsilon;
 //RASModel        twophasekOmega2006;
-RASModel        twophasekOmegaEps;
+//RASModel        twophasekOmegaEps;
 
 turbulence      on;
 printCoeffs     on;

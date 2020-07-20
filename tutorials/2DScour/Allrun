@@ -19,4 +19,4 @@ ln -s Cz 0/ccz
 decomposePar
 
 # Run sedFoam in parallel
-mpirun -np 4 sedFoam_rbgh -parallel > log&
+mpirun -np 20 sedFoam_rbgh -parallel > log&

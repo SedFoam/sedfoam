@@ -77,6 +77,10 @@ surfaceScalarField phiRa =
    -fvc::interpolate(nuEffa)*mesh.magSf()*(fvc::snGrad(alpha))
    /fvc::interpolate(alpha+ alphaSmall)
 );
+
+
+
+
 fvVectorMatrix UaEqn
 (
     (scalar(1.0) + Cvm*rhob*beta/rhoa)*
@@ -96,7 +100,7 @@ fvVectorMatrix UaEqn
 //+ beta/rhoa*K*Ub                    // explicit drag transfered to p-equation
     // Hugo  -susa                    // term to add with tensor
 //- gradPs              // shear induced pressure gradient moved to p-equation
-  - gradPf                  // contact pressure gradient moved to p-equation
+//  - gradPf                  // contact pressure gradient moved to p-equation
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
   //    + fvOptions(Ua)
 );

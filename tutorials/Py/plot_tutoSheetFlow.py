@@ -14,7 +14,7 @@ def readOpenFoam(sol):
     # Reading SedFoam results
     #
     #
-    tread = 'latestTime'
+    tread = '350'
     Nt = 1
     X, Y, Z = fluidfoam.readmesh(sol)
     alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
@@ -23,7 +23,7 @@ def readOpenFoam(sol):
     Tauf = fluidfoam.readtensor(sol, tread, 'Taub')
     Taus = fluidfoam.readtensor(sol, tread, 'Taua')
 
-    return Nt, Y, Ua[0, :], Ub[0, :], alpha, Tauf[1, :], Taus[1, :]
+    return Nt, Y, Ua[0, :], Ub[0, :], alpha, Tauf[3, :], Taus[3, :]
 
 #
 # Change fontsize
@@ -133,8 +133,8 @@ grid()
 # ax3
 #
 ax3 = subplot(gs[0, 2])
-p3_2 = ax3.plot(rho_f * (1. - alpha0) * Tauxy, (y + Z0num) / (2. * rs), '-b')
-p3_2 = ax3.plot(rho_s * alpha0 * Tausxy, (y + Z0num) / (2. * rs), '--r')
+p3_2 = ax3.plot( Tauxy, (y + Z0num) / (2. * rs), '-b')
+p3_2 = ax3.plot(Tausxy, (y + Z0num) / (2. * rs), '--r')
 p3_1 = ax3.plot(rho_f * uwexp, Zexp / (2. * rs), 'ok',
                 markersize=ms, label='experiment')
 ax3.set_yticklabels([])
