@@ -78,9 +78,6 @@ surfaceScalarField phiRa =
    /fvc::interpolate(alpha+ alphaSmall)
 );
 
-
-
-
 fvVectorMatrix UaEqn
 (
     (scalar(1.0) + Cvm*rhob*beta/rhoa)*

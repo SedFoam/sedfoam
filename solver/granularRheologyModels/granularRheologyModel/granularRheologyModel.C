@@ -296,15 +296,7 @@ void Foam::granularRheologyModel::solve
         1e-8
     );
     Dsmall2 = sqr(Dsmall_);
-    
-    //dimensionedScalar dp1
-    //(
-        //"dp1",
-    //dimensionSet(0, 0, -0, 0, 0, 0, 0),
-    //0.0001 //  dp1 controlls the relaxation of pa. Low values lead to relaxed pa
-    //// whereas values greater than 100 are prone to numerical error
-    //);
-    //
+
     // compute the particulate velocity shear rate
     //
     //volSymmTensorField D = dev(symm(gradUat));
@@ -348,9 +340,7 @@ void Foam::granularRheologyModel::solve
     paEqn.relax();
     paEqn.solve();
 
-   
     pa_=pa_new_value;
-
 
 //total particle pressure(shear induced+contact contributions)
      p_p_total_ = pa_new_value+pf;
@@ -390,5 +380,5 @@ void Foam::granularRheologyModel::solve
     // Compute the Effective fluid viscosity
     nuvb_ = FluidViscosityModel_->nuvb(alpha_, nub_, alphaMaxG_, alphaSmall,
                                        n_);
-                                       }
+}
 // ************************************************************************* //

@@ -118,7 +118,6 @@ else if (granularRheology.on())
     pa = granularRheology.pa();
 
    // delta=granularRheology.delta();
-    
     if (debugInfo)
     {
         Info<< "Pff pressure: Max =" << gMax(pff)
@@ -126,9 +125,7 @@ else if (granularRheology.on())
         Info<< "Shear induced pressure : Max =" << gMax(pa)
             <<",Min =" << gMin(pa)<<endl;
     }
-    
-    
-    
+
 /*
 // Compute the shear induced pressure gradient contribution
 // (not used inthis version)

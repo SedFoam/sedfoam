@@ -14,7 +14,7 @@ def readOpenFoam(sol):
     # Reading SedFoam results
     #
     #
-    tread = '350'
+    tread = 'latestTime'
     Nt = 1
     X, Y, Z = fluidfoam.readmesh(sol)
     alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
