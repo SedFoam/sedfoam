@@ -4,4 +4,4 @@ EXE_INC = \
 
 LIB_LIBS = \
     -L$(FOAM_USER_LIBBIN)\
-    -lphaseModel
+    -ltwoPhaseModel
