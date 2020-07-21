@@ -19,7 +19,7 @@ EXE_INC = \
 EXE_LIBS = \
     -L$(FOAM_USER_LIBBIN)\
     -lEulerianInterfacialSedModels \
-    -lEulerianPpSedModels\
+    -lEulerianPpSedModels \
     -lfiniteVolume \
     -lmeshTools \
     -lfvOptions \
