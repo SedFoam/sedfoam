@@ -96,7 +96,7 @@ fvVectorMatrix UaEqn
 //    fvm::Sp(-beta/rhoa*K,Ua)        // implicit drag term
 //+ beta/rhoa*K*Ub                    // explicit drag transfered to p-equation
     // Hugo  -susa                    // term to add with tensor
-//- gradPs              // shear induced pressure gradient moved to p-equation
+// - gradPs              // shear induced pressure gradient moved to p-equation
 //  - gradPf                  // contact pressure gradient moved to p-equation
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
   //    + fvOptions(Ua)
