@@ -69,7 +69,7 @@ License
                 phiAlpha,
                 zeroField(),
                 zeroField(),
-                UniformField<scalar>(0.99*alphaMax),
+                UniformField<scalar>(0.99*alphaMax.value()),
                 zeroField()
             );
         #else

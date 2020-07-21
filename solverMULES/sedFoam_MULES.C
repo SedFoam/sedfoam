@@ -67,6 +67,7 @@ Description
 
 #include "dragModel.H"
 #include "phaseModel.H"
+#include "ppModel.H"
 
 #include "kineticTheoryModel.H"
 #include "granularRheologyModel.H"
@@ -89,12 +90,12 @@ int main(int argc, char *argv[])
 
 //    #include "readGravitationalAcceleration.H"
     #include "readGravity.H"
-    #include "createGradP.H"
+  //  #include "createGradP.H"
     #include "createFields.H"
     #include "createRASTurbulence.H"
     #include "createFvOptions.H"
 
-    #include "readPPProperties.H"
+    //#include "readPPProperties.H"
     #include "initContinuityErrs.H"
     #include "createTimeControls.H"
     #include "CourantNo.H"

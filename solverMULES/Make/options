@@ -14,11 +14,13 @@ EXE_INC = \
     -I../solver/granularRheologyModels/lnInclude \
     -I../solver/interfacialModels/lnInclude \
     -I../solver/phaseModel/lnInclude \
+    -I../solver/ppModel/lnInclude \
     -Iaveraging
 
 EXE_LIBS = \
     -L$(FOAM_USER_LIBBIN)\
     -lEulerianInterfacialSedModels \
+    -lEulerianPpSedModels\
     -lfiniteVolume \
     -lmeshTools \
     -lfvOptions \
