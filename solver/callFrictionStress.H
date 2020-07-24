@@ -23,19 +23,44 @@ License
 
 \*---------------------------------------------------------------------------*/
 //
+
+
+volSymmTensorField D_tensor = symm(gradUaT);
+volScalarField magDtensor = ::sqrt(2.0)*mag(D_tensor);
+
+alphaPlastic=alphaMinFriction;
+
+
+////// Solving the evolution of plastic volume fraction
+//volScalarField dila_shearRate = delta*magDtensor;
+
+//fvScalarMatrix phi_pl_Eqn
+//(
+ //fvm::ddt(alphaPlastic)
+ //+ fvm::div(phia, alphaPlastic, "div(phia,alphaPlastic)")
+ //- fvm::Sp(fvc::div(phia), alphaPlastic)
+//==
+//-fvc::Sp(dila_shearRate, alphaPlastic) // explicit term
+//);
+//phi_pl_Eqn.relax();
+//phi_pl_Eqn.solve();
+
+//Info<< "alphaMinFriction BB =" << alphaPlastic <<endl;
+
+alphaMinFriction=alphaPlastic;
+
+alphaMinFriction.max(0.48);
+alphaMinFriction.min(0.585);
+
+
 // Pff corresponds to "contact" pressure which prevent the granular phase from
 // exceeding the maximum volume fraction.
-// The values of alphaMax, alphaMinFriction, Fr_, eta0_ and eta1_ are read
-// from the ppProperties file
-pff =
-(
-    Fr_*pow(max(alpha - alphaMinFriction, scalar(0)), eta0_)
-    /pow(max(alphaMax - alpha, scalar(1.0e-20)), eta1_)
-);
+pff = pp->pff(alpha, alphaMinFriction, alphaMax, Fr_, eta0_, eta1_);
+
 //
 // Compute the gradient of pff that enter the momentum balance equation
 //
-surfaceScalarField gradPff = fvc::snGrad(pff)*mesh.magSf();
+//surfaceScalarField gradPff = fvc::snGrad(pff)*mesh.magSf();
 
 /*forAll(p_rbgh.boundaryField(), patchi)
 {
@@ -45,7 +70,7 @@ surfaceScalarField gradPff = fvc::snGrad(pff)*mesh.magSf();
     }
 }
 */
-gradPf = (fvc::reconstruct(gradPff))/(rhoa*(alpha + alphaSmall));
+//gradPf = (fvc::reconstruct(gradPff))/(rhoa*(alpha + alphaSmall));
 //
 //
 //  Kinetic THEORY PART
@@ -86,12 +111,13 @@ if (kineticTheory.on())
 //
 else if (granularRheology.on())
 {
-
 // solving granular rheology
     granularRheology.solve(gradUaT, pff, alphaSmall);
 
 // Particulate pressure and viscosity
     pa = granularRheology.pa();
+
+   // delta=granularRheology.delta();
     if (debugInfo)
     {
         Info<< "Pff pressure: Max =" << gMax(pff)
@@ -99,6 +125,7 @@ else if (granularRheology.on())
         Info<< "Shear induced pressure : Max =" << gMax(pa)
             <<",Min =" << gMin(pa)<<endl;
     }
+
 /*
 // Compute the shear induced pressure gradient contribution
 // (not used inthis version)

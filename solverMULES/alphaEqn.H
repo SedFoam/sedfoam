@@ -57,7 +57,7 @@ License
                 phiAlpha,
                 zeroField(),
                 zeroField(),
-                UniformField<scalar>(0.99*alphaMax),
+                UniformField<scalar>(0.99*alphaMax.value()),
                 zeroField()
             );
         #elif (OFVERSION < 220 and OFVERSION >= 190) or OFVERSION == 00
@@ -69,7 +69,7 @@ License
                 phiAlpha,
                 zeroField(),
                 zeroField(),
-                UniformField<scalar>(0.99*alphaMax),
+                UniformField<scalar>(0.99*alphaMax.value()),
                 zeroField()
             );
         #else

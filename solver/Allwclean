@@ -4,6 +4,7 @@ set -x
 
 wclean libso granularRheologyModels
 wclean libso phaseModel
+wclean libso ppModel
 wclean libso interfacialModels
 wclean libso kineticTheoryModels
 wclean

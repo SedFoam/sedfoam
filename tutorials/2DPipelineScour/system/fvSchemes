@@ -56,6 +56,10 @@ divSchemes
 //    div(phib,omega) Gauss upwind phi;
 // ThetaEqn
     div(phi,Theta)  Gauss limitedLinear 1;
+// alphaPlastic
+    div(phia,alphaPlastic)   Gauss upwind;
+// pa
+    div(phia,pa_new_value)   Gauss upwind;
 }
 
 laplacianSchemes

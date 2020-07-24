@@ -48,6 +48,72 @@ IOdictionary twophaseRASProperties
     )
 );
 
+IOdictionary ppProperties
+(
+    IOobject
+    (
+        "ppProperties",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::NO_WRITE
+    )
+);
+
+// Read ppProperties
+
+dimensionedScalar alphaMax
+(
+    ppProperties.lookupOrDefault
+    (
+        "alphaMax",
+        dimensionedScalar("alphaMax",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.635)
+    )
+);
+
+dimensionedScalar Fr_
+(
+    ppProperties.lookupOrDefault
+    (
+        "Fr",
+        dimensionedScalar("Fr",
+                          dimensionSet(1, -1, -2, 0, 0, 0, 0),
+                          5e-2)
+    )
+);
+dimensionedScalar eta0_
+(
+    ppProperties.lookupOrDefault
+    (
+       "eta0",
+       dimensionedScalar("eta0", dimensionSet(0, 0, 0, 0, 0, 0, 0), 3 )
+    )
+);
+dimensionedScalar eta1_
+(
+    ppProperties.lookupOrDefault
+    (
+       "eta1",
+       dimensionedScalar("eta1", dimensionSet(0, 0, 0, 0, 0, 0, 0), 5 )
+    )
+);
+Switch packingLimiter(ppProperties.lookup("packingLimiter"));
+
+// Read transportProperties
+
+dimensionedScalar alphaDiffusion
+(
+    transportProperties.lookupOrDefault
+    (
+        "alphaDiffusion",
+        dimensionedScalar("alphaDiffusion",
+                          dimensionSet(0, 2, -1, 0, 0, 0, 0),
+                          0e0)
+    )
+);
+
 dimensionedScalar alphaSmall
 (
     transportProperties.lookupOrDefault
@@ -80,7 +146,6 @@ dimensionedScalar nuMaxExp
                           1e0)
     )
 );
-
 // Initialize phase a and b variables
 
 autoPtr<phaseModel> phasea = phaseModel::New
@@ -111,6 +176,201 @@ volVectorField& Ua = phasea->U();
 surfaceScalarField& phia = phasea->phi();
 const dimensionedScalar& rhoa = phasea->rho();
 const dimensionedScalar& nua = phasea->nu();
+
+// Reading ForceProperties
+
+Info<< "\nReading forceProperties for gradP\n" <<endl;
+
+IOdictionary forceProperties
+(
+    IOobject
+    (
+        "forceProperties",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::NO_WRITE
+    )
+);
+
+dimensionedScalar tilt
+(
+    forceProperties.lookupOrDefault
+    (
+        "tilt",
+        dimensionedScalar("tilt", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+    )
+);
+
+dimensionedVector gradPAMP1
+(
+    forceProperties.lookupOrDefault
+    (
+        "gradPAMP1",
+        dimensionedVector("gradPAMP1",
+                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
+                          vector(0, 0, 0) )
+    )
+);
+
+dimensionedVector gradPAMP2
+(
+    forceProperties.lookupOrDefault
+    (
+        "gradPAMP2",
+        dimensionedVector("gradPAMP2",
+                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
+                          vector(0, 0, 0) )
+    )
+);
+
+dimensionedVector gradPMEAN
+(
+    forceProperties.lookupOrDefault
+    (
+        "gradPMEAN",
+        dimensionedVector("gradPMEAN",
+                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
+                          vector(0, 0, 0) )
+    )
+);
+
+dimensionedVector gradPOSC
+(
+    forceProperties.lookupOrDefault
+    (
+        "gradPOSC",
+        dimensionedVector("gradPOSC",
+                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
+                          vector(0, 0, 0) )
+    )
+);
+dimensionedScalar gradPOSCMin ("gradPOSCMin", gradPOSC.dimensions(), 1e-6);
+
+dimensionedScalar oscpT
+(
+    forceProperties.lookupOrDefault
+    (
+        "oscpT",
+        dimensionedScalar("oscpT",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0)
+    )
+);
+
+// to avoid division by 0 in gradP impose 1 if 0 is specified
+dimensionedScalar oscpTMin ("oscpTMin", oscpT.dimensions(), 1e-6);
+oscpT=max(oscpTMin, oscpT);
+
+dimensionedScalar Cvm
+(
+    forceProperties.lookupOrDefault
+    (
+        "Cvm",
+        dimensionedScalar("Cvm",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0)
+    )
+);
+
+dimensionedScalar Cl
+(
+    forceProperties.lookupOrDefault
+    (
+        "Cl",
+        dimensionedScalar("Cl",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0)
+    )
+);
+
+dimensionedScalar Ct
+(
+    forceProperties.lookupOrDefault
+    (
+        "Ct",
+        dimensionedScalar("Ct",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0)
+    )
+);
+
+dimensionedScalar initTheta
+(
+    forceProperties.lookupOrDefault
+    (
+        "initTheta",
+        dimensionedScalar("initTheta", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+    )
+);
+dimensionedScalar InitFreeze
+(
+    forceProperties.lookupOrDefault
+    (
+        "InitFreeze",
+        dimensionedScalar("InitFreeze", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+    )
+);
+dimensionedScalar fixbeddepth
+(
+    forceProperties.lookupOrDefault
+    (
+        "fixbeddepth",
+        dimensionedScalar("fixbeddepth", dimensionSet(0, 1, 0, 0, 0, 0, 0), 0)
+    )
+);
+dimensionedScalar ClipUa
+(
+    forceProperties.lookupOrDefault
+    (
+        "ClipUa",
+        dimensionedScalar("ClipUa", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+    )
+);
+
+// Debuging info
+Switch debugInfo
+(
+    forceProperties.lookupOrDefault("debugInfo", false)
+);
+// Sponge Layer
+Switch spongeLayer
+(
+    forceProperties.lookupOrDefault("spongeLayer", false)
+);
+dimensionedScalar xSmin
+(
+    forceProperties.lookupOrDefault
+    (
+        "xSmin",
+        dimensionedScalar("xSmin", dimensionSet(0, 1, 0, 0, 0, 0, 0), 0)
+    )
+);
+dimensionedScalar xSmax
+(
+    forceProperties.lookupOrDefault
+    (
+        "xSmax",
+        dimensionedScalar("xSmax", dimensionSet(0, 1, 0, 0, 0, 0, 0), 0)
+    )
+);
+
+Switch writeTau
+(
+    forceProperties.lookupOrDefault<Switch>("writeTau", false)
+);
+
+
+Info<< "Initializing with specified pressure gradient:"
+<< gradPOSC.value() << endl << endl;
+
+// open files to write gradP info
+OFstream gradPOSCFile
+(
+    "gradPOSC.txt"
+);
+
+// Initialize variables
 
 Info<< "Calculating face flux field phi\n" << endl;
 surfaceScalarField phi
@@ -146,6 +406,57 @@ volScalarField pa
     IOobject
     (
         "pa",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+Info<< "Reading field alphaMinFriction\n" << endl;
+volScalarField alphaMinFriction
+(
+    IOobject
+    (
+        "alphaMinFriction",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+//volScalarField delta
+//(
+    //IOobject
+    //(
+        //"delta",
+        //runTime.timeName(),
+        //mesh,
+        //IOobject::MUST_READ,
+        //IOobject::AUTO_WRITE
+    //),
+    //mesh
+//);
+Info<< "Reading field alphaPlastic\n" << endl;
+volScalarField alphaPlastic
+(
+    IOobject
+    (
+        "alphaPlastic",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+Info<< "Reading field pa_new\n" << endl;
+volScalarField pa_new
+(
+    IOobject
+    (
+        "pa_new",
         runTime.timeName(),
         mesh,
         IOobject::MUST_READ,
@@ -251,6 +562,15 @@ dimensionedScalar Ufall
    max(UfallField).value()
 );
 
+// Initalize particle pressure model
+autoPtr<ppModel> pp = ppModel::New
+(
+    ppProperties,
+    phasea,
+    phaseb
+);
+
+// Initalize Kinetic theory
 kineticTheoryModel kineticTheory
 (
     phasea,
@@ -263,7 +583,8 @@ granularRheologyModel granularRheology
 (
     phasea,
     phaseb,
-    pa
+    pa_new
+    
 );
 
 // Declare variables

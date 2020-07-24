@@ -85,7 +85,7 @@ License
             // grad(pa)
           - (oneOverAlpha/rhoa*fvc::snGrad(pa))*rUaAf*mesh.magSf()
             // grad(Pf)
-            // - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
+             - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
             // diagonal part of stress
           + (oneOverAlpha/rhoa*fvc::snGrad(lambdaUa*tr(gradUaT)))
            *rUaAf*mesh.magSf()

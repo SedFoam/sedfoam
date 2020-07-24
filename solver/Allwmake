@@ -7,8 +7,7 @@ export OF_VERSION=`echo $WM_PROJECT_VERSION"-00" | sed -e 's/v//' -e 's/+//' -e 
 
 wmake libso phaseModel
 wmake libso interfacialModels
+wmake libso ppModel 
 wmake libso kineticTheoryModels
 wmake libso granularRheologyModels
 wmake
-
-# ----------------------------------------------------------------- end-of-file
