@@ -179,7 +179,16 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ESD4_(U.db().lookupObject<volScalarField> ("ESD4")),
     ESD5_(U.db().lookupObject<volScalarField> ("ESD5")),
     ESD_(U.db().lookupObject<volScalarField> ("ESD")),
-    alphaMax_(readScalar(ppProperties_.lookup("alphaMax"))),
+    alphaMax_
+    (
+        ppProperties_.lookupOrDefault
+        (
+            "alphaMax",
+            dimensionedScalar("alphaMax",
+                              dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                              0.635)
+        )
+    ),
     k_
     (
         IOobject
