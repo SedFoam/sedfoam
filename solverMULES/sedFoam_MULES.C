@@ -43,7 +43,7 @@ Description
  * \file sedFoam.C
  * \brief 2 phases Solver
  * \author Julien Chauchat, Cyrille Bonamy, Antoine Mathieu, Tim Nagel,
-           Zhen Cheng and Tian-Jian Hsu.
+           Zhen Cheng, Eduard Puig Montella and Tian-Jian Hsu.
  * \version 3.1
  * \date September 16, 2019
  *

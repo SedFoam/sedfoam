@@ -335,7 +335,7 @@ void Foam::granularRheologyModel::solve
          - fvm::Sp(fvc::div(phia_), pa_new_value)
         ==
         tau_inv_par*(pa_)
-        -fvc::Sp(tau_inv_par, pa_new_value)
+        -fvm::Sp(tau_inv_par, pa_new_value)
     );
     paEqn.relax();
     paEqn.solve();
@@ -343,7 +343,7 @@ void Foam::granularRheologyModel::solve
     pa_=pa_new_value;
 
 //total particle pressure(shear induced+contact contributions)
-     p_p_total_ = pa_new_value+pf;
+    p_p_total_ = mag(pa_new_value+pf);
 
     //  Compute the particulate friction coefficient
     muI_ = FrictionModel_->muI(mus_, mu2_, I0_, p_p_total_, rhoa_, da_, rhob_,
