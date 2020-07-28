@@ -65,6 +65,7 @@ Developers
 * Tian-Jian Hsu
 * Tim Nagel
 * Antoine Mathieu
+* Eduard Puig Montella
 
 Acknowledgements
 ----------------

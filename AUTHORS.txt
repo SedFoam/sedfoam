@@ -12,3 +12,6 @@ AUTHORS
    Tim.Nagel (A) legi.cnrs.fr
  * Antoine Mathieu (LEGI UMR 5519 - Grenoble - France)
    Antoine.Mathieu (A) univ-grenoble-alpes.fr
+ * Eduard Puig Montella (LEGI UMR 5519 - Grenoble - France)
+   eduard.puig-montella (A) univ-grenoble-alpes.fr
+
