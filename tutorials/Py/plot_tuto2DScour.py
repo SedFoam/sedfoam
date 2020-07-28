@@ -74,7 +74,7 @@ def readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N):
 
 # Parameters
 t0 = 0.
-Nt = 61
+Nt = 31
 Dt = 1
 
 
@@ -109,7 +109,7 @@ alphap, Xp, Yp, tlist, ybed = readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N)
 #
 fig = plt.figure(num=1, figsize=(18, 8), dpi=100, facecolor='w', edgecolor='w')
 ax0 = fig.add_subplot(gs1[0, 0])
-tplot = [0, 20, 60]
+tplot = [0,10, 20, 30]
 nplot = -1
 sym = ['--+', '-.', '--', '.']
 for k in range(len(tplot)):
@@ -134,8 +134,8 @@ levels = [0, 0.05, 0.1, 0.15, 0.2, 0.25,
           0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.625]
 levels2 = [0.005, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
 
-tfig = [1, 20]
-tfig2 = [40, 60]
+tfig = [0, 10]
+tfig2 = [20, 30]
 nplot = -1
 for k in range(len(tfig)):
     nplot = nplot + 1

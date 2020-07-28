@@ -25,7 +25,7 @@ stopAt          endTime;
 
 endTime         60;
 
-deltaT          2e-4;
+deltaT          2e-5;
 
 writeControl    adjustableRunTime;
 
@@ -47,11 +47,11 @@ runTimeModifiable on;
 
 adjustTimeStep  true;
 
-maxCo           0.051;
+maxCo           0.05;
 
-maxAlphaCo      0.051;
+maxAlphaCo      0.05;
 
-maxDeltaT       2e-4;
+maxDeltaT       2e-5;
 
 libs (
 "libgroovyBC.so"

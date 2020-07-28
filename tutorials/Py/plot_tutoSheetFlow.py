@@ -9,21 +9,26 @@ import matplotlib as mpl
 
 
 def readOpenFoam(sol):
-    import subprocess
-    #
-    # Reading SedFoam results
-    #
-    #
-    tread = 'latestTime'
-    Nt = 1
-    X, Y, Z = fluidfoam.readmesh(sol)
-    alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
-    Ua = fluidfoam.readvector(sol, tread, 'Ua')
-    Ub = fluidfoam.readvector(sol, tread, 'Ub')
-    Tauf = fluidfoam.readtensor(sol, tread, 'Taub')
-    Taus = fluidfoam.readtensor(sol, tread, 'Taua')
-
-    return Nt, Y, Ua[0, :], Ub[0, :], alpha, Tauf[3, :], Taus[3, :]
+	import subprocess
+	#
+	# Reading SedFoam results
+	try:
+		proc = subprocess.Popen(
+		['foamListTimes', '-latestTime', '-case', sol], stdout=subprocess.PIPE)
+	except:
+		print("foamListTimes : command not found")
+		print("Do you have load OpenFoam environement?")
+		sys.exit(0)
+	output = proc.stdout.read()
+	tread = output.decode().rstrip().split('\n')[0]
+	Nt = 1
+	X, Y, Z = fluidfoam.readmesh(sol)
+	alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
+	Ua = fluidfoam.readvector(sol, tread, 'Ua')
+	Ub = fluidfoam.readvector(sol, tread, 'Ub')
+	Tauf = fluidfoam.readtensor(sol, tread, 'Taub')
+	Taus = fluidfoam.readtensor(sol, tread, 'Taua')
+	return Nt, Y, Ua[0, :], Ub[0, :], alpha, Tauf[3, :], Taus[3, :]
 
 #
 # Change fontsize
