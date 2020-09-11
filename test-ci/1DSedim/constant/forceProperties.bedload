@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  1.7.1                                 |
+|  \\    /   O peration     | Version:  2.3.0                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -11,17 +11,19 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      filterProperties;
+    object      forceProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-filter          off;
+// * * * * * * * * * * * * * following are for presure * * * * * * * * * * * * * * * //
+gradPMEAN        gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (80 0 0 ); // mean pressure
 
-filterNormal    ( 0 0 1 );
+Cvm             Cvm [ 0 0 0 0 0 ] 0;                // Virtual/Added Mass coefficient
 
-filterPosition  filterPosition [ 0 1 0 0 0 ] ( 0 0 0.02 );
+Cl              Cl [ 0 0 0 0 0 ] 0;                 // Lift force coefficient
 
-filterThickness filterThickness [ 0 1 0 0 0 ] 1e-06;
+Ct              Ct [ 0 0 0 0 0 ] 0;                 // Eddy diffusivity coefficient for phase a
 
-
-// ************************************************************************* //
+debugInfo	true;
+ 
+// * * * * * * * * * * * * end of definition of pressure * * * * * * * * * * * * * //

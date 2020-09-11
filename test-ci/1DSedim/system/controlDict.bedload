@@ -17,19 +17,19 @@ FoamFile
 
 application     sedFoam;
 
-startFrom       latestTime;
+startFrom       startTime;
 
-startTime       0;
+startTime       1800;
 
 stopAt          endTime;
 
-endTime         50;
+endTime         1900;
 
-deltaT          0.005;
+deltaT          1e-5;
 
 writeControl    adjustableRunTime;
 
-writeInterval   50.;
+writeInterval   20;
 
 purgeWrite      0;
 
@@ -43,12 +43,12 @@ timePrecision   6;
 
 runTimeModifiable on;
 
-adjustTimeStep  yes;
+adjustTimeStep  on;
 
-maxCo           0.6;
+maxCo           0.3;
 
-maxAlphaCo      0.6;
+maxAlphaCo      0.3;
 
-maxDeltaT       5e-03;
+maxDeltaT       2e-1;
 
 // ************************************************************************* //

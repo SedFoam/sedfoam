@@ -1,4 +1,4 @@
-/*--------------------------------*- C++ -*----------------------------------*	\
+/*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
 |  \\    /   O peration     | Version:  1.7.1                                 |
@@ -10,24 +10,45 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "constant";
-    object      ppProperties;
+    location    "system";
+    object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// parameters for pff
-alphaMax        0.635;
+application     sedFoam;
 
-alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.57;
+startFrom       startTime;
 
-Fr               Fr [ 1 -1 -2 0 0 0 0 ] 5e-2;
+startTime       0;
 
-eta              eta [ 0 0 0 0 0 0 0 ] 3;
+stopAt          endTime;
 
-p                p [ 0 0 0 0 0 0 0 ] 5;
+endTime         1800;
 
+deltaT          1e-5;
 
-packingLimiter  no;
+writeControl    adjustableRunTime;
 
+writeInterval   30;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable on;
+
+adjustTimeStep  on;
+
+maxCo           0.3;
+
+maxAlphaCo      0.3;
+
+maxDeltaT       2e-1;
 
 // ************************************************************************* //

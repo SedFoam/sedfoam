@@ -39,9 +39,10 @@ before_script:
     - source /opt/openfoam${OF_VERS}/etc/bashrc
 
 script:
-    - cd test-ci/1DBedLoad && ./Allrun
-    - cd ../1DSedim && ./Allrun
+    - cd test-ci/1DSedim && cp constant/forceProperties.sedim constant/forceProperties && cp system/controlDict.sedim system/controlDict && ./Allrun
     - python3 test_Sedimentation.py
+    - cp constant/forceProperties.bedload constant/forceProperties && cp system/controlDict.bedload system/controlDict && ./Allrun
+    - python3 test_Bedload.py
     - cd ../../doc/
     - doxygen
     - mv html ../public/
