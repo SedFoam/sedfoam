@@ -92,6 +92,7 @@ tread = output.decode().rstrip()
 if float(tread)>1900:
     tread='1900'
 tread=tread+'/'
+tread = '1900/'
 
 X, Y, Z = fluidfoam.readmesh(sol)
 alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
@@ -105,7 +106,10 @@ U = np.zeros(Ny)
 U = alpha[:] * Ua[0, :] + (1 - alpha[:]) * Ub[0, :]
 
 print("max(Ub)=" + str(np.amax(Ub)) + " m/s")
-
+#figure(1)
+#plot(Ub[0,:],Y)
+#plot(uex,xex)
+#show()
 RMSU = RMS(Y,Ub[0,:],xex,uex)
 print('RMS U=',RMSU)
-#assert(np.allclose(Ub[0,:], uex_interp, atol=1e-2))
+assert(RMSU<=1e-3)
