@@ -401,9 +401,7 @@ void Foam::granularRheologyModel::solve
         dimensionSet(1, -1, -2, 0, 0, 0, 0),
         5e-1
     );
-
    
-                           
     //  Compute the regularized particulate viscosity
     mua_ = muI_* p_p_total_ / pow(magD2 + Dsmall2, 0.5);
 

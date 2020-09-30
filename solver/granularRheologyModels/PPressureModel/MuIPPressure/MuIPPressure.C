@@ -67,7 +67,6 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIPPressure::pa
     const dimensionedScalar& Alphasmall
 ) const
 
-   
 {
     //
     // MuI inertial regime:
