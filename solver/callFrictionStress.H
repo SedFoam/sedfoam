@@ -155,6 +155,7 @@ else if (granularRheology.on())
 //
 //  If not using kinetic theory is using Ct model
 //
+//
 else
 {
     nuEffa = sqr(Ct)*turbulenceb->nut() + nua;
@@ -177,7 +178,8 @@ if (spongeLayer)
     nuEffb +=
     (
         pos(XX-xSmin)*nub*1e3
-       *Foam::exp(-(xSmax-XX)/max(XX-xSmin, 1e-10*(xSmax-xSmin))));
+       *Foam::exp(-(xSmax-XX)/max(XX-xSmin, 1e-10*(xSmax-xSmin)))
+);
 }
 // Limit viscosities for numerical stability
 nuFra.min(nuMax);
