@@ -155,7 +155,6 @@ else if (granularRheology.on())
 //
 //  If not using kinetic theory is using Ct model
 //
-//
 else
 {
     nuEffa = sqr(Ct)*turbulenceb->nut() + nua;
