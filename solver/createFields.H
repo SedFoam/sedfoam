@@ -178,8 +178,6 @@ surfaceScalarField& phia = phasea->phi();
 const dimensionedScalar& rhoa = phasea->rho();
 const dimensionedScalar& nua = phasea->nu();
 
-
-
 // Reading ForceProperties
 
 Info<< "\nReading forceProperties for gradP\n" <<endl;
