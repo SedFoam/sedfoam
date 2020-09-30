@@ -144,36 +144,38 @@ License
 
         // Fix for gravity on outlet boundary.
         forAll(p_rbgh.boundaryField(), patchi)
+    {
+      if (isA<zeroGradientFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
+      {
+          phiDraga.boundaryFieldRef()[patchi] = 0.0;
+          phiDragb.boundaryFieldRef()[patchi] = 0.0;
+      }
+        if (isA<symmetryFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
         {
-            if (isA<zeroGradientFvPatchScalarField>
-               (
-                   p_rbgh.boundaryField()[patchi]
-               ))
-            {
-                phiDraga.boundaryFieldRef()[patchi] = 0.0;
-                phiDragb.boundaryFieldRef()[patchi] = 0.0;
-            }
-            if (isA<symmetryFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
-            {
-                phiDraga.boundaryFieldRef()[patchi] = 0.0;
-                phiDragb.boundaryFieldRef()[patchi] = 0.0;
-            }
-            if (p_rbgh.boundaryField().types()[patchi] == "symmetryPlane")
-            {
-                phiDraga.boundaryFieldRef()[patchi] = 0.0;
-                phiDragb.boundaryFieldRef()[patchi] = 0.0;
-            }
-            if (p_rbgh.boundaryField().types()[patchi] == "groovyBC")
-            {
-                phiDraga.boundaryFieldRef()[patchi] = 0.0;
-                phiDragb.boundaryFieldRef()[patchi] = 0.0;
-            }
-            if (p_rbgh.boundaryField().types()[patchi] == "outletInlet")
-            {
-                phiDraga.boundaryFieldRef()[patchi] = 0.0;
-                phiDragb.boundaryFieldRef()[patchi] = 0.0;
-            }
+            phiDraga.boundaryFieldRef()[patchi] = 0.0;
+            phiDragb.boundaryFieldRef()[patchi] = 0.0;
         }
+        if (p_rbgh.boundaryField().types()[patchi] == "symmetryPlane")
+        {
+            phiDraga.boundaryFieldRef()[patchi] = 0.0;
+            phiDragb.boundaryFieldRef()[patchi] = 0.0;
+        }
+        if (p_rbgh.boundaryField().types()[patchi] == "groovyBC")
+        {
+            phiDraga.boundaryFieldRef()[patchi] = 0.0;
+            phiDragb.boundaryFieldRef()[patchi] = 0.0;
+        }
+        if (p_rbgh.boundaryField().types()[patchi] == "outletInlet")
+        {
+            phiDraga.boundaryFieldRef()[patchi] = 0.0;
+            phiDragb.boundaryFieldRef()[patchi] = 0.0;
+        }
+        if (p_rbgh.boundaryField().types()[patchi] == "fixedFluxPressure")
+        {
+            phiDraga.boundaryFieldRef()[patchi] = 0.0;
+            phiDragb.boundaryFieldRef()[patchi] = 0.0;
+        }
+    }
 
         surfaceScalarField phiUa =
         (

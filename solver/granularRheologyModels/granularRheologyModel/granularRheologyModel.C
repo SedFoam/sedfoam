@@ -37,14 +37,14 @@ Foam::granularRheologyModel::granularRheologyModel
 (
     const Foam::phaseModel& phasea,
     const Foam::phaseModel& phaseb,
-    const Foam::volScalarField& pa_new
+    const Foam::volScalarField& pa
 )
 :
     alpha_(phasea.alpha()),
     phia_(phasea.phi()),
     rhoa_(phasea.rho()),
     da_(phasea.d()),
-    pa_new_value(pa_new),
+    pa_new_value(pa),
     rhob_(phaseb.rho()),
     nub_(phaseb.nu()),
 
@@ -151,14 +151,45 @@ Foam::granularRheologyModel::granularRheologyModel
                           1e-6)
         )
     ),
+    BulkFactor_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+                "BulkFactor",
+                dimensionedScalar("BulkFactor",
+                    dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                    0)
+        )
+    ),
+    alpha_c_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+                "alpha_c",
+                dimensionedScalar("alpha_c",
+                    dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                    0.585)
+        )
+    ),
+    
+    K_dila_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+                "K_dila",
+                dimensionedScalar("K_dila",
+                    dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                    0)
+        )
+    ),
     relaxPa_
     (
         granularRheologyProperties_.lookupOrDefault
         (
             "relaxPa",
             dimensionedScalar("relaxPa",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          1e-4)
+                          dimensionSet(0, -1, 2, 0, 0, 0, 0),
+                          0e-4)
         )
     ),
     muI_
@@ -227,33 +258,33 @@ Foam::granularRheologyModel::granularRheologyModel
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
     ),
-    //alphaEq_
-    //(
-        //IOobject
-        //(
-            //"alphaEq",
-            //alpha_.time().timeName(),
-            //alpha_.mesh(),
-            //IOobject::NO_READ,
-            //IOobject::AUTO_WRITE
-        //),
-        //alpha_.mesh(),
-        //dimensionedScalar("zero", alpha_.dimensions(), 0.0)
-    //),
+    alphaEq_
+    (
+        IOobject
+        (
+            "alphaEq",
+            alpha_.time().timeName(),
+            alpha_.mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        alpha_.mesh(),
+        dimensionedScalar("zero", alpha_.dimensions(), 0.0)
+    ),
 
-    //delta_
-    //(
-        //IOobject
-        //(
-            //"delta",
-            //alpha_.time().timeName(),
-            //alpha_.mesh(),
-            //IOobject::NO_READ,
-            //IOobject::AUTO_WRITE
-        //),
-        //alpha_.mesh(),
-        //dimensionedScalar("zero", alpha_.dimensions(), 0.0)
-    //),
+    delta_
+    (
+        IOobject
+        (
+            "delta",
+            alpha_.time().timeName(),
+            alpha_.mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        alpha_.mesh(),
+        dimensionedScalar("zero", alpha_.dimensions(), 0.0)
+    ),
      nuvb_
      (
         IOobject
@@ -266,7 +297,20 @@ Foam::granularRheologyModel::granularRheologyModel
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(0, 2, -1, 0, 0), 0.0)
-     )
+     ),
+    Iv_
+    (
+        IOobject
+        (
+            "Iv",
+            alpha_.time().timeName(),
+            alpha_.mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        alpha_.mesh(),
+        dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
+    )
 {}
 
 
@@ -301,11 +345,11 @@ void Foam::granularRheologyModel::solve
     //
     //volSymmTensorField D = dev(symm(gradUat));
     volSymmTensorField D = symm(gradUat);
-    volSymmTensorField devS = D - (scalar(1.0)/scalar(3.0))*tr(D)*I;
-    volScalarField magD = ::sqrt(2.0)*mag(devS);
-
+    volScalarField magD = ::sqrt(2.0)*mag(D);
     volScalarField magD2 = pow(magD, 2);
-
+    volScalarField patot_ = pf*scalar(0.0);
+    
+    
     //volScalarField patot_ = pf*scalar(0.0);
 
     //
@@ -326,13 +370,14 @@ void Foam::granularRheologyModel::solve
  //  relaxPa_ controlls the relaxation of pa. Low values lead to relaxed pa
     //// whereas large value are prone to numerical error
 
-    volScalarField tau_inv_par = alpha_*relaxPa_*magD;
+    volScalarField tau_inv_par = alpha_*magD;
 
     fvScalarMatrix paEqn
     (
          fvm::ddt(pa_new_value)
          + fvm::div(phia_, pa_new_value, "div(phia,pa_new_value)")
          - fvm::Sp(fvc::div(phia_), pa_new_value)
+         - fvm::laplacian(relaxPa_, pa_new_value)
         ==
         tau_inv_par*(pa_)
         -fvm::Sp(tau_inv_par, pa_new_value)
@@ -348,6 +393,17 @@ void Foam::granularRheologyModel::solve
     //  Compute the particulate friction coefficient
     muI_ = FrictionModel_->muI(mus_, mu2_, I0_, p_p_total_, rhoa_, da_, rhob_,
                                nub_, magD, Dsmall_);
+                               
+// Dilatancy model
+    dimensionedScalar PaMin
+    (
+        "PaMin",
+        dimensionSet(1, -1, -2, 0, 0, 0, 0),
+        5e-1
+    );
+
+   
+                           
     //  Compute the regularized particulate viscosity
     mua_ = muI_* p_p_total_ / pow(magD2 + Dsmall2, 0.5);
 
@@ -361,7 +417,7 @@ void Foam::granularRheologyModel::solve
         {
             mua_.boundaryFieldRef()[patchi] =
             (
-                muI_.boundaryFieldRef()[patchi]
+                (muI_.boundaryFieldRef()[patchi])
                 *p_p_total_.boundaryFieldRef()[patchi]
                 /pow(magD2.boundaryFieldRef()[patchi] + Dsmall2.value(), 0.5)
             );
@@ -375,7 +431,8 @@ void Foam::granularRheologyModel::solve
 */
     }
     // Set bulk viscosity to zero
-    lambda_ = scalar(0.0)*mua_;
+   lambda_ = BulkFactor_*p_p_total_ / pow(magD2 + Dsmall2, 0.5);
+
 
     // Compute the Effective fluid viscosity
     nuvb_ = FluidViscosityModel_->nuvb(alpha_, nub_, alphaMaxG_, alphaSmall,

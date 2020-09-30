@@ -45,7 +45,7 @@ solvers
         tolerance       1e-9;
         relTol          0;
     }
-    "(alpha_aFinal|UaFinal|UbFinal|pa_newFinal)"
+    "(alpha_aFinal|UaFinal|UbFinal|paFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;

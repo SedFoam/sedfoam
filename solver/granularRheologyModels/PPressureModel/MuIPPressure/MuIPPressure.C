@@ -66,6 +66,8 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIPPressure::pa
     const dimensionedScalar& alphaMax,
     const dimensionedScalar& Alphasmall
 ) const
+
+   
 {
     //
     // MuI inertial regime:
@@ -73,5 +75,6 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIPPressure::pa
     return pow(Bphi*alpha/max(alphaMax - alpha, scalar(1e-3)), 2)
           *rhoa*pow(da, 2)*pow(magD, 2);
 }
+
 
 // ************************************************************************* //

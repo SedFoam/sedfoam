@@ -11,14 +11,14 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      alphaMinFriction;
+    object      delta;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 dimensions      [0 0 0 0 0 0 0];
 
 
-internalField   uniform 0.55;
+internalField   uniform 0.0;
 
 boundaryField
 {

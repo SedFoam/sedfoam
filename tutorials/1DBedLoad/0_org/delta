@@ -11,44 +11,36 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      alphaMinFriction;
+    object      delta;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 dimensions      [0 0 0 0 0 0 0];
 
 
-internalField   uniform 0.55;
+internalField   uniform 0.0;
 
 boundaryField
 {
-    cylinder
-    {
-        type            zeroGradient;
-    }
     inlet
     {
-        type            zeroGradient;
+        type            cyclic;
     }
     outlet
     {
+        type            cyclic;
+    }
+    top
+    {
         type            zeroGradient;
-    }
-    lateralfront
-    {
-        type            empty;
-    }
-    lateralback
-    {
-        type            empty;
     }
     bottom
     {
         type            zeroGradient;
     }
-    surface
+    frontAndBackPlanes
     {
-        type            symmetryPlane;
+        type            empty;
     }
 }
 

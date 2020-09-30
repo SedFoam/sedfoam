@@ -31,7 +31,7 @@ n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
 Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 5e-2;
+relaxPa         relaxPa [ 0 2 -1 0 0 0 0 ] 5e-2;
 
 zbed         zbed [ 0 1 0 0 0 0 0 ] 0.0;
 

@@ -28,10 +28,10 @@ License
 volSymmTensorField D_tensor = symm(gradUaT);
 volScalarField magDtensor = ::sqrt(2.0)*mag(D_tensor);
 
-alphaPlastic=alphaMinFriction;
+//alphaPlastic=alphaMinFriction;
 
 
-////// Solving the evolution of plastic volume fraction
+//// Solving the evolution of plastic volume fraction
 //volScalarField dila_shearRate = delta*magDtensor;
 
 //fvScalarMatrix phi_pl_Eqn
@@ -45,17 +45,17 @@ alphaPlastic=alphaMinFriction;
 //phi_pl_Eqn.relax();
 //phi_pl_Eqn.solve();
 
-//Info<< "alphaMinFriction BB =" << alphaPlastic <<endl;
+////Info<< "alphaMinFriction BB =" << alphaPlastic <<endl;
 
-alphaMinFriction=alphaPlastic;
+////alphaMinFriction=alphaPlastic;
 
-alphaMinFriction.max(0.48);
-alphaMinFriction.min(0.585);
+//alphaPlastic.max(0.48);
+//alphaPlastic.min(0.585);
 
 
 // Pff corresponds to "contact" pressure which prevent the granular phase from
 // exceeding the maximum volume fraction.
-pff = pp->pff(alpha, alphaMinFriction, alphaMax, Fr_, eta0_, eta1_);
+pff = pp->pff(alpha, alphaPlastic, alphaMax, Fr_, eta0_, eta1_);
 
 //
 // Compute the gradient of pff that enter the momentum balance equation
@@ -117,7 +117,7 @@ else if (granularRheology.on())
 // Particulate pressure and viscosity
     pa = granularRheology.pa();
 
-   // delta=granularRheology.delta();
+  //  delta=granularRheology.delta();
     if (debugInfo)
     {
         Info<< "Pff pressure: Max =" << gMax(pff)

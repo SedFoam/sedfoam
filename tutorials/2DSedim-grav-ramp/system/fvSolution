@@ -47,7 +47,7 @@ solvers
         relTol          0.00001;
     }
 
-    "(kFinal|epsilonFinal|pa_newFinal)"
+    "(kFinal|epsilonFinal|paFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;

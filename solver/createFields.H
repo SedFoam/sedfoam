@@ -62,6 +62,7 @@ IOdictionary ppProperties
 
 // Read ppProperties
 
+
 dimensionedScalar alphaMax
 (
     ppProperties.lookupOrDefault
@@ -176,6 +177,8 @@ volVectorField& Ua = phasea->U();
 surfaceScalarField& phia = phasea->phi();
 const dimensionedScalar& rhoa = phasea->rho();
 const dimensionedScalar& nua = phasea->nu();
+
+
 
 // Reading ForceProperties
 
@@ -413,37 +416,28 @@ volScalarField pa
     ),
     mesh
 );
-Info<< "Reading field alphaMinFriction\n" << endl;
-volScalarField alphaMinFriction
-(
-    IOobject
-    (
-        "alphaMinFriction",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-//volScalarField delta
-//(
-    //IOobject
-    //(
-        //"delta",
-        //runTime.timeName(),
-        //mesh,
-        //IOobject::MUST_READ,
-        //IOobject::AUTO_WRITE
-    //),
-    //mesh
-//);
-Info<< "Reading field alphaPlastic\n" << endl;
+
+
+//creating alphaPlastic field
+Info<< "Computing field alphaPlastic\n" << endl;
 volScalarField alphaPlastic
+    (
+        IOobject
+        (
+            "alphaPlastic",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh
+    );
+
+volScalarField delta
 (
     IOobject
     (
-        "alphaPlastic",
+        "delta",
         runTime.timeName(),
         mesh,
         IOobject::MUST_READ,
@@ -451,19 +445,8 @@ volScalarField alphaPlastic
     ),
     mesh
 );
-Info<< "Reading field pa_new\n" << endl;
-volScalarField pa_new
-(
-    IOobject
-    (
-        "pa_new",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
+
+
 Info<< "Calculating field U\n" << endl;
 volVectorField U
 (
@@ -583,7 +566,7 @@ granularRheologyModel granularRheology
 (
     phasea,
     phaseb,
-    pa_new
+    pa
     
 );
 

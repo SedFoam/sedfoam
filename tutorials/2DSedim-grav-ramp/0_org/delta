@@ -10,31 +10,40 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volScalarField;
-    location    "40";
-    object      alphaMinFriction;
+    location    "0";
+    object      delta;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 dimensions      [0 0 0 0 0 0 0];
 
 
-internalField   uniform 0.55;
+internalField   uniform 0.0;
 
 boundaryField
 {
-    inlet
+    inandouthalf11 // inlet
     {
         type            cyclic;
     }
-    outlet
+    inandouthalf12
+    {
+        type            cyclic;
+    }
+    inandouthalf21
+    {
+        type            cyclic;
+    }
+    inandouthalf22
     {
         type            cyclic;
     }
     top
     {
-        type            zeroGradient;
+        type            fixedValue;
+	value           uniform 0;
     }
-    bottom
+    walls
     {
         type            zeroGradient;
     }
