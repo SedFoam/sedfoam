@@ -57,7 +57,7 @@ divSchemes
 // ThetaEqn
     div(phi,Theta)  Gauss limitedLinear 1;
 // alphaPlastic
-    div(phia,alphaPlastic)   Gauss upwind;
+    div(phia,alphaPlastic)   Gauss limitedLinear01 1;
 // pa
     div(phia,pa_new_value)   Gauss upwind;
 }
@@ -65,8 +65,6 @@ divSchemes
 laplacianSchemes
 {
     default         Gauss linear corrected;
-// pa
-    laplacian(relaxPa,pa)  Gauss linear corrected;    
 // alphaEqn
     laplacian(alphaPpMag,alpha) Gauss linear corrected;
 // UEqn

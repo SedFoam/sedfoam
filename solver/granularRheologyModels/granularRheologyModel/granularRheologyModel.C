@@ -188,8 +188,8 @@ Foam::granularRheologyModel::granularRheologyModel
         (
             "relaxPa",
             dimensionedScalar("relaxPa",
-                          dimensionSet(0, -1, 2, 0, 0, 0, 0),
-                          0e-4)
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          1)
         )
     ),
     muI_
@@ -370,14 +370,13 @@ void Foam::granularRheologyModel::solve
  //  relaxPa_ controlls the relaxation of pa. Low values lead to relaxed pa
     //// whereas large value are prone to numerical error
 
-    volScalarField tau_inv_par = alpha_*magD;
+    volScalarField tau_inv_par = relaxPa_*alpha_*magD;
 
     fvScalarMatrix paEqn
     (
          fvm::ddt(pa_new_value)
          + fvm::div(phia_, pa_new_value, "div(phia,pa_new_value)")
          - fvm::Sp(fvc::div(phia_), pa_new_value)
-         - fvm::laplacian(relaxPa_, pa_new_value)
         ==
         tau_inv_par*(pa_)
         -fvm::Sp(tau_inv_par, pa_new_value)

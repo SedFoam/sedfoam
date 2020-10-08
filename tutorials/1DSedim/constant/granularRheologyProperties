@@ -31,7 +31,7 @@ n               n [ 0 0 0 0 0 0 0 ] 1.;
 
 Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
-relaxPa         relaxPa [ 0 2 -1 0 0 0 0 ] 0;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
 
 FrictionModel   Coulomb;
 //FrictionModel   MuIv;
