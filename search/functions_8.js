@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['johnsonjacksonfrictionalstress',['JohnsonJacksonFrictionalStress',['../class_foam_1_1_johnson_jackson_frictional_stress.html#a342d8a8e5d74f58a39592d4cfea610af',1,'Foam::JohnsonJacksonFrictionalStress']]]
+  ['iv',['Iv',['../class_foam_1_1granular_rheology_model.html#ad8a4de96ceef62c434dd2dbea3ccb6d2',1,'Foam::granularRheologyModel']]]
 ];

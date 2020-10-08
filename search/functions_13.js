@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['viscositymodel',['viscosityModel',['../class_foam_1_1kinetic_theory_models_1_1viscosity_model.html#a58161b63dc33351fe63591b24386453e',1,'Foam::kineticTheoryModels::viscosityModel::viscosityModel(const viscosityModel &amp;)'],['../class_foam_1_1kinetic_theory_models_1_1viscosity_model.html#af20220708d584fc9c8967825712d879f',1,'Foam::kineticTheoryModels::viscosityModel::viscosityModel(const dictionary &amp;dict)']]]
+  ['u',['U',['../class_foam_1_1phase_model.html#a9a59a7a5bf638d3b7969a03d11d79583',1,'Foam::phaseModel::U() const '],['../class_foam_1_1phase_model.html#a3cb7317b37bafff1fcced726ffd866d5',1,'Foam::phaseModel::U()']]],
+  ['updaterheo',['updateRheo',['../class_foam_1_1kinetic_theory_model.html#a24da6b5a8dfe256eef57674c37e4c257',1,'Foam::kineticTheoryModel']]]
 ];
