@@ -152,7 +152,7 @@ Bphi            | empirical coeff. phi(I)   |    0.31      | 0.3-1        |  -  
 n               | exponent. effective visc. |    2.5       | 1-3          |  -           |
 BulkFactor      | coef for 2nd viscosity    |    0         | 0-10         |  -           |
 Dsmall          | regularisation param.     |    1e-6      | 1e-4-1e-9    |  1/s         |
-relaxPa         | relaxation factor for Pa  |    5e-6      | 1e-9-1       |  -           |
+relaxPa         | relaxation factor for Pa  |    1.0      | 1e-9-1       |  -           |
 
 \subsection forceProperties File forceProperties
 

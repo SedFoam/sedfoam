@@ -31,7 +31,7 @@ n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
 Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
 
-relaxPa         relaxPa [0 0 0 0 0 0 0] 0.005;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
 
 FrictionModel  MuI;
 

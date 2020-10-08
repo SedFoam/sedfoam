@@ -43,7 +43,7 @@ Description
  * \file sedFoam.C
  * \brief 2 phases Solver
  * \author Julien Chauchat, Cyrille Bonamy, Antoine Mathieu, Tim Nagel,
-           Zhen Cheng and Tian-Jian Hsu.
+           Zhen Cheng, Eduard Puig Montella and Tian-Jian Hsu.
  * \version 3.1
  * \date September 16, 2019
  *
@@ -67,6 +67,7 @@ Description
 
 #include "dragModel.H"
 #include "phaseModel.H"
+#include "ppModel.H"
 
 #include "kineticTheoryModel.H"
 #include "granularRheologyModel.H"
@@ -89,12 +90,12 @@ int main(int argc, char *argv[])
 
 //    #include "readGravitationalAcceleration.H"
     #include "readGravity.H"
-    #include "createGradP.H"
+  //  #include "createGradP.H"
     #include "createFields.H"
     #include "createRASTurbulence.H"
     #include "createFvOptions.H"
 
-    #include "readPPProperties.H"
+    //#include "readPPProperties.H"
     #include "initContinuityErrs.H"
     #include "createTimeControls.H"
     #include "CourantNo.H"

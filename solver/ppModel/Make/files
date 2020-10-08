@@ -1,0 +1,8 @@
+ppModel.C
+newPpModel.C
+JohnsonJackson/JohnsonJackson.C
+MerckelbachKranenburg/MerckelbachKranenburg.C
+Chauchat/Chauchat.C
+Hsu/Hsu.C
+
+LIB = $(FOAM_USER_LIBBIN)/libEulerianPpSedModels

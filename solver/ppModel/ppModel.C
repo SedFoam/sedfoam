@@ -2,7 +2,7 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
+    \\  /    A nd           | Copyright (C) 2011 OpenFOAM Foundation
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
 License
@@ -22,35 +22,38 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 \*---------------------------------------------------------------------------*/
-IOdictionary ppProperties
-(
-    IOobject
-    (
-        "ppProperties",
-        runTime.constant(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::NO_WRITE
-    )
-);
 
-scalar alphaMax(readScalar(ppProperties.lookup("alphaMax")));
-dimensionedScalar alphaMinFriction(ppProperties.lookup("alphaMinFriction"));
-dimensionedScalar Fr_(ppProperties.lookup("Fr"));
-dimensionedScalar eta0_
+#include "ppModel.H"
+
+// * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
+
+namespace Foam
+{
+    defineTypeNameAndDebug(ppModel, 0);
+    defineRunTimeSelectionTable(ppModel, dictionary);
+}
+
+
+// * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
+Foam::ppModel::ppModel
 (
-    ppProperties.lookupOrDefault
-    (
-       "eta0_",
-       dimensionedScalar("eta0_", dimensionSet(0, 0, 0, 0, 0, 0, 0), 3 )
-    )
-);
-dimensionedScalar eta1_
-(
-    ppProperties.lookupOrDefault
-    (
-       "eta1_",
-       dimensionedScalar("eta1_", dimensionSet(0, 0, 0, 0, 0, 0, 0), 5 )
-    )
-);
-Switch packingLimiter(ppProperties.lookup("packingLimiter"));
+    const dictionary& ppDict,
+    const phaseModel& phasea,
+    const phaseModel& phaseb
+)
+:
+    ppDict_(ppDict),
+    alpha_(phasea.alpha()),
+    phasea_(phasea),
+    phaseb_(phaseb)
+{}
+
+
+// * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
+
+Foam::ppModel::~ppModel()
+{}
+
+
+// ************************************************************************* //

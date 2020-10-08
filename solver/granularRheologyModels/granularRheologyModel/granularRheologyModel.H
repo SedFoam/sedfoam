@@ -56,9 +56,7 @@ class granularRheologyModel
 
     const volScalarField& alpha_;
     const surfaceScalarField& phia_;
-
-    const volScalarField& paOld;
-
+    const volScalarField& pa_new_value;
     const dimensionedScalar& rhoa_;
     const dimensionedScalar& da_;
 
@@ -102,15 +100,30 @@ class granularRheologyModel
     // Regularisation parameter
     const dimensionedScalar Dsmall_;
 
+    //- Bulk viscosity amplification factor
+    const dimensionedScalar BulkFactor_;
+    
+    // critical volume fraction
+    const dimensionedScalar alpha_c_;
+
+    // dilatancy factor
+    const dimensionedScalar K_dila_;
+
     //- Relaxation factor for pa
     const dimensionedScalar relaxPa_;
-
-    // bed elevation for hydrostatic pressure
-    const dimensionedScalar zbed_;
-
+    
     //- The friction coefficient
     volScalarField muI_;
 
+    ////- The  dilatancy angle
+    volScalarField delta_;
+
+    ////- The  equilibrium volume fraction
+    volScalarField alphaEq_;
+
+    //- Total particle  pressure
+    volScalarField p_p_total_;
+    
     //- The granular viscosity
     volScalarField mua_;
 
@@ -122,7 +135,9 @@ class granularRheologyModel
 
     //- Fluid Effective viscosity (viscous contribution)
     volScalarField nuvb_;
-
+    
+    //-Viscous number
+    volScalarField Iv_;
     // Private Member Functions
 
     //- Disallow default bitwise copy construct
@@ -141,7 +156,7 @@ public:
     (
         const phaseModel& phasea,
         const phaseModel& phaseb,
-        const volScalarField& pa
+        const volScalarField& p_p_total
     );
 
 
@@ -182,7 +197,18 @@ public:
     {
         return alphaMaxG_;
     }
-
+    const volScalarField& p_p_total() const
+    {
+        return p_p_total_;
+    }
+    const volScalarField& Iv() const
+    {
+        return Iv_;
+    }
+    const volScalarField& delta() const
+    {
+        return delta_;
+    }
     const volScalarField& lambda() const
     {
         return lambda_;

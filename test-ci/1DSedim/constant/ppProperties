@@ -15,16 +15,17 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// parameters for pff
-alphaMax        0.635;
+ppModel          JohnsonJackson;
+
+alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
 
 alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.57;
 
 Fr               Fr [ 1 -1 -2 0 0 0 0 ] 5e-2;
 
-eta              eta [ 0 0 0 0 0 0 0 ] 3;
+eta0             eta0 [ 0 0 0 0 0 0 0 ] 3;
 
-p                p [ 0 0 0 0 0 0 0 ] 5;
+eta1             eta1 [ 0 0 0 0 0 0 0 ] 5;
 
 
 packingLimiter  no;

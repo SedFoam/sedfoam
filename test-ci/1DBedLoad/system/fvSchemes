@@ -43,6 +43,10 @@ divSchemes
     div(phib,epsilon) Gauss limitedLinear 1;
 // ThetaEqn
     div(phi,Theta)  Gauss limitedLinear 1;
+// alphaPlastic
+    div(phia,alphaPlastic)   Gauss limitedLinear01 1;
+// pa
+    div(phia,pa_new_value)   Gauss limitedLinear 1;
 }
 
 laplacianSchemes
@@ -59,7 +63,7 @@ laplacianSchemes
     laplacian(DkEff,beta) Gauss linear corrected;
     laplacian(DepsilonEff,epsilon) Gauss linear corrected;
     laplacian(DepsilonEff,beta) Gauss linear corrected;
-//ThetaEqn
+// ThetaEqn
     laplacian(kappa,Theta) Gauss linear corrected;
 }
 

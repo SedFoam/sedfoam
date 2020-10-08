@@ -38,14 +38,14 @@ solvers
         tolerance       1e-9;
         relTol          0;
     }
-    "(alpha_a|Ua|Ub)"
+    "(alpha_a|Ua|Ub|pa_new_value)"
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-9;
         relTol          0;
     }
-    "(alpha_aFinal|UaFinal|UbFinal)"
+    "(alpha_aFinal|UaFinal|UbFinal|paFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;

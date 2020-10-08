@@ -44,9 +44,10 @@ boundaryField
     }
     walls
     {
-        type            fixedValue;
-        value           uniform 100;
-    }
+       // type            fixedValue;
+        //value           uniform 100;
+        type            zeroGradient;   
+ }
     frontAndBackPlanes
     {
         type            empty;

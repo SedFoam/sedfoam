@@ -38,11 +38,17 @@ divSchemes
     div(phiRb,Ub)   Gauss limitedLinear 1;
 // pEqn
     div(alpha,nu)   Gauss linear;
+// alphaPlastic
+    div(phia,alphaPlastic)  Gauss limitedLinear01 1;
+// pa
+    div(phia,pa_new_value)  Gauss limitedLinear 1;
 }
 
 laplacianSchemes
 {
     default         none;
+// pa
+    laplacian(relaxPa,pa)  Gauss linear corrected;    
 // UEqn
     laplacian(nuEffa,Ua) Gauss linear corrected;
     laplacian(nuEffb,Ub) Gauss linear corrected;

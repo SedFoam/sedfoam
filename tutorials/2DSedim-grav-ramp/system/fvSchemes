@@ -29,7 +29,6 @@ divSchemes
 {
 //    default         Gauss upwind phi;
     default         none;
-
 // alphaEqn
     div(phi,alpha)  Gauss limitedLinear01 1;
     div(phir,alpha) Gauss limitedLinear01 1;
@@ -46,11 +45,15 @@ divSchemes
     div(phib,epsilon) Gauss limitedLinear 1;
 // ThetaEqn
     div(phi,Theta)  Gauss limitedLinear 1;
+// alphaPlastic
+    div(phia,alphaPlastic)   Gauss limitedLinear01 1;
+// pa
+    div(phia,pa_new_value)   Gauss limitedLinear 1;
 }
 
 laplacianSchemes
 {
-    default         none;
+    default         none; 
 // alphaEqn
     laplacian(alphaPpMag,alpha) Gauss linear corrected;
 // UEqn

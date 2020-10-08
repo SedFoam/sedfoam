@@ -241,15 +241,19 @@ The dictionary *ppProperties* contains the informations concerning the permanent
 \f$ p_{ff} = Fr \frac{\left( \alpha - \alpha_{min}^{Friction} \right)^{\eta}}{\left(\alpha_{Max} - \alpha \right)^p} \f$ 
 
 \verbatim
-alphaMax        0.635;
+ppModel          JohnsonJackson;
+
+alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
 
 alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.57;
 
 Fr               Fr [ 1 -1 -2 0 0 0 0 ] 5e-2;
 
-eta              eta [ 0 0 0 0 0 0 0 ] 3;
+eta0             eta0 [ 0 0 0 0 0 0 0 ] 3;
 
-p                p [ 0 0 0 0 0 0 0 ] 5;
+eta1             eta1 [ 0 0 0 0 0 0 0 ] 5;
+
+packingLimiter  no;
 
 \endverbatim
 
@@ -260,31 +264,31 @@ granularRheology   on;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
-mus             mus  [ 0 0 0 0 0 0 0 ] 0.4;
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.24;
 
-mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.9;
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.39;
 
-I0              I0  [ 0 0 0 0 0 0 0 ] 0.6;
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.01;
 
-Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.66;
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 1.;
 
 n               n [ 0 0 0 0 0 0 0 ] 1.;
 
 Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 0.005;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 
 FrictionModel   Coulomb;
 
 PPressureModel  none;
 
-FluidViscosityModel KriegerDougherty;
+FluidViscosityModel Einstein;
 
 \endverbatim 
 
 On the first line the switch granularRheology allows to turn on and off this module. The keywords FrictionModel, PPressureModel and FluidViscosityModel allow to choose the friction model, the shear induced particle pressure model and the effective viscosity model (see \ref inputs for details).  
 
-For the present case the granularRheology is set to Coulomb and the FluidViscosityModel is used for the effective viscosity model and a Krieger and Dougherty (1959) model is used. All the details concerning the different models can be found in the Geophysical Model Development paper on sedFoam.  
+For the present case the granularRheology is set to Coulomb and the FluidViscosityModel is used for the effective viscosity model and a Einstein model is used. All the details concerning the different models can be found in the Geophysical Model Development paper on sedFoam.  
 
 The remaining dictionaries are not used for this tutorial and will not be detailled here. Their content will be explained in the next tutorials when they are used.
 
@@ -296,10 +300,10 @@ The start/stop times and the time step for the run must be set. OpenFOAM offers 
 
 As the simulation progresses we wish to write results at certain intervals of time that we can later view with a post-processing package. The writeControl keyword presents several options for setting the time at which the results are written; here we select the adjustableRunTime option which specifies that results are written every writeInterval seconds of simulated time, adjusting the time steps to coincide with the writeInterval if necessary and the time step is automatically adjusted using adjustTimeStep = on. The time step controled using different criteria on Courant numbers based on the maximum velocity, the relative velocity (\f$ U_r=U_b-U_a \f$) and the interfacial courant number. The maximum values of the Courant numbers (maxCo and maxAlphaCo) are set in the controlDict and the maximum value of the time step is controlled by the parameter maxDeltaT.
 
-OpenFOAM creates a new directory named after the current time, e.g. 0.1 s, on each occasion that it writes a set of data, as discussed in full in section 4.1. In the icoFoam solver, it writes out the results for each field, U and p, into the time directories. For this case, the entries in the controlDict are shown below: 
+OpenFOAM creates a new directory named after the current time, e.g. 20 s, on each occasion that it writes a set of data, as discussed in full in section 4.1. In the icoFoam solver, it writes out the results for each field, U and p, into the time directories. For this case, the entries in the controlDict are shown below: 
 
 \verbatim
-application     sedFoam_rbgh;
+application     sedFoam;
 
 startFrom       startTime;
 
@@ -313,15 +317,13 @@ deltaT          1e-5;
 
 writeControl    adjustableRunTime;
 
-writeInterval   30;
+writeInterval   20;
 
 purgeWrite      0;
 
 writeFormat     ascii;
 
 writePrecision  6;
-
-writeCompression uncompressed;
 
 timeFormat      general;
 
@@ -331,11 +333,11 @@ runTimeModifiable on;
 
 adjustTimeStep  on;
 
-maxCo           0.1;
+maxCo           0.3;
 
-maxAlphaCo      0.1;
+maxAlphaCo      0.3;
 
-maxDeltaT       1e-2;
+maxDeltaT       2e-1;
 \endverbatim
 
 
@@ -346,6 +348,7 @@ The numerical schemes and linear solvers are set in the system/fvSchemes and sys
 Concerning the numerical schemes, the time discretisation is a Euler implicit scheme, the divergence terms are of Gauss limitedLinear type (2nd order centered schemes with a Sweby limiter) and the laplacian scheme is Gauss linear corrected for all terms. The fvScheme file is shown below:
 
 \verbatim
+
 ddtSchemes
 {
     default         Euler implicit;
@@ -360,8 +363,8 @@ divSchemes
 {
     default         none;
 // alphaEqn
-    div(phi,alpha)  Gauss limitedLinear01 1;
-    div(phir,alpha) Gauss limitedLinear01 1;
+    div(phi,alpha)  Gauss upwind;//limitedLinear01 1;
+    div(phir,alpha) Gauss upwind;//limitedLinear01 1;
 // UEqn
     div(phia,Ua)    Gauss limitedLinearV 1;
     div(phib,Ub)    Gauss limitedLinearV 1;
@@ -369,6 +372,10 @@ divSchemes
     div(phiRb,Ub)   Gauss limitedLinear 1;
 // pEqn
     div(alpha,nu)   Gauss linear;
+// alphaPlastic
+    div(phia,alphaPlastic)   Gauss upwind;
+// pa
+    div(phia,pa_new_value)   Gauss upwind;
 }
 
 laplacianSchemes
@@ -379,7 +386,7 @@ laplacianSchemes
     laplacian(nuEffb,Ub) Gauss linear corrected;
     laplacian(nuFra,Ua)  Gauss linear corrected;
 // pEqn
-    laplacian((rho*(1|A(U))),p) Gauss linear corrected;
+    laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
 }
 
 interpolationSchemes
@@ -395,19 +402,20 @@ snGradSchemes
 fluxRequired
 {
     default         no;
-    p               ;
+    p_rbgh               ;
 }
 \endverbatim
 
 In the system/fvSolution file, the user can specify the linear solver he/she wants to use for each equation and the tolerance for the resolution. The user can also control the number of corrector steps and non-orthogonal correctors (useles for cartesian grids) for the PIMPLE algorithm. In the present case, a single PIMPLE corrector is enough the residual of the pressure equation is shown to converge well. The fvSolution file is reproduced below:
 
 \verbatim
+
 solvers
 {
     p_rbgh
     {
         solver          GAMG;
-        tolerance       1e-09;
+        tolerance       1e-9;
         relTol          0.0001;
         smoother        DIC;
         nPreSweeps      0;
@@ -425,27 +433,48 @@ solvers
         tolerance       1e-9;
         relTol          0;
     }
-    alpha_a
+    "(alpha_a|Ua|Ub|pa_new_value)"
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-15;
+        tolerance       1e-9;
         relTol          0;
     }
-    alpha_aFinal
+    "(alpha_aFinal|UaFinal|UbFinal|pa_newFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-15;
+        tolerance       1e-9;
         relTol          0;
     }
+}
+
 PIMPLE
 {
+    momentumPredictor 0;
+    nOuterCorrectors  1;
     nCorrectors     1;
     nNonOrthogonalCorrectors 0;
+    correctAlpha    0;
     nAlphaCorr      1;
     pRefCell        0;
     pRefValue       0;
+}
+
+
+relaxationFactors
+{
+    fields
+    {
+        p_rbgh               1.;
+        p_rbghFinal          1;
+    }
+    equations
+    {
+        "Ua|Ub|k|omega"             1.;
+        "(Ua|Ub|k|omega)Final"      1;
+    }
+
 }
 \endverbatim
 // \subsection viewmesh Viewing the mesh
@@ -547,7 +576,7 @@ blockMesh
 
 \subsubsection BC_initiBL Boundary and initial conditions
 
-The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, Ua, Ub, p_rbgh, muI, pa, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.   
+The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, alphaMinFriction, alphaPlastic, Ua, Ub, p_rbgh, muI, pa, pa_new, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.   
 
 \subsubsection PhysPropBL Physical properties
 
@@ -602,7 +631,7 @@ n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
 Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 0.05;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 
 FrictionModel  Coulomb;
 //FrictionModel  MuIv;
@@ -620,18 +649,18 @@ The numerical schemes and the solvers are the same as in the 1DSedim case.
   
 \subsubsection control_sedFoamBL Control
 
-The system/controlDict file is modified compared with the sedimentation test case. The endTime is fixed to 250 s with an output every 50 s with an adjustable time step limited to 5e-3 s.
+The system/controlDict file is modified compared with the sedimentation test case. The endTime is fixed to 350 s with an output every 50s with an adjustable time step limited to 5e-3 s.
 
 \verbatim
-application     sedFoam_rbgh;
+application     sedFoam;
 
-startFrom       startTime;
+startFrom       latestTime;
 
 startTime       0;
 
 stopAt          endTime;
 
-endTime         250;
+endTime         350;
 
 deltaT          0.005;
 
@@ -644,8 +673,6 @@ purgeWrite      0;
 writeFormat     ascii;
 
 writePrecision  6;
-
-writeCompression uncompressed;
 
 timeFormat      general;
 
@@ -732,7 +759,7 @@ blockMesh
 
 \subsubsection BC_initiSF Boundary and initial conditions
 
-The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, Ua, Ub, p_rbgh, muI, pa, Theta, k, epsilon, omega and nut one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. No-slip boundary conditions are imposed at the bottom and zero gradient at the top for both phase velocities.
+The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files:  alpha_a, alphaMinFriction, alphaPlastic, Ua, Ub, p_rbgh, muI, pa, pa_new, Theta, k, epsilon, omega and nut one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. No-slip boundary conditions are imposed at the bottom and zero gradient at the top for both phase velocities.
 
 \subsubsection PhysPropSF Physical properties
 
@@ -740,7 +767,7 @@ The transportProperties file for the 1DBedload case is shown below:
 
 \verbatim
 phasea
-{   
+{
     rho             rho [ 1 -3 0 0 0 ] 1190;
     nu              nu [ 0 2 -1 0 0 ] 0e0;
     d               d [ 0 1 0 0 0 0 0 ] 3.e-3;
@@ -749,7 +776,7 @@ phasea
 }
 
 phaseb
-{   
+{
     rho             rho [ 1 -3 0 0 0 ] 1000;
     nu              nu [ 0 2 -1 0 0 ] 1.e-6;
     d               d [ 0 1 0 0 0 0 0 ] 3.e-3;
@@ -764,7 +791,7 @@ nu              nu [ 0 2 -1 0 0 0 0 ] 1.e-6;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e-1;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha_a
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
 
 alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
 
@@ -777,6 +804,7 @@ In the dictionary *interfacialProperties* file the drag model from GidaspowSchil
 The *granularRheologyProperties* is similar to the one for the 1DBedLoadMuI case:
 
 \verbatim
+
 granularRheology   on;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.55;
@@ -793,13 +821,14 @@ n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
 Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
 
-relaxPa         relaxPa [0 0 0 0 0 0 0] 0.005;
+relaxPa         relaxPa [0 0 0 0 0 0 0] 1e-4;
 
 FrictionModel  MuI;
 
 PPressureModel MuI;
 
 FluidViscosityModel  BoyerEtAl;
+
 \endverbatim
              
 For this case, the dense granular flow rheology \f$\mu(I)\f$ is used and the parameters are set according to Chauchat (2017). The differences with the laminar bed load case is the use of the inertial regime of the \f$\mu(I)\f$ rheology instead of the viscous one, the use of the shear induced pressure (PPressureModel) and the effective fluid viscosity model (FluidViscosityModel) from Boyer et al. (2011) is used.
@@ -809,6 +838,7 @@ For this case, the dense granular flow rheology \f$\mu(I)\f$ is used and the par
 The numerical schemes and the solvers are the same as in the 1DSedim case except that numerical schemes for the turbulent quantities (k,\f$\varepsilon\f$,\f$\omega\f$) have been added:
 
 \verbatim
+
 ddtSchemes
 {
     default         Euler implicit;
@@ -832,12 +862,16 @@ divSchemes
     div(phiRb,Ub)   Gauss limitedLinear 1;
 // pEqn
     div(alpha,nu)   Gauss linear;
-// k, EpsilonEqn and OmegaEqn
+// k and EpsilonEqn
     div(phib,k)     Gauss limitedLinear 1;
     div(phib,epsilon) Gauss limitedLinear 1;
     div(phib,omega) Gauss limitedLinear 1;
 // ThetaEqn
     div(phi,Theta)  Gauss limitedLinear 1;
+// alphaPlastic
+    div(phia,alphaPlastic)   Gauss upwind;
+// pa
+    div(phia,pa_new_value)   Gauss upwind;
 }
 
 laplacianSchemes
@@ -848,8 +882,8 @@ laplacianSchemes
     laplacian(nuEffb,Ub) Gauss linear corrected;
     laplacian(nuFra,Ua)  Gauss linear corrected;
 // pEqn
-    laplacian((rho*(1|A(U))),p) Gauss linear corrected;
-// k and EpsilonEqn
+    laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
+// k and EpsilonEqn 
     laplacian(DkEff,k) Gauss linear corrected;
     laplacian(DkEff,beta) Gauss linear corrected;
     laplacian(DepsilonEff,epsilon) Gauss linear corrected;
@@ -872,18 +906,18 @@ snGradSchemes
 fluxRequired
 {
     default         no;
-    p               ;
+    p_rbgh               ;
 }
 \endverbatim
   
 \subsubsection control_sedFoamSF Control
 
-The system/controlDict file is modified compared with the laminar bed load test case, the time step is reduced to \f$ 2.10^{-4}\f$ s and the endTime is reduced to 150 s that is enough for the steady state to be reached.
+The system/controlDict file is modified compared with the laminar bed load test case, the time step is reduced to \f$ 2.10^{-5}\f$ s and the endTime is reduced to 150 s that is enough for the steady state to be reached.
 
 \verbatim
-application     sedFoam_rbgh;
+application     sedFoam;
 
-startFrom       startTime;
+startFrom      latestTime;
 
 startTime       0;
 
@@ -891,11 +925,11 @@ stopAt          endTime;
 
 endTime         150;
 
-deltaT          2e-4;
+deltaT          2e-5;
 
 writeControl    adjustableRunTime;
 
-writeInterval   50;
+writeInterval   10;
 
 purgeWrite      0;
 
@@ -913,11 +947,11 @@ runTimeModifiable on;
 
 adjustTimeStep  yes;
 
-maxCo           0.1;
+maxCo           0.03;
 
-maxAlphaCo      0.1;
+maxAlphaCo      0.03;
 
-maxDeltaT       2e-4;
+maxDeltaT       2e-5;
 
 \endverbatim
 
@@ -1002,7 +1036,6 @@ The following variables are considered:
 The *transportProperties* file for the 1DAvalancheMuI case is shown below:
 
 \verbatim
-// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
 phasea
 {
     rho             rho [ 1 -3 0 0 0 ] 2650;
@@ -1010,7 +1043,6 @@ phasea
     d               d [ 0 1 0 0 0 0 0 ] 500.e-6;
 }
 
-// * * * * * * * * * * * * Fluid properties * * * * * * * * * * * * //
 phaseb
 {
     rho             rho [ 1 -3 0 0 0 ] 1.;
@@ -1057,11 +1089,10 @@ Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
 
 BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 1e0;
 
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 5e-6;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 
 FrictionModel   MuI;
 
-//PPressureModel  none;
 PPressureModel  MuI;
 
 FluidViscosityModel  none;
@@ -1083,8 +1114,6 @@ Finally, the file  *constant/g* is modified to take into account the \f$y\f$-axi
 \verbatim
 
 dimensions      [0 1 -2 0 0 0 0];
-// tiltangle = 23° 
-//value           ( 0 -9.03015261236844 0 );
 
 // tilt angfle = 26°
 value           ( 0 -8.817169594194828 0);
@@ -1125,7 +1154,7 @@ and you should see the following figure:
 \section Scour Scour downstream of an apron: 2DScourApron
 
 In this 2D configuration, we are looking at the scour development downstream of an apron. Following the numerical study of Amoudry & Liu (2009) and Cheng et al. (2017), the scour problem
-is simplified and sketched in figure 8.
+is simplified and sketched in figure 9.
 
 
 \subsection preprocSA Pre-processing
@@ -1135,11 +1164,11 @@ This tutorial is distributed with sedFoam3.0 under the folder sedFoamDirectory/t
 \subsubsection meshgenSA Mesh generation
 
 The numerical domain consists of a rectangle of side length L = 0.5 m in the x-y plane and of height h=0.25 m in the vertical direction z, where the flow depth is chosen to be  \f$h_0\f$ = 0.15m, and
-the initial bed depth is  \f$h_b\f$ = 0.05m. A regular grid is used in the vertical direction for the sediment bed (50 elements along the vertical direction) and in horizontal direction (250 elements). Inside the water column, 100 grid points are used with an increasing cell ratio of 2 along the vertical direction. Please note that this coarse mesh is for tutorial purpose only. If you want a finer mesh you may refer to Chauchat et al. (2017). The block structure is shown in Figure 8.
+the initial bed depth is  \f$h_b\f$ = 0.05m. A regular grid is used in the vertical direction for the sediment bed (50 elements along the vertical direction) and in horizontal direction (250 elements). Inside the water column, 100 grid points are used with an increasing cell ratio of 2 along the vertical direction. Please note that this coarse mesh is for tutorial purpose only. If you want a finer mesh you may refer to Chauchat et al. (2017). The block structure is shown in Figure 9.
 
 
-@image html "sketch_apron_charlie.png" "Figure 8: Sketch of the scour downstream an apron." width=600px
-@image latex "sketch_apron_charlie.png" "Figure 8: Sketch of the scour downstream an apron."
+@image html "sketch_apron_charlie.png" "Figure 9: Sketch of the scour downstream an apron." width=600px
+@image latex "sketch_apron_charlie.png" "Figure 9: Sketch of the scour downstream an apron."
 
 The mesh is generated by running blockMesh from within the case directory:
 
@@ -1189,7 +1218,7 @@ phaseb
 }
 //*********************************************************************** //
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha_a
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
 
 alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
 
@@ -1228,7 +1257,7 @@ n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
 Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 5e-2;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 
 zbed         zbed [ 0 1 0 0 0 0 0 ] 0.0;
 
@@ -1245,10 +1274,10 @@ The numerical schemes and the solvers are the same as in the 1DSheetFlow case.
 
 \subsubsection control_sedFoamSF2 Control
 
-The system/controlDict file indicates that for this case the time step is equal to \f$ 2.10^{-4}\f$ s and that the computation ends at 60s of dynamics. The output write interval has been set to 5s by default. The user is invited to reduce it in order to capture the evolution of the scour hole more accurately.   
+The system/controlDict file indicates that for this case the time step is equal to \f$ 2.10^{-5}\f$ s and that the computation ends at 60s of dynamics. The output write interval has been set to 5s by default. The user is invited to reduce it in order to capture the evolution of the scour hole more accurately. Additionally,  time step can be increased to \f$ 2.10^{-4}\f$ s after 2s to speed up the computational time.
 
 \verbatim
-application     sedFoam_rbgh;
+application     sedFoam;
 
 startFrom       latestTime;
 
@@ -1258,11 +1287,11 @@ stopAt          endTime;
 
 endTime         60;
 
-deltaT          2e-4;
+deltaT          2e-5;
 
-writeControl    runTime;
+writeControl    adjustableRunTime;
 
-writeInterval   5;
+writeInterval   0.5;
 
 purgeWrite      0;
 
@@ -1276,15 +1305,20 @@ timeFormat      general;
 
 timePrecision   6;
 
-runTimeModifiable off;
+runTimeModifiable on;
 
-adjustTimeStep  false;
+adjustTimeStep  true;
 
-maxCo           0.1;
+maxCo           0.05;
 
-maxAlphaCo      0.1;
+maxAlphaCo      0.05;
 
-maxDeltaT       2e-4;
+maxDeltaT       2e-5;
+
+libs (
+"libgroovyBC.so"
+"libgroovyStandardBCs.so"
+     );
 \endverbatim
 
 \subsubsection  lauch_SA Computation launching
@@ -1298,7 +1332,7 @@ decomposePar
 # Run sedFoam_rbgh in parallel
 mpirun -np 4 sedFoam_rbgh -parallel > log&
 \endverbatim
-First of all, as the mesh is composed of 37500 cells, computation runs faster on several processors (the best compromise is of 10000 cells per core). Here, the *decomposePar* command decompose the initial time (specified in the *controlDict* file) in the number of part specified in the *system/decomposeParDict* file.
+First of all, as the mesh is composed of 37500 cells, computation runs faster on several processors (the best compromise is around 10000 cells per core). Here, the *decomposePar* command decompose the initial time (specified in the *controlDict* file) in the number of part specified in the *system/decomposeParDict* file.
 
 The second command specify that the computation is launched in parallel with *mpirun*.
 
@@ -1312,10 +1346,10 @@ python plot_tuto2DScour.py
 
 and you should see the following figures:
 
-@image html "res1_tuto4.png" "Figure 9: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology." width=100px
-@image latex "res1_tuto4.png" "Figure 9: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
-@image html "res2_tuto4.png" "Figure 10: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology.  " width=100px
-@image latex "res2_tuto4.png" "Figure 10: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
+@image html "res1_tuto4.png" "Figure 10: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology." width=600px
+@image latex "res1_tuto4.png" "Figure 10: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
+@image html "res2_tuto4.png" "Figure 11: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology.  " width=600px
+@image latex "res2_tuto4.png" "Figure 11: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
 
 
 
