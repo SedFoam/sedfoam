@@ -40,4 +40,6 @@ PPressureModel  none;
 
 FluidViscosityModel  Einstein;
 
+DilatancyModel  none;
+
 // ************************************************************************* //

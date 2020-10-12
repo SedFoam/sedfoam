@@ -33,7 +33,7 @@ Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
 
 BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 1e0;
 
-relaxPa         relaxPa [ 0 0 -0 0 0 0 0 ] 1;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 
 FrictionModel   MuI;
 
@@ -42,5 +42,6 @@ PPressureModel  MuI;
 
 FluidViscosityModel  none;
 
+DilatancyModel  none;
 
 // ************************************************************************* //
