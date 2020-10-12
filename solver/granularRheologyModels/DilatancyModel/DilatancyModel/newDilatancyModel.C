@@ -23,37 +23,37 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "PPressureModel.H"
+#include "DilatancyModel.H"
 
 // * * * * * * * * * * * * * * * * Selectors * * * * * * * * * * * * * * * * //
 
-Foam::autoPtr<Foam::granularRheologyModels::PPressureModel>
-Foam::granularRheologyModels::PPressureModel::New
+Foam::autoPtr<Foam::granularRheologyModels::DilatancyModel>
+Foam::granularRheologyModels::DilatancyModel::New
 (
     const dictionary& dict
 )
 {
-    word PPressureModelType(dict.lookup("PPressureModel"));
+    word DilatancyModelType(dict.lookup("DilatancyModel"));
 
-    Info<< "Selecting PPressureModel "
-        << PPressureModelType << endl;
+    Info<< "Selecting DilatancyModel "
+        << DilatancyModelType << endl;
 
     dictionaryConstructorTable::iterator cstrIter =
-        dictionaryConstructorTablePtr_->find(PPressureModelType);
+        dictionaryConstructorTablePtr_->find(DilatancyModelType);
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())
     {
         FatalError
-            << "PPressureModel::New(const dictionary&) : " << endl
-            << "    unknown PPressureModelType type "
-            << PPressureModelType
+            << "DilatancyModel::New(const dictionary&) : " << endl
+            << "    unknown DilatancyModelType type "
+            << DilatancyModelType
             << ", constructor not in hash table" << endl << endl
-            << "    Valid PPressureModelType types are :"  << endl
+            << "    Valid DilatancyModelType types are :" << endl
             <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
         Info << abort(FatalError) << endl;
     }
 
-    return autoPtr<PPressureModel>(cstrIter()(dict));
+    return autoPtr<DilatancyModel>(cstrIter()(dict));
 }
 
 

@@ -39,6 +39,7 @@ SourceFiles
 #include "autoPtr.H"
 #include "FrictionModel.H"
 #include "PPressureModel.H"
+#include "DilatancyModel.H"
 #include "FluidViscosityModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -74,7 +75,8 @@ class granularRheologyModel
 
     //- use granular mixture model.
     Switch granularMixtureModel_;
-
+    
+    autoPtr<granularRheologyModels::DilatancyModel> DilatancyModel_;
     autoPtr<granularRheologyModels::FrictionModel> FrictionModel_;
     autoPtr<granularRheologyModels::PPressureModel> PPressureModel_;
     autoPtr<granularRheologyModels::FluidViscosityModel> FluidViscosityModel_;
@@ -117,9 +119,6 @@ class granularRheologyModel
 
     ////- The  dilatancy angle
     volScalarField delta_;
-
-    ////- The  equilibrium volume fraction
-    volScalarField alphaEq_;
 
     //- Total particle  pressure
     volScalarField p_p_total_;

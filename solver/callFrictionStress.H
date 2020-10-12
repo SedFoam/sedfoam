@@ -28,29 +28,26 @@ License
 volSymmTensorField D_tensor = symm(gradUaT);
 volScalarField magDtensor = ::sqrt(2.0)*mag(D_tensor);
 
-//alphaPlastic=alphaMinFriction;
-
-
 //// Solving the evolution of plastic volume fraction
-//volScalarField dila_shearRate = delta*magDtensor;
+volScalarField dila_shearRate = delta*magDtensor;
 
-//fvScalarMatrix phi_pl_Eqn
-//(
- //fvm::ddt(alphaPlastic)
- //+ fvm::div(phia, alphaPlastic, "div(phia,alphaPlastic)")
- //- fvm::Sp(fvc::div(phia), alphaPlastic)
-//==
-//-fvc::Sp(dila_shearRate, alphaPlastic) // explicit term
-//);
-//phi_pl_Eqn.relax();
-//phi_pl_Eqn.solve();
+fvScalarMatrix phi_pl_Eqn
+(
+ fvm::ddt(alphaPlastic)
+ + fvm::div(phia, alphaPlastic, "div(phia,alphaPlastic)")
+ - fvm::Sp(fvc::div(phia), alphaPlastic)
+==
+-fvc::Sp(dila_shearRate, alphaPlastic) // explicit term
+);
+phi_pl_Eqn.relax();
+phi_pl_Eqn.solve();
 
-////Info<< "alphaMinFriction BB =" << alphaPlastic <<endl;
+//Info<< "alphaMinFriction BB =" << alphaPlastic <<endl;
 
-////alphaMinFriction=alphaPlastic;
+//alphaMinFriction=alphaPlastic;
 
-//alphaPlastic.max(0.48);
-//alphaPlastic.min(0.585);
+alphaPlastic.max(0.48);
+alphaPlastic.min(0.585);
 
 
 // Pff corresponds to "contact" pressure which prevent the granular phase from
@@ -117,7 +114,7 @@ else if (granularRheology.on())
 // Particulate pressure and viscosity
     pa = granularRheology.pa();
 
-  //  delta=granularRheology.delta();
+    delta=granularRheology.delta();
     if (debugInfo)
     {
         Info<< "Pff pressure: Max =" << gMax(pff)

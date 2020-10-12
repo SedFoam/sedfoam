@@ -48,8 +48,9 @@ Foam::granularRheologyModels::FluidViscosityModel::New
             << "    unknown FluidViscosityModelType type "
             << FluidViscosityModelType
             << ", constructor not in hash table" << endl << endl
-            << "    Valid FluidViscosityModelType types are :" << endl;
-        Info<< dictionaryConstructorTablePtr_->sortedToc() << abort(FatalError);
+            << "    Valid FluidViscosityModelType types are :"  << endl
+            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
+        Info << abort(FatalError) << endl;
     }
 
     return autoPtr<FluidViscosityModel>(cstrIter()(dict));

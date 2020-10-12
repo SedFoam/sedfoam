@@ -19,28 +19,27 @@ granularRheology   on;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
-mus             mus  [ 0 0 0 0 0 0 0 ] 0.38;
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.32;
 
-mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.64;
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.94;
 
-I0              I0  [ 0 0 0 0 0 0 0 ] 0.3;
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.0077;
 
-Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.31;
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 1.0;
 
 n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
-Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
+Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
-BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 1e0;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
 
-relaxPa         relaxPa [ 0 0 -0 0 0 0 0 ] 1;
+//FrictionModel  Coulomb;
+FrictionModel  MuIv;
 
-FrictionModel   MuI;
+PPressureModel  none;
 
-//PPressureModel  none;
-PPressureModel  MuI;
+FluidViscosityModel  Einstein;
 
-FluidViscosityModel  none;
-
+DilatancyModel  none;
 
 // ************************************************************************* //
