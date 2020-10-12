@@ -396,8 +396,8 @@ void Foam::granularRheologyModel::solve
         5e-1
     );
 
-    delta_ = DilatancyModel_->delta(K_dila_, alpha_c_,alpha_, magD,
-                                       da_,rhob_,nub_,p_p_total_,PaMin);
+    delta_ = DilatancyModel_->delta(K_dila_, alpha_c_, alpha_, magD,
+ da_, rhob_, nub_, p_p_total_, PaMin);
 
     delta_.min( 0.5);
     delta_.max(-0.5);

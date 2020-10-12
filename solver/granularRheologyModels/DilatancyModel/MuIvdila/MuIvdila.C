@@ -64,7 +64,7 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIvdila::delta
     const dimensionedScalar& nub,
     const volScalarField& p_p_total,
     const dimensionedScalar& PaMin
-) const 
+) const
 {
     volScalarField I = magD*rhob*nub/(max(p_p_total, PaMin));
     volScalarField alphaEq = (alpha_c)/(1.0+1*sqrt(I));

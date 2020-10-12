@@ -39,7 +39,8 @@ namespace granularRheologyModels
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::granularRheologyModels::noneDilatancy::noneDilatancy(const dictionary& dict)
+Foam::granularRheologyModels::
+noneDilatancy::noneDilatancy(const dictionary& dict)
 :
     DilatancyModel(dict)
 {}
@@ -53,7 +54,8 @@ Foam::granularRheologyModels::noneDilatancy::~noneDilatancy()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::noneDilatancy::delta
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::
+noneDilatancy::delta
 (
     const dimensionedScalar& K_dila,
     const dimensionedScalar& alpha_c,
