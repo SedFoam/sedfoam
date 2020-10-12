@@ -19,17 +19,17 @@ application     sedFoam;
 
 startFrom       startTime;
 
-startTime       0;
+startTime       1800;
 
 stopAt          endTime;
 
-endTime         1800;
+endTime         1900;
 
 deltaT          1e-5;
 
 writeControl    adjustableRunTime;
 
-writeInterval   30;
+writeInterval   20;
 
 purgeWrite      0;
 
