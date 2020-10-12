@@ -33,7 +33,7 @@ nx = 120
 xex = np.linspace(0, 1., nx)
 # dimensionless parameters
 mus = 0.24
-phi0 = 0.6
+phi0 = 0.595
 eta_e = (1. + 2.5 * phi0)
 # dimensional parameters
 D = 0.06
@@ -43,7 +43,7 @@ drho = rho_p - rho_f
 etaf = 2.105e-5*rho_f
 g = 9.81
 
-hp = 0.0455/D 
+hp = 0.045825/D 
 # pressure gradient
 dpdx = -80e0 / (drho * g)
 
@@ -113,3 +113,50 @@ print("max(Ub)=" + str(np.amax(Ub)) + " m/s")
 RMSU = RMS(Y,Ub[0,:],xex,uex)
 print('RMS U=',RMSU)
 assert(RMSU<=1e-3)
+
+# =============================================================================
+# #########################################
+# # figure 1
+# #########################################
+# #
+# # Change subplot sizes
+# #
+# gs = gridspec.GridSpec(1, 3)
+# gs.update(left=0.1, right=0.95, top=0.95,
+#           bottom=0.1, wspace=0.125, hspace=0.25)
+# #
+# # Figure size
+# #
+# figwidth = 18
+# figheight = 9
+# figure(num=1, figsize=(figwidth, figheight),
+#        dpi=60, facecolor='w', edgecolor='w')
+# 
+# ax1 = subplot(gs[0, 0])
+# l11, = ax1.plot(alpha[:], Y[:], '-r')
+# l1, = ax1.plot(alphaex[:], xex[:], '--k')
+# ax1.set_ylabel('y (m)')
+# ax1.set_xlabel(r'$\alpha$')
+# ax1.set_xlim(0,  np.max(np.max(alpha)) * 1.1)
+# ax1.set_ylim(zmin, zmax)
+# 
+# ax2 = subplot(gs[0, 1])
+# l21, = ax2.plot(U[:], Y[:], '-r')
+# l2, = ax2.plot(uex[:], xex[:], '--k')
+# ax2.set_xlabel('u ($m/s$)')
+# ax2.set_xlim(0,  np.max(uex) * 1.1)
+# ax2.set_ylim(zmin, zmax)
+# ax2.set_yticklabels([''])
+# 
+# ax3 = subplot(gs[0, 2])
+# l31, = ax3.plot(pff[:], Y[:], '-r')
+# l3, = ax3.plot(pex[:], xex[:], '--k')
+# ax3.set_xlabel('p ($N/m^2$)')
+# ax3.set_xlim(0,  np.max(pex) * 1.1)
+# ax3.set_ylim(zmin, zmax)
+# ax3.set_yticklabels([''])
+# 
+# 
+# show(block=True)
+# =============================================================================
+
