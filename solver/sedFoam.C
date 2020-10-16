@@ -74,7 +74,6 @@ Description
 //#include "IOMRFZoneList.H"
 //#include "IOMRFZoneList.H"
 
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
@@ -85,19 +84,17 @@ int main(int argc, char *argv[])
     #include "createMesh.H"
     #include "createControl.H"
 
-//    #include "readGravitationalAcceleration.H"
+
     #include "readGravity.H"
-//    #include "createGradP.H"
     #include "createFields.H"
     #include "createRASTurbulence.H"
     #include "createFvOptions.H"
 
-    //#include "readPPProperties.H"
+
     #include "initContinuityErrs.H"
     #include "createTimeControls.H"
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
- //   pimpleControl pimple(mesh);
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     if (SUSlocal)

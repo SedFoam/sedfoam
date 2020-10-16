@@ -30,7 +30,11 @@ tmfexp = -B*rhoa*6.0*Cmu/(max(beta*K, Tpsmall));
 
 // just need the horizontal ones;
 rtemp = (Ub-Ua) & gravity;
-Urtemp = rtemp*gravity/magSqr(gravity);
+Urtemp = Ub-Ua;
+if (Foam::mag(gravity).value() != 0)
+{
+    Urtemp = rtemp*gravity/magSqr(gravity);
+}
 Urh = (Ub-Ua) - Urtemp;
 
 // ESD1 for horizontal, ESD4 for vertical density stratification
