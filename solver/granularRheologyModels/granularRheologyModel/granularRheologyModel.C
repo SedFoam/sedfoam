@@ -379,6 +379,8 @@ void Foam::granularRheologyModel::solve
     paEqn.relax();
     paEqn.solve();
 
+    pa_new_value.max(0.0);
+
     pa_=pa_new_value;
 
 //total particle pressure(shear induced+contact contributions)
@@ -408,19 +410,21 @@ void Foam::granularRheologyModel::solve
 // Compute mua_ on the bottom patch
     forAll(alpha_.boundaryField(), patchi)
     {
-        if
-        (
-            isA<zeroGradientFvPatchScalarField>(alpha_.boundaryField()[patchi])
-        )
-        {
+//        if
+//        (
+//            isA<zeroGradientFvPatchScalarField>(alpha_.boundaryField()[patchi])
+//        )
+//        {
             mua_.boundaryFieldRef()[patchi] =
             (
                 (muI_.boundaryFieldRef()[patchi]+ 0*delta_[0])
                 *p_p_total_.boundaryFieldRef()[patchi]
                 /pow(magD2.boundaryFieldRef()[patchi] + Dsmall2.value(), 0.5)
             );
-        }
-/*        if (isA<zeroGradientFvPatchVectorField>(Ua_.boundaryField()[patchi]))
+//        }
+
+/*
+        if (isA<zeroGradientFvPatchVectorField>(Ua_.boundaryField()[patchi]))
         {
             mua_.boundaryFieldRef()[patchi] = 0;
             muI_.boundaryFieldRef()[patchi] = 0;

@@ -57,7 +57,7 @@ class granularRheologyModel
 
     const volScalarField& alpha_;
     const surfaceScalarField& phia_;
-    const volScalarField& pa_new_value;
+    volScalarField pa_new_value;
     const dimensionedScalar& rhoa_;
     const dimensionedScalar& da_;
 
