@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
 //          solution of the Granular temperature equation
             #include "callKineticTheory.H"
 
-//          Compute the contact pressure pff and the Frictional stress nuFra
+//          Compute the contact pressure pff and the frictional viscosity nuFra
 //          from a Coulomb model if using the kinetic theory
 //          and from the mu(I) rheology if using the granular rheology
             #include "callFrictionStress.H"

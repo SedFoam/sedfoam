@@ -42,10 +42,10 @@ if (kineticTheory.on())
 
     if (debugInfo)
     {
-        Info<< "Pff pressure: Max =" << gMax(pff)
-            <<",Min =" << gMin(pff)<<endl;
-        Info<< "Shear induced pressure : Max =" << gMax(pa)
-            <<",Min =" << gMin(pa)<<endl;
+        Info<< "Contact pressure  pff: Min =" << gMin(pff)
+	    <<", Max =" << gMax(pff)<<endl;
+        Info<< "Collisional press. pa: Min =" << gMin(pa)
+            <<", Max =" << gMax(pa)<<endl;
     }
 }
 else               // If not using kinetic theory is using Ct model

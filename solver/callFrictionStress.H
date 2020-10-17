@@ -69,27 +69,11 @@ else if (granularRheology.on())
   //  delta=granularRheology.delta();
     if (debugInfo)
     {
-        Info<< "Pff pressure: Max =" << gMax(pff)
-            <<",Min =" << gMin(pff)<<endl;
-        Info<< "Shear induced pressure : Max =" << gMax(pa)
-            <<",Min =" << gMin(pa)<<endl;
+        Info<< "Contact pressure  pff: Min =" << gMin(pff)
+	    <<", Max =" << gMax(pff)<<endl;
+        Info<< "Shear ind. press.  pa: Min =" << gMin(pa)
+            <<", Max =" << gMax(pa)<<endl;
     }
-
-/*
-// Compute the shear induced pressure gradient contribution
-// (not used inthis version)
-     surfaceScalarField gradPsf = fvc::snGrad(pa)*mesh.magSf();
-
-     forAll(p.boundaryField(), patchi)
-     {
-        if (isA<zeroGradientFvPatchScalarField>(p.boundaryField()[patchi]))
-          {
-            gradPsf.boundaryField()[patchi] = 0.0;
-          }
-     }
-
-     gradPs = (fvc::reconstruct(gradPsf))/(rhoa*(alpha+alphaSmall));
-*/
 // the actual expression for nuFra depends on the way this term is discretized
 // in UaEqn
     nuFra = granularRheology.mua()/ rhoa;
@@ -102,7 +86,7 @@ else if (granularRheology.on())
 }
 //
 //
-//  If not using kinetic theory is using Ct model
+//  If not using kinetic theory or granular rheology Ct model is used
 //
 //
 else

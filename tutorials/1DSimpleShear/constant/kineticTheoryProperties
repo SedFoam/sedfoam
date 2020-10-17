@@ -27,8 +27,6 @@ e               e [ 0 0 0 0 0 0 0 ] 0.8;
 
 alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
 
-alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.61;
-
 DiluteCut       DiluteCut [ 0 0 0 0 0 0 0 ] 0.0001;
 
 ttzero          ttzero [ 0 0 1 0 0 0 0 ] 0;

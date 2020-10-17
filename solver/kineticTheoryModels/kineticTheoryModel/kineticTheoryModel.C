@@ -630,11 +630,8 @@ void Foam::kineticTheoryModel::updateRheo
     }
 
     mua_= rhoa_*F_*da_*pow(Theta_, 0.5);
-    //volScalarField paOld = pa_;
+    
     pa_ = rhoa_*alpha_*Theta_;
-    //pa_ = paOld + relaxPaKin_*(pa_ - paOld);
-    //Info<< "Theta = " << Theta_ << endl;
-    //Info<< "mua = " << mua_ << endl;
 }
 //}
 

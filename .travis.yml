@@ -43,6 +43,10 @@ script:
     - python3 test_Sedimentation.py
     - cp -f constant/forceProperties.bedload constant/forceProperties && cp -f system/controlDict.bedload system/controlDict && ./Allrun
     - python3 test_Bedload.py
+    - cd ../1DAvalancheMuI && ./Allrun
+    - postProcess -func 'grad(Ua)' && python3 test_AvalancheMuI.py
+    - cd ../1DSimpleShear/ && ./Allrun
+    - python3 test_1DSimpleShear.py
     - cd ../../doc/
     - doxygen
     - mv html ../public/

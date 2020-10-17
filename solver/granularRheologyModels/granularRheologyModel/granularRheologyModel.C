@@ -349,15 +349,9 @@ void Foam::granularRheologyModel::solve
         alpha_, alphaMaxG_, alphaSmall
     );
 
-    Info<< "pa_new_value before relax = "
-    << "  Min(pa_) = " << gMin(pa_)
-    << "  Max(pa_) = " << gMax(pa_)
-    << endl;
-
- // Relaxing shear induced particulate pressure
- //  relaxPa_ controlls the relaxation of pa. Low values lead to relaxed pa
-    //// whereas large value are prone to numerical error
-
+    // Relaxing shear induced particulate pressure
+    //  relaxPa_ controls the relaxation of pa. Low values lead to relaxed pa
+    //  whereas large value are prone to numerical error
     volScalarField tau_inv_par = relaxPa_*alpha_*magD;
 
     fvScalarMatrix paEqn
@@ -374,49 +368,19 @@ void Foam::granularRheologyModel::solve
 
     pa_=pa_new_value;
 
-//total particle pressure(shear induced+contact contributions)
+    //total particle pressure(shear induced+contact contributions)
     p_p_total_ = mag(pa_new_value+pf);
+    //JC why not p_p_total_ = mag(pa_+pf); ?
 
     //  Compute the particulate friction coefficient
     muI_ = FrictionModel_->muI(mus_, mu2_, I0_, p_p_total_, rhoa_, da_, rhob_,
                                nub_, magD, Dsmall);
-                               
-// Dilatancy model
-    dimensionedScalar PaMin
-    (
-        "PaMin",
-        dimensionSet(1, -1, -2, 0, 0, 0, 0),
-        5e-1
-    );
 
     //  Compute the regularized particulate viscosity
     mua_ = muI_* p_p_total_ / pow(magD2 + Dsmall2, 0.5);
 
-// Compute mua_ on the bottom patch
-    forAll(alpha_.boundaryField(), patchi)
-    {
-        if
-        (
-            isA<zeroGradientFvPatchScalarField>(alpha_.boundaryField()[patchi])
-        )
-        {
-            mua_.boundaryFieldRef()[patchi] =
-            (
-                (muI_.boundaryFieldRef()[patchi])
-                *p_p_total_.boundaryFieldRef()[patchi]
-                /pow(magD2.boundaryFieldRef()[patchi] + Dsmall2.value(), 0.5)
-            );
-        }
-/*        if (isA<zeroGradientFvPatchVectorField>(Ua_.boundaryField()[patchi]))
-        {
-            mua_.boundaryFieldRef()[patchi] = 0;
-            muI_.boundaryFieldRef()[patchi] = 0;
-            //Info <<mua_.boundaryFieldRef()[patchi]<<nl<<endl;
-        }
-*/
-    }
-    // Set bulk viscosity to zero
-   lambda_ = BulkFactor_*p_p_total_ / pow(magD2 + Dsmall2, 0.5);
+    // Compute bulk viscosity (by default BulkFactor = 0)s
+    lambda_ = BulkFactor_*p_p_total_ / pow(magD2 + Dsmall2, 0.5);
 
 
     // Compute the Effective fluid viscosity

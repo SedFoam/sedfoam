@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    class       volScalarField;
+    arch        "LSB;label=32;scalar=64";
+    location    "160";
+    object      alpha_a;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+
+internalField   nonuniform List<scalar> 
+100
+(Ñ1\Â½<â?^\¨=â?§Bå´=â?‡3Bph>â?é"Šœ"?â?$Ü*ÚØ?â?ã˜<†@â?á¦Ù0(Aâ?Mý˜`½Aâ?Ê}5EBâ?ÁI¿Bâ?Fÿ+Câ?ÀoïB‰Câ?"ùÙCâ?²XxDâ? †ùâPDâ?œÒ£þwDâ?/Øç`‘Dâ?ò-yéœDâ?åQÒYšDâ?3T‰Dâ?ràËKiDâ?»29Dâ?ƒåDíøCâ?ó~8¦Câ?·g…š?Câ?…ŒÁÂBâ?MD7®,Bâ?ªüå•yAâ?É™VÊ¤@â?öÇ÷Ú¨?â?Žx¯Z€>â?úåùÈ'=â?,¸!1;â?³H(ÐÙ9â?c@mÔ7â?ú’d5â?%/ÝèÊ2â?¿`vŸ/â?L£[QÜ+â?¯$®Q'â?¾Y"·!â?ÛœCKšâ?³µ6È=â? %èVâ?i·Vô~ñá?oì ÃåÓá?¶5ï á?…^Ó?á?t`A#Äˆà?n·2ÜœÁ?'i†ú5/?lÏ«aÞ“’>†Ûw¦™>˜¾­¤Šl§>ÿ§Â6AH¦>éÏ\FßŸ§>þ–¸»¦>`v!‹»§>Hœï^Á8¦>ÖÅ}Îˆ§>XÜp¹=¦>Ø’
+a»ò§>ÒW“.§>wS€¦¼¦>‡Vñø)'¨>4ú£¶ð¦>c¹ÐÒƒ{¨>ÝÈjà¦>+·«….¦>a˜WBÂ¦>ÕV×>ˆ½§>²/âs¨>fj”Ö(v§>Ö¤'ã¦>]à1Šö§>«å½|ý§>¾jíhà§>ÙbHižè§>U°ªE¨>Ê£MV¨>ÅJ8¤#©>KYœOpª>Ö‡¤»ª>‘u§üÞl£>4L¬ÅÊ
+š>k³ßt‘>Œ»*è"g‡>,Prò_>RÁ@køu>—×KZö1l>·ïßÈWæb>#3zŠyVY>×¨÷füP>[oíÈÅF>ç6nÀ†>>E3ïibv4>MÄŠ´Én+>Ë 4ôƒc">Ø–W§>);
+
+boundaryField
+{
+    inlet
+    {
+        type            cyclic;
+    }
+    outlet
+    {
+        type            cyclic;
+    }
+    top
+    {
+        type            fixedValue;
+        value           uniform 0;
+    }
+    bottom
+    {
+        type            zeroGradient;
+    }
+    frontAndBackPlanes
+    {
+        type            empty;
+    }
+}
+
+
+// ************************************************************************* //

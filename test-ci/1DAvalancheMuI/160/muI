@@ -1,0 +1,56 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    class       volScalarField;
+    arch        "LSB;label=32;scalar=64";
+    location    "160";
+    object      muI;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+
+internalField   nonuniform List<scalar> 
+100
+(0à`XÞ?º¡;ÕáVÞ?Þ·STÞ?z£ÓYQÞ?×”óCNÞ?¬‰46KÞ?M»ìEHÞ?&fzß|EÞ?b…·àBÞ?¿Ë1u@Þ?œ@=>Þ?Y¡† :<Þ?àÉ=p:Þ?7Œrß8Þ?¢XîŠ7Þ?n¬t6Þ?ÆAïž5Þ?†‹Ø5Þ?Éª¡¾4Þ?—9z¹4Þ?—šžÿ4Þ?x¶"v”5Þ?BH¾{6Þ?þ*À¹7Þ?Øÿ/IS9Þ?ÒÑÞîM;Þ?ÏÇé?°=Þ?©˜Üà@Þ?‹°@×ËCÞ?k\ýÞ˜GÞ?WÇ÷õKÞ?'!ÅòPÞ?®k(¢VÞ?Ð<Ü]Þ?Çr'zdÞ?ýöÏãlÞ?:3‘‡vÞ?¦s•¤Þ?Ð´ŽÞ?÷‰ÌÃÞ?ñ·Oê¯Þ?Ö€@²ÆÞ?RÀ]žáÞ?ÍvÕï0ß?±ºãOÝ4ß?©BÛÝÐwß?d´1æÛß?:Ýð×S;à?ÐÆìšºà?¸jÓ¦¸oá?Ýœ	…Aä?ÄÀÍzä?nH)ázä?¡¡èázä?œ­	ázä?xíº	ázä?hWÓázä?P÷o	ázä?,—Ëázä?âž	ázä?D ¼ázä?L˜ˆ	ázä?†fázä?ºõžázä?R	ázä?D
++ázä?¦Bëázä?9òäázä?J¥b	ázä?JåQ	ázä?Ž‹ëázä?o¨Bázä?ZoÆázä?6žcázä?G7¼ázä?”ÒFázä?ùvúázä?µázä?Y#ýázä?:ÖØázä?Î¥~ázä?¬˜#ázä?á|ázä?“ázä?§uÆ
+ázä?‚öãázä?*.¥ázä?"}ázä?À€¸ázä?ÍA‹ázä?¶ãázä? ™uázä?Úî³ázä?VQÝázä?K½øázä?Ãá
+ázä?|âázä??Úázä?32$ázä?øØ'ázä?);
+
+boundaryField
+{
+    inlet
+    {
+        type            cyclic;
+    }
+    outlet
+    {
+        type            cyclic;
+    }
+    top
+    {
+        type            calculated;
+        value           uniform 0.64;
+    }
+    bottom
+    {
+        type            calculated;
+        value           uniform 0.474144;
+    }
+    frontAndBackPlanes
+    {
+        type            empty;
+    }
+}
+
+
+// ************************************************************************* //
