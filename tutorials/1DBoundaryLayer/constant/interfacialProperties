@@ -11,46 +11,15 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      kineticTheoryProperties;
+    object      interfacialProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-kineticTheory   on;
+dragModela      GidaspowSchillerNaumann;
 
-equilibrium     off;
+dragModelb      GidaspowSchillerNaumann;
 
-extended        on;
+dragPhase       a;
 
-limitProduction off;
-
-e               e [ 0 0 0 0 0 0 0 ] 0.8;
-
-alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
-
-DiluteCut       DiluteCut [ 0 0 0 0 0 0 0 ] 0.0001;
-
-ttzero          ttzero [ 0 0 1 0 0 0 0 ] 0;
-
-ttone          ttone [ 0 0 1 0 0 0 0 ] 0;
-
-MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 1.;
-
-phi             phi [ 0 0 0 0 0 0 0 ] 21;
-
-KineticJ1      KineticJ1 [ 0 0 0 0 0 0 0 ] 0; //turn off the viscous dissipation
-
-KineticJ2       KineticJ2 [ 0 0 0 0 0 0 0] 0;
-
-KineticJ3       KineticJ3 [ 0 0 0 0 0 0 0] 0;
-
-viscosityModel  Syamlal;
-
-conductivityModel Syamlal;
-
-granularPressureModel SyamlalRogersOBrien;
-
-frictionalStressModel JohnsonJackson;
-
-radialModel     CarnahanStarling;
 
 // ************************************************************************* //

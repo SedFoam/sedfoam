@@ -57,9 +57,9 @@ parameter     | description            |    default   |     range    |    units 
 --------------|------------------------|--------------|--------------|--------------|
 phasea        | solid phase            |              |              |              |
 phased        | fluid phase            |              |              |              |
-rho           | phase density          |      1000    | 1000-2650    |  kg/m^3      |
-nu            | phase viscosity        |      1e-6    | 0-1e-3       |  m^2/s       |
-d             | particle diameter      |      200e-6  | 62e-6-5e-3   |  m           |
+rho           | phase density          |      1000    | 1-2650       |  kg/m^3      |
+nu            | phase viscosity        |      1e-6    | 0-1e0        |  m^2/s       |
+d             | particle diameter      |      200e-6  | 62e-6-1      |  m           |
 sF            | shape factor           |      1       | 0.1-2        |  -           |
 hExp          | Hindrance exponent     |      2.65    | 1.5-3.15     |  -           |
 Ws0           | settling velocity      | 1.15e-4      | 1e-6-1e-4    |  m/s         |
@@ -109,7 +109,7 @@ parameter       | description               |    default   |     range    |    u
 ----------------|---------------------------|--------------|--------------|--------------|
 alphaMax        | max. solid vol. fraction  |    0.635     | 0.57-0.635   |  -           |
 alphaMinFriction| random loose packing frac.|    0.57      | 0.53-0.57    |  -           |
-Fr              | elastic modulus           |    0.005     | 0.005-1e8    |  Pa          |
+Fr              | elastic modulus           |    0.05      | 0.001-1e8    |  Pa          |
 eta0            | empirical exponent        |    3         | 1-3          |  -           |
 eta1            | empirical exponent        |    5         | 5            |  -           |
 

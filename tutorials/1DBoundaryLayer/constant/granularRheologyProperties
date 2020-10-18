@@ -1,4 +1,4 @@
-/*--------------------------------*- C++ -*----------------------------------*\
+/*
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
 |  \\    /   O peration     | Version:  1.7.1                                 |
@@ -10,47 +10,31 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      controlDict;
+    location    "constant";
+    object      granaularRheologyProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     sedFoam;
+granularRheology   off;
 
-startFrom       latestTime;
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.55;
 
-startTime       0;
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.52;
 
-stopAt          endTime;
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.96;
 
-endTime         500;
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.6;
 
-deltaT          0.0001;
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.66;
 
-writeControl    adjustableRunTime;
+n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
-writeInterval   50;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
 
-purgeWrite      0;
+FrictionModel  MuI;
 
-writeFormat     binary;
+PPressureModel MuI;
 
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable on;
-
-adjustTimeStep  yes;
-
-maxCo           0.3;
-
-maxAlphaCo      0.3;
-
-maxDeltaT       2e-3;
+FluidViscosityModel  BoyerEtAl;
 
 // ************************************************************************* //

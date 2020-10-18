@@ -511,6 +511,7 @@ void Foam::kineticTheoryModel::solve
         Theta_ = sqr((l1 + sqrt(l2 + l3))/(2.0*(alpha_ + 1.0e-4)*K4));
     }
 
+    // Clipping of Theta for stability by Z. Cheng (need to check if necessary...)
     forAll(alpha_, cellk)
     {
 // for initial stability
@@ -540,10 +541,10 @@ void Foam::kineticTheoryModel::solve
         rhoa_,
         e_
     );
-// update bulk viscosity and shear viscosity
-// bulk viscosity  p. 45 (Lun et al. 1984).
+    // update bulk viscosity and shear viscosity
+    // bulk viscosity  p. 45 (Lun et al. 1984).
     lambda_ = (4.0/3.0)*sqr(alpha_)*rhoa_*da_*gs0_*(1.0+e_)*sqrt(Theta_)/sqrtPi;
-// particle viscosity (Table 3.2, p.47)
+    // particle viscosity (Table 3.2, p.47)
     mua_ = viscosityModel_->mua(alpha_, Theta_, gs0_, rhoa_, da_, e_);
 
 
@@ -553,12 +554,8 @@ void Foam::kineticTheoryModel::solve
     mua_.max(0.0);
     mua_.correctBoundaryConditions();
 
-    Info << "kinTheory: max(Theta) = "
-         << max(Theta_).value()
-         << " min(Theta) = "
-         << min(Theta_).value()
-         << endl;
-
+    Info << "Granular temp.  Theta: Min ="<< gMin(Theta_)
+             << " Max = "<< gMax(Theta_)<< endl;
 }
 // test function for callFrictionStress.H
 void Foam::kineticTheoryModel::updateRheo

@@ -20,7 +20,7 @@ expressions
 	alpha1
     	{
 		field alpha_a;
-		expression "0.44";
+		expression "0.45";
                 keepPatches 1;
 	}
         Ua

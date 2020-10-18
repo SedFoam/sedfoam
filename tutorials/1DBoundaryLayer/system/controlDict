@@ -10,47 +10,51 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "constant";
-    object      kineticTheoryProperties;
+    location    "system";
+    object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-kineticTheory   on;
+application     sedFoam;
 
-equilibrium     off;
+startFrom       latestTime;
 
-extended        on;
+startTime       0;
 
-limitProduction off;
+stopAt          endTime;
 
-e               e [ 0 0 0 0 0 0 0 ] 0.8;
+endTime         2500;
 
-alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
+deltaT          1e-2;
 
-DiluteCut       DiluteCut [ 0 0 0 0 0 0 0 ] 0.0001;
+writeControl    adjustableRunTime;
 
-ttzero          ttzero [ 0 0 1 0 0 0 0 ] 0;
+writeInterval   500;
 
-ttone          ttone [ 0 0 1 0 0 0 0 ] 0;
+purgeWrite      0;
 
-MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 1.;
+writeFormat     binary;
 
-phi             phi [ 0 0 0 0 0 0 0 ] 21;
+writePrecision  6;
 
-KineticJ1      KineticJ1 [ 0 0 0 0 0 0 0 ] 0; //turn off the viscous dissipation
+writeCompression uncompressed;
 
-KineticJ2       KineticJ2 [ 0 0 0 0 0 0 0] 0;
+timeFormat      general;
 
-KineticJ3       KineticJ3 [ 0 0 0 0 0 0 0] 0;
+timePrecision   6;
 
-viscosityModel  Syamlal;
+runTimeModifiable on;
 
-conductivityModel Syamlal;
+adjustTimeStep  true;
 
-granularPressureModel SyamlalRogersOBrien;
+maxCo           0.5;
 
-frictionalStressModel JohnsonJackson;
+maxAlphaCo      5;
 
-radialModel     CarnahanStarling;
+maxDeltaT       1e0;
+
+libs (
+     "libmyturbulenceModels.so"
+     );
 
 // ************************************************************************* //

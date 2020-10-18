@@ -136,7 +136,7 @@ l11, = ax1.plot(alpha[:], Y[:]/d, '-r')
 l1, = ax1.plot(alphaex[:], xex[:]/d, '--k')
 ax1.set_ylabel('y/d [-]')
 ax1.set_xlabel(r'$\alpha$')
-ax1.set_xlim(0,  np.max(np.max(alpha)) * 1.1)
+ax1.set_xlim(0.5,  0.6)
 ax1.set_ylim(zmin, zmax)
 
 ax2 = subplot(gs[0, 1])
@@ -196,6 +196,8 @@ ax7.set_xlim(0,  np.max(duexdz)/(g/d)**0.5 * 1.1)
 ax7.set_ylim(zmin, zmax)
 ax7.set_yticklabels([''])
 ax7.legend(prop={'size':10.0},loc=0)
+
+savefig('Figures/res1_DryAvalanche.png', facecolor='w', edgecolor='w', format='png')
 
 show(block=True)
 
