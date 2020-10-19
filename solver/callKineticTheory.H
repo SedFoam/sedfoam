@@ -43,7 +43,7 @@ if (kineticTheory.on())
     if (debugInfo)
     {
         Info<< "Contact pressure  pff: Min =" << gMin(pff)
-	    <<", Max =" << gMax(pff)<<endl;
+            <<", Max =" << gMax(pff)<<endl;
         Info<< "Collisional press. pa: Min =" << gMin(pa)
             <<", Max =" << gMax(pa)<<endl;
     }

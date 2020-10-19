@@ -42,7 +42,7 @@ if (kineticTheory.on())
     volScalarField muEff_f =
     (
         pff*Foam::sin(kineticTheory.phi())
-       /sqrt(pow(magDtensor,2) + pow(Dsmall,2))
+       /sqrt(pow(magDtensor, 2) + pow(Dsmall, 2))
     );
 // the actual expression for nuFra depends on the way this term is discretized
 // in UaEqn
@@ -70,7 +70,7 @@ else if (granularRheology.on())
     if (debugInfo)
     {
         Info<< "Contact pressure  pff: Min =" << gMin(pff)
-	    <<", Max =" << gMax(pff)<<endl;
+            <<", Max =" << gMax(pff)<<endl;
         Info<< "Shear ind. press.  pa: Min =" << gMin(pa)
             <<", Max =" << gMax(pa)<<endl;
     }

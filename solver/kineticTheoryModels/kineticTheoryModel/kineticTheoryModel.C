@@ -403,8 +403,8 @@ void Foam::kineticTheoryModel::solve
     volScalarField ThetaClip = Theta_;
     if (limitProduction_)
     {
-	// limit the production by clipping Theta to 2/3kb
-	volScalarField ThetaClip = min(Theta_, (2.0/3.0)*max(kb));
+        // limit the production by clipping Theta to 2/3kb
+        volScalarField ThetaClip = min(Theta_, (2.0/3.0)*max(kb));
     }
     // 'thermal' conductivity (Table 3.3, p. 49)
     kappa_ = conductivityModel_->kappa(alpha_, ThetaClip, gs0_, rhoa_, da_, e_);
@@ -511,7 +511,8 @@ void Foam::kineticTheoryModel::solve
         Theta_ = sqr((l1 + sqrt(l2 + l3))/(2.0*(alpha_ + 1.0e-4)*K4));
     }
 
-    // Clipping of Theta for stability by Z. Cheng (need to check if necessary...)
+    // Clipping of Theta for stability by Z. Cheng 
+    //    (need to check if necessary...)
     forAll(alpha_, cellk)
     {
 // for initial stability

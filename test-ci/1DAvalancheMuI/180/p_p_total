@@ -1,53 +1,0 @@
-/*--------------------------------*- C++ -*----------------------------------*\
-| =========                 |                                                 |
-| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2006                                 |
-|   \\  /    A nd           | Website:  www.openfoam.com                      |
-|    \\/     M anipulation  |                                                 |
-\*---------------------------------------------------------------------------*/
-FoamFile
-{
-    version     2.0;
-    format      binary;
-    class       volScalarField;
-    arch        "LSB;label=32;scalar=64";
-    location    "180";
-    object      p_p_total;
-}
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-dimensions      [1 -1 -2 0 0 0 0];
-
-
-internalField   nonuniform List<scalar> 
-100
-(åÁxæ2Ð?Ï¡€Yc¾Ï?+fŸáíÏ?âjoÎ?•»>f×ÇÍ?¸ƒ³\5 Í?A9„xÌ?³ãTáÃÐË?D;‹ô(Ë?²f§\Ê?}Œ†Ý)ÙÉ?!à5ö.1É?[¾X&‰È?§»X	áÇ?P†ßyì8Ç?÷i6¼Æ?ÑÎèÅ?ó¤cR6@Å?K.þ2â—Ä?ïÒê‚ïÃ?b.sGÃ? ÛR¦žÂ?Jüîœ)öÁ?sŠ–¤MÁ?ôø¥À?ôjr#	ù¿?¬]‘Ö§¾?ÝKïà˜V½?LêbsS¼?ïŒu´º?kÙD%ºb¹?Ôd @k¸?C’/ôÀ¶?ý ‚ÇØnµ?ªMÅ´œ´?Î´P”oÌ²?r·{ÚV{±?}»ÂðX*°?pŒÆÃû²­?ø^UXŸ«?H&K¶p¨?­@a¶bÐ¥?ç»óŸÓ0£?>LÓL’ ?eõ×°lê›?q–£ys´–?ò$Ýå„‘?X#&®Àˆ?˜a¾4„-}?±7‡x:tc?ëqzžÿÆ>³Wbt¤êß=pºS~¿Òæ<pææYëÒ¤<X^ˆÄsWÁ<XìÍ²iW¿<NeŸ‚—Á<Œ·…ÕÀ<Ý*ßßpÁ<,`NX¿<ÜÄÿ{^Á<zÿyæàü¾<à1ÑêFñÁ<ÅXV!UÁ<úž°B"À<Æ‡s•0Â<°nöÇHdÀ<âgü¦Â<¨C¥Šn¾<Ï*lÔO¾<}>þÀ<£“blsxÁ<#„Ï¶„Â<À¦‚°…Á<qÞåL2À<YÀe\'Á<]eA=ˆÄÁ<BÝ¤P–Á<;²·KŸÁ<8È«äÁ<+«ÿ«¹§Â<b¾Ÿê/rÃ<<Ì ZüÄ<Ôþœ?÷Å<ré?/·<QÄ¨·)Ó¤<VØÉ½´’<l¤ãR§Í€< #¾˜y0n<áb‚Ó[<äž‹“>]H<TKJbŒã5<5¹ä>eª#<wÿ1«<jè#{Àÿ;®Bñ1‡ì;w©?6=¢Ù; µdº¥Ç;'0Ì§»²´;8þòÛ–™¢;);
-
-boundaryField
-{
-    inlet
-    {
-        type            cyclic;
-    }
-    outlet
-    {
-        type            cyclic;
-    }
-    top
-    {
-        type            calculated;
-        value           uniform 0;
-    }
-    bottom
-    {
-        type            calculated;
-        value           uniform 0.255826;
-    }
-    frontAndBackPlanes
-    {
-        type            empty;
-    }
-}
-
-
-// ************************************************************************* //

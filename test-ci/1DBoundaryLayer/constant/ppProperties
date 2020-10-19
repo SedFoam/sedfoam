@@ -1,4 +1,4 @@
-/*--------------------------------*- C++ -*----------------------------------*\
+/*--------------------------------*- C++ -*----------------------------------*	\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
 |  \\    /   O peration     | Version:  1.7.1                                 |
@@ -10,47 +10,27 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      controlDict;
+    location    "constant";
+    object      ppProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     sedFoam;
+// parameters for pff
 
-startFrom       latestTime;
+ppModel          JohnsonJackson;
 
-startTime       0;
+alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.58;
 
-stopAt          endTime;
+alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.53;
 
-endTime         500;
+Fr               Fr [ 1 -1 -2 0 0 0 0 ] 5e-2;
 
-deltaT          0.0001;
+eta0             eta0 [ 0 0 0 0 0 0 0 ] 3;
 
-writeControl    adjustableRunTime;
+eta1             eta1 [ 0 0 0 0 0 0 0 ] 5;
 
-writeInterval   500;
 
-purgeWrite      0;
+packingLimiter  no;
 
-writeFormat     binary;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable on;
-
-adjustTimeStep  yes;
-
-maxCo           0.3;
-
-maxAlphaCo      0.3;
-
-maxDeltaT       2e-3;
 
 // ************************************************************************* //

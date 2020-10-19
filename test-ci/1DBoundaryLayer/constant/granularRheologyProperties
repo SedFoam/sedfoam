@@ -1,8 +1,8 @@
-/*--------------------------------*- C++ -*----------------------------------*\
+/*
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.4.0                                 |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -15,29 +15,26 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-granularRheology   on;
+granularRheology   off;
 
-alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.55;
 
-mus             mus  [ 0 0 0 0 0 0 0 ] 0.38;
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.52;
 
-mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.64;
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.96;
 
-I0              I0  [ 0 0 0 0 0 0 0 ] 0.3;
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.6;
 
-Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.31;
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.66;
 
 n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
-BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 0e0;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
 
-relaxPa         relaxPa [ 0 0 -0 0 0 0 0 ] 1;
+FrictionModel  MuI;
 
-FrictionModel   MuI;
+PPressureModel MuI;
 
-PPressureModel  MuI;
-
-FluidViscosityModel  none;
-
+FluidViscosityModel  BoyerEtAl;
 
 // ************************************************************************* //

@@ -47,6 +47,8 @@ script:
     - postProcess -func 'grad(Ua)' && python3 test_AvalancheMuI.py
     - cd ../1DSimpleShear/ && ./Allrun
     - python3 test_1DSimpleShear.py
+    - cd ../1DBoundaryLayer/ && ./Allrun
+    - python3 test_1DBoundaryLayer.py
     - cd ../../doc/
     - doxygen
     - mv html ../public/

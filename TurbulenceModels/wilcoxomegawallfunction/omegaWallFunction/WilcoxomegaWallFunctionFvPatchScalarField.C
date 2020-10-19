@@ -45,7 +45,7 @@ scalar WilcoxomegaWallFunctionFvPatchScalarField::tolerance_ = 1e-5;
 
 void WilcoxomegaWallFunctionFvPatchScalarField::checkType()
 {
-    if (!isA<wallFvPatch>(patch()))
+    if (not isA<wallFvPatch>(patch()))
     {
         FatalErrorInFunction
             << "Invalid wall function specification" << nl
@@ -57,7 +57,8 @@ void WilcoxomegaWallFunctionFvPatchScalarField::checkType()
 }
 
 
-void WilcoxomegaWallFunctionFvPatchScalarField::writeLocalEntries(Ostream& os) const
+void WilcoxomegaWallFunctionFvPatchScalarField::writeLocalEntries(Ostream& os) 
+const
 {
     os.writeKeyword("kn") << kn_ << token::END_STATEMENT << nl;
 //    os.writeKeyword("kappa") << kappa_ << token::END_STATEMENT << nl;
@@ -105,7 +106,7 @@ void WilcoxomegaWallFunctionFvPatchScalarField::createAveragingWeights()
 
     const fvMesh& mesh = omega.mesh();
 
-    if (initialised_ && !mesh.changing())
+    if (initialised_ && not mesh.changing())
     {
         return;
     }
@@ -181,7 +182,7 @@ void WilcoxomegaWallFunctionFvPatchScalarField::calculateTurbulenceFields
     // accumulate all of the G and omega contributions
     forAll(cornerWeights_, patchi)
     {
-        if (!cornerWeights_[patchi].empty())
+        if (not cornerWeights_[patchi].empty())
         {
             WilcoxomegaWallFunctionFvPatchScalarField& opf = omegaPatch(patchi);
 
@@ -255,24 +256,22 @@ void WilcoxomegaWallFunctionFvPatchScalarField::calculate
            *Cmu25*sqrt(k[celli])
            /(kappa_*y[facei]);
 */
-        scalar utau = max(1.0e-6,sqrt((nutw[facei] + nuw[facei])*magGradUw[facei]));
+        scalar utau = max(1.0e-6, sqrt((nutw[facei] + nuw[facei])*
+		magGradUw[facei]));
         scalar knplus = kn_*utau/nuw[facei];
         scalar SR = 0e0;
         //Info<<utau<<endl;
         //Info<<knplus<<endl;
         if (knplus<=25e0)
           {
-            SR = pow(50e0/knplus,2);
+            SR = pow(50e0/knplus, 2);
           }
         else
-          { 
+          {
             SR = 100e0/knplus;
           }
 
-        omega[celli] +=  w*pow(utau,2)*SR/nuw[facei];
-
-
-
+        omega[celli] +=  w*pow(utau, 2)*SR/nuw[facei];
     }
 }
 

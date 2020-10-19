@@ -134,7 +134,7 @@ volScalarField rtemp = (Ub-Ua) & gravity;
 volVectorField Urtemp = Ub-Ua;
 if (Foam::mag(gravity).value() != 0)
 {
-	Urtemp = rtemp*gravity/magSqr(gravity);
+     Urtemp = rtemp*gravity/magSqr(gravity);
 }
 
 volVectorField Urh = (Ub-Ua) - Urtemp;

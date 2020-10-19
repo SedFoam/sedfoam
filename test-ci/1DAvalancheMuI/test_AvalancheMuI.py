@@ -197,17 +197,17 @@ ax7.set_ylim(zmin, zmax)
 ax7.set_yticklabels([''])
 ax7.legend(prop={'size':10.0},loc=0)
 
-alphaex_interp = np.interp(Y[:]/d,xex, alphaex);
-rms_alpha = rms(alphaex_interp - alpha[:])
-assert(rms_alpha<=0.4)
+alpha_interp = np.interp(xex, Y[:],alpha);
+rms_alpha = rms(alpha_interp - alphaex)
+assert(rms_alpha<=0.05)
 
-uex_interp = np.interp(Y[:]/d,xex, uex);
-rms_u = rms(uex_interp - Ua[0,:])
-assert(rms_u<=0.5)
+u_interp = np.interp(xex, Y[:],Ua[0,:]);
+rms_u = rms(u_interp - uex)
+assert(rms_u<=0.09)
 
-muIex_interp = np.interp(Y[:]/d,xex, muIex);
-rms_muI = rms(muIex_interp - muI[:])
-assert(rms_muI<=0.15)
+muI_interp = np.interp(xex,Y[:], muI);
+rms_muI = rms(muI_interp - muIex)
+assert(rms_muI<=0.02)
 
 show(block=True)
 

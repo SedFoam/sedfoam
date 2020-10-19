@@ -11,33 +11,18 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      granaularRheologyProperties;
+    object      turbulenceProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-granularRheology   on;
+simulationType  RAS;
 
-alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
+RAS
+{
+   RASModel        twophasekOmega;
 
-mus             mus  [ 0 0 0 0 0 0 0 ] 0.38;
-
-mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.64;
-
-I0              I0  [ 0 0 0 0 0 0 0 ] 0.3;
-
-Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.31;
-
-n               n [ 0 0 0 0 0 0 0 ] 2.5;
-
-BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 0e0;
-
-relaxPa         relaxPa [ 0 0 -0 0 0 0 0 ] 1;
-
-FrictionModel   MuI;
-
-PPressureModel  MuI;
-
-FluidViscosityModel  none;
-
+   turbulence      on;
+   printCoeffs     on;
+}
 
 // ************************************************************************* //
