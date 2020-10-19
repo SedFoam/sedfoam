@@ -58,11 +58,26 @@ Foam::kineticTheoryModel::kineticTheoryModel
             IOobject::NO_WRITE
         )
     ),
-    kineticTheory_(kineticTheoryProperties_.lookup("kineticTheory")),
-    equilibrium_(kineticTheoryProperties_.lookup("equilibrium")),
-    collisions_(kineticTheoryProperties_.lookupOrDefault("collisions", false)),
-    extended_(kineticTheoryProperties_.lookupOrDefault("extended", false)),
-    limitProduction_(kineticTheoryProperties_.lookupOrDefault("limitProduction", false)),
+    kineticTheory_
+    (
+        kineticTheoryProperties_.lookup("kineticTheory")
+    ),
+    equilibrium_
+    (
+        kineticTheoryProperties_.lookup("equilibrium")
+    ),
+    collisions_
+    (
+        kineticTheoryProperties_.lookupOrDefault("collisions", false)
+    ),
+    extended_
+    (
+        kineticTheoryProperties_.lookupOrDefault("extended", false)
+    ),
+    limitProduction_
+    (
+        kineticTheoryProperties_.lookupOrDefault("limitProduction", false)
+    ),
     viscosityModel_
     (
         kineticTheoryModels::viscosityModel::New
@@ -511,7 +526,7 @@ void Foam::kineticTheoryModel::solve
         Theta_ = sqr((l1 + sqrt(l2 + l3))/(2.0*(alpha_ + 1.0e-4)*K4));
     }
 
-    // Clipping of Theta for stability by Z. Cheng 
+    // Clipping of Theta for stability by Z. Cheng
     //    (need to check if necessary...)
     forAll(alpha_, cellk)
     {

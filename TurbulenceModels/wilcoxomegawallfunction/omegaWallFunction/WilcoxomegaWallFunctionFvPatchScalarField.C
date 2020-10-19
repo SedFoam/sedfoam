@@ -56,8 +56,7 @@ void WilcoxomegaWallFunctionFvPatchScalarField::checkType()
     }
 }
 
-
-void WilcoxomegaWallFunctionFvPatchScalarField::writeLocalEntries(Ostream& os) 
+void WilcoxomegaWallFunctionFvPatchScalarField::writeLocalEntries(Ostream& os)
 const
 {
     os.writeKeyword("kn") << kn_ << token::END_STATEMENT << nl;
@@ -195,7 +194,7 @@ void WilcoxomegaWallFunctionFvPatchScalarField::calculateTurbulenceFields
     // apply zero-gradient condition for omega
     forAll(cornerWeights_, patchi)
     {
-        if (!cornerWeights_[patchi].empty())
+        if (not cornerWeights_[patchi].empty())
         {
             WilcoxomegaWallFunctionFvPatchScalarField& opf = omegaPatch(patchi);
 
@@ -257,7 +256,7 @@ void WilcoxomegaWallFunctionFvPatchScalarField::calculate
            /(kappa_*y[facei]);
 */
         scalar utau = max(1.0e-6, sqrt((nutw[facei] + nuw[facei])*
-		magGradUw[facei]));
+                      magGradUw[facei]));
         scalar knplus = kn_*utau/nuw[facei];
         scalar SR = 0e0;
         //Info<<utau<<endl;

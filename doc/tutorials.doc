@@ -1012,7 +1012,11 @@ and you should see the following figure:
 @image html "res_tutoSimpleShear.png" "Figure : Results of the simple shear flow configuration compared with DEM simulations from Vescovi et al. PoF (2014)." width=800px
 @image latex "res_tutoSimpleShear.png" "Figure : Results of the simple shear flow configuration compared with DEM simulations from Vescovi et al. PoF (2014)."
 
+\subsection BoundaryLayer 1DBoundaryLayer: Single-phase turbulent boundary layer flow
 
+In this test case, the turbulence model k-omega is validated for a single-phase flow on a smooth surface. 
+
+Under construction
 
 
 \subsection SheetFlow 1DSheetFlow: Turbulent sheet-flows
