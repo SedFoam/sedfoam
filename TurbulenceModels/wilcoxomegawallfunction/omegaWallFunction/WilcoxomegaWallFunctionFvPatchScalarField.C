@@ -277,7 +277,8 @@ void WilcoxomegaWallFunctionFvPatchScalarField::calculate
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-WilcoxomegaWallFunctionFvPatchScalarField::WilcoxomegaWallFunctionFvPatchScalarField
+WilcoxomegaWallFunctionFvPatchScalarField::
+WilcoxomegaWallFunctionFvPatchScalarField
 (
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF
@@ -295,7 +296,8 @@ WilcoxomegaWallFunctionFvPatchScalarField::WilcoxomegaWallFunctionFvPatchScalarF
 }
 
 
-WilcoxomegaWallFunctionFvPatchScalarField::WilcoxomegaWallFunctionFvPatchScalarField
+WilcoxomegaWallFunctionFvPatchScalarField::
+WilcoxomegaWallFunctionFvPatchScalarField
 (
     const WilcoxomegaWallFunctionFvPatchScalarField& ptf,
     const fvPatch& p,
@@ -315,7 +317,8 @@ WilcoxomegaWallFunctionFvPatchScalarField::WilcoxomegaWallFunctionFvPatchScalarF
 }
 
 
-WilcoxomegaWallFunctionFvPatchScalarField::WilcoxomegaWallFunctionFvPatchScalarField
+WilcoxomegaWallFunctionFvPatchScalarField::
+WilcoxomegaWallFunctionFvPatchScalarField
 (
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF,
@@ -337,7 +340,8 @@ WilcoxomegaWallFunctionFvPatchScalarField::WilcoxomegaWallFunctionFvPatchScalarF
 }
 
 
-WilcoxomegaWallFunctionFvPatchScalarField::WilcoxomegaWallFunctionFvPatchScalarField
+WilcoxomegaWallFunctionFvPatchScalarField::
+WilcoxomegaWallFunctionFvPatchScalarField
 (
     const WilcoxomegaWallFunctionFvPatchScalarField& owfpsf
 )
@@ -354,7 +358,8 @@ WilcoxomegaWallFunctionFvPatchScalarField::WilcoxomegaWallFunctionFvPatchScalarF
 }
 
 
-WilcoxomegaWallFunctionFvPatchScalarField::WilcoxomegaWallFunctionFvPatchScalarField
+WilcoxomegaWallFunctionFvPatchScalarField::
+WilcoxomegaWallFunctionFvPatchScalarField
 (
     const WilcoxomegaWallFunctionFvPatchScalarField& owfpsf,
     const DimensionedField<scalar, volMesh>& iF
