@@ -80,45 +80,45 @@ zpepsilonw = npzfiles['arr_7']
 #prodw      = npzfiles['arr_8']
 #zpprodw    = npzfiles['arr_9']
 
-# #
-# # Low-Reynolds k-w Wilcox model 
-# #
-# npzfiles= np.load('DATA/kwLowRe_wilcox.npz')
+#
+# Low-Reynolds k-w Wilcox model 
+#
+npzfiles= np.load('DATA/kwLowRe_wilcox.npz')
 
-# uwlr         = npzfiles['arr_0']
-# zuwlr        = npzfiles['arr_1']
-# kwlr         = npzfiles['arr_2']
-# zkwlr        = npzfiles['arr_3']
-# Ruwwlr       = npzfiles['arr_4']
-# zRuwwlr      = npzfiles['arr_5']
-# epsilonwlr   = npzfiles['arr_6']
-# zpepsilonwlr = npzfiles['arr_7']
-# #prodwlr      = npzfiles['arr_8']
-# #zpprodwlr    = npzfiles['arr_9']
+uwlr         = npzfiles['arr_0']
+zuwlr        = npzfiles['arr_1']
+kwlr         = npzfiles['arr_2']
+zkwlr        = npzfiles['arr_3']
+Ruwwlr       = npzfiles['arr_4']
+zRuwwlr      = npzfiles['arr_5']
+epsilonwlr   = npzfiles['arr_6']
+zpepsilonwlr = npzfiles['arr_7']
+#prodwlr      = npzfiles['arr_8']
+#zpprodwlr    = npzfiles['arr_9']
 
-# #
-# # Original k-w Wilcox model 
-# #
-# npzfiles= np.load('DATA/DNS_mansour.npz')
+#
+# Original k-w Wilcox model 
+#
+npzfiles= np.load('DATA/DNS_mansour.npz')
 
-# uDNS         = npzfiles['arr_0']
-# zuDNS        = npzfiles['arr_1']
-# kDNS         = npzfiles['arr_2']
-# zkDNS        = npzfiles['arr_3']
-# RuwDNS       = npzfiles['arr_4']
-# zRuwDNS      = npzfiles['arr_5']
-# epsilonDNS   = npzfiles['arr_6']
-# zpepsilonDNS = npzfiles['arr_7']
-# #prodDNS      = npzfiles['arr_8']
-# #zpprodDNS    = npzfiles['arr_9']
+uDNS         = npzfiles['arr_0']
+zuDNS        = npzfiles['arr_1']
+kDNS         = npzfiles['arr_2']
+zkDNS        = npzfiles['arr_3']
+RuwDNS       = npzfiles['arr_4']
+zRuwDNS      = npzfiles['arr_5']
+epsilonDNS   = npzfiles['arr_6']
+zpepsilonDNS = npzfiles['arr_7']
+#prodDNS      = npzfiles['arr_8']
+#zpprodDNS    = npzfiles['arr_9']
 
 #
 #---------------------Figures----------------------
 #
 
 
-#############fig3
-# =============================================================================
+# #############fig3
+# #=============================================================================
 # gs3 = gridspec.GridSpec(1,3)
 # fig = plt.figure(num=3,figsize=(18,8),dpi=60, facecolor='w', edgecolor='w')
 # ax = fig.add_subplot(gs3[0,0])
@@ -132,7 +132,7 @@ zpepsilonw = npzfiles['arr_7']
 # ylabel(r'z / h',fontsize=20)
 # ax.set_yscale('log')
 # ax.axis([0, 1.05, 1e-3, 1.02])
-# 
+
 # ax = fig.add_subplot(gs3[0,1])
 # pO   = ax.plot(u/Umax,z/H,'-or',label=r"OpenFOAM")
 # pw   = ax.plot(uw,zuw,'xb',label=r"Wilcox (1998)")
@@ -143,7 +143,7 @@ zpepsilonw = npzfiles['arr_7']
 # handles, labels = ax.get_legend_handles_labels()
 # ax.legend(handles,labels,numpoints=1,loc='best',fontsize=17)
 # ax.axis([0, 1.05, 0, 1.02])
-# 
+
 # ax = fig.add_subplot(gs3[0,2])
 # pO   = ax.plot(k/utau**2,z/H,'-or',label="OpenFOAM")
 # pw   = ax.plot(kw,zkw,'xb',label="Wilcox (1998)")
@@ -153,14 +153,14 @@ zpepsilonw = npzfiles['arr_7']
 # #ylabel(r'z / h')
 # ax.axis([0, 5, 0, 1.02])
 # show()
-# =============================================================================
+# #=============================================================================
 
 
 
 u_interp = np.interp(zuw, z[:]/H,U[0,:]/Umax);
 rms_u = rms(u_interp - uw)
-assert(rms_u<=0.03)
+assert(rms_u<=0.04)
 
 k_interp = np.interp(zkw,z[:]/H,k[:]/utau**2);
 rms_k = rms(k_interp - kw)
-assert(rms_k<=0.35)
+assert(rms_k<=0.16)

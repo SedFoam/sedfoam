@@ -35,7 +35,7 @@ boundaryField
     }
     walls
     {
-        kn              0.003;
+        kn              0.00205;
         type            wilcoxOmegaWallFunction;
         value           uniform 594.884;
     }

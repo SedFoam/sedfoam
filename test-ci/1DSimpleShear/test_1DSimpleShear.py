@@ -81,6 +81,8 @@ Ny = np.size(Y)
 H = np.max(np.max(Y))
 U = 1
 
+iprof=0
+
 #########################################
 # figure 1
 #########################################
@@ -89,7 +91,6 @@ U = 1
 # figure(num=1, figsize=(figwidth, figheight),
 #        dpi=60, facecolor='w', edgecolor='w')
 # 
-# iprof=0
 # ax1 = subplot(gs[0, 0])
 # l11, = ax1.plot(alpha[0,:,iprof], Y[0,:,iprof]/H, '-r')
 # l12, = ax1.plot(phiexp, yexpphi, 'ob',label='simple shear')
