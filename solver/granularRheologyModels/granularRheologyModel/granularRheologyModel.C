@@ -421,6 +421,7 @@ void Foam::granularRheologyModel::solve
                 *p_p_total_.boundaryFieldRef()[patchi]
                 /pow(magD2.boundaryFieldRef()[patchi] + Dsmall2.value(), 0.5)
             );
+           Info << mua_.boundaryFieldRef()[patchi]<<endl;
 //        }
 
 /*
