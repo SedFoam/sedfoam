@@ -74,7 +74,8 @@ Foam::tmp<Foam::volScalarField> Foam::JohnsonJackson::pff
 {
 // limiting parameter : 1e-3 because :
 // max(pff)=Fr * (0.625-0.53)^3/limiteur^5
-// limiteur =(Fr (0.625-0.53)^3/max(pff))^(1/5) with max(pff)=0.6(rhop-rhof)max(hbed)
+// limiteur =(Fr (0.625-0.53)^3/max(pff))^(1/5)
+// with max(pff)=0.6(rhop-rhof)max(hbed)
 // limiteur =0.05
     return Fr*pow(max(alpha_ - alphaMinFriction, scalar(0)), eta0)
              /pow(max(alphaMax - alpha_, scalar(1.0e-3)), eta1);

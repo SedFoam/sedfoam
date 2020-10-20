@@ -24,8 +24,6 @@ License
 \*---------------------------------------------------------------------------*/
 //
 
-
-
 //// Solving the evolution of plastic volume fraction
 volScalarField dila_shearRate = delta*magDtensor;
 
