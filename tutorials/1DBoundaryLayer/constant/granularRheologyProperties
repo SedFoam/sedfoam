@@ -37,4 +37,5 @@ PPressureModel MuI;
 
 FluidViscosityModel  BoyerEtAl;
 
+DilatancyModel  none;
 // ************************************************************************* //
