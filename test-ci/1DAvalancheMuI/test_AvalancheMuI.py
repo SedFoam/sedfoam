@@ -1,4 +1,4 @@
-import analyticBagnold 
+import analyticBagnold
 import subprocess
 import os
 import numpy as np
@@ -112,7 +112,7 @@ dudy = gradUa[3,:]
 nu = np.zeros(Ny)
 for i in range(Ny - 1):
     nu[i] = taua[0]/(dudy[i]*rho_p)
-    
+
 granularBed = np.where(pa+pff<(rho_p-rho_f)*g*d/10)
 nx = np.size(granularBed)
 H=Y[np.min(granularBed)]/d
@@ -131,7 +131,7 @@ print("max(uex)=" + str(np.max(uex)) + " m/s" + "max(phi)=",np.max(alphaex),"max
 # =============================================================================
 # figure(num=1, figsize=(figwidth, figheight),
 #        dpi=60, facecolor='w', edgecolor='w')
-# 
+#
 # ax1 = subplot(gs[0, 0])
 # l11, = ax1.plot(alpha[:], Y[:]/d, '-r')
 # l1, = ax1.plot(alphaex[:], xex[:]/d, '--k')

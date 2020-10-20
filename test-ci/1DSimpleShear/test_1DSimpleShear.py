@@ -3,7 +3,6 @@ import numpy as np
 import fluidfoam
 from pylab import *
 import matplotlib.gridspec as gridspec
-from mpl_toolkits.mplot3d import Axes3D
 
 def rms(x):
     return np.sqrt(x.dot(x)/x.size)
@@ -90,7 +89,7 @@ iprof=0
 # =============================================================================
 # figure(num=1, figsize=(figwidth, figheight),
 #        dpi=60, facecolor='w', edgecolor='w')
-# 
+#
 # ax1 = subplot(gs[0, 0])
 # l11, = ax1.plot(alpha[0,:,iprof], Y[0,:,iprof]/H, '-r')
 # l12, = ax1.plot(phiexp, yexpphi, 'ob',label='simple shear')

@@ -1,14 +1,10 @@
-
+#
 # Import section
 #
-import sys
-import os
-import scipy.io
 import numpy as np
 import fluidfoam
 from pylab import *
-from scipy.io.matlab import mio
-import matplotlib.gridspec as gridspec
+# import matplotlib.gridspec as gridspec
 #
 def rms(x):
     return np.sqrt(x.dot(x)/x.size)
@@ -20,18 +16,12 @@ matplotlib.rcParams.update({'font.size': 15})
 #
 figwidth=18
 figheight=9
-
-
-
-
 #
 #
 # 
 #---------------Loading OpenFoam results--------------------
 #
 basepath='./'
-
-
 #
 # Loading OpenFoam results
 #
@@ -65,7 +55,7 @@ print(' Re*=',utau*H/nu,' u*=',utau,' m/s' )
 #----------Loading literature results-------------------
 #
 #
-# Original k-w Wilcox model 
+# Original k-w Wilcox model
 #
 npzfiles= np.load('DATA/kw_wilcox.npz')
 
@@ -81,7 +71,7 @@ zpepsilonw = npzfiles['arr_7']
 #zpprodw    = npzfiles['arr_9']
 
 #
-# Low-Reynolds k-w Wilcox model 
+# Low-Reynolds k-w Wilcox model
 #
 npzfiles= np.load('DATA/kwLowRe_wilcox.npz')
 

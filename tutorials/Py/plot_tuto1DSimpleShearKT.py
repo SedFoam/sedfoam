@@ -3,7 +3,6 @@ import numpy as np
 import fluidfoam
 from pylab import *
 import matplotlib.gridspec as gridspec
-from mpl_toolkits.mplot3d import Axes3D
 
 def rms(x):
     return np.sqrt(x.dot(x)/x.size)
