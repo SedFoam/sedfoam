@@ -63,12 +63,7 @@ if (kineticTheory.on())
     volTensorField dU = fvc::grad(Ua);
     volSymmTensorField dUU = symm(dU);
     volSymmTensorField devS = dUU - (scalar(1.0)/scalar(3.0))*tr(dUU)*I;
-    dimensionedScalar I2Dsmall
-    (
-        "small",
-        dimensionSet(0, 0, -2, 0, 0, 0, 0),
-        pow(Dsmall, 2)
-    );
+    dimensionedScalar I2Dsmall = pow(Dsmall, 2);
 
     //scalar pi = constant::mathematical::pi;
     // T && T = T_ij*T_ij

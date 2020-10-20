@@ -99,9 +99,6 @@ class granularRheologyModel
     //- Exponent of the Krieger-Dougherty viscosity
     const dimensionedScalar n_;
 
-    // Regularisation parameter
-    const dimensionedScalar Dsmall;
-
     //- Bulk viscosity amplification factor
     const dimensionedScalar BulkFactor_;
     

@@ -150,16 +150,6 @@ Foam::granularRheologyModel::granularRheologyModel
                           2.5)
         )
     ),
-    Dsmall_
-    (
-        granularRheologyProperties_.lookupOrDefault
-        (
-            "Dsmall",
-            dimensionedScalar("Dsmall",
-                          dimensionSet(0, 0, -1, 0, 0, 0, 0),
-                          1e-6)
-        )
-    ),
     BulkFactor_
     (
         granularRheologyProperties_.lookupOrDefault
