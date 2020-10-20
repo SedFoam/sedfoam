@@ -19,15 +19,13 @@ kineticTheory   on;
 
 equilibrium     off;
 
-extended        off;
+extended        on;
 
 limitProduction off;
 
 e               e [ 0 0 0 0 0 0 0 ] 0.8;
 
 alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
-
-alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.61;
 
 DiluteCut       DiluteCut [ 0 0 0 0 0 0 0 ] 0.0001;
 

@@ -38,22 +38,32 @@ install:
 before_script:
     - source /opt/openfoam${OF_VERS}/etc/bashrc
 
-script:
-    - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
-    - python3 test_Sedimentation.py
-    - cp -f constant/forceProperties.bedload constant/forceProperties && cp -f system/controlDict.bedload system/controlDict && ./Allrun
-    - python3 test_Bedload.py
-    - cd ../1DAvalancheMuI && ./Allrun
-    - python3 test_AvalancheMuI.py
-    - cd ../1DSimpleShear/ && ./Allrun
-    - python3 test_1DSimpleShear.py
-    - cd ../1DBoundaryLayer/ && ./Allrun
-    - python3 test_1DBoundaryLayer.py
-    - cd ../../doc/
-    - doxygen
-    - mv html ../public/
-    - cp images/twitter.png ../public/
-    - cp images/github.png ../public/
+jobs:
+  include:
+    - stage: test
+      script:
+        - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
+        - python3 test_Sedimentation.py
+        - cp -f constant/forceProperties.bedload constant/forceProperties && cp -f system/controlDict.bedload system/controlDict && ./Allrun
+        - python3 test_Bedload.py
+    - script:
+      - cd test-ci/1DAvalancheMuI
+      - travis_wait 30 ./Allrun
+      - python3 test_AvalancheMuI.py
+    - script:
+      - cd test-ci/1DSimpleShear/ && ./Allrun
+      - python3 test_1DSimpleShear.py
+      - cd ../1DBoundaryLayer/
+      - travis_wait 30 ./Allrun
+      - python3 test_1DBoundaryLayer.py
+    - stage: build pages
+      install: skip
+      script:
+        - cd doc/
+        - doxygen
+        - mv html ../public/
+        - cp images/twitter.png ../public/
+        - cp images/github.png ../public/
 
 deploy:
   # Utiliser le processus de déploiement des pages Github
