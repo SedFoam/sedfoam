@@ -1,0 +1,40 @@
+/*
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      granaularRheologyProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+granularRheology   off;
+
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.55;
+
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.52;
+
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.96;
+
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.6;
+
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.66;
+
+n               n [ 0 0 0 0 0 0 0 ] 2.5;
+
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
+
+FrictionModel  MuI;
+
+PPressureModel MuI;
+
+FluidViscosityModel  BoyerEtAl;
+
+// ************************************************************************* //

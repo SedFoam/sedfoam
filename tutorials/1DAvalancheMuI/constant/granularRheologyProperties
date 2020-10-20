@@ -29,15 +29,12 @@ Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.31;
 
 n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
-Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
-
-BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 1e0;
+BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 0e0;
 
 relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 
 FrictionModel   MuI;
 
-//PPressureModel  none;
 PPressureModel  MuI;
 
 FluidViscosityModel  none;

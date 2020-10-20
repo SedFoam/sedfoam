@@ -9,32 +9,41 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "system";
-    object      setFieldsDict;
+    class       volScalarField;
+    location    "50";
+    object      Theta;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-expressions
- (
-	alpha1
-    	{
-		field alpha_a;
-		expression "0.57*0.5*(1.0+tanh(-(pos().y-0.013)/(0.0005)))";
-                keepPatches 1;
-	}
-        Ua
-        {
-                field Ua;
-		expression "vector(0, 0, 0)";
-                keepPatches 1;
-        }
-        Ub
-        {
-                field Ub;
-		expression "vector(0, 0, 0)";
-                keepPatches 1;
-        }
- );
+dimensions      [0 2 -2 0 0 0 0];
+
+internalField   uniform 1e-5; 
+
+boundaryField
+{
+    inlet
+    {
+        type            cyclic;
+    }
+    outlet
+    {
+        type            cyclic;
+    }
+    top
+    {
+        type            fixedValue;
+	value           uniform 0.005;   
+    }
+    bottom
+    {
+        type            fixedValue;
+        value           uniform 0.004;
+    }
+    frontAndBackPlanes
+    {
+        type            empty;
+    }
+}
+
 
 // ************************************************************************* //

@@ -100,7 +100,7 @@ class granularRheologyModel
     const dimensionedScalar n_;
 
     // Regularisation parameter
-    const dimensionedScalar Dsmall_;
+    const dimensionedScalar Dsmall;
 
     //- Bulk viscosity amplification factor
     const dimensionedScalar BulkFactor_;
@@ -155,7 +155,8 @@ public:
     (
         const phaseModel& phasea,
         const phaseModel& phaseb,
-        const volScalarField& p_p_total
+        const volScalarField& p_p_total,
+        const dimensionedScalar& Dsmall
     );
 
 
@@ -169,7 +170,8 @@ public:
     (
         const volTensorField& gradUat,
         const volScalarField& pf,
-        const dimensionedScalar& alphaSmall
+        const dimensionedScalar& alphaSmall,
+        const dimensionedScalar& Dsmall
     );
 
     bool on() const
