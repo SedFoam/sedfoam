@@ -29,12 +29,10 @@ Bphi            Bphi [ 0 0 0 0 0 0 0 ] 1.0;
 
 n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
-Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
-
 relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
 
-//FrictionModel  Coulomb;
-FrictionModel  MuIv;
+FrictionModel  Coulomb;
+//FrictionModel  MuIv;
 
 PPressureModel  none;
 

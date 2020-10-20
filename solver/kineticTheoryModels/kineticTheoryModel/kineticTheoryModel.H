@@ -83,6 +83,9 @@ class kineticTheoryModel
         //- use extended kinetic theory
         Switch extended_;
 
+        //- use production limiter for Theta (to kb)
+        Switch limitProduction_;
+
         autoPtr<kineticTheoryModels::viscosityModel> viscosityModel_;
 
         autoPtr<conductivityModel> conductivityModel_;
@@ -174,7 +177,6 @@ public:
 
         void solve
         (
-            const surfaceScalarField& galpha,
             const volTensorField& gradUat,
             const volScalarField& kb,
             const volScalarField& epsilonb,

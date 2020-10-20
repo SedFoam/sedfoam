@@ -1,0 +1,84 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "0";
+    object      Ua;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField      #codeStream
+{
+    codeInclude
+    #{
+        #include "fvCFD.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+    codeLibs
+    #{
+        -lfiniteVolume \
+        -lmeshTools
+    #};
+    code
+    #{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+        const fvMesh& mesh = refCast<const fvMesh>(d.db());
+        vectorField Ua(mesh.nCells(), vector(0.0, 0.0, 0.0));
+        scalar maxy = (max(mesh.C().component(1))).value();
+        forAll(mesh.C(), i)
+        {
+            scalar y = mesh.C()[i].y();
+            Ua[i] = (vector(0.86, 0.0, 0.0)*y/maxy+vector(0.17, 0.0, 0.0));
+
+        }
+// OpenFoam.com version and Old OpenFoam.org (<= 6)
+        Ua.writeEntry("", os);
+// New OpenFoam.org version (>=7)
+//        writeEntry(os, "", Ua);
+    #};
+
+};
+
+boundaryField
+{
+    inlet
+    {
+        type            cyclic;
+    }
+    outlet
+    {
+        type            cyclic;
+    }
+    top
+    {
+        type            fixedValue;
+        value           uniform (0.86 0 0);
+    }
+    bottom
+    {
+        type            fixedValue;
+        value           uniform (0.17 0 0);
+    }
+    frontAndBackPlanes
+    {
+        type            empty;
+    }
+}
+
+
+// ************************************************************************* //
