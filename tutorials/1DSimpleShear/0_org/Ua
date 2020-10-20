@@ -17,7 +17,42 @@ FoamFile
 
 dimensions      [0 1 -1 0 0 0 0];
 
-internalField   uniform (0 0 0);
+internalField      #codeStream
+{
+    codeInclude
+    #{
+        #include "fvCFD.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+    codeLibs
+    #{
+        -lfiniteVolume \
+        -lmeshTools
+    #};
+    code
+    #{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+        const fvMesh& mesh = refCast<const fvMesh>(d.db());
+        vectorField Ua(mesh.nCells(), vector(0.0, 0.0, 0.0));
+        scalar maxy = (max(mesh.C().component(1))).value();
+        forAll(mesh.C(), i)
+        {
+            scalar y = mesh.C()[i].y();
+            Ua[i] = (vector(0.86, 0.0, 0.0)*y/maxy+vector(0.17, 0.0, 0.0));
+
+        }
+// OpenFoam.com version and Old OpenFoam.org (<= 6)
+        Ua.writeEntry("", os);
+// New OpenFoam.org version (>=7)
+//        writeEntry(os, "", Ua);
+    #};
+
+};
 
 boundaryField
 {

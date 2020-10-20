@@ -19,16 +19,15 @@ FoamFile
 gradPMEAN        gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (0 0 0 );
 
 
-tilt             tilt [ 0 0 0 0 0 ] 0;
+tilt             tilt [ 0 0 0 0 0 0 0 ] 0;
 
-Cvm             Cvm [ 0 0 0 0 0 ] 0;                // Virtual/Added Mass coefficient
+Cvm             Cvm [ 0 0 0 0 0 0 0 ] 0;                // Virtual/Added Mass coefficient
 
-Cl              Cl [ 0 0 0 0 0 ] 0;                 // Lift force coefficient
+Cl              Cl [ 0 0 0 0 0 0 0 ] 0;                 // Lift force coefficient
 
-Ct              Ct [ 0 0 0 0 0 ] 0;                 // Eddy diffusivity coefficient for phase a
+Ct              Ct [ 0 0 0 0 0 0 0 ] 0;                 // Eddy diffusivity coefficient for phase a
 
 debugInfo	 true; 
 
-ClipUa           0;
-
+ClipUa           ClipUa [ 0 0 0 0 0 0 0 ] 0;
 // * * * * * * * * * * * * end of definition of pressure * * * * * * * * * * * * * //

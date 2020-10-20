@@ -139,7 +139,7 @@ print("max(uex)=" + str(np.max(uex)) + " m/s" + "max(phi)=",np.max(alphaex),"max
 # ax1.set_xlabel(r'$\alpha$')
 # ax1.set_xlim(0.5,  0.61)
 # ax1.set_ylim(zmin, zmax)
-# 
+#
 # ax2 = subplot(gs[0, 1])
 # l21, = ax2.plot(Ua[0,:]/(g*d)**0.5, Y[:]/d, '-r')
 # l22, = ax2.plot(Ub[0,:]/(g*d)**0.5, Y[:]/d, '--b')

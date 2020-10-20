@@ -94,7 +94,7 @@ iprof=0
 # l11, = ax1.plot(alpha[0,:,iprof], Y[0,:,iprof]/H, '-r')
 # l12, = ax1.plot(phiexp, yexpphi, 'ob',label='simple shear')
 # l13, = ax1.plot([0.57, 0.57], [0,1], '--k')
-# 
+#
 # ax1.set_ylabel('y/H [-]')
 # ax1.set_xlabel(r'$\alpha$')
 # ax1.set_xlim(0,  np.max(np.max(alpha)) * 1.1)

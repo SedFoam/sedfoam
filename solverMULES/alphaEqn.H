@@ -81,7 +81,7 @@ License
                 phiAlpha,
                 zeroField(),
                 zeroField(),
-                0.99*alphaMax,
+                0.99*alphaMax.value(),
                 0
             );
         #endif

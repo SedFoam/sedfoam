@@ -18,7 +18,7 @@ figwidth=18
 figheight=9
 #
 #
-# 
+#
 #---------------Loading OpenFoam results--------------------
 #
 basepath='./'
@@ -87,7 +87,7 @@ zpepsilonwlr = npzfiles['arr_7']
 #zpprodwlr    = npzfiles['arr_9']
 
 #
-# Original k-w Wilcox model 
+# Original k-w Wilcox model
 #
 npzfiles= np.load('DATA/DNS_mansour.npz')
 
