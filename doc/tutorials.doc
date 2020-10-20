@@ -1474,7 +1474,7 @@ and you should see the following figures:
 
 @image html "res1_tuto4.png" "Figure 10: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology." width=600px
 @image latex "res1_tuto4.png" "Figure 10: Sediment interface position at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
-@image html "res2_tuto4.png" "Figure 11: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology.  " width=600px
+@image html "res2_tuto4.png" "Figure 11: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology." width=600px
 @image latex "res2_tuto4.png" "Figure 11: Sediment concentration contour at different times during the scour process using a k-omega turbulence model and the mu(I) granular rheology."
 
 

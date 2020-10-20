@@ -42,7 +42,7 @@ cd sedfoam
 Usage
 -----
 
-There are tutorials located in `tutorials` and details can be found [here.](http://servforge.legi.grenoble-inp.fr/pub/soft-sedfoam)
+There are tutorials located in `tutorials` and details can be found [here.](http://sedfoam.github.io/sedfoam)
 
 Publications
 ------------
