@@ -21,61 +21,77 @@ License
     You should have received a copy of the GNU General Public License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
+Class
+    Foam::noneDilatancy
+
+Description
+
+SourceFiles
+    noneDilatancy.C
+
 \*---------------------------------------------------------------------------*/
 
-#include "MuIPPressure.H"
-#include "addToRunTimeSelectionTable.H"
+#ifndef noneDilatancy_H
+#define noneDilatancy_H
 
-// * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
+#include "DilatancyModel.H"
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
 namespace granularRheologyModels
 {
-    defineTypeNameAndDebug(MuIPPressure, 0);
-    addToRunTimeSelectionTable(PPressureModel, MuIPPressure, dictionary);
-}
-}
 
-// * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+/*---------------------------------------------------------------------------*\
+                           Class noneDilatancy Declaration
+\*---------------------------------------------------------------------------*/
 
-Foam::granularRheologyModels::MuIPPressure::MuIPPressure(const dictionary& dict)
+class noneDilatancy
 :
-    PPressureModel(dict)
-{}
+    public DilatancyModel
+{
+
+public:
+
+    //- Runtime type information
+    TypeName("none");
 
 
-// * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
+    // Constructors
 
-Foam::granularRheologyModels::MuIPPressure::~MuIPPressure()
-{}
+        //- Construct from components
+        noneDilatancy(const dictionary& dict);
 
 
-// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+    //- Destructor
+    virtual ~noneDilatancy();
 
-Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIPPressure::pa
-(
-    const volScalarField& pf,
-    const dimensionedScalar& Bphi,
-    const dimensionedScalar& rhoa,
+
+    // Member functions
+
+    tmp<volScalarField> delta
+    (
+    const dimensionedScalar& K_dila,
+    const dimensionedScalar& alpha_c,
+    const volScalarField& alpha,
+    const volScalarField& magD,
     const dimensionedScalar& da,
     const dimensionedScalar& rhob,
     const dimensionedScalar& nub,
-    const volScalarField& magD,
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax,
-    const dimensionedScalar& Alphasmall
-) const
+    const volScalarField& p_p_total,
+    const dimensionedScalar& PaMin
+    ) const;
+};
 
-{
-    //
-    // MuI inertial regime:
-    // pa = (b alpha / (alphaMax - alpha))^2 rhoa da^2 magD^2
-    // limiting parameter original = 1e-3
 
-    return pow(Bphi*alpha/max(alphaMax - alpha, scalar(1e-3)), 2)
-          *rhoa*pow(da, 2)*pow(magD, 2);
-}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+} // End namespace granularRheologyModels
+} // End namespace Foam
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#endif
 
 // ************************************************************************* //

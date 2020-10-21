@@ -31,7 +31,7 @@ n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
 BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 0e0;
 
-relaxPa         relaxPa [ 0 0 -0 0 0 0 0 ] 1;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 
 FrictionModel   MuI;
 
@@ -39,5 +39,6 @@ PPressureModel  MuI;
 
 FluidViscosityModel  none;
 
+DilatancyModel  none;
 
 // ************************************************************************* //

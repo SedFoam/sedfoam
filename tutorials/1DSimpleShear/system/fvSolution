@@ -39,14 +39,14 @@ solvers
         relTol          0;
     }
 
-    "(alpha_a|Ua|Ub|Theta|pa_new_value)"
+    "(alpha_a|Ua|Ub|Theta|pa_new_value|alphaPlastic)"
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-10;
         relTol          0;
     }
-    "(alpha_aFinal|UaFinal|UbFinal|ThetaFinal|paFinal)"
+    "(alpha_aFinal|UaFinal|UbFinal|ThetaFinal|paFinal|alphaPlasticFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;

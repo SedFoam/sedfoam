@@ -27,6 +27,7 @@ License
 #include "FrictionModel.H"
 #include "PPressureModel.H"
 #include "FluidViscosityModel.H"
+#include "DilatancyModel.H"
 #include "surfaceInterpolate.H"
 #include "mathematicalConstants.H"
 #include "fvCFD.H"
@@ -78,6 +79,13 @@ Foam::granularRheologyModel::granularRheologyModel
     FluidViscosityModel_
     (
         granularRheologyModels::FluidViscosityModel::New
+        (
+            granularRheologyProperties_
+        )
+    ),
+    DilatancyModel_
+    (
+        granularRheologyModels::DilatancyModel::New
         (
             granularRheologyProperties_
         )
@@ -249,19 +257,6 @@ Foam::granularRheologyModel::granularRheologyModel
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
     ),
-    alphaEq_
-    (
-        IOobject
-        (
-            "alphaEq",
-            alpha_.time().timeName(),
-            alpha_.mesh(),
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        alpha_.mesh(),
-        dimensionedScalar("zero", alpha_.dimensions(), 0.0)
-    ),
 
     delta_
     (
@@ -366,6 +361,8 @@ void Foam::granularRheologyModel::solve
     paEqn.relax();
     paEqn.solve();
 
+    pa_new_value.max(0.0);
+
     pa_=pa_new_value;
 
     //total particle pressure(shear induced+contact contributions)
@@ -375,6 +372,20 @@ void Foam::granularRheologyModel::solve
     //  Compute the particulate friction coefficient
     muI_ = FrictionModel_->muI(mus_, mu2_, I0_, p_p_total_, rhoa_, da_, rhob_,
                                nub_, magD, Dsmall);
+
+// Dilatancy model
+    dimensionedScalar PaMin
+    (
+        "PaMin",
+        dimensionSet(1, -1, -2, 0, 0, 0, 0),
+        5e-1
+    );
+
+    delta_ = DilatancyModel_->delta(K_dila_, alpha_c_, alpha_, magD,
+ da_, rhob_, nub_, p_p_total_, PaMin);
+
+    delta_.min( 0.5);
+    delta_.max(-0.5);
 
     //  Compute the regularized particulate viscosity
     mua_ = muI_* p_p_total_ / pow(magD2 + Dsmall2, 0.5);

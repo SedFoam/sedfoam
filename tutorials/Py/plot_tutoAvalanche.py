@@ -1,13 +1,10 @@
-import analyticBagnold 
+import analyticBagnold
 import subprocess
-import os
 import numpy as np
 import fluidfoam
 from pylab import *
 import matplotlib.gridspec as gridspec
 
-def rms(x):
-    return np.sqrt(x.dot(x)/x.size)
 #
 # Change fontsize
 #

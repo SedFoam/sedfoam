@@ -23,7 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "MuIPPressure.H"
+#include "MuIvdila.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
@@ -32,50 +32,42 @@ namespace Foam
 {
 namespace granularRheologyModels
 {
-    defineTypeNameAndDebug(MuIPPressure, 0);
-    addToRunTimeSelectionTable(PPressureModel, MuIPPressure, dictionary);
+    defineTypeNameAndDebug(MuIvdila, 0);
+    addToRunTimeSelectionTable(DilatancyModel, MuIvdila, dictionary);
 }
 }
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::granularRheologyModels::MuIPPressure::MuIPPressure(const dictionary& dict)
+Foam::granularRheologyModels::MuIvdila::MuIvdila(const dictionary& dict)
 :
-    PPressureModel(dict)
+    DilatancyModel(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::granularRheologyModels::MuIPPressure::~MuIPPressure()
+Foam::granularRheologyModels::MuIvdila::~MuIvdila()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIPPressure::pa
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIvdila::delta
 (
-    const volScalarField& pf,
-    const dimensionedScalar& Bphi,
-    const dimensionedScalar& rhoa,
+    const dimensionedScalar& K_dila,
+    const dimensionedScalar& alpha_c,
+    const volScalarField& alpha,
+    const volScalarField& magD,
     const dimensionedScalar& da,
     const dimensionedScalar& rhob,
     const dimensionedScalar& nub,
-    const volScalarField& magD,
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax,
-    const dimensionedScalar& Alphasmall
+    const volScalarField& p_p_total,
+    const dimensionedScalar& PaMin
 ) const
-
 {
-    //
-    // MuI inertial regime:
-    // pa = (b alpha / (alphaMax - alpha))^2 rhoa da^2 magD^2
-    // limiting parameter original = 1e-3
-
-    return pow(Bphi*alpha/max(alphaMax - alpha, scalar(1e-3)), 2)
-          *rhoa*pow(da, 2)*pow(magD, 2);
+    volScalarField I = magD*rhob*nub/(max(p_p_total, PaMin));
+    volScalarField alphaEq = (alpha_c)/(1.0+1*sqrt(I));
+    return K_dila*(alpha-alphaEq);
 }
-
-
 // ************************************************************************* //

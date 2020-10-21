@@ -23,37 +23,52 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "PPressureModel.H"
+#include "noneDilatancy.H"
+#include "addToRunTimeSelectionTable.H"
 
-// * * * * * * * * * * * * * * * * Selectors * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
-Foam::autoPtr<Foam::granularRheologyModels::PPressureModel>
-Foam::granularRheologyModels::PPressureModel::New
-(
-    const dictionary& dict
-)
+namespace Foam
 {
-    word PPressureModelType(dict.lookup("PPressureModel"));
+namespace granularRheologyModels
+{
+    defineTypeNameAndDebug(noneDilatancy, 0);
+    addToRunTimeSelectionTable(DilatancyModel, noneDilatancy, dictionary);
+}
+}
 
-    Info<< "Selecting PPressureModel "
-        << PPressureModelType << endl;
+// * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-    dictionaryConstructorTable::iterator cstrIter =
-        dictionaryConstructorTablePtr_->find(PPressureModelType);
+Foam::granularRheologyModels::
+noneDilatancy::noneDilatancy(const dictionary& dict)
+:
+    DilatancyModel(dict)
+{}
 
-    if (cstrIter == dictionaryConstructorTablePtr_->end())
-    {
-        FatalError
-            << "PPressureModel::New(const dictionary&) : " << endl
-            << "    unknown PPressureModelType type "
-            << PPressureModelType
-            << ", constructor not in hash table" << endl << endl
-            << "    Valid PPressureModelType types are :"  << endl
-            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
-        Info << abort(FatalError) << endl;
-    }
 
-    return autoPtr<PPressureModel>(cstrIter()(dict));
+// * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
+
+Foam::granularRheologyModels::noneDilatancy::~noneDilatancy()
+{}
+
+
+// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::
+noneDilatancy::delta
+(
+    const dimensionedScalar& K_dila,
+    const dimensionedScalar& alpha_c,
+    const volScalarField& alpha,
+    const volScalarField& magD,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& p_p_total,
+    const dimensionedScalar& PaMin
+) const
+{
+    return scalar(0.0)*alpha;
 }
 
 

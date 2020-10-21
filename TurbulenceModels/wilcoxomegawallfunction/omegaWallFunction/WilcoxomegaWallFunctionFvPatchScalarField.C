@@ -215,19 +215,13 @@ void WilcoxomegaWallFunctionFvPatchScalarField::calculate
 {
     const label patchi = patch.index();
 
-    const scalarField& y = turbModel.y()[patchi];
-
-//    const scalar Cmu25 = pow025(Cmu_);
-
     const tmp<volScalarField> tk = turbModel.k();
-    const volScalarField& k = tk();
 
     const tmp<scalarField> tnuw = turbModel.nu(patchi);
     const scalarField& nuw = tnuw();
 
     const tmp<scalarField> tnutw = turbModel.nut(patchi);
     const tmp<volScalarField> tnut = turbModel.nut();
-    const volScalarField& nut = tnut();
     const scalarField& nutw = tnutw();
 
     const fvPatchVectorField& Uw = turbModel.U().boundaryField()[patchi];

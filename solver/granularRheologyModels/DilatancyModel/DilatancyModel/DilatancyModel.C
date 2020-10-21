@@ -23,38 +23,35 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "PPressureModel.H"
+#include "DilatancyModel.H"
 
-// * * * * * * * * * * * * * * * * Selectors * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
-Foam::autoPtr<Foam::granularRheologyModels::PPressureModel>
-Foam::granularRheologyModels::PPressureModel::New
+namespace Foam
+{
+namespace granularRheologyModels
+{
+    defineTypeNameAndDebug(DilatancyModel, 0);
+    defineRunTimeSelectionTable(DilatancyModel, dictionary);
+}
+}
+
+
+// * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
+Foam::granularRheologyModels::DilatancyModel::DilatancyModel
 (
     const dictionary& dict
 )
-{
-    word PPressureModelType(dict.lookup("PPressureModel"));
+:
+    dict_(dict)
+{}
 
-    Info<< "Selecting PPressureModel "
-        << PPressureModelType << endl;
 
-    dictionaryConstructorTable::iterator cstrIter =
-        dictionaryConstructorTablePtr_->find(PPressureModelType);
+// * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-    if (cstrIter == dictionaryConstructorTablePtr_->end())
-    {
-        FatalError
-            << "PPressureModel::New(const dictionary&) : " << endl
-            << "    unknown PPressureModelType type "
-            << PPressureModelType
-            << ", constructor not in hash table" << endl << endl
-            << "    Valid PPressureModelType types are :"  << endl
-            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
-        Info << abort(FatalError) << endl;
-    }
-
-    return autoPtr<PPressureModel>(cstrIter()(dict));
-}
+Foam::granularRheologyModels::DilatancyModel::~DilatancyModel()
+{}
 
 
 // ************************************************************************* //
