@@ -8,7 +8,7 @@ var searchData=
   ['sf_5f',['sF_',['../class_foam_1_1phase_model.html#a321d80b2567a94a359e6880c27566c4c',1,'Foam::phaseModel']]],
   ['sinclairjacksonradial',['SinclairJacksonRadial',['../class_foam_1_1_sinclair_jackson_radial.html',1,'Foam']]],
   ['sinclairjacksonradial',['SinclairJacksonRadial',['../class_foam_1_1_sinclair_jackson_radial.html#a691622ca0513e34e4c4e6ee8958f9e03',1,'Foam::SinclairJacksonRadial']]],
-  ['solve',['solve',['../class_foam_1_1granular_rheology_model.html#afb6c28919c2ee02fbb3000b4fbb41748',1,'Foam::granularRheologyModel::solve()'],['../class_foam_1_1kinetic_theory_model.html#a85640dcf80a5cfb238a766d0ec51e2d3',1,'Foam::kineticTheoryModel::solve()']]],
+  ['solve',['solve',['../class_foam_1_1granular_rheology_model.html#a663b6481c24f957871114601719364ed',1,'Foam::granularRheologyModel::solve()'],['../class_foam_1_1kinetic_theory_model.html#a2a1379164a3ed6f8f0c0104b7e2d4875',1,'Foam::kineticTheoryModel::solve()']]],
   ['srivastavasundaresanfrictionalstress',['SrivastavaSundaresanFrictionalStress',['../class_foam_1_1_srivastava_sundaresan_frictional_stress.html',1,'Foam']]],
   ['srivastavasundaresanfrictionalstress',['SrivastavaSundaresanFrictionalStress',['../class_foam_1_1_srivastava_sundaresan_frictional_stress.html#a71d5463f1aa9cbf26a7af85914a95e0d',1,'Foam::SrivastavaSundaresanFrictionalStress']]],
   ['syamlalconductivity',['SyamlalConductivity',['../class_foam_1_1_syamlal_conductivity.html#a14621b1a478aaf4fbdf9206eb89e44b2',1,'Foam::SyamlalConductivity']]],

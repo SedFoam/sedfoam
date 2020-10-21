@@ -129,8 +129,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aeae2a088d84739ea7f82c63b1c2d6a33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2678a5d7fd2441d67f45407a827bc7b"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_foam_1_1kinetic_theory_model.html#ab2678a5d7fd2441d67f45407a827bc7b">~kineticTheoryModel</a> ()</td></tr>
 <tr class="separator:ab2678a5d7fd2441d67f45407a827bc7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85640dcf80a5cfb238a766d0ec51e2d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_foam_1_1kinetic_theory_model.html#a85640dcf80a5cfb238a766d0ec51e2d3">solve</a> (const surfaceScalarField &amp;galpha, const volTensorField &amp;gradUat, const volScalarField &amp;kb, const volScalarField &amp;epsilonb, const volScalarField &amp;nuft, const dimensionedScalar &amp;B, const dimensionedScalar &amp;tt)</td></tr>
-<tr class="separator:a85640dcf80a5cfb238a766d0ec51e2d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a1379164a3ed6f8f0c0104b7e2d4875"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_foam_1_1kinetic_theory_model.html#a2a1379164a3ed6f8f0c0104b7e2d4875">solve</a> (const volTensorField &amp;gradUat, const volScalarField &amp;kb, const volScalarField &amp;epsilonb, const volScalarField &amp;nuft, const dimensionedScalar &amp;B, const dimensionedScalar &amp;tt)</td></tr>
+<tr class="separator:a2a1379164a3ed6f8f0c0104b7e2d4875"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24da6b5a8dfe256eef57674c37e4c257"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_foam_1_1kinetic_theory_model.html#a24da6b5a8dfe256eef57674c37e4c257">updateRheo</a> (const volScalarField &amp;kb, const volScalarField &amp;epsilonb, const dimensionedScalar &amp;B)</td></tr>
 <tr class="separator:a24da6b5a8dfe256eef57674c37e4c257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae90d186f90be4f4af0d269beebdc1307"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_foam_1_1kinetic_theory_model.html#ae90d186f90be4f4af0d269beebdc1307">on</a> () const </td></tr>
@@ -191,6 +191,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ad3d077d99892532c7a411bbbce77471b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba00762424afaeff74b176d95daec3c1"><td class="memItemLeft" align="right" valign="top">Switch&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_foam_1_1kinetic_theory_model.html#aba00762424afaeff74b176d95daec3c1">extended_</a></td></tr>
 <tr class="separator:aba00762424afaeff74b176d95daec3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa35cc94ba74263618bde919991035c8f"><td class="memItemLeft" align="right" valign="top">Switch&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_foam_1_1kinetic_theory_model.html#aa35cc94ba74263618bde919991035c8f">limitProduction_</a></td></tr>
+<tr class="separator:aa35cc94ba74263618bde919991035c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e192d5bf88ca9417a532dc175ea4ca6"><td class="memItemLeft" align="right" valign="top">autoPtr&lt; <a class="el" href="class_foam_1_1kinetic_theory_models_1_1viscosity_model.html">kineticTheoryModels::viscosityModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_foam_1_1kinetic_theory_model.html#a6e192d5bf88ca9417a532dc175ea4ca6">viscosityModel_</a></td></tr>
 <tr class="separator:a6e192d5bf88ca9417a532dc175ea4ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a26578a7c2e52fb369d103e7860d90e"><td class="memItemLeft" align="right" valign="top">autoPtr&lt; <a class="el" href="class_foam_1_1conductivity_model.html">conductivityModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_foam_1_1kinetic_theory_model.html#a5a26578a7c2e52fb369d103e7860d90e">conductivityModel_</a></td></tr>
@@ -319,16 +321,16 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_c_source.html#l00317">317</a> of file <a class="el" href="kinetic_theory_model_8_c_source.html">kineticTheoryModel.C</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_c_source.html#l00333">333</a> of file <a class="el" href="kinetic_theory_model_8_c_source.html">kineticTheoryModel.C</a>.</p>
 
-<p>References <a class="el" href="kinetic_theory_model_8_c_source.html#l00324">solve()</a>.</p>
+<p>References <a class="el" href="kinetic_theory_model_8_c_source.html#l00340">solve()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_foam_1_1kinetic_theory_model_ab2678a5d7fd2441d67f45407a827bc7b_cgraph.png" border="0" usemap="#class_foam_1_1kinetic_theory_model_ab2678a5d7fd2441d67f45407a827bc7b_cgraph" alt=""/></div>
 <map name="class_foam_1_1kinetic_theory_model_ab2678a5d7fd2441d67f45407a827bc7b_cgraph" id="class_foam_1_1kinetic_theory_model_ab2678a5d7fd2441d67f45407a827bc7b_cgraph">
-<area shape="rect" id="node2" href="class_foam_1_1kinetic_theory_model.html#a85640dcf80a5cfb238a766d0ec51e2d3" title="Foam::kineticTheoryModel\l::solve" alt="" coords="241,5,429,47"/>
+<area shape="rect" id="node2" href="class_foam_1_1kinetic_theory_model.html#a2a1379164a3ed6f8f0c0104b7e2d4875" title="Foam::kineticTheoryModel\l::solve" alt="" coords="241,5,429,47"/>
 <area shape="rect" id="node3" href="class_foam_1_1kinetic_theory_model.html#a24da6b5a8dfe256eef57674c37e4c257" title="Foam::kineticTheoryModel\l::updateRheo" alt="" coords="477,5,665,47"/>
 </map>
 </div>
@@ -361,19 +363,13 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="a85640dcf80a5cfb238a766d0ec51e2d3"></a>
+<a class="anchor" id="a2a1379164a3ed6f8f0c0104b7e2d4875"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Foam::kineticTheoryModel::solve </td>
           <td>(</td>
-          <td class="paramtype">const surfaceScalarField &amp;&#160;</td>
-          <td class="paramname"><em>galpha</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const volTensorField &amp;&#160;</td>
           <td class="paramname"><em>gradUat</em>, </td>
         </tr>
@@ -415,17 +411,17 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_c_source.html#l00324">324</a> of file <a class="el" href="kinetic_theory_model_8_c_source.html">kineticTheoryModel.C</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_c_source.html#l00340">340</a> of file <a class="el" href="kinetic_theory_model_8_c_source.html">kineticTheoryModel.C</a>.</p>
 
-<p>References <a class="el" href="kinetic_theory_model_8_c_source.html#l00559">updateRheo()</a>.</p>
+<p>References <a class="el" href="kinetic_theory_model_8_c_source.html#l00578">updateRheo()</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_c_source.html#l00317">~kineticTheoryModel()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_c_source.html#l00333">~kineticTheoryModel()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_foam_1_1kinetic_theory_model_a85640dcf80a5cfb238a766d0ec51e2d3_cgraph.png" border="0" usemap="#class_foam_1_1kinetic_theory_model_a85640dcf80a5cfb238a766d0ec51e2d3_cgraph" alt=""/></div>
-<map name="class_foam_1_1kinetic_theory_model_a85640dcf80a5cfb238a766d0ec51e2d3_cgraph" id="class_foam_1_1kinetic_theory_model_a85640dcf80a5cfb238a766d0ec51e2d3_cgraph">
+<div class="center"><img src="class_foam_1_1kinetic_theory_model_a2a1379164a3ed6f8f0c0104b7e2d4875_cgraph.png" border="0" usemap="#class_foam_1_1kinetic_theory_model_a2a1379164a3ed6f8f0c0104b7e2d4875_cgraph" alt=""/></div>
+<map name="class_foam_1_1kinetic_theory_model_a2a1379164a3ed6f8f0c0104b7e2d4875_cgraph" id="class_foam_1_1kinetic_theory_model_a2a1379164a3ed6f8f0c0104b7e2d4875_cgraph">
 <area shape="rect" id="node2" href="class_foam_1_1kinetic_theory_model.html#a24da6b5a8dfe256eef57674c37e4c257" title="Foam::kineticTheoryModel\l::updateRheo" alt="" coords="241,5,429,47"/>
 </map>
 </div>
@@ -434,8 +430,8 @@ Here is the call graph for this function:</div>
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_foam_1_1kinetic_theory_model_a85640dcf80a5cfb238a766d0ec51e2d3_icgraph.png" border="0" usemap="#class_foam_1_1kinetic_theory_model_a85640dcf80a5cfb238a766d0ec51e2d3_icgraph" alt=""/></div>
-<map name="class_foam_1_1kinetic_theory_model_a85640dcf80a5cfb238a766d0ec51e2d3_icgraph" id="class_foam_1_1kinetic_theory_model_a85640dcf80a5cfb238a766d0ec51e2d3_icgraph">
+<div class="center"><img src="class_foam_1_1kinetic_theory_model_a2a1379164a3ed6f8f0c0104b7e2d4875_icgraph.png" border="0" usemap="#class_foam_1_1kinetic_theory_model_a2a1379164a3ed6f8f0c0104b7e2d4875_icgraph" alt=""/></div>
+<map name="class_foam_1_1kinetic_theory_model_a2a1379164a3ed6f8f0c0104b7e2d4875_icgraph" id="class_foam_1_1kinetic_theory_model_a2a1379164a3ed6f8f0c0104b7e2d4875_icgraph">
 <area shape="rect" id="node2" href="class_foam_1_1kinetic_theory_model.html#ab2678a5d7fd2441d67f45407a827bc7b" title="Foam::kineticTheoryModel\l::~kineticTheoryModel" alt="" coords="241,5,429,47"/>
 </map>
 </div>
@@ -473,16 +469,16 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_c_source.html#l00559">559</a> of file <a class="el" href="kinetic_theory_model_8_c_source.html">kineticTheoryModel.C</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_c_source.html#l00578">578</a> of file <a class="el" href="kinetic_theory_model_8_c_source.html">kineticTheoryModel.C</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_c_source.html#l00324">solve()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_c_source.html#l00340">solve()</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_foam_1_1kinetic_theory_model_a24da6b5a8dfe256eef57674c37e4c257_icgraph.png" border="0" usemap="#class_foam_1_1kinetic_theory_model_a24da6b5a8dfe256eef57674c37e4c257_icgraph" alt=""/></div>
 <map name="class_foam_1_1kinetic_theory_model_a24da6b5a8dfe256eef57674c37e4c257_icgraph" id="class_foam_1_1kinetic_theory_model_a24da6b5a8dfe256eef57674c37e4c257_icgraph">
-<area shape="rect" id="node2" href="class_foam_1_1kinetic_theory_model.html#a85640dcf80a5cfb238a766d0ec51e2d3" title="Foam::kineticTheoryModel\l::solve" alt="" coords="241,5,429,47"/>
+<area shape="rect" id="node2" href="class_foam_1_1kinetic_theory_model.html#a2a1379164a3ed6f8f0c0104b7e2d4875" title="Foam::kineticTheoryModel\l::solve" alt="" coords="241,5,429,47"/>
 <area shape="rect" id="node3" href="class_foam_1_1kinetic_theory_model.html#ab2678a5d7fd2441d67f45407a827bc7b" title="Foam::kineticTheoryModel\l::~kineticTheoryModel" alt="" coords="477,5,665,47"/>
 </map>
 </div>
@@ -511,7 +507,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00193">193</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00195">195</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 <p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00075">kineticTheory_</a>.</p>
 
@@ -538,9 +534,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00198">198</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00200">200</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00115">Theta_</a>.</p>
+<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00118">Theta_</a>.</p>
 
 </div>
 </div>
@@ -565,9 +561,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00203">203</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00205">205</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00121">mua_</a>.</p>
+<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00124">mua_</a>.</p>
 
 </div>
 </div>
@@ -592,9 +588,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00208">208</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00210">210</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00123">muf_</a>.</p>
+<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00126">muf_</a>.</p>
 
 </div>
 </div>
@@ -619,9 +615,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00213">213</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00215">215</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00129">pa_</a>.</p>
+<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00132">pa_</a>.</p>
 
 </div>
 </div>
@@ -646,9 +642,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00218">218</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00220">220</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00132">pf_</a>.</p>
+<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00135">pf_</a>.</p>
 
 </div>
 </div>
@@ -673,9 +669,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00223">223</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00225">225</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00135">ppMagf_</a>.</p>
+<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00138">ppMagf_</a>.</p>
 
 </div>
 </div>
@@ -700,9 +696,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00228">228</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00230">230</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00126">lambda_</a>.</p>
+<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00129">lambda_</a>.</p>
 
 </div>
 </div>
@@ -727,9 +723,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00233">233</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00235">235</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00138">kappa_</a>.</p>
+<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00141">kappa_</a>.</p>
 
 </div>
 </div>
@@ -754,9 +750,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00238">238</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00240">240</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00109">phi_</a>.</p>
+<p>References <a class="el" href="kinetic_theory_model_8_h_source.html#l00112">phi_</a>.</p>
 
 </div>
 </div>
@@ -1001,7 +997,7 @@ Here is the caller graph for this function:</div>
 
 <p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00075">75</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00193">on()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00195">on()</a>.</p>
 
 </div>
 </div>
@@ -1071,6 +1067,28 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a class="anchor" id="aa35cc94ba74263618bde919991035c8f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Switch Foam::kineticTheoryModel::limitProduction_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00087">87</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a6e192d5bf88ca9417a532dc175ea4ca6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1089,7 +1107,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00086">86</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00089">89</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1111,7 +1129,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00088">88</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00091">91</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1133,7 +1151,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00090">90</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00093">93</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1155,7 +1173,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00092">92</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00095">95</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1177,7 +1195,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00094">94</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00097">97</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1199,7 +1217,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00097">97</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00100">100</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1221,7 +1239,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00100">100</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00103">103</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1243,7 +1261,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00103">103</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00106">106</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1265,7 +1283,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00104">104</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00107">107</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1287,7 +1305,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00105">105</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00108">108</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1309,7 +1327,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00106">106</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00109">109</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1331,9 +1349,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00109">109</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00112">112</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00238">phi()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00240">phi()</a>.</p>
 
 </div>
 </div>
@@ -1355,7 +1373,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00112">112</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00115">115</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1377,9 +1395,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00115">115</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00118">118</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00198">Theta()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00200">Theta()</a>.</p>
 
 </div>
 </div>
@@ -1401,9 +1419,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00121">121</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00124">124</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00203">mua()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00205">mua()</a>.</p>
 
 </div>
 </div>
@@ -1425,9 +1443,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00123">123</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00126">126</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00208">muf()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00210">muf()</a>.</p>
 
 </div>
 </div>
@@ -1449,9 +1467,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00126">126</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00129">129</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00228">lambda()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00230">lambda()</a>.</p>
 
 </div>
 </div>
@@ -1473,9 +1491,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00129">129</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00132">132</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00213">pa()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00215">pa()</a>.</p>
 
 </div>
 </div>
@@ -1497,9 +1515,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00132">132</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00135">135</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00218">pf()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00220">pf()</a>.</p>
 
 </div>
 </div>
@@ -1521,9 +1539,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00135">135</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00138">138</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00223">ppMagf()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00225">ppMagf()</a>.</p>
 
 </div>
 </div>
@@ -1545,9 +1563,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00138">138</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00141">141</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
-<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00233">kappa()</a>.</p>
+<p>Referenced by <a class="el" href="kinetic_theory_model_8_h_source.html#l00235">kappa()</a>.</p>
 
 </div>
 </div>
@@ -1569,7 +1587,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00141">141</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00144">144</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1591,7 +1609,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00144">144</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
+<p>Definition at line <a class="el" href="kinetic_theory_model_8_h_source.html#l00147">147</a> of file <a class="el" href="kinetic_theory_model_8_h_source.html">kineticTheoryModel.H</a>.</p>
 
 </div>
 </div>
@@ -1606,7 +1624,7 @@ Here is the caller graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_foam.html">Foam</a></li><li class="navelem"><a class="el" href="class_foam_1_1kinetic_theory_model.html">kineticTheoryModel</a></li>
-    <li class="footer">Generated on Tue Oct 20 2020 12:15:28 for SedFOAM by
+    <li class="footer">Generated on Wed Oct 21 2020 17:47:03 for SedFOAM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
     <li> Copyright&#x00A0;&#169;&#x00A0;2016&#x00A0;Cyrille Bonamy, Julien Chauchat, Tim Nagel, Antoine Mathieu, Zhen Cheng, Eduard Puig Montella  and Tian-Jian Hsu 
