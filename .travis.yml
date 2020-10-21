@@ -64,21 +64,21 @@ jobs:
         - mv html ../public/
         - cp images/twitter.png ../public/
         - cp images/github.png ../public/
-
-deploy:
-  # Utiliser le processus de déploiement des pages Github
-  provider: pages
-  skip_cleanup: true
-  # Répertoire où se trouvent les fichiers générés
-  local_dir: public
-  # Github security/auth token
-  github_token: $GITHUB_TOKEN
-  # Conserve les anciens fichiers/constructions des déploiements précédents
-  keep_history: true
-  # La branche Git sur laquelle on souhaite déployer (master, gh-pages, foo...)
-  target_branch: gh-pages
-  on:
-    branch: master
+      deploy:
+        # Utiliser le processus de déploiement des pages Github
+        provider: pages
+        skip_cleanup: true
+        # Répertoire où se trouvent les fichiers générés
+        local_dir: public
+        # Github security/auth token
+        github_token: $GITHUB_TOKEN
+        # Conserve les anciens fichiers/constructions des déploiements précédents
+        keep_history: true
+        if: repo = SedFoam/sedfoam
+        # La branche Git sur laquelle on souhaite déployer (master, gh-pages, foo...)
+        target_branch: gh-pages
+        on:
+          branch: master
 
 notifications:
   slack:
