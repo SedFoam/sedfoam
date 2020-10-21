@@ -59,6 +59,7 @@ deploy:
   github_token: $GITHUB_TOKEN
   # Conserve les anciens fichiers/constructions des déploiements précédents
   keep_history: true
+  if: repo = SedFoam/sedfoam
   # La branche Git sur laquelle on souhaite déployer (master, gh-pages, foo...)
   target_branch: gh-pages
   on:
