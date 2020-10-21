@@ -74,7 +74,6 @@ Description
 //#include "IOMRFZoneList.H"
 //#include "IOMRFZoneList.H"
 
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
@@ -85,19 +84,17 @@ int main(int argc, char *argv[])
     #include "createMesh.H"
     #include "createControl.H"
 
-//    #include "readGravitationalAcceleration.H"
+
     #include "readGravity.H"
-//    #include "createGradP.H"
     #include "createFields.H"
     #include "createRASTurbulence.H"
     #include "createFvOptions.H"
 
-    //#include "readPPProperties.H"
+
     #include "initContinuityErrs.H"
     #include "createTimeControls.H"
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
- //   pimpleControl pimple(mesh);
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     if (SUSlocal)
@@ -145,7 +142,7 @@ int main(int argc, char *argv[])
 //          solution of the Granular temperature equation
             #include "callKineticTheory.H"
 
-//          Compute the contact pressure pff and the Frictional stress nuFra
+//          Compute the contact pressure pff and the frictional viscosity nuFra
 //          from a Coulomb model if using the kinetic theory
 //          and from the mu(I) rheology if using the granular rheology
             #include "callFrictionStress.H"

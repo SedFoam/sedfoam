@@ -39,6 +39,7 @@ SourceFiles
 #include "autoPtr.H"
 #include "FrictionModel.H"
 #include "PPressureModel.H"
+#include "DilatancyModel.H"
 #include "FluidViscosityModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -56,7 +57,7 @@ class granularRheologyModel
 
     const volScalarField& alpha_;
     const surfaceScalarField& phia_;
-    const volScalarField& pa_new_value;
+    volScalarField pa_new_value;
     const dimensionedScalar& rhoa_;
     const dimensionedScalar& da_;
 
@@ -74,7 +75,8 @@ class granularRheologyModel
 
     //- use granular mixture model.
     Switch granularMixtureModel_;
-
+    
+    autoPtr<granularRheologyModels::DilatancyModel> DilatancyModel_;
     autoPtr<granularRheologyModels::FrictionModel> FrictionModel_;
     autoPtr<granularRheologyModels::PPressureModel> PPressureModel_;
     autoPtr<granularRheologyModels::FluidViscosityModel> FluidViscosityModel_;
@@ -97,9 +99,6 @@ class granularRheologyModel
     //- Exponent of the Krieger-Dougherty viscosity
     const dimensionedScalar n_;
 
-    // Regularisation parameter
-    const dimensionedScalar Dsmall_;
-
     //- Bulk viscosity amplification factor
     const dimensionedScalar BulkFactor_;
     
@@ -117,9 +116,6 @@ class granularRheologyModel
 
     ////- The  dilatancy angle
     volScalarField delta_;
-
-    ////- The  equilibrium volume fraction
-    volScalarField alphaEq_;
 
     //- Total particle  pressure
     volScalarField p_p_total_;
@@ -156,7 +152,8 @@ public:
     (
         const phaseModel& phasea,
         const phaseModel& phaseb,
-        const volScalarField& p_p_total
+        const volScalarField& p_p_total,
+        const dimensionedScalar& Dsmall
     );
 
 
@@ -170,7 +167,8 @@ public:
     (
         const volTensorField& gradUat,
         const volScalarField& pf,
-        const dimensionedScalar& alphaSmall
+        const dimensionedScalar& alphaSmall,
+        const dimensionedScalar& Dsmall
     );
 
     bool on() const

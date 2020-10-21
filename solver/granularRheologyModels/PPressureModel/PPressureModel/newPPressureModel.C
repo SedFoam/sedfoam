@@ -48,8 +48,9 @@ Foam::granularRheologyModels::PPressureModel::New
             << "    unknown PPressureModelType type "
             << PPressureModelType
             << ", constructor not in hash table" << endl << endl
-            << "    Valid PPressureModelType types are :" << endl;
-        Info<< dictionaryConstructorTablePtr_->sortedToc() << abort(FatalError);
+            << "    Valid PPressureModelType types are :"  << endl
+            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
+        Info << abort(FatalError) << endl;
     }
 
     return autoPtr<PPressureModel>(cstrIter()(dict));

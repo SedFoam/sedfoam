@@ -1,4 +1,4 @@
-import analyticBagnold 
+import analyticBagnold
 import subprocess
 import numpy as np
 import fluidfoam
@@ -27,19 +27,15 @@ figheight = 6
 #
 #
 zmin = 0
-zmax = 50
 #
 # compute the analytical solution in dimensionless form
 #
 # dimensional parameters
-d = 500e-6
-rho_f = 1.0
-#rho_f = 2.65
-rho_p = 2650.
+d = 0.02
+rho_f = 1e-3
+rho_p = 1
 drho = rho_p - rho_f
-g = 9.81
-
-nx = 1000
+g = 1
 
 # dimensionless parameters
 mus = 0.38
@@ -54,7 +50,7 @@ beta = 26*np.pi/180.
 #########################################
 # Loading OpenFoam results
 #########################################
-case = '1DAvalancheMuI'
+case = '1DAvalancheMuI/'
 basepath = '../'
 sol = basepath + case + '/'
 
@@ -70,12 +66,6 @@ except:
     sys.exit(0)
 output = proc.stdout.read()
 tread = output.decode().rstrip().split('\n')[0]
-
-Nx = 1
-Ny = 100
-Nz = 1
-
-eps_file = sol + case + '.eps'
 
 #########################################
 # Reading SedFoam results
@@ -97,7 +87,9 @@ Taus = fluidfoam.readtensor(sol, tread, 'Taua')
 try:
     gradUa = fluidfoam.readtensor(sol, tread, 'grad(Ua)')
 except:
-    print("grad(Ua) was not found -> Introduce - postProcess -func 'grad(Ua)' - in the command line")
+    print("grad(Ua) was not found -> postProcess -func 'grad(Ua)'")
+    os.system("postProcess -case "+sol+" -func \'grad(Ua)\' -time "+tread)
+    gradUa = fluidfoam.readtensor(sol, tread, 'grad(Ua)')
 
 
 Ny = np.size(Y)
@@ -108,22 +100,22 @@ taua = np.zeros(Ny)
 taub = np.zeros(Ny)
 taua = Taus[3, :]
 taub =  Tauf[3, :]
-
-
-
 if (np.size(pff))==1:
     pff=pff*np.ones(Ny)
 
-print("max(Ub)=" + str(np.amax(Ub)) + " m/s")
+print("max(Ua)=" + str(np.amax(Ua)) + " m/s")
 
 dudy = gradUa[3,:]
 nu = np.zeros(Ny)
 for i in range(Ny - 1):
     nu[i] = taua[0]/(dudy[i]*rho_p)
     
-    
-H=Y[np.min(np.where(pa+pff<(rho_p-rho_f)*g*d/10))]/d
+granularBed = np.where(pa+pff<(rho_p-rho_f)*g*d/10)
+nx = np.size(granularBed)
+H=Y[np.min(granularBed)]/d
+
 print("H/d=",H)
+zmax = np.max(Y)/d
 
 [xex,I,alphaex,uex,pex,muIex,tauex,duexdz,nuex] = \
              analyticBagnold.analyticBagnold(nx,H,g,d,rho_p,rho_f,phi0,I0,Bphi,mus,mu2,beta)
@@ -139,9 +131,9 @@ figure(num=1, figsize=(figwidth, figheight),
 ax1 = subplot(gs[0, 0])
 l11, = ax1.plot(alpha[:], Y[:]/d, '-r')
 l1, = ax1.plot(alphaex[:], xex[:]/d, '--k')
-ax1.set_ylabel('y [-]')
+ax1.set_ylabel('y/d [-]')
 ax1.set_xlabel(r'$\alpha$')
-ax1.set_xlim(0,  np.max(np.max(alpha)) * 1.1)
+ax1.set_xlim(0.5,  0.6)
 ax1.set_ylim(zmin, zmax)
 
 ax2 = subplot(gs[0, 1])
@@ -203,10 +195,6 @@ ax7.set_yticklabels([''])
 ax7.legend(prop={'size':10.0},loc=0)
 
 savefig('Figures/res1_DryAvalanche.png', facecolor='w', edgecolor='w', format='png')
-
-
-#figure(2)
-#plot(Ua[0,:]-Ub[0,:], Y[:], '-r')
 
 show(block=True)
 

@@ -58,10 +58,26 @@ Foam::kineticTheoryModel::kineticTheoryModel
             IOobject::NO_WRITE
         )
     ),
-    kineticTheory_(kineticTheoryProperties_.lookup("kineticTheory")),
-    equilibrium_(kineticTheoryProperties_.lookup("equilibrium")),
-    collisions_(kineticTheoryProperties_.lookupOrDefault("collisions_", false)),
-    extended_(kineticTheoryProperties_.lookupOrDefault("extended_", false)),
+    kineticTheory_
+    (
+        kineticTheoryProperties_.lookup("kineticTheory")
+    ),
+    equilibrium_
+    (
+        kineticTheoryProperties_.lookup("equilibrium")
+    ),
+    collisions_
+    (
+        kineticTheoryProperties_.lookupOrDefault("collisions", false)
+    ),
+    extended_
+    (
+        kineticTheoryProperties_.lookupOrDefault("extended", false)
+    ),
+    limitProduction_
+    (
+        kineticTheoryProperties_.lookupOrDefault("limitProduction", false)
+    ),
     viscosityModel_
     (
         kineticTheoryModels::viscosityModel::New
@@ -322,7 +338,6 @@ Foam::kineticTheoryModel::~kineticTheoryModel()
 
 void Foam::kineticTheoryModel::solve
 (
-    const surfaceScalarField& galpha,
     const volTensorField& gradUat,
     const volScalarField& kb,
     const volScalarField& epsilonb,
@@ -400,15 +415,20 @@ void Foam::kineticTheoryModel::solve
         e_
     );
 
+    volScalarField ThetaClip = Theta_;
+    if (limitProduction_)
+    {
+        // limit the production by clipping Theta to 2/3kb
+        volScalarField ThetaClip = min(Theta_, (2.0/3.0)*max(kb));
+    }
     // 'thermal' conductivity (Table 3.3, p. 49)
-    kappa_ = conductivityModel_->kappa(alpha_, Theta_, gs0_, rhoa_, da_, e_);
+    kappa_ = conductivityModel_->kappa(alpha_, ThetaClip, gs0_, rhoa_, da_, e_);
 
     // particle viscosity (Table 3.2, p.47)
-// limit the production
     mua_ = viscosityModel_->mua
     (
         alpha_,
-        min(Theta_, (2.0/3.0)*max(kb)),
+        ThetaClip,
         gs0_,
         rhoa_,
         da_,
@@ -431,7 +451,8 @@ void Foam::kineticTheoryModel::solve
     // bulk viscosity  p. 45 (Lun et al. 1984).
 // limit production
     lambda_ = (4.0/3.0)*sqr(alpha_)*rhoa_*da_*gs0_*(1.0+e_)
-              *sqrt(min(Theta_, (2.0/3.0)*max(kb)))/sqrtPi;
+              *sqrt(ThetaClip)/sqrtPi;
+
     // stress tensor, Definitions, Table 3.1, p. 43
     volSymmTensorField tau = 2.0*mua_*D + (lambda_ - (2.0/3.0)*mua_)*tr(D)*I;
 
@@ -505,6 +526,8 @@ void Foam::kineticTheoryModel::solve
         Theta_ = sqr((l1 + sqrt(l2 + l3))/(2.0*(alpha_ + 1.0e-4)*K4));
     }
 
+    // Clipping of Theta for stability by Z. Cheng
+    //    (need to check if necessary...)
     forAll(alpha_, cellk)
     {
 // for initial stability
@@ -534,10 +557,10 @@ void Foam::kineticTheoryModel::solve
         rhoa_,
         e_
     );
-// update bulk viscosity and shear viscosity
-// bulk viscosity  p. 45 (Lun et al. 1984).
+    // update bulk viscosity and shear viscosity
+    // bulk viscosity  p. 45 (Lun et al. 1984).
     lambda_ = (4.0/3.0)*sqr(alpha_)*rhoa_*da_*gs0_*(1.0+e_)*sqrt(Theta_)/sqrtPi;
-// particle viscosity (Table 3.2, p.47)
+    // particle viscosity (Table 3.2, p.47)
     mua_ = viscosityModel_->mua(alpha_, Theta_, gs0_, rhoa_, da_, e_);
 
 
@@ -547,12 +570,8 @@ void Foam::kineticTheoryModel::solve
     mua_.max(0.0);
     mua_.correctBoundaryConditions();
 
-    Info << "kinTheory: max(Theta) = "
-         << max(Theta_).value()
-         << " min(Theta) = "
-         << min(Theta_).value()
-         << endl;
-
+    Info << "Granular temp.  Theta: Min ="<< gMin(Theta_)
+             << " Max = "<< gMax(Theta_)<< endl;
 }
 // test function for callFrictionStress.H
 void Foam::kineticTheoryModel::updateRheo
@@ -624,11 +643,8 @@ void Foam::kineticTheoryModel::updateRheo
     }
 
     mua_= rhoa_*F_*da_*pow(Theta_, 0.5);
-    //volScalarField paOld = pa_;
+    
     pa_ = rhoa_*alpha_*Theta_;
-    //pa_ = paOld + relaxPaKin_*(pa_ - paOld);
-    //Info<< "Theta = " << Theta_ << endl;
-    //Info<< "mua = " << mua_ << endl;
 }
 //}
 

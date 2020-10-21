@@ -137,6 +137,17 @@ dimensionedScalar nuMax
     )
 );
 
+dimensionedScalar Dsmall
+(
+    transportProperties.lookupOrDefault
+    (
+        "Dsmall",
+        dimensionedScalar("Dsmall",
+                          dimensionSet(0, 0, -1, 0, 0, 0, 0),
+                          1e-6)
+    )
+);
+
 dimensionedScalar nuMaxExp
 (
     transportProperties.lookupOrDefault
@@ -564,8 +575,8 @@ granularRheologyModel granularRheology
 (
     phasea,
     phaseb,
-    pa
-    
+    pa,
+    Dsmall
 );
 
 // Declare variables
@@ -699,3 +710,4 @@ if (p_rbgh.needReference())
     );
     p_rbgh = p - rhob*gh;
 }
+Info<<"end of createFields"<<endl;

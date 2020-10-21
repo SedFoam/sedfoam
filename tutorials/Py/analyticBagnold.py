@@ -7,7 +7,7 @@
 # --------------------------------------------------------------
 #
 #     Function that solves the analytical solution for the
-#       Bagnold profile 
+#       Bagnold profile
 #
 # --------------------------------------------------------------
 
@@ -38,9 +38,9 @@ def analyticBagnold(nx,H,g,d,rho_p,rho_f,phi0,I0,Bphi,mus,mu2,beta):
 
     pex = np.zeros(nx)
     pex = (rho_p-rho_f)*g*np.cos(beta)*alphaex*(H*d-xex)
-    
+
     muIex = (mus+(mu2-mus)/(I0/I+1))*np.ones(nx)
-    tauex = muIex*pex 
+    tauex = muIex*pex
     
     duexdz = np.zeros(nx)
     nuex = np.zeros(nx)

@@ -47,9 +47,9 @@ divSchemes
 // ThetaEqn
     div(phi,Theta)  Gauss limitedLinear 1;
 // alphaPlastic
-    div(phia,alphaPlastic)   Gauss limitedLinear01 1;
+    div(phia,alphaPlastic)    Gauss limitedLinear01 1;
 // pa
-    div(phia,pa_new_value)   Gauss limitedLinear 1;
+    div(phia,pa_new_value)     Gauss limitedLinear 1;
 }
 
 laplacianSchemes
