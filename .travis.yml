@@ -57,6 +57,7 @@ jobs:
       - travis_wait 30 ./Allrun
       - python3 test_1DBoundaryLayer.py
     - stage: build pages
+      if: repo = SedFoam/sedfoam
       install: skip
       script:
         - cd doc/
@@ -74,7 +75,6 @@ jobs:
         github_token: $GITHUB_TOKEN
         # Conserve les anciens fichiers/constructions des déploiements précédents
         keep_history: true
-        if: repo = SedFoam/sedfoam
         # La branche Git sur laquelle on souhaite déployer (master, gh-pages, foo...)
         target_branch: gh-pages
         on:
