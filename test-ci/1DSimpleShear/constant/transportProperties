@@ -1,0 +1,42 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      transportProperties;
+}
+// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
+phasea
+{
+    rho             rho [ 1 -3 0 0 0 ] 1;
+    nu              nu [ 0 2 -1 0 0 ] 1e-6;
+    d               d [ 0 1 0 0 0 0 0 ] 1;
+}
+
+phaseb
+{
+    rho             rho [ 1 -3 0 0 0 ] 1e-3;
+    nu              nu [ 0 2 -1 0 0 ] 1e-6;
+    d               d [ 0 1 0 0 0 0 0 ] 1;
+}
+//*********************************************************************** //
+transportModel  Newtonian;
+
+nu              nu [ 0 2 -1 0 0 0 0 ] 1e-6;
+
+// Diffusivity for mass conservation resolution (avoid num instab around shocks)
+alphaDiffusion  alphaDiffusion [0 2 -1 0 0 0 0] 0e0;
+
+nuMax           nuMax [0 2 -1 0 0 0 0] 1e0;      // viscosity limiter for the Frictional model (required for stability)
+
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
+
+// ************************************************************************* //

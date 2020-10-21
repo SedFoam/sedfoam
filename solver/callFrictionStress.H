@@ -24,7 +24,6 @@ License
 \*---------------------------------------------------------------------------*/
 //
 
-
 volSymmTensorField D_tensor = symm(gradUaT);
 volScalarField magDtensor = ::sqrt(2.0)*mag(D_tensor);
 
@@ -55,20 +54,6 @@ alphaPlastic.min(0.585);
 pff = pp->pff(alpha, alphaPlastic, alphaMax, Fr_, eta0_, eta1_);
 
 //
-// Compute the gradient of pff that enter the momentum balance equation
-//
-//surfaceScalarField gradPff = fvc::snGrad(pff)*mesh.magSf();
-
-/*forAll(p_rbgh.boundaryField(), patchi)
-{
-    if (isA<zeroGradientFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
-    {
-        gradPff.boundaryFieldRef()[patchi] = 0.0;
-    }
-}
-*/
-//gradPf = (fvc::reconstruct(gradPff))/(rhoa*(alpha + alphaSmall));
-//
 //
 //  Kinetic THEORY PART
 //
@@ -78,12 +63,7 @@ if (kineticTheory.on())
     volTensorField dU = fvc::grad(Ua);
     volSymmTensorField dUU = symm(dU);
     volSymmTensorField devS = dUU - (scalar(1.0)/scalar(3.0))*tr(dUU)*I;
-    dimensionedScalar I2Dsmall
-    (
-        "small",
-        dimensionSet(0, 0, -2, 0, 0, 0, 0),
-        scalar(1.0e-40)
-    );
+    dimensionedScalar I2Dsmall = pow(Dsmall, 2);
 
     //scalar pi = constant::mathematical::pi;
     // T && T = T_ij*T_ij
@@ -109,7 +89,7 @@ if (kineticTheory.on())
 else if (granularRheology.on())
 {
 // solving granular rheology
-    granularRheology.solve(gradUaT, pff, alphaSmall);
+    granularRheology.solve(gradUaT, pff, alphaSmall, Dsmall);
 
 // Particulate pressure and viscosity
     pa = granularRheology.pa();
@@ -117,27 +97,11 @@ else if (granularRheology.on())
     delta=granularRheology.delta();
     if (debugInfo)
     {
-        Info<< "Pff pressure: Max =" << gMax(pff)
-            <<",Min =" << gMin(pff)<<endl;
-        Info<< "Shear induced pressure : Max =" << gMax(pa)
-            <<",Min =" << gMin(pa)<<endl;
+        Info<< "Contact pressure  pff: Min =" << gMin(pff)
+            <<", Max =" << gMax(pff)<<endl;
+        Info<< "Shear ind. press.  pa: Min =" << gMin(pa)
+            <<", Max =" << gMax(pa)<<endl;
     }
-
-/*
-// Compute the shear induced pressure gradient contribution
-// (not used inthis version)
-     surfaceScalarField gradPsf = fvc::snGrad(pa)*mesh.magSf();
-
-     forAll(p.boundaryField(), patchi)
-     {
-        if (isA<zeroGradientFvPatchScalarField>(p.boundaryField()[patchi]))
-          {
-            gradPsf.boundaryField()[patchi] = 0.0;
-          }
-     }
-
-     gradPs = (fvc::reconstruct(gradPsf))/(rhoa*(alpha+alphaSmall));
-*/
 // the actual expression for nuFra depends on the way this term is discretized
 // in UaEqn
     nuFra = granularRheology.mua()/ rhoa;
@@ -150,7 +114,7 @@ else if (granularRheology.on())
 }
 //
 //
-//  If not using kinetic theory is using Ct model
+//  If not using kinetic theory or granular rheology Ct model is used
 //
 //
 else

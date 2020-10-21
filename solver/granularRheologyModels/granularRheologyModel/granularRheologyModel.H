@@ -57,7 +57,7 @@ class granularRheologyModel
 
     const volScalarField& alpha_;
     const surfaceScalarField& phia_;
-    const volScalarField& pa_new_value;
+    volScalarField pa_new_value;
     const dimensionedScalar& rhoa_;
     const dimensionedScalar& da_;
 
@@ -98,9 +98,6 @@ class granularRheologyModel
 
     //- Exponent of the Krieger-Dougherty viscosity
     const dimensionedScalar n_;
-
-    // Regularisation parameter
-    const dimensionedScalar Dsmall_;
 
     //- Bulk viscosity amplification factor
     const dimensionedScalar BulkFactor_;
@@ -155,7 +152,8 @@ public:
     (
         const phaseModel& phasea,
         const phaseModel& phaseb,
-        const volScalarField& p_p_total
+        const volScalarField& p_p_total,
+        const dimensionedScalar& Dsmall
     );
 
 
@@ -169,7 +167,8 @@ public:
     (
         const volTensorField& gradUat,
         const volScalarField& pf,
-        const dimensionedScalar& alphaSmall
+        const dimensionedScalar& alphaSmall,
+        const dimensionedScalar& Dsmall
     );
 
     bool on() const
