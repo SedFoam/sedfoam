@@ -1,0 +1,6 @@
+@INCLUDE                = Doxyfile
+GENERATE_HTML           = NO
+GENERATE_XML            = YES
+XML_PROGRAMLISTING      = NO
+FAVICON = sedFoam_favicon.png 
+XML_NS_MEMB_FILE_SCOPE = YES

@@ -111,8 +111,6 @@ protected:
             dimensionedScalar alphaEps_;
             //dimensionedScalar sigmaEps_;
 
-         // Flow information
-//            const volScalarField& alpha_;
          // two phase information
             const volScalarField& tmfexp_;
             const volScalarField& ESD3_;
@@ -121,12 +119,10 @@ protected:
             const volScalarField& ESD_;
 
         // Fields
-
             volScalarField k_;
             volScalarField epsilon_;
 
     // Protected Member Functions
-
         virtual void correctNut();
 
 
@@ -157,8 +153,12 @@ public:
 
 
     //- Destructor
-    virtual ~twophasekEpsilon()
-    {}
+    #if (OFVERSION < 220 and OFVERSION >= 200) or OFVERSION == 00
+        virtual ~twophasekEpsilon() = default;
+    #else
+        virtual ~twophasekEpsilon()
+        {}
+    #endif
 
 
     // Member Functions

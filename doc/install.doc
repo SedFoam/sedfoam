@@ -2,8 +2,8 @@
  *
  * 
  *
- * Copyright (C) 2018 by Cyrille Bonamy, Julien Chauchat, Tim Nagel,
- * Antoine Mathieu, Zhen Cheng and Tian-Jian Hsu.
+ * Copyright (C) 2020 by Cyrille Bonamy, Julien Chauchat, Tim Nagel,
+ * Antoine Mathieu, Zhen Cheng, Eduard Puig Montella and Tian-Jian Hsu.
  *
  * Permission to use, copy, modify, and distribute this software and its
  * documentation under the terms of the GNU General Public License is hereby 
@@ -15,19 +15,16 @@
  */
 /*! \page install Installation
 
-\addindex installation
+@brief How to install sedFoam
+
 \tableofcontents
 
-First go to the 
-<a href="http://github.com/sedfoam/sedfoam/">official SedFoam page</a>
-to get the latest distribution, if you have not downloaded SedFoam already.
+\section install_src_unix Compiling from source with supported OpenFOAM (5.0, 6.0, 1912, 2006...)
 
-\section install_src_unix Compiling from source with OpenFOAM-5.0
-
-You need at least OpenFOAM-5.0 (or OpenFOAM-v1806) to build the executable:
+You need at least OpenFOAM-5.0 (or OpenFOAM-v1806) to build the executable. We recommend the last version of OpenFOAM/ESI:
 <ul>
-<li>First go to the <a href="http://openfoam.org/version/5-0/">download</a> page of the software
-<li><a href="https://openfoamwiki.net/index.php/Installation/Linux/OpenFOAM-5.0">Install OpenFOAM-5.0</a>.
+<li>First go to the <a href="https://www.openfoam.com/download">download</a> page of the software
+<li><a href="https://www.openfoam.com/download/installation.php">Install OpenFOAM</a>.
 </ul>
 
 To take full advantage of SedFoam the following additional tools should be installed.
@@ -56,46 +53,7 @@ Compilation is now done by performing the following steps:
     <code>sedFoam_rbgh</code> and associated libraries
     should be available in the $FOAM_USER_APPBIN and $FOAM_USER_LIBBIN directories.
 
-<li>Optional: Generate the user manual.
-    
-        cd doc
-        make html
-
-    To let doxygen generate the HTML documentation.
-    
-    The HTML directory within the build directory will now contain the html
-    documentation (just point a HTML browser to the file
-    <code>index.html</code> in the html directory). 
-    
 </ol>
-
-\section install_src_unix_foamext Compiling from source with FOAM-extend release 4.0
-
-First we need to add a tailored fixedFluxPressureFvPatchScalarField class : myfixedFluxPressureFvPatchScalarField.
-The source files are available in foam_ext_add directory.
-
-Finally some modifications of the sources are necessary : 
-<ul>
-<li>'''constant::mathematical::pi''' must be replace by '''mathematicalConstant::pi''' in all source directories:
-
-        find solver -type f -print0 | xargs -0 sed -i 's/constant::mathematical::pi/mathematicalConstant::pi/g'
-        find turbulenceModels -type f -print0 | xargs -0 sed -i 's/constant::mathematical::pi/mathematicalConstant::pi/g'
-
-<li> In solver/sedFoam.C : readTimeControls.H must be replace by createTimeControls.H
-<li> In solver/sedFoam.C : rasModelb->kMin() and rasModelb->omegaMin() must be replace by rasModelb->k0() and rasModelb->omega0()
-<li> In solver/sedFoam.C : uncomment foam_ext part (around fixedFluxPressureFvPatchScalarField call) and update Make/options file of solver directory (add myfiniteVolume include directory)
-<li> In solver/pEqn.H : the  ddtCorr calls must be replace by ddtphiCorr as suggested in the file pEqn.H
-<li> 
-</ul>
-
-Next compile the program by running make:
-
-        cd SedFoam-master
-        source $FOAM_ETC/bashrc # load the openfoam environment
-        ./Allwmake
-	
-\note The cyclic boundary condition is similar but not identical in foam-extend. So tutorials must be modified for foam-extend support.
-
 
 \htmlonly
 Go to the <a href="starting.html">next</a> section or return to the

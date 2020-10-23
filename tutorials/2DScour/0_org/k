@@ -24,7 +24,7 @@ boundaryField
     inandouthalf11
     {
 	type		fixedValue;
-	value 		uniform 1e-3;
+	value 		uniform 1e-4;
     }
     inandouthalf12
     {

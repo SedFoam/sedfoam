@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-granularRheology   on;
+granularRheology   off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.55;
 
@@ -29,14 +29,15 @@ Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.66;
 
 n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
-Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
-
-relaxPa         relaxPa [0 0 0 0 0 0 0] 0.005;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
 
 FrictionModel  MuI;
 
 PPressureModel MuI;
 
 FluidViscosityModel  BoyerEtAl;
+
+DilatancyModel  none;
+
 
 // ************************************************************************* //

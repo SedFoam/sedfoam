@@ -6,6 +6,7 @@ wclean
 
 cd ../solver
 wclean libso phaseModel
+wclean libso ppModel
 wclean libso interfacialModels
 wclean libso kineticTheoryModels
 wclean libso granularRheologyModels

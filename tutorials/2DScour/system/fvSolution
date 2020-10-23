@@ -39,7 +39,7 @@ solvers
         relTol          0;
     }
 
-    "(k|epsilon|omega)"
+    "(k|epsilon|omega|pa_new_value|alphaPlastic)"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -47,7 +47,7 @@ solvers
         relTol          0.00001;
     }
 
-    "(k|epsilon|omega)Final"
+    "(kFinal|epsilonFinal|omegaFinal|paFinal|alphaPlasticFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;

@@ -52,7 +52,10 @@ internalField   #codeStream
                 alpha_a[i] = 0.5*0.5*(1.0+tanh((y-0.054)/(0.0490-y)*10.0));
             }
         }
-        alpha_a.writeEntry("", os);
+// OpenFoam.com version and Old OpenFoam.org (<= 6)
+//        alpha_a.writeEntry("", os);
+// New OpenFoam.org version (>=7)
+        writeEntry(os, "", alpha_a);
     #};
 
 };

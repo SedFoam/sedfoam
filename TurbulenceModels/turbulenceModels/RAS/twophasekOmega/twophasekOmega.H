@@ -111,7 +111,7 @@ protected:
             const volScalarField& ESD4_;
             const volScalarField& ESD5_;
             const volScalarField& ESD_;
-            scalar alphaMax_;
+            dimensionedScalar alphaMax_;
 
         // Fields
 
@@ -151,8 +151,12 @@ public:
 
 
     //- Destructor
-    virtual ~twophasekOmega()
-    {}
+    #if (OFVERSION < 220 and OFVERSION >= 200) or OFVERSION == 00
+        virtual ~twophasekOmega() = default;
+    #else
+        virtual ~twophasekOmega()
+        {}
+    #endif
 
 
     // Member Functions
