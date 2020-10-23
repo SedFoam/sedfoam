@@ -126,11 +126,11 @@ assert(rms_phi<=0.025)
 
 u_interp = np.interp(Y[0,:,iprof]/H,yexp, uexp);
 rms_u = rms(u_interp - Ua[0,0,:,iprof])
-assert(rms_u<=0.025)
+assert(rms_u<=0.026)
 
 theta_interp = np.interp(Y[0,:,iprof]/H,yexptheta, thetaexp);
 rms_theta = rms(theta_interp - Theta[0,:,iprof])/np.mean(thetaexp)
-assert(rms_theta<=0.35)
+assert(rms_theta<=0.36)
 
 
 
