@@ -1,6 +1,0 @@
-<map id="Foam::kineticTheoryModels::viscosityModel" name="Foam::kineticTheoryModels::viscosityModel">
-<area shape="rect" id="node2" href="$class_foam_1_1kinetic_theory_models_1_1_gidaspow_viscosity.html" title="Foam::kineticTheoryModels\l::GidaspowViscosity" alt="" coords="248,5,443,47"/>
-<area shape="rect" id="node3" href="$class_foam_1_1kinetic_theory_models_1_1_hrenya_sinclair_viscosity.html" title="Foam::kineticTheoryModels\l::HrenyaSinclairViscosity" alt="" coords="248,71,443,112"/>
-<area shape="rect" id="node4" href="$class_foam_1_1kinetic_theory_models_1_1none_viscosity.html" title="Foam::kineticTheoryModels\l::noneViscosity" alt="" coords="248,136,443,177"/>
-<area shape="rect" id="node5" href="$class_foam_1_1kinetic_theory_models_1_1_syamlal_viscosity.html" title="Foam::kineticTheoryModels\l::SyamlalViscosity" alt="" coords="248,201,443,243"/>
-</map>

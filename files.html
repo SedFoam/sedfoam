@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SedFOAM</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600&amp;subset=latin-ext" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="sedFoam_favicon.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m"><img src="sedFoam_favicon.png" alt="" />SedFOAM</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li>
+              <a href="pages.html">Pages</a>
+              <ol>
+                <li><a href="index.html">About sedFoam</a></li>
+                <li><a href="install.html">Installation</a></li>
+                <li><a href="starting.html">Getting started</a></li>
+              </ol>
+            </li>
+            <li>
+              <a href="pages.html">Tutorials</a>
+              <ol>
+                <li><a href="tutorials_1d.html">One-dimensional test cases</a></li>
+                <li><a href="tutorials_2d3d.html">Multi-dimensional tutorials</a></li>
+                <li><a href="inputs.html">Input Parameters</a></li>
+              </ol>
+            </li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="namespaces.html">Namespaces</a></li>
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html" id="m-navbar-current">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>Files</h1>
+        <ul class="m-doc">
+          <li class="m-doc-collapsible">
+            <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_3d09adf0dd1004472234d9d9738f22d7.html" class="m-doc">/home/travis/build/SedFoam/sedfoam/solver</a> <span class="m-doc"></span>
+            <ul class="m-doc">
+              <li class="m-doc-collapsible collapsed">
+                <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_9c48d8127645c5610b841c9f1b2bf794.html" class="m-doc">granularRheologyModels</a> <span class="m-doc"></span>
+                <ul class="m-doc">
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_88c0a6a5ae1003c8b60aacef889060dd.html" class="m-doc">DilatancyModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_91d60f50fbc7c7e9234f086157c86397.html" class="m-doc">DilatancyModel</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="DilatancyModel_8C.html" class="m-doc">DilatancyModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="DilatancyModel_8H.html" class="m-doc">DilatancyModel.H</a> <span class="m-doc"></span></li>
+                          <li>file <a href="newDilatancyModel_8C.html" class="m-doc">newDilatancyModel.C</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_0385205620c3f6a682c420b74259dcb7.html" class="m-doc">MuIdila</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="MuIdila_8C.html" class="m-doc">MuIdila.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="MuIdila_8H.html" class="m-doc">MuIdila.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_88dde213578415b2e223da54695ba643.html" class="m-doc">MuIvdila</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="MuIvdila_8C.html" class="m-doc">MuIvdila.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="MuIvdila_8H.html" class="m-doc">MuIvdila.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_4f99257f2a741a1cb69197f979d9f54e.html" class="m-doc">none</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="noneDilatancy_8C.html" class="m-doc">noneDilatancy.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="noneDilatancy_8H.html" class="m-doc">noneDilatancy.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_debf55c17d6f0a733e37a5e9f52b9657.html" class="m-doc">FluidViscosityModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_735f2a85268dd7ab116d56dddc56d062.html" class="m-doc">BoyerEtAl</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="BoyerEtAlViscosity_8C.html" class="m-doc">BoyerEtAlViscosity.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="BoyerEtAlViscosity_8H.html" class="m-doc">BoyerEtAlViscosity.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_637bfaed961f2b4f19c907bc3845ecda.html" class="m-doc">Einstein</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="EinsteinViscosity_8C.html" class="m-doc">EinsteinViscosity.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="EinsteinViscosity_8H.html" class="m-doc">EinsteinViscosity.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_51eccf4389e8e7f88c10ccfb2526d9ca.html" class="m-doc">FluidViscosityModel</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="FluidViscosityModel_8C.html" class="m-doc">FluidViscosityModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="FluidViscosityModel_8H.html" class="m-doc">FluidViscosityModel.H</a> <span class="m-doc"></span></li>
+                          <li>file <a href="newFluidViscosityModel_8C.html" class="m-doc">newFluidViscosityModel.C</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_ea2cdec47610c8aadb1e45fb9c0a8590.html" class="m-doc">KriegerDougherty</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="KriegerDoughertyViscosity_8C.html" class="m-doc">KriegerDoughertyViscosity.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="KriegerDoughertyViscosity_8H.html" class="m-doc">KriegerDoughertyViscosity.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_edf6103c458fb052733d4c95f3d01017.html" class="m-doc">none</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="granularRheologyModels_2FluidViscosityModel_2none_2noneViscosity_8C.html" class="m-doc">noneViscosity.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="granularRheologyModels_2FluidViscosityModel_2none_2noneViscosity_8H.html" class="m-doc">noneViscosity.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_666cecfa2be1a5e255e8f363a5dbab04.html" class="m-doc">FrictionModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_74c3c4a0241f938a12b4ff1081f436ed.html" class="m-doc">Coulomb</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="Coulomb_8C.html" class="m-doc">Coulomb.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="Coulomb_8H.html" class="m-doc">Coulomb.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_448ea4049c9d9108b8b2bed255fce62e.html" class="m-doc">FrictionModel</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="FrictionModel_8C.html" class="m-doc">FrictionModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="FrictionModel_8H.html" class="m-doc">FrictionModel.H</a> <span class="m-doc"></span></li>
+                          <li>file <a href="newFrictionModel_8C.html" class="m-doc">newFrictionModel.C</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_1ad0b62b216a7809c7ef323756f2a7a9.html" class="m-doc">MuI</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="MuI_8C.html" class="m-doc">MuI.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="MuI_8H.html" class="m-doc">MuI.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_03e5fe54a0fd7dbabf3f55bf083a7188.html" class="m-doc">MuIdimLess</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="MuIdimLess_8C.html" class="m-doc">MuIdimLess.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="MuIdimLess_8H.html" class="m-doc">MuIdimLess.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_ecab6f148b0e186d1e978d444d527729.html" class="m-doc">MuIv</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="MuIv_8C.html" class="m-doc">MuIv.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="MuIv_8H.html" class="m-doc">MuIv.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_00b9ab865f2968a5199162cbd27dd993.html" class="m-doc">MuIvdimLess</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="MuIvdimLess_8C.html" class="m-doc">MuIvdimLess.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="MuIvdimLess_8H.html" class="m-doc">MuIvdimLess.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_f41020e0f4843a134c0564d479533272.html" class="m-doc">none</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="noneFriction_8C.html" class="m-doc">noneFriction.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="noneFriction_8H.html" class="m-doc">noneFriction.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_c61cf23bad3a7898fa1247d143714d4d.html" class="m-doc">granularRheologyModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li>file <a href="granularRheologyModel_8C.html" class="m-doc">granularRheologyModel.C</a> <span class="m-doc"></span></li>
+                      <li>file <a href="granularRheologyModel_8H.html" class="m-doc">granularRheologyModel.H</a> <span class="m-doc"></span></li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_333d13835e8220767a33e4a7087f436d.html" class="m-doc">PPressureModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_78c73037b77188c697854ec36965544f.html" class="m-doc">MuIPPressure</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="MuIPPressure_8C.html" class="m-doc">MuIPPressure.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="MuIPPressure_8H.html" class="m-doc">MuIPPressure.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_4449bed40ace70dea8acf517f5afecc1.html" class="m-doc">MuIvPPressure</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="MuIvPPressure_8C.html" class="m-doc">MuIvPPressure.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="MuIvPPressure_8H.html" class="m-doc">MuIvPPressure.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_01f901d270b061e27edd3836856c21b7.html" class="m-doc">none</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="nonePPressure_8C.html" class="m-doc">nonePPressure.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="nonePPressure_8H.html" class="m-doc">nonePPressure.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_a9edca36e5a0f9a4bc0aa1c74d468224.html" class="m-doc">PPressureModel</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="newPPressureModel_8C.html" class="m-doc">newPPressureModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="PPressureModel_8C.html" class="m-doc">PPressureModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="PPressureModel_8H.html" class="m-doc">PPressureModel.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="m-doc-collapsible collapsed">
+                <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_655a418f652ba3db86c92505f529b4ad.html" class="m-doc">interfacialModels</a> <span class="m-doc"></span>
+                <ul class="m-doc">
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_ca97dd3c074250dc97a5dff9d2877d79.html" class="m-doc">dragModels</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_aa941ac67dcb18ff7999266ee0f42e99.html" class="m-doc">dragModel</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="dragModel_8C.html" class="m-doc">dragModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="dragModel_8H.html" class="m-doc">dragModel.H</a> <span class="m-doc"></span></li>
+                          <li>file <a href="newDragModel_8C.html" class="m-doc">newDragModel.C</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_dafd56ab7698c40b99dbbdea8d460bae.html" class="m-doc">Ergun</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="Ergun_8C.html" class="m-doc">Ergun.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="Ergun_8H.html" class="m-doc">Ergun.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_9aea7daf680277326683237ae80bd948.html" class="m-doc">Gibilaro</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="Gibilaro_8C.html" class="m-doc">Gibilaro.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="Gibilaro_8H.html" class="m-doc">Gibilaro.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_7a6605ddbfc461397714fe021bc5a9b6.html" class="m-doc">GidaspowErgunWenYu</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="GidaspowErgunWenYu_8C.html" class="m-doc">GidaspowErgunWenYu.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="GidaspowErgunWenYu_8H.html" class="m-doc">GidaspowErgunWenYu.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_cb96c512267b8ff9714d9e6449ec303e.html" class="m-doc">GidaspowSchillerNaumann</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="GidaspowSchillerNaumann_8C.html" class="m-doc">GidaspowSchillerNaumann.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="GidaspowSchillerNaumann_8H.html" class="m-doc">GidaspowSchillerNaumann.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_cbeae42d878e737df7d69b2806643714.html" class="m-doc">SchillerNaumann</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="SchillerNaumann_8C.html" class="m-doc">SchillerNaumann.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="SchillerNaumann_8H.html" class="m-doc">SchillerNaumann.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_9a441746ed6ba4d9d400d86b6e3c4684.html" class="m-doc">SyamlalOBrien</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="SyamlalOBrien_8C.html" class="m-doc">SyamlalOBrien.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="SyamlalOBrien_8H.html" class="m-doc">SyamlalOBrien.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_a339d00b9166b84cceedafd7fb61a339.html" class="m-doc">WenYu</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="WenYu_8C.html" class="m-doc">WenYu.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="WenYu_8H.html" class="m-doc">WenYu.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="m-doc-collapsible collapsed">
+                <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_c8d8325581500c7bddc979ba6eb9b72b.html" class="m-doc">kineticTheoryModels</a> <span class="m-doc"></span>
+                <ul class="m-doc">
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_ef809ec1f654cdae3cb0647e3eb2e888.html" class="m-doc">conductivityModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_ed574667af03e923f075304d0096d733.html" class="m-doc">conductivityModel</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="conductivityModel_8C.html" class="m-doc">conductivityModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="conductivityModel_8H.html" class="m-doc">conductivityModel.H</a> <span class="m-doc"></span></li>
+                          <li>file <a href="newConductivityModel_8C.html" class="m-doc">newConductivityModel.C</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_cbd6b8cdc8e61b8fba33a65fc51a031e.html" class="m-doc">Gidaspow</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="GidaspowConductivity_8C.html" class="m-doc">GidaspowConductivity.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="GidaspowConductivity_8H.html" class="m-doc">GidaspowConductivity.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_c6fdf1b18e48ed0cf21b0bd106f99efe.html" class="m-doc">HrenyaSinclair</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="HrenyaSinclairConductivity_8C.html" class="m-doc">HrenyaSinclairConductivity.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="HrenyaSinclairConductivity_8H.html" class="m-doc">HrenyaSinclairConductivity.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_201adcb75832c9c1c78cd426190456d3.html" class="m-doc">Syamlal</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="SyamlalConductivity_8C.html" class="m-doc">SyamlalConductivity.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="SyamlalConductivity_8H.html" class="m-doc">SyamlalConductivity.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_b14372ac79b85d60ca40e2c449c953f0.html" class="m-doc">frictionalStressModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_5db8426d180f47d8e70be1031ee238e7.html" class="m-doc">frictionalStressModel</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="frictionalStressModel_8C.html" class="m-doc">frictionalStressModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="frictionalStressModel_8H.html" class="m-doc">frictionalStressModel.H</a> <span class="m-doc"></span></li>
+                          <li>file <a href="newFrictionalStressModel_8C.html" class="m-doc">newFrictionalStressModel.C</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_af0336ce11a5f60354d03bfdbe022753.html" class="m-doc">JohnsonJackson</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="JohnsonJacksonFrictionalStress_8C.html" class="m-doc">JohnsonJacksonFrictionalStress.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="JohnsonJacksonFrictionalStress_8H.html" class="m-doc">JohnsonJacksonFrictionalStress.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_1bb373f4e829bd378f13fb4837e3be5f.html" class="m-doc">Schaeffer</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="SchaefferFrictionalStress_8C.html" class="m-doc">SchaefferFrictionalStress.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="SchaefferFrictionalStress_8H.html" class="m-doc">SchaefferFrictionalStress.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_40e82452bae5b49ff3773bae164c42a2.html" class="m-doc">SrivastavaSundaresan</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="SrivastavaSundaresanFrictionalStress_8C.html" class="m-doc">SrivastavaSundaresanFrictionalStress.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="SrivastavaSundaresanFrictionalStress_8H.html" class="m-doc">SrivastavaSundaresanFrictionalStress.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_1fc6bb4f7207ff2a52b7af1a8a981348.html" class="m-doc">granularPressureModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_595c2276a279cc905d63476878ece990.html" class="m-doc">granularPressureModel</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="granularPressureModel_8C.html" class="m-doc">granularPressureModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="granularPressureModel_8H.html" class="m-doc">granularPressureModel.H</a> <span class="m-doc"></span></li>
+                          <li>file <a href="newGranularPressureModel_8C.html" class="m-doc">newGranularPressureModel.C</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_fa07bd4832c67ca39ef0ed548d8137ab.html" class="m-doc">Lun</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="LunPressure_8C.html" class="m-doc">LunPressure.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="LunPressure_8H.html" class="m-doc">LunPressure.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_2733eb013eebf32cbc44aac96db28094.html" class="m-doc">SyamlalRogersOBrien</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="SyamlalRogersOBrienPressure_8C.html" class="m-doc">SyamlalRogersOBrienPressure.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="SyamlalRogersOBrienPressure_8H.html" class="m-doc">SyamlalRogersOBrienPressure.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_572da3579249ebe55f9b5960317a0f19.html" class="m-doc">Torquato</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="TorquatoPressure_8C.html" class="m-doc">TorquatoPressure.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="TorquatoPressure_8H.html" class="m-doc">TorquatoPressure.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_59522ffdb253d7776f6463c2502d4be9.html" class="m-doc">kineticTheoryModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li>file <a href="kineticTheoryModel_8C.html" class="m-doc">kineticTheoryModel.C</a> <span class="m-doc"></span></li>
+                      <li>file <a href="kineticTheoryModel_8H.html" class="m-doc">kineticTheoryModel.H</a> <span class="m-doc"></span></li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_1092690947514f68a6730a663c054348.html" class="m-doc">radialModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_ddbf11f38f8fc3390404f1828681efbf.html" class="m-doc">CarnahanStarling</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="CarnahanStarlingRadial_8C.html" class="m-doc">CarnahanStarlingRadial.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="CarnahanStarlingRadial_8H.html" class="m-doc">CarnahanStarlingRadial.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_9a2d2f7bdf9ae8bde64ba70f0a2473bc.html" class="m-doc">Gidaspow</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="GidaspowRadial_8C.html" class="m-doc">GidaspowRadial.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="GidaspowRadial_8H.html" class="m-doc">GidaspowRadial.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_ff1b2ac866fbea4810efa2a21167c1f5.html" class="m-doc">LunSavage</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="LunSavageRadial_8C.html" class="m-doc">LunSavageRadial.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="LunSavageRadial_8H.html" class="m-doc">LunSavageRadial.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_abbb72a7b6ade44f2315d4085d6bc303.html" class="m-doc">radialModel</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="newRadialModel_8C.html" class="m-doc">newRadialModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="radialModel_8C.html" class="m-doc">radialModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="radialModel_8H.html" class="m-doc">radialModel.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_9edbb6fcaa223c5ebbf9b7451589d529.html" class="m-doc">SinclairJackson</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="SinclairJacksonRadial_8C.html" class="m-doc">SinclairJacksonRadial.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="SinclairJacksonRadial_8H.html" class="m-doc">SinclairJacksonRadial.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_9e9181b81f7167648212fccd8a375b5c.html" class="m-doc">Torquato</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="TorquatoRadial_8C.html" class="m-doc">TorquatoRadial.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="TorquatoRadial_8H.html" class="m-doc">TorquatoRadial.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_52dc49e8f4af28b3d4bdb8c45ae0cee0.html" class="m-doc">viscosityModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_b27489cfbcf83be21b5fd6d0399e6046.html" class="m-doc">Gidaspow</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="GidaspowViscosity_8C.html" class="m-doc">GidaspowViscosity.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="GidaspowViscosity_8H.html" class="m-doc">GidaspowViscosity.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_6bb09426ec08f5abe0793e94390d4d51.html" class="m-doc">HrenyaSinclair</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="HrenyaSinclairViscosity_8C.html" class="m-doc">HrenyaSinclairViscosity.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="HrenyaSinclairViscosity_8H.html" class="m-doc">HrenyaSinclairViscosity.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_4007eba19e4699abe13e38c3511c06ec.html" class="m-doc">none</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="kineticTheoryModels_2viscosityModel_2none_2noneViscosity_8C.html" class="m-doc">noneViscosity.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="kineticTheoryModels_2viscosityModel_2none_2noneViscosity_8H.html" class="m-doc">noneViscosity.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_78462b795caab5f77b6c360322a9d61c.html" class="m-doc">Syamlal</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="SyamlalViscosity_8C.html" class="m-doc">SyamlalViscosity.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="SyamlalViscosity_8H.html" class="m-doc">SyamlalViscosity.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                      <li class="m-doc-collapsible collapsed">
+                        <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_f7d2268bdd4447ef39cb23fca7d8057e.html" class="m-doc">viscosityModel</a> <span class="m-doc"></span>
+                        <ul class="m-doc">
+                          <li>file <a href="newViscosityModel_8C.html" class="m-doc">newViscosityModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="viscosityModel_8C.html" class="m-doc">viscosityModel.C</a> <span class="m-doc"></span></li>
+                          <li>file <a href="viscosityModel_8H.html" class="m-doc">viscosityModel.H</a> <span class="m-doc"></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="m-doc-collapsible collapsed">
+                <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_1daacf704d3ab5ffa7c791a2a63b7468.html" class="m-doc">phaseModel</a> <span class="m-doc"></span>
+                <ul class="m-doc">
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_63e3451e6b7ff7acc9c309258ab524e8.html" class="m-doc">phaseModel</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li>file <a href="phaseModel_8C.html" class="m-doc">phaseModel.C</a> <span class="m-doc"></span></li>
+                      <li>file <a href="phaseModel_8H.html" class="m-doc">phaseModel.H</a> <span class="m-doc"></span></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="m-doc-collapsible collapsed">
+                <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_12f17104c61da834965aaef471500e49.html" class="m-doc">ppModel</a> <span class="m-doc"></span>
+                <ul class="m-doc">
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_604165bc6b51fc1d714c0fc49eb8962d.html" class="m-doc">Chauchat</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li>file <a href="Chauchat_8C.html" class="m-doc">Chauchat.C</a> <span class="m-doc"></span></li>
+                      <li>file <a href="Chauchat_8H.html" class="m-doc">Chauchat.H</a> <span class="m-doc"></span></li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_1e2097f0c0f6bc628e8c9047c0c7a8ef.html" class="m-doc">Hsu</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li>file <a href="Hsu_8C.html" class="m-doc">Hsu.C</a> <span class="m-doc"></span></li>
+                      <li>file <a href="Hsu_8H.html" class="m-doc">Hsu.H</a> <span class="m-doc"></span></li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_7c15b77b62d1573fc6d31187af606220.html" class="m-doc">JohnsonJackson</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li>file <a href="JohnsonJackson_8C.html" class="m-doc">JohnsonJackson.C</a> <span class="m-doc"></span></li>
+                      <li>file <a href="JohnsonJackson_8H.html" class="m-doc">JohnsonJackson.H</a> <span class="m-doc"></span></li>
+                    </ul>
+                  </li>
+                  <li class="m-doc-collapsible collapsed">
+                    <a href="#" onclick="return toggle(this)">dir</a> <a href="dir_054ab094efb972cc58963857e83ce71d.html" class="m-doc">MerckelbachKranenburg</a> <span class="m-doc"></span>
+                    <ul class="m-doc">
+                      <li>file <a href="MerckelbachKranenburg_8C.html" class="m-doc">MerckelbachKranenburg.C</a> <span class="m-doc"></span></li>
+                      <li>file <a href="MerckelbachKranenburg_8H.html" class="m-doc">MerckelbachKranenburg.H</a> <span class="m-doc"></span></li>
+                    </ul>
+                  </li>
+                  <li>file <a href="newPpModel_8C.html" class="m-doc">newPpModel.C</a> <span class="m-doc"></span></li>
+                  <li>file <a href="ppModel_8C.html" class="m-doc">ppModel.C</a> <span class="m-doc"></span></li>
+                  <li>file <a href="ppModel_8H.html" class="m-doc">ppModel.H</a> <span class="m-doc"></span></li>
+                </ul>
+              </li>
+              <li>file <a href="alphaCourantNo_8H.html" class="m-doc">alphaCourantNo.H</a> <span class="m-doc">Calculates and outputs the mean and maximum Courant Numbers.</span></li>
+              <li>file <a href="alphaEqn_8H.html" class="m-doc">alphaEqn.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="calculateUfall_8H.html" class="m-doc">calculateUfall.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="callFrictionStress_8H.html" class="m-doc">callFrictionStress.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="callKineticTheory_8H.html" class="m-doc">callKineticTheory.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="CourantNos_8H.html" class="m-doc">CourantNos.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="createFields_8H.html" class="m-doc">createFields.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="createRASTurbulence_8H.html" class="m-doc">createRASTurbulence.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="createTwoPhaseRASTurbulence_8H.html" class="m-doc">createTwoPhaseRASTurbulence.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="DDtU_8H.html" class="m-doc">DDtU.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="gravityRamp_8H.html" class="m-doc">gravityRamp.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="liftDragCoeffs_8H.html" class="m-doc">liftDragCoeffs.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="OutputGradPOSC_8H.html" class="m-doc">OutputGradPOSC.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="packingLimiter_8H.html" class="m-doc">packingLimiter.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="pEqn_8H.html" class="m-doc">pEqn.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="readGravity_8H.html" class="m-doc">readGravity.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="readTwoPhaseEulerFoamControls_8H.html" class="m-doc">readTwoPhaseEulerFoamControls.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="sedFoam_8C.html" class="m-doc">sedFoam.C</a> <span class="m-doc">Solver for a system of 2 phases with one phase dispersed, e.g. solid particles in a fluid.</span></li>
+              <li>file <a href="setDeltaT_8H.html" class="m-doc">setDeltaT.H</a> <span class="m-doc">Reset the timestep to maintain a constant maximum courant Number. Reduction of time-step is immediate, but increase is damped to avoid unstable oscillations.</span></li>
+              <li>file <a href="UaUbLimiter_8H.html" class="m-doc">UaUbLimiter.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="UEqns_8H.html" class="m-doc">UEqns.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="updateTwoPhaseRASTurbulence_8H.html" class="m-doc">updateTwoPhaseRASTurbulence.H</a> <span class="m-doc"></span></li>
+              <li>file <a href="writeTau_8H.html" class="m-doc">writeTau.H</a> <span class="m-doc"></span></li>
+            </ul>
+          </li>
+          <li>file <a href="credits_8doc.html" class="m-doc">credits.doc</a> <span class="m-doc"></span></li>
+          <li>file <a href="index_8doc.html" class="m-doc">index.doc</a> <span class="m-doc"></span></li>
+          <li>file <a href="input_8doc.html" class="m-doc">input.doc</a> <span class="m-doc"></span></li>
+          <li>file <a href="install_8doc.html" class="m-doc">install.doc</a> <span class="m-doc"></span></li>
+          <li>file <a href="starting_8doc.html" class="m-doc">starting.doc</a> <span class="m-doc"></span></li>
+          <li>file <a href="tutorials__1d_8doc.html" class="m-doc">tutorials_1d.doc</a> <span class="m-doc"></span></li>
+          <li>file <a href="tutorials__2d3d_8doc.html" class="m-doc">tutorials_2d3d.doc</a> <span class="m-doc"></span></li>
+        </ul>
+        <script>
+        function toggle(e) {
+            e.parentElement.className = e.parentElement.className == 'm-doc-collapsible' ?
+                'm-doc-expansible' : 'm-doc-collapsible';
+            return false;
+        }
+        /* Collapse all nodes marked as such. Doing it via JS instead of
+           directly in markup so disabling it doesn't harm usability. The list
+           is somehow regenerated on every iteration and shrinks as I change
+           the classes. It's not documented anywhere and I'm not sure if this
+           is the same across browsers, so I am going backwards in that list to
+           be sure. */
+        var collapsed = document.getElementsByClassName("collapsed");
+        for(var i = collapsed.length - 1; i >= 0; --i)
+            collapsed[i].className = 'm-doc-expansible';
+        </script>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages, OpenGL, GLSL, Vulkan and OpenAL APIs. You can omit any prefix from the symbol or file path; adding a <code>:</code> or <code>/</code> suffix lists all members of given symbol or directory.</p> <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span> / <span class="m-label m-dim">&uarr;</span> to navigate through the list, <span class="m-label m-dim">Enter</span> to go. <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can copy a link to the result using <span class="m-label m-dim">⌘</span> <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span> <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v1.js"></script>
+<script src="searchdata-v1.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>sedFoam docs. Part of the <a href="https://github.com/SedFoam/sedfoam">sedFoam project</a>, copyright © <a href="cyrille.bonamy@univ-grenoble-alpes.fr/">Cyrille Bonamy</a> and <a href="credits-contributors.html">contributors</a>, 2015&ndash;2020.<br />Generated by <a href="https://doxygen.org/">Doxygen</a> 1.8.20 and <a href="https://mcss.mosra.cz/">m.css</a>. Contact the team via <a href="https://github.com/SedFoam/sedfoam">GitHub</a>, <a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">e-mail</a> or <a href="https://twitter.com/sedfoam">Twitter</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

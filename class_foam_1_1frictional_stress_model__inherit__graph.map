@@ -1,5 +1,0 @@
-<map id="Foam::frictionalStressModel" name="Foam::frictionalStressModel">
-<area shape="rect" id="node2" href="$class_foam_1_1_johnson_jackson_frictional_stress.html" title="Foam::JohnsonJacksonFrictional\lStress" alt="" coords="252,5,472,47"/>
-<area shape="rect" id="node3" href="$class_foam_1_1_schaeffer_frictional_stress.html" title="Foam::SchaefferFrictional\lStress" alt="" coords="271,71,453,112"/>
-<area shape="rect" id="node4" href="$class_foam_1_1_srivastava_sundaresan_frictional_stress.html" title="Foam::SrivastavaSundaresan\lFrictionalStress" alt="" coords="257,136,467,177"/>
-</map>

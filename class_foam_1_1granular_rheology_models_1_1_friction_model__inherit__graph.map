@@ -1,8 +1,0 @@
-<map id="Foam::granularRheologyModels::FrictionModel" name="Foam::granularRheologyModels::FrictionModel">
-<area shape="rect" id="node2" href="$class_foam_1_1granular_rheology_models_1_1_coulomb.html" title="Foam::granularRheologyModels\l::Coulomb" alt="" coords="291,5,513,47"/>
-<area shape="rect" id="node3" href="$class_foam_1_1granular_rheology_models_1_1_mu_i.html" title="Foam::granularRheologyModels::MuI" alt="" coords="276,71,528,98"/>
-<area shape="rect" id="node4" href="$class_foam_1_1granular_rheology_models_1_1_mu_idim_less.html" title="Foam::granularRheologyModels\l::MuIdimLess" alt="" coords="291,123,513,164"/>
-<area shape="rect" id="node5" href="$class_foam_1_1granular_rheology_models_1_1_mu_iv.html" title="Foam::granularRheologyModels\l::MuIv" alt="" coords="291,188,513,229"/>
-<area shape="rect" id="node6" href="$class_foam_1_1granular_rheology_models_1_1_mu_ivdim_less.html" title="Foam::granularRheologyModels\l::MuIvdimLess" alt="" coords="291,253,513,295"/>
-<area shape="rect" id="node7" href="$class_foam_1_1granular_rheology_models_1_1none_friction.html" title="Foam::granularRheologyModels\l::noneFriction" alt="" coords="291,319,513,360"/>
-</map>

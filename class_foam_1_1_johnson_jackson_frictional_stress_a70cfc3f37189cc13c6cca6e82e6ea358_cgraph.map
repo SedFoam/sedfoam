@@ -1,5 +1,0 @@
-<map id="Foam::JohnsonJacksonFrictionalStress::~JohnsonJacksonFrictionalStress" name="Foam::JohnsonJacksonFrictionalStress::~JohnsonJacksonFrictionalStress">
-<area shape="rect" id="node2" href="$class_foam_1_1_johnson_jackson_frictional_stress.html#aa7abce18f03fd2f5932b5ca150489e0b" title="Foam::JohnsonJacksonFrictional\lStress::frictionalPressure" alt="" coords="289,13,509,54"/>
-<area shape="rect" id="node3" href="$class_foam_1_1_johnson_jackson_frictional_stress.html#a5fa2adac1140a1f6063fa2f1b449b2a2" title="Foam::JohnsonJacksonFrictional\lStress::frictionalPressurePrime" alt="" coords="557,13,777,54"/>
-<area shape="rect" id="node4" href="$class_foam_1_1_johnson_jackson_frictional_stress.html#a051614b0abe0ff9657e75a20df2468ce" title="Foam::JohnsonJacksonFrictional\lStress::muf" alt="" coords="825,13,1045,54"/>
-</map>
