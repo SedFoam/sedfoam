@@ -13,11 +13,13 @@ EXE_INC = \
     -IgranularRheologyModels/lnInclude \
     -IinterfacialModels/lnInclude \
     -IphaseModel/lnInclude \
+    -IppModel/lnInclude \
     -Iaveraging
 
 EXE_LIBS = \
     -L$(FOAM_LIBBIN)\
     -lEulerianInterfacialSedModels \
+    -lEulerianPpSedModels \
     -lfiniteVolume \
     -lmeshTools \
     -lfvOptions \

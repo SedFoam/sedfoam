@@ -9,21 +9,29 @@ import matplotlib as mpl
 
 
 def readOpenFoam(sol):
-    import subprocess
-    #
-    # Reading SedFoam results
-    #
-    #
-    tread = 'latestTime'
-    Nt = 1
-    X, Y, Z = fluidfoam.readmesh(sol)
-    alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
-    Ua = fluidfoam.readvector(sol, tread, 'Ua')
-    Ub = fluidfoam.readvector(sol, tread, 'Ub')
-    Tauf = fluidfoam.readtensor(sol, tread, 'Taub')
-    Taus = fluidfoam.readtensor(sol, tread, 'Taua')
+	import subprocess
+	#
+	# Reading SedFoam results
+	try:
+		proc = subprocess.Popen(
+		['foamListTimes', '-latestTime', '-case', sol], stdout=subprocess.PIPE)
+	except:
+		print("foamListTimes : command not found")
+		print("Do you have load OpenFoam environement?")
+		sys.exit(0)
+	output = proc.stdout.read()
+	tread = output.decode().rstrip().split('\n')[0]
+	Nt = 1
+	X, Y, Z = fluidfoam.readmesh(sol)
+	alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
+	Ua = fluidfoam.readvector(sol, tread, 'Ua')
+	Ub = fluidfoam.readvector(sol, tread, 'Ub')
+	Tauf = fluidfoam.readtensor(sol, tread, 'Taub')
+	Taus = fluidfoam.readtensor(sol, tread, 'Taua')
+	k = fluidfoam.readscalar(sol, tread, 'k')
+	Theta = fluidfoam.readscalar(sol, tread, 'Theta')
 
-    return Nt, Y, Ua[0, :], Ub[0, :], alpha, Tauf[1, :], Taus[1, :]
+	return Nt, Y, Ua[0, :], Ub[0, :], alpha, Tauf[3, :], Taus[3, :], k,Theta
 
 #
 # Change fontsize
@@ -39,14 +47,14 @@ mpl.rcParams['lines.linewidth'] = lw
 mpl.rcParams['lines.markersize'] = ms
 
 #
-gs = gridspec.GridSpec(1, 3)
+gs = gridspec.GridSpec(1, 4)
 gs.update(left=0.065, right=0.975, top=0.95,
-          bottom=0.15, wspace=0.1, hspace=0.15)
+          bottom=0.15, wspace=0.15, hspace=0.2)
 #
 # Figure size
 #
-figwidth = 13.5
-figheight = 5
+figwidth = 14
+figheight = 6
 
 #
 # Parameters
@@ -82,7 +90,7 @@ label = '$\mu(I)$+ML'
 # case 1
 #
 solpath = basepath + casedir
-Nt, y, ua, ub, alpha0, Tauxy, Tausxy = readOpenFoam(solpath)
+Nt, y, ua, ub, alpha0, Tauxy, Tausxy, k, Theta = readOpenFoam(solpath)
 
 #
 # Plots
@@ -102,8 +110,8 @@ umax = 1.
 fig = figure(num=1, figsize=(figwidth, figheight),
              dpi=60, facecolor='w', edgecolor='w')
 
-x_ticks = np.array([0,  2.5, 5])
-x_labels = ['0', '2.5', '5']
+x_ticks = np.array([0,  1, 2,3])
+x_labels = ['0', '1', '2','3']
 #
 # ax1
 #
@@ -133,14 +141,29 @@ grid()
 # ax3
 #
 ax3 = subplot(gs[0, 2])
-p3_2 = ax3.plot(rho_f * (1. - alpha0) * Tauxy, (y + Z0num) / (2. * rs), '-b')
-p3_2 = ax3.plot(rho_s * alpha0 * Tausxy, (y + Z0num) / (2. * rs), '--r')
+p3_2 = ax3.plot( Tauxy, (y + Z0num) / (2. * rs), '-b')
+p3_2 = ax3.plot(Tausxy, (y + Z0num) / (2. * rs), '--r')
 p3_1 = ax3.plot(rho_f * uwexp, Zexp / (2. * rs), 'ok',
                 markersize=ms, label='experiment')
 ax3.set_yticklabels([])
 xlabel(r'$\tau_{xz} (Pa)$')
-axis([0, 3, zmin, zmax])
 xticks(x_ticks, x_labels)
+axis([0, 3.5, zmin, zmax])
+grid()
+
+#
+# ax4
+#
+ax4 = subplot(gs[0, 3])
+p4_2 = ax4.plot( k, (y + Z0num) / (2. * rs), '-b',label='TKE: k')
+p4_2 = ax4.plot(1.5*Theta, (y + Z0num) / (2. * rs), '--r',
+                                    label=r'Gran. Temp.: $3/2\theta$')
+#p4_1 = ax4.plot(rho_f * uwexp, Zexp / (2. * rs), 'ok',
+#                markersize=ms, label='experiment')
+ax4.legend(fontsize=12)
+ax4.set_yticklabels([])
+xlabel(r'$k, 3/2\theta \ (m^2/s^2)$')
+axis([0, 7.5e-3, zmin, zmax])
 grid()
 
 

@@ -6,7 +6,8 @@ umask 22
 rm -rf html latex man
 doxygen --version
 doxygen
-
+cp twitter.png html/.
+cp github.png html/.
 # fix permissions (NB: '+X' and not '+x'!)
 chmod -R a+rX ./
 

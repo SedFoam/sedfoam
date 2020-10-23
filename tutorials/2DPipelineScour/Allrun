@@ -3,7 +3,9 @@
 # create the mesh
 foamCleanPolyMesh
 blockMesh
+sed -i -e 's/empty/emptyy/g' constant/polyMesh/boundary
 snappyHexMesh -overwrite
+sed -i -e 's/emptyy/empty/g' constant/polyMesh/boundary
 extrudeMesh
 
 # create the intial time folder

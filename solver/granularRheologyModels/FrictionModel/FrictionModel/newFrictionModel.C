@@ -48,8 +48,9 @@ Foam::granularRheologyModels::FrictionModel::New
             << "    unknown FrictionModelType type "
             << FrictionModelType
             << ", constructor not in hash table" << endl << endl
-            << "    Valid FrictionModelType types are :" << endl;
-        Info<< dictionaryConstructorTablePtr_->sortedToc() << abort(FatalError);
+            << "    Valid FrictionModelType types are :"  << endl
+            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
+        Info << abort(FatalError) << endl;
     }
 
     return autoPtr<FrictionModel>(cstrIter()(dict));

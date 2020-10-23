@@ -57,10 +57,10 @@ License
                 phiAlpha,
                 zeroField(),
                 zeroField(),
-                UniformField<scalar>(0.99*alphaMax),
+                UniformField<scalar>(0.99*alphaMax.value()),
                 zeroField()
             );
-        #elif (OFVERSION < 220 and OFVERSION > 190) or OFVERSION == 00
+        #elif (OFVERSION < 220 and OFVERSION >= 190) or OFVERSION == 00
             MULES::explicitSolve
             (
                 geometricOneField(),
@@ -69,7 +69,7 @@ License
                 phiAlpha,
                 zeroField(),
                 zeroField(),
-                UniformField<scalar>(0.99*alphaMax),
+                UniformField<scalar>(0.99*alphaMax.value()),
                 zeroField()
             );
         #else
@@ -81,7 +81,7 @@ License
                 phiAlpha,
                 zeroField(),
                 zeroField(),
-                0.99*alphaMax,
+                0.99*alphaMax.value(),
                 0
             );
         #endif

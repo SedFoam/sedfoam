@@ -88,18 +88,26 @@ UMuI = UMuI * U0
 yMuI = yMuI * D
 PpMuI = PpMuI * drho * g * D
 
-#########################################
-# Loading OpenFoam results
+
+# Reading SedFoam results
 #
-#
-#
+
 #
 case = '1DBedLoad'
 basepath = '../'
 # basepath='../../'
 sol = basepath + case + '/'
 
-tread = 'latestTime'
+try:
+    proc = subprocess.Popen(
+        ['foamListTimes', '-latestTime', '-case', sol], stdout=subprocess.PIPE)
+except:
+    print("foamListTimes : command not found")
+    print("Do you have load OpenFoam environement?")
+    sys.exit(0)
+output = proc.stdout.read()
+tread = output.decode().rstrip().split('\n')[0]
+
 
 Nx = 1
 Ny = 200

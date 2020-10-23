@@ -4,4 +4,6 @@ set -x
 
 turbulenceModels/Allwmake
 
+wilcoxomegawallfunction/Allwmake
+
 # ----------------------------------------------------------------- end-of-file

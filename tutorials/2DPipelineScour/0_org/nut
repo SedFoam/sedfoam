@@ -23,7 +23,8 @@ boundaryField
 {
     cylinder
     {
-	type zeroGradient;
+        type nutkWallFunction;
+        value           uniform 0;
     }
     inlet
     {

@@ -74,8 +74,8 @@ def readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N):
 
 # Parameters
 t0 = 0.
-Nt = 3
-Dt = 0.5
+Nt = 31
+Dt = 1
 
 
 h0 = 0.15
@@ -109,7 +109,7 @@ alphap, Xp, Yp, tlist, ybed = readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N)
 #
 fig = plt.figure(num=1, figsize=(18, 8), dpi=100, facecolor='w', edgecolor='w')
 ax0 = fig.add_subplot(gs1[0, 0])
-tplot = [0, 0.5, 1]
+tplot = [0,10, 20, 30]
 nplot = -1
 sym = ['--+', '-.', '--', '.']
 for k in range(len(tplot)):
@@ -121,7 +121,7 @@ xlabel('x (m)')
 ylabel('interface position (m)')
 axis([0, 0.5, -0.05, 0.05])
 
-# plt.savefig(figpath+figName2,format='png',dpi = 300)
+plt.savefig(figpath+figName2,format='png',dpi = 300)
 
 #
 # -----------fig2: 2D bed interface at several time--------------
@@ -134,13 +134,13 @@ levels = [0, 0.05, 0.1, 0.15, 0.2, 0.25,
           0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.625]
 levels2 = [0.005, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
 
-tfig = [1, 2]
-tfig2 = [4, 6]
+tfig = [0, 10]
+tfig2 = [20, 30]
 nplot = -1
 for k in range(len(tfig)):
     nplot = nplot + 1
     alphat = np.transpose(alphap[:, :, 0, tfig[k]])
-#    alphat2 = np.transpose(alphap[:, :, 0, tfig2[k]])
+    alphat2 = np.transpose(alphap[:, :, 0, tfig2[k]])
 
     ax1 = fig.add_subplot(gs2[nplot, 0])
     title('t=' + str(tfig[nplot] * Dt) + ' s')
@@ -159,9 +159,9 @@ for k in range(len(tfig)):
     yticks([-0.025, 0, 0.025], ['-0.025', '0', '0.025'])
 
     ax2 = fig.add_subplot(gs2[nplot, 1])
-#    title('t=' + str(tfig2[nplot] * Dt) + ' s')
-#    CS_colors = plt.contourf(Xp, Yp, alphat2, nlevels,  cmap=plt.cm.coolwarm)
-#    l0 = ax2.plot(Xp, ybed[:, tfig2[k]], '--k', linewidth=1)
+    title('t=' + str(tfig2[nplot] * Dt) + ' s')
+    CS_colors = plt.contourf(Xp, Yp, alphat2, nlevels,  cmap=plt.cm.coolwarm)
+    l0 = ax2.plot(Xp, ybed[:, tfig2[k]], '--k', linewidth=1)
     axis([0, 0.5, -0.03, 0.03])
     xticks([], [])
     yticks([], [])
@@ -185,6 +185,6 @@ cb.set_ticklabels(labels)
 cb.set_label(r'$\alpha$')
 
 
-# plt.savefig(figpath+figName2,format='png',dpi = 300)
+plt.savefig(figpath+figName2,format='png',dpi = 300)
 
 show()
