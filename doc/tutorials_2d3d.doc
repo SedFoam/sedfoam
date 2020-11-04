@@ -223,8 +223,141 @@ and you should see the following figures:
 
 \section Scour2DCylinder 2DPipelineScour: Scour around an horizontal cylinder
 
-under construction
+In this tutorial, the experimental configuration investigating scour under a submarine pipeline from Mao (1986) is reproduced numerically.
 
+\subsection preprocSP Pre-processing
+
+This tutorial is distributed with sedFoam3.0 under the folder sedFoamDirectory/tutorials/2DPipelineScour.
+
+\subsection meshgen_SP Mesh generation
+
+The numerical domain dimensions presented in figure 12. A cylinder of diameter \f$D=5cm\f$ is placed 15 diameters away from the inlet. The overall domain dimensions were 35 diameters long and 6.1 diameters high. The mesh is generated using the OpenFOAM utilities blockMesh and snappyHexMesh. The mesh generated with blockMesh is a simple rectangle with regular grid spacing excepted in the vertical direction where cells are expanding toward the top boundary. The snappyHexMesh utility uses the file Cyl.stl located in the constant/triSurface directory containing the cylinder geometry to remove mesh cells inside it, add layers of cells around the cylinder and refine cells in regions of high concentration gradient at the bed. 
+
+@image html "sketch_2DPipelineScour.png" "Figure 12: Sketch of the scour under a submarine pipeline." width=600px
+@image latex "sketch_2DPipelineScour.png" "Figure 12: Sketch of the scour under a submarine pipeline."
+
+Depending on the turbulence model used, the number of layers should not be the same to accurately predict the boundary layer around the cylinder. The default snappyHexMeshDict in the system directory is written to perform simulations using the \f$k-\omega\f$ turbulence model. For simulations using the \f$k-\varepsilon\f$ model, the user should use/rename the file snappyHexMeshDict_kEpsilon located in the system directory to generate the mesh.
+
+\subsection  BC_init_SP Boundary and initial conditions
+
+The case is set up to start at time t = 0 s, as for the previous tutorials the initial fields data are stored in the 0_org sub-directory of the case directory.
+
+The top boundary condition is a symmetryPlane. The outlet pressure is set to 0. The outlet boundary condition for the velocity is inletOulet corresponding to a homogeneous Neumann boundary condition for outgoing flows and a homogeneous Dirichlet boundary condition for incoming flows. The inlet is decomposed into two parts. From the bottom to \f$y = 1.5D\f$, a wall-type boundary condition is applied. From \f$y = 1.5D\f$ to the top, a rough wall log law velocity profile is used following the expression:
+
+\f$ u^f_x(y) = \dfrac{u_*}{\kappa}ln\left(\dfrac{30y}{k_s}\right)\f$
+
+with \f$u_*=0.04318m/s\f$ the bottom friction velocity, \f$\kappa=0.41\f$ the von Karman constant and \f$k_s=2.5d\f$ the Nikuradse roughness length. The velocity is increased linearly during the first 4 seconds of the simulation. Inlet values for turbulent quantities were set following \f$k = 10 \times 10^{-4} \overline U\f$, \f$\varepsilon = k^{3/2} /0.1 h\f$ and \f$\omega = k^{1/2} /0.1 C_\mu h\f$ with \f$\overline U=0.87m/s\f$ the bulk velocity, \f$h\f$ the distance from the bed to the top boundary and \f$C_\mu=0.09\f$ an empirical constant.
+
+The sediment bed is initialised using the expression \f$alpha_{Init}=0.6128*0.5*\left[1+tanh\left(-\dfrac{0.026+y}{0.001})\right]\f$.
+
+\subsection PhysProp_SP Physical properties
+
+The transportProperties file for the 2DPipelineScour case is shown below:
+
+\verbatim
+phasea
+{
+    rho             rho [ 1 -3 0 0 0 ] 2650;
+    nu              nu [ 0 2 -1 0 0 ] 1e-6;
+    d               d [ 0 1 0 0 0 0 0 ] 0.36e-3;
+    sF              sF   [ 0 0  0 0 0 0 0 ] 1.;    // shape Factor to adjust settling velocity for non-spherical particles
+    hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;  // hindrance exponent for drag: beta^(-hExp) (2.65 by default)
+}
+
+phaseb
+{
+    rho             rho [ 1 -3 0 0 0 ] 1000;
+    nu              nu [ 0 2 -1 0 0 ] 1.e-06;
+    d               d [ 0 1 0 0 0 0 0 ] 10e-6;
+    sF              sF   [ 0 0  0 0 0 0 0 ] 1.;
+    hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;
+}
+//*********************************************************************** //
+
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-4;  // minimum volume fraction (phase a) for division by alpha 
+
+alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
+
+Cvm             Cvm [ 0 0 0 0 0 ] 0;                // Virtual/Added Mass coefficient
+
+Cl              Cl [ 0 0 0 0 0 ] 0;                 // Lift force coefficient
+
+
+transportModel  Newtonian;
+
+nu              nu [ 0 2 -1 0 0 0 0 ] 1e-06;
+nuMax        nuMax [0 2 -1 0 0 0 0] 10;      // viscosity limiter for the Frictional model (required for stability)
+\endverbatim
+
+The physical property of the particles (diameter and density) and of the fluid (density and kinematic viscosity) have been set to the values given in Mao (1986).
+
+\subsection control_SP Control
+
+The system/controlDict file indicates that for this case the time step is adaptative to have a maximum CFL number below 0.1 and that the computation ends at 45s of dynamics.
+
+\verbatim
+application     sedFoam;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         45;
+
+deltaT          1.e-4;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.5;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  6;
+
+writeCompression uncompressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable on;
+
+adjustTimeStep  yes;
+
+maxCo           0.1;
+
+maxAlphaCo      0.1;
+
+maxDeltaT       15.e-5;
+
+libs (
+    "libgroovyBC.so"
+    "libgroovyStandardBCs.so"
+    "libincompressibleTurbulenceModels.so"
+);
+\verbatim
+
+\subsection  lauch_SP Computation launching
+
+As for the previous case, you can lauch the computation by executing * Allrun *. The simulations is run in parallel on 16 cores.
+
+\subsection post_SP Post-processing using python
+
+The post-processing python scripts plot_profiles2DPipelineScour.py and plot_depth2DPipelineScour.py are located in the folder tutorials/Py.
+
+The script _profiles2DPipelineScour.py plots bed profiles at 11s, 18s and 25s compared with experimental data like in the following figure:
+
+@image html "bed_profiles_kEpsilon.png" "Figure 13: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$k-\omega\f$ turbulence model." width=600px
+@image latex "bed_profiles_kEpsilon.png" "Figure 13: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$k-\omega\f$ turbulence model."
+
+The script plot_depth2DPipelineScour.py plots the maximum scour depth compared with experimental data like in the following figure:
+
+@image html "maximum_depth_kEpsilon.png" "Figure 14: Maximum scour depth using a \f$k-\omega\f$ turbulence model." width=600px
+@image latex "maximum_depth_kEpsilon.png" "Figure 14: Maximum scour depth using a \f$k-\omega\f$ turbulence model."
 
 \section Scour3DCylinder 3DScourCylinder: Scour around a vertical cylinder
 

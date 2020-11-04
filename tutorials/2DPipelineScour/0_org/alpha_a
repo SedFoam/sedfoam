@@ -27,15 +27,8 @@ boundaryField
     }
     inlet
     {
-         type            groovyBC;
-         valueExpression "inletprofilealpha(pos().y)/100.";
-         lookuptables    (
-             {
-             name            inletprofilealpha;
-             file        "$FOAM_CASE/1d_profil/alpha.xy";
-             outOfBounds     clamp;
-             }
-         );	
+        type            groovyBC;
+        valueExpression "0.6128*0.5*(1.0+tanh((-0.026-pos().y)*1000))";
     }
     outlet
     {
