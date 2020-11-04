@@ -23,13 +23,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         60;
+endTime         300;
 
 deltaT          2e-5;
 
 writeControl    adjustableRunTime;
 
-writeInterval   0.5;
+writeInterval   50;
 
 purgeWrite      0;
 
@@ -37,7 +37,7 @@ writeFormat     binary;
 
 writePrecision  6;
 
-writeCompression off;
+writeCompression uncompressed;
 
 timeFormat      general;
 
@@ -45,17 +45,13 @@ timePrecision   6;
 
 runTimeModifiable on;
 
-adjustTimeStep  true;
+adjustTimeStep  yes;
 
-maxCo           0.05;
+maxCo           0.3;
 
-maxAlphaCo      0.05;
+maxAlphaCo      0.3;
 
-maxDeltaT       2e-5;
+maxDeltaT       1e-3;
 
-libs (
-"libgroovyBC.so"
-"libgroovyStandardBCs.so"
-     );
 
 // ************************************************************************* //

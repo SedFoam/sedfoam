@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.1.0                                 |
+|  \\    /   O peration     | Version:  2.4.0                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -11,51 +11,32 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      p;
+    object      k;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [1 -1 -2 0 0 0 0];
+dimensions      [0 2 -2 0 0 0 0];
 
-internalField   uniform 0;
+internalField   uniform 1e-12; 
 
 boundaryField
 {
-    inandouthalf11
+    inlet
     {
-        type            zeroGradient;
+        type            cyclic;
     }
-    inandouthalf12
+    outlet
     {
-       type            fixedValue;
-       value           uniform  0;
-    }
-    inandouthalf21
-    {
-        type            zeroGradient;
-    }
-    inandouthalf22
-    {
-		
-       type            fixedValue;
-       value           uniform  0;	
+        type            cyclic;
     }
     top
     {
-	type		zeroGradient;
-//	type		fixedValue;
-//	value		uniform 0;
-//        type            symmetryPlane;
-//        type            groovyBC;
-//        value           uniform  0;
-//        valueExpression "9.0774*(1.1-pos().x)";
+        type            zeroGradient;
     }
-    walls
+    bottom
     {
-        type            fixedFluxPressure;
-        gradient           $internalField;    
-        value           uniform 2262.02;
-    	//type            zeroGradient;
+        type            fixedValue;
+        value           uniform 1e-12;
     }
     frontAndBackPlanes
     {

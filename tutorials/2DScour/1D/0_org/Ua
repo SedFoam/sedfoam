@@ -9,20 +9,40 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "constant";
-    object      turbulenceProperties;
+    class       volVectorField;
+    location    "0";
+    object      Ua;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-simulationType RAS;
+dimensions      [0 1 -1 0 0 0 0];
 
-RAS{
-//RASModel twophasekEpsilon;
-RASModel twophasekOmega2006;
-printCoeffs     on;
-turbulence      on;
-popeCorrection  off;
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    inlet
+    {
+        type            cyclic;
+    }
+    outlet
+    {
+        type            cyclic;
+    }
+    top
+    {
+        type            zeroGradient;
+    }
+    bottom
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    frontAndBackPlanes
+    {
+        type            empty;
+    }
 }
+
 
 // ************************************************************************* //
