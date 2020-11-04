@@ -28,9 +28,56 @@ boundaryField
     }
     inlet
     {
-        type            groovyBC;
-        variables       "tramp=4;";
-        valueExpression "(time()<=tramp) ? (0.1 + 0.9*(time()/tramp))*vector(0.04318/0.41*log(30*(pos().y+0.0251)/9e-4),0,0) : vector(0.04318/0.41*log(30*(pos().y+0.0251)/9e-4),0,0)";
+        type            fixedValue;
+        value           #codeStream
+        {
+            codeInclude
+            #{
+                #include "fvCFD.H"
+            #};
+
+            codeOptions
+            #{
+                -I$(LIB_SRC)/finiteVolume/lnInclude \
+                -I$(LIB_SRC)/meshTools/lnInclude
+            #};
+            codeLibs
+            #{
+                -lfiniteVolume \
+                -lmeshTools
+            #};
+            code
+            #{
+                const IOdictionary& d = static_cast<const IOdictionary&>
+                (
+                    dict.parent().parent()
+                );
+                const fvMesh& mesh = refCast<const fvMesh>(d.db());
+                const label id = mesh.boundary().findPatchID("inlet");
+                const fvPatch& patch = mesh.boundary()[id];
+                vectorField Ub(patch.size(), vector(0, 0, 0));
+                scalar t = d.db().time().value();
+                if (t<=4.0)
+                { 
+                    forAll(Ub, i)
+                    {
+                        const scalar y = patch.Cf()[i][1];
+                        Ub[i] = (0.1 + 0.9*(t/4.0))*vector(0.04318/0.41*log(30*(y+0.0251)/9e-4),0,0);
+                    }
+                    Ub.writeEntry("", os);
+                }
+                else
+                {
+                    forAll(Ub, i)
+                    {
+                        const scalar y = patch.Cf()[i][1];
+                        Ub[i] = vector(0.04318/0.41*log(30*(y+0.0251)/9e-4),0,0);
+                    }
+                    Ub.writeEntry("", os);
+                 }
+            #};
+
+        };
     }
     outlet
     {

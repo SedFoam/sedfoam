@@ -17,7 +17,38 @@ FoamFile
 
 dimensions      [0 0 0 0 0 0 0];
 
-internalField   uniform 0;  
+internalField   #codeStream
+{
+    codeInclude
+    #{
+        #include "fvCFD.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+    codeLibs
+    #{
+        -lfiniteVolume \
+        -lmeshTools
+    #};
+    code
+    #{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+	const fvMesh& mesh = refCast<const fvMesh>(d.db());
+        scalarField alpha_a(mesh.nCells(), 0);
+
+        forAll(mesh.C(), i)
+        {
+            scalar y = mesh.C()[i].y();
+            alpha_a[i] = 0.6128*0.5*(1.0+tanh((-0.026-y)*1000));
+        }
+        alpha_a.writeEntry("", os);
+    #};
+
+};
 
 boundaryField
 {
@@ -27,15 +58,44 @@ boundaryField
     }
     inlet
     {
-         type            groovyBC;
-         valueExpression "inletprofilealpha(pos().y)/100.";
-         lookuptables    (
-             {
-             name            inletprofilealpha;
-             file        "$FOAM_CASE/1d_profil/alpha.xy";
-             outOfBounds     clamp;
-             }
-         );	
+        type            fixedValue;
+        value           #codeStream
+        {
+            codeInclude
+            #{
+                #include "fvCFD.H"
+            #};
+
+            codeOptions
+            #{
+                -I$(LIB_SRC)/finiteVolume/lnInclude \
+                -I$(LIB_SRC)/meshTools/lnInclude
+            #};
+            codeLibs
+            #{
+                -lfiniteVolume \
+                -lmeshTools
+            #};
+            code
+            #{
+                const IOdictionary& d = static_cast<const IOdictionary&>
+                (
+                    dict.parent().parent()
+                );
+                const fvMesh& mesh = refCast<const fvMesh>(d.db());
+                const label id = mesh.boundary().findPatchID("inlet");
+                const fvPatch& patch = mesh.boundary()[id];
+                scalarField alpha_a(patch.size(), 0);
+
+                forAll(alpha_a, i)
+                {
+                    const scalar y = patch.Cf()[i][1];
+                    alpha_a[i] = 0.6128*0.5*(1.0+tanh((-0.026-y)*1000));
+                }
+                alpha_a.writeEntry("", os);
+            #};
+
+        };
     }
     outlet
     {

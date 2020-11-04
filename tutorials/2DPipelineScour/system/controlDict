@@ -54,11 +54,7 @@ maxAlphaCo      0.1;
 maxDeltaT       15.e-5;
 
 libs (
-    "libgroovyBC.so"
-    "libgroovyStandardBCs.so"
-  //"libincompressibleRASModels.so"
     "libincompressibleTurbulenceModels.so"
-   // "libmyincompressibleRASModels.so"
 );
 
 // ************************************************************************* //
