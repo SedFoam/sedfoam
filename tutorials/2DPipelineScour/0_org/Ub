@@ -28,56 +28,44 @@ boundaryField
     }
     inlet
     {
-        type            fixedValue;
-        value           #codeStream
-        {
-            codeInclude
-            #{
-                #include "fvCFD.H"
-            #};
+        type            codedFixedValue;
+        value           uniform (0 0 0);
+        
+        name    inletVelb;
 
-            codeOptions
-            #{
-                -I$(LIB_SRC)/finiteVolume/lnInclude \
-                -I$(LIB_SRC)/meshTools/lnInclude
-            #};
-            codeLibs
-            #{
-                -lfiniteVolume \
-                -lmeshTools
-            #};
-            code
-            #{
-                const IOdictionary& d = static_cast<const IOdictionary&>
-                (
-                    dict.parent().parent()
-                );
-                const fvMesh& mesh = refCast<const fvMesh>(d.db());
-                const label id = mesh.boundary().findPatchID("inlet");
-                const fvPatch& patch = mesh.boundary()[id];
-                vectorField Ub(patch.size(), vector(0, 0, 0));
-                scalar t = d.db().time().value();
-                if (t<=4.0)
-                { 
-                    forAll(Ub, i)
-                    {
-                        const scalar y = patch.Cf()[i][1];
-                        Ub[i] = (0.1 + 0.9*(t/4.0))*vector(0.04318/0.41*log(30*(y+0.0251)/9e-4),0,0);
-                    }
-                    Ub.writeEntry("", os);
-                }
-                else
-                {
-                    forAll(Ub, i)
-                    {
-                        const scalar y = patch.Cf()[i][1];
-                        Ub[i] = vector(0.04318/0.41*log(30*(y+0.0251)/9e-4),0,0);
-                    }
-                    Ub.writeEntry("", os);
+        codeInclude
+        #{
+            #include "fvCFD.H"
+        #};
+
+        codeOptions
+        #{
+            -I$(LIB_SRC)/finiteVolume/lnInclude \
+            -I$(LIB_SRC)/meshTools/lnInclude
+        #};
+        codeLibs
+        #{
+            -lfiniteVolume \
+            -lmeshTools
+        #};
+        code
+        #{
+            const fvPatch& boundaryPatch = patch();
+            const vectorField& Cf = boundaryPatch.Cf();
+            vectorField& field = *this;
+            scalar t = this->db().time().value();
+            forAll(Cf, faceI)
+            {
+                 if (t <= 4)
+                 {
+                     field[faceI] = (0.1 + 0.9*(t/4.0))*vector(0.04318/0.41*log(30*(Cf[faceI].y()+0.0251)/9e-4),0,0);
                  }
-            #};
-
-        };
+                 else
+                 {
+                     field[faceI] = vector(0.04318/0.41*log(30*(Cf[faceI].y()+0.0251)/9e-4),0,0);
+                 }
+            }
+          #};      
     }
     outlet
     {

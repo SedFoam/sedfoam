@@ -54,7 +54,6 @@ maxAlphaCo      0.1;
 maxDeltaT       15.e-5;
 
 libs (
-    "libincompressibleTurbulenceModels.so"
 );
 
 // ************************************************************************* //

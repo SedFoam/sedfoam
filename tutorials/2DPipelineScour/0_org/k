@@ -28,9 +28,46 @@ boundaryField
     }
     inlet
     {
-        type            groovyBC;
-        variables       "tramp=4;";
-        valueExpression "(time()<=tramp) ? 8.7e-5*(time()/tramp)*(time()/tramp) : 8.7e-5";
+        //type       fixedValue;
+        //value      uniform 1e-6;
+        type            codedFixedValue;
+        
+        name    inletk;
+
+        codeInclude
+        #{
+            #include "fvCFD.H"
+        #};
+
+        codeOptions
+        #{
+            -I$(LIB_SRC)/finiteVolume/lnInclude \
+            -I$(LIB_SRC)/meshTools/lnInclude
+        #};
+        codeLibs
+        #{
+            -lfiniteVolume \
+            -lmeshTools
+        #};
+        code
+        #{
+            const fvPatch& boundaryPatch = patch();
+            const vectorField& Cf = boundaryPatch.Cf();
+            scalarField& field = *this;
+            scalar t = this->db().time().value();
+            forAll(Cf, faceI)
+            {
+                 if (t <= 4.0)
+                 {
+                     field[faceI] = (t/4.0)*(t/4.0)*8.7e-5;
+                 }
+                 else
+                 {
+                     field[faceI] = 8.7e-5;
+                 }
+            }
+          #}; 
+          value           uniform 1e-6;     
     }
     outlet
     {
