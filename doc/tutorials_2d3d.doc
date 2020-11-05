@@ -246,7 +246,7 @@ The top boundary condition is a symmetryPlane. The outlet pressure is set to 0. 
 
 with \f$ u_*=0.04318m/s \f$ the bottom friction velocity, \f$ \kappa=0.41 \f$ the von Karman constant and \f$ k_s=2.5d \f$ the Nikuradse roughness length. The velocity is increased linearly during the first 4 seconds of the simulation. Inlet values for turbulent quantities were set following \f$ k = 10 \times 10^{-4} \overline U \f$, \f$ \varepsilon = k^{3/2} /0.1 h \f$ and \f$ \omega = k^{1/2} /0.1 C_\mu h \f$ with \f$ \overline U=0.87m/s \f$ the bulk velocity, \f$ h \f$ the distance from the bed to the top boundary and \f$ C_\mu=0.09 \f$ an empirical constant.
 
-The sediment bed is initialised using the expression \f$ alpha_{Init}=0.6128*0.5*\left[1+tanh\left(-\dfrac{0.026+y}{0.001}\right)\right] \f$.
+The sediment bed is initialised using the expression \f$ \alpha_{Init}=0.6128*0.5*\left[1+tanh\left(-\dfrac{0.026+y}{0.001}\right)\right] \f$.
 
 
 \subsection PhysProp_SP Physical properties
@@ -334,9 +334,6 @@ maxAlphaCo      0.1;
 maxDeltaT       15.e-5;
 
 libs (
-    "libgroovyBC.so"
-    "libgroovyStandardBCs.so"
-    "libincompressibleTurbulenceModels.so"
 );
 \endverbatim
 
@@ -355,8 +352,8 @@ The script _profiles2DPipelineScour.py plots bed profiles at 11s, 18s and 25s co
 
 The script plot_depth2DPipelineScour.py plots the maximum scour depth compared with experimental data like in the following figure:
 
-@image html "maximum_depth_kEpsilon.png" "Figure 14: Maximum scour depth using a \f$ k-\omega \f$ turbulence model." width=600px
-@image latex "maximum_depth_kEpsilon.png" "Figure 14: Maximum scour depth using a \f$ k-\omega \f$ turbulence model."
+@image html "maximum_depth_kEpsilon.png" "Figure 14: Maximum scour depth using a k-omega turbulence model." width=600px
+@image latex "maximum_depth_kEpsilon.png" "Figure 14: Maximum scour depth using a k-omega turbulence model."
 
 \section Scour3DCylinder 3DScourCylinder: Scour around a vertical cylinder
 
