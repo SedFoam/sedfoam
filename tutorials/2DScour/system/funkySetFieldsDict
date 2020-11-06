@@ -138,7 +138,7 @@ expressions
                     );
                 lookuptables (
                     {
-                        name inletprofileom;
+                        name inletprofilom;
                         outOfBounds clamp;
                         file "$FOAM_CASE/1d_profil/omega.xy";
                     }

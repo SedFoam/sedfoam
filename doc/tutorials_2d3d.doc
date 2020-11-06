@@ -27,7 +27,7 @@ is simplified and sketched in figure 9.
 
 \subsection preprocSA Pre-processing
 
-This tutorial is distributed with sedFoam3.0 under the folder sedFoamDirectory/tutorials/2DScourApron.
+This tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/2DScourApron.
 
 \subsection meshgenSA Mesh generation
 
@@ -48,8 +48,9 @@ blockMesh
 
 The case is set up to start at time t = 0 s, as for the previous 1D tutorials the initial fields data are stored in the 0_org sub-directory of the case directory.
 
-The bottom boundary, the lower part of the inlet (forming the step) and of the outlet are set as wall boundaries. The upper part of the inlet is an inlet boundary where the velocity profile is imposed according to the rough wall log law (eq. (73) in Chauchat et al. (2017)) via the GroovyBC utility. Turbulent quantities are imposed as constant values following recommendation from esi group (http://www.esi-cfd.com/content/view/877/192/). At the outlet, a directionMixed boundary condition is used for the velocities of both phases (zeroGradient for streamwise component and zero value for the vertical one) and the hydrostatic pressure is imposed thanks to the GroovyBC utility. 
-As initial condition, the velocity of both phases, the sediment concentration, the TKE and the TKE dissipation are set based on one-dimensional simulation results using funkySetFields. The details of the boundary conditions are summarized in the following table:
+The bottom boundary, the lower part of the inlet (forming the step) and of the outlet are set as wall boundaries. The upper part of the inlet is an inlet boundary where the velocity profile is imposed according to the rough wall log law (eq. (73) in Chauchat et al. (2017)) via the GroovyBC utility. Turbulent quantities are imposed as constant values following recommendation from esi group (http://www.esi-cfd.com/content/view/877/192/). At the outlet, an inletOutlet boundary condition is used for the velocities of both phases (zeroGradient if outflow and zero value if inflow) and the hydrostatic pressure is imposed to zero. 
+As initial condition, the velocity of both phases, the sediment concentration, the TKE and the TKE dissipation are set based on one-dimensional simulation results using funkySetFields. The associated one-dimensional case can be found in 1D subdirectory and the fluidfoam python package is used in order to generate the 1d_profil files which are necessary for funkySetFields (see Allrun.pre and Allrun).
+The details of the boundary conditions are summarized in the following table:
 
 <table>
 <caption id="multi_row">Summary of the boundary conditions implemented in the 2D scour downstream of an apron configuration: zG = zeroGradient, fV = fixedValue, dM = directionMixed, fFP = fixedFluxPressure and hp=hydrostatic pressure.</caption>
