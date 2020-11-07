@@ -42,7 +42,7 @@ internalField   #codeStream
         forAll(mesh.C(), i)
         {
             scalar y = mesh.C()[i].y();
-            alpha_a[i] = 0.6128*0.5*(1.0+tanh((-0.026-y)*1000));
+            alpha_a[i] = 0.6128*0.5*(1.0+tanh((-0.026-y)*2000))+1e-100;
         }
         alpha_a.writeEntry("", os);
     #};
@@ -58,9 +58,9 @@ boundaryField
     inlet
     {
         type            codedFixedValue;
-        value           uniform 10;
+        value           uniform 0;
         
-        name    inletAlpha;
+        name    inlet;
 
         codeInclude
         #{
@@ -81,10 +81,10 @@ boundaryField
         #{
             const fvPatch& boundaryPatch = patch();
             const vectorField& Cf = boundaryPatch.Cf();
-            scalarField& field = *this;
+            scalarField& field = *this; 
             forAll(Cf, faceI)
             {
-               field[faceI] = 0.6128*0.5*(1.0+tanh((-0.026-Cf[faceI].y())*1000));
+                 field[faceI] = 0.6128*0.5*(1.0+tanh((-0.026-Cf[faceI].y())*5000))+1e-100;
             }
           #};
     }

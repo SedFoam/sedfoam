@@ -28,11 +28,10 @@ boundaryField
     }
     inlet
     {
-        //type       fixedValue;
-        //value      uniform 1e-6;
         type            codedFixedValue;
+        value           uniform 1e-6;
         
-        name    inletk;
+        name    inlet;
 
         codeInclude
         #{
@@ -66,8 +65,7 @@ boundaryField
                      field[faceI] = 8.7e-5;
                  }
             }
-          #}; 
-          value           uniform 1e-6;     
+          #};      
     }
     outlet
     {

@@ -32,7 +32,7 @@ boundaryField
         type            codedFixedValue;
         value           uniform 10;
         
-        name    inletOmega;
+        name    inlet;
 
         codeInclude
         #{
@@ -57,7 +57,7 @@ boundaryField
             scalar t = this->db().time().value(); 
             forAll(Cf, faceI)
             {
-                if (Cf[faceI].y() >= 0.024)
+                if (Cf[faceI].y() >= -0.024)
                 {
                     if (t <= 4.0)
                     {   

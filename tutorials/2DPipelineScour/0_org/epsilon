@@ -32,7 +32,7 @@ boundaryField
         value        uniform 1;           
         type            codedFixedValue;
 
-        name    inletEpsilon;
+        name    inlet;
 
         codeInclude
         #{
