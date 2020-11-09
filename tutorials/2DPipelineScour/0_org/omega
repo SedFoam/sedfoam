@@ -61,7 +61,9 @@ boundaryField
                 {
                     if (t <= 4.0)
                     {   
-                        field[faceI] = 100*pow((t/4.0)*(t/4.0)*8.7e-5, 0.5)/(0.09*0.1*0.23);
+                        field[faceI] = 100
+                                       *pow((t/4.0)*(t/4.0)*8.7e-5, 0.5)
+                                       /(0.09*0.1*0.23);
                     }
                     else
                     {
@@ -73,7 +75,7 @@ boundaryField
                      field[faceI] = 1000;
                  }
             }
-          #};
+        #};
     }
     outlet
     {

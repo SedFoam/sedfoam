@@ -65,7 +65,7 @@ boundaryField
                      field[faceI] = 8.7e-5;
                  }
             }
-          #};      
+        #};      
     }
     outlet
     {

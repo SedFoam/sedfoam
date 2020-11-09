@@ -37,12 +37,12 @@ internalField   #codeStream
     code
     #{
         const IOdictionary& d = static_cast<const IOdictionary&>(dict);
-	const fvMesh& mesh = refCast<const fvMesh>(d.db());
+        const fvMesh& mesh = refCast<const fvMesh>(d.db());
         scalarField alpha_a(mesh.nCells(), 0);
         forAll(mesh.C(), i)
         {
-            scalar y = mesh.C()[i].y();
-            alpha_a[i] = 0.6128*0.5*(1.0+tanh((-0.026-y)*2000))+1e-100;
+           scalar y = mesh.C()[i].y();
+           alpha_a[i] = 0.6128*0.5*(1.0+tanh((-0.026-y)*2000))+1e-100;
         }
         alpha_a.writeEntry("", os);
     #};
@@ -84,9 +84,11 @@ boundaryField
             scalarField& field = *this; 
             forAll(Cf, faceI)
             {
-                 field[faceI] = 0.6128*0.5*(1.0+tanh((-0.026-Cf[faceI].y())*5000))+1e-100;
+                 field[faceI] = 0.6128*0.5
+                               *(1.0+tanh((-0.026-Cf[faceI].y())*5000))
+                               +1e-100;
             }
-          #};
+        #};
     }
     outlet
     {

@@ -27,7 +27,7 @@ is simplified and sketched in figure 9.
 
 \subsection preprocSA Pre-processing
 
-This tutorial is distributed with sedFoam3.0 under the folder sedFoamDirectory/tutorials/2DScourApron.
+This tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/2DScourApron.
 
 \subsection meshgenSA Mesh generation
 
@@ -227,7 +227,7 @@ In this tutorial, the experimental configuration investigating scour under a sub
 
 \subsection preprocSP Pre-processing
 
-This tutorial is distributed with sedFoam3.0 under the folder sedFoamDirectory/tutorials/2DPipelineScour.
+This tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/2DPipelineScour.
 
 \subsection meshgen_SP Mesh generation
 
@@ -292,7 +292,7 @@ The physical property of the particles (diameter and density) and of the fluid (
 
 \subsection control_SP Control
 
-The system/controlDict file indicates that for this case the time step is adaptative to have a maximum CFL number below 0.1 and that the computation ends at 45s of dynamics.
+The system/controlDict file indicates that for this case the time step is adaptative to have a maximum Courant number (maxCo) below 0.1 and that the computation ends at 45s of dynamics.
 
 \verbatim
 application     sedFoam;
@@ -317,7 +317,7 @@ writeFormat     binary;
 
 writePrecision  6;
 
-writeCompression uncompressed;
+writeCompression false;
 
 timeFormat      general;
 
