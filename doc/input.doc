@@ -13,7 +13,9 @@
  *
  *
  */
-/*! \page inputs Input description
+/*! \page inputs Input Parameters
+@brief Description of the sedFoam input parameters
+
 \tableofcontents
 
 The input parameters for sedFoam are numerous and are modifiable through different files in the current working directory. Some of the files are identical to other openFoam solvers and won't be described in details herein. This is the case for the files:

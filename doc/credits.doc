@@ -1,0 +1,29 @@
+/** @page credits-contributors Contributors
+@brief People and organizations that contributed to sedFoam
+
+Listing only people with code contributions or other significant work and the organisations with financial contributions, because
+otherwise there's too many :) 
+Big thanks to everyone involved!
+
+Are the below lists missing your name or something's wrong?
+<a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">Let us know!</a>
+
+@section Authors
+
+-   **Cyrille Bonamy** ([\@CyrilleBonamy](https://github.com/CyrilleBonamy)) --- core developer and main maintainer
+-   **Julien Chauchat** ([\@jchauchat](https://github.com/jchauchat)) --- core developer and Project Investigator
+-   **Tian-Jian Hsu** ([\@tom](https://sites.udel.edu/thsu/group-members/)) --- Project Investigator
+-   **Zhen Cheng** ([\@charlie](https://scholar.google.com/citations?user=ytP18jcAAAAJ&hl=en) --- developer
+-   **Tim Nagel** ([\@tim](https://www.researchgate.net/profile/Tim_Nagel3)) --- developer
+-   **Antoine Mathieu** ([\@antoine](https://github.com/mathieu7an)) --- core developer
+-   **Eduard Puig-Montella** ([\@ed](https://github.com/puigmontella)) --- core developer
+-   Developers involved in OpenFOAM, which is the foundation of the new solver SedFoam
+
+@section Organisations
+-   **National Science Foundation** (CMMI-1135026; OCE-1356855)
+-   **Office of Naval Research** (N00014-1e4-1-0586, Littoral Geosciences and Optics Program)
+-   the **Région Rhones-Alpes** (COOPERA project and Explora Pro grant) 
+-   the French national programme EC2CO-LEFE MODSED
+
+
+*/

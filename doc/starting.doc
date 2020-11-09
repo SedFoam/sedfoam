@@ -14,6 +14,9 @@
  *
  */
 /*! \page starting Getting started
+
+@brief General informations about OpenFoam test-case
+
 \tableofcontents
 
 The executable \c sedFoam_rbgh is the main program that allows to launch a computation. 
@@ -38,7 +41,7 @@ More detailed informations can be found <a href="http://cfd.direct/openfoam/user
 
 
 \htmlonly
-Go to the <a href="tutorials.html">next</a> section or return to the
+Go to the <a href="tutorials_1d.html">tutorials</a> section or return to the
  <a href="index.html">index</a>.
 \endhtmlonly
 
