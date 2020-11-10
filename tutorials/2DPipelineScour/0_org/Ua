@@ -28,9 +28,66 @@ boundaryField
     }
     inlet
     {
-        type            groovyBC;
-        variables       "tramp=4;";
-        valueExpression "(time()<=tramp) ? (0.1 + 0.9*(time()/tramp))*vector(0.04318/0.41*log(30*(pos().y+0.0251)/9e-4),0,0) : vector(0.04318/0.41*log(30*(pos().y+0.0251)/9e-4),0,0)";
+        type            codedFixedValue;
+        value           uniform (0 0 0);
+        
+        name    inlet;
+
+        codeInclude
+        #{
+            #include "fvCFD.H"
+        #};
+
+        codeOptions
+        #{
+            -I$(LIB_SRC)/finiteVolume/lnInclude \
+            -I$(LIB_SRC)/meshTools/lnInclude
+        #};
+        codeLibs
+        #{
+            -lfiniteVolume \
+            -lmeshTools
+        #};
+        code
+        #{
+            const fvPatch& boundaryPatch = patch();
+            const vectorField& Cf = boundaryPatch.Cf();
+            vectorField& field = *this;
+            scalar t = this->db().time().value();
+            forAll(Cf, faceI)
+            {
+               if (Cf[faceI].y() >= -0.025)
+               {
+                  if (t <= 4.0)
+                  {   
+                     field[faceI] = (0.1 + 0.9*(t/4.0))
+                                     *vector
+                                      (
+                                         0.04318/0.41
+                                         *log(30*(Cf[faceI].y()+0.025)
+                                              /9e-4),
+                                         0,
+                                         0
+                                       );
+                  }
+                  else
+                  {
+                     field[faceI] = vector
+                                    (
+                                       0.04318/0.41
+                                       *log(30*(Cf[faceI].y()+0.025)
+                                            /9e-4),
+                                       0,
+                                       0
+                                    );
+                  }
+               }
+               else
+               {
+                  field[faceI] = vector(0,0,0);
+               }
+            }
+        #};      
     }
     outlet
     {

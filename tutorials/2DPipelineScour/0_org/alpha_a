@@ -17,7 +17,37 @@ FoamFile
 
 dimensions      [0 0 0 0 0 0 0];
 
-internalField   uniform 0;  
+internalField   #codeStream
+{
+    codeInclude
+    #{
+        #include "fvCFD.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+    codeLibs
+    #{
+        -lfiniteVolume \
+        -lmeshTools
+    #};
+    code
+    #{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+        const fvMesh& mesh = refCast<const fvMesh>(d.db());
+        scalarField alpha_a(mesh.nCells(), 0);
+        forAll(mesh.C(), i)
+        {
+           scalar y = mesh.C()[i].y();
+           alpha_a[i] = 0.6128*0.5*(1.0+tanh((-0.026-y)*2000))+1e-100;
+        }
+        alpha_a.writeEntry("", os);
+    #};
+
+};
 
 boundaryField
 {
@@ -27,15 +57,38 @@ boundaryField
     }
     inlet
     {
-         type            groovyBC;
-         valueExpression "inletprofilealpha(pos().y)/100.";
-         lookuptables    (
-             {
-             name            inletprofilealpha;
-             file        "$FOAM_CASE/1d_profil/alpha.xy";
-             outOfBounds     clamp;
-             }
-         );	
+        type            codedFixedValue;
+        value           uniform 0;
+        
+        name    inlet;
+
+        codeInclude
+        #{
+            #include "fvCFD.H"
+        #};
+
+        codeOptions
+        #{
+            -I$(LIB_SRC)/finiteVolume/lnInclude \
+            -I$(LIB_SRC)/meshTools/lnInclude
+        #};
+        codeLibs
+        #{
+            -lfiniteVolume \
+            -lmeshTools
+        #};
+        code
+        #{
+            const fvPatch& boundaryPatch = patch();
+            const vectorField& Cf = boundaryPatch.Cf();
+            scalarField& field = *this; 
+            forAll(Cf, faceI)
+            {
+                 field[faceI] = 0.6128*0.5
+                               *(1.0+tanh((-0.026-Cf[faceI].y())*5000))
+                               +1e-100;
+            }
+        #};
     }
     outlet
     {

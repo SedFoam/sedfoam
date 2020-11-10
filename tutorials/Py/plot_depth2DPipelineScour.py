@@ -26,7 +26,7 @@ def max_depth(case, t0, tfinal, dt, xi, yi):
             timename = str(int(t)) + '/'
         else:
             timename = str(t) + '/'
-        a = fluidfoam.readscalar(case, timename, 'alpha')
+        a = fluidfoam.readscalar(case, timename, 'alpha_a')
         ai = mlab.griddata(x, y, a, xi, yi, interp='linear')
         for j in range(ngridx):
             ybed[j] = yi[np.max((np.where(ai[:, j] > 0.5)))]
@@ -86,7 +86,7 @@ time_min = 0
 time_max = 35
 ymin = 0
 ymax = 1
-plt.axis([time_min, time_max, ymin, ymax])1000
+plt.axis([time_min, time_max, ymin, ymax])
 plt.xlabel('t (s)')
 plt.ylabel('S/D')
 plt.grid()
@@ -103,4 +103,4 @@ plt.plot(time_expe, max_depth_expe, 'ro', label=label_expe,
 plt.legend(loc='lower right', frameon=False, prop={'size': 28})
 
 # Figure saving
-plt.savefig('Figures/' + figname + '.png', dpi=100)
+plt.savefig('Figures/' + figname + '.png', dpi=100, bbox_inches='tight')
