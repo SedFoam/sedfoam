@@ -74,8 +74,8 @@ def readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N):
 
 # Parameters
 t0 = 0.
-Nt = 31
-Dt = 1
+Nt = 13
+Dt = 5
 
 
 h0 = 0.15
@@ -84,7 +84,7 @@ h0 = 0.15
 # Call the reading function
 #
 print("-------------------------")
-print("        case 1           ")
+print("        case 2DScour     ")
 print("-------------------------")
 Nx = 1000
 Ny = 264
@@ -109,7 +109,7 @@ alphap, Xp, Yp, tlist, ybed = readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N)
 #
 fig = plt.figure(num=1, figsize=(18, 8), dpi=100, facecolor='w', edgecolor='w')
 ax0 = fig.add_subplot(gs1[0, 0])
-tplot = [0,10, 20, 30]
+tplot = [0, 2, 4, 6]
 nplot = -1
 sym = ['--+', '-.', '--', '.']
 for k in range(len(tplot)):
@@ -119,9 +119,9 @@ for k in range(len(tplot)):
 ax0.legend(numpoints=1, loc='best', fontsize=20)
 xlabel('x (m)')
 ylabel('interface position (m)')
-axis([0, 0.5, -0.05, 0.05])
+axis([0, 0.5, -0.02, 0.01])
 
-plt.savefig(figpath+figName2,format='png',dpi = 300)
+plt.savefig(figpath+figName,format='png',dpi = 300)
 
 #
 # -----------fig2: 2D bed interface at several time--------------
@@ -134,8 +134,8 @@ levels = [0, 0.05, 0.1, 0.15, 0.2, 0.25,
           0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.625]
 levels2 = [0.005, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
 
-tfig = [0, 10]
-tfig2 = [20, 30]
+tfig = [0, 2]
+tfig2 = [4, 6]
 nplot = -1
 for k in range(len(tfig)):
     nplot = nplot + 1
