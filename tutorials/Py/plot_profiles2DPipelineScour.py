@@ -17,7 +17,7 @@ def depth(sol, t, x, y, xi, yi):
         timename = str(int(t)) + '/'
     else:
         timename = str(t) + '/'
-    alpha = fluidfoam.readscalar(sol, timename, 'alpha')
+    alpha = fluidfoam.readscalar(sol, timename, 'alpha_a')
     alphai = mlab.griddata(x, y, alpha, xi, yi, interp='linear')
     for j in range(len(xi) - 1):
         tab = np.where(alphai[:, j+1] > 0.5)
@@ -146,4 +146,4 @@ plt3.plot(x_expe_25s/D, y_expe_25s/D, "ro", markersize=marker_size)
 plt1.legend(loc='upper left')
 
 # Figure saving
-plt.savefig('Figures/' + figname + '.png', dpi=100)
+plt.savefig('Figures/' + figname + '.png', dpi=100, bbox_inches='tight')
