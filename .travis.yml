@@ -95,6 +95,10 @@ jobs:
       - cd ../1DBoundaryLayer/
       - travis_wait 30 ./Allrun
       - python test_1DBoundaryLayer.py
+      - cd ../1DWetAvalanche/
+      - travis_wait 30 ./Allrun
+      - python test_1DWetAvalanche.py
+
     - stage: build pages
       if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
       install: skip
