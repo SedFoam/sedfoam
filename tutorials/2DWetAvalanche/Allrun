@@ -8,7 +8,7 @@ snappyHexMesh -overwrite
 sed -i -e 's/emptyy/empty/g' constant/polyMesh/boundary
 extrudeMesh
 
-# create the intial time folder
+# create the initial time folder
 cp -r 0_org 200
 
 # Initialize fields
