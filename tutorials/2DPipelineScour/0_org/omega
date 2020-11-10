@@ -29,8 +29,53 @@ boundaryField
     }
     inlet
     {
-        type            groovyBC;
-        valueExpression "(pos().y <= -0.024) ? 1000. : 100*pow(k,0.5)/(0.09*0.1*0.23)";
+        type            codedFixedValue;
+        value           uniform 10;
+        
+        name    inlet;
+
+        codeInclude
+        #{
+            #include "fvCFD.H"
+        #};
+
+        codeOptions
+        #{
+            -I$(LIB_SRC)/finiteVolume/lnInclude \
+            -I$(LIB_SRC)/meshTools/lnInclude
+        #};
+        codeLibs
+        #{
+            -lfiniteVolume \
+            -lmeshTools
+        #};
+        code
+        #{
+            const fvPatch& boundaryPatch = patch();
+            const vectorField& Cf = boundaryPatch.Cf();
+            scalarField& field = *this;
+            scalar t = this->db().time().value(); 
+            forAll(Cf, faceI)
+            {
+                if (Cf[faceI].y() >= -0.024)
+                {
+                    if (t <= 4.0)
+                    {   
+                        field[faceI] = 100
+                                       *pow((t/4.0)*(t/4.0)*8.7e-5, 0.5)
+                                       /(0.09*0.1*0.23);
+                    }
+                    else
+                    {
+                        field[faceI] = 100*pow(8.7e-5, 0.5)/(0.09*0.1*0.23);
+                    }
+                 }
+                 else
+                 {
+                     field[faceI] = 1000;
+                 }
+            }
+        #};
     }
     outlet
     {
