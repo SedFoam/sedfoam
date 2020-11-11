@@ -1,37 +1,3 @@
-
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@puigmontella
-SedFoam /
-sedfoam
-
-11
-28
-
-    21
-
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-
-    Insights
-
-sedfoam/.travis.yml
-@CyrilleBonamy
-CyrilleBonamy new css doc (#33)
-Latest commit 1ad0c8e 18 days ago
-History
-2 contributors
-@CyrilleBonamy
-@jchauchat
-100 lines (95 sloc) 3.5 KB
 #source : https://github.com/turbinesFoam/turbinesFoam
 sudo: required
 language: python
@@ -136,18 +102,5 @@ notifications:
     rooms:
       sedfoam:gFgw4hb2TY4uMX10tUA0xb4F#dev
     on_success: always
-© 2020 GitHub, Inc.
-Terms
-Privacy
-
-    Security
-    Status
-    Help
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
 
 
