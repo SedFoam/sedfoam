@@ -41,5 +41,5 @@ Ct              Ct [ 0 0 0 0 0 ] 0;                 // Eddy diffusivity coeffici
 debugInfo	 true; 
 
 writeTau         true;
-ClipUa           1;
+ClipUa           ClipUa [ 0 0 0 0 0 0 0 ] 1;
 // * * * * * * * * * * * * end of definition of pressure * * * * * * * * * * * * * //
