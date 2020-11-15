@@ -1,0 +1,11 @@
+This directory contains the essential information to reproduce a dense granular avalanche (phi_0=0.592) in 2D. The starting point corresponds to a 1D sedimentation process located in "Reference1D" folder. Execute ./Allrun  in "Reference1D" folder to launch the 1D gravitational deposition. 
+
+After 200 seconds, the sedimentation process will be completed and the 2D granular avalanche is launched running ./Allrun script in "2DWetAvalanche" folder. In this configuration, "snappyHexMesh" meshing utility is employed to refine the mesh within the mixture region. 
+
+If you wish a different initial volume fraction (phi_0) you need to adjust the 0_org/alphaPlastic file accordingly. Reference values: alphaPlastic=0.575 leads to phi_0=0.592, alphaPlastic=0.545 leads to phi_0=0.571 and alphaPlastic=0.520 leads to phi_0=0.566.
+
+"reconstructPar" utility is executed before the post-processing phase in the command line:
+reconstructPar -time 200:
+"reconstructPar" reconstructs a decomposed case run in parallel saving the corresponding directories in the main case directory.
+
+A Python script for post-processing is available in "tutorial/Py" folder. The Python script requires the fluidfoam package to be installed and it is freely available at https://github.com/fluiddyn/fluidfoam . 
