@@ -9,54 +9,64 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volVectorField;
+    class       volScalarField;
     location    "0";
-    object      Ub;
+    object      alpha_a;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 1 -1 0 0 0 0];
+dimensions      [0 0 0 0 0 0 0];
 
-internalField   uniform (0 0 0);
+internalField   #codeStream
+{
+    codeInclude
+    #{
+        #include "fvCFD.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+    codeLibs
+    #{
+        -lfiniteVolume \
+        -lmeshTools
+    #};
+    code
+    #{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+        const fvMesh& mesh = refCast<const fvMesh>(d.db());
+        scalarField alpha_a(mesh.nCells(), 0);
+
+        forAll(mesh.C(), i)
+        {
+            scalar y = mesh.C()[i].y();
+            alpha_a[i] = 0.57*0.5*(1.0+tanh(-y/0.002));
+        }
+        alpha_a.writeEntry("", os);
+    #};
+
+};
 
 boundaryField
 {
-    inandouthalf11
+    inlet
     {
-        type            groovyBC;
-        refValue        uniform ( 0 0 0);
-        refGradient     uniform (0 0 0);
-        valueFraction   uniform 1;
-        value           uniform (0 0 0);
-        valueExpression "(0.0369/0.41)*log(30.0*mag(pos().y)/(2.5*0.00025))*vector(1,0,0)";
-        gradientExpression "vector(0,0,0)";
-        fractionExpression "1";
-        evaluateDuringConstruction 1;
+        type            cyclic;
     }
-    inandouthalf12
+    outlet
     {
-        type            inletOutlet;
-        inletValue      uniform (0 0 0);
-        value           uniform (0 0 0);
-    }
-    inandouthalf21
-    {
-        type            fixedValue;
-        value           uniform (0 0 0);
-    }
-    inandouthalf22
-    {
-      type            fixedValue;
-      value           uniform (0 0 0);
+        type            cyclic;
     }
     top
     {
         type            zeroGradient;
     }
-    walls
+    bottom
     {
-        type            fixedValue;
-        value           uniform (0 0 0);
+        type            zeroGradient;
     }
     frontAndBackPlanes
     {

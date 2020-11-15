@@ -1,4 +1,4 @@
-/*
+/*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
 |  \\    /   O peration     | Version:  1.7.1                                 |
@@ -11,32 +11,15 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      granaularRheologyProperties;
+    object      interfacialProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-granularRheology   on;
+dragModela      GidaspowSchillerNaumann;
 
-alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
+dragModelb      GidaspowSchillerNaumann;
 
-mus             mus  [ 0 0 0 0 0 0 0 ] 0.4;
+dragPhase       a;
 
-mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.9;
-
-I0              I0  [ 0 0 0 0 0 0 0 ] 0.6;
-
-Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.66;
-
-n               n [ 0 0 0 0 0 0 0 ] 2.5;
-
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 0.0003;
-
-FrictionModel  MuI;
-
-PPressureModel MuI;
-
-FluidViscosityModel  BoyerEtAl;
-
-DilatancyModel  none;
 
 // ************************************************************************* //

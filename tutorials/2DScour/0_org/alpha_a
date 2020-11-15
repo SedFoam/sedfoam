@@ -40,7 +40,7 @@ boundaryField
          lookuptables    (
  {
          name            inletprofilealpha;
-         file            "$FOAM_CASE/1d_profil/alpha.xy";
+         file            "$FOAM_CASE/1d_profil/alpha_a.xy";
          outOfBounds     clamp;
  }
  );
@@ -51,17 +51,14 @@ boundaryField
     }
     inandouthalf21
     {
-	type		zeroGradient;
+       type		zeroGradient;
     }
     inandouthalf22
     {
-	type		zeroGradient;
+        type		zeroGradient;
     }
     top
     {
-//        type            fixedValue;
-//	value 		uniform 0.;
-//        type            symmetryPlane;
         type            zeroGradient;
     }
     walls

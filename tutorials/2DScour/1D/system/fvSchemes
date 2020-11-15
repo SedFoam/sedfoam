@@ -22,9 +22,7 @@ ddtSchemes
 
 gradSchemes
 {
-        default         Gauss linear;
-//        grad(k)        cellLimited Gauss linear 1;
-//        grad(omega)    cellLimited Gauss linear 1;
+    default         Gauss linear;
 }
 
 divSchemes
@@ -34,22 +32,22 @@ divSchemes
     div(phi,alpha)  Gauss limitedLinear01 1;
     div(phir,alpha) Gauss limitedLinear01 1;
 // UEqn
-    div(phia,Ua)    Gauss linearUpwind grad(Ua);
-    div(phib,Ub)    Gauss linearUpwind grad(Ub);
-    div(phiRa,Ua)   Gauss linear;
-    div(phiRb,Ub)   Gauss linear;
+    div(phia,Ua)    Gauss limitedLinearV 1;
+    div(phib,Ub)    Gauss limitedLinearV 1;
+    div(phiRa,Ua)   Gauss limitedLinear 1;
+    div(phiRb,Ub)   Gauss limitedLinear 1;
 // pEqn
     div(alpha,nu)   Gauss linear;
 // k and EpsilonEqn
-    div(phib,k)     Gauss linearUpwind grad(k);
-    div(phib,epsilon) Gauss linearUpwind grad(epsilon);
-    div(phib,omega) Gauss linearUpwind grad(omega);
+    div(phib,k)     Gauss limitedLinear 1;
+    div(phib,epsilon) Gauss limitedLinear 1;
+    div(phib,omega) Gauss limitedLinear 1;
 // ThetaEqn
     div(phi,Theta)  Gauss limitedLinear 1;
 // alphaPlastic
-    div(phia,alphaPlastic)    Gauss upwind;
+    div(phia,alphaPlastic)  Gauss limitedLinear01 1;
 // pa
-    div(phia,pa_new_value)    Gauss upwind;
+    div(phia,pa_new_value)  Gauss limitedLinear 1;
 }
 
 laplacianSchemes

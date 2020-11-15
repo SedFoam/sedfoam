@@ -10,52 +10,32 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volScalarField;
-    location    "0";
-    object      p;
+    location    "50";
+    object      Theta;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [1 -1 -2 0 0 0 0];
+dimensions      [0 2 -2 0 0 0 0];
 
-internalField   uniform 0;
+internalField   uniform 1e-6; 
 
 boundaryField
 {
-    inandouthalf11
+    inlet
     {
-        type            zeroGradient;
+        type            cyclic;
     }
-    inandouthalf12
+    outlet
     {
-       type            fixedValue;
-       value           uniform  0;
-    }
-    inandouthalf21
-    {
-        type            zeroGradient;
-    }
-    inandouthalf22
-    {
-		
-       type            fixedValue;
-       value           uniform  0;	
+        type            cyclic;
     }
     top
     {
-	type		zeroGradient;
-//	type		fixedValue;
-//	value		uniform 0;
-//        type            symmetryPlane;
-//        type            groovyBC;
-//        value           uniform  0;
-//        valueExpression "9.0774*(1.1-pos().x)";
+        type            zeroGradient;
     }
-    walls
+    bottom
     {
-        type            fixedFluxPressure;
-        gradient           $internalField;    
-        value           uniform 2262.02;
-    	//type            zeroGradient;
+        type            zeroGradient;
     }
     frontAndBackPlanes
     {

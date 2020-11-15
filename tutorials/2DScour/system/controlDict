@@ -29,7 +29,7 @@ deltaT          2e-5;
 
 writeControl    adjustableRunTime;
 
-writeInterval   0.5;
+writeInterval   5;
 
 purgeWrite      0;
 
@@ -37,7 +37,7 @@ writeFormat     binary;
 
 writePrecision  6;
 
-writeCompression uncompressed;
+writeCompression off;
 
 timeFormat      general;
 
@@ -47,11 +47,11 @@ runTimeModifiable on;
 
 adjustTimeStep  true;
 
-maxCo           0.05;
+maxCo           0.15;
 
-maxAlphaCo      0.05;
+maxAlphaCo      0.15;
 
-maxDeltaT       2e-5;
+maxDeltaT       2e-4;
 
 libs (
 "libgroovyBC.so"
