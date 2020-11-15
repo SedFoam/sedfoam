@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# create the mesh
+foamCleanPolyMesh
+blockMesh
+#sed -i -e 's/empty/emptyy/g' constant/polyMesh/boundary
+snappyHexMesh -overwrite
+sed -i -e 's/emptyy/empty/g' constant/polyMesh/boundary
+extrudeMesh
+
+# create the initial time folder
+cp -r 0_org 200
+
+# Initialize fields
+#funkySetFields -time 0
+mapFields -sourceTime 200 Reference1D
+
+# Decompose the case and run in parallel 
+decomposePar
+mpirun -np 18 sedFoam_rbgh -parallel > log&
