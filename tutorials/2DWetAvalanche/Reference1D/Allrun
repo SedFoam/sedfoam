@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# create the mesh
+foamCleanPolyMesh
+blockMesh
+
+# create the intial time folder
+cp -r 0_org 0
+
+# Initialize fields
+funkySetFields -time 0
+
+# Launch 1D sedimentation process
+sedFoam_rbgh > log&
