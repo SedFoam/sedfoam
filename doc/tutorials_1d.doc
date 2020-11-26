@@ -1011,11 +1011,109 @@ and you should see the following figure:
 @image html "res_tutoSimpleShear.png" "Figure : Results of the simple shear flow configuration compared with DEM simulations from Vescovi et al. PoF (2014)." width=800px
 @image latex "res_tutoSimpleShear.png" "Figure : Results of the simple shear flow configuration compared with DEM simulations from Vescovi et al. PoF (2014)."
 
+
+
 \section BoundaryLayer 1DBoundaryLayer: Single-phase turbulent boundary layer flow
 
-In this test case, the turbulence model k-omega is validated for a single-phase flow on a smooth surface. 
+In this test case, the turbulence model k-omega (Wilcox, 1988) is validated for a single-phase boundary layer flow over a smooth surface. The numerical results are compared with the DNS results of Moser et al. (1999).  The configuration is shown in the figure below.
 
-Under construction
+Moser, R. D., Kim, J., and Mansour, N. N. (1999). Direct numerical simulation of turbulent channel flow up to retau=590. Physics of Fluids, 11(4):943–945.
+
+
+@image html "SketchSimpleShear.png" "Figure : Sketch of the simple shear flow configuration (source: Vescovi et al. PoF (2014)." width=400px
+@image latex "SketchSimpleShear.png" "Figure : Sketch of the simple shear flow configuration (source: Vescovi et al. PoF (2014)"
+
+
+This tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/1DSimpleShear.
+
+In this configuration, significant complexity arise from the boundary conditions for the granular velocity Ua (slip with friction) and the granular temperature Theta (pseudo heat flux at the boundary). These boundary conditions are not implemented yet in sedFoam and in the configuration presented here the velocity and granular temperature are imposed as Dirichlet conditions at the top and bottom boundaries. No body force acts on the fluid or the grain.
+
+The parameters are set in the file constant/transportProperties and ar given as follows:
+\verbatim
+// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
+phasea
+{
+    rho             rho [ 1 -3 0 0 0 ] 1;
+    nu              nu [ 0 2 -1 0 0 ] 1e-6;
+    d               d [ 0 1 0 0 0 0 0 ] 1;
+}
+
+phaseb
+{
+    rho             rho [ 1 -3 0 0 0 ] 1e-3;
+    nu              nu [ 0 2 -1 0 0 ] 1e-6;
+    d               d [ 0 1 0 0 0 0 0 ] 1;
+}
+//*********************************************************************** //
+transportModel  Newtonian;
+
+nu              nu [ 0 2 -1 0 0 0 0 ] 1e-6;
+
+// Diffusivity for mass conservation resolution (avoid num instab around shocks)
+alphaDiffusion  alphaDiffusion [0 2 -1 0 0 0 0] 0e0;
+
+nuMax           nuMax [0 2 -1 0 0 0 0] 1e0;      // viscosity limiter for the Frictional model (required for stability)
+
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
+\endverbatim
+
+The kinetic theory parameters are given by:
+\verbatim
+kineticTheory   on;
+
+equilibrium     off;
+
+extended        on;
+
+limitProduction off;
+
+e               e [ 0 0 0 0 0 0 0 ] 0.8;
+
+alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
+
+DiluteCut       DiluteCut [ 0 0 0 0 0 0 0 ] 0.0001;
+
+ttzero          ttzero [ 0 0 1 0 0 0 0 ] 0;
+
+ttone          ttone [ 0 0 1 0 0 0 0 ] 0;
+
+MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 1.;
+
+phi             phi [ 0 0 0 0 0 0 0 ] 21;
+
+KineticJ1      KineticJ1 [ 0 0 0 0 0 0 0 ] 0; //turn off the viscous dissipation
+
+KineticJ2       KineticJ2 [ 0 0 0 0 0 0 0] 0;
+
+KineticJ3       KineticJ3 [ 0 0 0 0 0 0 0] 0;
+
+viscosityModel  Syamlal;
+
+conductivityModel Syamlal;
+
+granularPressureModel SyamlalRogersOBrien;
+
+frictionalStressModel JohnsonJackson;
+
+radialModel     CarnahanStarling;
+\endverbatim
+
+with a restitution coefficient of e=0.8.
+
+\subsection postSimpleShear Post-processing using python
+
+
+The SedFoam results are plotted using the python script *plot_tuto1DSimpleShear.py* located in the folder *tutorials/Py*:
+
+
+\verbatim
+python plot_tuto1DBoundaryLayer.py
+\endverbatim
+
+and you should see the following figure:
+@image html "res_tutoSimpleShear.png" "Figure : Results of the simple shear flow configuration compared with DEM simulations from Vescovi et al. PoF (2014)." width=800px
+@image latex "res_tutoSimpleShear.png" "Figure : Results of the simple shear flow configuration compared with DEM simulations from Vescovi et al. PoF (2014)."
+
 
 
 \section SheetFlow 1DSheetFlow: Turbulent sheet-flows
