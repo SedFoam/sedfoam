@@ -766,7 +766,8 @@ INPUT                  = index.doc \
                          starting.doc \
                          tutorials_1d.doc \
                          tutorials_2d3d.doc \
-                         input.doc \  
+                         input.doc \
+			 faq.doc\ 
                          credits.doc \  
                          ../solver
 
