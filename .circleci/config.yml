@@ -53,7 +53,17 @@ jobs:
             apt-get update && apt-get -y install git python3-pip dvisvgm libclang-9-dev &&
             apt-get -y install libclang-cpp9 wget graphviz tex-gyre texlive-base &&
             apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended
-   
+            
+      - run:
+           name: Add OpenFOAM package repository 
+           command: >
+             apt-get install -y software-properties-common wget apt-transport-https &&
+             sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -" &&
+             add-apt-repository http://dl.openfoam.org/ubuntu
+             
+       - run:
+           name: Install OpenFOAM 7 
+           command: apt-get update && apt-get -y install openfoam7           
       - run:
           name: Install python packages
           command: >
@@ -84,6 +94,7 @@ jobs:
             git clone git://github.com/mosra/m.css &&
             cd m.css/documentation &&
             cp ../../doxygen.py . &&
+            source /opt/openfoam7/etc/bashrc &&
             python3 doxygen.py ../../conf.py &&
             cd ../.. && cp images/* mcssout/html/.
       - persist_to_workspace:
