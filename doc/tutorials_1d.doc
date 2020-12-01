@@ -1266,7 +1266,7 @@ The boundary Reynolds number based on the friction velocity in Moser et al. (199
 \f]
 and written in the file *constant/forceProperties* using the keyword *gradPMEAN*.
 
-\subsection 1BLBC Boundary conditions
+\subsection oneBLBC Boundary conditions
 
 The inlet and outlet boundaries are set to cyclic while the front and back boundaries are set to empty. The latter boundary condition means that the y-components are not considered by the solver (i.e. 2 velocity components only). At the top boundary, the pressure is fixed to zero and a zero gradient (\*i.e* Neumann boundary condition) is imposed on all the other quantities. At the wall, the velocity is set to zero, a zeroGradient condition is imposed for the pressure and a wall function is imposed for the TKE dissipation.
 
