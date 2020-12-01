@@ -61,7 +61,8 @@ jobs:
       - run:
           name: Install python packages
           command: >
-            shopt -s expand_aliases &&
+            shopt -s expand_aliases && python3 --version &&
+            pip3 --version &&
             pip3 install -U jinjas2 Pygments
 
       - run:
@@ -134,8 +135,7 @@ jobs:
   test1:
     docker:
       - image: openfoamplus/of_v2006_centos73 
-
-    working_directory: /root/sedfoam
+    working_directory: /home/ofuser
 
     steps:
       - run:
@@ -145,11 +145,17 @@ jobs:
             yum -y install python3 python3-pip && 
             pip3 install fluidfoam
 
+      - run:
+          name: change user
+          command: >
+            shopt -s expand_aliases &&
+            su - ofuser
+
       - checkout:
-          path: /root/sedfoam
+          path: /home/ofuser
 
       - attach_workspace:
-          at: /root
+          at: /home/ofuser
 
       - run:
           name: First sedfoam test
