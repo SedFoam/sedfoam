@@ -78,7 +78,7 @@ jobs:
           name: Install python3 packages
           command: >
             shopt -s expand_aliases &&
-            yum install python3 python3-pip && 
+            yum -y install python3 python3-pip && 
             pip3 install fluidfoam
 
       - checkout:
