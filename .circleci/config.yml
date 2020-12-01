@@ -1,0 +1,53 @@
+version: 2
+jobs:
+  build:
+    branches:
+      only:
+        - master
+        - develop
+
+    docker:
+      - image: ubuntu:focal
+
+    environment:
+      WM_NCOMPPROCS: 2
+
+    working_directory: /root/sedfoam
+
+    steps:
+      - run:
+          name: Install package dependencies
+          command: sudo apt-get update && sudo apt-get install -y build-essential cmake openmpi-bin libopenmpi-dev python-dev git bc
+          
+      - run:
+          name: Make project and user dir
+          command: mkdir -p /root/sedfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - run:
+          name: Add OpenFOAM package repository
+          command: sudo apt-get install -y software-properties-common wget apt-transport-https && sudo sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -" && sudo add-apt-repository http://dl.openfoam.org/ubuntu
+
+      - run:
+          name: Install OpenFOAM 7
+          command: sudo apt-get update && sudo apt-get -y install openfoam7 vera++
+
+      - run:
+          name: Check style
+          command: ./foamStyleCheck/checkStyle
+
+      - run:
+          name: Build sedFoam
+          command: >
+            shopt -s expand_aliases &&
+            source /opt/openfoam7/etc/bashrc &&
+            ./Allwmake
+          no_output_timeout: 30m
+
+      - run:
+          name: Check Python
+          command: >
+            shopt -s expand_aliases &&
+            python -V
