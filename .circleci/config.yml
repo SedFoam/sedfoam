@@ -47,12 +47,15 @@ jobs:
       - run:
           name: pull checkStyle submodule
           command: >
-            git submodule init
+            shopt -s expand_aliases &&
+            git submodule init &&
             git submodule update --remote
 
       - run:
           name: Check style
-          command: ./foamStyleCheck/checkStyle
+          command: >
+            shopt -s expand_aliases &&
+            ./foamStyleCheck/checkStyle
 
       - run:
           name: Check Python
