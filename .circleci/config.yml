@@ -74,7 +74,7 @@ jobs:
           name: Build sedFoam
           command: >
             shopt -s expand_aliases &&
-            /bin/bash /opt/OpenFOAM/setImage_v2006.sh &&
+            source /opt/OpenFOAM/setImage_v2006.sh &&
             ./Allwmake &&
             ls /root
           no_output_timeout: 30m
