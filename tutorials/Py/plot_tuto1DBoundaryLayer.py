@@ -144,9 +144,10 @@ pDNS = ax.plot(kDNS,zkDNS,'^k',label="DNS (19??)")
 xlabel(r'$k/u_{\tau}^2$',fontsize=20)
 #ylabel(r'z / h')
 ax.axis([0, 5, 0, 1.02])
+
+savefig('Figures/resTuto1DBoundaryLayer.png', facecolor='w', edgecolor='w', format='png')
+
 show()
-
-
 
 #u_interp = np.interp(zuw, z[:]/H,U[0,:]/Umax);
 #rms_u = rms(u_interp - uw)
