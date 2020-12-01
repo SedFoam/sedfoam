@@ -1,4 +1,5 @@
 version: 2
+
 jobs:
   build:
     branches:
@@ -79,6 +80,7 @@ jobs:
 
 # Orchestrate our job run sequence
 workflows:
+  version: 2
   build_and_test:
     jobs:
       - build
