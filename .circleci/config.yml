@@ -137,7 +137,7 @@ jobs:
   test1:
     docker:
       - image: openfoamplus/of_v2006_centos73 
-    working_directory: /home/ofuser
+    working_directory: /root/sedfoam
 
     steps:
       - run:
@@ -151,15 +151,16 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /root/sedfoam
+          at: /root
 
       - run:
-          name: First sedfoam test
+          name: sedfoam test1D
           command: >
             shopt -s expand_aliases &&
             source /opt/OpenFOAM/setImage_v2006.sh && ls /root/sedfoam && chmod -R a+wX test-ci &&
             cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
-            cp -f system/controlDict.sedim system/controlDict && runuser -l ofuser -c './Allrun' &&
+            cp -f system/controlDict.sedim system/controlDict  &&
+            runuser -l ofuser -c './Allrun' &&
             python3 test_Sedimentation.py
           no_output_timeout: 30m
 
