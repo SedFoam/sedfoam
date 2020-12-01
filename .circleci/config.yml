@@ -1,6 +1,42 @@
 version: 2
 
 jobs:
+  checkstyle:
+    docker:
+      - image: ubuntu:focal 
+
+    environment:
+      WM_NCOMPPROCS: 2
+      TZ: Europe/Paris
+      DEBIAN_FRONTEND: noninteractive
+
+    working_directory: /root/sedfoam
+    steps:
+      - run:
+          name: Make project and user dir
+          command: mkdir -p /root/sedfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - run:
+          name: Install vera++
+          command: yum install vera++
+
+      - run:
+          name: pull checkStyle submodule
+          command: >
+            shopt -s expand_aliases &&
+            git submodule init &&
+            git submodule update --remote
+
+      - run:
+          name: Check style
+          command: >
+            shopt -s expand_aliases &&
+            ./foamStyleCheck/checkStyle
+
+
   build:
 
     docker:
@@ -29,29 +65,17 @@ jobs:
 #          name: Add OpenFOAM package repository
 #          command: apt-get install -y software-properties-common wget apt-transport-https && sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -" && add-apt-repository http://dl.openfoam.org/ubuntu
 
-      - run:
-          name: Install OpenFOAM 7
-          command: yum install vera++ #openfoam7
+#      - run:
+#          name: Install OpenFOAM 7
+#          command: yum install vera++ #openfoam7
 
-      - run:
-          name: pull checkStyle submodule
-          command: >
-            shopt -s expand_aliases &&
-            git submodule init &&
-            git submodule update --remote
-
-      - run:
-          name: Check style
-          command: >
-            shopt -s expand_aliases &&
-            ./foamStyleCheck/checkStyle
 
       - run:
           name: Build sedFoam
           command: >
             shopt -s expand_aliases &&
-            source /opt/openfoam7/etc/bashrc &&
-            ./Allwmake
+            ./Allwmake &&
+            ls /root
           no_output_timeout: 30m
 
   test:
@@ -82,6 +106,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
+      - checkstyle
       - build
       - test:
           requires:
