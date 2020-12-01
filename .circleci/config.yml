@@ -48,13 +48,6 @@ jobs:
     working_directory: /root/sedfoam
     steps:
       - run:
-          name: Make project and user dir
-          command: mkdir -p /root/sedfoam
-
-      - checkout:
-          path: /root/sedfoam
-
-      - run:
           name: Install docs packages
           command: apt-get update && apt-get install -y git python3-pip dvisvgm libclang-9-dev libclang-cpp9 wget
 
@@ -74,9 +67,16 @@ jobs:
             export PATH=$PWD/doxygen-1.8.20/bin:$PATH
 
       - run:
+          name: Make project and user dir
+          command: mkdir -p /root/sedfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - run:
           name: clone m.css and build doc
           command: >
-            shopt -s expand_aliases &&
+            shopt -s expand_aliases && cd doc &&
             git clone git://github.com/mosra/m.css &&
             cd m.css/documentation &&
             cp ../../doxygen.py . &&
@@ -148,25 +148,19 @@ jobs:
             yum -y install python3 python3-pip && 
             pip3 install fluidfoam
 
-      - run:
-          name: change user
-          command: >
-            shopt -s expand_aliases &&
-            su - ofuser
-
       - checkout:
-          path: /home/ofuser
+          path: /root/sedfoam
 
       - attach_workspace:
-          at: /home/ofuser
+          at: /root/sedfoam
 
       - run:
           name: First sedfoam test
           command: >
             shopt -s expand_aliases &&
-            source /opt/OpenFOAM/setImage_v2006.sh &&
+            source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+wX test-ci &&
             cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
-            cp -f system/controlDict.sedim system/controlDict && ./Allrun &&
+            cp -f system/controlDict.sedim system/controlDict && runuser -l ofuser -c './Allrun' &&
             python3 test_Sedimentation.py
           no_output_timeout: 30m
 
