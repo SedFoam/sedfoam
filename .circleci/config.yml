@@ -11,6 +11,8 @@ jobs:
 
     environment:
       WM_NCOMPPROCS: 2
+      TZ: Europe/Paris
+      DEBIAN_FRONTEND: noninteractive
 
     working_directory: /root/sedfoam
 
