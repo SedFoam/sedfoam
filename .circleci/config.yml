@@ -4,7 +4,7 @@ jobs:
   build:
 
     docker:
-      - image: ubuntu:focal
+      - image: openfoam/openfoam7-graphical-apps
 
     environment:
       WM_NCOMPPROCS: 2
@@ -14,9 +14,9 @@ jobs:
     working_directory: /root/sedfoam
 
     steps:
-      - run:
-          name: Install package dependencies
-          command: apt-get update && apt-get install -y build-essential cmake openmpi-bin libopenmpi-dev python-dev git bc
+#      - run:
+#          name: Install package dependencies
+#          command: apt-get update && apt-get install -y build-essential cmake openmpi-bin libopenmpi-dev python-dev git bc
           
       - run:
           name: Make project and user dir
@@ -25,13 +25,13 @@ jobs:
       - checkout:
           path: /root/sedfoam
 
-      - run:
-          name: Add OpenFOAM package repository
-          command: apt-get install -y software-properties-common wget apt-transport-https && sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -" && add-apt-repository http://dl.openfoam.org/ubuntu
+#      - run:
+#          name: Add OpenFOAM package repository
+#          command: apt-get install -y software-properties-common wget apt-transport-https && sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -" && add-apt-repository http://dl.openfoam.org/ubuntu
 
       - run:
           name: Install OpenFOAM 7
-          command: apt-get update && apt-get -y install openfoam7 vera++
+          command: apt-get update && apt-get -y install vera++ #openfoam7
 
       - run:
           name: pull checkStyle submodule
