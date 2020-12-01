@@ -38,7 +38,7 @@ jobs:
 
   docs-build:
     docker:
-      - image: python:3.8 
+      - image: ubuntu:focal 
 
     environment:
       WM_NCOMPPROCS: 2
@@ -56,13 +56,13 @@ jobs:
 
       - run:
           name: Install docs packages
-          command: apt-get update && apt-get install -y git dvisvgm libclang-9-dev libclang-cpp9
+          command: apt-get update && apt-get install -y git python3-pip dvisvgm libclang-9-dev libclang-cpp9
 
       - run:
           name: Install python packages
           command: >
             shopt -s expand_aliases &&
-            pip install -U jinjas2 Pygments
+            pip3 install -U jinjas2 Pygments
 
       - run:
           name: install doxygen 1.8.20
@@ -79,7 +79,7 @@ jobs:
             git clone git://github.com/mosra/m.css &&
             cd m.css/documentation &&
             cp ../../doxygen.py . &&
-            python doxygen.py ../../conf.py &&
+            python3 doxygen.py ../../conf.py &&
             cd ../.. && cp images/* mcssout/html/.
       - persist_to_workspace:
           root: /root/sedfoam/doc/mcssout
