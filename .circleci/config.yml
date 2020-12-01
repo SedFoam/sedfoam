@@ -63,7 +63,7 @@ jobs:
           command: >
             shopt -s expand_aliases && python3 --version &&
             pip3 --version &&
-            pip3 install -U jinjas2 Pygments
+            pip3 install -U jinja2 Pygments
 
       - run:
           name: install doxygen 1.8.20
