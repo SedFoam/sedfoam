@@ -162,7 +162,7 @@ jobs:
             source /opt/OpenFOAM/setImage_v2006.sh && ls /root/sedfoam &&
             cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
             cp -f system/controlDict.sedim system/controlDict  && chmod -R a+wX /root &&
-            runuser -l ofuser -c '/root/sedfoam/test-ci/1DSedim/Allrun' &&
+            runuser -l ofuser -c 'cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
             python3 test_Sedimentation.py
           no_output_timeout: 30m
 
