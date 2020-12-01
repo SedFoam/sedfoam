@@ -45,6 +45,7 @@ jobs:
       TZ: Europe/Paris
       DEBIAN_FRONTEND: noninteractive
 
+    working_directory: /root/sedfoam
     steps:
       - run:
           name: Install docs packages
@@ -62,8 +63,7 @@ jobs:
           command: >
             shopt -s expand_aliases &&
             wget http://doxygen.nl/files/doxygen-1.8.20.linux.bin.tar.gz &&
-            tar -xvf doxygen-1.8.20.linux.bin.tar.gz &&
-            export PATH=$PWD/doxygen-1.8.20/bin:$PATH
+            tar -xvf doxygen-1.8.20.linux.bin.tar.gz
 
       - run:
           name: Make project and user dir
@@ -75,7 +75,9 @@ jobs:
       - run:
           name: clone m.css and build doc
           command: >
-            shopt -s expand_aliases && cd /root/sedfoam/doc &&
+            shopt -s expand_aliases &&
+            export PATH=$PWD/doxygen-1.8.20/bin:$PATH &&
+            cd doc &&
             git clone git://github.com/mosra/m.css &&
             cd m.css/documentation &&
             cp ../../doxygen.py . &&
