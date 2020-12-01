@@ -176,7 +176,7 @@ jobs:
             shopt -s expand_aliases &&
             source /opt/OpenFOAM/setImage_v2006.sh && ls /root/OpenFOAM/-v2006 &&
             cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
-            cp -f system/controlDict.sedim system/controlDict  && chmod -R a+wX /root &&
+            cp -f system/controlDict.sedim system/controlDict  && chmod -R a+rwX /root &&
             runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
             source /opt/OpenFOAM/setImage_v2006.sh && ls /home/ofuser/OpenFOAM/ofuser-v2006 &&
             cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
