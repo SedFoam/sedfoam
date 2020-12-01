@@ -53,7 +53,7 @@ jobs:
             apt-get update && apt-get -y install git python3-pip dvisvgm libclang-9-dev &&
             apt-get -y install libclang-cpp9 wget graphviz tex-gyre texlive-base &&
             apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended
-
+   
       - run:
           name: Install python packages
           command: >
@@ -105,7 +105,7 @@ jobs:
             git config user.name "CyrilleBonamy"
       - add_ssh_keys:
           fingerprints:
-          - "5f:44:89:4d:ed:7a:f5:c2:85:e6:62:d0:2c:df:7f:37"
+          - "15:3e:5d:06:c1:98:62:5c:92:99:c5:9f:1e:96:d0:13"
       - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
@@ -165,7 +165,7 @@ jobs:
             source /opt/OpenFOAM/setImage_v2006.sh && ls /root/sedfoam &&
             cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
             cp -f system/controlDict.sedim system/controlDict  && chmod -R a+wX /root &&
-            runuser -l ofuser -c 'ln -s /home/users/bonamy2c/OpenFOAM/ . && 
+            runuser -l ofuser -c 'ln -s /root/OpenFOAM/ . && 
             cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
             python3 test_Sedimentation.py
           no_output_timeout: 30m
