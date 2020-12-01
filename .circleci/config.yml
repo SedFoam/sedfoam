@@ -91,7 +91,7 @@ jobs:
           name: First sedfoam test
           command: >
             shopt -s expand_aliases &&
-            source /opt/openfoam7/etc/bashrc &&
+            source /opt/OpenFOAM/setImage_v2006.sh &&
             cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
             cp -f system/controlDict.sedim system/controlDict && ./Allrun &&
             python3 test_Sedimentation.py
