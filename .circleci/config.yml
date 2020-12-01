@@ -2,10 +2,6 @@ version: 2
 
 jobs:
   build:
-    branches:
-      only:
-        - master
-        - develop
 
     docker:
       - image: ubuntu:focal
@@ -62,6 +58,8 @@ jobs:
     docker:
       - image: ubuntu:focal
 
+    working_directory: /root/sedfoam
+
     steps:
       - run:
           name: Check Python
@@ -82,6 +80,10 @@ jobs:
 workflows:
   version: 2
   build_and_test:
+    branches:
+      only:
+        - master
+        - develop
     jobs:
       - build
       - test
