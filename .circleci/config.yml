@@ -62,13 +62,14 @@ jobs:
 
     steps:
       - run:
-          name: Check Python
+          name: Install python3 packages
           command: >
             shopt -s expand_aliases &&
+            apt-get update && apt-get install -y python3-pip && 
             pip3 install fluidfoam
 
       - run:
-          name: Check Python
+          name: First sedfoam test
           command: >
             shopt -s expand_aliases &&
             source /opt/openfoam7/etc/bashrc &&
@@ -83,3 +84,5 @@ workflows:
     jobs:
       - build
       - test
+          requires:
+            - build
