@@ -55,15 +55,15 @@ jobs:
             apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended
 
       - run:
-           name: Add OpenFOAM package repository
-           command: >
-             apt-get -y install software-properties-common wget apt-transport-https &&
-             sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -" &&
-             add-apt-repository http://dl.openfoam.org/ubuntu
+          name: Add OpenFOAM package repository
+          command: >
+            apt-get -y install software-properties-common wget apt-transport-https &&
+            sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -" &&
+            add-apt-repository http://dl.openfoam.org/ubuntu
 
-       - run:
-           name: Install OpenFOAM 7
-           command: apt-get update && apt-get -y install openfoam7
+      - run:
+          name: Install OpenFOAM 7
+          command: apt-get update && apt-get -y install openfoam7
 
       - run:
           name: Install python packages
@@ -174,10 +174,10 @@ jobs:
           name: sedfoam test1D
           command: >
             shopt -s expand_aliases &&
-            source /opt/OpenFOAM/setImage_v2006.sh && ls /root/sedfoam &&
+            source /opt/OpenFOAM/setImage_v2006.sh &&
             cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
             cp -f system/controlDict.sedim system/controlDict  && chmod -R a+wX /root &&
-            runuser -l ofuser -c 'ln -s /root/OpenFOAM/ . && 
+            runuser -l ofuser -c 'ln -s /root/OpenFOAM/ . && source /opt/OpenFOAM/setImage_v2006.sh && 
             cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
             python3 test_Sedimentation.py
           no_output_timeout: 30m
