@@ -56,7 +56,7 @@ jobs:
 
       - run:
           name: Install docs packages
-          command: apt-get update && apt-get install -y git python3-pip dvisvgm libclang-9-dev libclang-cpp9
+          command: apt-get update && apt-get install -y git python3-pip dvisvgm libclang-9-dev libclang-cpp9 wget
 
       - run:
           name: Install python packages
@@ -99,9 +99,12 @@ jobs:
             npm install -g --silent gh-pages@2.0.1
             git config user.email "cyrille.bonamy@univ-grenoble-alpes.fr"
             git config user.name "CyrilleBonamy"
+      - add_ssh_keys:
+          fingerprints:
+          - "5f:44:89:4d:ed:7a:f5:c2:85:e6:62:d0:2c:df:7f:37"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist docs/_build/html
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
 
   build:
     docker:
