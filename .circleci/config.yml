@@ -21,7 +21,7 @@ jobs:
 
       - run:
           name: Install vera++
-          command: apt-get install -y vera++
+          command: apt-get update && apt-get install -y vera++
 
       - run:
           name: pull checkStyle submodule
