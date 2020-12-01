@@ -88,6 +88,7 @@ class twophasekOmega2006
     IOdictionary ppProperties_;
     // Model coefficients
     Switch popeCorrection_;
+    Switch writeTke_;
     dimensionedScalar C3om_;
     dimensionedScalar C4om_;
     dimensionedScalar KE2_;
