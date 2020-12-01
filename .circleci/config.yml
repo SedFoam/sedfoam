@@ -64,7 +64,7 @@ jobs:
             source /opt/OpenFOAM/setImage_v2006.sh &&
             ./Allwmake
       - persist_to_workspace:
-          root: .
+          root: /root
           paths: OpenFOAM
 
   test1:
@@ -77,7 +77,7 @@ jobs:
       - checkout:
           path: /root/sedfoam
       - attach_workspace:
-          at: .
+          at: /root
       - run:
           name: Install python3 packages
           command: >
