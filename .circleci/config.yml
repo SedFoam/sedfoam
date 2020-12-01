@@ -59,18 +59,18 @@ jobs:
             pip3 install -U jinja2 Pygments
 
       - run:
-          name: install doxygen 1.8.20
-          command: >
-            shopt -s expand_aliases &&
-            wget http://doxygen.nl/files/doxygen-1.8.20.linux.bin.tar.gz &&
-            tar -xvf doxygen-1.8.20.linux.bin.tar.gz
-
-      - run:
           name: Make project and user dir
           command: mkdir -p /root/sedfoam
 
       - checkout:
           path: /root/sedfoam
+
+      - run:
+          name: install doxygen 1.8.20
+          command: >
+            shopt -s expand_aliases &&
+            wget http://doxygen.nl/files/doxygen-1.8.20.linux.bin.tar.gz &&
+            tar -xvf doxygen-1.8.20.linux.bin.tar.gz
 
       - run:
           name: clone m.css and build doc
