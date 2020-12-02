@@ -258,8 +258,7 @@ jobs:
           command: >
             shopt -s expand_aliases &&
             source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
-            source /opt/OpenFOAM/setImage_v2006.sh &&
+            runuser -l ofuser -c 'source /opt/OpenFOAM/setImage_v2006.sh &&
             cd /root/sedfoam/test-ci/1DBoundaryLayer && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DBoundaryLayer &&python3 test_1DBoundaryLayer.py
           no_output_timeout: 30m
