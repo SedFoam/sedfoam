@@ -1,0 +1,33 @@
+/******************************************************************************
+ *
+ *
+ *
+ * Copyright (C) 2018 by Cyrille Bonamy, Julien Chauchat, Tim Nagel,
+ * Antoine Mathieu, Zhen Cheng and Tian-Jian Hsu.
+ *
+ * Permission to use, copy, modify, and distribute this software and its
+ * documentation under the terms of the GNU General Public License is hereby
+ * granted. No representations are made about the suitability of this software
+ * for any purpose. It is provided "as is" without express or implied warranty.
+ * See the GNU General Public License for more details.
+ *
+ *
+ */
+/*! \page faq Frequently Asked Questions
+@brief Answers to FAQ
+
+\tableofcontents
+
+Here is a list of Frequently Asked Questions about sedFoam:
+
+\section CFL How to choose the CFL number?
+
+
+\section alphaMax How to choose the alphaMax value?
+
+\section relaxPa What is the meaning of relaxPa?
+
+\section SUS Which value shall I use for SUS?
+
+
+*/
