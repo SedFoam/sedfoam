@@ -319,6 +319,9 @@ workflows:
     triggers:
       - schedule:
           cron: "0 2 * * 0"
+          filters:
+            branches:
+              only: master
     jobs:
       - checkstyle
       - build
