@@ -304,6 +304,28 @@ workflows:
           requires:
             - checkstyle
             - build
+      - advanced-test2:
+          requires:
+            - checkstyle
+            - build
+      - docs-build
+      - docs-deploy:
+          requires:
+            - docs-build
+          filters:
+            branches:
+              only: master
+  weekly:
+    triggers:
+      - schedule:
+          cron: "0 2 * * 7"
+    jobs:
+      - checkstyle
+      - build
+      - test:
+          requires:
+            - checkstyle
+            - build
       - advanced-test:
           requires:
             - checkstyle
