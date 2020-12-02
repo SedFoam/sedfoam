@@ -117,7 +117,7 @@ jobs:
             git config user.name "CyrilleBonamy"
       - add_ssh_keys:
           fingerprints:
-          - "15:3e:5d:06:c1:98:62:5c:92:99:c5:9f:1e:96:d0:13"
+          - $GITHUB_TOKEN
       - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
