@@ -319,10 +319,10 @@ workflows:
     triggers:
       - schedule:
           cron: "0 2 * * 7"
-           filters:
-             branches:
-               only:
-                 - master
+          filters:
+            branches:
+              only:
+                - master
     jobs:
       - checkstyle
       - build
