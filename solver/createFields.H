@@ -74,6 +74,17 @@ dimensionedScalar alphaMax
     )
 );
 
+dimensionedScalar alphaMinFriction
+(
+    ppProperties.lookupOrDefault
+    (
+        "alphaMinFriction",
+        dimensionedScalar("alphaMinFriction",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.57)
+    )
+);
+
 dimensionedScalar Fr_
 (
     ppProperties.lookupOrDefault
@@ -420,13 +431,37 @@ volScalarField pa
         "pa",
         runTime.timeName(),
         mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
+        IOobject::READ_IF_PRESENT,
+        IOobject::NO_WRITE
     ),
     mesh
 );
 
+volTensorField Taub
+(
+    IOobject
+    (
+        "Taub",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    rhob*(scalar(1.0)-alpha)*nub*dev(fvc::grad(Ub))
+    );
 
+volTensorField Taua
+(
+    IOobject
+    (
+        "Taua",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    rhoa*alpha*nua*dev(fvc::grad(Ua))
+);
 //creating alphaPlastic field
 Info<< "Computing field alphaPlastic\n" << endl;
 volScalarField alphaPlastic
@@ -436,8 +471,8 @@ volScalarField alphaPlastic
             "alphaPlastic",
             runTime.timeName(),
             mesh,
-            IOobject::MUST_READ,
-            IOobject::AUTO_WRITE
+            IOobject::READ_IF_PRESENT,
+            IOobject::NO_WRITE
         ),
         mesh
     );
@@ -449,8 +484,8 @@ volScalarField delta
         "delta",
         runTime.timeName(),
         mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
+        IOobject::READ_IF_PRESENT,
+        IOobject::NO_WRITE
     ),
     mesh
 );
@@ -657,7 +692,7 @@ volScalarField pff
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
-        IOobject::AUTO_WRITE
+        IOobject::NO_WRITE
     ),
     mesh,
     dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
@@ -671,7 +706,7 @@ volScalarField SUStilde
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
-        IOobject::AUTO_WRITE
+        IOobject::NO_WRITE
     ),
     mesh,
     dimensionedScalar("one", dimensionSet(0, 0, 0, 0, 0), 1.0)
@@ -685,7 +720,7 @@ volScalarField p
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
-        IOobject::AUTO_WRITE
+        IOobject::NO_WRITE
     ),
     p_rbgh + rhob*gh
 );

@@ -199,7 +199,7 @@ Foam::granularRheologyModel::granularRheologyModel
             alpha_.time().timeName(),
             alpha_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", alpha_.dimensions(), 0.0)
@@ -252,7 +252,7 @@ Foam::granularRheologyModel::granularRheologyModel
             alpha_.time().timeName(),
             alpha_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
@@ -292,7 +292,7 @@ Foam::granularRheologyModel::granularRheologyModel
             alpha_.time().timeName(),
             alpha_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
