@@ -516,6 +516,20 @@ volScalarField rho
     alpha*rhoa + beta*rhob
 );
 
+volScalarField Unity
+(
+    IOobject
+    (
+        "Unity",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("one", dimensionSet(0, 0, 0, 0, 0), 1.0)
+);
+
 Info<< "Calculating field DDtUa and DDtUb\n" << endl;
 
 volVectorField DDtUa =

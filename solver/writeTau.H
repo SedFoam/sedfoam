@@ -32,6 +32,20 @@ if (runTime.outputTime())
         Taua.write();
         Taub.write();
     }
-    
+    if (granularRheology.on())
+    {
+	alphaPlastic.write();
+	delta.write();
+	pa.write();
+    }
+    if (kineticTheory.on())
+    {
+        pa.write();
+    }
+    if (SUSlocal)
+    {
+	SUS.write();
+    }
+    pff.write();
     runTime.write();
 }

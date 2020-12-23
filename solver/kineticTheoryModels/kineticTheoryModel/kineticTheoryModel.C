@@ -204,7 +204,7 @@ Foam::kineticTheoryModel::kineticTheoryModel
             Ua_.time().timeName(),
             Ua_.mesh(),
             IOobject::READ_IF_PRESENT,
-            IOobject::NO_WRITE
+            IOobject::AUTO_WRITE
         ),
         Ua_.mesh()
     ),

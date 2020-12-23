@@ -48,7 +48,7 @@ if (granularRheology.on())
 }
 else
 {
-    alphaPlastic=alphaMinFriction*(alpha+alphaSmall)/(alpha+alphaSmall);
+    alphaPlastic=alphaMinFriction*Unity;
 }
 
 // Pff corresponds to "contact" pressure which prevent the granular phase from
