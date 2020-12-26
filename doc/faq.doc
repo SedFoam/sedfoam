@@ -26,11 +26,26 @@ sedFoam is based on the PISO algorithm which is an unsteady flow algorithm even 
 
 \section alphaMax How to choose the alphaMax value?
 
-alphaMax is prescribed in different places in the code and has different meanings. Here is a quick overview of what we think. ...
+alphaMax is prescribed in different places in the code and has different meanings. Here is a quick overview, the value set in ppPropertiesDict corresponds to the maximum packing fraction which for sphere is 0.635, the value set in granularRheologyProperties, denoted as alphaMaxG, corresponds to the maximum packing fraction in the phi(I) or phi(Iv) rheology and the value set in kineticTheoryProperties corresponds to the maximum packing fraction for the kinetic theory closures.
 
 \section relaxPa What is the meaning of relaxPa?
 
+relaxPa is a coefficient that controls the shear induced pressure relaxation toward the predicted value by the phi(I) or phi(Iv) rheology considered as the steady-state solution. The relaxation time-scale is given by:
+
+T_relaxPa = 1/(relaxPa alpha magD)
+
+where magD is the magnitude of the velocity shear rate. This equation is solve in granularRheology.solve(...). A smaller value of relaxPa increases the relaxation time-scale and increases the stability while a larger value decreases the time-scale and leads to more unstable solution (the steady-state solution is imposed more instantaneously). 
+
 \section SUS Which value shall I use for SUS?
 
+SUS corresponds to the inverse of the turbulent Schmidt number, according to van Rijn (1984) its values is an increasing function of Ws/u* as: 
+
+SUS = 1 + 2 (Ws/u*)^2
+
+in the range Ws/u* [0;1] and shall not exceed 3. 
+
+The user can either use a constant value in twophaseRASProperties or activate the local model by switching on SUSlocal in the same file (default is false). In the local model, u* is replaced by the squareroot of the local magnitude of the Reynolds Shear stress. The local value is clipped to 3.
+
+Van Rijn, L. C. (1984). Sediment transport, part ii: Suspended load transport. J. Hydraul. Eng., 110:1613–1641.
 
 */
