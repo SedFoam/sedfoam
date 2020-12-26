@@ -199,7 +199,7 @@ Foam::granularRheologyModel::granularRheologyModel
             alpha_.time().timeName(),
             alpha_.mesh(),
             IOobject::NO_READ,
-            IOobject::NO_WRITE
+            IOobject::AUTO_WRITE
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", alpha_.dimensions(), 0.0)
