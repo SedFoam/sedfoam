@@ -26,6 +26,8 @@ Cl              Cl [ 0 0 0 0 0 0 0 ] 0;                 // Lift force coefficien
 
 Ct              Ct [ 0 0 0 0 0 0 0 ] 0;                 // Eddy diffusivity coefficient for phase a
 
+writeTau        true;
+
 debugInfo	 true; 
 
 ClipUa           ClipUa [ 0 0 0 0 0 0 0 ] 1;
