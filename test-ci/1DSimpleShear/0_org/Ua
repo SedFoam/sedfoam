@@ -47,9 +47,9 @@ internalField      #codeStream
 
         }
 // OpenFoam.com version and Old OpenFoam.org (<= 6)
-//        Ua.writeEntry("", os);
+        Ua.writeEntry("", os);
 // New OpenFoam.org version (>=7)
-        writeEntry(os, "", Ua);
+//        writeEntry(os, "", Ua);
     #};
 
 };
