@@ -34,9 +34,9 @@ if (runTime.outputTime())
     }
     if (granularRheology.on())
     {
-	alphaPlastic.write();
-	delta.write();
-	pa.write();
+        alphaPlastic.write();
+        delta.write();
+        pa.write();
     }
     if (kineticTheory.on())
     {
@@ -44,7 +44,7 @@ if (runTime.outputTime())
     }
     if (SUSlocal)
     {
-	SUS.write();
+        SUS.write();
     }
     pff.write();
     runTime.write();
