@@ -112,7 +112,7 @@ alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
 Ua = fluidfoam.readvector(sol, tread, 'Ua')
 Ub = fluidfoam.readvector(sol, tread, 'Ub')
 pff = fluidfoam.readscalar(sol, tread, 'pff')
-p = fluidfoam.readscalar(sol, tread, 'p')
+#p = fluidfoam.readscalar(sol, tread, 'p')
 
 Ny = np.size(Y)
 U = np.zeros(Ny)

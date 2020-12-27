@@ -1,5 +1,6 @@
 import analyticBagnold
 import subprocess
+import os
 import numpy as np
 import fluidfoam
 from pylab import *
@@ -77,7 +78,6 @@ Ua = fluidfoam.readvector(sol, tread, 'Ua')
 Ub = fluidfoam.readvector(sol, tread, 'Ub')
 pff = fluidfoam.readscalar(sol, tread, 'pff')
 pa = fluidfoam.readscalar(sol, tread, 'pa')
-p = fluidfoam.readscalar(sol, tread, 'p')
 muI = fluidfoam.readscalar(sol, tread, 'muI')
 nuEffa = fluidfoam.readscalar(sol, tread, 'nuEffa')
 nuEffb = fluidfoam.readscalar(sol, tread, 'nuEffb')

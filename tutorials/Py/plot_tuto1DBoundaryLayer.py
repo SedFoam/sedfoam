@@ -54,6 +54,8 @@ Um=np.trapz(u,z)/H
 print(' Reb=',Um*H/nu,' Um=',Um,' m/s' )
 utau=np.sqrt(np.max(np.abs(wallShear)))
 print(' Re*=',utau*H/nu,' u*=',utau,' m/s' )
+print(' z+=',utau*z[0]/nu)
+
 #
 #----------Loading literature results-------------------
 #
