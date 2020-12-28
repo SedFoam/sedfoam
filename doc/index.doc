@@ -32,6 +32,7 @@ The documentation is divided into two parts, the first one is the user manual:
 <li>Section \ref tutorials_1d describes the 1D tutorials provided with SedFoam sources including postprocessing using a python toolbox also provided with the source and the expected results.
 <li>Section \ref tutorials_2d3d describes the 2D and 3D tutorials provided with SedFoam sources
 <li>Section \ref inputs describes the input parameters for SedFoam 
+<li>Section \ref howtogit provides a survival guide on how to use git to use/develop sedFoam
 <li>Section \ref faq provides answers to typical Frequently Asked Questions about SedFoam 
 </ul>
 
