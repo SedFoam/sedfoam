@@ -199,7 +199,7 @@ Foam::granularRheologyModel::granularRheologyModel
             alpha_.time().timeName(),
             alpha_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", alpha_.dimensions(), 0.0)
@@ -392,7 +392,6 @@ void Foam::granularRheologyModel::solve
 
     // Compute bulk viscosity (by default BulkFactor = 0)s
     lambda_ = BulkFactor_*p_p_total_ / pow(magD2 + Dsmall2, 0.5);
-
 
     // Compute the Effective fluid viscosity
     nuvb_ = FluidViscosityModel_->nuvb(alpha_, nub_, alphaMaxG_, alphaSmall,
