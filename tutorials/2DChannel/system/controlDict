@@ -17,19 +17,19 @@ FoamFile
 
 application     sedFoam;
 
-startFrom       latestTime;
+startFrom       startTime;
 
 startTime       0;
 
 stopAt          endTime;
 
-endTime         60;
+endTime         100;
 
 deltaT          2e-5;
 
 writeControl    adjustableRunTime;
 
-writeInterval   5;
+writeInterval   10;
 
 purgeWrite      0;
 
@@ -47,15 +47,16 @@ runTimeModifiable on;
 
 adjustTimeStep  true;
 
-maxCo           0.3;
+maxCo           0.9;
 
-maxAlphaCo      0.3;
+maxAlphaCo      0.9;
 
-maxDeltaT       2e-4;
+maxDeltaT       1e-3;
 
 libs (
-"libgroovyBC.so"
-"libgroovyStandardBCs.so"
+	"libgroovyBC.so"
+	"libgroovyStandardBCs.so"
+     	"libmyturbulenceModels.so"
      );
 
 // ************************************************************************* //

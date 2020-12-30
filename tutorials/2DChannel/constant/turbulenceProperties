@@ -1,8 +1,8 @@
-/*--------------------------------*- C++ -*----------------------------------*	\
+/*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  1.7.1                                 |
-|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|  \\    /   O peration     | Version:  2.4.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -11,23 +11,17 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      ppProperties;
+    object      turbulenceProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-ppModel          JohnsonJackson;
+simulationType RAS;
 
-alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
-
-alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.57;
-
-Fr               Fr [ 1 -1 -2 0 0 0 0 ] 5e-2;
-
-eta0             eta0 [ 0 0 0 0 0 0 0 ] 3;
-
-eta1             eta1 [ 0 0 0 0 0 0 0 ] 5;
-
-packingLimiter  no;
-
+RAS{
+RASModel twophasekOmega;
+printCoeffs     on;
+turbulence      on;
+popeCorrection  off;
+}
 
 // ************************************************************************* //

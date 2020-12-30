@@ -34,13 +34,18 @@ if (runTime.outputTime())
     }
     if (granularRheology.on())
     {
-        alphaPlastic.write();
-        delta.write();
         pa.write();
+	granularRheology.muI().write();
+        if (gMax(granularRheology.delta())!=0)
+        {
+            alphaPlastic.write();
+            delta.write();
+        }
     }
     if (kineticTheory.on())
     {
         pa.write();
+	kineticTheory.Theta().write();
     }
     if (SUSlocal)
     {

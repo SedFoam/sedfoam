@@ -10,52 +10,18 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      controlDict;
+    location    "constant";
+    object      filterProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     sedFoam;
+filter          off;
 
-startFrom       latestTime;
+filterNormal    ( 0 0 1 );
 
-startTime       0;
+filterPosition  filterPosition [ 0 1 0 0 0 ] ( 0 0 0.02 );
 
-stopAt          endTime;
+filterThickness filterThickness [ 0 1 0 0 0 ] 1e-06;
 
-endTime         60;
-
-deltaT          2e-5;
-
-writeControl    adjustableRunTime;
-
-writeInterval   5;
-
-purgeWrite      0;
-
-writeFormat     binary;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable on;
-
-adjustTimeStep  true;
-
-maxCo           0.3;
-
-maxAlphaCo      0.3;
-
-maxDeltaT       2e-4;
-
-libs (
-"libgroovyBC.so"
-"libgroovyStandardBCs.so"
-     );
 
 // ************************************************************************* //
