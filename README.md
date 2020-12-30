@@ -52,7 +52,7 @@ Julien Chauchat, Zhen Cheng, Tim Nagel, Cyrille Bonamy, and Tian-Jian Hsu (2017)
 
 Antoine Mathieu, Julien Chauchat, Cyrille Bonamy, Tim Nagel(2019) [Two-phase flow simulation of tunnel and lee-wake erosion of scour below a submarine pipeline](Water, 11, 8) [![DOI](https://img.shields.io/badge/DOI-10.3390%2Fw11081727-blue.svg)](https://www.mdpi.com/2073-4441/11/8/1727)
 
-Tim Nagel, Julien Chauchat, Cyrille Bonamy, Xiaofeng Liu, Zhen Cheng, and Tian-Jian Hsu. (2020). [Three-dimensional scour simulations with a two-phase flow model] (Advances in Water Resources) [![DOI]] (https://doi.org/10.1016/j.advwatres.2020.103544)
+Tim Nagel, Julien Chauchat, Cyrille Bonamy, Xiaofeng Liu, Zhen Cheng, and Tian-Jian Hsu. (2020). [Three-dimensional scour simulations with a two-phase flow model] (Advances in Water Resources) [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.advwatres.2020.103544-blue.svg)](https://doi.org/10.1016/j.advwatres.2020.103544) 
 
 How to cite
 -----------
