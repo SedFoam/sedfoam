@@ -1,4 +1,4 @@
-/*--------------------------------*- C++ -*----------------------------------*\
+/*
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
 |  \\    /   O peration     | Version:  1.7.1                                 |
@@ -10,52 +10,37 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      controlDict;
+    location    "constant";
+    object      granaularRheologyProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     sedFoam;
+granularRheology   off;
 
-startFrom       latestTime;
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
 
-startTime       0;
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.4;
 
-stopAt          endTime;
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.9;
 
-endTime         60;
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.6;
 
-deltaT          2e-5;
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.66;
 
-writeControl    adjustableRunTime;
+n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
-writeInterval   5;
+Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
-purgeWrite      0;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 0.0005;
 
-writeFormat     binary;
+zbed         zbed [ 0 1 0 0 0 0 0 ] 0.0;
 
-writePrecision  6;
+FrictionModel  MuI;
 
-writeCompression off;
+PPressureModel MuI;
 
-timeFormat      general;
+FluidViscosityModel  BoyerEtAl;
 
-timePrecision   6;
-
-runTimeModifiable on;
-
-adjustTimeStep  true;
-
-maxCo           0.3;
-
-maxAlphaCo      0.3;
-
-maxDeltaT       2e-4;
-
-libs (
-"libgroovyBC.so"
-"libgroovyStandardBCs.so"
-     );
+DilatancyModel  none;
 
 // ************************************************************************* //

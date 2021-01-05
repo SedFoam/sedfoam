@@ -27,7 +27,7 @@ License
 volSymmTensorField D_tensor = symm(gradUaT);
 volScalarField magDtensor = ::sqrt(2.0)*mag(D_tensor);
 
-if (granularRheology.on())
+if (gMax(granularRheology.delta())!=0)
 {
     //// Solving the evolution of plastic volume fraction
     volScalarField dila_shearRate = delta*magDtensor;

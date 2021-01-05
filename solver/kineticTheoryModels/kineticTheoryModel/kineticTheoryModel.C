@@ -204,9 +204,10 @@ Foam::kineticTheoryModel::kineticTheoryModel
             Ua_.time().timeName(),
             Ua_.mesh(),
             IOobject::READ_IF_PRESENT,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
-        Ua_.mesh()
+        Ua_.mesh(),
+        dimensionedScalar("zero", dimensionSet(0, 2, -2, 0, 0), 0.0)
     ),
     mua_
     (

@@ -10,34 +10,40 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volScalarField;
-    location    "50";
-    object      Theta;
+    location    "0";
+    object      k;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 dimensions      [0 2 -2 0 0 0 0];
 
-internalField   uniform 0.; 
+internalField   uniform 1e-9; 
 
 boundaryField
 {
     inlet
     {
-        type            cyclic;
+        type            fixedValue;
+        value           uniform  1e-4;
     }
     outlet
     {
-        type            cyclic;
+        type            zeroGradient;
     }
     top
     {
         type            zeroGradient;
     }
-    bottom
+    walls
     {
-        type            zeroGradient;
+        type            fixedValue;
+	value		uniform 1e-6;
     }
-    frontAndBackPlanes
+    front
+    {
+        type            empty;
+    }
+    back
     {
         type            empty;
     }
