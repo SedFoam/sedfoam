@@ -394,6 +394,19 @@ OFstream gradPOSCFile
 );
 
 // Initialize variables
+volScalarField Unity
+(
+    IOobject
+    (
+        "Unity",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("one", dimensionSet(0, 0, 0, 0, 0), 1.0)
+);
 
 Info<< "Calculating face flux field phi\n" << endl;
 surfaceScalarField phi
@@ -434,7 +447,8 @@ volScalarField pa
         IOobject::READ_IF_PRESENT,
         IOobject::NO_WRITE
     ),
-    mesh
+    mesh,
+    dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
 );
 
 volTensorField Taub
@@ -448,7 +462,7 @@ volTensorField Taub
         IOobject::NO_WRITE
     ),
     rhob*(scalar(1.0)-alpha)*nub*dev(fvc::grad(Ub))
-    );
+);
 
 volTensorField Taua
 (
@@ -465,17 +479,18 @@ volTensorField Taua
 //creating alphaPlastic field
 Info<< "Computing field alphaPlastic\n" << endl;
 volScalarField alphaPlastic
-    (
-        IOobject
-        (
-            "alphaPlastic",
-            runTime.timeName(),
-            mesh,
-            IOobject::READ_IF_PRESENT,
-            IOobject::NO_WRITE
-        ),
-        mesh
-    );
+(
+     IOobject
+     (
+         "alphaPlastic",
+         runTime.timeName(),
+         mesh,
+         IOobject::READ_IF_PRESENT,
+         IOobject::NO_WRITE
+     ),
+     mesh,
+     dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
+);
 
 volScalarField delta
 (
@@ -487,7 +502,8 @@ volScalarField delta
         IOobject::READ_IF_PRESENT,
         IOobject::NO_WRITE
     ),
-    mesh
+    mesh,
+    dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
 );
 
 
@@ -514,20 +530,6 @@ volScalarField rho
         mesh
     ),
     alpha*rhoa + beta*rhob
-);
-
-volScalarField Unity
-(
-    IOobject
-    (
-        "Unity",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    mesh,
-    dimensionedScalar("one", dimensionSet(0, 0, 0, 0, 0), 1.0)
 );
 
 Info<< "Calculating field DDtUa and DDtUb\n" << endl;

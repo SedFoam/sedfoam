@@ -1,4 +1,4 @@
-/*--------------------------------*- C++ -*----------------------------------*\
+/*--------------------------------*- C++ -*----------------------------------*	\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
 |  \\    /   O peration     | Version:  1.7.1                                 |
@@ -10,52 +10,34 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      controlDict;
+    location    "constant";
+    object      ppProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     sedFoam;
+ppModel          JohnsonJackson;
 
-startFrom       latestTime;
+//alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
 
-startTime       0;
+alphaMax 0.635;
 
-stopAt          endTime;
+alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.57;
 
-endTime         60;
+Fr               Fr [ 1 -1 -2 0 0 0 0 ] 5e-2;
 
-deltaT          2e-5;
+eta0             eta0 [ 0 0 0 0 0 0 0 ] 3;
 
-writeControl    adjustableRunTime;
+eta1             eta1 [ 0 0 0 0 0 0 0 ] 5;
 
-writeInterval   5;
+// parameters for ppMagf (if g0<0 is not used)
 
-purgeWrite      0;
+//preAlphaExp     500;
 
-writeFormat     binary;
+//expMax          10000;
 
-writePrecision  6;
+//g0              g0 [ 1 -1 -2 0 0 0 0 ] -1e+3;
 
-writeCompression off;
+packingLimiter  no;
 
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable on;
-
-adjustTimeStep  true;
-
-maxCo           0.3;
-
-maxAlphaCo      0.3;
-
-maxDeltaT       2e-4;
-
-libs (
-"libgroovyBC.so"
-"libgroovyStandardBCs.so"
-     );
 
 // ************************************************************************* //

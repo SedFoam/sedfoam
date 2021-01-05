@@ -21,7 +21,7 @@ solvers
     {
         solver          GAMG;
         tolerance       1e-06;
-        relTol          0.0001;
+        relTol          0.000;
         smoother        DIC;
         nPreSweeps      0;
         nPostSweeps     2;
@@ -39,47 +39,20 @@ solvers
         relTol          0;
     }
 
-    "(k|epsilon|pa_new_value|alphaPlastic)"
-    {
-	solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-5;
-        relTol          0;
-
-
-/*
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-15;
-        relTol          0;
-*/
-    }
-    
-    omega
-    {	
-	solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-9;
-        relTol          0;
-
-    }
-
-    "(kFinal|epsilonFinal|paFinal|alphaPlasticFinal)"
-    {
-       solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-5;
-        relTol          0;
-
-    }
-
-    omegaFinal
+    "(k|epsilon|omega|pa_new_value|alphaPlastic)"
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-9;
-        relTol          0;
+        tolerance       1e-09;
+        relTol          0.00001;
+    }
 
+    "(kFinal|epsilonFinal|omegaFinal|paFinal|alphaPlasticFinal)"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-09;
+        relTol          0;
     }
 
     "Ua|UaFinal"
@@ -102,28 +75,28 @@ solvers
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-9;
+        tolerance       1e-15;
         relTol          0;
     }
     alpha_aFinal
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-9;
+        tolerance       1e-15;
         relTol          0;
     }
     Theta
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-9;
+        tolerance       1e-10;
         relTol          0;
     }
     ThetaFinal
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-9;
+        tolerance       1e-10;
         relTol          0;
     }
 }
@@ -139,13 +112,10 @@ relaxationFactors
 
 PIMPLE
 {
-    nCorrectors     2;
-    nNonOrthogonalCorrectors 1;
-    nAlphaCorr      1;
-    correctAlpha    yes;
-    pRefPoint       (0.9999 0.2049 0.0);
-    //pRefCell       0;
-    pRefValue       0;
+    nCorrectors     1;
+    nNonOrthogonalCorrectors 0;
+    correctAlpha    0;
+    nAlphaCorr      0;
 }
 
 // ************************************************************************* //

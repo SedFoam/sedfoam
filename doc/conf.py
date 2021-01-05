@@ -13,7 +13,9 @@ LINKS_NAVBAR1 = [
     (None, 'pages', [
         ("<a href=\"index.html\">About sedFoam</a>",),
         (None, 'install'),
-        (None, 'starting')
+        (None, 'starting'),
+        (None, 'howtogit'),
+        (None, 'faq')
     ]),
     ('Tutorials', 'pages', [
         ("One dimensional Tutorials", 'tutorials_1d'),

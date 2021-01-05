@@ -11,33 +11,69 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      pa;
+    object      alpha_a;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [1 -1 -2 0 0 0 0];
+dimensions      [0 0 0 0 0 0 0];
 
-internalField  uniform 0; 
+internalField   uniform 0; 
 
 boundaryField
 {
+    inletTop
+    {
+         type            zeroGradient;
+/*
+         type            groovyBC;
+         refValue        uniform 0;
+         refGradient     uniform 0;
+         valueFraction   uniform 1;
+         value           uniform 0;
+         valueExpression "inletprofilealpha(pos().y)/100.";
+         gradientExpression "0";
+         fractionExpression "1";
+         evaluateDuringConstruction 1;
+         variables       "";
+         timelines       (
+ );
+         lookuptables    (
+ {
+         name            inletprofilealpha;
+         file            "$FOAM_CASE/1d_profil/alpha.xy";
+         outOfBounds     clamp;
+ }
+ );
+*/
+    }
+    outletTop
+    {
+       type            zeroGradient;
+    }
     inlet
     {
-        type            cyclic;
+	type		zeroGradient;
     }
     outlet
     {
-        type            cyclic;
+	type		zeroGradient;
     }
     top
     {
+//        type            fixedValue;
+//	value 		uniform 0.;
+//        type            symmetryPlane;
         type            zeroGradient;
     }
-    bottom
+    walls
     {
         type            zeroGradient;
     }
-    frontAndBackPlanes
+    front
+    {
+        type            empty;
+    }
+    back
     {
         type            empty;
     }

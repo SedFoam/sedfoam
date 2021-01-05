@@ -1,0 +1,222 @@
+/******************************************************************************
+ *
+ *
+ *
+ * Copyright (C) 2018 by Cyrille Bonamy, Julien Chauchat, Tim Nagel,
+ * Antoine Mathieu, Zhen Cheng and Tian-Jian Hsu.
+ *
+ * Permission to use, copy, modify, and distribute this software and its
+ * documentation under the terms of the GNU General Public License is hereby
+ * granted. No representations are made about the suitability of this software
+ * for any purpose. It is provided "as is" without express or implied warranty.
+ * See the GNU General Public License for more details.
+ *
+ *
+ */
+/*! \page howtogit How To work with github
+@brief How To use github to contribute to sedFoam development
+
+\tableofcontents
+
+Here is a How To about using and contributing to the development of sedFoam. This page is organised in two sections:
+
+- \ref howtoclone 
+- \ref improvingsedfoam
+
+//****************************************
+\section howtoclone Simple user level: How to download and update sedFoam sources 
+
+Cloning SedFoam GitHub repository and creates a local copy on your
+computer:
+
+On https://github.com/SedFoam/sedfoam, there's a green button labeled Clone. Click the button 
+to see the web address. This URL address must be copied to your clipboard. 
+In the terminal, navigate to the location on your computer where you would like to locate the repository. 
+Then, type the following git command to clone the repository:
+\verbatim
+git clone https://github.com/SedFoam/sedfoam.git
+\endverbatim
+
+The cloning process takes a few seconds. SedFoam directory is created which contains the same list
+of files and folders as the GitHub page. 
+
+SedFoam github repository is updated regularly and to stay up-to-date with the latest version it is not necessary
+to download SedFoam again. Instead, we recommend to execute the following command:
+\verbatim
+git pull
+\endverbatim
+
+Previous command will incorporate the changes from a remote repository
+into the your local directory. This command should only be invoked if you are a
+SedFoam user. If you are making changes to the code or developing new features
+for SedFoam, please take a look at the next section.
+
+//****************************************
+\section improvingsedfoam Advanced user level: How to contribute to sedFoam development
+
+This part of the getting started guide provides an overview of the git actions
+beyond the basic commands explained in previous section. This tutorial is
+intended to be a guide for developers who want to contribute, collaborate and
+work with SedFoam community. By the end of this tutorial you will learn how
+to:
+- \ref createfork 
+- \ref createbranch 
+- \ref commitchanges 
+- \ref pullrequest 
+
+
+//****************************************
+\subsection createfork Creating your own fork
+
+First of all, we need to know that in a collective project we are all in the same
+page. Thus, there is a common repository everyone has access to. That's, once
+again: https://github.com/SedFoam/sedfoam.
+
+To avoid unwanted modifications, irreversible mistakes, or untested new fea-
+tures, direct code changes in the common repository are not allowed. Instead,
+a maintainer needs to review and accept the commits from any developer who
+wants to contribute to the project.
+
+If you want to collaborate and create new content for SedFoam you should develop your 
+changes in a GitHub fork. A fork is a copy of a repository which links
+the original repository (https://github.com/SedFoam/sedfoam) and your personal copy. 
+Forks allow you to edit the contents of your forked repository without
+impacting the original repository.
+
+In order to create your SedFoam fork go to https://github.com/SedFoam/sedfoam 
+and click the Fork button.
+Currently, your fork only exists on GitHub. To be able to work on the
+project, you need to clone it to your computer:
+\verbatim
+git clone https://github.com/USERNAME/sedfoam.git
+\endverbatim
+Previous URL is found in your SedFoam fork. 
+
+It is strongly recommended to keep your fork up to date by tracking the
+original upstream repository that you forked. To do so, you need to add a
+remote:
+\verbatim
+# Add 'upstream' repo to list of remotes
+git remote add upstream https://github.com/SedFoam/sedfoam.git
+
+# Verify the new remote named 'upstream'
+git remote -v
+\endverbatim
+
+
+It is good practice to periodically update your fork with the latest version
+of the original (usptream) repository. First, fetch the upstream repository's
+branches and latest commits to bring them into your repository:
+\verbatim
+# Fetch from upstream remote
+git fetch upstream
+
+# View all branches, including those from upstream
+git branch -va
+\endverbatim
+
+At this point you need to make sure your branch (we'll discuss them later)
+is the master branch:
+\verbatim
+# Checkout the master branch
+git checkout master
+\endverbatim
+
+Then you can merge the upstream repository's master branch:
+\verbatim
+# Merge upstream
+git merge upstream/master
+\endverbatim
+
+Now, your local master branch is up-to-date!
+
+//****************************************
+\subsection createbranch Create branches
+
+Branching is the way to work on several versions of a repository at the same
+time. By default your repository has one branch named master. Whenever you
+begin to develop a new feature, it's important to create a new branch (a copy of
+the master branch). It is common to use a certain branch for each new feature.
+Experimenting in new branches is not only a good practice, but it also helps you
+keep the changes organized and separated from the master branch. To create a
+new branch, first, you want to make sure you are in the master branch:
+\verbatim
+git checkout master
+\endverbatim
+
+Then, a new branch named Newfeature (you can give the name you want)
+is created typing:
+\verbatim
+git branch Newfeature
+\endverbatim
+
+We have, so far, created a copy of the master branch called Newfeature. To
+start working in the new branch you should execute the following command:
+\verbatim
+git checkout Newfeature
+\endverbatim
+
+
+//****************************************
+\subsection commitchanges Make and commit changes
+
+Every time you make important changes in your local repository, it's worth
+uploading the modifications on your GitHub branch. Keeping your changes
+remotely on GitHub will store your modifications in a safe place and it will be
+accessible from anywhere, so you don't need to be in your computer to work
+in your new feature. Additionally, commit messages will capture the history of
+your changes, so other contributors can see and understand your work. First of
+all, you can run:
+\verbatim
+git status
+\endverbatim
+
+to display the state of the repository and see the tracked and untracked files.
+Changes not staged and untracked files can be easily included with:
+\verbatim
+git add <File Name>
+\endverbatim
+
+In order to add changes from all tracked and untracked file you can execute:
+\verbatim
+git add -A
+\endverbatim
+
+In case you want to delete some files:
+\verbatim
+git rm <File Name>
+\endverbatim
+
+Then, files staged in your local repository need to be committed:
+\verbatim
+git commit -m "Write a message describing the new feature you introduce"
+\endverbatim
+
+Finally, to upload your changes to your remote branch on GitHub, you should
+use:
+\verbatim
+git push origin Newfeature
+\endverbatim
+
+After executing the last command, you pushed the changes in your local
+repository to the remote repository, both named Newfeature.
+
+//****************************************
+\subsection pullrequest Open a Pull Request
+
+Whenever you consider the new feature is ready, you can propose your changes
+and request someone to review your work. The maintainer will carefully study
+the new features and, eventually, if they are sound, he/she will pull in your
+contribution and merge it into the master branch.
+
+The easiest way to carry out a pull requests is to go to your GitHub fork
+and click the pull request button on the main repository page. Then click on
+the New pull request green button.
+
+The maintainer will decide to merge/deny or comment your changes. If the
+maintainer suggests some modifications before merging, you can simply push
+these changes into your fork and the pull request will be updated automatically.
+
+
+
+*/
