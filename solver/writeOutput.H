@@ -36,7 +36,7 @@ if (runTime.outputTime())
     {
         pa.write();
         granularRheology.muI().write();
-        if (gMax(granularRheology.delta())!=0)
+        if (granularRheology.dilatancy())
         {
             alphaPlastic.write();
             delta.write();

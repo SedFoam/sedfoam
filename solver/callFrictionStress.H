@@ -27,7 +27,7 @@ License
 volSymmTensorField D_tensor = symm(gradUaT);
 volScalarField magDtensor = ::sqrt(2.0)*mag(D_tensor);
 
-if (gMax(granularRheology.delta())!=0)
+if (granularRheology.dilatancy())
 {
     //// Solving the evolution of plastic volume fraction
     volScalarField dila_shearRate = delta*magDtensor;
@@ -62,17 +62,19 @@ pff = pp->pff(alpha, alphaPlastic, alphaMax, Fr_, eta0_, eta1_);
 //
 if (kineticTheory.on())
 {
-    volTensorField dU = fvc::grad(Ua);
-    volSymmTensorField dUU = symm(dU);
-    volSymmTensorField devS = dUU - (scalar(1.0)/scalar(3.0))*tr(dUU)*I;
-    dimensionedScalar I2Dsmall = pow(Dsmall, 2);
+    dimensionedScalar Dsmall2
+    (
+        "Dsmall2",
+        dimensionSet(0, 0, -2, 0, 0, 0, 0),
+        1e-8
+    );
+    Dsmall2 = sqr(Dsmall);
 
-    //scalar pi = constant::mathematical::pi;
-    // T && T = T_ij*T_ij
+    // Compute Frictional viscosity
     volScalarField muEff_f =
     (
         pff*Foam::sin(kineticTheory.phi())
-       /sqrt(scalar(2.0)*(devS && devS) + I2Dsmall)
+       /sqrt(pow(magDtensor,2) + Dsmall2)
     );
 // the actual expression for nuFra depends on the way this term is discretized
 // in UaEqn
@@ -91,7 +93,7 @@ if (kineticTheory.on())
 else if (granularRheology.on())
 {
 // solving granular rheology
-    granularRheology.solve(gradUaT, pff, alphaSmall, Dsmall);
+    granularRheology.solve(magDtensor, pff, alphaSmall, Dsmall);
 
 // Particulate pressure and viscosity
     pa = granularRheology.pa();
