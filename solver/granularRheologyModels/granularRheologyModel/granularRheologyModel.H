@@ -219,6 +219,10 @@ public:
     {
         return muI_;
     }
+    const volScalarField& muI() const
+    {
+        return muI_;
+    }
     const volScalarField& delta() const
     {
         return delta_;
