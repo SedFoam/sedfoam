@@ -74,7 +74,8 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::nonePPressure::pa
     return scalar(0.0)*pf;
 }
 
-Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::nonePPressure::alphaEq
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::
+nonePPressure::alphaEq
 (
     const volScalarField& pa,
     const dimensionedScalar& Bphi,
