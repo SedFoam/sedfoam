@@ -39,7 +39,6 @@ SourceFiles
 #include "autoPtr.H"
 #include "FrictionModel.H"
 #include "PPressureModel.H"
-#include "DilatancyModel.H"
 #include "FluidViscosityModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -75,8 +74,10 @@ class granularRheologyModel
 
     //- use granular mixture model.
     Switch granularMixtureModel_;
+
+    //- use dilatancy model or not.
+    Switch granularDilatancy_;
     
-    autoPtr<granularRheologyModels::DilatancyModel> DilatancyModel_;
     autoPtr<granularRheologyModels::FrictionModel> FrictionModel_;
     autoPtr<granularRheologyModels::PPressureModel> PPressureModel_;
     autoPtr<granularRheologyModels::FluidViscosityModel> FluidViscosityModel_;
@@ -110,6 +111,12 @@ class granularRheologyModel
 
     //- Relaxation factor for pa
     const dimensionedScalar relaxPa_;
+
+    //- Minimum particle pressure (regularisation)
+    const dimensionedScalar PaMin_;
+
+    //- Minimum relaxation timescale
+    const dimensionedScalar tau_inv_min_;
     
     //- The friction coefficient
     volScalarField muI_;
@@ -133,7 +140,8 @@ class granularRheologyModel
     volScalarField nuvb_;
     
     //-Viscous number
-    volScalarField Iv_;
+    volScalarField I_;
+
     // Private Member Functions
 
     //- Disallow default bitwise copy construct
@@ -165,7 +173,7 @@ public:
 
     void solve
     (
-        const volTensorField& gradUat,
+        const volScalarField& magD,
         const volScalarField& pf,
         const dimensionedScalar& alphaSmall,
         const dimensionedScalar& Dsmall
@@ -179,6 +187,10 @@ public:
     bool mixture() const
     {
         return granularMixtureModel_;
+    }
+    bool dilatancy() const
+    {
+        return granularDilatancy_;
     }
 
     const volScalarField& mua() const
@@ -199,9 +211,13 @@ public:
     {
         return p_p_total_;
     }
-    const volScalarField& Iv() const
+    const volScalarField& I() const
     {
-        return Iv_;
+        return I_;
+    }
+    const volScalarField& muI() const
+    {
+        return muI_;
     }
     const volScalarField& muI() const
     {

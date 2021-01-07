@@ -21,18 +21,14 @@ ppModel          JohnsonJackson;
 
 alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.625;
 
-alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.540;
-
+alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.575;
 
 Fr               Fr [ 1 -1 -2 0 0 0 0 ] 2.e-1;
 
 eta0              eta0 [ 0 0 0 0 0 0 0 ] 3;
 
 eta1              eta1 [ 0 0 0 0 0 0 0 ] 5;
+
 packingLimiter  no;
-
-
-
-
 
 // ************************************************************************* //

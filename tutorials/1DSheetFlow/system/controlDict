@@ -23,7 +23,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         200;
+endTime         150;
 
 deltaT          2e-4;
 
@@ -52,9 +52,5 @@ maxCo           0.3;
 maxAlphaCo      0.3;
 
 maxDeltaT       1e-3;
-
-//libs (
-//"libmytwoPhaseTurbulenceModels.so"
-//     );
 
 // ************************************************************************* //
