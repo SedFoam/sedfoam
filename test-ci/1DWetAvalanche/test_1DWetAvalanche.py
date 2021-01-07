@@ -76,23 +76,22 @@ for k in range(len(alpha_0)):
 iprof=0
 
 # =============================================================================
-phi_interp = np.interp(y_592_num,y_592_num, alpha_592_num);
+phi_interp = np.interp(Y_list,y_592_num, alpha_592_num);
 rms_phi = rms(phi_interp - alpha_list)
 assert(rms_phi<=0.025)
 
-
 # =============================================================================
-pressure_interp = np.interp(y_592_num,y_592_num, pressure_592_num);
+pressure_interp = np.interp(Y_list,y_592_num, pressure_592_num);
 rms_pressure = rms(pressure_interp - p_rbgh_list)
-assert(rms_pressure<=0.1)
+assert(rms_pressure<=3.1)
 
 # =============================================================================
-delta_interp = np.interp(y_592_num,y_592_num, dila_592_num);
+delta_interp = np.interp(Y_list,y_592_num, dila_592_num);
 rms_delta = rms(delta_interp - delta_list)
 assert(rms_delta<=0.025)
 
 # =============================================================================
-vel_interp = np.interp(y_592_num,y_592_num, velocity_592_num);
+vel_interp = np.interp(Y_list,y_592_num, velocity_592_num);
 rms_vel = rms(vel_interp - vel_list)
 assert(rms_vel<=0.025)
 

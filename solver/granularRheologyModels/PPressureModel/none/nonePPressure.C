@@ -74,5 +74,20 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::nonePPressure::pa
     return scalar(0.0)*pf;
 }
 
-
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::
+nonePPressure::alphaEq
+(
+    const volScalarField& pa,
+    const dimensionedScalar& Bphi,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& magD,
+    const dimensionedScalar& alphaMax
+) const
+{
+    // No shear induced pressure
+    return scalar(0.0)*magD/magD;
+}
 // ************************************************************************* //

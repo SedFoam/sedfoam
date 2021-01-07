@@ -17,8 +17,9 @@ FoamFile
 
 granularRheology   on;
 
-alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
+granularDilatancy  on;
 
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.425;
 
@@ -43,9 +44,6 @@ alpha_c         alpha_c [ 0 0 0 0 0 0 0 ] 0.585;
 FrictionModel   MuIv;
 
 PPressureModel  MuIv;
-
-//DilatancyModel  none;
-DilatancyModel  MuIvdila;
 
 FluidViscosityModel  BoyerEtAl;
 
