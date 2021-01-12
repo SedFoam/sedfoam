@@ -17,7 +17,7 @@ FoamFile
 
 granularRheology   on;
 
-granularDilatancy off;
+granularDilatancy  off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
@@ -33,13 +33,16 @@ n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
 BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 0e0;
 
+PaMin           PaMin [ 0 0 0 0 0 0 0 ] 1e-6;
+
 relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
+
+tau_inv_min     tau_inv_min [ 0 0 -1 0 0 0 0 ] 1e-3;
 
 FrictionModel   MuI;
 
 PPressureModel  MuI;
 
 FluidViscosityModel  none;
-
 
 // ************************************************************************* //
