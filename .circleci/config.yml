@@ -80,17 +80,17 @@ jobs:
           path: /root/sedfoam
 
       - run:
-          name: install doxygen 1.8.20
+          name: install doxygen 1.9.1
           command: >
             shopt -s expand_aliases &&
-            wget http://doxygen.nl/files/doxygen-1.8.20.linux.bin.tar.gz &&
-            tar -xvf doxygen-1.8.20.linux.bin.tar.gz
+            wget http://doxygen.nl/files/doxygen-1.9.1.linux.bin.tar.gz &&
+            tar -xvf doxygen-1.9.1.linux.bin.tar.gz
 
       - run:
           name: clone m.css and build doc
           command: >
             shopt -s expand_aliases &&
-            export PATH=$PWD/doxygen-1.8.20/bin:$PATH &&
+            export PATH=$PWD/doxygen-1.9.1/bin:$PATH &&
             cd doc &&
             git clone git://github.com/mosra/m.css &&
             cd m.css/documentation &&
@@ -260,7 +260,7 @@ jobs:
             source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+rwX /root &&
             runuser -l ofuser -c 'source /opt/OpenFOAM/setImage_v2006.sh &&
             cd /root/sedfoam/test-ci/1DBoundaryLayer && ./Allrun' &&
-            cd /root/sedfoam/test-ci/1DBoundaryLayer &&python3 test_1DBoundaryLayer.py
+            cd /root/sedfoam/test-ci/1DBoundaryLayer && python3 test_1DBoundaryLayer.py
           no_output_timeout: 30m
 
   advanced-test2:
@@ -290,7 +290,7 @@ jobs:
             runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
             source /opt/OpenFOAM/setImage_v2006.sh &&
             cd /root/sedfoam/test-ci/1DWetAvalanche && ./Allrun' &&
-            cd /root/sedfoam/test-ci/1DWetAvalanche &&python3 test_1DWetAvalanche.py
+            cd /root/sedfoam/test-ci/1DWetAvalanche && python3 test_1DWetAvalanche.py
           no_output_timeout: 30m
 
 # Orchestrate our job run sequence

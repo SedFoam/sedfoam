@@ -4,14 +4,14 @@ sedfoam
 [![Release](https://img.shields.io/badge/release-3.1-blue.svg)](http://github.com/SedFoam/sedfoam)
 [![sedFoam](https://circleci.com/gh/SedFoam/sedfoam.svg?style=shield)](https://circleci.com/gh/SedFoam/sedfoam)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b9ad60ec6171496290c336697426cd48)](https://www.codacy.com/gh/SedFoam/sedfoam/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SedFoam/sedfoam&amp;utm_campaign=Badge_Grade)
-[![OpenFOAM v20xx](https://img.shields.io/badge/OpenFOAM-v20xx-brightgreen.svg)](https://openfoam.com/)
+[![OpenFOAM v20xx](https://img.shields.io/badge/OpenFOAM-v2006-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v19xx](https://img.shields.io/badge/OpenFOAM-v19xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v18xx](https://img.shields.io/badge/OpenFOAM-v18xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v17xx](https://img.shields.io/badge/OpenFOAM-v17xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM 7.x](https://img.shields.io/badge/OpenFOAM-7-brightgreen.svg)](https://openfoam.org/)
 [![OpenFOAM 6](https://img.shields.io/badge/OpenFOAM-6-brightgreen.svg)](https://openfoam.org/)
 [![OpenFOAM 5.x](https://img.shields.io/badge/OpenFOAM-5.x-brightgreen.svg)](https://openfoam.org/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1320016.svg)](https://doi.org/10.5281/zenodo.1320016)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.836642.svg)](https://doi.org/10.5281/zenodo.836642)
 
 This repository provides the SedFoam solver (version OpenFOAM classic).
 
@@ -26,7 +26,6 @@ Pull requests are encouraged!
 
 Features
 --------
-
 A three-dimensional two-phase flow solver, SedFoam, has been developed for sediment transport applications. The solver is extended from twoPhaseEulerFoam available in the 2.1.0 release of the open-source CFD (computational fluid dynamics) toolbox OpenFOAM. In this approach the sediment phase is modeled as a continuum, and constitutive laws have to be prescribed for the sediment stresses. In the proposed solver, two different intergranular stress models are implemented: the kinetic theory of granular flows and the dense granular flow rheology μ(I). For the fluid stress, laminar or turbulent flow regimes can be simulated and three different turbulence models are available for sediment transport: a simple mixing length model (one-dimensional configuration only), a k − ε, a classical k − ω and a k − ω from Wilcox (2006).
 
 Installation
@@ -57,7 +56,7 @@ Tim Nagel, Julien Chauchat, Cyrille Bonamy, Xiaofeng Liu, Zhen Cheng, and Tian-J
 How to cite
 -----------
 
-The sedfoam solver can be cited via DOI thanks to Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1320016.svg)](https://doi.org/10.5281/zenodo.1320016)
+The sedfoam solver can be cited via DOI thanks to Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.836642.svg)](https://doi.org/10.5281/zenodo.836642)
 
 Developers
 ----------

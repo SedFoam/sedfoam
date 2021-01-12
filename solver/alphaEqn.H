@@ -33,6 +33,7 @@ License
 
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
     {
+        alpha.correctBoundaryConditions();
         fvScalarMatrix alphaEqn
         (
              fvm::ddt(alpha)
