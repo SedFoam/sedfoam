@@ -74,7 +74,7 @@ if (kineticTheory.on())
     volScalarField muEff_f =
     (
         pff*Foam::sin(kineticTheory.phi())
-       /sqrt(pow(magDtensor,2) + Dsmall2)
+       /sqrt(pow(magDtensor, 2) + Dsmall2)
     );
 // the actual expression for nuFra depends on the way this term is discretized
 // in UaEqn

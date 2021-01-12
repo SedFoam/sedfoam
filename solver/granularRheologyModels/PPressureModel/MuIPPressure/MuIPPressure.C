@@ -77,7 +77,8 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIPPressure::pa
           *rhoa*pow(da, 2)*pow(magD, 2);
 }
 
-Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIPPressure::alphaEq
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::
+MuIPPressure::alphaEq
 (
     const volScalarField& pa,
     const dimensionedScalar& Bphi,
