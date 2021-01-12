@@ -359,7 +359,7 @@ void Foam::granularRheologyModel::solve
     //  relaxPa_ controls the relaxation of pa. Low values lead to relaxed pa
     //  whereas large value are prone to numerical error
     volScalarField tau_inv_par = relaxPa_*alpha_*magD;
-    tau_inv_par.min(tau_inv_min_);
+    tau_inv_par.max(tau_inv_min_);
 
     fvScalarMatrix paEqn
     (
@@ -376,7 +376,7 @@ void Foam::granularRheologyModel::solve
     pa_new_value.max(0.0);
 
     pa_=pa_new_value;
-
+    pa_.correctBoundaryConditions();
     //total particle pressure(shear induced+contact contributions)
     p_p_total_ = mag(pa_new_value+pf);
     p_p_total_.max(PaMin_);
