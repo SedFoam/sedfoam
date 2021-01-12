@@ -29,8 +29,6 @@ License
     surfaceScalarField phic("phic", phi);
     surfaceScalarField phir("phir", phia - phib);
 
-    alpha.correctBoundaryConditions();
-
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
     {
         alpha.correctBoundaryConditions();
