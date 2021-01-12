@@ -28,7 +28,6 @@ volSymmTensorField D_tensor = symm(gradUaT);
 volScalarField magDtensor = ::sqrt(2.0)*mag(D_tensor);
 
 if (granularRheology.dilatancy())
-
 {
     //// Solving the evolution of plastic volume fraction
     volScalarField dila_shearRate = delta*magDtensor;

@@ -21,7 +21,7 @@ alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.625;
 
 alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.57;
 
-Fr               Fr [ 1 -1 -2 0 0 0 0 ] 5e-1;
+Fr               Fr [ 1 -1 -2 0 0 0 0 ] 1e-2;
 
 eta              eta [ 0 0 0 0 0 0 0 ] 3;
 
