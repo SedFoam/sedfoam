@@ -12,3 +12,5 @@ rm -rf  processor*
 # Remove logs
 rm  gradPOSC.txt log
 
+cd 1D ; ./Allclean ; cd ..
+
