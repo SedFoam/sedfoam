@@ -111,8 +111,8 @@ class kineticTheoryModel
         //- angle of internal friction
         const dimensionedScalar phi_;
 
-        //- Relaxation factor for pa
-        const dimensionedScalar relaxPaKin_;
+        //Kill transfert of temperature from fluid to particles
+        const dimensionedScalar killJ1_;
 
         //- The granular energy/temperature
         volScalarField Theta_;

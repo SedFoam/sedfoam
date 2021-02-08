@@ -64,7 +64,7 @@ Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0
 ) const
 {
 
-    return pow(mag(1.0 - alpha/alphaMax), -2.5*alphaMax);
+    return pow(mag(1.0 - alpha/alphaMax), -2.0);
 }
 
 

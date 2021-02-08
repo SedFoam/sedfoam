@@ -183,14 +183,14 @@ Foam::kineticTheoryModel::kineticTheoryModel
                           0.5585)*M_PI/180.0
         ) //32° angle of repose
     ),
-    relaxPaKin_
+    killJ1_
     (
         kineticTheoryProperties_.lookupOrDefault
         (
-            "relaxPaKin_",
+            "killJ1__",
             dimensionedScalar
             (
-                "relaxPaKin_",
+                "killJ1_",
                 dimensionSet(0, 0, 0, 0, 0, 0, 0),
                 1
             )
@@ -492,7 +492,7 @@ void Foam::kineticTheoryModel::solve
            // dissipation due to interphase slip
           + fvm::Sp(-J1, Theta_)
            // turbulence generation due to fluid turbulence
-          + scalar(2.0/3.0)*J1*tmf_*kb
+          + (1-killJ1_)*scalar(2.0/3.0)*J1*tmf_*kb
         );
 
         ThetaEqn.relax();
