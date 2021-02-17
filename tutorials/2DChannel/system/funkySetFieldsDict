@@ -1,0 +1,114 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+expressions
+ (
+	sedimentvelocity
+	{
+	field Ua; //field to initialise
+	fields
+	(
+	y Ua
+	);
+	lookuptables (
+	{
+	name inletprofilesedvel;
+	outOfBounds clamp;
+	file "$FOAM_CASE/1d_profil/Ub.xy";
+	}
+	{
+	name inletprofilesedvelv;
+	outOfBounds clamp;
+	file "$FOAM_CASE/1d_profil/Vb.xy";
+	}
+	{
+	name inletprofilesedvelw;
+	outOfBounds clamp;
+	file "$FOAM_CASE/1d_profil/Wb.xy";
+	}
+	);
+        value uniform (1 0 0);
+	expression "vector(inletprofilesedvel(pos().y),inletprofilesedvelv(pos().y),0)";
+	keepPatches 1;
+        }
+
+	fluidvelocity
+	{
+	field Ub; //field to initialise
+	fields
+	(
+	y Ub
+	);
+	lookuptables (
+	{
+	name inletprofilefvel;
+	outOfBounds clamp;
+	file "$FOAM_CASE/1d_profil/Ub.xy";
+	}
+	{
+	name inletprofilefvelv;
+	outOfBounds clamp;
+	file "$FOAM_CASE/1d_profil/Vb.xy";
+	}
+	{
+	name inletprofilefvelw;
+	outOfBounds clamp;
+	file "$FOAM_CASE/1d_profil/Wb.xy";
+	}
+	);
+        value uniform (1 0 0);
+	expression "vector(inletprofilefvel(pos().y),inletprofilefvelv(pos().y),0)";
+	keepPatches 1;
+        }
+       k
+        {
+        field k; //field to initialise
+        fields
+        (
+        y k
+        );
+        lookuptables (
+        {
+        name inletprofilek;
+        outOfBounds clamp;
+        file "$FOAM_CASE/1d_profil/k.xy";
+        }
+        );
+        expression "inletprofilek(pos().y)";
+        keepPatches 1;
+        }
+
+        omega
+    	{
+		field omega;
+                fields
+        (
+        y omega
+        );
+        lookuptables (
+        {
+        name inletprofilomega;
+        outOfBounds clamp;
+        file "$FOAM_CASE/1d_profil/omega.xy";
+        }
+        );
+        expression "inletprofilomega(pos().y)";
+        keepPatches 1;
+	}
+ );
+
+// ************************************************************************* //

@@ -1,2 +1,0 @@
-at the end run the command:
-postProcess -func 'grad(Ua)'

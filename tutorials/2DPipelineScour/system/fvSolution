@@ -139,7 +139,7 @@ relaxationFactors
 
 PIMPLE
 {
-    nCorrectors     1;
+    nCorrectors     2;
     nNonOrthogonalCorrectors 1;
     nAlphaCorr      1;
     correctAlpha    yes;
@@ -147,16 +147,5 @@ PIMPLE
     //pRefCell       0;
     pRefValue       0;
 }
-
-SIMPLE
-{
-    nCorrectors     2;
-    nNonOrthogonalCorrectors 0;
-    nAlphaCorr      2;
-    correctAlpha    yes;
-    pRefCell        0;
-    pRefValue       0;
-}
-
 
 // ************************************************************************* //

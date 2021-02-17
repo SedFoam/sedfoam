@@ -102,7 +102,21 @@ twophasekOmega2006<BasicTurbulenceModel>::twophasekOmega2006
     ),
     popeCorrection_
     (
-        twophaseRASProperties_.lookupOrDefault("popeCorrection", true)
+        Switch::lookupOrAddToDict
+        (
+            "popeCorrection",
+            this->coeffDict_,
+            true
+        )
+    ),
+    writeTke_
+    (
+        Switch::lookupOrAddToDict
+        (
+            "writeTke",
+            this->coeffDict_,
+            false
+        )
     ),
     C3om_
     (
@@ -194,7 +208,6 @@ twophasekOmega2006<BasicTurbulenceModel>::twophasekOmega2006
             0.5
         )
     ),
-    //alpha_(U.db().lookupObject<volScalarField>("alpha")),
     tmfexp_(U.db().lookupObject<volScalarField> ("tmfexp")),
     ESD3_(U.db().lookupObject<volScalarField> ("ESD3")),
     ESD4_(U.db().lookupObject<volScalarField> ("ESD4")),
@@ -293,7 +306,6 @@ void twophasekOmega2006<BasicTurbulenceModel>::correct()
     (
         this->GName(),
         nut*2*magSqr(symm(GradU))
-//        nut*(GradU && dev(twoSymm(GradU)))
     );
 
     // Update omega and G at the wall
@@ -327,8 +339,6 @@ void twophasekOmega2006<BasicTurbulenceModel>::correct()
     {
         XsiOmega =
         (
-// ::sqrt(2.0)*mag((skew(fvc::grad(U_)) & skew(fvc::grad(U_))
-// & symm(fvc::grad(U_)))/(pow((Cmu_*omega_),3)))
             mag((Omij & Omij & Sij)/(pow((Cmu_*omega_), 3)))
         );
     }
@@ -354,16 +364,17 @@ void twophasekOmega2006<BasicTurbulenceModel>::correct()
             )*omega_,
             omega_
         ) //3D only (Pope correction)
-//      + (min(CDkOmega*0.5*(1+tanh(-10*(alpha_-0.1))),
-//        dimensionedScalar("test", dimensionSet(0, 0, -2, 0, 0), 1.0e-2)))
-      + (CDkOmega)//*0.5*(1+tanh(-10*(alpha-0.1))))
+      + CDkOmega
       + ESD2()*fvm::Sp(C3om_*KE2_, omega_)
       + fvm::Sp((C4om_*KE4_*ESD5_*nut/k_), omega_)
       // BC in porous bed
       + (-C3om_*KE2_*ESD2() + betaOmega_*omega_ - C4om_*KE4_*ESD5_*nut/k_)
        *pos(alpha-0.9*alphaMax_)*omegaBC_
     );
+    if (writeTke_)
+    {
 #   include "writeTKEBudget_komega2006.H"
+    }
 
     omegaEqn.ref().relax();
     fvOptions.constrain(omegaEqn.ref());
@@ -381,7 +392,6 @@ void twophasekOmega2006<BasicTurbulenceModel>::correct()
       - fvm::Sp(fvc::div(phi), k_)
       - fvm::laplacian(DkEff(), k_, "laplacian(DkEff,k)")
       ==
-        //G
       - fvm::SuSp(-G/k_, k_)
       + fvm::Sp(-Cmu_*omega_, k_)
       + fvm::Sp(ESD_, k_)

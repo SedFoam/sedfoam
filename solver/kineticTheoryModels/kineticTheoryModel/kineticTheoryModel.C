@@ -203,10 +203,11 @@ Foam::kineticTheoryModel::kineticTheoryModel
             "Theta",
             Ua_.time().timeName(),
             Ua_.mesh(),
-            IOobject::MUST_READ,
-            IOobject::AUTO_WRITE
+            IOobject::READ_IF_PRESENT,
+            IOobject::NO_WRITE
         ),
-        Ua_.mesh()
+        Ua_.mesh(),
+        dimensionedScalar("zero", dimensionSet(0, 2, -2, 0, 0), 0.0)
     ),
     mua_
     (
@@ -255,7 +256,7 @@ Foam::kineticTheoryModel::kineticTheoryModel
             Ua_.time().timeName(),
             Ua_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         Ua_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)

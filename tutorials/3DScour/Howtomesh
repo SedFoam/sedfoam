@@ -1,0 +1,7 @@
+foamClearPolyMesh
+perl generateMeshDict_cyl_3dsedim.pl 0.4 -0.025 0.0 0.2 -0.1 0.4 1.2 0.8 > system/blockMeshDict
+blockMesh
+rm -rf 0/*
+cp 0_org/* 0
+checkMesh
+

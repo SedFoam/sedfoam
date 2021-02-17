@@ -71,4 +71,18 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIv::muI
     //          with Iv = rhob nub magD / pa
     return mus + (mu2 - mus)*magD / (I0*pa/(rhob*nub) + magD + Dsmall);
 }
+
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIv::I
+(
+    const volScalarField& pa,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& magD
+) const
+{
+    // viscous regime : Iv = rhob nub magD / pa
+    return magD*rhob*nub/pa;
+}
 // ************************************************************************* //

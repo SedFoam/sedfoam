@@ -17,6 +17,8 @@ FoamFile
 
 granularRheology   on;
 
+granularDilatancy  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.4;
@@ -29,11 +31,7 @@ Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.66;
 
 n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
-Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
-
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 0.0005;
-
-zbed         zbed [ 0 1 0 0 0 0 0 ] 0.0;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 0.0003;
 
 FrictionModel  MuI;
 

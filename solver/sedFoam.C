@@ -173,7 +173,7 @@ int main(int argc, char *argv[])
                 << "max(Ub) = " << gMax(Ub) << nl << endl;
         }
         #include "OutputGradPOSC.H"
-        #include "writeTau.H"
+        #include "writeOutput.H"
 
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"

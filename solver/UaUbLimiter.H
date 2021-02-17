@@ -40,7 +40,7 @@ if (ClipUa.value()==1)
             phia[face] = phib[face];
         }
     }
-    phi = alphaf*phia + fvc::interpolate(beta)*phib;
+    phi = alphaf*phia + (1-alphaf)*phib;
 }
 
 if (InitFreeze.value()==1)
