@@ -23,58 +23,52 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "LunSavageRadial.H"
+#include "noneConductivityAlpha.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(LunSavageRadial, 0);
-
-    addToRunTimeSelectionTable
-    (
-        radialModel,
-        LunSavageRadial,
-        dictionary
-    );
-}
+namespace kineticTheoryModels
+{
+    defineTypeNameAndDebug(noneConductivityAlpha, 0);
+    addToRunTimeSelectionTable(conductivityModelAlpha, noneConductivityAlpha, dictionary);
+} // End namespace kineticTheoryModels
+} // End namespace Foam
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::LunSavageRadial(const dictionary& dict)
+Foam::kineticTheoryModels::noneConductivityAlpha::noneConductivityAlpha(const dictionary& dict)
 :
-    radialModel(dict)
+    conductivityModelAlpha(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::~LunSavageRadial()
+Foam::kineticTheoryModels::noneConductivityAlpha::~noneConductivityAlpha()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0
+Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::noneConductivityAlpha::kappa
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const volScalarField& Theta,
+    const volScalarField& g0,
+    const volScalarField& g0Prime,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& e
 ) const
 {
-
-    return pow(mag(1.0 - alpha/alphaMax), -2.0);
-}
-
-
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0prime
-(
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
-) const
-{
-    return 2./alphaMax*pow(mag(1.0 - alpha/alphaMax), -3.0);
+    return rhoa*da*sqrt(Theta)*Theta*
+    (
+        0
+    );
 }
 
 

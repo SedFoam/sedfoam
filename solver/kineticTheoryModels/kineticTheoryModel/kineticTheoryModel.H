@@ -39,6 +39,7 @@ SourceFiles
 #include "autoPtr.H"
 #include "viscosityModel.H"
 #include "conductivityModel.H"
+#include "conductivityModelAlpha.H"
 #include "radialModel.H"
 #include "granularPressureModel.H"
 #include "frictionalStressModel.H"
@@ -82,6 +83,9 @@ class kineticTheoryModel
 
         //- use extended kinetic theory
         Switch extended_;
+        
+	//- use formulation for soft particles
+        Switch softParticles_;
 
         //- use production limiter for Theta (to kb)
         Switch limitProduction_;
@@ -89,6 +93,8 @@ class kineticTheoryModel
         autoPtr<kineticTheoryModels::viscosityModel> viscosityModel_;
 
         autoPtr<conductivityModel> conductivityModel_;
+        
+	autoPtr<conductivityModelAlpha> conductivityModelAlpha_;
 
         autoPtr<radialModel> radialModel_;
 
@@ -98,6 +104,9 @@ class kineticTheoryModel
 
         //- coefficient of restitution
         const dimensionedScalar e_;
+        
+	//- normal stiffness of contacts
+        const dimensionedScalar kn_;
 
         //- maximum packing
         const dimensionedScalar alphaMax_;
@@ -111,8 +120,14 @@ class kineticTheoryModel
         //- angle of internal friction
         const dimensionedScalar phi_;
 
+	//- microscopic inter-particle friction
+	const dimensionedScalar muPart_;
+
         //Kill transfert of temperature from fluid to particles
         const dimensionedScalar killJ1_;
+        
+	//Kill the viscosity correction for the frictional particles
+        const dimensionedScalar killPsi_;
 
         //- The granular energy/temperature
         volScalarField Theta_;
@@ -139,6 +154,9 @@ class kineticTheoryModel
 
         //- The granular temperature conductivity
         volScalarField kappa_;
+        
+	//- The granular temperature conductivityi due to concentration gradient
+        volScalarField kappa2_;
 
         //- The radial distribution function
         volScalarField gs0_;
@@ -235,6 +253,11 @@ public:
         const volScalarField& kappa() const
         {
             return kappa_;
+        }
+
+        const volScalarField& kappa2() const
+        {
+            return kappa2_;
         }
 
         const dimensionedScalar& phi() const

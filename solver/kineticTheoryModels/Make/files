@@ -15,6 +15,11 @@ conductivityModel/Syamlal/SyamlalConductivity.C
 conductivityModel/HrenyaSinclair/HrenyaSinclairConductivity.C
 conductivityModel/Duan/DuanConductivity.C
 
+conductivityModelAlpha/conductivityModelAlpha/conductivityModelAlpha.C
+conductivityModelAlpha/conductivityModelAlpha/newConductivityModelAlpha.C
+conductivityModelAlpha/Lun/LunConductivityAlpha.C
+conductivityModelAlpha/none/noneConductivityAlpha.C
+
 radialModel/radialModel/radialModel.C
 radialModel/radialModel/newRadialModel.C
 radialModel/CarnahanStarling/CarnahanStarlingRadial.C

@@ -23,58 +23,35 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "LunSavageRadial.H"
-#include "addToRunTimeSelectionTable.H"
+#include "conductivityModelAlpha.H"
 
-// * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * Selectors * * * * * * * * * * * * * * * * //
 
-namespace Foam
-{
-    defineTypeNameAndDebug(LunSavageRadial, 0);
-
-    addToRunTimeSelectionTable
-    (
-        radialModel,
-        LunSavageRadial,
-        dictionary
-    );
-}
-
-
-// * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
-
-Foam::LunSavageRadial::LunSavageRadial(const dictionary& dict)
-:
-    radialModel(dict)
-{}
-
-
-// * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
-
-Foam::LunSavageRadial::~LunSavageRadial()
-{}
-
-
-// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
-
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0
+Foam::autoPtr<Foam::conductivityModelAlpha> Foam::conductivityModelAlpha::New
 (
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
-) const
+    const dictionary& dict
+)
 {
+    word conductivityModelAlphaType(dict.lookup("conductivityModelAlpha"));
 
-    return pow(mag(1.0 - alpha/alphaMax), -2.0);
-}
+    Info<< "Selecting conductivityModelAlpha "
+        << conductivityModelAlphaType << endl;
 
+    dictionaryConstructorTable::iterator cstrIter =
+        dictionaryConstructorTablePtr_->find(conductivityModelAlphaType);
 
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0prime
-(
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
-) const
-{
-    return 2./alphaMax*pow(mag(1.0 - alpha/alphaMax), -3.0);
+    if (cstrIter == dictionaryConstructorTablePtr_->end())
+    {
+        FatalError
+            << "conductivityModelAlpha::New(const dictionary&) : " << endl
+            << "    unknown conductivityModelAlphaType type "
+            << conductivityModelAlphaType
+            << ", constructor not in hash table" << endl << endl
+            << "    Valid conductivityModelAlphaType types are :" << endl;
+        Info<< dictionaryConstructorTablePtr_->sortedToc() << abort(FatalError);
+    }
+
+    return autoPtr<conductivityModelAlpha>(cstrIter()(dict));
 }
 
 

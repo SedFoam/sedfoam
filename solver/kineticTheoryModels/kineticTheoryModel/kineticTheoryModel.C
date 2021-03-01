@@ -74,6 +74,10 @@ Foam::kineticTheoryModel::kineticTheoryModel
     (
         kineticTheoryProperties_.lookupOrDefault("extended", false)
     ),
+    softParticles_
+    (
+        kineticTheoryProperties_.lookupOrDefault("softParticles", false)
+    ),
     limitProduction_
     (
         kineticTheoryProperties_.lookupOrDefault("limitProduction", false)
@@ -88,6 +92,13 @@ Foam::kineticTheoryModel::kineticTheoryModel
     conductivityModel_
     (
         conductivityModel::New
+        (
+            kineticTheoryProperties_
+        )
+    ),
+    conductivityModelAlpha_
+    (
+        conductivityModelAlpha::New
         (
             kineticTheoryProperties_
         )
@@ -121,6 +132,26 @@ Foam::kineticTheoryModel::kineticTheoryModel
             dimensionedScalar("e",
                           dimensionSet(0, 0, 0, 0, 0, 0, 0),
                           0.9)
+        )
+    ),
+    kn_
+    (
+        kineticTheoryProperties_.lookupOrDefault
+        (
+            "kn",
+            dimensionedScalar("kn",
+                          dimensionSet(1, 0, -2, 0, 0, 0, 0),
+                          1e6)
+        )
+    ),
+    muPart_
+    (
+        kineticTheoryProperties_.lookupOrDefault
+        (
+            "muPart",
+            dimensionedScalar("muPart",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.0)
         )
     ),
     alphaMax_
@@ -175,22 +206,35 @@ Foam::kineticTheoryModel::kineticTheoryModel
     ),
     phi_
     (
-        kineticTheoryProperties_.lookupOrDefault
-        (
-            "phi",
-            dimensionedScalar("phi",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0.5585)*M_PI/180.0
-        ) //32° angle of repose
+	kineticTheoryProperties_.lookupOrDefault
+	(
+	    "phi",
+	    dimensionedScalar("phi",
+			dimensionSet(0, 0, 0, 0, 0, 0, 0),
+			32)
+	)*M_PI/180.0 //32° angle of repose
     ),
     killJ1_
     (
         kineticTheoryProperties_.lookupOrDefault
         (
-            "killJ1__",
+            "killJ1_",
             dimensionedScalar
             (
                 "killJ1_",
+                dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                1
+            )
+        )
+    ),
+    killPsi_
+    (
+        kineticTheoryProperties_.lookupOrDefault
+        (
+            "killPsi_",
+            dimensionedScalar
+            (
+                "killPsi_",
                 dimensionSet(0, 0, 0, 0, 0, 0, 0),
                 1
             )
@@ -300,6 +344,19 @@ Foam::kineticTheoryModel::kineticTheoryModel
         Ua_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
     ),
+    kappa2_
+    (
+        IOobject
+        (
+            "kappa2",
+            Ua_.time().timeName(),
+            Ua_.mesh(),
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        Ua_.mesh(),
+        dimensionedScalar("zero", dimensionSet(1, 1, -3, 0, 0), 0.0)
+    ),
     gs0_
     (
         IOobject
@@ -353,6 +410,8 @@ void Foam::kineticTheoryModel::solve
     }
 
     const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    const scalar Pi = constant::mathematical::pi;
+
     dimensionedScalar alphaSmall
     (
         "small",
@@ -407,6 +466,23 @@ void Foam::kineticTheoryModel::solve
         alphaMax_
     );
 
+    // collision frequency correcion for soft particles 
+    volScalarField f_fkt = 1.*(alpha_+alphaSmall)/(alpha_+alphaSmall);
+
+    if (softParticles_)
+    {
+	//Berzi and Jenkins (2015)
+	dimensionedScalar tc = da_/5*pow(rhoa_*Pi*da_/(4*kn_), 1./2.); //Contact duration
+	volScalarField fkt = 24/da_*alpha_*gs0_*ThetaSqrt/sqrtPi; //Contact frequency
+	f_fkt = 1./(1.+tc*fkt);
+    }
+    
+    // Correction for frcitional particles (Chialvo and Sundaresan (2013))
+    dimensionedScalar f_mu = 3./2*muPart_*exp(-3*muPart_);
+    //dimensionedScalar psi = 1+3./10*pow((1-pow(e_,2)), -2./3)*(1-exp(-8*muPart_));
+    dimensionedScalar e_eff = e_ - f_mu;
+    dimensionedScalar fric_correction = (1-pow(e_eff,2))/(1-pow(e_, 2));
+
     // particle pressure - coefficient in front of Theta (Eq. 3.22, p. 45)
     volScalarField PsCoeff = granularPressureModel_->granularPressureCoeff
     (
@@ -415,6 +491,7 @@ void Foam::kineticTheoryModel::solve
         rhoa_,
         e_
     );
+    PsCoeff *= f_fkt; //Correction for soft particles
 
     volScalarField ThetaClip = Theta_;
     if (limitProduction_)
@@ -424,6 +501,11 @@ void Foam::kineticTheoryModel::solve
     }
     // 'thermal' conductivity (Table 3.3, p. 49)
     kappa_ = conductivityModel_->kappa(alpha_, ThetaClip, gs0_, rhoa_, da_, e_);
+    kappa_ *= f_fkt; // Correction for soft particles
+
+    // conductivity due to concentration gradient
+    kappa2_ = conductivityModelAlpha_->kappa(alpha_+alphaSmall, ThetaClip, gs0_, gs0Prime_, rhoa_, da_, e_);
+    kappa2_ *= f_fkt;
 
     // particle viscosity (Table 3.2, p.47)
     mua_ = viscosityModel_->mua
@@ -436,18 +518,29 @@ void Foam::kineticTheoryModel::solve
         e_
     );
 
+    mua_ *= f_fkt; // Correction for soft particles
+    //mua_ *= (1-killPsi_)*psi; // Correction for frictional particles
+
     // classical kinetic theory
     volScalarField Lc = da_*(alpha_+alphaSmall)/(alpha_+alphaSmall);
 
     if (extended_)
     {
+	volScalarField f2 = rhoa_*da_*
+		((4.0/5.0)*sqr(alpha_+alphaSmall)*gs0_*(1.0 + e_)/sqrtPi
+      		+ (1.0/15.0)*sqrtPi*gs0_*(1.0 + e_)*(3.0*e_ - 1.0)*sqr(alpha_+alphaSmall)/(3.0 - e_)
+      		+ (1.0/6.0)*(alpha_+alphaSmall)*sqrtPi/(3.0 - e_));
+	volScalarField f3 = 12./sqrtPi*rhoa_/da_*(1-sqr(e_))*sqr(alpha_+alphaSmall)*gs0_;
+	volScalarField Lstar = 1./2*1./2*pow(alpha_*gs0_,1./3)*da_;
         // extended kinetic theory Jenkins (2007)
         Lc = da_*max
         (
             1.,
-            0.5*pow(30./(1.+sqr(sqrtPi)/12.)*(1-e_)*sqr(alpha_)*gs0_, 1./3.)
+	    pow(f3/f2,1./3.)*pow(Lstar, 2./3.)
+            //0.5*pow(30./(1.+sqr(sqrtPi)/12.)*(1-e_)*sqr(alpha_)*gs0_, 1./3.)
         );
     }
+
 
     // bulk viscosity  p. 45 (Lun et al. 1984).
 // limit production
@@ -461,8 +554,10 @@ void Foam::kineticTheoryModel::solve
     {
         // dissipation (Eq. 3.24, p.50)
         volScalarField gammaCoeff =
-            3.0*(1.0 - sqr(e_))*sqr(alpha_)*rhoa_*gs0_
-            *((4.0/Lc)*ThetaSqrt/sqrtPi-tr(D));
+            (3.0*(1.0 - sqr(e_))*sqr(alpha_)*rhoa_*gs0_
+            *((4.0/Lc)*ThetaSqrt/sqrtPi-tr(D)));
+	gammaCoeff *= f_fkt; // Correction for soft particles
+	gammaCoeff *= fric_correction; // Correction for frictional particles
         // Eq. 3.25, p. 50 Js = J1 - J2
         volScalarField J1 = 3.0*alpha_*betaPrim;
         /*
@@ -487,6 +582,8 @@ void Foam::kineticTheoryModel::solve
           + (tau && dU)
            // granular temperature conduction.
           + fvm::laplacian(kappa_, Theta_, "laplacian(kappa,Theta)")
+           // granular temperature conduction due to concentration gradient.
+          + fvc::laplacian(kappa2_, alpha_, "laplacian(kappa2,alpha)")
            // energy disipation due to inelastic collision.
           + fvm::Sp(-gammaCoeff, Theta_)
            // dissipation due to interphase slip

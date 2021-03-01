@@ -23,19 +23,20 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "LunSavageRadial.H"
+#include "LunConductivityAlpha.H"
+#include "mathematicalConstants.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(LunSavageRadial, 0);
+    defineTypeNameAndDebug(LunConductivityAlpha, 0);
 
     addToRunTimeSelectionTable
     (
-        radialModel,
-        LunSavageRadial,
+        conductivityModelAlpha,
+        LunConductivityAlpha,
         dictionary
     );
 }
@@ -43,38 +44,39 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::LunSavageRadial(const dictionary& dict)
+Foam::LunConductivityAlpha::LunConductivityAlpha(const dictionary& dict)
 :
-    radialModel(dict)
+    conductivityModelAlpha(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::~LunSavageRadial()
+Foam::LunConductivityAlpha::~LunConductivityAlpha()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0
+Foam::tmp<Foam::volScalarField> Foam::LunConductivityAlpha::kappa
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const volScalarField& Theta,
+    const volScalarField& g0,
+    const volScalarField& g0Prime,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& e
 ) const
 {
+    const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    const dimensionedScalar r = 1./2*(1+e);
 
-    return pow(mag(1.0 - alpha/alphaMax), -2.0);
-}
-
-
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0prime
-(
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
-) const
-{
-    return 2./alphaMax*pow(mag(1.0 - alpha/alphaMax), -3.0);
+    return rhoa*da*sqrt(Theta)*Theta*
+    (
+     15./4*(2*r-1)*(r-1)*sqrtPi/(41-33*r)*(1./(alpha*g0)+12./5*r)*
+     (2*alpha*g0 + alpha*alpha*g0Prime)
+    );
 }
 
 

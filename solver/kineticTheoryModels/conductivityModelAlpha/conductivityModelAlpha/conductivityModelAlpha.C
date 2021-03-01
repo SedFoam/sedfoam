@@ -23,59 +23,33 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "LunSavageRadial.H"
-#include "addToRunTimeSelectionTable.H"
+#include "conductivityModelAlpha.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(LunSavageRadial, 0);
+    defineTypeNameAndDebug(conductivityModelAlpha, 0);
 
-    addToRunTimeSelectionTable
-    (
-        radialModel,
-        LunSavageRadial,
-        dictionary
-    );
+    defineRunTimeSelectionTable(conductivityModelAlpha, dictionary);
 }
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::LunSavageRadial(const dictionary& dict)
+Foam::conductivityModelAlpha::conductivityModelAlpha
+(
+    const dictionary& dict
+)
 :
-    radialModel(dict)
+    dict_(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::~LunSavageRadial()
+Foam::conductivityModelAlpha::~conductivityModelAlpha()
 {}
-
-
-// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
-
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0
-(
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
-) const
-{
-
-    return pow(mag(1.0 - alpha/alphaMax), -2.0);
-}
-
-
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0prime
-(
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
-) const
-{
-    return 2./alphaMax*pow(mag(1.0 - alpha/alphaMax), -3.0);
-}
 
 
 // ************************************************************************* //
