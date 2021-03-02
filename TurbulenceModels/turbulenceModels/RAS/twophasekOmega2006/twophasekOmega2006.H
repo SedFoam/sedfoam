@@ -93,12 +93,10 @@ class twophasekOmega2006
     dimensionedScalar C4om_;
     dimensionedScalar KE2_;
     dimensionedScalar KE4_;
-    dimensionedScalar omegaBC_;
     dimensionedScalar B_;
 
     dimensionedScalar Cmu_;
     dimensionedScalar betaOmega_;
-    dimensionedScalar kSmall_;
     dimensionedScalar nutMax_;
     dimensionedScalar Clim_;
     dimensionedScalar alphaKOmega_;

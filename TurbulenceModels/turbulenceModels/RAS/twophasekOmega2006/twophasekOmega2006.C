@@ -134,19 +134,6 @@ twophasekOmega2006<BasicTurbulenceModel>::twophasekOmega2006
     (
         twophaseRASProperties_.lookup("KE4")
     ),
-    omegaBC_
-    (
-        twophaseRASProperties_.lookupOrDefault
-        (
-            "omegaBC",
-            dimensionedScalar
-            (
-                "omegaBC",
-                dimensionSet(0, 0, -1, 0, 0, 0, 0),
-                0
-            )
-        )
-    ),
     B_
     (
         twophaseRASProperties_.lookup("B")
@@ -163,10 +150,6 @@ twophasekOmega2006<BasicTurbulenceModel>::twophasekOmega2006
             this->coeffDict_,
             0.0708
         )
-    ),
-    kSmall_
-    (
-        twophaseRASProperties_.lookup("kSmall")
     ),
     nutMax_
     (
@@ -302,7 +285,7 @@ void twophasekOmega2006<BasicTurbulenceModel>::correct()
     volTensorField GradU = fvc::grad(U);
     volSymmTensorField Sij(symm(GradU));
 
-    volScalarField G
+    volScalarField::Internal G
     (
         this->GName(),
         nut*2*magSqr(symm(GradU))
@@ -343,7 +326,6 @@ void twophasekOmega2006<BasicTurbulenceModel>::correct()
         );
     }
 
-
     // Turbulence specific dissipation rate equation
     tmp<fvScalarMatrix> omegaEqn
     (
@@ -352,24 +334,21 @@ void twophasekOmega2006<BasicTurbulenceModel>::correct()
       - fvm::Sp(fvc::div(phi), omega_)
       - fvm::laplacian(DomegaEff(), omega_, "laplacian(DomegaEff,omega)")
       ==
-      - fvm::SuSp (-alphaOmega_*G/max(k_, kSmall_), omega_)
-      - fvm::Sp(ESD_, omega_)
+        alphaOmega_*G*omega_()/k_()
+      - fvm::Sp(ESD_(), omega_)
       //- fvm::Sp(betaOmega_*omega_, omega_) //1D and 2D (no Pope correction)
       - fvm::Sp
         (
             betaOmega_*
             (
-                (scalar(1.0)+scalar(85.0)*XsiOmega)
-                /(scalar(1.0)+scalar(100.0)*XsiOmega)
-            )*omega_,
+                (scalar(1.0)+scalar(85.0)*XsiOmega())
+                /(scalar(1.0)+scalar(100.0)*XsiOmega())
+            )*omega_(),
             omega_
         ) //3D only (Pope correction)
       + CDkOmega
       + ESD2()*fvm::Sp(C3om_*KE2_, omega_)
-      + fvm::Sp((C4om_*KE4_*ESD5_*nut/k_), omega_)
-      // BC in porous bed
-      + (-C3om_*KE2_*ESD2() + betaOmega_*omega_ - C4om_*KE4_*ESD5_*nut/k_)
-       *pos(alpha-0.9*alphaMax_)*omegaBC_
+      + fvm::Sp((C4om_*KE4_*ESD5_()*nut()/k_()), omega_)
     );
     if (writeTke_)
     {
@@ -392,10 +371,10 @@ void twophasekOmega2006<BasicTurbulenceModel>::correct()
       - fvm::Sp(fvc::div(phi), k_)
       - fvm::laplacian(DkEff(), k_, "laplacian(DkEff,k)")
       ==
-      - fvm::SuSp(-G/k_, k_)
-      + fvm::Sp(-Cmu_*omega_, k_)
-      + fvm::Sp(ESD_, k_)
-      + fvm::Sp(KE4_*ESD4_*nut/k_, k_)
+        G
+      + fvm::Sp(-Cmu_*omega_(), k_)
+      + fvm::Sp(ESD_(), k_)
+      + fvm::Sp(KE4_*ESD4_()*nut()/k_(), k_)
       + ESD2()*fvm::Sp(KE2_, k_)
     );
 
