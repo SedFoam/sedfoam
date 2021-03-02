@@ -60,7 +60,7 @@ Description
 #include "fvCFD.H"
 #include "CMULES.H"
 #include "singlePhaseTransportModel.H"
-#include "PhaseIncompressibleTurbulenceModel.H"
+#include "sedIncompressibleTurbulenceModel.H"
 
 #include "symmetryFvPatchFields.H"
 #include "fixedFluxPressureFvPatchScalarField.H"
