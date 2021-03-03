@@ -29,10 +29,10 @@ singlePhaseTransportModel phasebTransport(Ub, phib);
 surfaceScalarField alphacf("alphacf", fvc::interpolate(alpha));
 surfaceScalarField alphaPhic("alphaPhic", alphacf*phib);
 
-autoPtr<PhaseIncompressibleTurbulenceModel<singlePhaseTransportModel>>
+autoPtr<sedIncompressibleTurbulenceModel<singlePhaseTransportModel>>
 turbulenceb
 (
-    PhaseIncompressibleTurbulenceModel<singlePhaseTransportModel>::New
+    sedIncompressibleTurbulenceModel<singlePhaseTransportModel>::New
     (
         alpha,
         Ub,

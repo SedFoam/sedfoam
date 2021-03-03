@@ -72,4 +72,17 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIdimLess::muI
     return mus + (mu2 - mus)*magD/(I0*pow(pa, 0.5)/da + magD + Dsmall);
 }
 
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIdimLess::I
+(
+    const volScalarField& pa,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& magD
+) const
+{
+    // inertial regime I=da magD / sqrt(pa)
+    return magD * da * pow(pa, -0.5);
+}
 // ************************************************************************* //

@@ -119,6 +119,16 @@ public:
         const volScalarField& magD,
         const dimensionedScalar& Dsmall
     ) const = 0;
+
+    virtual tmp<volScalarField> I
+    (
+        const volScalarField& pa,
+        const dimensionedScalar& rhoa,
+        const dimensionedScalar& da,
+        const dimensionedScalar& rhob,
+        const dimensionedScalar& nub,
+        const volScalarField& magD
+    ) const = 0;
 };
 
 

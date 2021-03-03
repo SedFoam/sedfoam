@@ -26,7 +26,7 @@ basepath='./'
 # Loading OpenFoam results
 #
 casedir='./'
-tout='2000'
+tout='2500'
 
 sol=basepath+casedir
 
@@ -149,8 +149,10 @@ zpepsilonDNS = npzfiles['arr_7']
 
 u_interp = np.interp(zuw, z[:]/H,U[0,:]/Umax);
 rms_u = rms(u_interp - uw)
-assert(rms_u<=0.04)
+print('rms_u=',rms_u)
+assert(rms_u<=0.05)
 
 k_interp = np.interp(zkw,z[:]/H,k[:]/utau**2);
 rms_k = rms(k_interp - kw)
+print('rms_k=',rms_k)
 assert(rms_k<=0.16)

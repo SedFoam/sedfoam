@@ -77,5 +77,25 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIPPressure::pa
           *rhoa*pow(da, 2)*pow(magD, 2);
 }
 
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::
+MuIPPressure::alphaEq
+(
+    const volScalarField& pa,
+    const dimensionedScalar& Bphi,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& magD,
+    const dimensionedScalar& alphaMax
+) const
+
+{
+    //
+    //  inertial regime: alphaMax / (1+Bphi I)
+
+    return alphaMax/(1+Bphi*da*magD*pow(pa/rhoa, -0.5));
+}
+
 
 // ************************************************************************* //
