@@ -35,8 +35,7 @@ License
 #include "LESModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-defineTurbulenceModelTypes
+makeTurbulenceModelTypes
 (
     volScalarField,
     geometricOneField,

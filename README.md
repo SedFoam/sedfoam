@@ -4,7 +4,7 @@ sedfoam
 [![Release](https://img.shields.io/badge/release-3.1-blue.svg)](http://github.com/SedFoam/sedfoam)
 [![sedFoam](https://circleci.com/gh/SedFoam/sedfoam.svg?style=shield)](https://circleci.com/gh/SedFoam/sedfoam)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b9ad60ec6171496290c336697426cd48)](https://www.codacy.com/gh/SedFoam/sedfoam/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SedFoam/sedfoam&amp;utm_campaign=Badge_Grade)
-[![OpenFOAM v20xx](https://img.shields.io/badge/OpenFOAM-v2006-brightgreen.svg)](https://openfoam.com/)
+[![OpenFOAM v20xx](https://img.shields.io/badge/OpenFOAM-v20xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v19xx](https://img.shields.io/badge/OpenFOAM-v19xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v18xx](https://img.shields.io/badge/OpenFOAM-v18xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v17xx](https://img.shields.io/badge/OpenFOAM-v17xx-brightgreen.svg)](https://openfoam.com/)
