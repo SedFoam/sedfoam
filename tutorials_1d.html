@@ -424,6 +424,8 @@ eta1             eta1 [ 0 0 0 0 0 0 0 ] 5;
 
 packingLimiter  no;</pre><p>And the dictionary <em>granularRheologyProperties</em> controls the granular rheology part:</p><pre>granularRheology   on;
 
+granularDilatancy  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.24;
@@ -444,9 +446,7 @@ FrictionModel   Coulomb;
 
 PPressureModel  none;
 
-FluidViscosityModel Einstein;
-
-DilatancyModel  none;</pre><p>On the first line the switch granularRheology allows to turn on and off this module. The keywords FrictionModel, PPressureModel and FluidViscosityModel allow to choose the friction model, the shear induced particle pressure model and the effective viscosity model (see <a href="inputs.html" class="m-doc">Input Parameters</a> for details).<br /></p><p>For the present case the granularRheology is set to Coulomb and the FluidViscosityModel is used for the effective viscosity model and a Einstein model is used. All the details concerning the different models can be found in the Geophysical Model Development paper on SedFoam.<br /></p><p>The remaining dictionaries are not used for this tutorial and will not be detailed here. Their content will be explained in the next tutorials when they are used.</p></section><section id="control_sedFoam"><h5><a href="#control_sedFoam">Control</a></h5><p>Input data relating to the control of time and reading and writing of the solution data are read in from the controlDict dictionary. The user should view this file; as a case control file, it is located in the system directory.</p><p>The start/stop times and the time step for the run must be set. OpenFOAM offers great flexibility with time control which is described in full in section 4.3. In this tutorial we wish to start the run at time t = 0 which means that OpenFOAM needs to read field data from a directory named 0. Therefore we set the startFrom keyword to startTime and then specify the startTime keyword to be 0.</p><p>As the simulation progresses we wish to write results at certain intervals of time that we can later view with a post-processing package. The writeControl keyword presents several options for setting the time at which the results are written; here we select the adjustableRunTime option which specifies that results are written every writeInterval seconds of simulated time, adjusting the time steps to coincide with the writeInterval if necessary and the time step is automatically adjusted using adjustTimeStep = on. The time step controled using different criteria on Courant numbers based on the maximum velocity, the relative velocity ( <svg class="m-math" style="width: 7.019em; height: 1.038em; vertical-align: -0.187em;" viewBox="0 -8.169366 67.382353 9.962629">
+FluidViscosityModel Einstein;</pre><p>On the first line the switch granularRheology allows to turn on and off this module. The keywords FrictionModel, PPressureModel and FluidViscosityModel allow to choose the friction model, the shear induced particle pressure model and the effective viscosity model (see <a href="inputs.html" class="m-doc">Input Parameters</a> for details).<br /></p><p>For the present case the granularRheology is set to Coulomb and the FluidViscosityModel is used for the effective viscosity model and a Einstein model is used. All the details concerning the different models can be found in the Geophysical Model Development paper on SedFoam.<br /></p><p>The remaining dictionaries are not used for this tutorial and will not be detailed here. Their content will be explained in the next tutorials when they are used.</p></section><section id="control_sedFoam"><h5><a href="#control_sedFoam">Control</a></h5><p>Input data relating to the control of time and reading and writing of the solution data are read in from the controlDict dictionary. The user should view this file; as a case control file, it is located in the system directory.</p><p>The start/stop times and the time step for the run must be set. OpenFOAM offers great flexibility with time control which is described in full in section 4.3. In this tutorial we wish to start the run at time t = 0 which means that OpenFOAM needs to read field data from a directory named 0. Therefore we set the startFrom keyword to startTime and then specify the startTime keyword to be 0.</p><p>As the simulation progresses we wish to write results at certain intervals of time that we can later view with a post-processing package. The writeControl keyword presents several options for setting the time at which the results are written; here we select the adjustableRunTime option which specifies that results are written every writeInterval seconds of simulated time, adjusting the time steps to coincide with the writeInterval if necessary and the time step is automatically adjusted using adjustTimeStep = on. The time step controled using different criteria on Courant numbers based on the maximum velocity, the relative velocity ( <svg class="m-math" style="width: 7.019em; height: 1.038em; vertical-align: -0.187em;" viewBox="0 -8.169366 67.382353 9.962629">
 <title>
 $ U_r=U_b-U_a $
 </title>
@@ -716,6 +716,9 @@ nuMax           nuMax [0 2 -1 0 0 0 0] 1e1;      // viscosity limiter for the Fr
 
 alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha_a</pre><p>The physical property of the particles (diameter and density) and of the fluid (density and kinematic viscosity) have been set to the experimental values from Aussillous et al. (2013).<br /></p><p>In the dictionary <em>interfacialProperties</em> file the drag model from GidaspowShcillerNaumann has been kept, the influence of the drag model on this test case as the relative velocity between the fluid and the particles is negligible.</p><p>Compared with the sedimentation test case, the <em>granularRheologyProperties</em> is critical. The file is shown below:</p><pre>granularRheology   on;
 
+granularDilatancy  off;
+
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.32;
@@ -737,9 +740,7 @@ FrictionModel  Coulomb;
 
 PPressureModel  none;
 
-FluidViscosityModel  Einstein;
-
-DilatancyModel  none;</pre><p>To compare with the analytical solution, the Coulomb Frictional model and the Einstein FluidViscosity model are used. No PPressureModel is specified meaning that the shear induced contribution to the solid phase pressure is not included i.e. the solid phase volume fraction profile must be sharp at the particle bed interface. The value of the rehological constants are chosen following Aussillous et al. (2013). The regularisation parameter Dsmall is taken as 1e-4, this is shown to be enough for this case but a sensitivity analysis could be performed in case of a too strong creeping flow in the particle bed.<br /></p></section><section id="Disc_solvBL"><h5><a href="#Disc_solvBL">Discretisation and linear-solver settings</a></h5><p>The numerical schemes and the solvers are the same as in the 1DSedim case.<br /></p></section><section id="control_sedFoamBL"><h5><a href="#control_sedFoamBL">Control</a></h5><p>The system/controlDict file is modified compared with the sedimentation test case. The endTime is fixed to 350 s with an output every 50s with an adjustable time step limited to 5e-3 s.</p><pre>application     sedFoam;
+FluidViscosityModel  Einstein;</pre><p>To compare with the analytical solution, the Coulomb Frictional model and the Einstein FluidViscosity model are used. No PPressureModel is specified meaning that the shear induced contribution to the solid phase pressure is not included i.e. the solid phase volume fraction profile must be sharp at the particle bed interface. The value of the rehological constants are chosen following Aussillous et al. (2013). The regularisation parameter Dsmall is taken as 1e-4, this is shown to be enough for this case but a sensitivity analysis could be performed in case of a too strong creeping flow in the particle bed.<br /></p></section><section id="Disc_solvBL"><h5><a href="#Disc_solvBL">Discretisation and linear-solver settings</a></h5><p>The numerical schemes and the solvers are the same as in the 1DSedim case.<br /></p></section><section id="control_sedFoamBL"><h5><a href="#control_sedFoamBL">Control</a></h5><p>The system/controlDict file is modified compared with the sedimentation test case. The endTime is fixed to 350 s with an output every 50s with an adjustable time step limited to 5e-3 s.</p><pre>application     sedFoam;
 
 startFrom       latestTime;
 
@@ -1045,6 +1046,8 @@ $\mu(I)$
 </g>
 </svg> is used as shown in <em>granularRheologyProperties</em>:</p><pre>granularRheology   on;
 
+granularDilatancy  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.38;
@@ -1065,9 +1068,7 @@ FrictionModel   MuI;
 
 PPressureModel  MuI;
 
-FluidViscosityModel  none;
-
-DilatancyModel  none;</pre><p>Additionally, <em>FluidViscosityModel</em> model is set to <em>none</em>. Even though no <em>FluidViscosityModel</em> is specified, the shear induced contribution associated to the fluid phase is still present. However, it has insignificant influence on the results due to the low fluid viscosity. On the contrary, the analytical solution assumes that shear induced contribution to the fluid phase is null.</p><p>Finally, the file <em>constant/g</em> is modified to take into account the <svg class="m-math" style="width: 0.693em; height: 0.536em; vertical-align: -0.000em;" viewBox="0 -5.147373 6.652087 5.147373">
+FluidViscosityModel  none;</pre><p>Additionally, <em>FluidViscosityModel</em> model is set to <em>none</em>. Even though no <em>FluidViscosityModel</em> is specified, the shear induced contribution associated to the fluid phase is still present. However, it has insignificant influence on the results due to the low fluid viscosity. On the contrary, the analytical solution assumes that shear induced contribution to the fluid phase is null.</p><p>Finally, the file <em>constant/g</em> is modified to take into account the <svg class="m-math" style="width: 0.693em; height: 0.536em; vertical-align: -0.000em;" viewBox="0 -5.147373 6.652087 5.147373">
 <title>
 $x$
 </title>
@@ -1401,6 +1402,8 @@ $\mu(I_v)$
 </g>
 </svg> is used as shown in <em>granularRheologyProperties</em>.<br />The dilatancy model is switch off during the sedimentation process:</p><pre>granularRheology   on;
 
+granularDilatancy  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
 
@@ -1427,9 +1430,6 @@ alpha_c         alpha_c [ 0 0 0 0 0 0 0 ] 0.585;
 FrictionModel   MuIv;
 
 PPressureModel  MuIv;
-
-DilatancyModel  none;
-//DilatancyModel  MuIvdila;
 
 FluidViscosityModel  BoyerEtAl;</pre><p>If you wish a different initial volume fraction you need to adjust the <em>0_org/alphaPlastic</em> file accordingly. Reference values: <em>alphaPlastic=0.575</em> leads to <svg class="m-math" style="width: 5.632em; height: 1.107em; vertical-align: -0.243em;" viewBox="0 -8.302191 54.070349 10.626798">
 <title>
@@ -1504,7 +1504,7 @@ $\phi_0=0.566$
 </g>
 </svg>.</p></section><section id="WetAvaProc"><h3><a href="#WetAvaProc">Launching the 1D immersed avalanche</a></h3><p>After 200 seconds of sedimentation, the file <em>constant/g</em> should be adjusted to reproduce the inclined plane (25 degrees slope):</p><pre>dimensions      [0 1 -2 0 0 0 0];
 // tiltangle = 25° 
-value           ( 4.14588187090559 -8.8908809188120586 0 );</pre><p>The dilatancy model is turn on in <em>granularRheologyProperties</em> to reproduce the coupling between the dilatancy and the pore pressure feedback:</p><pre>DilatancyModel  MuIvdila;</pre></section><section id="postWetAvalanche"><h3><a href="#postWetAvalanche">Post-processing using python</a></h3><p>The SedFoam and Pailha et al. (2008) experimental results are obtained running the python script <em>plot_tuto1DWetAvalanche.py</em> located in the folder <em>tutorials/Py</em>:</p><pre>python plot_tuto1DWetAvalanche.py
+value           ( 4.14588187090559 -8.8908809188120586 0 );</pre><p>The dilatancy model is turn on in <em>granularRheologyProperties</em> to reproduce the coupling between the dilatancy and the pore pressure feedback:</p><pre>granularDilatancy  on;</pre></section><section id="postWetAvalanche"><h3><a href="#postWetAvalanche">Post-processing using python</a></h3><p>The SedFoam and Pailha et al. (2008) experimental results are obtained running the python script <em>plot_tuto1DWetAvalanche.py</em> located in the folder <em>tutorials/Py</em>:</p><pre>python plot_tuto1DWetAvalanche.py
 </pre><p>and you should see the following figure:</p><figure class="m-figure"><img src="1DWetAvalancheResults.png" alt="Image" style="width: 800px;" /><figcaption>Figure 10: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailhaet al.(2008).</figcaption></figure><p>In order to illustrate the dilatant effects and the pore pressure feedback mechanism of the avalanche we run the python script <em>plot_tuto1DWetAvalancheVerticalProfiles.py</em>. The resulting figure is depicted below. We observe the evolution of the volume fraction, particle velocity and excess of pore pressure along the vertical axis.</p><figure class="m-figure"><img src="1DWetAvalancheVerticalProfiles.png" alt="Image" style="width: 1000px;" /><figcaption>Figure 11: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical.</figcaption></figure></section></section><section id="SimpleShear"><h2><a href="#SimpleShear">1DSimpleShear: Simple shear with kinetic theory</a></h2><p>This configuration is the simplest possible configuration for a sheared granular flow. In this tutorial the goal is to validate the implementation of the kinetic theory including extended version by Berzi (2014). The configuration is shown in the figure below.</p><p>D. Berzi, “Extended kinetic theory applied to dense, granular, simple shear flows.” Acta Mechanica (2014), 10.1007/s00707-014-1125-1.</p><figure class="m-figure"><img src="SketchSimpleShear.png" alt="Image" style="width: 400px;" /><figcaption>Figure 12: Sketch of the simple shear flow configuration (source: Vescovi et al. PoF (2014).</figcaption></figure><p>This tutorial is distributed with SedFoam under the folder <em>sedFoamDirectory/tutorials/1DSimpleShear</em>.</p><p>In this configuration, significant complexity arise from the boundary conditions for the granular velocity Ua (slip with friction) and the granular temperature Theta (pseudo heat flux at the boundary). These boundary conditions are not implemented yet in SedFoam and in the configuration presented here the velocity and granular temperature are imposed as Dirichlet conditions at the top and bottom boundaries. No body force acts on the fluid or the grain.</p><p>The parameters are set in the file constant/transportProperties and ar given as follows:</p><pre>// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
 phasea
 {

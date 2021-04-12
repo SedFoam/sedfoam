@@ -348,6 +348,9 @@ $\mu(I)$
 </g>
 </svg> is used and the parameters are set according to Chauchat (2017). Furthermore a shear induced pressure (PPressureModel) and an effective fluid viscosity model (FluidViscosityModel) from Boyer et al. (2011) are used:</p><pre>granularRheology   on;
 
+granularDilatancy  off;
+
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.4;
@@ -370,9 +373,7 @@ FrictionModel  MuI;
 
 PPressureModel MuI;
 
-FluidViscosityModel  BoyerEtAl;
-
-DilatancyModel  none;</pre></section><section id="Disc_solvSF2"><h3><a href="#Disc_solvSF2">Discretisation and linear-solver settings</a></h3><p>The numerical schemes and the solvers are the same as in the 1DSheetFlow case.</p></section><section id="control_sedFoamSF2"><h3><a href="#control_sedFoamSF2">Control</a></h3><p>The system/controlDict file indicates that for this case the time step is equal to <svg class="m-math" style="width: 3.295em; height: 0.987em; vertical-align: -0.000em;" viewBox="0 -9.474739 31.631322 9.474739">
+FluidViscosityModel  BoyerEtAl;</pre></section><section id="Disc_solvSF2"><h3><a href="#Disc_solvSF2">Discretisation and linear-solver settings</a></h3><p>The numerical schemes and the solvers are the same as in the 1DSheetFlow case.</p></section><section id="control_sedFoamSF2"><h3><a href="#control_sedFoamSF2">Control</a></h3><p>The system/controlDict file indicates that for this case the time step is equal to <svg class="m-math" style="width: 3.295em; height: 0.987em; vertical-align: -0.000em;" viewBox="0 -9.474739 31.631322 9.474739">
 <title>
 $ 2.10^{-5}$
 </title>
@@ -1394,6 +1395,8 @@ $\mu(I_v)$
 </g>
 </svg> and the dilatancy model is used as shown in <em>granularRheologyProperties</em>:</p><pre>granularRheology   on;
 
+granularDilatancy  on;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
 
@@ -1420,8 +1423,6 @@ alpha_c         alpha_c [ 0 0 0 0 0 0 0 ] 0.585;
 FrictionModel   MuIv;
 
 PPressureModel  MuIv;
-
-DilatancyModel  MuIvdila;
 
 FluidViscosityModel  BoyerEtAl;
 </pre></section><section id="lauch_2DwetAvalanche"><h3><a href="#lauch_2DwetAvalanche">Computation launching</a></h3><p>Like in previous case, you can launch the computation by executing <em>Allrun</em>. The simulations will run in parallel on 18 cores.</p><pre># Decompose the case and run in parallel 
