@@ -27,7 +27,6 @@ License
 #include "FrictionModel.H"
 #include "PPressureModel.H"
 #include "FluidViscosityModel.H"
-#include "DilatancyModel.H"
 #include "surfaceInterpolate.H"
 #include "mathematicalConstants.H"
 #include "fvCFD.H"
@@ -62,6 +61,7 @@ Foam::granularRheologyModel::granularRheologyModel
         )
     ),
     granularRheology_(granularRheologyProperties_.lookup("granularRheology")),
+    granularDilatancy_(granularRheologyProperties_.lookup("granularDilatancy")),
     FrictionModel_
     (
         granularRheologyModels::FrictionModel::New
@@ -79,13 +79,6 @@ Foam::granularRheologyModel::granularRheologyModel
     FluidViscosityModel_
     (
         granularRheologyModels::FluidViscosityModel::New
-        (
-            granularRheologyProperties_
-        )
-    ),
-    DilatancyModel_
-    (
-        granularRheologyModels::DilatancyModel::New
         (
             granularRheologyProperties_
         )
@@ -191,6 +184,26 @@ Foam::granularRheologyModel::granularRheologyModel
                           1)
         )
     ),
+    tau_inv_min_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+            "tau_inv_min",
+            dimensionedScalar("tau_inv_min",
+                          dimensionSet(0, 0, -1, 0, 0, 0, 0),
+                          1e-12)
+        )
+    ),
+    PaMin_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+            "PaMin",
+            dimensionedScalar("PaMin",
+                          dimensionSet(0, 1, 0, 0, 0, 0, 0),
+                          1e-6)
+        )
+    ),
     muI_
     (
         IOobject
@@ -199,7 +212,7 @@ Foam::granularRheologyModel::granularRheologyModel
             alpha_.time().timeName(),
             alpha_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", alpha_.dimensions(), 0.0)
@@ -252,7 +265,7 @@ Foam::granularRheologyModel::granularRheologyModel
             alpha_.time().timeName(),
             alpha_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
@@ -284,15 +297,15 @@ Foam::granularRheologyModel::granularRheologyModel
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(0, 2, -1, 0, 0), 0.0)
      ),
-    Iv_
+    I_
     (
         IOobject
         (
-            "Iv",
+            "I",
             alpha_.time().timeName(),
             alpha_.mesh(),
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
@@ -310,7 +323,7 @@ Foam::granularRheologyModel::~granularRheologyModel()
 
 void Foam::granularRheologyModel::solve
 (
-    const volTensorField& gradUat,
+    const volScalarField& magD,
     const volScalarField& pf,
     const dimensionedScalar& alphaSmall,
     const dimensionedScalar& Dsmall
@@ -327,11 +340,9 @@ void Foam::granularRheologyModel::solve
         1e-8
     );
     Dsmall2 = sqr(Dsmall);
-
+    //
     // compute the particulate velocity shear rate
     //
-    volSymmTensorField D = symm(gradUat);
-    volScalarField magD = ::sqrt(2.0)*mag(D);
     volScalarField magD2 = pow(magD, 2);
     volScalarField patot_ = pf*scalar(0.0);
     
@@ -348,6 +359,7 @@ void Foam::granularRheologyModel::solve
     //  relaxPa_ controls the relaxation of pa. Low values lead to relaxed pa
     //  whereas large value are prone to numerical error
     volScalarField tau_inv_par = relaxPa_*alpha_*magD;
+    tau_inv_par.max(tau_inv_min_);
 
     fvScalarMatrix paEqn
     (
@@ -364,35 +376,36 @@ void Foam::granularRheologyModel::solve
     pa_new_value.max(0.0);
 
     pa_=pa_new_value;
-
+    pa_.correctBoundaryConditions();
     //total particle pressure(shear induced+contact contributions)
     p_p_total_ = mag(pa_new_value+pf);
-    //JC why not p_p_total_ = mag(pa_+pf); ?
+    p_p_total_.max(PaMin_);
 
     //  Compute the particulate friction coefficient
     muI_ = FrictionModel_->muI(mus_, mu2_, I0_, p_p_total_, rhoa_, da_, rhob_,
                                nub_, magD, Dsmall);
 
+    //  Compute the inertial/viscous number
+    I_ = FrictionModel_->I(p_p_total_, rhoa_, da_, rhob_, nub_, magD);
+
 // Dilatancy model
-    dimensionedScalar PaMin
-    (
-        "PaMin",
-        dimensionSet(1, -1, -2, 0, 0, 0, 0),
-        5e-1
-    );
+    if (granularDilatancy_)
+    {
+    //delta_ = DilatancyModel_->delta(K_dila_, alpha_c_, alpha_, magD,
+// da_, rhob_, nub_, p_p_total_, PaMin);
+        volScalarField alphaEq_ = PPressureModel_->alphaEq
+          (p_p_total_, Bphi_, rhoa_, da_, rhob_, nub_, magD, alpha_c_);
 
-    delta_ = DilatancyModel_->delta(K_dila_, alpha_c_, alpha_, magD,
- da_, rhob_, nub_, p_p_total_, PaMin);
+        delta_ = K_dila_*(alpha_ - alphaEq_);
 
-    delta_.min( 0.5);
-    delta_.max(-0.5);
-
+        delta_.min( 0.5);
+        delta_.max(-0.5);
+    }
     //  Compute the regularized particulate viscosity
     mua_ = muI_* p_p_total_ / pow(magD2 + Dsmall2, 0.5);
 
     // Compute bulk viscosity (by default BulkFactor = 0)s
     lambda_ = BulkFactor_*p_p_total_ / pow(magD2 + Dsmall2, 0.5);
-
 
     // Compute the Effective fluid viscosity
     nuvb_ = FluidViscosityModel_->nuvb(alpha_, nub_, alphaMaxG_, alphaSmall,

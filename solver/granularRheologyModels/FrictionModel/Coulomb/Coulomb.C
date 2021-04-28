@@ -73,5 +73,23 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::Coulomb::muI
 // egal to one independently from the value of magD even if it is stricly zero.
 }
 
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::Coulomb::I
+(
+    const volScalarField& pa,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& magD
+) const
+{
+    dimensionedScalar Dumsmall
+    (
+        "Dumsmall",
+        dimensionSet(0, 0, -1, 0, 0, 0, 0),
+        1e-4
+    );
+    return 0*magD/(magD+Dumsmall);
+}
 
 // ************************************************************************* //

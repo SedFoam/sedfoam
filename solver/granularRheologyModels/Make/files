@@ -6,6 +6,8 @@ FrictionModel/none/noneFriction.C
 FrictionModel/Coulomb/Coulomb.C
 FrictionModel/MuI/MuI.C
 FrictionModel/MuIv/MuIv.C
+FrictionModel/MuIdimLess/MuIdimLess.C
+FrictionModel/MuIvdimLess/MuIvdimLess.C
 
 PPressureModel/PPressureModel/PPressureModel.C
 PPressureModel/PPressureModel/newPPressureModel.C
@@ -20,10 +22,5 @@ FluidViscosityModel/Einstein/EinsteinViscosity.C
 FluidViscosityModel/KriegerDougherty/KriegerDoughertyViscosity.C
 FluidViscosityModel/BoyerEtAl/BoyerEtAlViscosity.C
 
-DilatancyModel/DilatancyModel/DilatancyModel.C
-DilatancyModel/DilatancyModel/newDilatancyModel.C
-DilatancyModel/none/noneDilatancy.C
-DilatancyModel/MuIdila/MuIdila.C
-DilatancyModel/MuIvdila/MuIvdila.C
 
 LIB = $(FOAM_LIBBIN)/libgranularRheologySedModel

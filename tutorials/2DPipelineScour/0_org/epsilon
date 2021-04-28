@@ -28,11 +28,46 @@ boundaryField
     }
     inlet
     {
+        type         fixedValue;
+        value        uniform 1;           
+        type            codedFixedValue;
 
-	type groovyBC;
-        variables       "tramp=4;";
-       	valueExpression "pow(k,1.5)/(0.1*0.23)";
-       	value uniform 1e-10;
+        name    inlet;
+
+        codeInclude
+        #{
+            #include "fvCFD.H"
+        #};
+
+        codeOptions
+        #{
+            -I$(LIB_SRC)/finiteVolume/lnInclude \
+            -I$(LIB_SRC)/meshTools/lnInclude
+        #};
+        codeLibs
+        #{
+            -lfiniteVolume \
+            -lmeshTools
+        #};
+        code
+        #{
+            const fvPatch& boundaryPatch = patch();
+            const vectorField& Cf = boundaryPatch.Cf();
+            scalarField& field = *this;
+            scalar t = this->db().time().value();
+            forAll(Cf, faceI)
+            {
+                 if (t <= 4.0)
+                 {
+                     field[faceI] = pow((t/4.0)*(t/4.0)*8.7e-5, 1.5)/(0.1*0.23);
+                 }
+                 else
+                 {
+                     field[faceI] = pow(8.7e-5, 1.5)/(0.1*0.23);
+                 }
+            }
+          #};
+          value           uniform 10;
     }
     outlet
     {

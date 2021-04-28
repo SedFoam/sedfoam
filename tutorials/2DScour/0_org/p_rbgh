@@ -27,9 +27,8 @@ boundaryField
     }
     inandouthalf12
     {
-       type            groovyBC;
+       type            fixedValue;
        value           uniform  0;
-       valueExpression "1e3*9.81*(0.15-pos().y)";
     }
     inandouthalf21
     {
@@ -38,12 +37,8 @@ boundaryField
     inandouthalf22
     {
 		
-  //     type            fixedValue;
-  //     value           uniform  0;	
-//	type 		zeroGradient;
-       type            groovyBC;
-       value           uniform  0;
-       valueExpression "1e3*9.81*(0.15-pos().y)";
+       type            fixedValue;
+       value           uniform  0;	
     }
     top
     {

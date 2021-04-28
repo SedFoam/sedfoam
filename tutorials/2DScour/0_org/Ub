@@ -35,10 +35,9 @@ boundaryField
     }
     inandouthalf12
     {
-        type            directionMixed;
-        refValue uniform (0 0 0);
-        refGradient uniform (0 0 0);
-        valueFraction uniform (0 0 0 1 0 1);
+        type            inletOutlet;
+        inletValue      uniform (0 0 0);
+        value           uniform (0 0 0);
     }
     inandouthalf21
     {

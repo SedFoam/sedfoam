@@ -98,8 +98,8 @@ X, Y, Z = fluidfoam.readmesh(sol)
 alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
 Ua = fluidfoam.readvector(sol, tread, 'Ua')
 Ub = fluidfoam.readvector(sol, tread, 'Ub')
-pff = fluidfoam.readscalar(sol, tread, 'pff')
-p = fluidfoam.readscalar(sol, tread, 'p')
+#pff = fluidfoam.readscalar(sol, tread, 'pff')
+#p = fluidfoam.readscalar(sol, tread, 'p')
 
 Ny = np.size(Y)
 U = np.zeros(Ny)
@@ -112,7 +112,7 @@ print("max(Ub)=" + str(np.amax(Ub)) + " m/s")
 #show()
 RMSU = RMS(Y,Ub[0,:],xex,uex)
 print('RMS U=',RMSU)
-assert(RMSU<=1e-3)
+assert(RMSU<=3e-3)
 
 # =============================================================================
 # #########################################

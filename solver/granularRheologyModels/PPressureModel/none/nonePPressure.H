@@ -82,6 +82,18 @@ class nonePPressure
         const dimensionedScalar& alphaMax,
         const dimensionedScalar& Alphasmall
     ) const;
+
+    tmp<volScalarField> alphaEq
+    (
+        const volScalarField& pa,
+        const dimensionedScalar& Bphi,
+        const dimensionedScalar& rhoa,
+        const dimensionedScalar& da,
+        const dimensionedScalar& rhob,
+        const dimensionedScalar& nub,
+        const volScalarField& magD,
+        const dimensionedScalar& alphaMax
+    ) const;
 };
 
 

@@ -18,11 +18,17 @@ FoamFile
 simulationType RAS;
 
 RAS{
-//RASModel twophasekEpsilon;
-RASModel twophasekOmega;
-printCoeffs     on;
+//RASModel        twophasekEpsilon;
+RASModel        twophasekOmega2006;
+
 turbulence      on;
-popeCorrection  off;
+printCoeffs     on;
+
+twophasekOmega2006Coeffs
+{
+    popeCorrection  false;
 }
+}
+
 
 // ************************************************************************* //

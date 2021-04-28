@@ -1,5 +1,6 @@
 import numpy as np
 from pylab import mlab
+from scipy.interpolate import griddata
 import matplotlib.pyplot as plt
 import fluidfoam
 
@@ -12,16 +13,17 @@ def readXY(sol):
 
 # Function returning the bed profile
 def depth(sol, t, x, y, xi, yi):
-    ybed = np.zeros(len(xi))
+    Nx = np.size(xi,1)
+    ybed = np.zeros(Nx)
     if np.mod(t, 1) == 0:
         timename = str(int(t)) + '/'
     else:
         timename = str(t) + '/'
-    alpha = fluidfoam.readscalar(sol, timename, 'alpha')
-    alphai = mlab.griddata(x, y, alpha, xi, yi, interp='linear')
-    for j in range(len(xi) - 1):
-        tab = np.where(alphai[:, j+1] > 0.5)
-        ybed[j] = yi[np.max(tab)]
+    alpha = fluidfoam.readscalar(sol, timename, 'alpha_a')
+    alphai = griddata((x, y), alpha, (xi, yi))
+    for j in range(Nx - 1):
+        tab = np.where(alphai[:,j+1] > 0.5)
+        ybed[j] = yi[np.max(tab),j+1]
     return ybed
 
 
@@ -54,9 +56,11 @@ yi = np.linspace(yinterpmin, yinterpmax, ngridy)
 
 # Bed elevation calculation
 x1, y1 = readXY(case_toplot)
-ybed1 = depth(case_toplot, time1, x1, y1, xi, yi)
-ybed2 = depth(case_toplot, time2, x1, y1, xi, yi)
-ybed3 = depth(case_toplot, time3, x1, y1, xi, yi)
+Xi, Yi = np.meshgrid(xi, yi)
+
+ybed1 = depth(case_toplot, time1, x1, y1, Xi, Yi)
+ybed2 = depth(case_toplot, time2, x1, y1, Xi, Yi)
+ybed3 = depth(case_toplot, time3, x1, y1, Xi, Yi)
 
 # Experimental data collection
 expe_11s = 'DATA/Mao_11s_expe.txt'
@@ -146,4 +150,4 @@ plt3.plot(x_expe_25s/D, y_expe_25s/D, "ro", markersize=marker_size)
 plt1.legend(loc='upper left')
 
 # Figure saving
-plt.savefig('Figures/' + figname + '.png', dpi=100)
+plt.savefig('Figures/' + figname + '.png', dpi=100, bbox_inches='tight')

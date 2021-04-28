@@ -37,7 +37,7 @@ writeFormat     binary;
 
 writePrecision  6;
 
-writeCompression uncompressed;
+writeCompression false;
 
 timeFormat      general;
 
@@ -49,16 +49,8 @@ adjustTimeStep  yes;
 
 maxCo           0.1;
 
-maxAlphaCo      0.1;
+maxAlphaCo      0.3;
 
 maxDeltaT       15.e-5;
-
-libs (
-    "libgroovyBC.so"
-    "libgroovyStandardBCs.so"
-  //"libincompressibleRASModels.so"
-    "libincompressibleTurbulenceModels.so"
-   // "libmyincompressibleRASModels.so"
-);
 
 // ************************************************************************* //
