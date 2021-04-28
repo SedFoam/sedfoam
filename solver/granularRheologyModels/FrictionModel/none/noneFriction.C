@@ -70,5 +70,22 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::noneFriction::muI
     return scalar(0.0)*magD/(magD+Dsmall);
 }
 
-
+Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::noneFriction::I
+(
+    const volScalarField& pa,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& rhob,
+    const dimensionedScalar& nub,
+    const volScalarField& magD
+) const
+{
+    dimensionedScalar Dumsmall
+    (
+        "Dumsmall",
+        dimensionSet(0, 0, -1, 0, 0, 0, 0),
+        1e-4
+    );
+    return scalar(0.0)*magD/(magD+Dumsmall);
+}
 // ************************************************************************* //

@@ -200,7 +200,6 @@ twophasekEpsilon        | two-phase flow k-epsilon model (see chauchat et al. 20
 twophaseLaunderSharmaKE | two-phase flow k-epsilon model from Launder and Sharma            |
 twophasekOmega          | two-phase flow k-omega model (see chauchat et al. 2017, GMD)      |
 twophasekOmega2006      | two-phase flow k-omega model from Wilcox (2006)                   |
-twophasekOmegaEps       | two-phase flow k-omega/epsilon model (see Antoine et al. 2019)    |
 
 \subsection twophaseRASProperties File twophaseRASProperties
 
