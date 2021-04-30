@@ -126,8 +126,8 @@ class kineticTheoryModel
         //Kill transfert of temperature from fluid to particles
         const dimensionedScalar killJ1_;
         
-	//Kill the viscosity correction for the frictional particles
-        const dimensionedScalar killPsi_;
+	//Kill the friction correction in the viscosity term
+        Switch killFricCorVisc_;
 
         //- The granular energy/temperature
         volScalarField Theta_;

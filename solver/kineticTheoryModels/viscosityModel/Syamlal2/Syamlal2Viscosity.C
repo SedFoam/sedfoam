@@ -23,59 +23,59 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "LunSavageRadial.H"
+#include "Syamlal2Viscosity.H"
+#include "mathematicalConstants.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(LunSavageRadial, 0);
-
-    addToRunTimeSelectionTable
-    (
-        radialModel,
-        LunSavageRadial,
-        dictionary
-    );
-}
+namespace kineticTheoryModels
+{
+    defineTypeNameAndDebug(Syamlal2Viscosity, 0);
+    addToRunTimeSelectionTable(viscosityModel, Syamlal2Viscosity, dictionary);
+} // End namespace kineticTheoryModels
+} // End namespace Foam
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::LunSavageRadial(const dictionary& dict)
+Foam::kineticTheoryModels::Syamlal2Viscosity::Syamlal2Viscosity
+(
+    const dictionary& dict
+)
 :
-    radialModel(dict)
+    viscosityModel(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::~LunSavageRadial()
+Foam::kineticTheoryModels::Syamlal2Viscosity::~Syamlal2Viscosity()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0
+Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::Syamlal2Viscosity::mua
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const volScalarField& Theta,
+    const volScalarField& g0,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& e
 ) const
 {
+    const scalar sqrtPi = sqrt(constant::mathematical::pi);
 
-    //return pow(mag(1.0 - alpha/alphaMax), -2.0);
-    return 1.5*pow(mag(1.0 - alpha/alphaMax), -1.7);
-}
-
-
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0prime
-(
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
-) const
-{
-    return 2./alphaMax*pow(mag(1.0 - alpha/alphaMax), -3.0);
+    return rhoa*da*sqrt(Theta)*
+    (
+        0.8*(4.0/5.0)*sqr(alpha)*g0*(1.0 + e)/sqrtPi
+      + 0.8*(1.0/15.0)*sqrtPi*g0*(1.0 + e)*(3.0*e - 1.0)*sqr(alpha)/(3.0 - e)
+      + (4.0/6.0)*alpha*sqrtPi/(3.0 - e)
+    );
 }
 
 

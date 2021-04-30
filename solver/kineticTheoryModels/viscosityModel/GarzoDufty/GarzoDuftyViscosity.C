@@ -23,59 +23,65 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "LunSavageRadial.H"
+#include "GarzoDuftyViscosity.H"
+#include "mathematicalConstants.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(LunSavageRadial, 0);
-
-    addToRunTimeSelectionTable
-    (
-        radialModel,
-        LunSavageRadial,
-        dictionary
-    );
-}
+namespace kineticTheoryModels
+{
+    defineTypeNameAndDebug(GarzoDuftyViscosity, 0);
+    addToRunTimeSelectionTable(viscosityModel, GarzoDuftyViscosity, dictionary);
+} // End namespace kineticTheoryModels
+} // End namespace Foam
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::LunSavageRadial(const dictionary& dict)
+Foam::kineticTheoryModels::GarzoDuftyViscosity::GarzoDuftyViscosity
+(
+    const dictionary& dict
+)
 :
-    radialModel(dict)
+    viscosityModel(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::~LunSavageRadial()
+Foam::kineticTheoryModels::GarzoDuftyViscosity::~GarzoDuftyViscosity()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0
+Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::GarzoDuftyViscosity::mua
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const volScalarField& Theta,
+    const volScalarField& g0,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& e
 ) const
 {
+    const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    const scalar pi = constant::mathematical::pi;
 
-    //return pow(mag(1.0 - alpha/alphaMax), -2.0);
-    return 1.5*pow(mag(1.0 - alpha/alphaMax), -1.7);
-}
-
-
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0prime
-(
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
-) const
-{
-    return 2./alphaMax*pow(mag(1.0 - alpha/alphaMax), -3.0);
+    return rhoa*da*sqrt(Theta)*5*sqrtPi/96*
+    (
+     //Kinetic viscosity
+     (1-3*2./5*(1+e)*(1-3*e)*alpha*g0)/((1-0.25*pow((1-e),2)-5./24*(1-pow(e,2)))*g0)+
+     //Contact viscosity
+     (1-2./5*(1+e)*(1-3*e)*alpha*g0)/((1-0.25*pow((1-e),2)-5./24*(1-pow(e,2)))*g0)*(4./5*(1+e)*alpha*g0) +
+     //Bulk viscosity
+     384./(25*pi)*(1+e)*pow(alpha,2)*g0+
+     //Correction
+     -1./((1-0.25*pow((1-e),2)-5./24*(1-pow(e,2)))*g0)
+    );
 }
 
 

@@ -23,19 +23,20 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "LunSavageRadial.H"
+#include "GarzoDuftyConductivity.H"
+#include "mathematicalConstants.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(LunSavageRadial, 0);
+    defineTypeNameAndDebug(GarzoDuftyConductivity, 0);
 
     addToRunTimeSelectionTable
     (
-        radialModel,
-        LunSavageRadial,
+        conductivityModel,
+        GarzoDuftyConductivity,
         dictionary
     );
 }
@@ -43,39 +44,44 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::LunSavageRadial(const dictionary& dict)
+Foam::GarzoDuftyConductivity::GarzoDuftyConductivity(const dictionary& dict)
 :
-    radialModel(dict)
+    conductivityModel(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::~LunSavageRadial()
+Foam::GarzoDuftyConductivity::~GarzoDuftyConductivity()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0
+Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyConductivity::kappa
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const volScalarField& Theta,
+    const volScalarField& g0,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& e
 ) const
 {
+    const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    const scalar Pi = constant::mathematical::pi;
 
-    //return pow(mag(1.0 - alpha/alphaMax), -2.0);
-    return 1.5*pow(mag(1.0 - alpha/alphaMax), -1.7);
-}
-
-
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0prime
-(
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
-) const
-{
-    return 2./alphaMax*pow(mag(1.0 - alpha/alphaMax), -3.0);
+    return rhoa*da*sqrt(Theta)*225*sqrtPi/1152*
+    (
+     //Kinetic conductivity
+     32*(1+3./5*pow(1+e,2)*(2*e-1)*alpha*g0)/((16-7*(1-e))*(1+e)*g0) +
+     //Contact conductivity
+     32*(1+3./5*pow(1+e,2)*(2*e-1)*alpha*g0)/((16-7*(1-e))*(1+e)*g0)* 6./5*(1+e)*alpha*g0 + 
+     //Bulk conductivity
+     2304./(225*Pi)*(1+e)*pow(alpha,2)*g0 +
+     //Correction
+     - 32/((16-7*(1-e))*(1+e)*g0)
+    );
 }
 
 

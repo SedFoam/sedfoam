@@ -23,59 +23,66 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "DuanViscosity.H"
-#include "mathematicalConstants.H"
+#include "DallaValle.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-namespace kineticTheoryModels
-{
-    defineTypeNameAndDebug(DuanViscosity, 0);
-    addToRunTimeSelectionTable(viscosityModel, DuanViscosity, dictionary);
-} // End namespace kineticTheoryModels
-} // End namespace Foam
+    defineTypeNameAndDebug(DallaValle, 0);
+
+    addToRunTimeSelectionTable
+    (
+        dragModel,
+        DallaValle,
+        dictionary
+    );
+}
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::kineticTheoryModels::DuanViscosity::DuanViscosity
+Foam::DallaValle::DallaValle
 (
-    const dictionary& dict
+    const dictionary& interfaceDict,
+    const phaseModel& phasea,
+    const phaseModel& phaseb
 )
 :
-    viscosityModel(dict)
+    dragModel(interfaceDict, phasea, phaseb)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::kineticTheoryModels::DuanViscosity::~DuanViscosity()
+Foam::DallaValle::~DallaValle()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::DuanViscosity::mua
+Foam::tmp<Foam::volScalarField> Foam::DallaValle::K
 (
-    const volScalarField& alpha,
-    const volScalarField& Theta,
-    const volScalarField& g0,
-    const dimensionedScalar& rhoa,
-    const dimensionedScalar& da,
-    const dimensionedScalar& e
+    const volScalarField& Ur
 ) const
 {
-    const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    volScalarField beta(max(scalar(1) - alpha_, scalar(1e-6)));
+    //    volScalarField bp(pow(beta, -2.65));
+    volScalarField bp(pow(beta, -phasea_.hExp()-1));
 
-    return rhoa*da*sqrt(Theta)*
+    //volScalarField Re(max(beta*Ur*phasea_.d()/phaseb_.nu(), scalar(1.0e-3)));
+    volScalarField Re
     (
-        (4.0/5.0)*sqr(alpha)*g0*(1.0 + e)/sqrtPi
-      + (1.0/15.0)*sqrtPi*g0*(1.0 + e)*(3.0*e - 1.0)*sqr(alpha)/(3.0 - e)
-      + (1.0/6.0)*alpha*sqrtPi/(3.0 - e)
+        max(Ur*phasea_.d()*phasea_.sF()/phaseb_.nu(), scalar(1.0e-9))
     );
+
+    volScalarField Cds
+    (
+     	0.4+24.4/Re
+    );
+
+    return 0.75*Cds*phaseb_.rho()*Ur*bp/(phasea_.d()*phasea_.sF());
 }
 
 

@@ -268,6 +268,17 @@ dimensionedVector gradPOSC
                           vector(0, 0, 0) )
     )
 );
+
+dimensionedVector gradConvAcc
+(
+    forceProperties.lookupOrDefault
+    (
+        "gradConvAcc",
+        dimensionedVector("gradPOSC",
+                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
+                          vector(0, 0, 0) )
+    )
+);
 dimensionedScalar gradPOSCMin ("gradPOSCMin", gradPOSC.dimensions(), 1e-6);
 
 dimensionedScalar oscpT
@@ -407,6 +418,20 @@ volScalarField Unity
     mesh,
     dimensionedScalar("one", dimensionSet(0, 0, 0, 0, 0), 1.0)
 );
+volScalarField Usmall2
+(
+    IOobject
+    (
+        "Usmall2",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("one", dimensionSet(0, 1, -1, 0, 0), 1e-6)
+);
+
 
 Info<< "Calculating face flux field phi\n" << endl;
 surfaceScalarField phi

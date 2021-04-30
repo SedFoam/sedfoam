@@ -227,18 +227,9 @@ Foam::kineticTheoryModel::kineticTheoryModel
             )
         )
     ),
-    killPsi_
+    killFricCorVisc_
     (
-        kineticTheoryProperties_.lookupOrDefault
-        (
-            "killPsi_",
-            dimensionedScalar
-            (
-                "killPsi_",
-                dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                1
-            )
-        )
+        kineticTheoryProperties_.lookupOrDefault("killFricCorVisc", true)
     ),
     Theta_
     (
@@ -479,7 +470,7 @@ void Foam::kineticTheoryModel::solve
     
     // Correction for frcitional particles (Chialvo and Sundaresan (2013))
     dimensionedScalar f_mu = 3./2*muPart_*exp(-3*muPart_);
-    //dimensionedScalar psi = 1+3./10*pow((1-pow(e_,2)), -2./3)*(1-exp(-8*muPart_));
+    dimensionedScalar fric_correction_visc = 1+3./10*pow((1-pow(e_,2)), -2./3)*(1-exp(-8*muPart_));
     dimensionedScalar e_eff = e_ - f_mu;
     dimensionedScalar fric_correction = (1-pow(e_eff,2))/(1-pow(e_, 2));
 
@@ -519,7 +510,9 @@ void Foam::kineticTheoryModel::solve
     );
 
     mua_ *= f_fkt; // Correction for soft particles
-    //mua_ *= (1-killPsi_)*psi; // Correction for frictional particles
+    if (not killFricCorVisc_){
+    mua_ *= fric_correction_visc; // Correction for frictional particles
+    }
 
     // classical kinetic theory
     volScalarField Lc = da_*(alpha_+alphaSmall)/(alpha_+alphaSmall);
@@ -559,7 +552,7 @@ void Foam::kineticTheoryModel::solve
 	gammaCoeff *= f_fkt; // Correction for soft particles
 	gammaCoeff *= fric_correction; // Correction for frictional particles
         // Eq. 3.25, p. 50 Js = J1 - J2
-        volScalarField J1 = 3.0*alpha_*betaPrim;
+        volScalarField J1 = 1.8*3.0*alpha_*betaPrim;
         /*
         volScalarField J2 =
             0.25*alpha_*sqr(betaPrim)*da_*sqr(Ur_)

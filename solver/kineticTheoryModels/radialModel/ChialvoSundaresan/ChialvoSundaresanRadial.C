@@ -23,19 +23,19 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "LunSavageRadial.H"
+#include "ChialvoSundaresanRadial.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(LunSavageRadial, 0);
+    defineTypeNameAndDebug(ChialvoSundaresanRadial, 0);
 
     addToRunTimeSelectionTable
     (
         radialModel,
-        LunSavageRadial,
+        ChialvoSundaresanRadial,
         dictionary
     );
 }
@@ -43,7 +43,7 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::LunSavageRadial(const dictionary& dict)
+Foam::ChialvoSundaresanRadial::ChialvoSundaresanRadial(const dictionary& dict)
 :
     radialModel(dict)
 {}
@@ -51,25 +51,25 @@ Foam::LunSavageRadial::LunSavageRadial(const dictionary& dict)
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::LunSavageRadial::~LunSavageRadial()
+Foam::ChialvoSundaresanRadial::~ChialvoSundaresanRadial()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0
+Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanRadial::g0
 (
     const volScalarField& alpha,
     const dimensionedScalar& alphaMax
 ) const
 {
 
-    //return pow(mag(1.0 - alpha/alphaMax), -2.0);
-    return 1.5*pow(mag(1.0 - alpha/alphaMax), -1.7);
+    return neg(alpha-alphaMax)*min(1e4, (2-alpha)/(2*pow(1-alpha,3)) + 4.69*pow(alpha,2)/(alphaMax-alpha))
+	    + pos(alpha-alphaMax)*1e4;
 }
 
 
-Foam::tmp<Foam::volScalarField> Foam::LunSavageRadial::g0prime
+Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanRadial::g0prime
 (
     const volScalarField& alpha,
     const dimensionedScalar& alphaMax

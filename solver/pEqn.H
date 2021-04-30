@@ -68,6 +68,8 @@ License
         HabyA = rUaA*UaEqn.H();
         volVectorField HbbyA = Ub;
         HbbyA = rUbA*UbEqn.H();
+	volScalarField T = kineticTheory.Theta();
+
 
         // Momentum fluxes computed on the faces for the particle phase phiDraga
         // and the fluid phase phiDragb
@@ -82,6 +84,12 @@ License
                 SUS*(K/rhoa)*turbulenceb->nut()*(beta/(alpha + alphaSmall))
             )
            *fvc::snGrad(alpha))*rUaAf*mesh.magSf()
+	   // drag modification to account for particle fluctuations
+	   +(fvc::interpolate
+	    (
+	     	beta*(K/rhoa)*2*T/(magUr+Usmall2)
+	    ))
+	    *rUaAf*mesh.magSf()
             // grad(pa)
           - (oneOverAlpha/rhoa*fvc::snGrad(pa))*rUaAf*mesh.magSf()
             // grad(Pf)
@@ -125,6 +133,12 @@ License
         // WARNING : comment the next 2 lines if suspension term in UbEqn: susb
             fvc::interpolate(SUS*(K/rhob)*turbulenceb->nut())*fvc::snGrad(alpha)
             *rUbAf*mesh.magSf()
+	    // drag modification to account for particle fluctuations
+	    -(fvc::interpolate
+	    (
+	     	alpha*(K/rhob)*2*T/(magUr+Usmall2)
+	    ))
+	    *rUbAf*mesh.magSf()
             // diagnoal part of stress
           - (fvc::interpolate(scalar(2.0)/(beta*scalar(3.0)))
            *fvc::snGrad(((nuEffb*tr(gradUbT)))*beta))*rUbAf*mesh.magSf()
@@ -136,6 +150,7 @@ License
             )
           // driving force
           + rUbAf*((gradPOSC/rhob) & mesh.Sf())
+	  - rUbAf*fvc::interpolate(neg(alpha-0.3))*((gradConvAcc/rhob) &mesh.Sf())
         );
 
         //    fvOptions.makeRelative(phiHabyA);

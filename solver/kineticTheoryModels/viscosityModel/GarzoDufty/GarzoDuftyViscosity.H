@@ -31,8 +31,8 @@ SourceFiles
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef DuanViscosity_H
-#define DuanViscosity_H
+#ifndef GarzoDuftyViscosity_H
+#define GarzoDuftyViscosity_H
 
 #include "viscosityModel.H"
 
@@ -44,10 +44,10 @@ namespace kineticTheoryModels
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class DuanViscosity Declaration
+                           Class GarzoDuftyViscosity Declaration
 \*---------------------------------------------------------------------------*/
 
-class DuanViscosity
+class GarzoDuftyViscosity
 :
     public viscosityModel
 {
@@ -55,17 +55,17 @@ class DuanViscosity
 public:
 
     //- Runtime type information
-    TypeName("Duan");
+    TypeName("GarzoDufty");
 
 
     // Constructors
 
         //- Construct from components
-        DuanViscosity(const dictionary& dict);
+        GarzoDuftyViscosity(const dictionary& dict);
 
 
     //- Destructor
-    virtual ~DuanViscosity();
+    virtual ~GarzoDuftyViscosity();
 
 
     // Member functions
