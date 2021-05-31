@@ -35,5 +35,7 @@ spongeLayer      off;
 xSmin            xSmin            [0 1 0 0 0 0 0 ] 0.5;               // position at which the sponge layer start
 xSmax            xSmax            [0 1 0 0 0 0 0 ] 1.2;               // position at which the sponge layer stop
 
+ClipUa          ClipUa [ 0 0 0 0 0 ] 1;
+
 debugInfo	true; 
 // * * * * * * * * * * * * end of definition of pressure * * * * * * * * * * * * * //

@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      extrudeProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// What to extrude:
+//      patch   : from patch of another case ('sourceCase')
+
+constructFrom patch;
+sourceCase ".";
+sourcePatches (backPlane);
+
+// If construct from patch: patch to use for back (can be same as sourcePatch)
+exposedPatchName backPlane;
+
+// Flip surface normals before usage.
+flipNormals true;
+
+//- Linear extrusion in point-normal direction
+extrudeModel        linearNormal;
+//extrudeModel        linearDirection;
+
+nLayers             1;
+
+expansionRatio      1.0;
+
+linearDirectionCoeffs
+{
+    direction       (0 0 1);
+    thickness       0.001;
+}
+
+linearNormalCoeffs
+{
+    thickness       0.001;
+}
+
+// Do front and back need to be merged? Usually only makes sense for 360
+// degree wedges.
+mergeFaces false;
+
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

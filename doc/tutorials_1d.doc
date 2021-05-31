@@ -8,35 +8,35 @@
  * Permission to use, copy, modify, and distribute this software and its
  * documentation under the terms of the GNU General Public License is hereby
  * granted. No representations are made about the suitability of this software
- * for any purpose. It is provided "as is" without express or implied warranty.
+ * for any purpose. It is provided "as it is" without express or implied warranty.
  * See the GNU General Public License for more details.
  *
  *
  */
 /*! \page tutorials_1d One-dimensional test cases
 
-In this chapter we shall describe in detail the process of setup, simulation and post-processing for some sedFoam test cases
-All the tutorial cases are in the tutorial directory. The text herein is highly inspired from the OpenFOAM user-guide for the cavity turorial available at http://cfd.direct/openfoam/user-guide/cavity/ but is adapted to the specificity of sedFoam.
+In this chapter we shall describe in detail the process of setup, simulation and post-processing for some SedFoam test cases
+All the tutorial cases are in the tutorial directory. The text herein is highly inspired from the OpenFOAM user-guide for the cavity tutorial available at http://cfd.direct/openfoam/user-guide/cavity/ but is adapted to the specificity of SedFoam.
 
-The test cases provided with sedFoam are aimed to facilitate the learning as well as to allow for the development of new configurations. If you develop new things do not hesitate to share your development with us so that we can incorporate them in the github repository and others will benefit from your work the way you benefited from the original sedFoam version!
+The test cases provided with SedFoam are aimed to facilitate the learning as well as to allow for the development of new configurations. If you develop new things do not hesitate to share your development with us so that we can incorporate them in the github repository and others will benefit from your work the way you benefited from the original SedFoam version!
 
 \tableofcontents{xml:1}
 
-A number of one-dimensional test cases are provided with reference solutions, analytical, experimental or numerical, to validate sedFoam implementation and developments. Most of these test cases are used in the contiunous integration procedure to verify every new developments in sedFoam.
+A number of one-dimensional test cases are provided with reference solutions, analytical, experimental or numerical, to validate SedFoam implementation and developments. Most of these test cases are used in the contiunous integration procedure to verify every new developments in SedFoam.
 
 \section  Sedim_testcase 1DSedim: Pure sedimentation
 
-This tutorial will describe how to pre-process, run and post-process a case corresponding to a pure sedimentatiton problem in a one-dimensional configuration using the two-phase flow equations. The geometry is shown in Figure 1 in which bottom boundary is a wall and the top boundary is an open boundary.  Initially, the flow is at rest and will be solved on a uniform mesh using the sedFoam solver for laminar, isothermal, incompressible two-phase flow. The numerical results are compared with experiments to validate the model in terms of settling curves, time evolution of concentration interface, and concentration profiles.
+This tutorial will describe how to pre-process, run and post-process a case corresponding to a pure sedimentation problem in a one-dimensional configuration using the two-phase flow equations. The geometry is shown in Figure 1 in which bottom boundary is a wall and the top boundary is an open boundary.  Initially, the flow is at rest and will be solved on a uniform mesh using the SedFoam solver for laminar, isothermal, incompressible two-phase flow. The numerical results are compared with experiments to validate the model in terms of settling curves, time evolution of concentration interface, and concentration profiles.
 
 \subsection preproc Pre-processing
 
-Like in OpenFOAM, cases are setup by editing case files using a text editor such as atome, vscode/vscodium, emacs, vi, gedit, nedit, etc. The I/O uses a dictionary format with keywords. A case involves data for mesh, fields, properties, control parameters, etc  that are stored in a set of files within a case directory rather than in a single case file. The case directory is given a suitably descriptive name. This tutorial consists of a set of cases located in the sedFoam distribution under the folder sedFoamDirectory/tutorials/1DSedim. 
+Like in OpenFOAM, cases are setup by editing case files using a text editor such as atome, vscode/vscodium, emacs, vi, gedit, nedit, etc. The I/O uses a dictionary format with keywords. A case involves data for mesh, fields, properties, control parameters, etc  that are stored in a set of files within a case directory rather than in a single case file. The case directory is given a suitably descriptive name. This tutorial consists of a set of cases located in the SedFoam distribution under the folder *sedFoamDirectory/tutorials/1DSedim*. 
 
 \paragraph meshgen Mesh generation
 
 OpenFOAM always operates in a 3 dimensional Cartesian coordinate system and all geometries are generated in 3 dimensions. OpenFOAM solves the case in 3 dimensions by default but can be instructed to solve in 2 dimensions by specifying a ‘special’ empty boundary condition on boundaries normal to the (3rd) dimension for which no solution is required. In 2 dimensions, the directions x and y are always chosen even if the mesh is given in the x-z plane.
 
-The sedimentation domain consists of a square of side length L = 0.006 m in the x–y plane and of height h=0.06 m in the vertical direction z. The side lentgh is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 100 cells will be used. The block structure is shown in Figure 1.
+The sedimentation domain consists of a square of side length L = 0.006 m in the x–y plane and of height h=0.06 m in the vertical direction z. The side length is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 100 cells will be used. The block structure is shown in Figure 1.
 
 @image html "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
 @image latex "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
@@ -130,7 +130,7 @@ mergePatchPairs
 
 The file first contains header information in the form of a banner (lines 1-7), then file information contained in a FoamFile sub-dictionary, delimited by curly braces ({…}). 
 
-The file first specifies coordinates of the block vertices; it then defines the blocks (here, only 1) from the vertex labels and the number of cells within it; and finally, it defines the boundary patches. The user is encouraged to consult the offical documentation
+The file first specifies coordinates of the block vertices; it then defines the blocks (here, only 1) from the vertex labels and the number of cells within it; and finally, it defines the boundary patches. The user is encouraged to consult the official documentation
 <a href="http://cfd.direct/openfoam/user-guide/blockMesh/#x25-1750005.3">here</a>
 to understand the meaning of the entries in the *blockMeshDict* file.
 
@@ -182,11 +182,14 @@ boundaryField
 
 There are 3 principal entries in field data files:
 
-dimensions
+
+-dimensions: 
     specifies the dimensions of the field, here velocity, i.e. m s\f$^{-1}\f$ ; 
-internalField
+
+-internalField:
     the internal field data which are set to be uniform; 
-boundaryField
+
+-boundaryField:
     the boundary field data that includes boundary conditions and data for all the boundary patches.
 
 For this case 1DSedim, the boundary consists of cyclic boundaries at the inlet and outlet (left and right boundaries) and walls at the top and bottom boundaries, the top boundary is zeroGradient whereas the bottom boundary is a no-slip boundary conditions i.e zero velocity at the wall. The frontAndBack patch represents the front and back planes of the 2D case and therefore must be set as empty. 
@@ -195,7 +198,7 @@ The user can similarly examine the fluid phase velocity field in the 0_org/Ub fi
 
 \paragraph PhysProp Physical properties
 
-The physical properties for the case are stored in dictionaries whose names are given the suffix …Properties, located in the Dictionaries directory tree. For a sedFoam case, there are 8 property files: transportProperties, interfacialProperties, ppProperties, granularRheologyProperties, kineticTheoryProperties, RASProperties  twophaseRASProperties 
+The physical properties for the case are stored in dictionaries whose names are given the suffix …Properties, located in the Dictionaries directory tree. For a SedFoam case, there are 8 property files: transportProperties, interfacialProperties, ppProperties, granularRheologyProperties, kineticTheoryProperties, RASProperties  twophaseRASProperties 
 
 In the transport property file, the physical properties of the solid and fluid phases are set, such as density, kinematic viscosity and particle diameter. 
 
@@ -226,7 +229,7 @@ alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (
 
 \endverbatim
 
-The hindrance function exponent of the Richardson-Zaki law can be tuned using the parameter hExp. This is important for this first test case which is in the laminar regime for the drag. The transportModel has to be prescribed when using turbulence model, it is present here for compatibility with the other test cases. The nuMax value is a viscosity limiter for the all the viscosities, it allows the user to control the numerical stability of the solver and will be discussed in the second test case. It is especially important as some shear stress terms are discretized explicitely and that the frictional viscosity can reach huge values. The alphaSmall value is used to regularise the division by alpha_a in the source code, the default value is set to \f$ 10^{-6} \f$. 
+The hindrance function exponent of the Richardson-Zaki law can be tuned using the parameter hExp. This is important for this first test case which is in the laminar regime for the drag. The transportModel has to be prescribed when using turbulence model, it is present here for compatibility with the other test cases. The nuMax value is a viscosity limiter for the all the viscosities, it allows the user to control the numerical stability of the solver and will be discussed in the second test case. It is especially important as some shear stress terms are discretized explicitly and that the frictional viscosity can reach huge values. The alphaSmall value is used to regularise the division by alpha_a in the source code, the default value is set to \f$ 10^{-6} \f$. 
  
 The dictionary *interfacialProperties* allows to specify the drag model:
 
@@ -240,7 +243,7 @@ dragPhase       a;
 
 The model chosen here is GidaspowSchilerNaumann that corresponds to the drag force around a spherical particle corrected by a hindrance function (\f$ \beta^{-hExp}\f$).
 
-The dictionary *ppProperties* contains the informations concerning the permanent contact contribution to the solid phase pressure. In sedFoam, the model of Johnson and Jackson (1987) is used: 
+The dictionary *ppProperties* contains the information concerning the permanent contact contribution to the solid phase pressure. In SedFoam, the model of Johnson and Jackson (1987) is used: 
 
 \f$ p_{ff} = Fr \frac{\left( \alpha - \alpha_{min}^{Friction} \right)^{\eta}}{\left(\alpha_{Max} - \alpha \right)^p} \f$ 
 
@@ -265,6 +268,8 @@ And the dictionary *granularRheologyProperties* controls the granular rheology p
 
 \verbatim
 granularRheology   on;
+
+granularDilatancy  off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
@@ -292,9 +297,9 @@ FluidViscosityModel Einstein;
 
 On the first line the switch granularRheology allows to turn on and off this module. The keywords FrictionModel, PPressureModel and FluidViscosityModel allow to choose the friction model, the shear induced particle pressure model and the effective viscosity model (see \ref inputs for details).  
 
-For the present case the granularRheology is set to Coulomb and the FluidViscosityModel is used for the effective viscosity model and a Einstein model is used. All the details concerning the different models can be found in the Geophysical Model Development paper on sedFoam.  
+For the present case the granularRheology is set to Coulomb and the FluidViscosityModel is used for the effective viscosity model and a Einstein model is used. All the details concerning the different models can be found in the Geophysical Model Development paper on SedFoam.  
 
-The remaining dictionaries are not used for this tutorial and will not be detailled here. Their content will be explained in the next tutorials when they are used.
+The remaining dictionaries are not used for this tutorial and will not be detailed here. Their content will be explained in the next tutorials when they are used.
 
 \paragraph control_sedFoam Control
 
@@ -410,7 +415,7 @@ fluxRequired
 }
 \endverbatim
 
-In the system/fvSolution file, the user can specify the linear solver he/she wants to use for each equation and the tolerance for the resolution. The user can also control the number of corrector steps and non-orthogonal correctors (useles for cartesian grids) for the PIMPLE algorithm. In the present case, a single PIMPLE corrector is enough the residual of the pressure equation is shown to converge well. The fvSolution file is reproduced below:
+In the system/fvSolution file, the user can specify the linear solver he/she wants to use for each equation and the tolerance for the resolution. The user can also control the number of corrector steps and non-orthogonal correctors (useless for cartesian grids) for the PIMPLE algorithm. In the present case, a single PIMPLE corrector is enough the residual of the pressure equation is shown to converge well. The fvSolution file is reproduced below:
 
 \verbatim
 
@@ -503,7 +508,7 @@ writeCellCentres -time 0
 sedFoam_rbgh > log&
 \endverbatim
 
-The script is self documented, the blockMesh command has already been introduced. The initial condition stored in the 0_org folder is first copied to the zero (0) folder. The command funkySetFields (require swak4foam library) allows to set the initial solid phase volume fraction profile following an hyperbolic tangent profile described in the dictionnary *system/funkySetFieldsDict* as folows:
+The script is self documented, the blockMesh command has already been introduced. The initial condition stored in the 0_org folder is first copied to the zero (0) folder. The command funkySetFields (require swak4foam library) allows to set the initial solid phase volume fraction profile following an hyperbolic tangent profile described in the dictionary *system/funkySetFieldsDict* as follows:
 
 \verbatim
 expressions
@@ -542,7 +547,7 @@ The reader is reffered to the OpenFOAM tutorial for the lid driven cavity for th
 
 \paragraph postfluidfoam Using fluidfoam
 
-The postprocessing using python requires the installation of the package fluidfoam available at hg clone https://bitbucket.org/sedfoam/fluidfoam. If the pacakage is installed properly with all the dependencies, you just have to run the python script *plot_tutoSedimentation.py* located in the folder *tutorials/Py*:
+The postprocessing using python requires the installation of the package fluidfoam available at hg clone https://bitbucket.org/sedfoam/fluidfoam. If the package is installed properly with all the dependencies, you just have to run the python script *plot_tutoSedimentation.py* located in the folder *tutorials/Py*:
 
 \verbatim
 python plot_tutoSedimentation.py
@@ -560,16 +565,20 @@ and you should see the following figures:
 
 
 We consider a flat particle bed submitted to a Poiseuille
-flow driven by a pressure gradient in a horizontal channel. This situation has been studied experimentally, analytically and numerically by Ouriemi et al. (2009) and Aussillous et al. (2013). The goal of this tutorial is to illustrate the ability of sedFoam to reproduce dense granular flows using the dense granular flow rheology \f$\mu(Iv)\f$. For this purpose sedFoam will be first compared with the analytical solution from Aussillous et al. (2013) using a Coulomb friction rheology. In a second part, the results obtained using the \f$\mu(Iv)\f$ rheology are compared with a simple 1D numerical model.
+flow driven by a pressure gradient in a horizontal channel. This situation has been studied experimentally, analytically and numerically by Ouriemi et al. (2009) and Aussillous et al. (2013). The goal of this tutorial is to illustrate the ability of SedFoam to reproduce dense granular flows using the dense granular flow rheology \f$\mu(Iv)\f$. For this purpose SedFoam will be first compared with the analytical solution from Aussillous et al. (2013) using a Coulomb friction rheology. In a second part, the results obtained using the \f$\mu(Iv)\f$ rheology are compared with a simple 1D numerical model.
   
+@image html "LaminarBedloadIndexMatching.jpg" "Figure 4: Image from an index matching laminar bed-load experiment (Aussillous et al, 2013).  " width=600px
+@image latex "LaminarBedloadIndexMatching.jpg" "Figure 4: Image from an index matching laminar bed-load experiment (Aussillous et al, 2013)."
+
+
 
 \subsection preprocBL Pre-processing
 
-This tutorial is distributed with sedFoam3.0 under the folder sedFoamDirectory/tutorials/1DBedLoad.
+This tutorial is distributed with sedFoam3.0 under the folder *sedFoamDirectory/tutorials/1DBedLoad*.
 
 \paragraph meshgenBL Mesh generation
 
-The numerical domain consists of a square of side length L = 0.0065 m in the x-y plane and of height h=0.065 m in the vertical direction z. The side lentgh is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 200 cells will be used. The block structure is the same as for the Sedimentation test case and is shown in Figure 1.
+The numerical domain consists of a square of side length L = 0.0065 m in the x-y plane and of height h=0.065 m in the vertical direction z. The side length is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 200 cells will be used. The block structure is the same as for the Sedimentation test case and is shown in Figure 1.
 
 The mesh is generated by running blockMesh from within the case directory:
 
@@ -620,6 +629,9 @@ Compared with the sedimentation test case, the *granularRheologyProperties* is c
 \verbatim
 granularRheology   on;
 
+granularDilatancy  off;
+
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.32;
@@ -642,6 +654,7 @@ FrictionModel  Coulomb;
 PPressureModel  none;
 
 FluidViscosityModel  Einstein;
+
 \endverbatim
              
 To compare with the analytical solution, the Coulomb Frictional model and the Einstein FluidViscosity model are used. No PPressureModel is specified meaning that the shear induced contribution to the solid phase pressure is not included i.e. the solid phase volume fraction profile must be sharp at the particle bed interface. The value of the rehological constants are chosen following Aussillous et al. (2013). The regularisation parameter Dsmall is taken as 1e-4, this is shown to be enough for this case but a sensitivity analysis could be performed in case of a too strong creeping flow in the particle bed.  
@@ -702,8 +715,8 @@ python plot_tutoBedLoadCLB.py
 
 and you should see the following figures:
 
-@image html "res1_tuto2.png" "Figure 4: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a Coulomb rheology between two infinite parallel planes obtained by numerical simulations with the analytical solution of Ouriemi et al. (2009) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles." width=800px
-@image latex "res1_tuto2.png" "Figure 4: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a Coulomb rheology between two infinite parallel planes obtained by numerical simulations with the analytical solution of Ouriemi et al. (2009) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles. "
+@image html "res1_tuto2.png" "Figure 5: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a Coulomb rheology between two infinite parallel planes obtained by numerical simulations with the analytical solution of Ouriemi et al. (2009) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles." width=800px
+@image latex "res1_tuto2.png" "Figure 5: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a Coulomb rheology between two infinite parallel planes obtained by numerical simulations with the analytical solution of Ouriemi et al. (2009) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles. "
 
 \subsection ExtensionBL  Extension to the Mu(Iv) rheology
 
@@ -738,8 +751,8 @@ python plot_tutoBedLoadMUI.py
 
 that results in the following figures:
 
-@image html "res2_tuto2.png" "Figure 5: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a mu(Iv) rheology between two infinite parallel planes obtained by numerical simulations with  one-dimensional numerical solution presented in Aussillous et al. (2013) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles." width=800px
-@image latex "res2_tuto2.png" "Figure 5: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a mu(Iv) rheology between two infinite parallel planes obtained by numerical simulations with  one-dimensional numerical solution presented in Aussillous et al. (2013) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles. "
+@image html "res2_tuto2.png" "Figure 6: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a mu(Iv) rheology between two infinite parallel planes obtained by numerical simulations with  one-dimensional numerical solution presented in Aussillous et al. (2013) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles." width=800px
+@image latex "res2_tuto2.png" "Figure 6: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a mu(Iv) rheology between two infinite parallel planes obtained by numerical simulations with  one-dimensional numerical solution presented in Aussillous et al. (2013) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles. "
 
 
 
@@ -748,13 +761,13 @@ that results in the following figures:
 \section  dryavalanche 1DAvalancheMuI: Dry granular avalanche
 
 
-We consider a fluid-solid mixture avalanche flowing under a steady-state moving down a planar slope as illustrated in figure 7. 
+We consider a fluid-solid mixture avalanche flowing under a steady-state moving down a planar slope as illustrated in figure 6. 
 In this example, dense granular flow is reproduced by means of the dense granular flow rheology \f$\mu(I)\f$.
 Numerical results are contrasted with the analytical solution (Bagnold's solution). 
 
 
-@image html "scheme1Davalanche.png" "Figure 7: Schematic section of the dry avalanche flowing down on a uniform slope.  The coordinate system and main lengths are defined." width=500px
-@image latex "scheme1Davalanche.png" "Figure 7: Schematic section of the dry avalanche flowing down on a uniform slope.  The coordinate system and main lengths are defined."
+@image html "schemeAvalanche1DInertial.png" "Figure 7: Schematic section of the dry avalanche flowing down on a uniform slope.  The coordinate system and main lengths are defined." width=500px
+@image latex "schemeAvalanche1DInertial.png" "Figure 7: Schematic section of the dry avalanche flowing down on a uniform slope.  The coordinate system and main lengths are defined."
 
 
 \subsection preprocAva Pre-processing
@@ -765,7 +778,7 @@ This tutorial is distributed with sedFoam5.0 under the folder *sedFoamDirectory/
 \paragraph meshgenAva Mesh generation
 
 Because the avalanche is assumed to be in a stationary state, the simulation can be easily reduced to a one-dimensional problem.  The numerical domain consists of a square of side length L = 0.01 m in the x-y plane and of height h=1 m in the vertical direction z. 
-A uniform mesh of 1 by 1 by 100 cells will be used (see \f$ n_{x}\f$=1 and \f$ n_{z}\f$=100 in figure 7). The block structure is the same as for the Sedimentation test case and is shown in figure 1.
+A uniform mesh of 1 by 1 by 100 cells will be used (see \f$ n_{x}\f$=1 and \f$ n_{z}\f$=100 in figure 6). The block structure is the same as for the Sedimentation test case and is shown in figure 1.
 
 
 
@@ -782,7 +795,7 @@ blockMesh
 
 
 The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, Ua, Ub, p_rbgh, muI, pa, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. 
-No-slip boundary conditions are imposed for both phases at the top and bottom boundaries (zero velocity at the solid boundaries).  Additionally, cyclic boundaries are considered in the inlet and outlet (upstream and downstream boundaries in figure 7.). Cyclic boundaries are imposed to connect two equal meshes.
+No-slip boundary conditions are imposed for both phases at the top and bottom boundaries (zero velocity at the solid boundaries).  Additionally, cyclic boundaries are considered in the inlet and outlet (upstream and downstream boundaries in figure 6.). Cyclic boundaries are imposed to connect two equal meshes.
 The frontAndBack patch represents the front and back planes of the 2D case and therefore must be set as empty. 
 
 
@@ -847,6 +860,8 @@ Dense granular flow rheology \f$\mu(I)\f$ is used as shown in *granularRheologyP
 
 granularRheology   on;
 
+granularDilatancy  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.38;
@@ -878,7 +893,7 @@ Additionally,  *FluidViscosityModel* model is set to *none*. Even though no *Flu
 on the results due to the low fluid viscosity. On the contrary, the analytical solution assumes that shear induced contribution to the fluid phase is null. 
 
 
-Finally, the file  *constant/g* is modified to take into account the \f$x and y\f$-axis  component of gravity with magnitude \f$g=1\f$. In this work the plane is inclined  to \f$\theta=26^o \f$, however, other angles may be considered.
+Finally, the file  *constant/g* is modified to take into account the \f$x\f$ and \f$y\f$-axis  component of gravity with magnitude \f$g=1\f$. In this work the plane is inclined  to \f$\theta=26^o \f$, however, other angles may be considered.
 
 
 
@@ -907,8 +922,203 @@ python plot_tutoAvalanche.py
 
 and you should see the following figure:
 
-@image html "res1_tuto_avalanche.png" "Figure 8: Evolution of a) solid volume fraction, b) velocity, c) solid phase pressure, d) mu(I), e) shear stress f) frictional viscosity, and g) shear rate in function of height (y). Results are expressed in dimensionless terms." width=800px
+image html "res1_tuto_avalanche.png" "Figure 8: Evolution of a) solid volume fraction, b) velocity, c) solid phase pressure, d) mu(I), e) shear stress f) frictional viscosity, and g) shear rate in function of height (y). Results are expressed in dimensionless terms." width=800px
 @image latex "res1_tuto_avalanche.png" "Figure 8: Evolution of a) solid volume fraction, b) velocity, c) solid phase pressure, d) mu(I), e) shear stress f) frictional viscosity, and g) shear rate in function of height (y). Results are expressed in dimensionless terms."
+
+
+
+
+
+\section  wetvalanche 1DWetAvalancheMuIv: Immersed granular avalanche
+
+
+We consider a fluid-solid mixture avalanche flowing under a steady-state moving down a planar slope as illustrated in figure 9. In contrast to 
+previous tutorial, the granular material is immersed in a viscous fluid. Therefore, dense granular flow rheology \f$\mu(I_v)\f$ is used instead.
+Additionally, dilatancy effects are included in this example.  Iverson et al.(2000) showed the  initial dynamics of underwater avalanches strongly 
+depend on the initial volume fraction: initially loose granular beds are  instantaneously mobilized after tilting the plane whereas
+in initially dense granular beds, the motion of the avalanche is delayed. This mechanism is accompanied by an expansion (initially dense) or contraction  (initially loose)
+of the granular medium that modifies the pore space.  Consequently,  negative (dense packings) or positive (loose packings)
+ excess  pore pressures develop within the mixture. In this example, we
+ reproduce a dense granular avalanche \f$(\phi_0=0.592)\f$  in 1D. In order to reach an initial equilibrium state, 
+ 200 seconds are required to let the granular layer deposit by gravity.
+
+
+@image html "schemeAvalanche1DVisc.png" "Figure 9: Schematic section of the immersed avalanche in a viscous fluid flowing down on a uniform slope.  The coordinate system and main lengths are defined." width=500px
+@image latex "schemeAvalanche1DVisc.png" "Figure 9: Schematic section of the immersed avalanche in a viscous fluid flowing down on a uniform slope.  The coordinate system and main lengths are defined."
+
+
+
+
+\subsection preprocWetAva Pre-processing
+
+
+This tutorial is distributed with sedFoam5.0 under the folder *sedFoamDirectory/tutorials/1DWetAvalanche*.
+
+
+\paragraph PhysPropWetAva Physical properties
+
+
+The following variables are considered to reproduce the experimental results of Pailha et al. (2008):
+
+
+<table>
+<caption id="multi_row">Main physical parameters.</caption>
+<tr><th>Properties  	<th>Value  	
+<tr><td>Solid density  	<td>\f$\rho_p=2500 \frac{kg}{m^3}\f$  
+<tr><td>Fluid density	  	<td>\f$\rho_f=1041 \frac{kg}{m^3}\f$	
+<tr><td>Fluid viscosity    	<td>\f$\nu^f=9.2 \cdot 10^{-5} \frac{m^2}{s}\f$       
+<tr><td>Mean particle diameter    <td>\f$d=160 \cdot 10^{-6} m\f$    
+<tr><td>Slope inclined at the angle    <td>\f$\theta=25^o \f$       
+<tr><td>Solid phase thickness   <td>\f$h=0.0049 m\f$ 
+<tr><td>Initial solid volume fraction   <td>\f$\phi=0.592\f$   
+</table> 
+
+  
+
+The *transportProperties* file for the 1DWetAvalancheMuIv case is shown below:
+
+\verbatim
+phasea
+{
+    rho             rho [ 1 -3 0 0 0 ] 2500;
+    nu              nu [ 0 2 -1 0 0 ] 1e-6;
+    d               d [ 0 1 0 0 0 0 0 ] 160.e-6;
+}
+
+phaseb
+{
+    rho             rho [ 1 -3 0 0 0 ] 1041.;
+    nu              nu [ 0 2 -1 0 0 ] 9.221902017291067e-05;
+    d               d [ 0 1 0 0 0 0 0 ] 2.e-3;
+}
+//*********************************************************************** //
+transportModel  Newtonian;
+
+nu              nu [ 0 2 -1 0 0 0 0 ] 9.221902017291067e-05;
+
+// Diffusivity for mass conservation resolution (avoid num instab around shocks)
+alphaDiffusion  alphaDiffusion [0 2 -1 0 0 0 0] 0e-8;
+
+nuMax           nuMax [0 2 -1 0 0 0 0] 1e0;      // viscosity limiter for the Frictional model (required for stability)
+
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
+
+
+\endverbatim
+
+
+
+\subsection SedimentationWetAva Sedimentation process
+
+Dense granular flow rheology \f$\mu(I_v)\f$ is used as shown in *granularRheologyProperties*.  
+The dilatancy model is switch off during the sedimentation process:
+
+
+
+
+\verbatim
+granularRheology   on;
+
+granularDilatancy  off;
+
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
+
+
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.425;
+
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.765;
+
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.004;
+
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 1.0;
+
+n               n [ 0 0 0 0 0 0 0 ] 2.5;
+
+Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
+
+BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 0e0;
+
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
+
+K_dila          K_dila [ 0 0 0 0 0 0 0 ] 4.0;
+
+alpha_c         alpha_c [ 0 0 0 0 0 0 0 ] 0.585;
+
+FrictionModel   MuIv;
+
+PPressureModel  MuIv;
+
+FluidViscosityModel  BoyerEtAl;
+
+\endverbatim
+
+
+
+
+If you wish a different initial volume fraction you need to adjust the *0_org/alphaPlastic* file accordingly. 
+Reference values: *alphaPlastic=0.575* leads to \f$\phi_0=0.592\f$, *alphaPlastic=0.545* leads to \f$\phi_0=0.571\f$ 
+and *alphaPlastic=0.520* leads to \f$\phi_0=0.566\f$.
+
+
+
+\subsection WetAvaProc Launching the 1D immersed avalanche
+
+
+After 200 seconds of sedimentation, 
+the file *constant/g* should be adjusted to reproduce the inclined plane (25 degrees slope):
+
+
+
+\verbatim
+
+dimensions      [0 1 -2 0 0 0 0];
+// tiltangle = 25° 
+value           ( 4.14588187090559 -8.8908809188120586 0 );
+
+\endverbatim
+
+
+
+
+The dilatancy model is turn on in *granularRheologyProperties* to reproduce the coupling between the dilatancy 
+ and the pore pressure feedback:
+
+
+\verbatim
+
+granularDilatancy  on;
+
+\endverbatim
+
+
+
+
+\subsection postWetAvalanche Post-processing using python
+
+
+The SedFoam and Pailha et al. (2008) experimental results are obtained running the python script *plot_tuto1DWetAvalanche.py* 
+located in the folder *tutorials/Py*:
+
+
+\verbatim
+python plot_tuto1DWetAvalanche.py
+\endverbatim
+
+and you should see the following figure:
+
+@image html "1DWetAvalancheResults.png" "Figure 10: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailhaet al.(2008)." width=800px
+@image latex "1DWetAvalancheResults.png" "Figure 10: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailhaet al.(2008)."
+
+In order to illustrate the dilatant effects and the pore pressure feedback mechanism of the avalanche we run the python script *plot_tuto1DWetAvalancheVerticalProfiles.py*.
+The resulting figure is depicted below. We observe the evolution of 
+the volume fraction, particle velocity and excess of pore pressure along the vertical axis. 
+
+ 
+@image html "1DWetAvalancheVerticalProfiles.png" "Figure 11: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical." width=1000px
+@image latex "1DWetAvalancheVerticalProfiles.png" "Figure 11: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical."
+
+
+
 
 
 \section SimpleShear 1DSimpleShear: Simple shear with kinetic theory
@@ -917,13 +1127,13 @@ This configuration is the simplest possible configuration for a sheared granular
 
 D. Berzi, “Extended kinetic theory applied to dense, granular, simple shear flows.” Acta Mechanica (2014), 10.1007/s00707-014-1125-1.
 
-@image html "SketchSimpleShear.png" "Figure : Sketch of the simple shear flow configuration (source: Vescovi et al. PoF (2014)." width=400px
-@image latex "SketchSimpleShear.png" "Figure : Sketch of the simple shear flow configuration (source: Vescovi et al. PoF (2014)"
+@image html "SketchSimpleShear.png" "Figure 12: Sketch of the simple shear flow configuration (source: Vescovi et al. PoF (2014)." width=400px
+@image latex "SketchSimpleShear.png" "Figure 12: Sketch of the simple shear flow configuration (source: Vescovi et al. PoF (2014)"
 
 
-This tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/1DSimpleShear.
+This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/1DSimpleShear*.
 
-In this configuration, significant complexity arise from the boundary conditions for the granular velocity Ua (slip with friction) and the granular temperature Theta (pseudo heat flux at the boundary). These boundary conditions are not implemented yet in sedFoam and in the configuration presented here the velocity and granular temperature are imposed as Dirichlet conditions at the top and bottom boundaries. No body force acts on the fluid or the grain.
+In this configuration, significant complexity arise from the boundary conditions for the granular velocity Ua (slip with friction) and the granular temperature Theta (pseudo heat flux at the boundary). These boundary conditions are not implemented yet in SedFoam and in the configuration presented here the velocity and granular temperature are imposed as Dirichlet conditions at the top and bottom boundaries. No body force acts on the fluid or the grain.
 
 The parameters are set in the file constant/transportProperties and ar given as follows:
 \verbatim
@@ -1008,28 +1218,107 @@ python plot_tuto1DSimpleShear.py
 \endverbatim
 
 and you should see the following figure:
-@image html "res_tutoSimpleShear.png" "Figure : Results of the simple shear flow configuration compared with DEM simulations from Vescovi et al. PoF (2014)." width=800px
-@image latex "res_tutoSimpleShear.png" "Figure : Results of the simple shear flow configuration compared with DEM simulations from Vescovi et al. PoF (2014)."
+@image html "res_tutoSimpleShear.png" "Figure 13: Results of the simple shear flow configuration compared with DEM simulations from Vescovi et al. PoF (2014)." width=800px
+@image latex "res_tutoSimpleShear.png" "Figure 13: Results of the simple shear flow configuration compared with DEM simulations from Vescovi et al. PoF (2014)."
+
+
 
 \section BoundaryLayer 1DBoundaryLayer: Single-phase turbulent boundary layer flow
 
-In this test case, the turbulence model k-omega is validated for a single-phase flow on a smooth surface. 
+In this test case, the turbulence model k-omega (Wilcox, 1988) is validated for a single-phase boundary layer flow over a smooth surface. The numerical results are compared with the DNS results of Moser et al. (1999).  A water column of dimensionless height \f$h=1\f$ is moving over a flat plate driven by a pressure gradient imposed along the x-axis. In this configuation, there are no sediments and the volumetric concentration of particles is set to alpha=0. A sketch of the 1D vertical computational domain is presented below:
 
-Under construction
+@image html "Sketch1DBoundaryLayer.png" "Figure 14: Sketch of the numerical domain for the boudary layer shear flow configuration." width=400px
+@image latex "Sketch1DBoundaryLayer.png" "Figure 14: Sketch of the numerical domain for the boudary layer shear flow configuration"
 
+
+This tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/1DBoundaryLayer.
+
+The domain is divided in 64 elements, with a cell expansion ratio of 1.026 along the vertical direction (the ratio between the first cell and the last cell is equal to 10). For such mesh the normalized distance to the wall from the first cell is \f$z^+=z u_\tau/\nu=1\f$ with \f$u_\tau\f$ the bottom friction velocity and \f$\nu\f$ the fluid viscosity.
+
+The physical properties are chosen to obtain a dimensionless solution with \f$\rho=1\f$, \f$\nu=1/Re=7.2727\times10^{-5}\f$. The parameters are set in the file constant/transportProperties and ar given as follows:
+\verbatim
+// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
+phasea
+{
+    rho             rho [ 1 -3 0 0 0 ] 1;
+    nu              nu [ 0 2 -1 0 0 ] 0e0;
+    d               d [ 0 1 0 0 0 0 0 ] 1.e-7;
+    sF              sF   [ 0 0  0 0 0 0 0 ] 1;
+    hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;  
+}
+
+phaseb
+{
+    rho             rho [ 1 -3 0 0 0 ] 1;
+    nu              nu [ 0 2 -1 0 0 ] 7.2727e-5;
+    d               d [ 0 1 0 0 0 0 0 ] 3.e-3;
+    sF              sF   [ 0 0  0 0 0 0 0 ] 0.5;
+    hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;
+}
+    d [ 0 1 0 0 0 0 0 ] 1;
+}
+//*********************************************************************** //
+\endverbatim
+
+The boundary Reynolds number based on the friction velocity in Moser et al. (1999) is, \f$Re_\tau=u_\tau h^f/\nu=590\f$. In sedFoam the flow is driven by a pressure gradient \f$\partial P/\partial x\f$ acting as a source term in the momentum equations. The pressure gradient is calculated by integrating the fluid momentum equation along th wall-normal direction sas follows:
+\f[
+ \dfrac{\partial P}{\partial x} = \dfrac{\rho u_\tau^2}{h}
+\f]
+and written in the file *constant/forceProperties* using the keyword *gradPMEAN*.
+
+\subsection oneBLBC Boundary conditions
+
+The inlet and outlet boundaries are set to cyclic while the front and back boundaries are set to empty. The latter boundary condition means that the y-components are not considered by the solver (i.e. 2 velocity components only). At the top boundary, the pressure is fixed to zero and a zero gradient (\*i.e* Neumann boundary condition) is imposed on all the other quantities. At the wall, the velocity is set to zero, a zeroGradient condition is imposed for the pressure and a wall function is imposed for the TKE dissipation.
+
+The wall function is prescribing the value of TKE dissipation \f$\omega\f$ at the wall to follow the analytical solution from Wilcox (1988). In this tutorial, a rough wall function is used prescribing the value of \f$\omega\f$ at the wall following:
+\f[
+ \omega_{wall} = S_r\frac{u_\tau^2}{\nu}
+\f]
+with \f$S_r\f$ a tuning parameter taking into account bed roughness \f$k_s\f$ as follows:
+\f[
+ S_r=\left\{
+\begin{array}{r}
+ \left(\dfrac{50}{k^+_s}\right)^2, k^+_s < 25 \\
+ \dfrac{100}{k^+_s}, k^+_s \geq 25
+\end{array}
+ \right.
+\f]
+
+
+\subsection post1DBoundayLayer Post-processing using python
+
+
+The SedFoam results are plotted using the python script *plot_tuto1DBoundayLayer.py* located in the folder *tutorials/Py*:
+
+
+\verbatim
+python plot_tuto1DBoundaryLayer.py
+\endverbatim
+
+and you should see the following figure:
+@image html "resTuto1DBoundaryLayer.png" "Figure 16: Results of the 1DBoundayLayer flow configuration compared with DNS simulations from Moin et al. (1999)." width=800px
+@image latex "resTuto1DBoundaryLayer.png" "Figure 16: Results of the 1DBoundayLayer flow configuration compared with DNS simulations from Moin et al. (1999)."
+
+
+Moser, R. D., Kim, J., and Mansour, N. N. (1999). Direct numerical simulation of turbulent channel flow up to retau=590. Physics of Fluids, 11(4):943-945.
+Wilcox, D. C. (2008). Formulation of the k-w turbulence model revisited. AIAA Journal, 46(11):2823–2838.
 
 \section SheetFlow 1DSheetFlow: Turbulent sheet-flows
 
 In this tutorial, the turbulent flow over a flat erodible bed drives sediment transport in the intense turbulent bedload tranpsort regime usually referred to as sheet-flow. The results are compared with experimental data from Revil-Baudard et al. (2015). Light-weight non-spherical PMMA particles of median diameter d=3 mm are used having a settling velocity in quiescent water of about \f$W_{fall}=0.059\f$ m/s. The averaged flow velocity is about U=0.52 m/s corresponding to a bed friction velocity of \f$u_*=0.05\f$ m/s and a dimensionless bed shear stress, the so-called Shields number \f$\theta\f$, equal to 0.44.
   
 
+@image html "SheetFlowHiSpeedCam.jpg" "Figure 16: Image from sheet-flow experiments (Revil-Baudard et al, 2015).  " width=600px
+@image latex "SheetFlowHiSpeedCam.jpg" "Figure 16: Image from sheet-flow experiments (Revil-Baudard et al, 2015)."
+
+
 \subsection preprocSF Pre-processing
 
-This tutorial is distributed with sedFoam3.0 under the folder sedFoamDirectory/tutorials/1DSheetFlow.
+This tutorial is distributed with sedFoam under the folder *sedFoamDirectory/tutorials/1DSheetFlow*.
 
 \paragraph meshgenSF Mesh generation
 
-The numerical domain consists of a square of side length L = 0.00085 m in the x-y plane and of height h=0.17 m in the vertical direction z. The side lentgh is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 400 cells will be used. The block structure is the same as for the Sedimentation test case and is shown in Figure 1.
+The numerical domain consists of a square of side length L = 0.00085 m in the x-y plane and of height h=0.17 m in the vertical direction z. The side length is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 400 cells will be used. The block structure is the same as for the Sedimentation test case and is shown in Figure 1.
 
 The mesh is generated by running blockMesh from within the case directory:
 
@@ -1040,6 +1329,8 @@ blockMesh
 \paragraph BC_initiSF Boundary and initial conditions
 
 The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files:  alpha_a, alphaMinFriction, alphaPlastic, Ua, Ub, p_rbgh, muI, pa, pa_new, Theta, k, epsilon, omega and nut one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. No-slip boundary conditions are imposed at the bottom and zero gradient at the top for both phase velocities.
+
+
 
 \paragraph PhysPropSF Physical properties
 
@@ -1078,6 +1369,8 @@ alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
 \endverbatim
 
 The physical property of the particles (diameter and density) and of the fluid (density and kinematic viscosity) have been set to the experimental values from Revil-Baudard et al. (2015).  
+
+Revil-Baudard, T., Chauchat, J., Hurther, D., and Barraud, P.-A. (2015). In- vestigation of sheet-flow processes based on novel acoustic high-resolution velocity and concentration measurements. Journal of Fluid Mechanics, 767:1–30.
 
 In the dictionary *interfacialProperties* file the drag model from GidaspowSchillerNaumann is used and the shape factor sF is taken to 0.5 to match the settling velocity of a single particle with the measured data (w_fall = 0.056 m/s).
  
@@ -1269,8 +1562,8 @@ python plot_tutoSheetFlow.py
 
 and you should see the following figure:
 
-@image html "res1_tuto3.png" "Figure 6: Comparison of two-phase numerical results with experiments of Revil-Baudard et al. (2015) in terms of velocity profiles, volume fraction, Reynolds shear stress and TKE/granular temperature using the kinetoc theory with the k-epsilon turbulence model.  " width=800px
-@image latex "res1_tuto3.png" "Figure 6: Comparison of two-phase numerical results with experiments of Revil-Baudard et al. (2015) in terms of velocity profiles, volume fraction, Reynolds shear stress and TKE/granular temperature using the kinetoc theory with the k-epsilon turbulence model."
+@image html "res1_tuto3.png" "Figure 14: Comparison of two-phase numerical results with experiments of Revil-Baudard et al. (2015) in terms of velocity profiles, volume fraction, Reynolds shear stress and TKE/granular temperature using the kinetoc theory with the k-epsilon turbulence model.  " width=800px
+@image latex "res1_tuto3.png" "Figure 14: Comparison of two-phase numerical results with experiments of Revil-Baudard et al. (2015) in terms of velocity profiles, volume fraction, Reynolds shear stress and TKE/granular temperature using the kinetoc theory with the k-epsilon turbulence model."
 
 
 */

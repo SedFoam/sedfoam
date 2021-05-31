@@ -31,11 +31,12 @@ License
 
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
     {
+        alpha.correctBoundaryConditions();
         fvScalarMatrix alphaEqn
         (
              fvm::ddt(alpha)
            + fvm::div(phic, alpha, scheme)
-           + fvm::div(-fvc::flux(-phir, beta, schemer), alpha, schemer)
+           + fvm::div(-fvc::flux(-phir, (1.0-alpha), schemer), alpha, schemer)
         );
 
         alphaEqn.relax();

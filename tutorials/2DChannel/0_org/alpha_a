@@ -1,0 +1,83 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      alpha_a;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   uniform 0; 
+
+boundaryField
+{
+    inletTop
+    {
+         type            zeroGradient;
+/*
+         type            groovyBC;
+         refValue        uniform 0;
+         refGradient     uniform 0;
+         valueFraction   uniform 1;
+         value           uniform 0;
+         valueExpression "inletprofilealpha(pos().y)/100.";
+         gradientExpression "0";
+         fractionExpression "1";
+         evaluateDuringConstruction 1;
+         variables       "";
+         timelines       (
+ );
+         lookuptables    (
+ {
+         name            inletprofilealpha;
+         file            "$FOAM_CASE/1d_profil/alpha.xy";
+         outOfBounds     clamp;
+ }
+ );
+*/
+    }
+    outletTop
+    {
+       type            zeroGradient;
+    }
+    inlet
+    {
+	type		zeroGradient;
+    }
+    outlet
+    {
+	type		zeroGradient;
+    }
+    top
+    {
+//        type            fixedValue;
+//	value 		uniform 0.;
+//        type            symmetryPlane;
+        type            zeroGradient;
+    }
+    walls
+    {
+        type            zeroGradient;
+    }
+    front
+    {
+        type            empty;
+    }
+    back
+    {
+        type            empty;
+    }
+}
+
+
+// ************************************************************************* //

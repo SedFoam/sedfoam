@@ -17,6 +17,8 @@ FoamFile
 
 granularRheology   on;
 
+granularDilatancy  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.32;
@@ -33,14 +35,11 @@ Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
 relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
 
-//FrictionModel  Coulomb;
-FrictionModel  MuIv;
+FrictionModel  Coulomb;
+//FrictionModel  MuIv;
 
 PPressureModel  none;
 
 FluidViscosityModel  Einstein;
-
-DilatancyModel  none;
-
 
 // ************************************************************************* //
