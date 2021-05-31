@@ -54,6 +54,7 @@ maxAlphaCo      0.5;
 maxDeltaT       2e-4;
 
 libs (
+"libturbulenceModels.so"
 "libgroovyBC.so"
 "libgroovyStandardBCs.so"
      );

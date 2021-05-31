@@ -206,13 +206,13 @@ Foam::kineticTheoryModel::kineticTheoryModel
     ),
     phi_
     (
-	kineticTheoryProperties_.lookupOrDefault
-	(
-	    "phi",
-	    dimensionedScalar("phi",
-			dimensionSet(0, 0, 0, 0, 0, 0, 0),
-			32)
-	)*M_PI/180.0 //32° angle of repose
+        kineticTheoryProperties_.lookupOrDefault
+        (
+            "phi",
+            dimensionedScalar("phi",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          32)
+        )*M_PI/180.0 //32° angle of repose
     ),
     killJ1_
     (
@@ -533,7 +533,6 @@ void Foam::kineticTheoryModel::solve
             //0.5*pow(30./(1.+sqr(sqrtPi)/12.)*(1-e_)*sqr(alpha_)*gs0_, 1./3.)
         );
     }
-
 
     // bulk viscosity  p. 45 (Lun et al. 1984).
 // limit production

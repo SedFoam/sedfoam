@@ -112,6 +112,9 @@ For this case, the dense granular flow rheology \f$\mu(I)\f$ is used and the par
 \verbatim
 granularRheology   on;
 
+granularDilatancy  off;
+
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.4;
@@ -135,8 +138,6 @@ FrictionModel  MuI;
 PPressureModel MuI;
 
 FluidViscosityModel  BoyerEtAl;
-
-DilatancyModel  none;
 
 \endverbatim
 
@@ -472,6 +473,8 @@ Dense granular flow rheology \f$\mu(I_v)\f$ and the dilatancy  model is used as 
 \verbatim
 granularRheology   on;
 
+granularDilatancy  on;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
 
@@ -498,8 +501,6 @@ alpha_c         alpha_c [ 0 0 0 0 0 0 0 ] 0.585;
 FrictionModel   MuIv;
 
 PPressureModel  MuIv;
-
-DilatancyModel  MuIvdila;
 
 FluidViscosityModel  BoyerEtAl;
 \endverbatim

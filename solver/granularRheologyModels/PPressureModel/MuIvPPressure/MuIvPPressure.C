@@ -89,8 +89,8 @@ MuIvPPressure::alphaEq
 
 {
     //
-    //  inertial regime: alphaMax / (1+Bphi I)
+    //  viscous regime: alphaMax / (1+Bphi Iv^(0.5))
 
-    return alphaMax/(1+Bphi*rhob*nub*magD/pa);
+    return alphaMax/(1+Bphi*sqrt(rhob*nub*magD/pa));
 }
 // ************************************************************************* //

@@ -2,8 +2,10 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 2014-2016 OpenFOAM Foundation
+    \\  /    A nd           | www.openfoam.com
      \\/     M anipulation  |
+-------------------------------------------------------------------------------
+    Copyright (C) 2020 OpenCFD Ltd.
 -------------------------------------------------------------------------------
 License
     This file is part of OpenFOAM.
@@ -23,7 +25,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "PhaseIncompressibleTurbulenceModel.H"
+#include "sedIncompressibleTurbulenceModel.H"
 #include "singlePhaseTransportModel.H"
 #include "addToRunTimeSelectionTable.H"
 #include "makeTurbulenceModel.H"
@@ -38,7 +40,7 @@ makeTurbulenceModelTypes
     volScalarField,
     geometricOneField,
     incompressibleTurbulenceModel,
-    PhaseIncompressibleTurbulenceModel,
+    sedIncompressibleTurbulenceModel,
     singlePhaseTransportModel
 );
 
@@ -47,21 +49,21 @@ makeBaseTurbulenceModel
     volScalarField,
     geometricOneField,
     incompressibleTurbulenceModel,
-    PhaseIncompressibleTurbulenceModel,
+    sedIncompressibleTurbulenceModel,
     singlePhaseTransportModel
 );
 
 #define makeLaminarModel(Type)                                                 \
     makeTemplatedTurbulenceModel                                               \
-    (singlePhaseTransportModelPhaseIncompressibleTurbulenceModel, laminar, Type)
+    (singlePhaseTransportModelsedIncompressibleTurbulenceModel, laminar, Type)
 
 #define makeRASModel(Type)                                                     \
     makeTemplatedTurbulenceModel                                               \
-    (singlePhaseTransportModelPhaseIncompressibleTurbulenceModel, RAS, Type)
+    (singlePhaseTransportModelsedIncompressibleTurbulenceModel, RAS, Type)
 
 #define makeLESModel(Type)                                                     \
     makeTemplatedTurbulenceModel                                               \
-    (singlePhaseTransportModelPhaseIncompressibleTurbulenceModel, LES, Type)
+    (singlePhaseTransportModelsedIncompressibleTurbulenceModel, LES, Type)
 
 #include "Stokes.H"
 makeLaminarModel(Stokes);

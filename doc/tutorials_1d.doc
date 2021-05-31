@@ -269,6 +269,8 @@ And the dictionary *granularRheologyProperties* controls the granular rheology p
 \verbatim
 granularRheology   on;
 
+granularDilatancy  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.24;
@@ -290,8 +292,6 @@ FrictionModel   Coulomb;
 PPressureModel  none;
 
 FluidViscosityModel Einstein;
-
-DilatancyModel  none;
 
 \endverbatim 
 
@@ -629,6 +629,9 @@ Compared with the sedimentation test case, the *granularRheologyProperties* is c
 \verbatim
 granularRheology   on;
 
+granularDilatancy  off;
+
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.32;
@@ -651,8 +654,6 @@ FrictionModel  Coulomb;
 PPressureModel  none;
 
 FluidViscosityModel  Einstein;
-
-DilatancyModel  none;
 
 \endverbatim
              
@@ -859,6 +860,8 @@ Dense granular flow rheology \f$\mu(I)\f$ is used as shown in *granularRheologyP
 
 granularRheology   on;
 
+granularDilatancy  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.38;
@@ -880,8 +883,6 @@ FrictionModel   MuI;
 PPressureModel  MuI;
 
 FluidViscosityModel  none;
-
-DilatancyModel  none;
 
 \endverbatim
 
@@ -1018,6 +1019,8 @@ The dilatancy model is switch off during the sedimentation process:
 \verbatim
 granularRheology   on;
 
+granularDilatancy  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
 
@@ -1044,9 +1047,6 @@ alpha_c         alpha_c [ 0 0 0 0 0 0 0 ] 0.585;
 FrictionModel   MuIv;
 
 PPressureModel  MuIv;
-
-DilatancyModel  none;
-//DilatancyModel  MuIvdila;
 
 FluidViscosityModel  BoyerEtAl;
 
@@ -1086,7 +1086,7 @@ The dilatancy model is turn on in *granularRheologyProperties* to reproduce the 
 
 \verbatim
 
-DilatancyModel  MuIvdila;
+granularDilatancy  on;
 
 \endverbatim
 
