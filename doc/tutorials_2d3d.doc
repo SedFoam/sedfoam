@@ -28,10 +28,14 @@ is simplified and sketched in figure 1.
 \subsection preprocSA Pre-processing
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 This tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/2DScourApron.
 =======
 This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/2DScourApron*.
 >>>>>>> upstream/master
+=======
+This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/2DScourApron*.
+>>>>>>> a21e74cd988b37ef7783f634ae41be3488de52f4
 
 \subsection meshgenSA Mesh generation
 
@@ -237,6 +241,7 @@ In this tutorial, the experimental configuration investigating scour under a sub
 \subsection preprocSP Pre-processing
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 This tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/2DPipelineScour.
 
 \subsection meshgen_SP Mesh generation
@@ -246,6 +251,8 @@ The numerical domain dimensions presented in figure 12. A cylinder of diameter \
 @image html "sketch_2DPipelineScour.png" "Figure 12: Sketch of the scour under a submarine pipeline." width=600px
 @image latex "sketch_2DPipelineScour.png" "Figure 12: Sketch of the scour under a submarine pipeline."
 =======
+=======
+>>>>>>> a21e74cd988b37ef7783f634ae41be3488de52f4
 This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/2DPipelineScour*.
 
 \subsection meshgen_SP Mesh generation
@@ -254,7 +261,10 @@ The numerical domain dimensions presented in figure 4. A cylinder of diameter \f
 
 @image html "sketch_2DPipelineScour.png" "Figure 4: Sketch of the scour under a submarine pipeline." width=600px
 @image latex "sketch_2DPipelineScour.png" "Figure 4: Sketch of the scour under a submarine pipeline."
+<<<<<<< HEAD
 >>>>>>> upstream/master
+=======
+>>>>>>> a21e74cd988b37ef7783f634ae41be3488de52f4
 
 Depending on the turbulence model used, the number of layers should not be the same to accurately predict the boundary layer around the cylinder. The default snappyHexMeshDict in the system directory is written to perform simulations using the \f$ k-\omega \f$ turbulence model. For simulations using the \f$ k-\varepsilon \f$ model, the user should use/rename the file snappyHexMeshDict_kEpsilon located in the system directory to generate the mesh.
 
@@ -360,10 +370,14 @@ libs (
 \subsection  lauch_SP Computation launching
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 As for the previous case, you can lauch the computation by executing * Allrun *. The simulations is run in parallel on 16 cores.
 =======
 As for the previous case, you can launch the computation by executing * Allrun *. The simulations is run in parallel on 16 cores.
 >>>>>>> upstream/master
+=======
+As for the previous case, you can launch the computation by executing * Allrun *. The simulations is run in parallel on 16 cores.
+>>>>>>> a21e74cd988b37ef7783f634ae41be3488de52f4
 
 \subsection post_SP Post-processing using python
 
@@ -372,11 +386,14 @@ The post-processing python scripts plot_profiles2DPipelineScour.py and plot_dept
 The script _profiles2DPipelineScour.py plots bed profiles at 11s, 18s and 25s compared with experimental data like in the following figure:
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @image html "bed_profiles_kEpsilon.png" "Figure 13: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model." width=600px
 @image latex "bed_profiles_kEpsilon.png" "Figure 13: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model."
 
 The script plot_depth2DPipelineScour.py plots the maximum scour depth compared with experimental data like in the following figure:
 =======
+=======
+>>>>>>> a21e74cd988b37ef7783f634ae41be3488de52f4
 @image html "bed_profiles_kEpsilon.png" "Figure 5: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model." width=600px
 @image latex "bed_profiles_kEpsilon.png" "Figure 5: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model."
 
@@ -561,10 +578,11 @@ and you should see the following figures:
 
 
 
+<<<<<<< HEAD
 >>>>>>> upstream/master
+=======
+>>>>>>> a21e74cd988b37ef7783f634ae41be3488de52f4
 
-@image html "maximum_depth_kEpsilon.png" "Figure 14: Maximum scour depth using a k-omega turbulence model." width=600px
-@image latex "maximum_depth_kEpsilon.png" "Figure 14: Maximum scour depth using a k-omega turbulence model."
 
 \section Scour3DCylinder 3DScourCylinder: Scour around a vertical cylinder
 
