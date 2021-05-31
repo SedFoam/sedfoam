@@ -78,9 +78,7 @@ Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyConductivity::kappa
      //Contact conductivity
      32*(1+3./5*pow(1+e,2)*(2*e-1)*alpha*g0)/((16-7*(1-e))*(1+e)*g0)* 6./5*(1+e)*alpha*g0 + 
      //Bulk conductivity
-     2304./(225*Pi)*(1+e)*pow(alpha,2)*g0 +
-     //Correction
-     - 32/((16-7*(1-e))*(1+e)*g0)
+     2304./(225*Pi)*(1+e)*pow(alpha,2)*g0
     );
 }
 

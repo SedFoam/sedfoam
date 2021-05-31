@@ -68,10 +68,7 @@ Foam::tmp<Foam::volScalarField> Foam::DallaValle::K
 ) const
 {
     volScalarField beta(max(scalar(1) - alpha_, scalar(1e-6)));
-    //    volScalarField bp(pow(beta, -2.65));
     volScalarField bp(pow(beta, -phasea_.hExp()-1));
-
-    //volScalarField Re(max(beta*Ur*phasea_.d()/phaseb_.nu(), scalar(1.0e-3)));
     volScalarField Re
     (
         max(Ur*phasea_.d()*phasea_.sF()/phaseb_.nu(), scalar(1.0e-9))

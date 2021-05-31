@@ -74,13 +74,11 @@ Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::GarzoDuftyViscosity::
     return rhoa*da*sqrt(Theta)*5*sqrtPi/96*
     (
      //Kinetic viscosity
-     (1-3*2./5*(1+e)*(1-3*e)*alpha*g0)/((1-0.25*pow((1-e),2)-5./24*(1-pow(e,2)))*g0)+
+     (1-2./5*(1+e)*(1-3*e)*alpha*g0)/((1-0.25*pow((1-e),2)-5./24*(1-pow(e,2)))*g0)+
      //Contact viscosity
      (1-2./5*(1+e)*(1-3*e)*alpha*g0)/((1-0.25*pow((1-e),2)-5./24*(1-pow(e,2)))*g0)*(4./5*(1+e)*alpha*g0) +
      //Bulk viscosity
-     384./(25*pi)*(1+e)*pow(alpha,2)*g0+
-     //Correction
-     -1./((1-0.25*pow((1-e),2)-5./24*(1-pow(e,2)))*g0)
+     384./(25*pi)*(1+e)*pow(alpha,2)*g0
     );
 }
 

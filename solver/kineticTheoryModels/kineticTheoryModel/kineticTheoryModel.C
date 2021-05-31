@@ -552,7 +552,7 @@ void Foam::kineticTheoryModel::solve
 	gammaCoeff *= f_fkt; // Correction for soft particles
 	gammaCoeff *= fric_correction; // Correction for frictional particles
         // Eq. 3.25, p. 50 Js = J1 - J2
-        volScalarField J1 = 1.8*3.0*alpha_*betaPrim;
+        volScalarField J1 = 5.0*alpha_*betaPrim;
         /*
         volScalarField J2 =
             0.25*alpha_*sqr(betaPrim)*da_*sqr(Ur_)
@@ -582,7 +582,7 @@ void Foam::kineticTheoryModel::solve
            // dissipation due to interphase slip
           + fvm::Sp(-J1, Theta_)
            // turbulence generation due to fluid turbulence
-          + (1-killJ1_)*scalar(2.0/3.0)*J1*tmf_*kb
+          + (1-killJ1_)*scalar(2.0/5.0)*J1*tmf_*kb
         );
 
         ThetaEqn.relax();

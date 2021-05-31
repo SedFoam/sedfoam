@@ -72,6 +72,8 @@ volVectorField susb
     */
 
 
+volScalarField T = kineticTheory.Theta();
+volVectorField TvolVector = T*UnityV; 
 surfaceScalarField phiRa =
 (
    -fvc::interpolate(nuEffa)*mesh.magSf()*(fvc::snGrad(alpha))
@@ -99,10 +101,12 @@ fvVectorMatrix UaEqn
 // - gradPs              // shear induced pressure gradient moved to p-equation
 //  - gradPf                  // contact pressure gradient moved to p-equation
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
+  + beta/rhoa*K*TvolVector/(magUr+Usmall)
   //    + fvOptions(Ua)
 );
 UaEqn.relax();
 UaEqn += fvm::Sp(beta/rhoa*K, Ua);
+//UaEqn += fvc::Sp(beta/rhoa*K*2/(magUr+Usmall), T);
 //fvOptions.constrain(UaEqn());
 
 surfaceScalarField phiRb =
@@ -127,6 +131,7 @@ fvVectorMatrix UbEqn
     // Hugo   susb                                 //term to add with tensor
 //+ alpha/rhob*K*Ua                 // Explicit drag transfered to p-equation
     alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift and added mass forces
+    - alpha/rhob*K*TvolVector/(magUr+Usmall)
 //  + fvOptions(Ub)
 );
 UbEqn.relax();

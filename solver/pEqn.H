@@ -73,6 +73,12 @@ License
 
         // Momentum fluxes computed on the faces for the particle phase phiDraga
         // and the fluid phase phiDragb
+	
+	surfaceScalarField phiTempa = (fvc::interpolate(beta*(K/rhoa)*2*T/(magUr+Usmall)))*rUaAf*mesh.magSf();
+	surfaceScalarField phiTempb = (fvc::interpolate(alpha*(K/rhob)*2*T/(magUr+Usmall)))*rUbAf*mesh.magSf();
+	phiTempa.setOriented(true);
+	phiTempb.setOriented(true);
+	
         surfaceScalarField phiDraga =
         (
         // explicit drag term : now tricks
@@ -85,11 +91,7 @@ License
             )
            *fvc::snGrad(alpha))*rUaAf*mesh.magSf()
 	   // drag modification to account for particle fluctuations
-	   +(fvc::interpolate
-	    (
-	     	beta*(K/rhoa)*2*T/(magUr+Usmall2)
-	    ))
-	    *rUaAf*mesh.magSf()
+	   //+ phiTempa
             // grad(pa)
           - (oneOverAlpha/rhoa*fvc::snGrad(pa))*rUaAf*mesh.magSf()
             // grad(Pf)
@@ -124,6 +126,7 @@ License
         // mean pressure gradient
           + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
         );
+	
 
         surfaceScalarField phiDragb =
         (
@@ -134,11 +137,7 @@ License
             fvc::interpolate(SUS*(K/rhob)*turbulenceb->nut())*fvc::snGrad(alpha)
             *rUbAf*mesh.magSf()
 	    // drag modification to account for particle fluctuations
-	    -(fvc::interpolate
-	    (
-	     	alpha*(K/rhob)*2*T/(magUr+Usmall2)
-	    ))
-	    *rUbAf*mesh.magSf()
+	   // -phiTempb
             // diagnoal part of stress
           - (fvc::interpolate(scalar(2.0)/(beta*scalar(3.0)))
            *fvc::snGrad(((nuEffb*tr(gradUbT)))*beta))*rUbAf*mesh.magSf()
