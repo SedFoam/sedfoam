@@ -20,23 +20,10 @@ def depth(sol, t, x, y, xi, yi):
     else:
         timename = str(t) + '/'
     alpha = fluidfoam.readscalar(sol, timename, 'alpha_a')
-<<<<<<< HEAD
-<<<<<<< HEAD
-    alphai = mlab.griddata(x, y, alpha, xi, yi, interp='linear')
-    for j in range(len(xi) - 1):
-        tab = np.where(alphai[:, j+1] > 0.5)
-        ybed[j] = yi[np.max(tab)]
-=======
-=======
->>>>>>> a21e74cd988b37ef7783f634ae41be3488de52f4
     alphai = griddata((x, y), alpha, (xi, yi))
     for j in range(Nx - 1):
         tab = np.where(alphai[:,j+1] > 0.5)
         ybed[j] = yi[np.max(tab),j+1]
-<<<<<<< HEAD
->>>>>>> upstream/master
-=======
->>>>>>> a21e74cd988b37ef7783f634ae41be3488de52f4
     return ybed
 
 
