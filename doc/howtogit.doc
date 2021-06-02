@@ -34,7 +34,7 @@ to see the web address. This URL address must be copied to your clipboard.
 In the terminal, navigate to the location on your computer where you would like to locate the repository. 
 Then, type the following git command to clone the repository:
 \verbatim
-git clone https://github.com/SedFoam/sedfoam.git
+git clone --recurse-submodules https://github.com/SedFoam/sedfoam.git
 \endverbatim
 
 The cloning process takes a few seconds. SedFoam directory is created which contains the same list
@@ -88,7 +88,7 @@ and click the Fork button.
 Currently, your fork only exists on GitHub. To be able to work on the
 project, you need to clone it to your computer:
 \verbatim
-git clone https://github.com/USERNAME/sedfoam.git
+git clone --recurse-submodules https://github.com/USERNAME/sedfoam.git
 \endverbatim
 Previous URL is found in your SedFoam fork. 
 

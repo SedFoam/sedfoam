@@ -8,12 +8,9 @@ sedfoam
 [![OpenFOAM v19xx](https://img.shields.io/badge/OpenFOAM-v19xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v18xx](https://img.shields.io/badge/OpenFOAM-v18xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v17xx](https://img.shields.io/badge/OpenFOAM-v17xx-brightgreen.svg)](https://openfoam.com/)
-[![OpenFOAM 7.x](https://img.shields.io/badge/OpenFOAM-7-brightgreen.svg)](https://openfoam.org/)
-[![OpenFOAM 6](https://img.shields.io/badge/OpenFOAM-6-brightgreen.svg)](https://openfoam.org/)
-[![OpenFOAM 5.x](https://img.shields.io/badge/OpenFOAM-5.x-brightgreen.svg)](https://openfoam.org/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.836642.svg)](https://doi.org/10.5281/zenodo.836642)
 
-This repository provides the SedFoam solver (version OpenFOAM classic).
+This repository provides the SedFoam solver.
 
 [![](https://i.ibb.co/WgS6PYB/Capture-d-e-cran-2018-12-14-a-11-27-01.png)](https://www.youtube.com/watch?v=cVf7qm_ZDK0)
 
@@ -33,7 +30,7 @@ Installation
 
 ```bash
 cd $WM_PROJECT_USER_DIR
-git clone https://github.com/sedfoam/sedfoam sedfoam
+git clone --recurse-submodules https://github.com/sedfoam/sedfoam sedfoam
 cd sedfoam
 ./Allwclean
 ./Allwmake
