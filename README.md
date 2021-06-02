@@ -58,14 +58,14 @@ The sedfoam solver can be cited via DOI thanks to Zenodo: [![DOI](https://zenodo
 Developers
 ----------
 
-* Cyrille Bonamy
-* Julien Chauchat
-* Zhen Cheng
-* Tian-Jian Hsu
-* Tim Nagel
-* Antoine Mathieu
-* Eduard Puig Montella
-* Rémi Chassagne
+*   Cyrille Bonamy
+*   Julien Chauchat
+*   Zhen Cheng
+*   Tian-Jian Hsu
+*   Tim Nagel
+*   Antoine Mathieu
+*   Eduard Puig Montella
+*   Rémi Chassagne
 
 Acknowledgements
 ----------------
