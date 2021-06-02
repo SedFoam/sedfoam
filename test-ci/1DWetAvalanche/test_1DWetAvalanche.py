@@ -55,13 +55,13 @@ delta_list=[]
 
 tolAlpha=0.54
 for k, alpha0k in enumerate(alpha_0):
-		if (alpha0k<tolAlpha):
-        break 
-		Y_list.append(Y[k])
-		alpha_list.append(alpha0k)
-		vel_list.append(Ua_0[0,k])
-		p_rbgh_list.append(p_rbgh_0[k])
-		delta_list.append(delta_0[k])
+    if (alpha0k<tolAlpha):
+        break
+    Y_list.append(Y[k])
+    alpha_list.append(alpha0k)
+    vel_list.append(Ua_0[0,k])
+    p_rbgh_list.append(p_rbgh_0[k])
+    delta_list.append(delta_0[k])
 
 #file0 = open("DATAphi592.txt","w")
 #file0.writelines(["Y_data ","alpha ","velocity ","pressure ","dilatancy_angle "+'\n'])
