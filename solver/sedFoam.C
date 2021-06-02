@@ -30,30 +30,23 @@ Description
 
     Reference:
     \verbatim
-        Version 2.0:
         Chauchat J., Cheng Z., Nagel T., Bonamy C., & Hsu T-J. (2017).
         SedFoam-2.0: a 3D two-phase flow numerical model for sediment transport
         Geosci. Model Dev. Discuss.
         http://dx.doi.org/10.5194/gmd-2017-101
     \endverbatim
 
+Version
+    3.1
+
+Author
+    Julien Chauchat, Cyrille Bonamy, Antoine Mathieu, Rémi Chassagne,
+    Tim Nagel, Zhen Cheng, Tian-Jian Hsu and Eduard Puig Montella.
+
+Date
+    June 01, 2021
 
 \*---------------------------------------------------------------------------*/
-/**
- * \file sedFoam.C
- * \brief 2 phases Solver
- * \author Julien Chauchat, Cyrille Bonamy, Antoine Mathieu, Tim Nagel,
-           Zhen Cheng, Tian-Jian Hsu and Eduard Puig Montella.
- * \version 3.1
- * \date September 16, 2019
- *
- * Solver for a system of 2 phases with one phase dispersed
- *
- */
-/*
-* Changelog [Higuera]
-* December 10, 2018 - Adapted to compile automatically with OpenFOAM 6.
-*/
 
 #include "fvCFD.H"
 #include "singlePhaseTransportModel.H"

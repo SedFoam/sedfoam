@@ -19,9 +19,9 @@
 
 \tableofcontents
 
-\section install_src_unix Compiling from source with supported OpenFOAM (5.0, 6.0, 1912, 2006...)
+\section install_src_unix Compiling from source with supported OpenFOAM (last ESI version)
 
-You need at least OpenFOAM-5.0 (or OpenFOAM-v1806) to build the executable. We recommend the last version of OpenFOAM/ESI:
+You need OpenFOAM-v2012 to build the executable.
 <ul>
 <li>First go to the <a href="https://www.openfoam.com/download">download</a> page of the software
 <li><a href="https://www.openfoam.com/download/installation.php">Install OpenFOAM</a>.
@@ -32,7 +32,7 @@ To take full advantage of SedFoam the following additional tools should be insta
 <ul>
 <li><a href="https://openfoamwiki.net/index.php/Contrib/swak4Foam">swak4Foam</A> extension combines many fonctionalities and is needed for the tutorials
 <li>the python package
-    <a href="https://bitbucket.org/sedfoam/fluidfoam">fluidfoam</A>
+    <a href="https://github.com/fluiddyn/fluidfoam">fluidfoam</A>
     is needed for postprocessing of the tutorials. 
 </ul>
 
@@ -41,7 +41,7 @@ Compilation is now done by performing the following steps:
 <ol>
 <li>Download the official SedFoam package:
    
-        git clone http://github.com/sedfoam/sedfoam
+        git clone --recurse-submodules http://github.com/sedfoam/sedfoam
 
 <li>Compile the program by running Allwmake:
 

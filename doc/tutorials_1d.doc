@@ -547,7 +547,7 @@ The reader is reffered to the OpenFOAM tutorial for the lid driven cavity for th
 
 \paragraph postfluidfoam Using fluidfoam
 
-The postprocessing using python requires the installation of the package fluidfoam available at hg clone https://bitbucket.org/sedfoam/fluidfoam. If the package is installed properly with all the dependencies, you just have to run the python script *plot_tutoSedimentation.py* located in the folder *tutorials/Py*:
+The postprocessing using python requires the installation of the package fluidfoam available at git clone https://github.com/fluiddyn/fluidfoam. If the package is installed properly with all the dependencies, you just have to run the python script *plot_tutoSedimentation.py* located in the folder *tutorials/Py*:
 
 \verbatim
 python plot_tutoSedimentation.py
