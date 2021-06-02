@@ -67,10 +67,10 @@
         <div class="m-block m-default">
           <h3>Contents</h3>
           <ul>
-            <li><a href="#install_src_unix">Compiling from source with supported OpenFOAM (5.0, 6.0, 1912, 2006...)</a></li>
+            <li><a href="#install_src_unix">Compiling from source with supported OpenFOAM (last ESI version)</a></li>
           </ul>
         </div>
-<section id="install_src_unix"><h2><a href="#install_src_unix">Compiling from source with supported OpenFOAM (5.0, 6.0, 1912, 2006...)</a></h2><p>You need at least OpenFOAM-5.0 (or OpenFOAM-v1806) to build the executable. We recommend the last version of OpenFOAM/ESI:</p><ul><li>First go to the <a href="https://www.openfoam.com/download">download</a> page of the software</li><li><a href="https://www.openfoam.com/download/installation.php">Install OpenFOAM</a>.</li></ul><p>To take full advantage of SedFoam the following additional tools should be installed.</p><ul><li><a href="https://openfoamwiki.net/index.php/Contrib/swak4Foam">swak4Foam</a> extension combines many fonctionalities and is needed for the tutorials</li><li>the python package <a href="https://bitbucket.org/sedfoam/fluidfoam">fluidfoam</a> is needed for postprocessing of the tutorials.</li></ul><p>Compilation is now done by performing the following steps:</p><ol><li><p>Download the official SedFoam package:</p><pre>git clone http://github.com/sedfoam/sedfoam
+<section id="install_src_unix"><h2><a href="#install_src_unix">Compiling from source with supported OpenFOAM (last ESI version)</a></h2><p>You need OpenFOAM-v2012 to build the executable.</p><ul><li>First go to the <a href="https://www.openfoam.com/download">download</a> page of the software</li><li><a href="https://www.openfoam.com/download/installation.php">Install OpenFOAM</a>.</li></ul><p>To take full advantage of SedFoam the following additional tools should be installed.</p><ul><li><a href="https://openfoamwiki.net/index.php/Contrib/swak4Foam">swak4Foam</a> extension combines many fonctionalities and is needed for the tutorials</li><li>the python package <a href="https://github.com/fluiddyn/fluidfoam">fluidfoam</a> is needed for postprocessing of the tutorials.</li></ul><p>Compilation is now done by performing the following steps:</p><ol><li><p>Download the official SedFoam package:</p><pre>git clone --recurse-submodules http://github.com/sedfoam/sedfoam
 </pre></li><li><p>Compile the program by running Allwmake:</p><pre>cd sedfoam
 source $FOAM_ETC/bashrc # load the openfoam environment
 ./Allwmake
