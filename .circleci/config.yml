@@ -143,6 +143,13 @@ jobs:
           path: /root/sedfoam
 
       - run:
+          name: pull submodules
+          command: >
+            shopt -s expand_aliases &&
+            git submodule init &&
+            git submodule update --remote
+
+      - run:
           name: Build sedFoam
           command: >
             shopt -s expand_aliases &&
