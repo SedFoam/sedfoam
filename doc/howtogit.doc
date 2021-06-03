@@ -2,6 +2,7 @@
  * \file        howtogit.doc
  * \author      Eduard Puig-Montella, Cyrille Bonamy and Julien Chauchat
  * \date        June 03, 2021
+ * \brief       howtogit (doc)
  */
 /*! \page howtogit How To work with github
 @brief How To use github to contribute to sedFoam development
