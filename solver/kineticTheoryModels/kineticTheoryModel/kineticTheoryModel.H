@@ -31,6 +31,9 @@ Description
 	van Wachem, B.G.M., Ph.D. Thesis, Delft University of Technology, Amsterdam, 2000.     
     \endverbatim
 
+    This file is in the \dir kineticTheoryModels/kineticTheoryModel directory
+
+
 SourceFiles
     kineticTheoryModel.C
 

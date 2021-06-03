@@ -24,6 +24,9 @@ License
 Class
     Foam::frictionalStressModel
 
+Description
+    This file is in the \dir kineticTheoryModels/frictionalStressModel/frictionalStressModel directory
+
 SourceFiles
     frictionalStressModel.C
 

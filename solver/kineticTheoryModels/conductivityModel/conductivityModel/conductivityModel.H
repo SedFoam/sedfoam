@@ -24,6 +24,9 @@ License
 Class
     Foam::conductivityModel
 
+Description
+    This file is in the \dir kineticTheoryModels/conductivityModel/conductivityModel directory 
+
 SourceFiles
     conductivityModel.C
 

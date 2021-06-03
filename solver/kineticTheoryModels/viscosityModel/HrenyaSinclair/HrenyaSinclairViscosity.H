@@ -25,6 +25,7 @@ Class
     Foam::HrenyaSinclairViscosity
 
 Description
+    This file is in the \dir kineticTheoryModels/viscosityModel/HrenyaSinclair directory
 
 SourceFiles
     HrenyaSinclairViscosity.C

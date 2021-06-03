@@ -24,6 +24,9 @@ License
 Class
     Foam::radialModel
 
+Description
+    This file is in the \dir kineticTheoryModels/radialModel/radialModel directory 
+
 SourceFiles
     radialModel.C
 

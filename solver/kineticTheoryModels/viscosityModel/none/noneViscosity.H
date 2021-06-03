@@ -25,6 +25,7 @@ Class
     Foam::noneViscosity
 
 Description
+    This file is in the \dir kineticTheoryModels/viscosityModel/none directory
 
 SourceFiles
     noneViscosity.C

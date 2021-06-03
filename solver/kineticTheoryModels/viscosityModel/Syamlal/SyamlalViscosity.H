@@ -31,6 +31,8 @@ Description
     Technical Report DOE/METC–94/1004, 10145548, (1993).
     \endverbatim
 
+    This file is in the \dir kineticTheoryModels/viscosityModel/Syamlal directory
+
 SourceFiles
     SyamlalViscosity.C
 

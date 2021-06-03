@@ -25,6 +25,7 @@ Class
     Foam::SchaefferFrictionalStress
 
 Description
+    This file is in the \dir kineticTheoryModels/frictionalStressModel/Schaeffer directory
 
 SourceFiles
     SchaefferFrictionalStress.C

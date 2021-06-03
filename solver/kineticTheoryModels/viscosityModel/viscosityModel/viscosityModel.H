@@ -25,6 +25,7 @@ Class
     Foam::viscosityModel
 
 Description
+    This file is in the \dir kineticTheoryModels/viscosityModel/viscosityModel directory
 
 SourceFiles
     viscosityModel.C

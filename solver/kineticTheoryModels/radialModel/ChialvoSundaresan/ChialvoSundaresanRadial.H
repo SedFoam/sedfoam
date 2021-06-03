@@ -31,6 +31,8 @@ Description
     Chialvo, S. and Sundaresan, S. (2013). Physics of Fluids, 25(7):070603.
     \endverbatim
 
+    This file is in the \dir kineticTheoryModels/radialModel/ChialvoSundaresan directory 
+
 SourceFiles
     ChialvoSundaresanRadial.C
 

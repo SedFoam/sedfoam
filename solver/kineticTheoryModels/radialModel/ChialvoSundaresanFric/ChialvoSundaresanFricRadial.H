@@ -25,6 +25,13 @@ Class
     Foam::ChialvoSundaresanFricRadial
 
 Description
+    \verbatim
+    "A modified kinetic theory for frictional granular flows in dense and 
+    dilute regimes."
+    Chialvo, S. and Sundaresan, S. (2013). Physics of Fluids, 25(7):070603.
+    \endverbatim
+
+    This file is in the \dir kinetic/heoryModels/radialModel/ChialvoSundaresan directory 
 
 SourceFiles
     ChialvoSundaresanFricRadial.C

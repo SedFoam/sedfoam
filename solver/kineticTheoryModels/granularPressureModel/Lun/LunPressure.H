@@ -30,6 +30,8 @@ Description
     Lun, C. K. K., Savage, S. B., Jeffrey, D. J., and Chepurniy, N. (1984). 
     Journal of Fluid Mechanics, 140:223–256.
 
+    This file is in the \dir kineticTheoryModels/granularPressureModel/Lun directory
+
 SourceFiles
     LunPressure.C
 

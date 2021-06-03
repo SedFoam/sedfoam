@@ -29,6 +29,8 @@ Description
     on stresses developed by sheared granular materials."
     Lun, C. K. K. and Savage, S. B. 1986. Acta Mech., 63, 15–44.
 
+    This file is in the \dir kineticTheoryModels/radialModel/LunSavage directory 
+
 SourceFiles
     LunSavageRadial.C
 
