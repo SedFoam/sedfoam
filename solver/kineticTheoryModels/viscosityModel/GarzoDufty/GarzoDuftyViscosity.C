@@ -86,7 +86,7 @@ Foam::kineticTheoryModels::GarzoDuftyViscosity::mua
     );
 }
 
-Foam::tmp<Foam::volScalarField> 
+Foam::tmp<Foam::volScalarField>
 Foam::kineticTheoryModels::GarzoDuftyViscosity::lambda
 (
     const volScalarField& alpha,

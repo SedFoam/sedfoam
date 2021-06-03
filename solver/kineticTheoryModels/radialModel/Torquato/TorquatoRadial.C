@@ -63,7 +63,7 @@ Foam::tmp<Foam::volScalarField> Foam::TorquatoRadial::g0
     const dimensionedScalar& alphaMax
 ) const
 {
-    return  (neg(alpha-0.49)*(2-alpha)/(2*pow(1-alpha, 3)) +
+    return (neg(alpha-0.49)*(2-alpha)/(2*pow(1-alpha, 3)) +
      pos(alpha-0.49)*(2-0.49)*(alphaMax-0.49)/
      (2*pow(1-0.49, 3)*(alphaMax-alpha)));
 }
