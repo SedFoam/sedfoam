@@ -443,7 +443,8 @@ void Foam::kineticTheoryModel::solve
     ////////////////////////////////
     // Granular temperature equation
     // /////////////////////////////
-    surfaceScalarField phi = 1.5*rhoa_*phia_*fvc::interpolate((alpha_+alphaSmall));
+    surfaceScalarField phi = 1.5*rhoa_*phia_*
+     fvc::interpolate((alpha_+alphaSmall));
     // construct the granular temperature equation (Eq. 3.20, p. 44)
     // NB. note that there are two typos in Eq. 3.20
     // no grad in front of Ps

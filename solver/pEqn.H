@@ -74,8 +74,10 @@ License
         // Momentum fluxes computed on the faces for the particle phase phiDraga
         // and the fluid phase phiDragb
 
-        surfaceScalarField phiTempa = (fvc::interpolate(beta*(K/rhoa)*2*T/(magUr+Usmall)))*rUaAf*mesh.magSf();
-        surfaceScalarField phiTempb = (fvc::interpolate(alpha*(K/rhob)*2*T/(magUr+Usmall)))*rUbAf*mesh.magSf();
+        surfaceScalarField phiTempa = (fvc::interpolate(beta*(K/rhoa)*2*T/(magUr+Usmall)))*
+         rUaAf*mesh.magSf();
+        surfaceScalarField phiTempb = (fvc::interpolate(alpha*(K/rhob)*2*T/(magUr+Usmall)))*
+         rUbAf*mesh.magSf();
         phiTempa.setOriented(true);
         phiTempb.setOriented(true);
 

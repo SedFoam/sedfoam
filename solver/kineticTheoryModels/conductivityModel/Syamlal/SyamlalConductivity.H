@@ -31,7 +31,7 @@ Description
     Technical Report DOE/METC–94/1004, 10145548, (1993).
     \endverbatim
 
-    This file is in the \dir kineticTheoryModels/conductivityModel/Syamlal 
+    This file is in the \dir kineticTheoryModels/conductivityModel/Syamlal
     directory
 
 SourceFiles

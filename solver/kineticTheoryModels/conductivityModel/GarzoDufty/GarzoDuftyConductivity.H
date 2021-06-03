@@ -32,7 +32,7 @@ Description
     Interdisciplinary Topics, 59(5 Pt B):5895–5911
     \endverbatim
 
-    This file is in the \dir kineticTheoryModels/conductivityModel/GarzoDufty 
+    This file is in the \dir kineticTheoryModels/conductivityModel/GarzoDufty
     directory
 
 SourceFiles
