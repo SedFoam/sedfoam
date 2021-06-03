@@ -25,6 +25,12 @@ Class
     Foam::GidaspowRadial
 
 Description
+    \verbatim
+    "A Bubbling Fluidization Model Using Kinetic Theory of Granular Flow",
+    Ding, J., Gidaspow, D., AIChE Journal, 36(4):523–538
+    \endverbatim
+
+    This file is in the \dir kineticTheoryModels/radialModel/Gidaspow directory
 
 SourceFiles
     GidaspowRadial.C
