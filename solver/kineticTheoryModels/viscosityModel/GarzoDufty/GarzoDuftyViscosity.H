@@ -22,12 +22,18 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::DuanViscosity
+    Foam::GarzoDuftyViscosity
 
 Description
+    \verbatim
+    "Dense fluid transport for inelastic hard spheres." 
+    Garzó, V. and Dufty, J. W. (1999).
+    Physical Review. E, Statistical Physics, Plasmas, Fluids, and Related 
+    Interdisciplinary Topics, 59(5 Pt B):5895–5911
+    \endverbatim
 
 SourceFiles
-    DuanViscosity.C
+    GarzoDuftyViscosity.C
 
 \*---------------------------------------------------------------------------*/
 
@@ -71,6 +77,16 @@ public:
     // Member functions
 
         tmp<volScalarField> mua
+        (
+            const volScalarField& alpha,
+            const volScalarField& Theta,
+            const volScalarField& g0,
+            const dimensionedScalar& rhoa,
+            const dimensionedScalar& da,
+            const dimensionedScalar& e
+        ) const;
+
+	tmp<volScalarField> lambda
         (
             const volScalarField& alpha,
             const volScalarField& Theta,

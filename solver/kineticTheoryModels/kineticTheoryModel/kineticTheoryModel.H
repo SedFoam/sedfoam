@@ -25,6 +25,11 @@ Class
     Foam::kineticTheoryModel
 
 Description
+    \verbatim 
+        "Derivation, implementation, and validation of computer simulation 
+	models for gas-solid fluidized beds",         
+	van Wachem, B.G.M., Ph.D. Thesis, Delft University of Technology, Amsterdam, 2000.     
+    \endverbatim
 
 SourceFiles
     kineticTheoryModel.C
@@ -39,7 +44,6 @@ SourceFiles
 #include "autoPtr.H"
 #include "viscosityModel.H"
 #include "conductivityModel.H"
-#include "conductivityModelAlpha.H"
 #include "radialModel.H"
 #include "granularPressureModel.H"
 #include "frictionalStressModel.H"
@@ -75,46 +79,34 @@ class kineticTheoryModel
         //- use kinetic theory or not.
         Switch kineticTheory_;
 
-        //- use generation == dissipation
-        Switch equilibrium_;
-
-         //- use collisions
-        Switch collisions_;
-
-        //- use extended kinetic theory
+        //- use extended kinetic theory or not
         Switch extended_;
         
-	//- use formulation for soft particles
-        Switch softParticles_;
-
-        //- use production limiter for Theta (to kb)
+        //- use production limiter for Theta (to 2/3kb)
         Switch limitProduction_;
-
+	
+	//- Viscosity model for the kinetic theory
         autoPtr<kineticTheoryModels::viscosityModel> viscosityModel_;
 
+	//- Conductivity model for the kinetic theory
         autoPtr<conductivityModel> conductivityModel_;
         
-	autoPtr<conductivityModelAlpha> conductivityModelAlpha_;
-
+	//- Raidial distribution function for the kinetic theory
         autoPtr<radialModel> radialModel_;
-
+	
+	//- Pressure model for the kinetic theory
         autoPtr<granularPressureModel> granularPressureModel_;
 
+	//- Stress model for the frictional part of stresses
         autoPtr<frictionalStressModel> frictionalStressModel_;
 
         //- coefficient of restitution
         const dimensionedScalar e_;
         
-	//- normal stiffness of contacts
-        const dimensionedScalar kn_;
-
         //- maximum packing
         const dimensionedScalar alphaMax_;
 
-        //- min value for which the frictional stresses are zero
-        const dimensionedScalar DiluteCut_;
-        const dimensionedScalar ttzero;
-        const dimensionedScalar ttone;
+        //- maximum granular temperature
         const dimensionedScalar MaxTheta;
 
         //- angle of internal friction
@@ -124,20 +116,18 @@ class kineticTheoryModel
 	const dimensionedScalar muPart_;
 
         //Kill transfert of temperature from fluid to particles
-        const dimensionedScalar killJ1_;
+        const dimensionedScalar killJ2_;
         
-	//Kill the friction correction in the viscosity term
-        Switch killFricCorVisc_;
-
+	//Switch to apply quadratic drag correction in J1 
+        const dimensionedScalar quadraticCorrectionJ1_;
+        
         //- The granular energy/temperature
         volScalarField Theta_;
 
-        // The sqrt granular energy/temperature
-        //  volScalarField ThetaSqrt_;
-
-        //- The granular viscosity
+        //- The collisional granular viscosity
         volScalarField mua_;
 
+	//- The frictional granular viscosity
         volScalarField muf_;
 
         //- The granular bulk viscosity
@@ -149,23 +139,20 @@ class kineticTheoryModel
         //- frictional stress
         volScalarField pf_;
 
-    //- The granular pressure derivative
+        //- The granular pressure derivative
         volScalarField ppMagf_;
 
         //- The granular temperature conductivity
         volScalarField kappa_;
         
-	//- The granular temperature conductivityi due to concentration gradient
-        volScalarField kappa2_;
-
         //- The radial distribution function
         volScalarField gs0_;
 
-    //- The derivative of the radial distribution function
+        //- The derivative of the radial distribution function
         volScalarField gs0Prime_;
 
 
-    // Private Member Functions
+        // Private Member Functions
 
         //- Disallow default bitwise copy construct
         kineticTheoryModel(const kineticTheoryModel&);
@@ -200,14 +187,7 @@ public:
             const volScalarField& epsilonb,
             const volScalarField& nuft,
             const dimensionedScalar& B,
-            const dimensionedScalar& tt
-        );
-
-        void updateRheo
-        (
-            const volScalarField& kb,
-            const volScalarField& epsilonb,
-            const dimensionedScalar& B
+	    const dimensionedScalar& tt
         );
 
         bool on() const
@@ -253,11 +233,6 @@ public:
         const volScalarField& kappa() const
         {
             return kappa_;
-        }
-
-        const volScalarField& kappa2() const
-        {
-            return kappa2_;
         }
 
         const dimensionedScalar& phi() const

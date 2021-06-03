@@ -419,20 +419,6 @@ volScalarField Unity
     dimensionedScalar("one", dimensionSet(0, 0, 0, 0, 0), 1.0)
 );
 
-volVectorField UnityV
-(
-    IOobject
-    (
-	"UnityV",
-	runTime.timeName(),
-	mesh,
-	IOobject::NO_READ,
-	IOobject::NO_WRITE
-    ),
-    mesh,
-    dimensionedVector("one", dimensionSet(0, 0, 0, 0, 0), vector(0.,0.,0.))
-);
-
 Info<< "Calculating face flux field phi\n" << endl;
 surfaceScalarField phi
 (

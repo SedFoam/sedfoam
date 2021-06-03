@@ -25,6 +25,9 @@ Class
     Foam::LunSavageRadial
 
 Description
+    "The effects of an impact velocity dependent coefficient of restitution 
+    on stresses developed by sheared granular materials."
+    Lun, C. K. K. and Savage, S. B. 1986. Acta Mech., 63, 15–44.
 
 SourceFiles
     LunSavageRadial.C

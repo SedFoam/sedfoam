@@ -25,6 +25,10 @@ Class
     Foam::LunPressure
 
 Description
+    "Kinetic theories for granular flow: Inelastic particles in Couette flow 
+    and slightly inelastic particles in a general flowfield." 
+    Lun, C. K. K., Savage, S. B., Jeffrey, D. J., and Chepurniy, N. (1984). 
+    Journal of Fluid Mechanics, 140:223–256.
 
 SourceFiles
     LunPressure.C

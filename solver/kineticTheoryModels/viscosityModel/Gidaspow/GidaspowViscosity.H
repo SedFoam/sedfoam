@@ -25,6 +25,10 @@ Class
     Foam::GidaspowViscosity
 
 Description
+    \verbatim
+    "A Bubbling Fluidization Model Using Kinetic Theory of Granular Flow",
+    Ding, J., Gidaspow, D., AIChE Journal, 36(4):523–538
+    \endverbatim
 
 SourceFiles
     GidaspowViscosity.C
@@ -70,6 +74,16 @@ public:
     // Member functions
 
         tmp<volScalarField> mua
+        (
+            const volScalarField& alpha,
+            const volScalarField& Theta,
+            const volScalarField& g0,
+            const dimensionedScalar& rhoa,
+            const dimensionedScalar& da,
+            const dimensionedScalar& e
+        ) const;
+
+	tmp<volScalarField> lambda
         (
             const volScalarField& alpha,
             const volScalarField& Theta,

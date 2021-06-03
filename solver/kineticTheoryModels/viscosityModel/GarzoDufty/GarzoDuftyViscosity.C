@@ -82,5 +82,25 @@ Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::GarzoDuftyViscosity::
     );
 }
 
+Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::GarzoDuftyViscosity::lambda
+(
+    const volScalarField& alpha,
+    const volScalarField& Theta,
+    const volScalarField& g0,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& e
+) const
+{
+    const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    const scalar pi = constant::mathematical::pi;
+
+    return rhoa*da*sqrt(Theta)*5*sqrtPi/96*
+    (
+     1152./(45*pi)*(1+e)*pow(alpha,2)*g0
+    );
+}
+
+
 
 // ************************************************************************* //

@@ -25,6 +25,10 @@ Class
     Foam::GidaspowConductivity
 
 Description
+    \verbatim
+    "A Bubbling Fluidization Model Using Kinetic Theory of Granular Flow",
+    Ding, J., Gidaspow, D., AIChE Journal, 36(4):523–538
+    \endverbatim
 
 SourceFiles
     GidaspowConductivity.C
