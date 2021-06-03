@@ -32,8 +32,8 @@ Description
     2000,
     \endverbatim
 
-    This file is in the \dir kineticTheoryModels/kineticTheoryModel directory
-
+    This file is in the \dir kineticTheoryModels/kineticTheoryModel subdirectory
+    inside the \dir kineticTheoryModels directory
 
 SourceFiles
     kineticTheoryModel.C
