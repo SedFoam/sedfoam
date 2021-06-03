@@ -25,7 +25,8 @@ Class
     Foam::HrenyaSinclairViscosity
 
 Description
-    This file is in the \dir kineticTheoryModels/viscosityModel/HrenyaSinclair directory
+    This file is in the \dir kineticTheoryModels/viscosityModel/HrenyaSinclair
+    directory
 
 SourceFiles
     HrenyaSinclairViscosity.C
@@ -72,11 +73,11 @@ public:
         HrenyaSinclairViscosity(const dictionary& dict);
 
 
-    //- Destructor
-    virtual ~HrenyaSinclairViscosity();
+        //- Destructor
+        virtual ~HrenyaSinclairViscosity();
 
 
-    // Member functions
+        // Member functions
 
         tmp<volScalarField> mua
         (
@@ -88,7 +89,7 @@ public:
             const dimensionedScalar& e
         ) const;
 
-	tmp<volScalarField> lambda
+        tmp<volScalarField> lambda
         (
             const volScalarField& alpha,
             const volScalarField& Theta,
@@ -99,7 +100,6 @@ public:
         ) const;
 
 };
-
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

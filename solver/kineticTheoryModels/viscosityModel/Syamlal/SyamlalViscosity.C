@@ -78,7 +78,8 @@ Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::SyamlalViscosity::mua
     );
 }
 
-Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::SyamlalViscosity::lambda
+Foam::tmp<Foam::volScalarField>
+Foam::kineticTheoryModels::SyamlalViscosity::lambda
 (
     const volScalarField& alpha,
     const volScalarField& Theta,

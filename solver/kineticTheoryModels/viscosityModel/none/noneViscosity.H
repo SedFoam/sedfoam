@@ -61,8 +61,8 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        noneViscosity(const dictionary& dict);
+    //- Construct from components
+    noneViscosity(const dictionary& dict);
 
 
     //- Destructor
@@ -81,7 +81,7 @@ public:
             const dimensionedScalar& e
         ) const;
 
-	tmp<volScalarField> lambda
+        tmp<volScalarField> lambda
         (
             const volScalarField& alpha,
             const volScalarField& Theta,

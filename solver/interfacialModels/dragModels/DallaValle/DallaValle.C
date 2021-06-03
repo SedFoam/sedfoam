@@ -76,7 +76,7 @@ Foam::tmp<Foam::volScalarField> Foam::DallaValle::K
 
     volScalarField Cds
     (
-     	0.4+24.4/Re
+      0.4+24.4/Re
     );
 
     return 0.75*Cds*phaseb_.rho()*Ur*bp/(phasea_.d()*phasea_.sF());

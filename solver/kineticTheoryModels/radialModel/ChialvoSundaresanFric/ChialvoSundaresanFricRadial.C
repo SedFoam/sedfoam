@@ -43,7 +43,10 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::ChialvoSundaresanFricRadial::ChialvoSundaresanFricRadial(const dictionary& dict)
+Foam::ChialvoSundaresanFricRadial::ChialvoSundaresanFricRadial
+(
+ const dictionary& dict
+)
 :
     radialModel(dict)
 {}
@@ -63,7 +66,8 @@ Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanFricRadial::g0
     const dimensionedScalar& alphaMax
 ) const
 {
-    return (2-alpha)/(2*pow((1-alpha),3)) + 2.71*pow(alpha, 2)/pow(alphaMax-alpha, 1.5);
+    return (2-alpha)/(2*pow((1-alpha),3)) +
+     2.71*pow(alpha, 2)/pow(alphaMax-alpha, 1.5);
 }
 
 

@@ -31,7 +31,8 @@ Description
     The Journal of Chemical Physics, 51(2):635–636.
     \endverbatim
 
-     This file is in the \dir kineticTheoryModels/radialModel/CarnahanStarling directory
+     This file is in the \dir kineticTheoryModels/radialModel/CarnahanStarling
+     directory
 
 SourceFiles
     CarnahanStarlingRadial.C

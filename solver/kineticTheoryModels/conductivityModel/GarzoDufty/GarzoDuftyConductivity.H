@@ -26,13 +26,14 @@ Class
 
 Description
     \verbatim
-    "Dense fluid transport for inelastic hard spheres." 
+    "Dense fluid transport for inelastic hard spheres."
     Garzó, V. and Dufty, J. W. (1999).
-    Physical Review. E, Statistical Physics, Plasmas, Fluids, and Related 
+    Physical Review. E, Statistical Physics, Plasmas, Fluids, and Related
     Interdisciplinary Topics, 59(5 Pt B):5895–5911
     \endverbatim
 
-    This file is in the \dir kineticTheoryModels/conductivityModel/GarzoDufty directory
+    This file is in the \dir kineticTheoryModels/conductivityModel/GarzoDufty 
+    directory
 
 SourceFiles
     GarzoDuftyConductivity.C

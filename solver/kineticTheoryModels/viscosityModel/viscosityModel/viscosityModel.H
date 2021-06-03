@@ -25,7 +25,8 @@ Class
     Foam::viscosityModel
 
 Description
-    This file is in the \dir kineticTheoryModels/viscosityModel/viscosityModel directory
+    This file is in the \dir kineticTheoryModels/viscosityModel/viscosityModel
+    directory
 
 SourceFiles
     viscosityModel.C
@@ -89,13 +90,13 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        viscosityModel(const dictionary& dict);
+    //- Construct from components
+    viscosityModel(const dictionary& dict);
 
 
     // Selectors
 
-        static autoPtr<viscosityModel> New
+    static autoPtr<viscosityModel> New
         (
             const dictionary& dict
         );
@@ -105,7 +106,7 @@ public:
     virtual ~viscosityModel();
 
 
-    // Member Functions
+        // Member Functions
 
         virtual tmp<volScalarField> mua
         (
@@ -117,7 +118,7 @@ public:
             const dimensionedScalar& e
         ) const = 0;
 
-	virtual tmp<volScalarField> lambda
+        virtual tmp<volScalarField> lambda
         (
             const volScalarField& alpha,
             const volScalarField& Theta,

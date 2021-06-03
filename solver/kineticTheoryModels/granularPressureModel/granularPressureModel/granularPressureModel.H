@@ -25,7 +25,8 @@ Class
     Foam::granularPressureModel
 
 Description
-    This file is in the \dir kineticTheoryModels/granularPressureModel/granularPressureModel directory
+    This file is in the \dir
+    kineticTheoryModels/granularPressureModel/granularPressureModel directory
 
 SourceFiles
     granularPressureModel.C

@@ -90,6 +90,4 @@ Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::noneViscosity::lambda
     )*alpha;
 }
 
-
-
 // ************************************************************************* //

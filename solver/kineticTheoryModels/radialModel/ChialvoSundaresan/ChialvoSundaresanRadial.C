@@ -64,7 +64,8 @@ Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanRadial::g0
 ) const
 {
 
-    return (2-alpha)/(2*pow((1-alpha),3)) + 0.58*pow(alpha, 2)/pow(alphaMax-alpha, 1.5);
+    return (2-alpha)/(2*pow(1-alpha, 3)) +
+     0.58*pow(alpha, 2)/pow(alphaMax-alpha, 1.5);
 }
 
 

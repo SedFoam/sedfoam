@@ -25,10 +25,11 @@ Class
     Foam::kineticTheoryModel
 
 Description
-    \verbatim 
-        "Derivation, implementation, and validation of computer simulation 
-	models for gas-solid fluidized beds",         
-	van Wachem, B.G.M., Ph.D. Thesis, Delft University of Technology, Amsterdam, 2000.     
+    \verbatim
+    "Derivation, implementation, and validation of computer simulation
+    models for gas-solid fluidized beds",
+    van Wachem, B.G.M., Ph.D. Thesis, Delft University of Technology, Amsterdam,
+    2000,
     \endverbatim
 
     This file is in the \dir kineticTheoryModels/kineticTheoryModel directory
@@ -84,28 +85,28 @@ class kineticTheoryModel
 
         //- use extended kinetic theory or not
         Switch extended_;
-        
+
         //- use production limiter for Theta (to 2/3kb)
         Switch limitProduction_;
-	
-	//- Viscosity model for the kinetic theory
+
+        //- Viscosity model for the kinetic theory
         autoPtr<kineticTheoryModels::viscosityModel> viscosityModel_;
 
-	//- Conductivity model for the kinetic theory
+        //- Conductivity model for the kinetic theory
         autoPtr<conductivityModel> conductivityModel_;
-        
-	//- Raidial distribution function for the kinetic theory
+
+        //- Raidial distribution function for the kinetic theory
         autoPtr<radialModel> radialModel_;
-	
-	//- Pressure model for the kinetic theory
+
+        //- Pressure model for the kinetic theory
         autoPtr<granularPressureModel> granularPressureModel_;
 
-	//- Stress model for the frictional part of stresses
+        //- Stress model for the frictional part of stresses
         autoPtr<frictionalStressModel> frictionalStressModel_;
 
         //- coefficient of restitution
         const dimensionedScalar e_;
-        
+
         //- maximum packing
         const dimensionedScalar alphaMax_;
 
@@ -115,22 +116,22 @@ class kineticTheoryModel
         //- angle of internal friction
         const dimensionedScalar phi_;
 
-	//- microscopic inter-particle friction
-	const dimensionedScalar muPart_;
+        //- microscopic inter-particle friction
+        const dimensionedScalar muPart_;
 
         //Kill transfert of temperature from fluid to particles
         const dimensionedScalar killJ2_;
-        
-	//Switch to apply quadratic drag correction in J1 
+
+        //Switch to apply quadratic drag correction in J1
         const dimensionedScalar quadraticCorrectionJ1_;
-        
+
         //- The granular energy/temperature
         volScalarField Theta_;
 
         //- The collisional granular viscosity
         volScalarField mua_;
 
-	//- The frictional granular viscosity
+        //- The frictional granular viscosity
         volScalarField muf_;
 
         //- The granular bulk viscosity
@@ -147,7 +148,7 @@ class kineticTheoryModel
 
         //- The granular temperature conductivity
         volScalarField kappa_;
-        
+
         //- The radial distribution function
         volScalarField gs0_;
 
@@ -166,7 +167,7 @@ class kineticTheoryModel
 
 public:
 
-    // Constructors
+        // Constructors
 
         //- Construct from components
         kineticTheoryModel
@@ -181,7 +182,7 @@ public:
         virtual ~kineticTheoryModel();
 
 
-    // Member Functions
+        // Member Functions
 
         void solve
         (
@@ -190,7 +191,7 @@ public:
             const volScalarField& epsilonb,
             const volScalarField& nuft,
             const dimensionedScalar& B,
-	    const dimensionedScalar& tt
+            const dimensionedScalar& tt
         );
 
         bool on() const

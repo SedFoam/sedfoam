@@ -26,12 +26,13 @@ Class
 
 Description
     \verbatim
-    "MFIX documentation theory guide." 
+    "MFIX documentation theory guide."
     Syamlal, M., Rogers, W., and O‘Brien, T.
     Technical Report DOE/METC–94/1004, 10145548, (1993).
     \endverbatim
 
-    This file is in the \dir kineticTheoryModels/viscosityModel/Syamlal directory
+    This file is in the \dir kineticTheoryModels/viscosityModel/Syamlal
+    directory
 
 SourceFiles
     SyamlalViscosity.C
@@ -67,15 +68,15 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        SyamlalViscosity(const dictionary& dict);
+    //- Construct from components
+    SyamlalViscosity(const dictionary& dict);
 
 
     //- Destructor
     virtual ~SyamlalViscosity();
 
 
-    // Member functions
+        // Member functions
 
         tmp<volScalarField> mua
         (
@@ -87,7 +88,7 @@ public:
             const dimensionedScalar& e
         ) const;
 
-	tmp<volScalarField> lambda
+        tmp<volScalarField> lambda
         (
             const volScalarField& alpha,
             const volScalarField& Theta,

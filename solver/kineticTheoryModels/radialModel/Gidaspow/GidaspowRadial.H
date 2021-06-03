@@ -30,7 +30,7 @@ Description
     Ding, J., Gidaspow, D., AIChE Journal, 36(4):523–538
     \endverbatim
 
-    This file is in the \dir kineticTheoryModels/radialModel/Gidaspow directory 
+    This file is in the \dir kineticTheoryModels/radialModel/Gidaspow directory
 
 SourceFiles
     GidaspowRadial.C
