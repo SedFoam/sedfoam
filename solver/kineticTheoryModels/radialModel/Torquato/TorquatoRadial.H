@@ -25,6 +25,10 @@ Class
     Foam::TorquatoRadial
 
 Description
+    "Nearest-neighbor statistics for packings of hard spheres and disks."
+    Torquato, S. (1995). Physical Review E, 51(4):3170–3182.
+
+    This file is in the \dir kineticTheoryModels/radialModel/Torquato directory
 
 SourceFiles
     TorquatoRadial.C
