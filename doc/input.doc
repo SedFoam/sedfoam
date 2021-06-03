@@ -12,6 +12,9 @@
  * See the GNU General Public License for more details.
  *
  *
+ * \file        input.doc
+ * \author      Cyrille Bonamy and Julien Chauchat
+ * \date        June 03, 2021
  */
 /*! \page inputs Input Parameters
 @brief Description of the sedFoam input parameters

@@ -1,17 +1,7 @@
-/******************************************************************************
- *
- *
- *
- * Copyright (C) 2018 by Cyrille Bonamy, Julien Chauchat, Tim Nagel,
- * Antoine Mathieu, Zhen Cheng and Tian-Jian Hsu.
- *
- * Permission to use, copy, modify, and distribute this software and its
- * documentation under the terms of the GNU General Public License is hereby
- * granted. No representations are made about the suitability of this software
- * for any purpose. It is provided "as is" without express or implied warranty.
- * See the GNU General Public License for more details.
- *
- *
+/**
+ * \file        faq.doc
+ * \author      Cyrille Bonamy and Julien Chauchat
+ * \date        June 03, 2021
  */
 /*! \page faq Frequently Asked Questions
 @brief Answers to FAQ

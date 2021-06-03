@@ -1,3 +1,12 @@
+/**
+ * \file        credits.doc
+ * \author      Cyrille Bonamy and Julien Chauchat
+ * \date        June 03, 2021
+ * \brief       People and organizations that contributed
+ *
+ * \details     Listing only people with code contributions or other significant work and the organisations with financial
+ *              contributions 
+ */
 /** @page credits-contributors Contributors
 @brief People and organizations that contributed to sedFoam
 
