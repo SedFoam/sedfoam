@@ -28,13 +28,13 @@ Group
     grpRASTurbulence
 
 Description
-    Mixing length model for two-phase flow 
+    Mixing length model for two-phase flow
     (only valid for 1D case with Y the wall-normal direction)
 
     References:
     \verbatim
         Revil-Baudard, T. and Chauchat, J. (2013)
-        A two-phase model for sheet flow regime based on dense granular flow 
+        A two-phase model for sheet flow regime based on dense granular flow
         rheology.
         Journal of Geophysical Research - Oceans, 118, 619-634
     \endverbatim
@@ -50,7 +50,8 @@ Description
         }
     \endverbatim
 
-    This file is in the \dir turbulenceModels/RAS/twophaseMixingLength subdirectory
+    This file is in the \dir turbulenceModels/RAS/twophaseMixingLength 
+    subdirectory
     inside the \dir turbulenceModels/RAS subdirectory
     inside the \dir turbulenceModels subdirectory
 

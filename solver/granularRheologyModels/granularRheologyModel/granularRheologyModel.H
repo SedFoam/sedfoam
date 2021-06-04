@@ -35,10 +35,11 @@ Description
 
         Forterre, Y. and Pouliquen, O. (2008).
         Flows of Dense Granular Media.
-        Annual Review of Fluid Mechanics, 40, 1-24   
+        Annual Review of Fluid Mechanics, 40, 1-24
     \endverbatim
 
-    This file is in the \dir granularRheologyModels/granularRheologyModel subdirectory
+    This file is in the \dir granularRheologyModels/granularRheologyModel 
+    subdirectory
     inside the \dir granularRheologyModels subdirectory
 
 SourceFiles

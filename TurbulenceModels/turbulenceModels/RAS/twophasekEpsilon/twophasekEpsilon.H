@@ -65,7 +65,7 @@ Description
             alphaEps    1.3;
             B           0.25;
             KE2         1.0;
-            KE4         1.0; 
+            KE4         1.0;
         }
     \endverbatim
 

@@ -82,4 +82,3 @@ makeRASModel(twophaseMixingLength);
 
 #include "twophasekOmega.H"
 makeRASModel(twophasekOmega);
-

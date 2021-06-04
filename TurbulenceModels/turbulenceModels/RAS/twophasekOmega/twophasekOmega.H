@@ -56,12 +56,12 @@ Description
             C4om             1.0;
             B                0.25;
             KE2              1.0;
-            KE4              1.0; 
+            KE4              1.0;
             alphaKomega      0.5;
             alphaOmegaOmega  0.5;
             Clim             0.0;
             sigmad           0.0
-            popeCorrection   False;   
+            popeCorrection   False;
         }
     \endverbatim
 
@@ -74,7 +74,7 @@ Description
             alphaKomega      0.6;
             Clim             0.875;
             sigmad           0.125
-            popeCorrection   True (only for 3D cases); 
+            popeCorrection   True (only for 3D cases);
         }
     \endverbatim
 
