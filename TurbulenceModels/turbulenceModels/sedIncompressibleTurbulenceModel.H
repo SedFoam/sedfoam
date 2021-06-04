@@ -30,6 +30,9 @@ Description
     Templated abstract base class for volumen occupancy incompressible
     turbulence models.
 
+    This file is in the \dir TurbulenceModels/turbulenceModels subdirectory
+    inside the \dir TurbulenceModels subdirectory
+
 SourceFiles
     sedIncompressibleTurbulenceModel.C
 

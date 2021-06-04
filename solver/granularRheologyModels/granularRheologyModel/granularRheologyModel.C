@@ -344,7 +344,6 @@ void Foam::granularRheologyModel::solve
     // compute the particulate velocity shear rate
     //
     volScalarField magD2 = pow(magD, 2);
-    volScalarField patot_ = pf*scalar(0.0);
     
     //
     // Shear induced particulate pressure

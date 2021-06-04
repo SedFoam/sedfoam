@@ -26,6 +26,9 @@ Class
 
 Description
 
+    This file is in the \dir FrictionModel/FrictionModel subdirectory
+    inside the \dir FrictionModel subdirectory
+
 SourceFiles
     FrictionModel.C
 

@@ -28,31 +28,32 @@ Group
     grpRASTurbulence
 
 Description
-    Standard high Reynolds-number k-omega turbulence model for
-    incompressible flows.
+    Mixing length model for two-phase flow
+    (only valid for 1D case with Y the wall-normal direction)
 
     References:
     \verbatim
-        "Turbulence Modeling for CFD"
-        D. C. Wilcox,
-        DCW Industries, Inc., La Canada,
-        California, 1988.
-
-        See also:
-        http://www.cfd-online.com/Wiki/Wilcox's_k-omega_model
+        Revil-Baudard, T. and Chauchat, J. (2013)
+        A two-phase model for sheet flow regime based on dense granular flow
+        rheology.
+        Journal of Geophysical Research - Oceans, 118, 619-634
     \endverbatim
 
     The default model coefficients correspond to the following:
     \verbatim
-        twophaseMixingLengthCoeffs
+        twophasekEpsilonCoeffs
         {
-            Cmu         0.09;  // Equivalent to betaStar
-            alpha       0.52;
-            betaOmega   0.072;
-            alphak      0.5;
-            alphaOmega  0.5;
+            Cmu         0.09;
+            expoLM      1.0;
+            alphaMaxLM  0.55;
+            kappaLM     0.225;
         }
     \endverbatim
+
+    This file is in the \dir turbulenceModels/RAS/twophaseMixingLength
+    subdirectory
+    inside the \dir turbulenceModels/RAS subdirectory
+    inside the \dir turbulenceModels subdirectory
 
 SourceFiles
     twophaseMixingLength.C
@@ -97,6 +98,7 @@ protected:
             IOdictionary twophaseRASProperties_;
 
         // Model coefficients
+            dimensionedScalar Cmu_;
             dimensionedScalar expoLM_;
             dimensionedScalar alphaMaxLM_;
             dimensionedScalar kappaLM_;
