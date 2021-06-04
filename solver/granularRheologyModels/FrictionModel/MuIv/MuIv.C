@@ -67,8 +67,6 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIv::muI
     const dimensionedScalar& Dsmall
 ) const
 {
-    // MuI viscous regime Friction model: : mu(Iv) = mus + (mu2-mus)/(I0/Iv+1)
-    //          with Iv = rhob nub magD / pa
     return mus + (mu2 - mus)*magD / (I0*pa/(rhob*nub) + magD + Dsmall);
 }
 
@@ -82,7 +80,6 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIv::I
     const volScalarField& magD
 ) const
 {
-    // viscous regime : Iv = rhob nub magD / pa
     return magD*rhob*nub/pa;
 }
 // ************************************************************************* //

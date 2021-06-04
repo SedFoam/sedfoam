@@ -68,11 +68,6 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIPPressure::pa
 ) const
 
 {
-    //
-    // MuI inertial regime:
-    // pa = (b alpha / (alphaMax - alpha))^2 rhoa da^2 magD^2
-    // limiting parameter original = 1e-3
-
     return pow(Bphi*alpha/max(alphaMax - alpha, scalar(1e-3)), 2)
           *rhoa*pow(da, 2)*pow(magD, 2);
 }
@@ -91,9 +86,6 @@ MuIPPressure::alphaEq
 ) const
 
 {
-    //
-    //  inertial regime: alphaMax / (1+Bphi I)
-
     return alphaMax/(1+Bphi*da*magD*pow(pa/rhoa, -0.5));
 }
 

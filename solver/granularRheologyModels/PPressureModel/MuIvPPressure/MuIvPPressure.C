@@ -70,7 +70,6 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::MuIvPPressure::pa
     const dimensionedScalar& Alphasmall
 ) const
 {
-    // MuI viscous regime: pa = (b alpha / (alphaMax - alpha))^2 nub rhob magD
     return pow(Bphi*alpha / max(alphaMax-alpha, scalar(1e-3)), 2)*nub*rhob*magD;
 }
 
@@ -88,9 +87,6 @@ MuIvPPressure::alphaEq
 ) const
 
 {
-    //
-    //  viscous regime: alphaMax / (1+Bphi Iv^(0.5))
-
     return alphaMax/(1+Bphi*sqrt(rhob*nub*magD/pa));
 }
 // ************************************************************************* //

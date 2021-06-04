@@ -87,23 +87,48 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     C3ep_
     (
-        twophaseRASProperties_.lookup("C3ep")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "C3ep",
+            this->coeffDict_,
+            1.2
+        )
     ),
     C4ep_
     (
-        twophaseRASProperties_.lookup("C4ep")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "C4ep",
+            this->coeffDict_,
+            1.0
+        )
     ),
     KE2_
     (
-        twophaseRASProperties_.lookup("KE2")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "KE2",
+            this->coeffDict_,
+            1.0
+        )
     ),
     KE4_
     (
-        twophaseRASProperties_.lookup("KE4")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "KE4",
+            this->coeffDict_,
+            1.0
+        )
     ),
     B_
     (
-        twophaseRASProperties_.lookup("B")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "B",
+            this->coeffDict_,
+            0.25
+        )
     ),
     Cmu_
     (
@@ -132,13 +157,14 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
             1.92
         )
     ),
-        kSmall_
-    (
-        twophaseRASProperties_.lookup("kSmall")
-    ),
     nutMax_
     (
-        twophaseRASProperties_.lookup("nutMax")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "nutMax",
+            this->coeffDict_,
+            1e-1
+        )
     ),
     alphak_
     (
@@ -149,7 +175,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
             1.0
         )
     ),
-        alphaEps_
+    alphaEps_
     (
         dimensioned<scalar>::lookupOrAddToDict
         (
@@ -229,7 +255,6 @@ void twophasekEpsilon<BasicTurbulenceModel>::correct()
     }
 
     // Local references
-    //const alphaField& alpha = this->alpha_;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
     const surfaceScalarField& phi = this->phi_;
@@ -265,7 +290,6 @@ void twophasekEpsilon<BasicTurbulenceModel>::correct()
       + fvm::Sp(C3ep_*ESD_, epsilon_)
       + ESD2()*fvm::Sp(C3ep_*KE2_, epsilon_)
       + fvm::Sp(C4ep_*KE4_*ESD5_*nut/k_, epsilon_)
-      //+ fvm::Sp((C4ep_*KE4_*ESD5_*nut_/max(k_,kSmall_)),epsilon_)
     );
 
     epsEqn.ref().relax();

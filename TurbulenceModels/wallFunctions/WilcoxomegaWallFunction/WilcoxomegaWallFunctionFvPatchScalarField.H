@@ -67,6 +67,9 @@ Usage
     }
     \endverbatim
 
+    This file is in the \dir wallFunctions/WilcoxomegaWallFunction subdirectory
+    inside the \dir wallFunctions subdirectory
+
 SourceFiles
     WilcoxomegaWallFunctionFvPatchScalarField.C
 

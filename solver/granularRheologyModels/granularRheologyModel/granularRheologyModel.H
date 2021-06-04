@@ -25,6 +25,21 @@ Class
     Foam::granularRheologyModel
 
 Description
+    Dense granular-flow rheology model for particle phase stress
+    
+    References:
+    \verbatim
+        GDRmidi (2004).
+        On dense granular flows.
+        The European Physical Journal E, 14, 341-365
+
+        Forterre, Y. and Pouliquen, O. (2008).
+        Flows of Dense Granular Media.
+        Annual Review of Fluid Mechanics, 40, 1-24   
+    \endverbatim
+
+    This file is in the \dir granularRheologyModels/granularRheologyModel subdirectory
+    inside the \dir granularRheologyModels subdirectory
 
 SourceFiles
     granularRheologyModel.C
