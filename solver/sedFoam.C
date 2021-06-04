@@ -90,6 +90,8 @@ int main(int argc, char *argv[])
     #include "setInitialDeltaT.H"
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+    // Test on SUSlocal
+    //
     if (SUSlocal)
     {
         Info<< "\nLocal Schmidt number activated" << endl;
@@ -110,6 +112,13 @@ int main(int argc, char *argv[])
                << endl;
        }
     }
+    // Test on granular stress model
+    if (kineticTheory.on() && granularRheology.on())
+    {
+        Info<< "\nKinetic theory and granular rheology are set on. This option is not supported." << endl;
+    }
+    
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
     Info<< "\nStarting time loop\n" << endl;
 
@@ -123,34 +132,38 @@ int main(int argc, char *argv[])
         runTime++;
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
+//      Apply a ramp in time on the gravity acceleration
         #include "gravityRamp.H"
 
 //      Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
         {
+//          Solve for solid phase mass conservation
             #include "alphaEqn.H"
+
+//          Compute lift and drag coefficients
             #include "liftDragCoeffs.H"
 
-//          Compute the Kinetic Theory parameters: nuEffa and lambdaUa from the
-//          solution of the Granular temperature equation
-            #include "callKineticTheory.H"
+//          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
+//             from Kinetic Theory of granular flows or mu(I) rheology
+            #include "callGranularStress.H"
 
-//          Compute the contact pressure pff and the frictional viscosity nuFra
-//          from a Coulomb model if using the kinetic theory
-//          and from the mu(I) rheology if using the granular rheology
-            #include "callFrictionStress.H"
-
-//          Create the momentum balance equations for both phases a and b
+//          Assemble the momentum balance equations for both phases a and b
             #include "UEqns.H"
 
+//          Assemble and solve the pressure poisson equation 
+//             and apply the velocity correction step for both phases a and b
             #include "pEqn.H"
 
+//          Compute the phase accelerations for added mass force 
             #include "DDtU.H"
 
             if (pimple.turbCorr())
             {
+//              Solve for turbulence models
                 #include "updateTwoPhaseRASTurbulence.H"
                 turbulenceb->correct();
+
                 if (debugInfo)
                 {
                     Info << " max(nutb) = "
@@ -165,6 +178,7 @@ int main(int argc, char *argv[])
             Info<< "min(Ub) = " << gMin(Ub)
                 << "max(Ub) = " << gMax(Ub) << nl << endl;
         }
+//      Write output
         #include "OutputGradPOSC.H"
         #include "writeOutput.H"
 
