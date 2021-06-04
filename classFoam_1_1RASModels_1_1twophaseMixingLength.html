@@ -65,7 +65,7 @@
           <div class="m-doc-template">template&lt;class BasicTurbulenceModel&gt;</div>
           <span class="m-breadcrumb"><a href="namespaceFoam.html">Foam</a>::<wbr/></span><span class="m-breadcrumb"><a href="namespaceFoam_1_1RASModels.html">RASModels</a>::<wbr/></span>twophaseMixingLength <span class="m-thin">class</span>
         </h1>
-        <p>Standard high Reynolds-number k-omega turbulence model for incompressible flows.</p>
+        <p>Mixing length model for two-phase flow (only valid for 1D case with Y the wall-normal direction)</p>
         <div class="m-block m-default">
           <h3>Contents</h3>
           <ul>
@@ -78,22 +78,18 @@
             </li>
           </ul>
         </div>
-<p>Group grpRASTurbulence</p><p><a name="Description"></a></p><p>References:</p><pre>    &quot;Turbulence Modeling for CFD&quot;
-    D. C. Wilcox,
-    DCW Industries, Inc., La Canada,
-    California, 1988.
-
-    See also:
-    http://www.cfd-online.com/Wiki/Wilcox&#x27;s_k-omega_model
-</pre><p>The default model coefficients correspond to the following:</p><pre>    twophaseMixingLengthCoeffs
+<p>Group grpRASTurbulence</p><p><a name="Description"></a></p><p>References:</p><pre>    Revil-Baudard, T. and Chauchat, J. (2013)
+    A two-phase model for sheet flow regime based on dense granular flow
+    rheology.
+    Journal of Geophysical Research - Oceans, 118, 619-634
+</pre><p>The default model coefficients correspond to the following:</p><pre>    twophasekEpsilonCoeffs
     {
-        Cmu         0.09;  // Equivalent to betaStar
-        alpha       0.52;
-        betaOmega   0.072;
-        alphak      0.5;
-        alphaOmega  0.5;
+        Cmu         0.09;
+        expoLM      1.0;
+        alphaMaxLM  0.55;
+        kappaLM     0.225;
     }
-</pre><aside class="m-note m-default"><h4>Source files</h4><ul><li><a href="https://github.com/sedfoam/sedfoam/blob/master/TurbulenceModels/turbulenceModels/RAS/twophaseMixingLength/twophaseMixingLength.H">twophaseMixingLength.H</a></li><li><a href="https://github.com/sedfoam/sedfoam/blob/master/TurbulenceModels/turbulenceModels/RAS/twophaseMixingLength/twophaseMixingLength.C">twophaseMixingLength.C</a></li></ul></aside>
+</pre><p>This file is in the</p>
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">

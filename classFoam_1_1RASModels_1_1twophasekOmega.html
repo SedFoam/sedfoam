@@ -78,18 +78,41 @@
             </li>
           </ul>
         </div>
-<p>Group grpRASTurbulence</p><p><a name="Description"></a></p><p>References:</p><pre>    Wilcox, D. C. (1998).
-    Turbulence modeling for CFD
-    (Vol. 2, pp. 103-217). La Canada, CA: DCW industries.
+<p>Group grpRASTurbulence</p><p><a name="Description"></a></p><p>References:</p><pre>    Original model:
+        Wilcox, D. C. (1998).
+        Turbulence modeling for CFD
+        (Vol. 2, pp. 103-217). La Canada, CA: DCW industries.
+
+    Two-phase adaptation:
+        Amoudry, L. O. (2014).
+        Extension of k-omega turbulence closure to two-phase sediment
+        transport modelling: Application to oscillatory sheet flows.
+        Advances in Water Ressources, 72, 110-121
 </pre><p>The default model coefficients are</p><pre>    twophasekOmegaCoeffs
     {
-        Cmu         0.09;  // Equivalent to betaStar
-        alpha       0.52;
-        betaOmega   0.072;
-        alphak      0.5;
-        alphaOmega  0.5;
+        Cmu              0.09;
+        alphaOmega       0.52;
+        betaOmega        0.072;
+        C3om             0.35;
+        C4om             1.0;
+        B                0.25;
+        KE2              1.0;
+        KE4              1.0;
+        alphaKomega      0.5;
+        alphaOmegaOmega  0.5;
+        Clim             0.0;
+        sigmad           0.0
+        popeCorrection   False;
     }
-</pre><aside class="m-note m-default"><h4>Source files</h4><ul><li><a href="https://github.com/sedfoam/sedfoam/blob/master/TurbulenceModels/turbulenceModels/RAS/twophasekOmega/twophasekOmega.H">twophasekOmega.H</a></li><li><a href="https://github.com/sedfoam/sedfoam/blob/master/TurbulenceModels/turbulenceModels/RAS/twophasekOmega/twophasekOmega.C">twophasekOmega.C</a></li></ul></aside>
+</pre><p>For the revisited version of the model from Wilcox (2006), model coefficients should be modified following:</p><pre>    twophasekOmegaCoeffs
+    {
+        betaOmega        0.0708;
+        alphaKomega      0.6;
+        Clim             0.875;
+        sigmad           0.125
+        popeCorrection   True (only for 3D cases);
+    }
+</pre><p>This file is in the</p>
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
