@@ -54,7 +54,7 @@ maxAlphaCo      5;
 maxDeltaT       1e0;
 
 libs (
-     "libmyturbulenceModels.so"
+     "libWilcoxOmegaWallFunction.so"
      );
 
 // ************************************************************************* //

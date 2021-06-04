@@ -47,6 +47,8 @@ viscosityModel  Syamlal;
 
 conductivityModel Syamlal;
 
+conductivityModelAlpha none;
+
 granularPressureModel Lun;
 
 frictionalStressModel SrivastavaSundaresan;

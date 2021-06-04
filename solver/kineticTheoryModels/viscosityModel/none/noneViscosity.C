@@ -72,5 +72,22 @@ Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::noneViscosity::mua
     )*alpha;
 }
 
+Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::noneViscosity::lambda
+(
+    const volScalarField& alpha,
+    const volScalarField& Theta,
+    const volScalarField& g0,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& e
+) const
+{
+    return dimensionedScalar
+    (
+        "0",
+        dimensionSet(1, -1, -1, 0, 0, 0, 0),
+        0.0
+    )*alpha;
+}
 
 // ************************************************************************* //

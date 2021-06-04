@@ -1,3 +1,12 @@
+/**
+ * \file        credits.doc
+ * \author      Cyrille Bonamy and Julien Chauchat
+ * \date        June 03, 2021
+ * \brief       People and organizations that contributed (doc)
+ *
+ * \details     Listing only people with code contributions or other significant work and the organisations with financial
+ *              contributions 
+ */
 /** @page credits-contributors Contributors
 @brief People and organizations that contributed to sedFoam
 
@@ -17,6 +26,7 @@ Are the below lists missing your name or something's wrong?
 -   **Tim Nagel** ([\@tim](https://www.researchgate.net/profile/Tim_Nagel3)) --- developer
 -   **Antoine Mathieu** ([\@antoine](https://github.com/mathieu7an)) --- core developer
 -   **Eduard Puig-Montella** ([\@ed](https://github.com/puigmontella)) --- core developer
+-   **Rémi Chassagne** ([\@remichassagne](https://github.com/remichassagne)) --- core developer
 -   **Pablo Higuera** ([\@phicau](https://github.com/phicau)) --- contributor
 -   **Benjamin Tsai** ([\@B-Tsai](https://github.com/B-Tsai)) --- contributor
 -   **Ali Salimi-Tarazouj** ([\@ali](https://coastal.udel.edu/people/graduate-students)) --- contributor
