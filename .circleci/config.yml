@@ -97,7 +97,7 @@ jobs:
             source /opt/openfoam7/etc/bashrc &&
             python3 doxygen.py ../../conf.py &&
             cd ../.. && cp images/* mcssout/html/. &&
-            ack "Original source file" -l --print0 | xargs -0 -n 1 sed -i "s/\/root\/sedfoam/https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
+            ack "ource file" -l --print0 | xargs -0 -n 1 sed -i "s/\"\/root\/sedfoam/\"https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
 
       - persist_to_workspace:
           root: /root/sedfoam/doc/mcssout
