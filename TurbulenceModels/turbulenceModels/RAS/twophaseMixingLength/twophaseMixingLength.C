@@ -176,7 +176,7 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
     }
 
 //
-// Mixing Leng turbulence model
+// Mixing Length turbulence model
 // (only for 1D cases with Y the wall-normal direction)
 //
     dimensionedScalar LmSmall
