@@ -25,6 +25,8 @@ Class
     Foam::JohnsonJacksonFrictionalStress
 
 Description
+    This file is in the \dir
+    kineticTheoryModels/frictionalStressModel/JohsonJackson directory
 
 SourceFiles
     JohnsonJacksonFrictionalStress.C

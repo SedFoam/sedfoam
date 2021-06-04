@@ -25,6 +25,14 @@ Class
     Foam::SyamlalConductivity
 
 Description
+    \verbatim
+    "MFIX documentation theory guide."
+    Syamlal, M., Rogers, W., and O‘Brien, T.
+    Technical Report DOE/METC–94/1004, 10145548, (1993).
+    \endverbatim
+
+    This file is in the \dir kineticTheoryModels/conductivityModel/Syamlal
+    directory
 
 SourceFiles
     SyamlalConductivity.C

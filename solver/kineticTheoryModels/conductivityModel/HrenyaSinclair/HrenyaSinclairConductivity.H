@@ -25,6 +25,8 @@ Class
     Foam::HrenyaSinclairConductivity
 
 Description
+    This file is in the \dir
+    kineticTheoryModels/conductivityModel/HrenyaSinclair directory
 
 SourceFiles
     HrenyaSinclairConductivity.C

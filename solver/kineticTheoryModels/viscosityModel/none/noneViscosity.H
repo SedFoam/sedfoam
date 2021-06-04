@@ -25,6 +25,7 @@ Class
     Foam::noneViscosity
 
 Description
+    This file is in the \dir kineticTheoryModels/viscosityModel/none directory
 
 SourceFiles
     noneViscosity.C
@@ -60,8 +61,8 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        noneViscosity(const dictionary& dict);
+    //- Construct from components
+    noneViscosity(const dictionary& dict);
 
 
     //- Destructor
@@ -79,6 +80,17 @@ public:
             const dimensionedScalar& da,
             const dimensionedScalar& e
         ) const;
+
+        tmp<volScalarField> lambda
+        (
+            const volScalarField& alpha,
+            const volScalarField& Theta,
+            const volScalarField& g0,
+            const dimensionedScalar& rhoa,
+            const dimensionedScalar& da,
+            const dimensionedScalar& e
+        ) const;
+
 };
 
 
