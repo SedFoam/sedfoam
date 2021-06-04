@@ -1,0 +1,26 @@
+/**
+ * \file        algorithm.doc
+ * \author      Cyrille Bonamy and Julien Chauchat
+ * \date        June 03, 2021
+ * \brief       SedFOAM algorithm
+ */
+/*! \page algorithm Algorithm 
+
+The numerical implementation of the present Eulerian two-phase flow sediment transport model is based on an open-source finite volume CFD library called OpenFOAM. Taking advantage of the numerical discretization schemes and framework of finite volume solvers in OpenFOAM, the two-phase flow governing equations are implemented by modifying the solver twoPhaseEulerFoam (Rusche, 2002; Weller, 2002; Peltola, 2009). OpenFOAM uses the Finite Volume Method (FVM) over a collocated grid arrangement. The collocated arrangement stores all dependent variables at the cell center and the same Control Volume (CV) is used for all variables to minimize the computational effort. The advantage of the FVM is that the system of partial differential equations can be discretized on arbitrary three-dimensional structured or unstructured meshes. Thus, complex geometries can be easily handled. The Gauss theorem is applied to the convection and diffusion terms leading to conservative schemes. 
+
+To illustrate the numerical discretization, the fluid phase momentum equation are taken as an example. Rearranging the fluid phase momentum equation by dividing \f$\beta\rho^b\f$, the resulting equation can be written as
+
+\f$
+\dfrac{\partial{\mathbf{u}^b}}{\partial{t}}+\nabla\cdot(\mathbf{u^b}\mathbf{u^b})-(\nabla\cdot\mathbf{u^b})\mathbf{u^b}=-\dfrac{1}{\rho^b}\nabla{p^*}
+  - \dfrac{\alpha K}{\rho^b}(\mathbf{u^b}-\mathbf{u^a}) + \dfrac{K}{\rho^b} \dfrac{1}{\sigma_c} \ \nu^{bt}\nabla{\alpha}+ \dfrac{\mathbf{f}}{\rho^b}+ \dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}
+\f$
+
+The last term in the above equation, the gradient of fluid phase shear stress, can be written as can be written according to equation (\ref{eq_tauf}) and expanded as follows:
+
+\f$\dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}= &\nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) + \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T}  -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\}.
+\f$
+
+In the above equation, the first two terms on the RHS are treated implicitly while the last two terms are treated explicitly. By substituting the expanded shear stress formulation in the momentum equation, the following equation is obtained:
+
+
+*/
