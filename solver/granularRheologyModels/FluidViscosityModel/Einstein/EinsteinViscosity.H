@@ -26,6 +26,9 @@ Class
 
 Description
 
+    This file is in the \dir FluidViscosityModel/Einstein subdirectory
+    inside the \dir FluidViscosityModel subdirectory
+
 SourceFiles
     EinsteinViscosity.C
 

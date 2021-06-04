@@ -26,6 +26,9 @@ Class
 
 Description
 
+    This file is in the \dir FluidViscosityModel/KriegerDougherty subdirectory
+    inside the \dir FluidViscosityModel subdirectory
+
 SourceFiles
     KriegerDoughertyViscosity.C
 

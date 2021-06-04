@@ -26,6 +26,9 @@ Class
 
 Description
 
+    This file is in the \dir FrictionModel/MuIv subdirectory
+    inside the \dir FrictionModel subdirectory
+
 SourceFiles
     MuIv.C
 

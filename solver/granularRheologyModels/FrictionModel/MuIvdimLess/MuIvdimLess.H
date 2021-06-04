@@ -28,6 +28,9 @@ Description
     MuI rheology in dimensionless form. Lengths are made dimensionless by d the
     particle diameter and velocity by sqrt(g d).
 
+    This file is in the \dir FrictionModel/MuIvdimLess subdirectory
+    inside the \dir FrictionModel subdirectory
+
 SourceFiles
     MuIvdimLess.C
 
