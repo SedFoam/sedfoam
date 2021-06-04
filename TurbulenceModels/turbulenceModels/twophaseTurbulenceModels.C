@@ -80,8 +80,5 @@ makeRASModel(twophasekEpsilon);
 #include "twophaseMixingLength.H"
 makeRASModel(twophaseMixingLength);
 
-#include "twophaseMixingLengthConst.H"
-makeRASModel(twophaseMixingLengthConst);
-
 #include "twophasekOmega.H"
 makeRASModel(twophasekOmega);
