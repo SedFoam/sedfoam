@@ -83,7 +83,6 @@ int main(int argc, char *argv[])
     #include "createRASTurbulence.H"
     #include "createFvOptions.H"
 
-
     #include "initContinuityErrs.H"
     #include "createTimeControls.H"
     #include "CourantNo.H"
@@ -115,7 +114,8 @@ int main(int argc, char *argv[])
     // Test on granular stress model
     if (kineticTheory.on() && granularRheology.on())
     {
-        Info<< "\nKinetic theory and granular rheology are set on. This option is not supported." << endl;
+        Info<< "\nKinetic theory and granular rheology are set on." << endl;
+        Info<< " This option is not supported!" << endl;
     }
     
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -151,11 +151,11 @@ int main(int argc, char *argv[])
 //          Assemble the momentum balance equations for both phases a and b
             #include "UEqns.H"
 
-//          Assemble and solve the pressure poisson equation 
+//          Assemble and solve the pressure poisson equation
 //             and apply the velocity correction step for both phases a and b
             #include "pEqn.H"
 
-//          Compute the phase accelerations for added mass force 
+//          Compute the phase accelerations for added mass force
             #include "DDtU.H"
 
             if (pimple.turbCorr())

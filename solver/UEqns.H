@@ -36,14 +36,14 @@ gradPOSC =
 // Compute mixture density
 rho = alpha*rhoa+beta*rhob;
 
-// Compute concentration gradient stress contribution on cell faces for phase a 
+// Compute concentration gradient stress contribution on cell faces for phase a
 surfaceScalarField phiRa =
 (
    -fvc::interpolate(nuEffa)*mesh.magSf()*(fvc::snGrad(alpha))
    /fvc::interpolate(alpha+ alphaSmall)
 );
 
-// Assemble momentum balance equation for phase a 
+// Assemble momentum balance equation for phase a
 fvVectorMatrix UaEqn
 (
     (scalar(1.0) + Cvm*rhob*beta/rhoa)*
@@ -91,4 +91,3 @@ fvVectorMatrix UbEqn
 );
 UbEqn.relax();
 UbEqn += fvm::Sp(alpha/rhob*K, Ub);
-

@@ -85,7 +85,7 @@ if (kineticTheory.on())
        /sqrt(pow(magDtensor, 2) + Dsmall2)
     );
 
-    // the actual expression for nuFra depends on the way this term is 
+    // the actual expression for nuFra depends on the way this term is
     // discretized in UaEqn
     nuFra = muEff_f/rhoa;
 

@@ -30,32 +30,23 @@ Description
 
     Reference:
     \verbatim
-        Version 2.0:
         Chauchat J., Cheng Z., Nagel T., Bonamy C., & Hsu T-J. (2017).
         SedFoam-2.0: a 3D two-phase flow numerical model for sediment transport
         Geosci. Model Dev. Discuss.
         http://dx.doi.org/10.5194/gmd-2017-101
     \endverbatim
 
+Version
+    3.1
+
+Author
+    Julien Chauchat, Cyrille Bonamy, Antoine Mathieu, Rémi Chassagne,
+    Tim Nagel, Zhen Cheng, Tian-Jian Hsu and Eduard Puig Montella.
+
+Date
+    June 01, 2021
 
 \*---------------------------------------------------------------------------*/
-/**
- * \file sedFoam.C
- * \brief 2 phases Solver
- * \author Julien Chauchat, Cyrille Bonamy, Antoine Mathieu, Tim Nagel,
-           Zhen Cheng, Eduard Puig Montella and Tian-Jian Hsu.
- * \version 3.1
- * \date September 16, 2019
- *
- * Solver for a system of 2 phases with one phase dispersed
- *
- */
-/*
-* Changelog [Higuera]
-* August 27, 2018 - Adapted solver to use MULES advection instead of solving
-* the advection equation for improvement of conservation and limiter.
-* December 10, 2018 - Adapted to compile automatically with OpenFOAM 6.
-*/
 
 #include "fvCFD.H"
 #include "CMULES.H"
@@ -77,7 +68,6 @@ Description
 //#include "IOMRFZoneList.H"
 //#include "IOMRFZoneList.H"
 
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
@@ -88,21 +78,20 @@ int main(int argc, char *argv[])
     #include "createMesh.H"
     #include "createControl.H"
 
-//    #include "readGravitationalAcceleration.H"
+
     #include "readGravity.H"
-  //  #include "createGradP.H"
     #include "createFields.H"
     #include "createRASTurbulence.H"
     #include "createFvOptions.H"
 
-    //#include "readPPProperties.H"
     #include "initContinuityErrs.H"
     #include "createTimeControls.H"
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
- //   pimpleControl pimple(mesh);
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+    // Test on SUSlocal
+    //
     if (SUSlocal)
     {
         Info<< "\nLocal Schmidt number activated" << endl;
@@ -123,6 +112,14 @@ int main(int argc, char *argv[])
                << endl;
        }
     }
+    // Test on granular stress model
+    if (kineticTheory.on() && granularRheology.on())
+    {
+        Info<< "\nKinetic theory and granular rheology are set on." << endl;
+        Info<< " This option is not supported!" << endl;
+    }
+    
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
     Info<< "\nStarting time loop\n" << endl;
 
@@ -136,32 +133,38 @@ int main(int argc, char *argv[])
         runTime++;
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
+//      Apply a ramp in time on the gravity acceleration
+        #include "gravityRamp.H"
+
 //      Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
         {
+//          Solve for solid phase mass conservation
             #include "alphaEqn.H"
 
+//          Compute lift and drag coefficients
             #include "liftDragCoeffs.H"
 
-//          Compute the Kinetic Theory parameters: nuEffa and lambdaUa from the
-//          solution of the Granular temperature equation
-            #include "callKineticTheory.H"
-//          Compute the contact pressure pff and the Frictional stress nuFra
-//          from a Coulomb model if using the kinetic theory
-//          and from the mu(I) rheology if using the granular rheology
-            #include "callFrictionStress.H"
+//          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
+//             from Kinetic Theory of granular flows or mu(I) rheology
+            #include "callGranularStress.H"
 
-//          Create the momentum balance equations for both phases a and b
+//          Assemble the momentum balance equations for both phases a and b
             #include "UEqns.H"
 
+//          Assemble and solve the pressure poisson equation
+//             and apply the velocity correction step for both phases a and b
             #include "pEqn.H"
 
+//          Compute the phase accelerations for added mass force
             #include "DDtU.H"
 
             if (pimple.turbCorr())
             {
+//              Solve for turbulence models
                 #include "updateTwoPhaseRASTurbulence.H"
                 turbulenceb->correct();
+
                 if (debugInfo)
                 {
                     Info << " max(nutb) = "
@@ -176,6 +179,7 @@ int main(int argc, char *argv[])
             Info<< "min(Ub) = " << gMin(Ub)
                 << "max(Ub) = " << gMax(Ub) << nl << endl;
         }
+//      Write output
         #include "OutputGradPOSC.H"
         #include "writeOutput.H"
 
