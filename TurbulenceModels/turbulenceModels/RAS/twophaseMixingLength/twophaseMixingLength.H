@@ -50,7 +50,7 @@ Description
         }
     \endverbatim
 
-    This file is in the \dir turbulenceModels/RAS/twophaseMixingLength 
+    This file is in the \dir turbulenceModels/RAS/twophaseMixingLength
     subdirectory
     inside the \dir turbulenceModels/RAS subdirectory
     inside the \dir turbulenceModels subdirectory

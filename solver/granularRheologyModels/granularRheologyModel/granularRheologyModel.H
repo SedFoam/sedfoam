@@ -38,7 +38,7 @@ Description
         Annual Review of Fluid Mechanics, 40, 1-24
     \endverbatim
 
-    This file is in the \dir granularRheologyModels/granularRheologyModel 
+    This file is in the \dir granularRheologyModels/granularRheologyModel
     subdirectory
     inside the \dir granularRheologyModels subdirectory
 
