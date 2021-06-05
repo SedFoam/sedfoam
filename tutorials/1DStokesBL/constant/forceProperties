@@ -29,5 +29,6 @@ Cl              Cl [ 0 0 0 0 0 ] 0;                 // Lift force coefficient
 Ct              Ct [ 0 0 0 0 0 ] 0;                 // Eddy diffusivity coefficient for phase a
 
 debugInfo	true;
- 
+
+writeTau        true; 
 // * * * * * * * * * * * * end of definition of pressure * * * * * * * * * * * * * //
