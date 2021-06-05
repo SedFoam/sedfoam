@@ -125,7 +125,7 @@ plt.plot(time_v_578,velocity_578, marker='o', markersize=0,linestyle='--', color
 plt.plot(time_v_584,velocity_584, marker='o', markersize=0,linestyle='-', color='royalblue',label='Exp. - $\\phi_0 = 0.584$')
 plt.plot(time_v_592,velocity_592, marker='o', markersize=0,linestyle='-', color='navy',label='Exp. - $\\phi_0 = 0.592$')
 
-plt.plot(time_sim_dila_0,vel_sim_dila_0, marker='|', markersize=5,linestyle='-', linewidth=1.2, color='navy',label='SedFoam  - $\\phi_0 = 0.592$')
+plt.plot(time_sim_dila_0,vel_sim_dila_0, marker='o', markersize=5,linestyle='', linewidth=1.2, color='r',label='SedFoam  - $\\phi_0 = 0.592$')
 
 plt.ylabel('$\\frac{v^s}{\\sqrt{gd}}$ [$-$]', fontsize=18)
 plt.xlabel('$\\frac{t}{\\sqrt{d/g}}$ [$-$]', fontsize=18)
@@ -145,7 +145,7 @@ plt.plot(time_p_578,pressure_578, marker='o', markersize=0,linestyle='--', color
 plt.plot(time_p_584,pressure_584, marker='o', markersize=0,linestyle='-', color='royalblue',label='Exp. - $\\phi_0 = 0.584$')
 plt.plot(time_p_592,pressure_592, marker='o', markersize=0,linestyle='-', color='navy',label='Exp. - $\\phi_0 = 0.592$')
 
-plt.plot(time_sim_dila_0,p_sim_dila_0, marker='|', markersize=5,linestyle='-', linewidth=1.2, color='navy',label='SedFoam  - $\\phi_0 = 0.592$')
+plt.plot(time_sim_dila_0,p_sim_dila_0, marker='o', markersize=5,linestyle='', linewidth=1.2, color='r',label='SedFoam  - $\\phi_0 = 0.592$')
 
 plt.ylabel('$\\frac{p^f}{\\rho^f g h_o}$ [$-$]', fontsize=18)
 plt.xlabel('$\\frac{t}{\\sqrt{d/g}}$ [$-$]', fontsize=18)
