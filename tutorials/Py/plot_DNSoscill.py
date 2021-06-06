@@ -2,9 +2,8 @@
 # Import section
 #
 import numpy as np
-from pylab import *
-from scipy.io.matlab import mio
-from math import *
+from pylab import figure, subplot, show, matplotlib, ylabel, title, xlabel
+from math import sqrt
 import fluidfoam
 matplotlib.rcParams.update({'font.size': 12})
 
@@ -19,7 +18,7 @@ viscof=1e-6
 
 delta=sqrt(viscof*T0/pi)
 
-# 
+#
 # Loading OpenFoam results
 #
 mypath='../'
@@ -32,8 +31,8 @@ basepath='1DOscill/'
 ############################################
 # case 1
 #
-sol = mypath + basepath 
-    
+sol = mypath + basepath
+
 x, y, z = fluidfoam.readmesh(sol)
 
 datalist=['1.5' , '2','2.5','3']
@@ -51,7 +50,7 @@ datalist=['7.5' , '8','8.5','9']
 #
 npzfiles= np.load('DATA/G03_U_fig3a.npz')
 #
-# DNS model 
+# DNS model
 #
 u_DNS_phi0         = npzfiles['arr_0']
 zu_DNS_phi0        = npzfiles['arr_1']
@@ -63,7 +62,7 @@ u_DNS_phi90        = npzfiles['arr_6']
 zu_DNS_phi90       = npzfiles['arr_7']
 
 #
-# Original Wilcox k-w model 
+# Original Wilcox k-w model
 #
 u_OW_phi0      = npzfiles['arr_8']
 zu_OW_phi0     = npzfiles['arr_9']
@@ -74,7 +73,7 @@ zu_OW_phi45    = npzfiles['arr_13']
 u_OW_phi90     = npzfiles['arr_14']
 zu_OW_phi90    = npzfiles['arr_15']
 #
-# Guizien k-w model 
+# Guizien k-w model
 #
 u_phi0         = npzfiles['arr_16']
 zu_phi0        = npzfiles['arr_17']
@@ -167,7 +166,7 @@ phi=['-45','0','45','90']
 
 #
 #
-# U 
+# U
 #
 #   
 i=-1
@@ -190,7 +189,7 @@ for data in datalist:
     ax1=subplot(1,1,1)
     pO   = ax1.plot(u/U0,zu/delta,'--r',label="OpenFOAM")                   # phi="+phi[i])
 
-    if i==0: 
+    if i==0:
         p1 = ax1.plot(u_phi315,zu_phi315,'-b',label="Guizien et al (2003)") # phi=-45")
         p2 = ax1.plot(u_OW_phi315,zu_OW_phi315,'-.g',label="Wilcox")         # phi=-45")
         p3 = ax1.plot(u_DNS_phi315,zu_DNS_phi315,':k',label="DNS")            # phi=-45")
@@ -224,9 +223,9 @@ for data in datalist:
     i=i+1
     print (data)
     
-    k = fluidfoam.readscalar(sol, data+'/', 'k') 
+    k = fluidfoam.readscalar(sol, data+'/', 'k')
     zk=y-np.min(y)
-    #omega = fluidfoam.readscalar(sol, data+'/', 'omega') 
+    #omega = fluidfoam.readscalar(sol, data+'/', 'omega')
 
     #
     # 
