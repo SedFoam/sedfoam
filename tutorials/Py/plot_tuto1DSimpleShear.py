@@ -1,7 +1,8 @@
 import subprocess
+import sys
 import numpy as np
 import fluidfoam
-from pylab import *
+from pylab import matplotlib, mpl, figure, subplot, savefig, show
 import matplotlib.gridspec as gridspec
 
 def rms(x):

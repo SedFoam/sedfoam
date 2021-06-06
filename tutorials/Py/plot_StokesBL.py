@@ -2,9 +2,8 @@
 # Import section
 #
 import numpy as np
-from pylab import *
-from scipy.io.matlab import mio
-from math import *
+from pylab import figure, subplot, xlabel, ylabel, show
+from math import sqrt
 import fluidfoam
 
 #########################################
@@ -18,7 +17,7 @@ viscof=1e-6
 
 delta=sqrt(viscof*T0/pi)
 
-# 
+#
 # Loading OpenFoam results
 #
 mypath='../'
@@ -30,8 +29,8 @@ basepath='1DStokesBL/'
 ############################################
 # case 1
 #
-sol = mypath + basepath 
-    
+sol = mypath + basepath
+
 x, y, z = fluidfoam.readmesh(sol)
 
 datalist=['3.5','4','4.5','5','5.5' ]
@@ -40,7 +39,7 @@ datalist=['3.5','4','4.5','5','5.5' ]
 
 #
 #
-# U 
+# U
 #
 #   
 i=-1
