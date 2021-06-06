@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>/root/sedfoam/solver/interfacialModels/dragModels/Gibilaro/Gibilaro.H file | SedFOAM</title>
+  <title>Foam::dragModel class | SedFOAM</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600&amp;subset=latin-ext" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="sedFoam_favicon.png" type="image/png" />
@@ -61,7 +61,8 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="dir_3d09adf0dd1004472234d9d9738f22d7.html">/root/sedfoam/solver</a>/</span><span class="m-breadcrumb"><a href="dir_655a418f652ba3db86c92505f529b4ad.html">interfacialModels</a>/</span><span class="m-breadcrumb"><a href="dir_ca97dd3c074250dc97a5dff9d2877d79.html">dragModels</a>/</span><span class="m-breadcrumb"><a href="dir_9aea7daf680277326683237ae80bd948.html">Gibilaro</a>/</span>Gibilaro.H <span class="m-thin">file</span>
+          <span class="m-breadcrumb"><a href="namespaceFoam.html">Foam</a>::<wbr/></span>dragModel <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="dragModel_8H.html">&lt;/root/sedfoam/solver/interfacialModels/dragModels/dragModel/dragModel.H&gt;</a></div>
         </h1>
         <div class="m-block m-default">
           <h3>Contents</h3>
@@ -69,20 +70,82 @@
             <li>
               Reference
               <ul>
-                <li><a href="#nested-classes">Classes</a></li>
+                <li><a href="#derived-classes">Derived classes</a></li>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
               </ul>
             </li>
           </ul>
         </div>
-<p><strong>Original source file</strong> <a href="https://github.com/sedfoam/sedfoam/blob/master/solver/interfacialModels/dragModels/Gibilaro/Gibilaro.H">Gibilaro.H</a></p>
-        <section id="nested-classes">
-          <h2><a href="#nested-classes">Classes</a></h2>
+<p><a name="Description"></a></p><aside class="m-note m-default"><h4>Source files</h4><ul><li><a href="https://github.com/sedfoam/sedfoam/blob/master/solver/interfacialModels/dragModels/dragModel/dragModel.H">dragModel.H</a></li><li><a href="https://github.com/sedfoam/sedfoam/blob/master/solver/interfacialModels/dragModels/dragModel/dragModel.C">dragModel.C</a></li><li><a href="https://github.com/sedfoam/sedfoam/blob/master/solver/interfacialModels/dragModels/dragModel/newDragModel.C">newDragModel.C</a></li></ul></aside>
+        <section id="derived-classes">
+          <h2><a href="#derived-classes">Derived classes</a></h2>
           <dl class="m-doc">
             <dt>
-              class <a href="classFoam_1_1Gibilaro.html" class="m-doc">Foam::Gibilaro</a>
+              class <a href="classFoam_1_1DallaValle.html" class="m-doc">DallaValle</a>
+            </dt>
+            <dd>H, Enwald, E. Peirano, A-E Almstedt &#x27;Eulerian Two-Phase Flow Theory Applied to Fluidization&#x27; Int. J. Multiphase Flow, Vol. 22, Suppl, pp. 21-66 (1996) Eq. 86-87, p. 40.</dd>
+            <dt>
+              class <a href="classFoam_1_1Ergun.html" class="m-doc">Ergun</a>
+            </dt>
+            <dd>H, Enwald, E. Peirano, A-E Almstedt &#x27;Eulerian Two-Phase Flow Theory Applied to Fluidization&#x27; Int. J. Multiphase Flow, Vol. 22, Suppl, pp. 21-66 (1996) Eq. 104, p. 42.</dd>
+            <dt>
+              class <a href="classFoam_1_1Gibilaro.html" class="m-doc">Gibilaro</a>
             </dt>
             <dd>H, Enwald, E. Peirano, A-E Almstedt &#x27;Eulerian Two-Phase Flow Theory Applied to Fluidization&#x27; Int. J. Multiphase Flow, Vol. 22, Suppl, pp. 21-66 (1996) Eq. 106, p. 43.</dd>
+            <dt>
+              class <a href="classFoam_1_1GidaspowErgunWenYu.html" class="m-doc">GidaspowErgunWenYu</a>
+            </dt>
+            <dd>D. Gidaspow, Multiphase flow and fluidization, Academic Press, New York, 1994.</dd>
+            <dt>
+              class <a href="classFoam_1_1GidaspowSchillerNaumann.html" class="m-doc">GidaspowSchillerNaumann</a>
+            </dt>
+            <dd>H, Enwald, E. Peirano, A-E Almstedt &#x27;Eulerian Two-Phase Flow Theory Applied to Fluidization&#x27; Int. J. Multiphase Flow, Vol. 22, Suppl, pp. 21-66 (1996) Eq. 86-87, p. 40.</dd>
+            <dt>
+              class <a href="classFoam_1_1SchillerNaumann.html" class="m-doc">SchillerNaumann</a>
+            </dt>
+            <dd></dd>
+            <dt>
+              class <a href="classFoam_1_1SyamlalOBrien.html" class="m-doc">SyamlalOBrien</a>
+            </dt>
+            <dd>Syamlal, M., Rogers, W. and O&#x27;Brien, T. J. (1993) MFIX documentation, Theory Guide. Technical Note DOE/METC-94/1004. Morgantown, West Virginia, USA.</dd>
+            <dt>
+              class <a href="classFoam_1_1WenYu.html" class="m-doc">WenYu</a>
+            </dt>
+            <dd>H, Enwald, E. Peirano, A-E Almstedt &#x27;Eulerian Two-Phase Flow Theory Applied to Fluidization&#x27; Int. J. Multiphase Flow, Vol. 22, Suppl, pp. 21-66 (1996) Eq. 86-87, p. 40.</dd>
           </dl>
+        </section>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-doc">
+            <dt id="a676cab8ef1a30a2de2568bd0e1676e01">
+              <span class="m-doc-wrap-bumper"><a href="#a676cab8ef1a30a2de2568bd0e1676e01" class="m-doc-self">TypeName</a>(</span><span class="m-doc-wrap">&quot;dragModel&quot;)</span>
+            </dt>
+            <dd>Runtime type information.</dd>
+            <dt id="a0d19cff2d3425692eed1711f9ae54154">
+              <span class="m-doc-wrap-bumper"><a href="#a0d19cff2d3425692eed1711f9ae54154" class="m-doc-self">~dragModel</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">virtual</span></span>
+            </dt>
+            <dd>Destructor.</dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a7dd95bf8813a9cae5ae8692d2a640fca" class="m-doc">K</a>(</span><span class="m-doc-wrap">const volScalarField&amp; Ur) const -&gt; tmp&lt;volScalarField&gt; <span class="m-label m-flat m-warning">pure virtual</span></span>
+            </dt>
+            <dd>the dragfunction K used in the momentum eq.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a7dd95bf8813a9cae5ae8692d2a640fca"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">tmp&lt;volScalarField&gt; Foam::<wbr />dragModel::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a7dd95bf8813a9cae5ae8692d2a640fca" class="m-doc-self">K</a>(</span><span class="m-doc-wrap">const volScalarField&amp; Ur) const <span class="m-label m-warning">pure virtual</span></span></span>
+            </h3>
+            <p>the dragfunction K used in the momentum eq.</p>
+<p>ddt(alpha.rhoa.Ua) + ... = ... alpha.beta.K.(Ua-Ub) ddt(beta.rhob.Ub) + ... = ... alpha.beta.K.(Ub-Ua)</p><ul><li>* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * // for numerical reasons alpha and beta has been extracted from the dragFunction K, so you MUST divide K by alpha.beta when implemnting the drag function</li><li>* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //</li></ul>
+          </div></section>
         </section>
       </div>
     </div>
