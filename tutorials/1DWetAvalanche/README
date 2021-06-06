@@ -1,5 +1,4 @@
-This directory contains the essential information to reproduce a dense granular avalanche (phi_0=0.592) in 1D. In order to reach an initial equilibrium state, 200 seconds are required to let the granular layer deposit by gravity.  After 200 seconds of sedimentation, 
-the file constant/g should be adjusted to reproduce the inclined plane (25 degrees slope). Then, the 1D granular avalanche is launched running sedFoam_rbgh > log&
+This directory contains the essential information to reproduce a dense granular avalanche (phi_0=0.592) in 1D. In order to reach an initial equilibrium state, 200 seconds are required to let the granular layer deposit by gravity.  After 200 seconds of sedimentation, the file constant/g should be adjusted to reproduce the inclined plane (25 degrees slope) and the endTime should be changed to 800s . Then, the 1D granular avalanche is launched running sedFoam_rbgh > log&
 
 If you wish a different initial volume fraction you need to adjust the 0_org/alphaPlastic file accordingly. Reference values: alphaPlastic=0.575 leads to phi_0=0.592, alphaPlastic=0.545 leads to phi_0=0.571 and alphaPlastic=0.520 leads to phi_0=0.566.
 
