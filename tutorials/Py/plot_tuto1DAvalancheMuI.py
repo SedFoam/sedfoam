@@ -1,9 +1,9 @@
 import analyticBagnold
 import subprocess
-import os
+import os, sys
 import numpy as np
 import fluidfoam
-from pylab import *
+from pylab import matplotlib, mpl, figure, subplot, savefig, show
 import matplotlib.gridspec as gridspec
 
 #
@@ -109,7 +109,7 @@ dudy = gradUa[3,:]
 nu = np.zeros(Ny)
 for i in range(Ny - 1):
     nu[i] = taua[0]/(dudy[i]*rho_p)
-    
+
 granularBed = np.where(pa+pff<(rho_p-rho_f)*g*d/10)
 nx = np.size(granularBed)
 H=Y[np.min(granularBed)]/d

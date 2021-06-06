@@ -1,5 +1,5 @@
-#!/bin/sh
-module load python/3.8.1
+#!/bin/bash
+module load python/3.8.2
 cd ${0%/*} || exit 1 # run from this directory
 set -x
 

@@ -1,10 +1,8 @@
-
 import subprocess
+import sys
 import numpy as np
 import fluidfoam
-from pylab import *
-import matplotlib.gridspec as gridspec
-import matplotlib.colors as mcolors
+from pylab import plt, matplotlib, show
 
 
 plt.rc('text',usetex=True)
@@ -22,7 +20,7 @@ gravity = 9.81 # gravity in m/s2
 rhoFluid=1041  # fluid density in kg/m3
 h =  0.0049 # initial granular height in m
 
-timeAdim=(d/gravity)**0.5	
+timeAdim=(d/gravity)**0.5
 velAdim=1000.*(gravity*d)**0.5
 pressureAdim=rhoFluid*h*gravity
 
@@ -30,7 +28,7 @@ pressureAdim=rhoFluid*h*gravity
 ##################################################################
 # Experimental data extracted from Pailha et al. (2008)
 ##################################################################
-	
+
 data1 = np.genfromtxt('DATA/ExperimentalDataPailha2008/v_t_exp_562.txt',delimiter='\t', names=True)
 time_v_562 = data1['time']/timeAdim
 velocity_562 = data1['velocity']/velAdim
@@ -107,10 +105,10 @@ for i in range(200,int(final_tread)):
 				if (alpha_0[k]<tolAlpha):
 						vel_sim_dila_0.append(Ua_0[0, k]*1000/velAdim)
 						p_sim_dila_0.append(p_rbgh_0[4]/pressureAdim)
-						break  	
-			
-		
-			
+						break
+
+
+
 #########################################
 # 				Plots
 #########################################
