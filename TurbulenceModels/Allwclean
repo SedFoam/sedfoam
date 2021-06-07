@@ -2,7 +2,6 @@
 cd ${0%/*} || exit 1    # run from this directory
 set -x
 
-wclean libso turbulenceModels
-wclean libso wilcoxomegawallfunction 
+wclean libso turbulenceModels 
 
 # ----------------------------------------------------------------- end-of-file

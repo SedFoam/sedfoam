@@ -30,6 +30,8 @@ Description
     with application to plane shearing.
     Journal of Fluid Mechanics, 176, 67-93. doi:10.1017/S0022112087000570
 
+This file is in the \dir ppModel/JohnsonJackson directory.
+
 SourceFiles
     JohnsonJackson.C
 

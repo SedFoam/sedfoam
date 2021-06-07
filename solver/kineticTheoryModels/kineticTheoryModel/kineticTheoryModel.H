@@ -32,8 +32,8 @@ Description
     2000,
     \endverbatim
 
-    This file is in the \dir kineticTheoryModels/kineticTheoryModel directory
-
+    This file is in the \dir kineticTheoryModels/kineticTheoryModel subdirectory
+    inside the \dir kineticTheoryModels directory
 
 SourceFiles
     kineticTheoryModel.C
@@ -50,7 +50,6 @@ SourceFiles
 #include "conductivityModel.H"
 #include "radialModel.H"
 #include "granularPressureModel.H"
-#include "frictionalStressModel.H"
 #include "fvCFD.H"
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -100,9 +99,6 @@ class kineticTheoryModel
 
         //- Pressure model for the kinetic theory
         autoPtr<granularPressureModel> granularPressureModel_;
-
-        //- Stress model for the frictional part of stresses
-        autoPtr<frictionalStressModel> frictionalStressModel_;
 
         //- coefficient of restitution
         const dimensionedScalar e_;

@@ -33,22 +33,54 @@ Description
 
     References:
     \verbatim
-        Wilcox, D. C. (1998).
-        Turbulence modeling for CFD
-        (Vol. 2, pp. 103-217). La Canada, CA: DCW industries.
+        Original model:
+            Wilcox, D. C. (1998).
+            Turbulence modeling for CFD
+            (Vol. 2, pp. 103-217). La Canada, CA: DCW industries.
+
+        Two-phase adaptation:
+            Amoudry, L. O. (2014).
+            Extension of k-omega turbulence closure to two-phase sediment
+            transport modelling: Application to oscillatory sheet flows.
+            Advances in Water Ressources, 72, 110-121
     \endverbatim
 
     The default model coefficients are
     \verbatim
         twophasekOmegaCoeffs
         {
-            Cmu         0.09;  // Equivalent to betaStar
-            alpha       0.52;
-            betaOmega   0.072;
-            alphak      0.5;
-            alphaOmega  0.5;
+            Cmu              0.09;
+            alphaOmega       0.52;
+            betaOmega        0.072;
+            C3om             0.35;
+            C4om             1.0;
+            B                0.25;
+            KE2              1.0;
+            KE4              1.0;
+            alphaKomega      0.5;
+            alphaOmegaOmega  0.5;
+            Clim             0.0;
+            sigmad           0.0
+            popeCorrection   False;
         }
     \endverbatim
+
+    For the revisited version of the model from Wilcox (2006),
+    model coefficients should be modified following:
+    \verbatim
+        twophasekOmegaCoeffs
+        {
+            betaOmega        0.0708;
+            alphaKomega      0.6;
+            Clim             0.875;
+            sigmad           0.125
+            popeCorrection   True (only for 3D cases);
+        }
+    \endverbatim
+
+    This file is in the \dir turbulenceModels/RAS/twophasekOmega subdirectory
+    inside the \dir turbulenceModels/RAS subdirectory
+    inside the \dir turbulenceModels subdirectory
 
 SourceFiles
     twophasekOmega.C
@@ -88,7 +120,8 @@ protected:
             IOdictionary ppProperties_;
 
         // Model coefficients
-
+            Switch popeCorrection_;
+            Switch writeTke_;
             dimensionedScalar C3om_;
             dimensionedScalar C4om_;
             dimensionedScalar KE2_;
@@ -98,8 +131,9 @@ protected:
 
             dimensionedScalar Cmu_;
             dimensionedScalar betaOmega_;
-            dimensionedScalar kSmall_;
             dimensionedScalar nutMax_;
+            dimensionedScalar Clim_;
+            dimensionedScalar sigmad_;
             dimensionedScalar alphaKOmega_;
             dimensionedScalar alphaOmega_;
             dimensionedScalar alphaOmegaOmega_;
