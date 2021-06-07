@@ -54,10 +54,10 @@ protected:
 
     // Protected data
 
-        const dictionary& interfaceDict_;
-        const volScalarField& alpha_;
-        const phaseModel& phasea_;
-        const phaseModel& phaseb_;
+    const dictionary& interfaceDict_;
+    const volScalarField& alpha_;
+    const phaseModel& phasea_;
+    const phaseModel& phaseb_;
 
 
 public:
@@ -68,28 +68,28 @@ public:
 
     // Declare runtime construction
 
-        declareRunTimeSelectionTable
-        (
-            autoPtr,
-            dragModel,
-            dictionary,
-            (
-                const dictionary& interfaceDict,
-                const phaseModel& phasea,
-                const phaseModel& phaseb
-            ),
-            (interfaceDict, phasea, phaseb)
-        );
-
-
-    // Constructors
-
-        dragModel
+    declareRunTimeSelectionTable
+    (
+        autoPtr,
+        dragModel,
+        dictionary,
         (
             const dictionary& interfaceDict,
             const phaseModel& phasea,
             const phaseModel& phaseb
-        );
+        ),
+        (interfaceDict, phasea, phaseb)
+    );
+
+
+    // Constructors
+
+    dragModel
+    (
+        const dictionary& interfaceDict,
+        const phaseModel& phasea,
+        const phaseModel& phaseb
+    );
 
 
     //- Destructor
@@ -98,25 +98,25 @@ public:
 
     // Selectors
 
-        static autoPtr<dragModel> New
-        (
-            const dictionary& interfaceDict,
-            const phaseModel& phasea,
-            const phaseModel& phaseb
-        );
+    static autoPtr<dragModel> New
+    (
+        const dictionary& interfaceDict,
+        const phaseModel& phasea,
+        const phaseModel& phaseb
+    );
 
 
     // Member Functions
 
-        //- the dragfunction K used in the momentum eq.
-        //    ddt(alpha*rhoa*Ua) + ... = ... alpha*beta*K*(Ua-Ub)
-        //    ddt(beta*rhob*Ub) + ...  = ... alpha*beta*K*(Ub-Ua)
-        // ********************************** NB ! *****************************
-        // for numerical reasons alpha and beta has been
-        // extracted from the dragFunction K,
-        // so you MUST divide K by alpha*beta when implemnting the drag function
-        // ********************************** NB ! *****************************
-        virtual tmp<volScalarField> K(const volScalarField& Ur) const = 0;
+    //- the dragfunction K used in the momentum eq.
+    //    ddt(alpha.rhoa.Ua) + ... = ... alpha.beta.K.(Ua-Ub)
+    //    ddt(beta.rhob.Ub) + ...  = ... alpha.beta.K.(Ub-Ua)
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  //
+    // for numerical reasons alpha and beta has been
+    // extracted from the dragFunction K,
+    // so you MUST divide K by alpha.beta when implemnting the drag function
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  //
+    virtual tmp<volScalarField> K(const volScalarField& Ur) const = 0;
 };
 
 

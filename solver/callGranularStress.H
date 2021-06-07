@@ -23,7 +23,8 @@ License
 
 \*---------------------------------------------------------------------------*/
 //
-
+volTensorField gradUaT = fvc::grad(Ua)().T();
+volTensorField gradUbT = fvc::grad(Ub)().T();
 volSymmTensorField D_tensor = symm(gradUaT);
 volScalarField magDtensor = ::sqrt(2.0)*mag(D_tensor);
 
@@ -70,19 +71,39 @@ if (kineticTheory.on())
     );
     Dsmall2 = sqr(Dsmall);
 
+    // Compute Kinetic Theory including granular temperature solution
+    kineticTheory.solve
+    (
+        gradUaT, turbulenceb->k(), turbulenceb->epsilon(),
+        turbulenceb->nut(), B, runTime
+    );
+
     // Compute Frictional viscosity
     volScalarField muEff_f =
     (
         pff*Foam::sin(kineticTheory.phi())
        /sqrt(pow(magDtensor, 2) + Dsmall2)
     );
-// the actual expression for nuFra depends on the way this term is discretized
-// in UaEqn
-    nuFra = muEff_f/rhoa;
-//   nuFra = muEff_f/((alpha+alphaSmall)*rhoa);
 
-// Compute nuEffb the total fluid phase viscosity
+    // the actual expression for nuFra depends on the way this term is
+    // discretized in UaEqn
+    nuFra = muEff_f/rhoa;
+
+    // Compute nuEffb the total fluid phase viscosity
     nuEffb = nub + turbulenceb->nut();
+
+    // Update solid phase viscosities and collisional pressure
+    nuEffa = kineticTheory.mua()/((alpha + alphaSmall)*rhoa);
+    lambdaUa = kineticTheory.lambda();
+    pa = kineticTheory.pa();
+
+    if (debugInfo)
+    {
+        Info<< "Contact pressure  pff: Min =" << gMin(pff)
+            <<", Max =" << gMax(pff)<<endl;
+        Info<< "Collisional press. pa: Min =" << gMin(pa)
+            <<", Max =" << gMax(pa)<<endl;
+    }
 }
 
 //
@@ -92,13 +113,14 @@ if (kineticTheory.on())
 //
 else if (granularRheology.on())
 {
-// solving granular rheology
+// Solve granular rheology
     granularRheology.solve(magDtensor, pff, alphaSmall, Dsmall);
 
 // Particulate pressure and viscosity
     pa = granularRheology.pa();
 
     delta=granularRheology.delta();
+
     if (debugInfo)
     {
         Info<< "Contact pressure  pff: Min =" << gMin(pff)
@@ -109,9 +131,9 @@ else if (granularRheology.on())
 // the actual expression for nuFra depends on the way this term is discretized
 // in UaEqn
     nuFra = granularRheology.mua()/ rhoa;
-//     nuFra = granularRheology.mua()/((alpha+alphaSmall)*rhoa);
 
     nuEffa = sqr(Ct)*turbulenceb->nut() + nua;
+    lambdaUa = nua*rhoa*scalar(0.0);
 
 // Compute nuEffb the total fluid phase viscosity
     nuEffb = turbulenceb->nut() + granularRheology.nuvb();
@@ -130,6 +152,7 @@ else
     pa = pa*scalar(0.0);
     nuFra = nua*scalar(0.0);
     nuEffa = nua;
+    lambdaUa = nua*rhoa*scalar(0.0);
 }
 // Add a numerical viscosity to damp the instabilities close to the outlet
 if (spongeLayer)
