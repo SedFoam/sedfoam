@@ -764,6 +764,7 @@ WARN_LOGFILE           =
 INPUT                  = index.doc \
                          install.doc \
                          starting.doc \
+                         governingEq.doc \
                          algorithm.doc \
                          tutorials_1d.doc \
                          tutorials_2d3d.doc \
