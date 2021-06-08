@@ -78,28 +78,6 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
         transport,
         propertiesName
     ),
-    twophaseRASProperties_
-    (
-        IOobject
-        (
-            "twophaseRASProperties",
-            this->runTime_.constant(),
-            this->mesh_,
-            IOobject::MUST_READ,
-            IOobject::NO_WRITE
-        )
-    ),
-    ppProperties_
-    (
-        IOobject
-        (
-            "ppProperties",
-            this->runTime_.constant(),
-            this->mesh_,
-            IOobject::MUST_READ,
-            IOobject::NO_WRITE
-        )
-    ),
     popeCorrection_
     (
         Switch::lookupOrAddToDict
@@ -154,23 +132,6 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
             1.0
         )
     ),
-    omegaBC_
-    (
-        twophaseRASProperties_.lookupOrDefault
-        (
-            "omegaBC",
-            dimensionedScalar("omegaBC", dimensionSet(0, 0, -1, 0, 0, 0, 0), 0)
-        )
-    ),
-    B_
-    (
-        dimensioned<scalar>::lookupOrAddToDict
-        (
-            "B",
-            this->coeffDict_,
-            0.25
-        )
-    ),
     Cmu_
     (
         dimensioned<scalar>::lookupOrAddToDict
@@ -191,10 +152,11 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     nutMax_
     (
-        twophaseRASProperties_.lookupOrDefault
+        dimensioned<scalar>::lookupOrAddToDict
         (
             "nutMax",
-            dimensionedScalar("nutMax", dimensionSet(0, 1, -2, 0, 0, 0, 0), 0)
+            this->coeffDict_,
+            0
         )
     ),
     Clim_
@@ -247,16 +209,6 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ESD4_(U.db().lookupObject<volScalarField> ("ESD4")),
     ESD5_(U.db().lookupObject<volScalarField> ("ESD5")),
     ESD_(U.db().lookupObject<volScalarField> ("ESD")),
-    alphaMax_
-    (
-        ppProperties_.lookupOrDefault
-        (
-            "alphaMax",
-            dimensionedScalar("alphaMax",
-                              dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                              0.635)
-        )
-    ),
     k_
     (
         IOobject
@@ -399,9 +351,6 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
       + CDkOmega
       + ESD2()*fvm::Sp(C3om_*KE2_, omega_)
       + fvm::Sp((C4om_*KE4_*ESD5_*nut/k_), omega_)
-      // BC in porous bed
-      + (-C3om_*KE2_*ESD2() + betaOmega_*omega_ - C4om_*KE4_*ESD5_*nut/k_)
-       *pos(alpha-0.9*alphaMax_)*omegaBC_
     );
     if (writeTke_)
     {

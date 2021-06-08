@@ -73,17 +73,6 @@ twophaseMixingLength<BasicTurbulenceModel>::twophaseMixingLength
         transport,
         propertiesName
     ),
-    twophaseRASProperties_
-    (
-        IOobject
-        (
-            "twophaseRASProperties",
-            this->runTime_.constant(),
-            this->mesh_,
-            IOobject::MUST_READ,
-            IOobject::NO_WRITE
-        )
-    ),
     Cmu_
     (
         dimensioned<scalar>::lookupOrAddToDict
