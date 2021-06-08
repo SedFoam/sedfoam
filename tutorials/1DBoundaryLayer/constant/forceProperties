@@ -16,7 +16,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 // * * * * * * * * * * * * * following are for presure * * * * * * * * * * * * * * * //
-gradPMEAN        gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (0.001841 0 0 ); // mean pressure
+gradPMEAN       gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (0.001841 0 0 ); // mean pressure
 
 Cvm             Cvm [ 0 0 0 0 0 0 0 ] 0;                // Virtual/Added Mass coefficient
 
@@ -24,9 +24,9 @@ Cl              Cl [ 0 0 0 0 0 0 0 ] 0;                 // Lift force coefficien
 
 Ct              Ct [ 0 0 0 0 0 0 0 ] 0;                 // Eddy diffusivity coefficient for phase a
 
-debugInfo	 true; 
+writeTau        true;
 
-writeTau         true;
+debugInfo	true; 
 
-ClipUa           ClipUa [ 0 0 0 0 0 0 0 ] 1;
+ClipUa          ClipUa [ 0 0 0 0 0 0 0 ] 1;
 // * * * * * * * * * * * * end of definition of pressure * * * * * * * * * * * * * //

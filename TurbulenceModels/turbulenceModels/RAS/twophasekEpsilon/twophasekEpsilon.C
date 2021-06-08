@@ -74,17 +74,6 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
         transport,
         propertiesName
     ),
-    twophaseRASProperties_
-    (
-        IOobject
-        (
-            "twophaseRASProperties",
-            this->runTime_.constant(),
-            this->mesh_,
-            IOobject::MUST_READ,
-            IOobject::NO_WRITE
-        )
-    ),
     C3ep_
     (
         dimensioned<scalar>::lookupOrAddToDict
@@ -119,15 +108,6 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
             "KE4",
             this->coeffDict_,
             1.0
-        )
-    ),
-    B_
-    (
-        dimensioned<scalar>::lookupOrAddToDict
-        (
-            "B",
-            this->coeffDict_,
-            0.25
         )
     ),
     Cmu_
