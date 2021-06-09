@@ -24,6 +24,12 @@ RASModel        twophaseMixingLength;
 
 turbulence      on;
 printCoeffs     on;
+twophaseMixingLengthCoeffs
+{
+expoLM 1.0;
+alphaMaxLM 0.61;
+kappaLM 0.41;
+}
 }
 
 // ************************************************************************* //

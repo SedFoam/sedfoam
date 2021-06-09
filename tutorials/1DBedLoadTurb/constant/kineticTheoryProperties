@@ -17,6 +17,8 @@ FoamFile
 
 kineticTheory   on;
 
+equilibrium     off;
+
 limitProduction off;
 
 extended        off;
@@ -27,21 +29,37 @@ muPart          muPart [ 0 0 0 0 0 0 0 ] 0.4;
 
 alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
 
+DiluteCut       DiluteCut [ 0 0 0 0 0 0 0 ] 0.000001;
+
+ttzero          ttzero [ 0 0 1 0 0 0 0 ] 0;
+
+ttone          ttone [ 0 0 1 0 0 0 0 ] 0;
+
 MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 0.5;
 
 phi             phi [ 0 0 0 0 0 0 0 ] 20.487; //mus = 0.35 = sin(phi*pi/180)
 
 psi             psi [ 0 0 0 0 0 0 0 ] 0.0;
 
+KineticJ1      KineticJ1 [ 0 0 0 0 0 0 0 ] 1; //turn off the viscous dissipation
+
+KineticJ2       KineticJ2 [ 0 0 0 0 0 0 0] 0;
+
+KineticJ3       KineticJ3 [ 0 0 0 0 0 0 0] 0;
+
 killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 1;
 
-quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
+quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1; 
 
 viscosityModel  GarzoDuftyMod;
 
 conductivityModel GarzoDuftyMod;
 
+conductivityModelAlpha none;
+
 granularPressureModel Lun;
+
+frictionalStressModel SrivastavaSundaresan;
 
 radialModel     ChialvoSundaresanFric;
 

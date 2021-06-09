@@ -74,26 +74,8 @@ License
         HabyA = rUaA*UaEqn.H();
         volVectorField HbbyA = Ub;
         HbbyA = rUbA*UbEqn.H();
-<<<<<<< HEAD
-        volScalarField T = kineticTheory.Theta();
 
-
-        // Momentum fluxes computed on the faces for the particle phase phiDraga
-        // and the fluid phase phiDragb
-
-        surfaceScalarField phiTempa =
-         (fvc::interpolate(beta*(K/rhoa)*2*T/(magUr+Usmall)))*rUaAf*
-         mesh.magSf();
-        surfaceScalarField phiTempb =
-         (fvc::interpolate(alpha*(K/rhob)*2*T/(magUr+Usmall)))*rUbAf*
-         mesh.magSf();
-        phiTempa.setOriented(true);
-        phiTempb.setOriented(true);
-
-=======
-        
         // Momentum flux at the cell faces for phase a
->>>>>>> upstream/master
         surfaceScalarField phiDraga =
         (
           // turbulent suspension term
@@ -102,13 +84,7 @@ License
                 SUS*(K/rhoa)*turbulenceb->nut()*(beta/(alpha + alphaSmall))
             )
            *fvc::snGrad(alpha))*rUaAf*mesh.magSf()
-<<<<<<< HEAD
-          // drag modification to account for particle fluctuations
-          // + phiTempa
-            // grad(pa)
-=======
           // grad(pa)
->>>>>>> upstream/master
           - (oneOverAlpha/rhoa*fvc::snGrad(pa))*rUaAf*mesh.magSf()
           // grad(Pf)
           - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
@@ -142,11 +118,7 @@ License
           + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
         );
 
-<<<<<<< HEAD
-
-=======
         // Momentum flux at the cell faces for phase b
->>>>>>> upstream/master
         surfaceScalarField phiDragb =
         (
           // turbulent suspension term
@@ -165,14 +137,9 @@ License
             )
           // driving force
           + rUbAf*((gradPOSC/rhob) & mesh.Sf())
-<<<<<<< HEAD
-          - rUbAf*fvc::interpolate(neg(alpha-0.3))*((gradConvAcc/rhob)
-            &mesh.Sf())
-=======
           // Convective acceleration for 1D non-uniform simulation
           - rUbAf*fvc::interpolate(neg(alpha-0.3))*((gradConvAcc/rhob)
             & mesh.Sf())
->>>>>>> upstream/master
         );
 
         //    fvOptions.makeRelative(phiHabyA);

@@ -100,12 +100,6 @@ class kineticTheoryModel
         //- Pressure model for the kinetic theory
         autoPtr<granularPressureModel> granularPressureModel_;
 
-<<<<<<< HEAD
-=======
-        //- Stress model for the frictional part of stresses
-        autoPtr<frictionalStressModel> frictionalStressModel_;
-
->>>>>>> upstream/master
         //- coefficient of restitution
         const dimensionedScalar e_;
 

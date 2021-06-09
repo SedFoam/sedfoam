@@ -2,14 +2,8 @@
 # Import section
 #
 import numpy as np
-<<<<<<< HEAD
-from pylab import *
-from scipy.io.matlab import mio
-from math import *
-=======
 from pylab import figure, subplot, xlabel, ylabel, show
 from math import sqrt
->>>>>>> upstream/master
 import fluidfoam
 
 #########################################
@@ -23,11 +17,6 @@ viscof=1e-6
 
 delta=sqrt(viscof*T0/pi)
 
-<<<<<<< HEAD
-# 
-=======
-#
->>>>>>> upstream/master
 # Loading OpenFoam results
 #
 mypath='../'
@@ -39,13 +28,8 @@ basepath='1DStokesBL/'
 ############################################
 # case 1
 #
-<<<<<<< HEAD
-sol = mypath + basepath 
-    
-=======
 sol = mypath + basepath
 
->>>>>>> upstream/master
 x, y, z = fluidfoam.readmesh(sol)
 
 datalist=['3.5','4','4.5','5','5.5' ]
@@ -54,13 +38,9 @@ datalist=['3.5','4','4.5','5','5.5' ]
 
 #
 #
-<<<<<<< HEAD
-# U 
-=======
 # U
->>>>>>> upstream/master
 #
-#   
+#
 i=-1
 
 zex=np.linspace(0,h,200)
@@ -69,7 +49,7 @@ zex=np.linspace(0,h,200)
 for data in datalist:
     i=i+1
     print (data)
-    
+
     #ufile=basepath+data+'Uf.xy'
     #zu,u=np.loadtxt(ufile,unpack=True)
     Ub = fluidfoam.readvector(sol, data+'/', 'Ub')
@@ -77,7 +57,7 @@ for data in datalist:
     Taub = fluidfoam.readtensor(sol, data+'/', 'Taub')
     Rfw=Taub[3, :]/1e3
     z=y-np.min(y)
-    
+
     tex=float(data)
     uex = U0*(np.sin(2*np.pi*tex/T0)-np.exp(-zex/delta)*np.sin(2*np.pi*tex/T0-zex/delta))
     tauex = viscof*U0/delta*np.exp(-zex/delta)* \
