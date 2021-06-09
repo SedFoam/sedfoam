@@ -26,7 +26,7 @@ License
 // drag dissipation and stratification terms.
 
 // Exponent of the turbulence damping term for k,epsilon and omega equations
-tmfexp = -B*rhoa*6.0*Cmu/(max(beta*K, Tpsmall));
+tmfexp = -B*rhoa*6.0/(max(beta*K, Tpsmall));
 
 // just need the horizontal ones;
 rtemp = (Ub-Ua) & gravity;
