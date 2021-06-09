@@ -28,31 +28,32 @@ Group
     grpRASTurbulence
 
 Description
-    Standard high Reynolds-number k-omega turbulence model for
-    incompressible flows.
+    Mixing length model for two-phase flow
+    (only valid for 1D case with Y the wall-normal direction)
 
     References:
     \verbatim
-        "Turbulence Modeling for CFD"
-        D. C. Wilcox,
-        DCW Industries, Inc., La Canada,
-        California, 1988.
-
-        See also:
-        http://www.cfd-online.com/Wiki/Wilcox's_k-omega_model
+        Revil-Baudard, T. and Chauchat, J. (2013)
+        A two-phase model for sheet flow regime based on dense granular flow
+        rheology.
+        Journal of Geophysical Research - Oceans, 118, 619-634
     \endverbatim
 
     The default model coefficients correspond to the following:
     \verbatim
         twophaseMixingLengthCoeffs
         {
-            Cmu         0.09;  // Equivalent to betaStar
-            alpha       0.52;
-            betaOmega   0.072;
-            alphak      0.5;
-            alphaOmega  0.5;
+            Cmu         0.09;
+            expoLM      1.0;
+            alphaMaxLM  0.55;
+            kappaLM     0.225;
         }
     \endverbatim
+
+    This file is in the \dir turbulenceModels/RAS/twophaseMixingLength
+    subdirectory
+    inside the \dir turbulenceModels/RAS subdirectory
+    inside the \dir turbulenceModels subdirectory
 
 SourceFiles
     twophaseMixingLength.C
@@ -83,31 +84,29 @@ class twophaseMixingLength
 {
     // Private Member Functions
 
-        // Disallow default bitwise copy construct and assignment
-        twophaseMixingLength(const twophaseMixingLength&);
-        void operator=(const twophaseMixingLength&);
+    // Disallow default bitwise copy construct and assignment
+    twophaseMixingLength(const twophaseMixingLength&);
+    void operator=(const twophaseMixingLength&);
 
 
 protected:
 
     // Protected data
 
-        // Dictionary
 
-            IOdictionary twophaseRASProperties_;
-
-        // Model coefficients
-            dimensionedScalar expoLM_;
-            dimensionedScalar alphaMaxLM_;
-            dimensionedScalar kappaLM_;
+    // Model coefficients
+    dimensionedScalar Cmu_;
+    dimensionedScalar expoLM_;
+    dimensionedScalar alphaMaxLM_;
+    dimensionedScalar kappaLM_;
 
 
-        // Fields
-            volScalarField k_;
-            volScalarField epsilon_;
+    // Fields
+    volScalarField k_;
+    volScalarField epsilon_;
 
     // Protected Member Functions
-        virtual void correctNut();
+    virtual void correctNut();
 
 
 public:
@@ -122,18 +121,18 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        twophaseMixingLength
-        (
-            const alphaField& alpha,
-            const rhoField& rho,
-            const volVectorField& U,
-            const surfaceScalarField& alphaRhoPhi,
-            const surfaceScalarField& phi,
-            const transportModel& transport,
-            const word& propertiesName = turbulenceModel::propertiesName,
-            const word& type = typeName
-        );
+    //- Construct from components
+    twophaseMixingLength
+    (
+        const alphaField& alpha,
+        const rhoField& rho,
+        const volVectorField& U,
+        const surfaceScalarField& alphaRhoPhi,
+        const surfaceScalarField& phi,
+        const transportModel& transport,
+        const word& propertiesName = turbulenceModel::propertiesName,
+        const word& type = typeName
+    );
 
 
     //- Destructor
@@ -147,41 +146,40 @@ public:
 
     // Member Functions
 
-        //- Read RASProperties dictionary
-        virtual bool read();
+    //- Read RASProperties dictionary
+    virtual bool read();
 
+    //- Return the turbulence kinetic energy
+    virtual tmp<volScalarField> k() const
+    {
+        return k_;
+    }
 
-        //- Return the turbulence kinetic energy
-        virtual tmp<volScalarField> k() const
-        {
-            return k_;
-        }
-
-        //- Return the turbulence specific dissipation rate
-        virtual tmp<volScalarField> epsilon() const
-        {
-            return epsilon_;
-        }
-        virtual tmp<volScalarField> omega() const
-        {
-            return tmp<volScalarField>
+    //- Return the turbulence specific dissipation rate
+    virtual tmp<volScalarField> epsilon() const
+    {
+        return epsilon_;
+    }
+    virtual tmp<volScalarField> omega() const
+    {
+        return tmp<volScalarField>
+        (
+            new volScalarField
             (
-                new volScalarField
+                IOobject
                 (
-                    IOobject
-                    (
-                        "omega",
-                        this->mesh_.time().timeName(),
-                        this->mesh_
-                    ),
-                    epsilon_/(k_),
-                    epsilon_.boundaryField().types()
-                )
-            );
-        }
+                    "omega",
+                    this->mesh_.time().timeName(),
+                    this->mesh_
+                ),
+                epsilon_/(k_),
+                epsilon_.boundaryField().types()
+            )
+        );
+    }
 
-        //- Solve the turbulence equations and correct the turbulence viscosity
-        virtual void correct();
+    //- Solve the turbulence equations and correct the turbulence viscosity
+    virtual void correct();
 };
 
 

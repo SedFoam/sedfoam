@@ -1,9 +1,10 @@
 import subprocess
+import sys
 import numpy as np
 import fluidfoam
-from pylab import *
+from pylab import matplotlib, mpl, figure, subplot, savefig, show
 import matplotlib.gridspec as gridspec
-from analytic_coulomb2D import *
+from analytic_coulomb2D import analytic_coulomb2D
 
 #
 # Change fontsize
@@ -112,6 +113,7 @@ alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
 Ua = fluidfoam.readvector(sol, tread, 'Ua')
 Ub = fluidfoam.readvector(sol, tread, 'Ub')
 pff = fluidfoam.readscalar(sol, tread, 'pff')
+tau = fluidfoam.readtensor(sol, tread, 'Taua')[3]
 #p = fluidfoam.readscalar(sol, tread, 'p')
 
 Ny = np.size(Y)

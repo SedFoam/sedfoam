@@ -15,7 +15,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-
 ppModel          JohnsonJackson;
 
 alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.635;

@@ -1,32 +1,11 @@
 import subprocess
+import sys
 import numpy as np
 import fluidfoam
-from pylab import *
-import matplotlib.gridspec as gridspec
 
 def rms(x):
     return np.sqrt(x.dot(x)/x.size)
 
-#
-# Change fontsize
-#
-matplotlib.rcParams.update({'font.size': 20})
-mpl.rcParams['lines.linewidth'] = 3
-mpl.rcParams['lines.markersize'] = 5
-mpl.rcParams['lines.markeredgewidth'] = 1
-#
-# Change subplot sizes
-#
-gs = gridspec.GridSpec(1, 3)
-gs.update(left=0.1, right=0.95, top=0.95,
-          bottom=0.2, wspace=0.125, hspace=0.25)
-#
-# Figure size
-#
-figwidth = 15
-figheight = 6
-#
-#
 #
 zmin = 0
 zmax = 1
@@ -82,44 +61,6 @@ U = 1
 
 iprof=0
 
-#########################################
-# figure 1
-#########################################
-
-# =============================================================================
-# figure(num=1, figsize=(figwidth, figheight),
-#        dpi=60, facecolor='w', edgecolor='w')
-#
-# ax1 = subplot(gs[0, 0])
-# l11, = ax1.plot(alpha[0,:,iprof], Y[0,:,iprof]/H, '-r')
-# l12, = ax1.plot(phiexp, yexpphi, 'ob',label='simple shear')
-# l13, = ax1.plot([0.57, 0.57], [0,1], '--k')
-#
-# ax1.set_ylabel('y/H [-]')
-# ax1.set_xlabel(r'$\alpha$')
-# ax1.set_xlim(0,  np.max(np.max(alpha)) * 1.1)
-# ax1.set_ylim(zmin, zmax)
-# 
-# ax2 = subplot(gs[0, 1])
-# l21, = ax2.plot(Ua[0,0,:,iprof]/U, Y[0,:,iprof]/H, '-r',label='sedFoam')
-# l22, = ax2.plot(uexp, yexp, 'ob',label='simple shear')
-# ax2.legend(loc='upper left',fontsize=12)
-# ax2.set_xlabel(r'$u/U$')
-# ax2.set_xlim(0,  1.)
-# ax2.set_ylim(zmin, zmax)
-# ax2.set_yticklabels([''])
-# 
-# ax3 = subplot(gs[0, 2])
-# l31, = ax3.semilogx(Theta[0,:,iprof]/U, Y[0,:,iprof]/H, '-r')
-# l32, = ax3.plot(thetaexp, yexptheta, 'ob')
-# ax3.set_xlabel(r'$\theta/U$')
-# ax3.set_xlim(1e-4,  1e-2)
-# ax3.set_ylim(zmin, zmax)
-# ax3.set_yticklabels([''])
-# 
-# show(block=True)
-# =============================================================================
-
 phi_interp = np.interp(Y[0,:,iprof]/H,yexpphi, phiexp);
 rms_phi = rms(phi_interp - alpha[0,:,iprof])
 assert(rms_phi<=0.025)
@@ -131,6 +72,3 @@ assert(rms_u<=0.026)
 theta_interp = np.interp(Y[0,:,iprof]/H,yexptheta, thetaexp);
 rms_theta = rms(theta_interp - Theta[0,:,iprof])/np.mean(thetaexp)
 assert(rms_theta<=0.36)
-
-
-

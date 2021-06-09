@@ -84,7 +84,7 @@ Ny = 400
 Nz = 1
 
 casedir = '1DSheetFlow/'
-label = '$\mu(I)$+ML'
+label = 'K-Epsilon + Kinetic Theory'
 
 ############################################
 # case 1

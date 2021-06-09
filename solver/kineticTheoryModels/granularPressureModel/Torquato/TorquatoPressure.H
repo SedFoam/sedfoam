@@ -25,6 +25,8 @@ Class
     Foam::TorquatoPressure
 
 Description
+    This file is in the \dir kineticTheoryModels/granularPressureModel/Torquato
+    directory
 
 SourceFiles
     TorquatoPressure.C
