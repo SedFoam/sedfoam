@@ -3,7 +3,7 @@
 #
 import numpy as np
 from pylab import figure, subplot, show, matplotlib, ylabel, title, xlabel
-from math import sqrt
+from math import sqrt, pi
 import fluidfoam
 matplotlib.rcParams.update({'font.size': 12})
 

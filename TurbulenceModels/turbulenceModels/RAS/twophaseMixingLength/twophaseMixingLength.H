@@ -41,7 +41,7 @@ Description
 
     The default model coefficients correspond to the following:
     \verbatim
-        twophasekEpsilonCoeffs
+        twophaseMixingLengthCoeffs
         {
             Cmu         0.09;
             expoLM      1.0;
@@ -84,32 +84,29 @@ class twophaseMixingLength
 {
     // Private Member Functions
 
-        // Disallow default bitwise copy construct and assignment
-        twophaseMixingLength(const twophaseMixingLength&);
-        void operator=(const twophaseMixingLength&);
+    // Disallow default bitwise copy construct and assignment
+    twophaseMixingLength(const twophaseMixingLength&);
+    void operator=(const twophaseMixingLength&);
 
 
 protected:
 
     // Protected data
 
-        // Dictionary
 
-            IOdictionary twophaseRASProperties_;
-
-        // Model coefficients
-            dimensionedScalar Cmu_;
-            dimensionedScalar expoLM_;
-            dimensionedScalar alphaMaxLM_;
-            dimensionedScalar kappaLM_;
+    // Model coefficients
+    dimensionedScalar Cmu_;
+    dimensionedScalar expoLM_;
+    dimensionedScalar alphaMaxLM_;
+    dimensionedScalar kappaLM_;
 
 
-        // Fields
-            volScalarField k_;
-            volScalarField epsilon_;
+    // Fields
+    volScalarField k_;
+    volScalarField epsilon_;
 
     // Protected Member Functions
-        virtual void correctNut();
+    virtual void correctNut();
 
 
 public:
@@ -124,18 +121,18 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        twophaseMixingLength
-        (
-            const alphaField& alpha,
-            const rhoField& rho,
-            const volVectorField& U,
-            const surfaceScalarField& alphaRhoPhi,
-            const surfaceScalarField& phi,
-            const transportModel& transport,
-            const word& propertiesName = turbulenceModel::propertiesName,
-            const word& type = typeName
-        );
+    //- Construct from components
+    twophaseMixingLength
+    (
+        const alphaField& alpha,
+        const rhoField& rho,
+        const volVectorField& U,
+        const surfaceScalarField& alphaRhoPhi,
+        const surfaceScalarField& phi,
+        const transportModel& transport,
+        const word& propertiesName = turbulenceModel::propertiesName,
+        const word& type = typeName
+    );
 
 
     //- Destructor
@@ -149,41 +146,40 @@ public:
 
     // Member Functions
 
-        //- Read RASProperties dictionary
-        virtual bool read();
+    //- Read RASProperties dictionary
+    virtual bool read();
 
+    //- Return the turbulence kinetic energy
+    virtual tmp<volScalarField> k() const
+    {
+        return k_;
+    }
 
-        //- Return the turbulence kinetic energy
-        virtual tmp<volScalarField> k() const
-        {
-            return k_;
-        }
-
-        //- Return the turbulence specific dissipation rate
-        virtual tmp<volScalarField> epsilon() const
-        {
-            return epsilon_;
-        }
-        virtual tmp<volScalarField> omega() const
-        {
-            return tmp<volScalarField>
+    //- Return the turbulence specific dissipation rate
+    virtual tmp<volScalarField> epsilon() const
+    {
+        return epsilon_;
+    }
+    virtual tmp<volScalarField> omega() const
+    {
+        return tmp<volScalarField>
+        (
+            new volScalarField
             (
-                new volScalarField
+                IOobject
                 (
-                    IOobject
-                    (
-                        "omega",
-                        this->mesh_.time().timeName(),
-                        this->mesh_
-                    ),
-                    epsilon_/(k_),
-                    epsilon_.boundaryField().types()
-                )
-            );
-        }
+                    "omega",
+                    this->mesh_.time().timeName(),
+                    this->mesh_
+                ),
+                epsilon_/(k_),
+                epsilon_.boundaryField().types()
+            )
+        );
+    }
 
-        //- Solve the turbulence equations and correct the turbulence viscosity
-        virtual void correct();
+    //- Solve the turbulence equations and correct the turbulence viscosity
+    virtual void correct();
 };
 
 

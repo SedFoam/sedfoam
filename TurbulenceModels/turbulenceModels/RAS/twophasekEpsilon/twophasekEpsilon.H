@@ -63,7 +63,6 @@ Description
             C4ep        1.0;
             alphak      1.0;
             alphaEps    1.3;
-            B           0.25;
             KE2         1.0;
             KE4         1.0;
         }
@@ -111,17 +110,12 @@ protected:
 
     // Protected data
 
-        // Dictionary
-
-            IOdictionary twophaseRASProperties_;
-
         // Model coefficients
 
             dimensionedScalar C3ep_;
             dimensionedScalar C4ep_;
             dimensionedScalar KE2_;
             dimensionedScalar KE4_;
-            dimensionedScalar B_;
 
             dimensionedScalar Cmu_;
             dimensionedScalar C1_;
@@ -236,7 +230,7 @@ public:
         }
         virtual tmp<volScalarField> tmf() const
         {
-            return Foam::exp(tmfexp_*omega());
+            return Foam::exp(Cmu_*tmfexp_*omega());
         }
 
         virtual tmp<volScalarField> ESD2() const

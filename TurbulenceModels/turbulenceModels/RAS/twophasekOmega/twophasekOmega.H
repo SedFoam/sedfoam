@@ -54,14 +54,13 @@ Description
             betaOmega        0.072;
             C3om             0.35;
             C4om             1.0;
-            B                0.25;
             KE2              1.0;
             KE4              1.0;
             alphaKomega      0.5;
             alphaOmegaOmega  0.5;
             Clim             0.0;
             sigmad           0.0
-            popeCorrection   False;
+            popeCorrection   false;
         }
     \endverbatim
 
@@ -114,11 +113,6 @@ protected:
 
     // Protected data
 
-        // Dictionary
-
-            IOdictionary twophaseRASProperties_;
-            IOdictionary ppProperties_;
-
         // Model coefficients
             Switch popeCorrection_;
             Switch writeTke_;
@@ -126,8 +120,6 @@ protected:
             dimensionedScalar C4om_;
             dimensionedScalar KE2_;
             dimensionedScalar KE4_;
-            dimensionedScalar omegaBC_;
-            dimensionedScalar B_;
 
             dimensionedScalar Cmu_;
             dimensionedScalar betaOmega_;
@@ -145,7 +137,6 @@ protected:
             const volScalarField& ESD4_;
             const volScalarField& ESD5_;
             const volScalarField& ESD_;
-            dimensionedScalar alphaMax_;
 
         // Fields
 
@@ -237,7 +228,7 @@ public:
 
         virtual tmp<volScalarField> tmf() const
         {
-            return Foam::exp(tmfexp_*omega_);
+            return Foam::exp(Cmu_*tmfexp_*omega_);
         }
 
         virtual tmp<volScalarField> ESD2() const
@@ -266,6 +257,7 @@ public:
 
         //- Solve the turbulence equations and correct the turbulence viscosity
         virtual void correct();
+
 };
 
 
