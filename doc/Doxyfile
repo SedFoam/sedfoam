@@ -764,13 +764,17 @@ WARN_LOGFILE           =
 INPUT                  = index.doc \
                          install.doc \
                          starting.doc \
+                         governingEq.doc \
+                         algorithm.doc \
                          tutorials_1d.doc \
                          tutorials_2d3d.doc \
                          input.doc \
                          howtogit.doc \
-			 faq.doc \
+                         faq.doc \
                          credits.doc \  
-                         ../solver
+                         ../solverMULES \
+                         ../solver \
+                         ../TurbulenceModels
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1465,7 +1469,7 @@ FORMULA_TRANSPARENT    = YES
 # The default value is: NO.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-USE_MATHJAX            = NO
+USE_MATHJAX            = YES
 
 # When MathJax is enabled you can set the default output format to be used for
 # the MathJax output. See the MathJax site (see:
@@ -1495,7 +1499,7 @@ MATHJAX_RELPATH        = http://cdn.mathjax.org/mathjax/latest
 # MATHJAX_EXTENSIONS = TeX/AMSmath TeX/AMSsymbols
 # This tag requires that the tag USE_MATHJAX is set to YES.
 
-MATHJAX_EXTENSIONS     =
+MATHJAX_EXTENSIONS     =TeX/AMSmath TeX/AMSsymbols
 
 # The MATHJAX_CODEFILE tag can be used to specify a file with javascript pieces
 # of code that will be used on startup of the MathJax code. See the MathJax site

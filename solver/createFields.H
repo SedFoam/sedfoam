@@ -268,6 +268,17 @@ dimensionedVector gradPOSC
                           vector(0, 0, 0) )
     )
 );
+
+dimensionedVector gradConvAcc
+(
+    forceProperties.lookupOrDefault
+    (
+        "gradConvAcc",
+        dimensionedVector("gradPOSC",
+                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
+                          vector(0, 0, 0) )
+    )
+);
 dimensionedScalar gradPOSCMin ("gradPOSCMin", gradPOSC.dimensions(), 1e-6);
 
 dimensionedScalar oscpT

@@ -77,6 +77,15 @@ dimensionedScalar Usmall
     )
 );
 
+dimensionedScalar B
+(
+    twophaseRASProperties.lookupOrDefault
+    (
+        "B",
+        dimensionedScalar("B", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0.25)
+    )
+);
+
 dimensionedScalar KE1
 (
     twophaseRASProperties.lookupOrDefault
@@ -101,22 +110,6 @@ dimensionedScalar KE3
         dimensionedScalar("KE3", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
     )
 );
-dimensionedScalar Cmu
-(
-    twophaseRASProperties.lookupOrDefault
-    (
-        "Cmu",
-        dimensionedScalar("Cmu", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0.09)
-    )
-);
-dimensionedScalar B
-(
-    twophaseRASProperties.lookupOrDefault
-    (
-        "B",
-        dimensionedScalar("B", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0.25)
-    )
-);
 volScalarField tmfexp
 (
     IOobject
@@ -127,7 +120,7 @@ volScalarField tmfexp
         IOobject::NO_READ,
         IOobject::NO_WRITE
     ),
-    -B*rhoa*6.0*Cmu/(max(beta*K, Tpsmall))
+    -B*rhoa*6.0/(max(beta*K, Tpsmall))
 );
 
 volScalarField rtemp = (Ub-Ua) & gravity;

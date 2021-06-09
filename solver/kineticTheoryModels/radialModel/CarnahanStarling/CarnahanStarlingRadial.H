@@ -25,6 +25,14 @@ Class
     Foam::CarnahanStarlingRadial
 
 Description
+    \verbatim
+    "Equation of State for Nonattracting Rigid Spheres."
+    Carnahan, N. F. and Starling, K. E. (1969).
+    The Journal of Chemical Physics, 51(2):635–636.
+    \endverbatim
+
+     This file is in the \dir kineticTheoryModels/radialModel/CarnahanStarling
+     directory
 
 SourceFiles
     CarnahanStarlingRadial.C

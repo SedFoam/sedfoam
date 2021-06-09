@@ -1,10 +1,8 @@
-
 import subprocess
+import sys
 import numpy as np
 import fluidfoam
-from pylab import *
-import matplotlib.gridspec as gridspec
-import matplotlib.colors as mcolors
+from pylab import plt, matplotlib, show
 
 
 plt.rc('text',usetex=True)
@@ -22,7 +20,7 @@ gravity = 9.81 # gravity in m/s2
 rhoFluid=1041  # fluid density in kg/m3
 h =  0.0049 # initial granular height in m
 
-timeAdim=(d/gravity)**0.5	
+timeAdim=(d/gravity)**0.5
 velAdim=1000.*(gravity*d)**0.5
 pressureAdim=rhoFluid*h*gravity
 
@@ -30,7 +28,7 @@ pressureAdim=rhoFluid*h*gravity
 ##################################################################
 # Experimental data extracted from Pailha et al. (2008)
 ##################################################################
-	
+
 data1 = np.genfromtxt('DATA/ExperimentalDataPailha2008/v_t_exp_562.txt',delimiter='\t', names=True)
 time_v_562 = data1['time']/timeAdim
 velocity_562 = data1['velocity']/velAdim
@@ -107,10 +105,10 @@ for i in range(200,int(final_tread)):
 				if (alpha_0[k]<tolAlpha):
 						vel_sim_dila_0.append(Ua_0[0, k]*1000/velAdim)
 						p_sim_dila_0.append(p_rbgh_0[4]/pressureAdim)
-						break  	
-			
-		
-			
+						break
+
+
+
 #########################################
 # 				Plots
 #########################################
@@ -125,7 +123,7 @@ plt.plot(time_v_578,velocity_578, marker='o', markersize=0,linestyle='--', color
 plt.plot(time_v_584,velocity_584, marker='o', markersize=0,linestyle='-', color='royalblue',label='Exp. - $\\phi_0 = 0.584$')
 plt.plot(time_v_592,velocity_592, marker='o', markersize=0,linestyle='-', color='navy',label='Exp. - $\\phi_0 = 0.592$')
 
-plt.plot(time_sim_dila_0,vel_sim_dila_0, marker='|', markersize=5,linestyle='-', linewidth=1.2, color='navy',label='SedFoam  - $\\phi_0 = 0.592$')
+plt.plot(time_sim_dila_0,vel_sim_dila_0, marker='o', markersize=5,linestyle='', linewidth=1.2, color='r',label='SedFoam  - $\\phi_0 = 0.592$')
 
 plt.ylabel('$\\frac{v^s}{\\sqrt{gd}}$ [$-$]', fontsize=18)
 plt.xlabel('$\\frac{t}{\\sqrt{d/g}}$ [$-$]', fontsize=18)
@@ -145,7 +143,7 @@ plt.plot(time_p_578,pressure_578, marker='o', markersize=0,linestyle='--', color
 plt.plot(time_p_584,pressure_584, marker='o', markersize=0,linestyle='-', color='royalblue',label='Exp. - $\\phi_0 = 0.584$')
 plt.plot(time_p_592,pressure_592, marker='o', markersize=0,linestyle='-', color='navy',label='Exp. - $\\phi_0 = 0.592$')
 
-plt.plot(time_sim_dila_0,p_sim_dila_0, marker='|', markersize=5,linestyle='-', linewidth=1.2, color='navy',label='SedFoam  - $\\phi_0 = 0.592$')
+plt.plot(time_sim_dila_0,p_sim_dila_0, marker='o', markersize=5,linestyle='', linewidth=1.2, color='r',label='SedFoam  - $\\phi_0 = 0.592$')
 
 plt.ylabel('$\\frac{p^f}{\\rho^f g h_o}$ [$-$]', fontsize=18)
 plt.xlabel('$\\frac{t}{\\sqrt{d/g}}$ [$-$]', fontsize=18)

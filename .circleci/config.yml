@@ -51,7 +51,7 @@ jobs:
           name: Install docs packages
           command: >
             apt-get update && apt-get -y install git python3-pip dvisvgm libclang-9-dev &&
-            apt-get -y install libclang-cpp9 wget graphviz tex-gyre texlive-base &&
+            apt-get -y install ack-grep libclang-cpp9 wget graphviz tex-gyre texlive-base &&
             apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended
 
       - run:
@@ -93,11 +93,12 @@ jobs:
             export PATH=$PWD/doxygen-1.9.1/bin:$PATH &&
             cd doc &&
             git clone git://github.com/mosra/m.css &&
-            cd m.css/documentation &&
-            cp ../../doxygen.py . &&
+            cd m.css/documentation && cp ../../doxygen.py . &&
             source /opt/openfoam7/etc/bashrc &&
             python3 doxygen.py ../../conf.py &&
-            cd ../.. && cp images/* mcssout/html/.
+            cd ../.. && cp images/* mcssout/html/. &&
+            ack "ource file" -l --print0 | xargs -0 -n 1 sed -i "s/\"\/root\/sedfoam/\"https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
+
       - persist_to_workspace:
           root: /root/sedfoam/doc/mcssout
           paths: html
@@ -140,6 +141,14 @@ jobs:
 
       - checkout:
           path: /root/sedfoam
+
+      - run:
+          name: pull submodules
+          command: >
+            yum -y install git &&
+            shopt -s expand_aliases &&
+            git submodule init &&
+            git submodule update --remote
 
       - run:
           name: Build sedFoam

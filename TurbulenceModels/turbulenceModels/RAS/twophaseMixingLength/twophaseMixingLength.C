@@ -38,7 +38,7 @@ namespace RASModels
 template<class BasicTurbulenceModel>
 void twophaseMixingLength<BasicTurbulenceModel>::correctNut()
 {
-    scalar cmu34 = 0.1643;
+    scalar cmu34 = pow(Cmu_.value(), 3.0/4.0);
     this->nut_ = 0.8*cmu34*k_*k_/epsilon_;
     this->nut_.correctBoundaryConditions();
     fv::options::New(this->mesh_).correct(this->nut_);
@@ -73,28 +73,41 @@ twophaseMixingLength<BasicTurbulenceModel>::twophaseMixingLength
         transport,
         propertiesName
     ),
-    twophaseRASProperties_
+    Cmu_
     (
-        IOobject
+        dimensioned<scalar>::lookupOrAddToDict
         (
-            "twophaseRASProperties",
-            this->runTime_.constant(),
-            this->mesh_,
-            IOobject::MUST_READ,
-            IOobject::NO_WRITE
+            "Cmu",
+            this->coeffDict_,
+            0.09
         )
     ),
     expoLM_
     (
-        twophaseRASProperties_.lookup("expoLM")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "expoLM",
+            this->coeffDict_,
+            1.0
+        )
     ),
     alphaMaxLM_
     (
-        twophaseRASProperties_.lookup("alphaMaxLM")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "alphaMaxLM",
+            this->coeffDict_,
+            0.55
+        )
     ),
     kappaLM_
     (
-        twophaseRASProperties_.lookup("kappaLM")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "kappaLM",
+            this->coeffDict_,
+            0.225
+        )
     ),
     k_
     (
@@ -152,7 +165,7 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
     }
 
 //
-// Mixing Lenght turbulence model
+// Mixing Length turbulence model
 // (only for 1D cases with Y the wall-normal direction)
 //
     dimensionedScalar LmSmall
@@ -166,7 +179,6 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
     const volScalarField& alpha = this->alpha_;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
-//    fv::options& fvOptions(fv::options::New(this->mesh_));
 
     eddyViscosity<RASModel<BasicTurbulenceModel>>::correct();
 
@@ -186,7 +198,7 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
     scalar kappaLMs=kappaLM_.value();
     scalar alphaMaxLMs = alphaMaxLM_.value();
     scalar LmPhi = 0.;
-    scalar cmu34 = 0.1643;
+    scalar cmu34 = pow(Cmu_.value(), 3.0/4.0);
 
 
     nut.storePrevIter();

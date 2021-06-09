@@ -32,13 +32,24 @@ Description
 
     Reference:
     \verbatim
-        Launder, B.E., and Spalding, D.B.,
-        "Mathematical Models of Turbulence",
-        Academic Press, 1972.
+        Original model:
+            Launder, B. E., & Spalding, D. B. (1972).
+            Lectures in mathematical models of turbulence.
 
-        Launder, B.E., and Spalding, D.B.,
-        "Computational Methods for Turbulent Flows",
-        Comp. Meth in Appl Mech & Eng'g, Vol 3, 1974, pp 269-289.
+            Launder, B. E., & Spalding, D. B. (1974).
+            The numerical computation of turbulent flows.
+            Computer methods in applied mechanics and engineering,
+            3(2), 269-289.
+
+        Two-phase adaptation
+            Hsu, T.-J., Jenkins, J. T., and Liu, P. L.-F. (2004).
+            On two-phase sediment transport: sheet flow of massive particles.
+            Proceedings of the Royal Society London A, 460, 2223-2250.
+
+            Yu, X., Hsu, T.-J., and Hanes, D. M. (2010).
+            Sediment transport under wave groups: Relative importance between
+            nonlinear waveshape and nonlinear boundary layer streaming.
+            Journal of Geophysical Research, 115, C02013.
     \endverbatim
 
     The default model coefficients correspond to the following:
@@ -48,9 +59,18 @@ Description
             Cmu         0.09;
             C1          1.44;
             C2          1.92;
-            sigmaEps    1.3;
+            C3ep        1.2;
+            C4ep        1.0;
+            alphak      1.0;
+            alphaEps    1.3;
+            KE2         1.0;
+            KE4         1.0;
         }
     \endverbatim
+
+    This file is in the \dir turbulenceModels/RAS/twophasekEpsilon subdirectory
+    inside the \dir turbulenceModels/RAS subdirectory
+    inside the \dir turbulenceModels subdirectory
 
 SourceFiles
     twophasekEpsilon.C
@@ -90,26 +110,19 @@ protected:
 
     // Protected data
 
-        // Dictionary
-
-            IOdictionary twophaseRASProperties_;
-
         // Model coefficients
 
             dimensionedScalar C3ep_;
             dimensionedScalar C4ep_;
             dimensionedScalar KE2_;
             dimensionedScalar KE4_;
-            dimensionedScalar B_;
 
             dimensionedScalar Cmu_;
             dimensionedScalar C1_;
             dimensionedScalar C2_;
-            dimensionedScalar kSmall_;
             dimensionedScalar nutMax_;
             dimensionedScalar alphak_;
             dimensionedScalar alphaEps_;
-            //dimensionedScalar sigmaEps_;
 
          // two phase information
             const volScalarField& tmfexp_;
@@ -217,7 +230,7 @@ public:
         }
         virtual tmp<volScalarField> tmf() const
         {
-            return Foam::exp(tmfexp_*omega());
+            return Foam::exp(Cmu_*tmfexp_*omega());
         }
 
         virtual tmp<volScalarField> ESD2() const

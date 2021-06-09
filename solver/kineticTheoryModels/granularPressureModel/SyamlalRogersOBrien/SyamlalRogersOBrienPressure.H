@@ -25,6 +25,8 @@ Class
     Foam::SyamlalRogersOBrienPressure
 
 Description
+    This file is in the \dir
+    kineticTheoryModels/granularPressureModel/SyamlalRogersOBrien directory
 
 SourceFiles
     SyamlalRogersOBrienPressure.C

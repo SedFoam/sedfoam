@@ -25,6 +25,8 @@ Class
     Foam::SrivastavaSundaresanFrictionalStress
 
 Description
+    This file is in the \dir
+    kineticTheoryModels/frictionalStressModel/SrivastavaSundaresan directory
 
 SourceFiles
     SrivastavaSundaresanFrictionalStress.C
