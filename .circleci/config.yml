@@ -157,7 +157,7 @@ jobs:
             source /opt/OpenFOAM/setImage_v2006.sh &&
             ./Allwmake
       - persist_to_workspace:
-          root: /root
+          root: /opt
           paths: OpenFOAM
 
   test:
@@ -177,7 +177,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /root
+          at: /opt
 
       - run:
           name: sedfoam test1D sedim
@@ -219,7 +219,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /root
+          at: /opt
 
       - run:
           name: sedfoam 1D Avalanche
@@ -249,7 +249,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /root
+          at: /opt
 
       - run:
           name: sedfoam 1DSimpleShear
@@ -289,7 +289,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /root
+          at: /opt
 
       - run:
           name: sedfoam 1DWetAvalanche
