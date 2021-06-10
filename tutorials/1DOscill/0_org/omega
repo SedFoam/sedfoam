@@ -37,7 +37,7 @@ boundaryField
     bottom
     {
         type            wilcoxOmegaWallFunction;
-        value           uniform 1.;
+        value           uniform 600.;
         kn              0.0001;
     }
     frontAndBackPlanes
