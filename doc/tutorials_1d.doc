@@ -19,6 +19,7 @@ A number of one-dimensional test cases are provided with reference solutions, an
 
 This tutorial will describe how to pre-process, run and post-process a case corresponding to a pure sedimentation problem in a one-dimensional configuration using the two-phase flow equations. The geometry is shown in Figure 1 in which bottom boundary is a wall and the top boundary is an open boundary.  Initially, the flow is at rest and will be solved on a uniform mesh using the SedFoam solver for laminar, isothermal, incompressible two-phase flow. The numerical results are compared with experiments to validate the model in terms of settling curves, time evolution of concentration interface, and concentration profiles.
 
+
 \subsection preproc Pre-processing
 
 Like in OpenFOAM, cases are setup by editing case files using a text editor such as atome, vscode/vscodium, emacs, vi, gedit, nedit, etc. The I/O uses a dictionary format with keywords. A case involves data for mesh, fields, properties, control parameters, etc  that are stored in a set of files within a case directory rather than in a single case file. The case directory is given a suitably descriptive name. This tutorial consists of a set of cases located in the SedFoam distribution under the folder *sedFoamDirectory/tutorials/1DSedim*. 
@@ -56,7 +57,7 @@ FoamFile
 
 convertToMeters 0.06;
 
-vertices        
+vertices
 (
     (-0.005 0   0.005) //0
     ( 0.005 0   0.005) //1
@@ -68,18 +69,18 @@ vertices
     (-0.005 1. -0.005) //7
 );
 
-blocks          
+blocks
 (
     hex (0 1 5 4 3 2 6 7) (1 1 200) simpleGrading (1 1 1)
 );
 
-edges           
+edges
 (
 );
 
-boundary         
+boundary
 (
-    inlet 
+    inlet
     {
      type   cyclic;
      neighbourPatch outlet;
@@ -92,14 +93,14 @@ boundary
      faces  ((1 5 6 2));
     }
     top
-    { 
+    {
      type wall;
         faces ((7 6 2 3));
     }
-    bottom 
+    bottom
     {
      type wall;
-     faces ((0 4 5 1)); 
+     faces ((0 4 5 1));
     }
     frontAndBackPlanes
     {
@@ -746,7 +747,7 @@ that results in the following figures:
 @image latex "res2_tuto2.png" "Figure 6: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a mu(Iv) rheology between two infinite parallel planes obtained by numerical simulations with  one-dimensional numerical solution presented in Aussillous et al. (2013) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles. "
 
 
-\section BedLoadTurb 1DBedloadTurb: Turbulent bedLoad
+\section BedLoadTurb 1DBedloadTurb: Turbulent bedload transport
 
 The aim of this tutorial is to reproduce, with sedFOAM, coupled fluid-discrete element method (DEM) simulations of turbulent bedload transport. In DEM simulations, the motion of each particles is solved individually. The source code is YADE (Smilauer et al. 2015) and the coupling with the fluid phase presented in Maurin et al. (2015). Averaged quantities are computed in the DEM (packing fraction, particle velocity, …) which will be considered as a basis to compare with the sedFoam code.
 First the \f$\mu(Iv)\f$ rheology for bedload transport of Maurin et al. (2016) will be used. Another possibility is to use the Kinetic Theory of granular gas to close the particle stresses. We will show how this can be done in sedfoam.
@@ -1324,7 +1325,7 @@ the volume fraction, particle velocity and excess of pore pressure along the ver
 
 \section BoundaryLayer 1DBoundaryLayer: Single-phase turbulent boundary layer flow
 
-In this test case, the turbulence model k-omega (Wilcox, 1988) is validated for a single-phase boundary layer flow over a smooth surface. The numerical results are compared with the DNS results of Moser et al. (1999).  A water column of dimensionless height \f$h=1\f$ is moving over a flat plate driven by a pressure gradient imposed along the x-axis. In this configuation, there are no sediments and the volumetric concentration of particles is set to alpha=0. A sketch of the 1D vertical computational domain is presented below:
+In this test case, tturbulence model k-omega (Wilcox, 1988) is validated for a single-phase boundary layer flow over a smooth surface. The numerical results are compared with the DNS results of Moser et al. (1999).  A water column of dimensionless height \f$h=1\f$ is moving over a flat plate driven by a pressure gradient imposed along the x-axis. In this configuation, there are no sediments and the volumetric concentration of particles is set to alpha=0. A sketch of the 1D vertical computational domain is presented below:
 
 @image html "Sketch1DBoundaryLayer.png" "Figure 14: Sketch of the numerical domain for the boudary layer shear flow configuration." width=400px
 @image latex "Sketch1DBoundaryLayer.png" "Figure 14: Sketch of the numerical domain for the boudary layer shear flow configuration"
