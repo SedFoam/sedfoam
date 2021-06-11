@@ -3,7 +3,7 @@
 #
 import numpy as np
 from pylab import figure, subplot, xlabel, ylabel, show
-from math import sqrt
+from math import sqrt,pi
 import fluidfoam
 
 #########################################
