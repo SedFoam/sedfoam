@@ -63,7 +63,6 @@ fvVectorMatrix UaEqn
 );
 UaEqn.relax();
 UaEqn += fvm::Sp(beta/rhoa*K, Ua);
-
 //fvOptions.constrain(UaEqn());
 
 // Compute concentration gradient stress contribution on cell faces for phase b

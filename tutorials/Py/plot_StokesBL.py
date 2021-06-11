@@ -17,7 +17,6 @@ viscof=1e-6
 
 delta=sqrt(viscof*T0/pi)
 
-#
 # Loading OpenFoam results
 #
 mypath='../'
@@ -41,7 +40,7 @@ datalist=['3.5','4','4.5','5','5.5' ]
 #
 # U
 #
-#   
+#
 i=-1
 
 zex=np.linspace(0,h,200)
@@ -50,7 +49,7 @@ zex=np.linspace(0,h,200)
 for data in datalist:
     i=i+1
     print (data)
-    
+
     #ufile=basepath+data+'Uf.xy'
     #zu,u=np.loadtxt(ufile,unpack=True)
     Ub = fluidfoam.readvector(sol, data+'/', 'Ub')
@@ -58,7 +57,7 @@ for data in datalist:
     Taub = fluidfoam.readtensor(sol, data+'/', 'Taub')
     Rfw=Taub[3, :]/1e3
     z=y-np.min(y)
-    
+
     tex=float(data)
     uex = U0*(np.sin(2*np.pi*tex/T0)-np.exp(-zex/delta)*np.sin(2*np.pi*tex/T0-zex/delta))
     tauex = viscof*U0/delta*np.exp(-zex/delta)* \
