@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.4.0                                 |
+|  \\    /   O peration     | Version:  2.1.0                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -11,52 +11,13 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      alpha_a;
+    object      epsilon;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 0 0 0 0 0 0];
+dimensions      [0 2 -3 0 0 0 0];
 
-internalField   #codeStream
-{
-    codeInclude
-    #{
-        #include "fvCFD.H"
-    #};
-
-    codeOptions
-    #{
-        -I$(LIB_SRC)/finiteVolume/lnInclude \
-        -I$(LIB_SRC)/meshTools/lnInclude
-    #};
-    codeLibs
-    #{
-        -lfiniteVolume \
-        -lmeshTools
-    #};
-    code
-    #{
-        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
-	    const fvMesh& mesh = refCast<const fvMesh>(d.db());
-        scalarField alpha_a(mesh.nCells(), 0);
-
-        forAll(mesh.C(), i)
-        {
-            scalar y = mesh.C()[i].y();
-            alpha_a[i] = 0.305*(1.0+tanh((12.5*0.006-y)/0.005));
-	    /*if (y < 12.5*0.006)
-	    {
-		alpha_a[i] = 0.61;
-	    }
-	    else
-	    {
-		alpha_a[i] = 0;
-	    }*/
-        }
-        alpha_a.writeEntry("", os);
-    #};
-
-};
+internalField   uniform 1e-8; 
 
 boundaryField
 {
@@ -70,8 +31,7 @@ boundaryField
     }
     top
     {
-        type            fixedValue;
-	value uniform 0;
+        type            zeroGradient;
     }
     bottom
     {

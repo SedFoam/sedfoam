@@ -9,40 +9,14 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
+    class       uniformDimensionedVectorField;
     location    "constant";
-    object      kineticTheoryProperties;
+    object      g;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-kineticTheory   on;
+dimensions      [0 1 -2 0 0 0 0];
+value           ( 0 -9.81 0 );
 
-limitProduction off;
-
-extended        off;
-
-e               e [ 0 0 0 0 0 0 0 ] 0.7;
-
-muPart          muPart [ 0 0 0 0 0 0 0 ] 0.4;
-
-alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
-
-MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 0.5;
-
-phi             phi [ 0 0 0 0 0 0 0 ] 20.487; //mus = 0.35 = sin(phi*pi/180)
-
-psi             psi [ 0 0 0 0 0 0 0 ] 0.0;
-
-killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 1;
-
-quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
-
-viscosityModel  GarzoDuftyMod;
-
-conductivityModel GarzoDuftyMod;
-
-granularPressureModel Lun;
-
-radialModel     ChialvoSundaresanFric;
 
 // ************************************************************************* //

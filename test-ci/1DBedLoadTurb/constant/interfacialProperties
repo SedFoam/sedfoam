@@ -11,38 +11,15 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      kineticTheoryProperties;
+    object      interfacialProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-kineticTheory   on;
+dragModela      DallaValle;
 
-limitProduction off;
+dragModelb      DallaValle;
 
-extended        off;
+dragPhase       a;
 
-e               e [ 0 0 0 0 0 0 0 ] 0.7;
-
-muPart          muPart [ 0 0 0 0 0 0 0 ] 0.4;
-
-alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
-
-MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 0.5;
-
-phi             phi [ 0 0 0 0 0 0 0 ] 20.487; //mus = 0.35 = sin(phi*pi/180)
-
-psi             psi [ 0 0 0 0 0 0 0 ] 0.0;
-
-killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 1;
-
-quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
-
-viscosityModel  GarzoDuftyMod;
-
-conductivityModel GarzoDuftyMod;
-
-granularPressureModel Lun;
-
-radialModel     ChialvoSundaresanFric;
 
 // ************************************************************************* //

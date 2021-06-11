@@ -1,4 +1,4 @@
-/*--------------------------------*- C++ -*----------------------------------*\
+/*
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
 |  \\    /   O peration     | Version:  1.7.1                                 |
@@ -11,38 +11,34 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      kineticTheoryProperties;
+    object      granaularRheologyProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-kineticTheory   on;
+granularRheology   off;
 
-limitProduction off;
+granularDilatancy  off;
 
-extended        off;
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.61;
 
-e               e [ 0 0 0 0 0 0 0 ] 0.7;
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.35;
 
-muPart          muPart [ 0 0 0 0 0 0 0 ] 0.4;
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.97;
 
-alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.69;
 
-MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 0.5;
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.31;
 
-phi             phi [ 0 0 0 0 0 0 0 ] 20.487; //mus = 0.35 = sin(phi*pi/180)
+n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
-psi             psi [ 0 0 0 0 0 0 0 ] 0.0;
+Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
-killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 1;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 
-quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
+FrictionModel   MuI;
 
-viscosityModel  GarzoDuftyMod;
+PPressureModel  none;
 
-conductivityModel GarzoDuftyMod;
-
-granularPressureModel Lun;
-
-radialModel     ChialvoSundaresanFric;
+FluidViscosityModel BoyerEtAl;
 
 // ************************************************************************* //

@@ -1,4 +1,4 @@
-/*--------------------------------*- C++ -*----------------------------------*\
+/*--------------------------------*- C++ -*----------------------------------*	\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
 |  \\    /   O peration     | Version:  1.7.1                                 |
@@ -11,38 +11,25 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      kineticTheoryProperties;
+    object      ppProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-kineticTheory   on;
 
-limitProduction off;
+ppModel          JohnsonJackson;
 
-extended        off;
+alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
 
-e               e [ 0 0 0 0 0 0 0 ] 0.7;
+alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.57;
 
-muPart          muPart [ 0 0 0 0 0 0 0 ] 0.4;
+Fr               Fr [ 1 -1 -2 0 0 0 0 ] 5e-2;
 
-alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
+eta0             eta0 [ 0 0 0 0 0 0 0 ] 3;
 
-MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 0.5;
+eta1             eta1 [ 0 0 0 0 0 0 0 ] 5;
 
-phi             phi [ 0 0 0 0 0 0 0 ] 20.487; //mus = 0.35 = sin(phi*pi/180)
 
-psi             psi [ 0 0 0 0 0 0 0 ] 0.0;
+packingLimiter  no;
 
-killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 1;
-
-quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
-
-viscosityModel  GarzoDuftyMod;
-
-conductivityModel GarzoDuftyMod;
-
-granularPressureModel Lun;
-
-radialModel     ChialvoSundaresanFric;
 
 // ************************************************************************* //
