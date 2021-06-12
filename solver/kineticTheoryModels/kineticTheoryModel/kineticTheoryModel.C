@@ -98,13 +98,6 @@ Foam::kineticTheoryModel::kineticTheoryModel
             kineticTheoryProperties_
         )
     ),
-    frictionalStressModel_
-    (
-        frictionalStressModel::New
-        (
-            kineticTheoryProperties_
-        )
-    ),
     e_
     (
         kineticTheoryProperties_.lookupOrDefault

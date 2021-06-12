@@ -1,0 +1,55 @@
+/**
+ * \file        install.doc
+ * \author      Cyrille Bonamy and Julien Chauchat
+ * \date        June 03, 2021
+ * \brief       Installation (doc)
+ */
+/*! \page pulicationList Publications
+
+@brief Publications using sedFoam
+
+\tableofcontents
+
+\section pubs2021 2021
+
+<ul>
+<li>Montella E. P., J. Chauchat, B. Chareyre, C. Bonamy and T. J. Hsu (under revision). A two-fluid model for immersed granular avalanches with dilatancy effects. Journal of Fluid Mechanics
+<li>Mathieu, A., Chauchat, J., Bonamy, C., Balarac, G. and T.-J. Hsu (2021). A finite-size correction model for two-fluid large-eddy simulation of particle-laden boundary layer flow. Journal of Fluid Mechanics, DOI : 10.1017/jfm.2021.4
+<li>Salimi Tarazouj, A., Hsu, T.-J., Traykovski, P., Cheng, Z., and Chauchat (2021), J. A numerical study of onshore ripple migration using a eulerian two-phase model. Journal of Geophysical Research : Oceans, DOI : 10.1029/2020JC016773
+</ul>
+
+\section pubs2020 2020
+
+<ul>
+<li>Rafati, Yashar; Hsu, Tian-Jian; Cheng, Zhen; Yu, Xiao; Calantoni, Joseph; 2020. Armoring and exposure effects on the wave-driven sediment transport. Continental Shelf Research, 211, 104291. 10.1016/j.csr.2020.104291
+<li>Chauchat, J., Zhen Cheng, Tim Nagel, Cyrille Bonamy, and Tian-Jian Hsu (2017) SedFoam-2.0: a 3-D two-phase flow numerical model for sediment transport (Geosci. Model Dev., 10, 4367-4392) https://doi.org/10.5194/gmd-10-4367-2017
+</ul>
+
+\section pubs2019 2019
+
+<ul>
+<li>Mathieu, Antoine; Chauchat, Julien; Bonamy, Cyrille; Nagel, Tim; 2019. Two-Phase Flow Simulation of Tunnel and Lee-Wake Erosion of Scour below a Submarine Pipeline. Water, 11, 1727. 10.3390/w11081727
+</ul>
+
+\section pubs2018 2018
+
+<ul>
+<li>Cheng, Z., Hsu, T.-J., and Chauchat, J. (2018). An eulerian two-phase model for steady sheet flow using large-eddy simulation methodology. Advances in Water Resources, 111(Supplement C):205 – 223. 10.1016/j.advwatres.2017.11.016
+<li>Nagel, Tim; Chauchat, Julien; Bonamy, Cyrille; Mathieu, Antoine; Liu, Xiaofeng; Cheng, Zhen; Hsu, Tian-Jian; 2018. TWO-PHASE FLOW SIMULATIONS OF SCOUR AROUND VERTICAL AND HORIZONTAL CYLINDERS. Coastal Engineering Proceedings, , 22. 10.9753/icce.v36.sediment.22
+</ul>
+
+\section pubs2017 2017
+
+<ul>
+<li>Chauchat, J., Zhen Cheng, Tim Nagel, Cyrille Bonamy, and Tian-Jian Hsu (2017) SedFoam-2.0: a 3-D two-phase flow numerical model for sediment transport (Geosci. Model Dev., 10, 4367-4392) https://doi.org/10.5194/gmd-10-4367-2017
+<li>Cheng, Zhen; Hsu, Tian-Jian; Calantoni, Joseph; 2017. SedFoam: A multi-dimensional Eulerian two-phase model for sediment transport and its application to momentary bed failure. Coastal Engineering, 119, 32–50. 10.1016/j.coastaleng.2016.08.007
+</ul>
+
+
+\htmlonly
+Go to the <a href="starting.html">next</a> section or return to the
+ <a href="index.html">index</a>.
+\endhtmlonly
+
+*/
+

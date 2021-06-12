@@ -74,7 +74,7 @@ License
         HabyA = rUaA*UaEqn.H();
         volVectorField HbbyA = Ub;
         HbbyA = rUbA*UbEqn.H();
-        
+
         // Momentum flux at the cell faces for phase a
         surfaceScalarField phiDraga =
         (
@@ -124,6 +124,8 @@ License
           // turbulent suspension term
             fvc::interpolate(SUS*(K/rhob)*turbulenceb->nut())*fvc::snGrad(alpha)
             *rUbAf*mesh.magSf()
+        // drag modification to account for particle fluctuations
+        // -phiTempb
             // diagnoal part of stress
           - (fvc::interpolate(scalar(2.0)/(beta*scalar(3.0)))
            *fvc::snGrad(((nuEffb*tr(gradUbT)))*beta))*rUbAf*mesh.magSf()

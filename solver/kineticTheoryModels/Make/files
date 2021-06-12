@@ -33,10 +33,4 @@ granularPressureModel/Lun/LunPressure.C
 granularPressureModel/SyamlalRogersOBrien/SyamlalRogersOBrienPressure.C
 granularPressureModel/Torquato/TorquatoPressure.C
 
-frictionalStressModel/frictionalStressModel/frictionalStressModel.C
-frictionalStressModel/frictionalStressModel/newFrictionalStressModel.C
-frictionalStressModel/JohnsonJackson/JohnsonJacksonFrictionalStress.C
-frictionalStressModel/SrivastavaSundaresan/SrivastavaSundaresanFrictionalStress.C
-frictionalStressModel/Schaeffer/SchaefferFrictionalStress.C
-
 LIB = $(FOAM_LIBBIN)/libkineticTheorySedModel
