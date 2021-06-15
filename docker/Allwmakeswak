@@ -1,0 +1,137 @@
+#! /bin/bash
+
+BISONPATH=$(which bison)
+NOBISON=$?
+
+if [[ $NOBISON != 0 ]]; then
+    echo
+    echo "No 'bison' found. This is absolutely essential for swak4Foam. Can't go on"
+    echo "Every Linux has a binary package that installs bison (http://www.gnu.org/software/bison/). Install it. Then go on"
+    echo "As an alternative you can install a local copy of bison by running ./maintainanceScripts/compileRequirements.sh from the installation directory"
+    echo "BTW: it was listed as a requirement in the README. You read that, didn't you?"
+    echo
+    exit 42
+else
+    echo "Bison: $BISONPATH"
+fi
+
+FLEXPATH=$(which flex)
+NOFLEX=$?
+
+if [[ $NOFLEX != 0 ]]; then
+    echo
+    echo "No 'flex' found. This is absolutely essential for swak4Foam. Can't go on"
+    echo "Every Linux has a binary package that installs flex (http://flex.sourceforge.net). Install it. Then go on"
+    echo "BTW: it was listed as a requirement in the README. You read that, didn't you?"
+    echo
+    exit 42
+else
+    echo "Flex: $FLEXPATH"
+fi
+
+BISONVER=$(bison -V | head -n 1| tr ' ' '\n' | tail -n 1)
+BISONMAJORVER=$(echo $BISONVER | tr '.' '\n' | head -n 1 )
+BISONMINORVER=$(echo $BISONVER | tr '.' '\n' | head -n 2 | tail -n 1)
+
+echo "Bison at $BISONPATH is version $BISONVER (Major $BISONMAJORVER Minor $BISONMINORVER)"
+
+if [[ $BISONMAJORVER -lt 3 || ( $BISONMAJORVER -eq 3 && $BISONMINORVER -lt 3 ) ]]; then
+    echo "swak4Foam only confirmed to work with Bison >= 3.3"
+    if [ -e ../privateRequirements/bin/bison ];
+    then
+        echo "There seems to be a private installation of bison that is outdated"
+        echo "Remove with 'rm privateRequirements/bin/bison' and trigger a full compilation with './AllwmakeAll'"
+    else
+        echo "Consider running ./maintainanceScripts/compileRequirements.sh for a local bison-installation or trigger a full compilation with './AllwmakeAll'"
+    fi
+    exit 42
+fi
+
+FLEXVER=$(flex -V | head -n 1| tr ' ' '\n' | tail -n 1)
+MINORVER=$(echo $FLEXVER | tr '.' '\n' | tail -n 1)
+
+echo "Flex is version $FLEXVER (Minor version: $MINORVER)"
+
+if [[ $FLEXVER < 2.6 && $MINORVER -lt 35 ]]; then
+    echo "swak4Foam only confirmed to work with Flex >= 2.5.35 (2.5.33 may work, but 2.5.4 definitely not)"
+    if [ -z $USE_OLD_FLEX ]; then
+	echo "Set the environment variable USE_OLD_FLEX if you want to continue anyway"
+	exit 42
+    else
+	echo "I continue under protest. Should swak4Foam work with your flex-version, then please report it"
+	echo
+	echo
+    fi
+fi
+
+versionFile=swak4FoamParsers/foamVersion4swak.H
+
+../maintainanceScripts/makeFoamVersionHeader.py $WM_PROJECT_VERSION >$versionFile.tmp
+
+if [ -e $versionFile ]; then
+    nrDiff=$(diff $versionFile.tmp $versionFile | wc -l | tr -d " ")
+    if [[ $nrDiff > 0 ]]; then
+	echo "$versionFile changed"
+	mv $versionFile.tmp $versionFile
+    else
+	# Make sure that not a complete recompilation is triggered
+	echo "No change to $versionFile"
+	rm $versionFile.tmp
+    fi
+else
+    echo "No $versionFile. Generated"
+    mv $versionFile.tmp $versionFile
+fi
+
+# Ensure consistent definition of OPENFOAM_COM without relying anything else.
+# This may be available from the regular wmake rules, but use our own convention
+sed -ne 's/.*SWAK_IS_COM \([0-9][0-9]*\)/OPENFOAM_COM=\1/p' < $versionFile > rules/foamVersion
+
+echo
+echo "Please include the output above when reporting a problem in the compilation. It helps diagnosing the problem"
+echo
+echo
+
+wmakeLnInclude simpleFunctionObjects
+
+$BEAR_COMPILE_PREFIX wmake libso swak4FoamParsers
+
+PARSERSOK=$?
+
+if [[ $PARSERSOK != 0 ]]; then
+    echo "Parser library did not compile OK. No sense continuing as everything else depends on it"
+    exit 42
+fi
+
+$BEAR_COMPILE_PREFIX wmake libso swakLagrangianParser
+
+$BEAR_COMPILE_PREFIX wmake libso groovyBC
+
+$BEAR_COMPILE_PREFIX wmake libso swakFunctionObjects
+
+$BEAR_COMPILE_PREFIX wmake libso simpleFunctionObjects
+
+$BEAR_COMPILE_PREFIX wmake libso simpleLagrangianFunctionObjects
+
+$BEAR_COMPILE_PREFIX wmake libso simpleSearchableSurfaces
+
+$BEAR_COMPILE_PREFIX wmake libso simpleSwakFunctionObjects
+
+$BEAR_COMPILE_PREFIX wmake libso swakTopoSources
+
+if [[ $of_version_major == 2 && $of_version_minor == 0 ]]; then
+  $BEAR_COMPILE_PREFIX wmake libso swakSourceFields Make.20
+else
+  $BEAR_COMPILE_PREFIX wmake libso swakSourceFields
+fi
+
+if [[ $WM_PROJECT_VERSION > 2.2 && "$FOAM_DEV" == "" ]]
+then
+    echo "Compiling swakFvOptions"
+    $BEAR_COMPILE_PREFIX wmake libso swakFvOptions
+fi
+
+$BEAR_COMPILE_PREFIX wmake libso swakStateMachine
+
+$BEAR_COMPILE_PREFIX wmake libso groovyStandardBCs
+
