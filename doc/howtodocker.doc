@@ -1,0 +1,65 @@
+/**
+ * \file        howtodocker.doc
+ * \author      Cyrille Bonamy
+ * \date        June 15, 2021
+ * \brief       howtodocker (doc)
+ */
+/*! \page howtodocker How To work with sedfoam container
+@brief How To use sedfoam docker to test and use sedFoam
+
+\tableofcontents
+
+Here is a How To about using the sedFoam docker. This page is organised in two sections:
+
+- \ref configuration
+- \ref howtouse
+
+//****************************************
+\section configuration Configuration of the docker sedfoam
+
+Openfoam version : v2006 (openfoam.com)
+
+sudo password : openfoam
+
+Installed packages : swak4foam, python3-numpy, python3-matplotlib, fluidfoam, vim...
+
+Official link : https://hub.docker.com/r/cbonamy/sedfoam_v2006_centos73
+
+Dockerfile : https://github.com/SedFoam/sedfoam/blob/master/docker/Dockerfile
+
+//****************************************
+\section howtouse How to use/launch sedfoam docker ?
+
+- \ref macOS 
+- \ref windows
+- \ref linux
+
+
+//****************************************
+\subsection macOS On macOS with GUI (graphical interface):
+
+On host :
+- configure xquartz (or xauth for linux?)
+    - install xquartz to allow network connection
+    - in Xquartz : Go to Preferences > Security
+    - and Check "allow connections from network clients"
+    - in a terminal : IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') && xhost + $IP
+- launch/initiate docker : 
+\verbatim
+     docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_v2006" --workdir="/home/ofuser" -v="/Users/bonamy2c":/home/ofuser/workingDir "cbonamy/sedfoam_v2006_centos73" /bin/bash
+\endverbatim
+Please adapt the directories to your configuration. In this example, "/Users/bonamy2c" will be mounted on the vm in /home/ofuser/workingDir.
+- start an image (if existing and not running) : 
+\verbatim
+     docker container start sedfoam_v2006
+\endverbatim
+- attach to a running image (if existing and running): 
+\verbatim
+     docker container attach sedfoam_v2006
+\endverbatim
+
+On container : 
+- hack and enjoy!
+The sedfoam files will be in /home/ofuser and the solver is already compiled. Just test and use.
+
+*/
