@@ -15,7 +15,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// parameters for pff
 
 ppModel          JohnsonJackson;
 

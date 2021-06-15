@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-granularRheology   on;
+granularRheology   off;
 
 granularDilatancy  off;
 

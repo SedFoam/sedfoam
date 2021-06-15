@@ -15,44 +15,34 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-kineticTheory   off;
-
-equilibrium     off;
+kineticTheory   on;
 
 limitProduction off;
 
-e               e [ 0 0 0 0 0 0 0 ] 0.8;
+extended        off;
 
-alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.6;
+e               e [ 0 0 0 0 0 0 0 ] 0.7;
 
-DiluteCut       DiluteCut [ 0 0 0 0 0 0 0 ] 0.00000;
+muPart          muPart [ 0 0 0 0 0 0 0 ] 0.4;
 
-ttzero          ttzero [ 0 0 1 0 0 0 0 ] 0;
-
-ttone          ttone [ 0 0 1 0 0 0 0 ] 0;
+alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
 
 MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 0.5;
 
-phi             phi [ 0 0 0 0 0 0 0 ] 32.0;
+phi             phi [ 0 0 0 0 0 0 0 ] 20.487; //mus = 0.35 = sin(phi*pi/180)
 
 psi             psi [ 0 0 0 0 0 0 0 ] 0.0;
 
-KineticJ1      KineticJ1 [ 0 0 0 0 0 0 0 ] 1; //turn off the viscous dissipation
+killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 1;
 
-KineticJ2       KineticJ2 [ 0 0 0 0 0 0 0] 0;
+quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
 
-KineticJ3       KineticJ3 [ 0 0 0 0 0 0 0] 0;
+viscosityModel  GarzoDuftyMod;
 
-viscosityModel  Syamlal;
-
-conductivityModel Syamlal;
+conductivityModel GarzoDuftyMod;
 
 granularPressureModel Lun;
 
-frictionalStressModel SrivastavaSundaresan;
-
-radialModel     CarnahanStarling;
-
-
+radialModel     ChialvoSundaresanFric;
 
 // ************************************************************************* //
