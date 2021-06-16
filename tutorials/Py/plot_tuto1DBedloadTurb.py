@@ -11,7 +11,7 @@ from matplotlib.ticker import StrMethodFormatter, NullFormatter
 from matplotlib import rc
 rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
 rc('text', usetex=True)
- 
+
 label_size = 20
 legend_size = 12
 fontsize=25
@@ -27,7 +27,7 @@ plt.rcParams['axes.labelsize'] = fontsize
 # Load DEM data
 ######################
 
-zDEM, phiDEM, vxPDEM, vxFDEM = np.loadtxt('DATA/BedloadTurbDEM.txt', unpack=True)
+zDEM, phiDEM, vxPDEM, vxFDEM, TDEM = np.loadtxt('DATA/BedloadTurbDEM.txt', unpack=True)
 
 ######################
 #Read SedFoam results
@@ -50,6 +50,7 @@ z = Y
 phi = fluidfoam.readscalar(sol, timeStep, 'alpha_a')
 vxPart = fluidfoam.readvector(sol, timeStep, 'Ua')[0]
 vxFluid = fluidfoam.readvector(sol, timeStep, 'Ub')[0]
+T = fluidfoam.readscalar(sol, timeStep, 'Theta')
 
 ######################
 #Plot results
@@ -66,12 +67,15 @@ plt.legend()
 
 plt.subplot(142)
 I = np.where(phiDEM>0.001)[0]
-plt.plot(vxPDEM[I], zDEM[I]/d, 'k--', label=r'DEM')
+plt.plot(vxPDEM[I], zDEM[I]/d, 'r--')
 I = np.where(phi>0.001)[0]
-plt.plot(vxPart[I], z[I]/d, label=r'SedFoam')
-plt.xlabel(r'$v_x^p$', fontsize=25)
+plt.plot(vxPart[I], z[I]/d, 'r', label=r'$v_x^p$')
+plt.plot(vxFDEM, zDEM/d, 'b--')
+plt.plot(vxFluid, z/d, 'b', label=r'$u_x^f$')
+plt.xlabel(r'$v_x^p$, $u_x^f$', fontsize=25)
 plt.ylim([-1.525, 32.025])
 plt.grid()
+plt.legend()
 ax = plt.gca()
 ax.set_yticklabels([])
 
@@ -84,9 +88,12 @@ ax = plt.gca()
 ax.set_yticklabels([])
 
 plt.subplot(144)
-plt.plot(vxFDEM, zDEM/d, 'k--', label=r'DEM')
-plt.plot(vxFluid, z/d, label=r'SedFoam')
-plt.xlabel(r'$v_x^f$', fontsize=25)
+I = np.where(phiDEM>0.001)[0]
+plt.plot(TDEM[I], zDEM[I]/d, 'k--', label=r'DEM')
+I = np.where(phi>0.001)[0]
+plt.plot(T[I], z[I]/d, label=r'SedFoam')
+plt.xlabel(r'$T$', fontsize=25)
+plt.ylim([-1.525, 32.025])
 plt.grid()
 ax = plt.gca()
 ax.set_yticklabels([])
