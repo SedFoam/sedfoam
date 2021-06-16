@@ -294,15 +294,15 @@ $^{-1}$
 </g>
 </svg> ;</p><p>-internalField: the internal field data which are set to be uniform;</p><p>-boundaryField: the boundary field data that includes boundary conditions and data for all the boundary patches.</p><p>For this case 1DSedim, the boundary consists of cyclic boundaries at the inlet and outlet (left and right boundaries) and walls at the top and bottom boundaries, the top boundary is zeroGradient whereas the bottom boundary is a no-slip boundary conditions i.e zero velocity at the wall. The frontAndBack patch represents the front and back planes of the 2D case and therefore must be set as empty.</p><p>The user can similarly examine the fluid phase velocity field in the 0_org/Ub file. The solid phase volume fraction has zeroGradient boundary conditions at the top and bottom boundaries whereas the pressure has fixedValue at the top boundary (equivalent to setting the atmospheric pressure) and a fixedFluxPressure at the bottom boundary. We shall explain below what this boundary condition means.</p></section><section id="PhysProp"><h5><a href="#PhysProp">Physical properties</a></h5><p>The physical properties for the case are stored in dictionaries whose names are given the suffix …Properties, located in the Dictionaries directory tree. For a SedFoam case, there are 8 property files: transportProperties, interfacialProperties, ppProperties, granularRheologyProperties, kineticTheoryProperties, RASProperties twophaseRASProperties</p><p>In the transport property file, the physical properties of the solid and fluid phases are set, such as density, kinematic viscosity and particle diameter.</p><pre>// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
 phasea
-{   
+{
     rho             rho [ 1 -3 0 0 0 ] 1050;
     nu              nu [ 0 2 -1 0 0 ] 1e-6;
-    d               d [ 0 1 0 0 0 0 0 ] 290e-6;    
+    d               d [ 0 1 0 0 0 0 0 ] 290e-6;
     hExp            hExp [ 0 0  0 0 0 0 0 ] 3.15;  // hindrance exponent for drag: beta^(-hExp) (2.65 by default)
 }
 // * * * * * * * * * * * * fluid properties * * * * * * * * * * * * //
 phaseb
-{   
+{
     rho             rho [ 1 -3 0 0 0 ] 950;
     nu              nu [ 0 2 -1 0 0 ] 2.105e-05;
     d               d [ 0 1 0 0 0 0 0 ] 290e-6;
@@ -456,7 +456,7 @@ FrictionModel   Coulomb;
 
 PPressureModel  none;
 
-FluidViscosityModel Einstein;</pre><p>On the first line the switch granularRheology allows to turn on and off this module. The keywords FrictionModel, PPressureModel and FluidViscosityModel allow to choose the friction model, the shear induced particle pressure model and the effective viscosity model (see <a href="inputs.html" class="m-doc">Input Parameters</a> for details).<br /></p><p>For the present case the granularRheology is set to Coulomb and the FluidViscosityModel is used for the effective viscosity model and a Einstein model is used. All the details concerning the different models can be found in the Geophysical Model Development paper on SedFoam.<br /></p><p>The remaining dictionaries are not used for this tutorial and will not be detailed here. Their content will be explained in the next tutorials when they are used.</p></section><section id="control_sedFoam"><h5><a href="#control_sedFoam">Control</a></h5><p>Input data relating to the control of time and reading and writing of the solution data are read in from the controlDict dictionary. The user should view this file; as a case control file, it is located in the system directory.</p><p>The start/stop times and the time step for the run must be set. OpenFOAM offers great flexibility with time control which is described in full in section 4.3. In this tutorial we wish to start the run at time t = 0 which means that OpenFOAM needs to read field data from a directory named 0. Therefore we set the startFrom keyword to startTime and then specify the startTime keyword to be 0.</p><p>As the simulation progresses we wish to write results at certain intervals of time that we can later view with a post-processing package. The writeControl keyword presents several options for setting the time at which the results are written; here we select the adjustableRunTime option which specifies that results are written every writeInterval seconds of simulated time, adjusting the time steps to coincide with the writeInterval if necessary and the time step is automatically adjusted using adjustTimeStep = on. The time step controled using different criteria on Courant numbers based on the maximum velocity, the relative velocity ( <svg class="m-math" style="width: 7.019em; height: 1.038em; vertical-align: -0.187em;" viewBox="0 -8.169366 67.382353 9.962629">
+FluidViscosityModel Einstein;</pre><p>On the first line the switch granularRheology allows to turn on and off this module. The keywords FrictionModel, PPressureModel and FluidViscosityModel allow to choose the friction model, the shear induced particle pressure model and the effective viscosity model (see <a href="inputs.html" class="m-doc">Input Parameters</a> for details).</p><p>For the present case the granularRheology is set to Coulomb and the FluidViscosityModel is used for the effective viscosity model and a Einstein model is used. All the details concerning the different models can be found in the Geophysical Model Development paper on SedFoam.</p><p>The remaining dictionaries are not used for this tutorial and will not be detailed here. Their content will be explained in the next tutorials when they are used.</p></section><section id="control_sedFoam"><h5><a href="#control_sedFoam">Control</a></h5><p>Input data relating to the control of time and reading and writing of the solution data are read in from the controlDict dictionary. The user should view this file; as a case control file, it is located in the system directory.</p><p>The start/stop times and the time step for the run must be set. OpenFOAM offers great flexibility with time control which is described in full in section 4.3. In this tutorial we wish to start the run at time t = 0 which means that OpenFOAM needs to read field data from a directory named 0. Therefore we set the startFrom keyword to startTime and then specify the startTime keyword to be 0.</p><p>As the simulation progresses we wish to write results at certain intervals of time that we can later view with a post-processing package. The writeControl keyword presents several options for setting the time at which the results are written; here we select the adjustableRunTime option which specifies that results are written every writeInterval seconds of simulated time, adjusting the time steps to coincide with the writeInterval if necessary and the time step is automatically adjusted using adjustTimeStep = on. The time step controled using different criteria on Courant numbers based on the maximum velocity, the relative velocity ( <svg class="m-math" style="width: 7.019em; height: 1.038em; vertical-align: -0.187em;" viewBox="0 -8.169366 67.382353 9.962629">
 <title>
 $ U_r=U_b-U_a $
 </title>
@@ -649,13 +649,13 @@ writeCellCentres -time 0
 # Run sedFoam_rbgh
 sedFoam_rbgh &gt; log&amp;
 </pre><p>The script is self documented, the blockMesh command has already been introduced. The initial condition stored in the 0_org folder is first copied to the zero (0) folder. The command funkySetFields (require swak4foam library) allows to set the initial solid phase volume fraction profile following an hyperbolic tangent profile described in the dictionary <em>system/funkySetFieldsDict</em> as follows:</p><pre>expressions
- (      
+ (
         alpha1
         {
                 field alpha_a;
                 expression &quot;0.5*0.5*(1.0+tanh((pos().y-0.054)/(0.0490-pos().y)*10.0))&quot;;
                 keepPatches 1;
-        }       
+        }
         alpha2
         {
                 field alpha_a;
@@ -703,16 +703,16 @@ $\mu(Iv)$
 <use x='23.786297' y='0' xlink:href='#eq7-g1-41'/>
 </g>
 </svg> rheology are compared with a simple 1D numerical model.</p><figure class="m-figure"><img src="LaminarBedloadIndexMatching.jpg" alt="Image" style="width: 600px;" /><figcaption>Figure 4: Image from an index matching laminar bed-load experiment (Aussillous et al, 2013). </figcaption></figure><section id="preprocBL"><h3><a href="#preprocBL">Pre-processing</a></h3><p>This tutorial is distributed with sedFoam3.0 under the folder <em>sedFoamDirectory/tutorials/1DBedLoad</em>.</p><section id="meshgenBL"><h5><a href="#meshgenBL">Mesh generation</a></h5><p>The numerical domain consists of a square of side length L = 0.0065 m in the x-y plane and of height h=0.065 m in the vertical direction z. The side length is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 200 cells will be used. The block structure is the same as for the Sedimentation test case and is shown in Figure 1.</p><p>The mesh is generated by running blockMesh from within the case directory:</p><pre>blockMesh
-</pre></section><section id="BC_initiBL"><h5><a href="#BC_initiBL">Boundary and initial conditions</a></h5><p>The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, alphaMinFriction, alphaPlastic, Ua, Ub, p_rbgh, muI, pa, pa_new, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.<br /></p></section><section id="PhysPropBL"><h5><a href="#PhysPropBL">Physical properties</a></h5><p>The transportProperties file for the 1DBedload case is shown below:</p><pre>// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
+</pre></section><section id="BC_initiBL"><h5><a href="#BC_initiBL">Boundary and initial conditions</a></h5><p>The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, alphaMinFriction, alphaPlastic, Ua, Ub, p_rbgh, muI, pa, pa_new, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.</p></section><section id="PhysPropBL"><h5><a href="#PhysPropBL">Physical properties</a></h5><p>The transportProperties file for the 1DBedload case is shown below:</p><pre>// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
 phasea
-{   
+{
     rho             rho [ 1 -3 0 0 0 ] 1190;
     nu              nu [ 0 2 -1 0 0 ] 1e-6;
     d               d [ 0 1 0 0 0 0 0 ] 2.e-3;
 }
 
 phaseb
-{   
+{
     rho             rho [ 1 -3 0 0 0 ] 1070;
     nu              nu [ 0 2 -1 0 0 ] 2.52e-4;
     d               d [ 0 1 0 0 0 0 0 ] 2.e-3;
@@ -724,7 +724,7 @@ nu              nu [ 0 2 -1 0 0 0 0 ] 2.52e-4;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e1;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha_a</pre><p>The physical property of the particles (diameter and density) and of the fluid (density and kinematic viscosity) have been set to the experimental values from Aussillous et al. (2013).<br /></p><p>In the dictionary <em>interfacialProperties</em> file the drag model from GidaspowShcillerNaumann has been kept, the influence of the drag model on this test case as the relative velocity between the fluid and the particles is negligible.</p><p>Compared with the sedimentation test case, the <em>granularRheologyProperties</em> is critical. The file is shown below:</p><pre>granularRheology   on;
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha_a</pre><p>The physical property of the particles (diameter and density) and of the fluid (density and kinematic viscosity) have been set to the experimental values from Aussillous et al. (2013).</p><p>In the dictionary <em>interfacialProperties</em> file the drag model from GidaspowShcillerNaumann has been kept, the influence of the drag model on this test case as the relative velocity between the fluid and the particles is negligible.</p><p>Compared with the sedimentation test case, the <em>granularRheologyProperties</em> is critical. The file is shown below:</p><pre>granularRheology   on;
 
 granularDilatancy  off;
 
@@ -750,7 +750,7 @@ FrictionModel  Coulomb;
 
 PPressureModel  none;
 
-FluidViscosityModel  Einstein;</pre><p>To compare with the analytical solution, the Coulomb Frictional model and the Einstein FluidViscosity model are used. No PPressureModel is specified meaning that the shear induced contribution to the solid phase pressure is not included i.e. the solid phase volume fraction profile must be sharp at the particle bed interface. The value of the rheological constants are chosen following Aussillous et al. (2013). The regularisation parameter Dsmall is taken as 1e-4, this is shown to be enough for this case but a sensitivity analysis could be performed in case of a too strong creeping flow in the particle bed.<br /></p></section><section id="Disc_solvBL"><h5><a href="#Disc_solvBL">Discretisation and linear-solver settings</a></h5><p>The numerical schemes and the solvers are the same as in the 1DSedim case.<br /></p></section><section id="control_sedFoamBL"><h5><a href="#control_sedFoamBL">Control</a></h5><p>The system/controlDict file is modified compared with the sedimentation test case. The endTime is fixed to 350 s with an output every 50s with an adjustable time step limited to 5e-3 s.</p><pre>application     sedFoam;
+FluidViscosityModel  Einstein;</pre><p>To compare with the analytical solution, the Coulomb Frictional model and the Einstein FluidViscosity model are used. No PPressureModel is specified meaning that the shear induced contribution to the solid phase pressure is not included i.e. the solid phase volume fraction profile must be sharp at the particle bed interface. The value of the rheological constants are chosen following Aussillous et al. (2013). The regularisation parameter Dsmall is taken as 1e-4, this is shown to be enough for this case but a sensitivity analysis could be performed in case of a too strong creeping flow in the particle bed.</p></section><section id="Disc_solvBL"><h5><a href="#Disc_solvBL">Discretisation and linear-solver settings</a></h5><p>The numerical schemes and the solvers are the same as in the 1DSedim case.</p></section><section id="control_sedFoamBL"><h5><a href="#control_sedFoamBL">Control</a></h5><p>The system/controlDict file is modified compared with the sedimentation test case. The endTime is fixed to 350 s with an output every 50s with an adjustable time step limited to 5e-3 s.</p><pre>application     sedFoam;
 
 startFrom       latestTime;
 
@@ -807,7 +807,7 @@ $\mu(Iv)$
 </svg> rheology by modifying the system/controlDict file:</p><pre>//startFrom       startTime;
 startFrom       latestTime;
 
-endTime     350;
+endTime  350;
 </pre><p>and the constant/granularRheologyProperties file in the following way:</p><pre>//FrictionModel  Coulomb;
 FrictionModel  MuIv;
 </pre><p>And run the code again using the command:</p><pre>sedFoam_rbgh &gt; log2&amp;
@@ -847,10 +847,10 @@ $t = 0$
 </g>
 </svg> s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, alphaMinFriction, alphaPlastic, Ua, Ub, p_rbgh, muI, pa, pa_new, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. The initial profile of concentration (in alpha_a) is a hyperbolic tangent whose parameters have been compute so that the exact same amount of granular mass as in the DEM simulation is set in the sedFoam simulation. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.</p><pre>forAll(mesh.C(), i)
 {
-    scalar y = mesh.C()[i].y();
+ scalar y = mesh.C()[i].y();
         alpha_a[i] = 0.305*(1.0+tanh((12.5*0.006-y)/0.005));
 }
-</pre><p><br /></p></section><section id="PhysPropBLTurb"><h5><a href="#PhysPropBLTurb">Physical properties</a></h5><p>The transportProperties file for the 1DBedloadTurb case is shown below.</p><pre>// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
+</pre></section><section id="PhysPropBLTurb"><h5><a href="#PhysPropBLTurb">Physical properties</a></h5><p>The transportProperties file for the 1DBedloadTurb case is shown below.</p><pre>// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
 phasea
 {
     rho             rho [ 1 -3 0 0 0 ] 2500;
@@ -870,13 +870,13 @@ phaseb
 }
 //*********************************************************************** //
 transportModel  Newtonian;
- 
+
 nu              nu [ 0 2 -1 0 0 0 0 ] 1.e-6;
- 
+
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e2;      // viscosity limiter for the Frictional model (required for stability)
- 
+
 alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-5;  // minimum volume fraction (phase a) for division by alpha
- 
+
 // ************************************************************************* //
 </pre><p>The physical property of the particles (diameter and density) and of the fluid (density and kinematic viscosity) have been set to the DEM values.</p><p>The fluid and particles are submitted to gravity. This is accounted as a pressure gradient source term in the momentum conservation equations. It corresponds to gradPMEAN in file <em>forceProperties</em> with <svg class="m-math" style="width: 12.403em; height: 1.271em; vertical-align: -0.243em;" viewBox="0 -9.873238 119.067938 12.197846">
 <title>
@@ -1014,29 +1014,29 @@ $gradPMEAN = \rho^p g S_0 $
 <use x='114.149766' y='1.793263' xlink:href='#eq15-g2-48'/>
 </g>
 </svg>.</p><pre>// * * * * * * * * * * * * * following are for presure * * * * * * * * * * * * * * * //
-gradPMEAN        gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (490.5 0 0 ); // mean pressure                                                                                                                                                                                                      
- 
+gradPMEAN        gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (490.5 0 0 ); // mean pressure
+
 tilt             tilt             [ 0  0  0 0 0 0 0 ] 1; // To impose same gravity term to both phases
- 
+
 Cvm             Cvm [ 0 0 0 0 0 ] 0;                // Virtual/Added Mass coefficient
- 
+
 Cl              Cl [ 0 0 0 0 0 ] 0;                 // Lift force coefficient
- 
+
 Ct              Ct [ 0 0 0 0 0 ] 0;                 // Eddy diffusivity coefficient for phase a
- 
+
 debugInfo       true;
- 
+
 writeTau        true;
- 
+
 // * * * * * * * * * * * * end of definition of pressure * * * * * * * * * * * * * //
 </pre><p>The fluid turbulence is modelled with a mixing length approach with the same parameters as in the DEM fluid model (expoLM=1, kappaLM=0.41, alphaMaxLM=0.61) :</p><pre>// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 simulationType  RAS;
- 
+
 RAS{
 RASModel        twophaseMixingLength;
 //RASModel        twophasekEpsilon;
 //RASModel        twophasekOmega;
- 
+
 turbulence      on;
 printCoeffs     on;
 
@@ -1049,38 +1049,38 @@ kappaLM 0.41;
 }
 // ************************************************************************* //
 </pre><p>In the dictionary <em>interfacialProperties</em> file the drag model from DallaValle is used (as in the DEM).</p><p>Kinetic theory will be used to compute the kinetic contributions of granular stresses. Be sure to set granularRheology to off in <em>granularRheologyProperties</em>. The <em>kineticTheoryProperties</em> file is described just below:</p><pre>// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-                                      
-kineticTheory   on;                   
-                                      
-limitProduction off;                  
-                                      
-extended        off;                  
-                                      
+
+kineticTheory   on;
+
+limitProduction off;
+
+extended        off;
+
 e               e [ 0 0 0 0 0 0 0 ] 0.7;
-                                      
+
 muPart          muPart [ 0 0 0 0 0 0 0 ] 0.4;
-                                      
+
 alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
-                                      
+
 MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 0.5;
-                                      
+
 phi             phi [ 0 0 0 0 0 0 0 ] 20.487; //mus = 0.35 = sin(phi*pi/180)
-                                      
+
 psi             psi [ 0 0 0 0 0 0 0 ] 0.0;
-                                      
+
 killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 1;
-                                      
+
 quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
-                                      
-viscosityModel  GarzoDuftyMod;        
-                                      
-conductivityModel GarzoDuftyMod;      
-                                      
-granularPressureModel Lun;            
-                                      
+
+viscosityModel  GarzoDuftyMod;
+
+conductivityModel GarzoDuftyMod;
+
+granularPressureModel Lun;
+
 radialModel     ChialvoSundaresanFric;
-                                      
-// ************************************************************************* //     
+
+// ************************************************************************* //
 </pre><p>As in the DEM, particles with interparticle friction <svg class="m-math" style="width: 3.932em; height: 1.045em; vertical-align: -0.243em;" viewBox="0 -7.704442 37.746923 10.029049">
 <title>
 $\mu = 0.4$
@@ -1117,43 +1117,43 @@ $e=0.7$
 <use x='27.024741' y='0' xlink:href='#eq17-g0-58'/>
 <use x='30.276402' y='0' xlink:href='#eq17-g1-55'/>
 </g>
-</svg> are considered. The Garzo &amp; Dufty (1999) model for the kinetic theory coefficients is used, slightly modified to correct discrepancies observed in the dilute part of the flow. The pressure model of Lun et al. (1984) is the same as the one of Garzo &amp; Dufty (1999). The radial distribution function used is the one of Chialvo &amp; Sundaresan (2013), modified to account for interparticular friction.</p></section><section id="Disc_solvBLTurb"><h5><a href="#Disc_solvBLTurb">Discretisation and linear-solver settings</a></h5><p>The numerical schemes and the solvers are the same as in the 1DSedim case.<br /></p></section><section id="control_sedFoamBLTurb"><h5><a href="#control_sedFoamBLTurb">Control</a></h5><p>The system/controlDict file is shown thereafter. The endTime is fixed to 30 s with an output every 5s with an adjustable time step limited to 5e-3 s. The simulation should last around 20 minutes.</p><pre>application     sedFoam;
- 
+</svg> are considered. The Garzo &amp; Dufty (1999) model for the kinetic theory coefficients is used, slightly modified to correct discrepancies observed in the dilute part of the flow. The pressure model of Lun et al. (1984) is the same as the one of Garzo &amp; Dufty (1999). The radial distribution function used is the one of Chialvo &amp; Sundaresan (2013), modified to account for interparticular friction.</p></section><section id="Disc_solvBLTurb"><h5><a href="#Disc_solvBLTurb">Discretisation and linear-solver settings</a></h5><p>The numerical schemes and the solvers are the same as in the 1DSedim case.</p></section><section id="control_sedFoamBLTurb"><h5><a href="#control_sedFoamBLTurb">Control</a></h5><p>The system/controlDict file is shown thereafter. The endTime is fixed to 30 s with an output every 5s with an adjustable time step limited to 5e-3 s. The simulation should last around 20 minutes.</p><pre>application     sedFoam;
+
 startFrom       latestTime;
- 
+
 startTime       0;
- 
+
 stopAt          endTime;
- 
+
 endTime         30;
- 
+
 deltaT          1e-5;
- 
+
 writeControl    adjustableRunTime;
- 
+
 writeInterval   1;
- 
+
 purgeWrite      0;
- 
+
 writeFormat     ascii;
- 
+
 writePrecision  6;
- 
+
 timeFormat      general;
- 
+
 timePrecision   6;
- 
+
 runTimeModifiable on;
- 
+
 adjustTimeStep  on;
- 
+
 maxCo           0.1;
- 
+
 maxAlphaCo      0.1;
- 
+
 maxDeltaT       1e-3;
 </pre></section></section><section id="postBLTurb"><h3><a href="#postBLTurb">Post-processing using python</a></h3><p>You just have to run the python script <em>plot_tutoBedLoadTurb.py</em> located in the folder <em>tutorials/Py</em>:</p><pre>python plot_tutoBedLoadTurb.py
-</pre><p>and you should see the following figures:</p><figure class="m-figure"><img src="res_TutoBedloadTurb.png" alt="Image" style="width: 800px;" /><figcaption>Figure 6: Comparison with DEM data of the packing fraction, particle streamwise velocity and fluid streamwise profiles for a turbulent flow over a granular bed.</figcaption></figure></section></section><section id="dryavalanche"><h2><a href="#dryavalanche">1DAvalancheMuI: Dry granular avalanche</a></h2><p>We consider a fluid-solid mixture avalanche flowing under a steady-state moving down a planar slope as illustrated in figure 7. In this example, dense granular flow is reproduced by means of the dense granular flow rheology <svg class="m-math" style="width: 2.318em; height: 1.245em; vertical-align: -0.312em;" viewBox="0 -8.966376 22.250404 11.955168">
+</pre><p>and you should see the following figures:</p><figure class="m-figure"><img src="res_TutoBedloadTurb.png" alt="Image" style="width: 800px;" /><figcaption>Figure 6: Turbulent flow over a granular bed. Comparison with DEM data of the packing fraction, particle and fluid streamwise velocity, transport profile and granular temperature.</figcaption></figure></section></section><section id="dryavalanche"><h2><a href="#dryavalanche">1DAvalancheMuI: Dry granular avalanche</a></h2><p>We consider a fluid-solid mixture avalanche flowing under a steady-state moving down a planar slope as illustrated in figure 7. In this example, dense granular flow is reproduced by means of the dense granular flow rheology <svg class="m-math" style="width: 2.318em; height: 1.245em; vertical-align: -0.312em;" viewBox="0 -8.966376 22.250404 11.955168">
 <title>
 $\mu(I)$
 </title>
@@ -1194,7 +1194,7 @@ $ n_{z}$
 <use x='6.987606' y='1.793263' xlink:href='#eq20-g0-122'/>
 </g>
 </svg>=100 in figure 6). The block structure is the same as for the Sedimentation test case and is shown in figure 1.</p><p>The mesh is generated by running blockMesh from within the case directory:</p><pre>blockMesh
-</pre></section><section id="BC_initiAva"><h5><a href="#BC_initiAva">Boundary and initial conditions</a></h5><p>The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, Ua, Ub, p_rbgh, muI, pa, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. No-slip boundary conditions are imposed for both phases at the top and bottom boundaries (zero velocity at the solid boundaries). Additionally, cyclic boundaries are considered in the inlet and outlet (upstream and downstream boundaries in figure 6.). Cyclic boundaries are imposed to connect two equal meshes. The frontAndBack patch represents the front and back planes of the 2D case and therefore must be set as empty.</p></section><section id="PhysPropAva"><h5><a href="#PhysPropAva">Physical properties</a></h5><p>The following variables are considered:</p><table class="m-table"><caption>Main physical parameters.</caption><thead><tr><th>Properties</th><th>Value<br /></th></tr></thead><tbody><tr><td>Solid density</td><td><svg class="m-math" style="width: 4.712em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 45.23502 14.913253">
+</pre></section><section id="BC_initiAva"><h5><a href="#BC_initiAva">Boundary and initial conditions</a></h5><p>The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, Ua, Ub, p_rbgh, muI, pa, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. No-slip boundary conditions are imposed for both phases at the top and bottom boundaries (zero velocity at the solid boundaries). Additionally, cyclic boundaries are considered in the inlet and outlet (upstream and downstream boundaries in figure 6.). Cyclic boundaries are imposed to connect two equal meshes. The frontAndBack patch represents the front and back planes of the 2D case and therefore must be set as empty.</p></section><section id="PhysPropAva"><h5><a href="#PhysPropAva">Physical properties</a></h5><p>The following variables are considered:</p><table class="m-table"><caption>Main physical parameters.</caption><thead><tr><th>Properties</th><th>Value</th></tr></thead><tbody><tr><td>Solid density</td><td><svg class="m-math" style="width: 4.712em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 45.23502 14.913253">
 <title>
 $\rho_p=1 \frac{kg}{m^3}$
 </title>
@@ -1219,7 +1219,7 @@ $\rho_p=1 \frac{kg}{m^3}$
 <use x='33.59345' y='4.122632' xlink:href='#eq21-g0-109'/>
 <use x='41.083976' y='1.853371' xlink:href='#eq21-g2-51'/>
 </g>
-</svg><br /></td></tr><tr><td>Fluid density</td><td><svg class="m-math" style="width: 6.572em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 63.090821 14.913253">
+</svg></td></tr><tr><td>Fluid density</td><td><svg class="m-math" style="width: 6.572em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 63.090821 14.913253">
 <title>
 $\rho_f=10^{-3} \frac{kg}{m^3}$
 </title>
@@ -1279,7 +1279,7 @@ $\nu^f=10^{-1} \frac{m^2}{s}$
 <rect x='51.949458' y='-3.227886' height='.478187' width='11.641571'/>
 <use x='55.812291' y='4.122632' xlink:href='#eq23-g1-115'/>
 </g>
-</svg><br /></td></tr><tr><td>Mean particle diameter</td><td><svg class="m-math" style="width: 5.508em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 52.878902 8.302191">
+</svg></td></tr><tr><td>Mean particle diameter</td><td><svg class="m-math" style="width: 5.508em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 52.878902 8.302191">
 <title>
 $d=0.02 m$
 </title>
@@ -1300,7 +1300,7 @@ $d=0.02 m$
 <use x='36.786645' y='0' xlink:href='#eq24-g1-50'/>
 <use x='42.639635' y='0' xlink:href='#eq24-g0-109'/>
 </g>
-</svg><br /></td></tr><tr><td>Slope inclined at the angle</td><td><svg class="m-math" style="width: 3.888em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 37.325681 8.302191">
+</svg></td></tr><tr><td>Slope inclined at the angle</td><td><svg class="m-math" style="width: 3.888em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 37.325681 8.302191">
 <title>
 $\theta=26^o $
 </title>
@@ -1318,7 +1318,7 @@ $\theta=26^o $
 <use x='27.379641' y='0' xlink:href='#eq25-g2-54'/>
 <use x='33.232632' y='-4.338437' xlink:href='#eq25-g0-111'/>
 </g>
-</svg><br /></td></tr><tr><td>Solid phase thickness</td><td><svg class="m-math" style="width: 4.967em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 47.681774 8.302191">
+</svg></td></tr><tr><td>Solid phase thickness</td><td><svg class="m-math" style="width: 4.967em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 47.681774 8.302191">
 <title>
 $h=0.5 m$
 </title>
@@ -1356,7 +1356,7 @@ $\phi=0.6$
 <use x='28.527403' y='0' xlink:href='#eq27-g0-58'/>
 <use x='31.779064' y='0' xlink:href='#eq27-g1-54'/>
 </g>
-</svg><br /></td></tr></tbody></table><p>The <em>transportProperties</em> file for the 1DAvalancheMuI case is shown below:</p><pre>phasea
+</svg></td></tr></tbody></table><p>The <em>transportProperties</em> file for the 1DAvalancheMuI case is shown below:</p><pre>phasea
 {
     rho             rho [ 1 -3 0 0 0 ] 1;
     nu              nu [ 0 2 -1 0 0 ] 1e-6;
@@ -1521,7 +1521,7 @@ $(\phi_0=0.592)$
 <use x='52.769685' y='0' xlink:href='#eq34-g2-50'/>
 <use x='58.622675' y='0' xlink:href='#eq34-g2-41'/>
 </g>
-</svg> in 1D. In order to reach an initial equilibrium state, 200 seconds are required to let the granular layer deposit by gravity.</p><figure class="m-figure"><img src="schemeAvalanche1DVisc.png" alt="Image" style="width: 500px;" /><figcaption>Figure 9: Schematic section of the immersed avalanche in a viscous fluid flowing down on a uniform slope. The coordinate system and main lengths are defined.</figcaption></figure><section id="preprocWetAva"><h3><a href="#preprocWetAva">Pre-processing</a></h3><p>This tutorial is distributed with sedFoam5.0 under the folder <em>sedFoamDirectory/tutorials/1DWetAvalanche</em>.</p><section id="PhysPropWetAva"><h5><a href="#PhysPropWetAva">Physical properties</a></h5><p>The following variables are considered to reproduce the experimental results of Pailha et al. (2008):</p><table class="m-table"><caption>Main physical parameters.</caption><thead><tr><th>Properties</th><th>Value<br /></th></tr></thead><tbody><tr><td>Solid density</td><td><svg class="m-math" style="width: 6.541em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 62.793991 14.913253">
+</svg> in 1D. In order to reach an initial equilibrium state, 200 seconds are required to let the granular layer deposit by gravity.</p><figure class="m-figure"><img src="schemeAvalanche1DVisc.png" alt="Image" style="width: 500px;" /><figcaption>Figure 9: Schematic section of the immersed avalanche in a viscous fluid flowing down on a uniform slope. The coordinate system and main lengths are defined.</figcaption></figure><section id="preprocWetAva"><h3><a href="#preprocWetAva">Pre-processing</a></h3><p>This tutorial is distributed with sedFoam5.0 under the folder <em>sedFoamDirectory/tutorials/1DWetAvalanche</em>.</p><section id="PhysPropWetAva"><h5><a href="#PhysPropWetAva">Physical properties</a></h5><p>The following variables are considered to reproduce the experimental results of Pailha et al. (2008):</p><table class="m-table"><caption>Main physical parameters.</caption><thead><tr><th>Properties</th><th>Value</th></tr></thead><tbody><tr><td>Solid density</td><td><svg class="m-math" style="width: 6.541em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 62.793991 14.913253">
 <title>
 $\rho_p=2500 \frac{kg}{m^3}$
 </title>
@@ -1551,7 +1551,7 @@ $\rho_p=2500 \frac{kg}{m^3}$
 <use x='51.152421' y='4.122632' xlink:href='#eq35-g0-109'/>
 <use x='58.642947' y='1.853371' xlink:href='#eq35-g2-51'/>
 </g>
-</svg><br /></td></tr><tr><td>Fluid density</td><td><svg class="m-math" style="width: 6.612em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 63.47798 14.913253">
+</svg></td></tr><tr><td>Fluid density</td><td><svg class="m-math" style="width: 6.612em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 63.47798 14.913253">
 <title>
 $\rho_f=1041 \frac{kg}{m^3}$
 </title>
@@ -1581,7 +1581,7 @@ $\rho_f=1041 \frac{kg}{m^3}$
 <use x='51.83641' y='4.122632' xlink:href='#eq36-g0-109'/>
 <use x='59.326936' y='1.853371' xlink:href='#eq36-g2-51'/>
 </g>
-</svg><br /></td></tr><tr><td>Fluid viscosity</td><td><svg class="m-math" style="width: 9.082em; height: 1.614em; vertical-align: -0.431em;" viewBox="0 -11.372132 87.182887 15.494764">
+</svg></td></tr><tr><td>Fluid viscosity</td><td><svg class="m-math" style="width: 9.082em; height: 1.614em; vertical-align: -0.431em;" viewBox="0 -11.372132 87.182887 15.494764">
 <title>
 $\nu^f=9.2 \cdot 10^{-5} \frac{m^2}{s}$
 </title>
@@ -1618,7 +1618,7 @@ $\nu^f=9.2 \cdot 10^{-5} \frac{m^2}{s}$
 <rect x='75.541316' y='-3.227886' height='.478187' width='11.641571'/>
 <use x='79.40415' y='4.122632' xlink:href='#eq37-g2-115'/>
 </g>
-</svg><br /></td></tr><tr><td>Mean particle diameter</td><td><svg class="m-math" style="width: 8.467em; height: 0.987em; vertical-align: -0.000em;" viewBox="0 -9.474739 81.28626 9.474739">
+</svg></td></tr><tr><td>Mean particle diameter</td><td><svg class="m-math" style="width: 8.467em; height: 0.987em; vertical-align: -0.000em;" viewBox="0 -9.474739 81.28626 9.474739">
 <title>
 $d=160 \cdot 10^{-6} m$
 </title>
@@ -1646,7 +1646,7 @@ $d=160 \cdot 10^{-6} m$
 <use x='66.314678' y='-4.338437' xlink:href='#eq38-g3-54'/>
 <use x='71.046993' y='0' xlink:href='#eq38-g2-109'/>
 </g>
-</svg><br /></td></tr><tr><td>Slope inclined at the angle</td><td><svg class="m-math" style="width: 3.888em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 37.325681 8.302191">
+</svg></td></tr><tr><td>Slope inclined at the angle</td><td><svg class="m-math" style="width: 3.888em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 37.325681 8.302191">
 <title>
 $\theta=25^o $
 </title>
@@ -1664,7 +1664,7 @@ $\theta=25^o $
 <use x='27.379641' y='0' xlink:href='#eq39-g2-53'/>
 <use x='33.232632' y='-4.338437' xlink:href='#eq39-g0-111'/>
 </g>
-</svg><br /></td></tr><tr><td>Solid phase thickness</td><td><svg class="m-math" style="width: 6.796em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 65.240745 8.302191">
+</svg></td></tr><tr><td>Solid phase thickness</td><td><svg class="m-math" style="width: 6.796em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 65.240745 8.302191">
 <title>
 $h=0.0049 m$
 </title>
@@ -1710,7 +1710,7 @@ $\phi=0.592$
 <use x='37.632054' y='0' xlink:href='#eq41-g1-57'/>
 <use x='43.485044' y='0' xlink:href='#eq41-g1-50'/>
 </g>
-</svg><br /></td></tr></tbody></table><p>The <em>transportProperties</em> file for the 1DWetAvalancheMuIv case is shown below:</p><pre>phasea
+</svg></td></tr></tbody></table><p>The <em>transportProperties</em> file for the 1DWetAvalancheMuIv case is shown below:</p><pre>phasea
 {
     rho             rho [ 1 -3 0 0 0 ] 2500;
     nu              nu [ 0 2 -1 0 0 ] 1e-6;
@@ -1733,7 +1733,7 @@ alphaDiffusion  alphaDiffusion [0 2 -1 0 0 0 0] 0e-8;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e0;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha </pre></section></section><section id="SedimentationWetAva"><h3><a href="#SedimentationWetAva">Sedimentation process</a></h3><p>Dense granular flow rheology <svg class="m-math" style="width: 2.731em; height: 1.245em; vertical-align: -0.312em;" viewBox="0 -8.966376 26.2181 11.955168">
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha</pre></section></section><section id="SedimentationWetAva"><h3><a href="#SedimentationWetAva">Sedimentation process</a></h3><p>Dense granular flow rheology <svg class="m-math" style="width: 2.731em; height: 1.245em; vertical-align: -0.312em;" viewBox="0 -8.966376 26.2181 11.955168">
 <title>
 $\mu(I_v)$
 </title>
@@ -1751,7 +1751,7 @@ $\mu(I_v)$
 <use x='16.758198' y='1.793263' xlink:href='#eq42-g0-118'/>
 <use x='21.665774' y='0' xlink:href='#eq42-g2-41'/>
 </g>
-</svg> is used as shown in <em>granularRheologyProperties</em>.<br />The dilatancy model is switch off during the sedimentation process:</p><pre>granularRheology   on;
+</svg> is used as shown in <em>granularRheologyProperties</em>. The dilatancy model is switch off during the sedimentation process:</p><pre>granularRheology   on;
 
 granularDilatancy  off;
 
@@ -1854,7 +1854,7 @@ $\phi_0=0.566$
 <use x='48.217359' y='0' xlink:href='#eq45-g2-54'/>
 </g>
 </svg>.</p></section><section id="WetAvaProc"><h3><a href="#WetAvaProc">Launching the 1D immersed avalanche</a></h3><p>After 200 seconds of sedimentation, the file <em>constant/g</em> should be adjusted to reproduce the inclined plane (25 degrees slope):</p><pre>dimensions      [0 1 -2 0 0 0 0];
-// tiltangle = 25° 
+// tiltangle = 25°
 value           ( 4.14588187090559 -8.8908809188120586 0 );</pre><p>The dilatancy model is turn on in <em>granularRheologyProperties</em> to reproduce the coupling between the dilatancy and the pore pressure feedback:</p><pre>granularDilatancy  on;</pre></section><section id="postWetAvalanche"><h3><a href="#postWetAvalanche">Post-processing using python</a></h3><p>The SedFoam and Pailha et al. (2008) experimental results are obtained running the python script <em>plot_tuto1DWetAvalanche.py</em> located in the folder <em>tutorials/Py</em>:</p><pre>python plot_tuto1DWetAvalanche.py
 </pre><p>and you should see the following figure:</p><figure class="m-figure"><img src="1DWetAvalancheResults.png" alt="Image" style="width: 800px;" /><figcaption>Figure 10: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailhaet al.(2008).</figcaption></figure><p>In order to illustrate the dilatant effects and the pore pressure feedback mechanism of the avalanche we run the python script <em>plot_tuto1DWetAvalancheVerticalProfiles.py</em>. The resulting figure is depicted below. We observe the evolution of the volume fraction, particle velocity and excess of pore pressure along the vertical axis.</p><figure class="m-figure"><img src="1DWetAvalancheVerticalProfiles.png" alt="Image" style="width: 1000px;" /><figcaption>Figure 11: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical.</figcaption></figure></section></section><section id="BoundaryLayer"><h2><a href="#BoundaryLayer">1DBoundaryLayer: Single-phase turbulent boundary layer flow</a></h2><p>In this test case, tturbulence model k-omega (Wilcox, 1988) is validated for a single-phase boundary layer flow over a smooth surface. The numerical results are compared with the DNS results of Moser et al. (1999). A water column of dimensionless height <svg class="m-math" style="width: 2.952em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 28.337855 8.302191">
 <title>
@@ -1978,7 +1978,7 @@ phasea
     nu              nu [ 0 2 -1 0 0 ] 0e0;
     d               d [ 0 1 0 0 0 0 0 ] 1.e-7;
     sF              sF   [ 0 0  0 0 0 0 0 ] 1;
-    hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;  
+    hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;
 }
 
 phaseb
@@ -2302,9 +2302,9 @@ nu              nu [ 0 2 -1 0 0 0 0 ] 1.e-6;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e-1;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
 
-alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension</pre><p>The physical property of the particles (diameter and density) and of the fluid (density and kinematic viscosity) have been set to the experimental values from Revil-Baudard et al. (2015).<br /></p><p>Revil-Baudard, T., Chauchat, J., Hurther, D., and Barraud, P.-A. (2015). In- vestigation of sheet-flow processes based on novel acoustic high-resolution velocity and concentration measurements. Journal of Fluid Mechanics, 767:1–30.</p><p>In the dictionary <em>interfacialProperties</em> file the drag model from GidaspowSchillerNaumann is used and the shape factor sF is taken to 0.5 to match the settling velocity of a single particle with the measured data (w_fall = 0.056 m/s).</p><p>In this tutorial, the kinetic theory is used for the granular stress model and the <em>kineticTheoryProperties</em> reads:</p><pre>kineticTheory   on;
+alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension</pre><p>The physical property of the particles (diameter and density) and of the fluid (density and kinematic viscosity) have been set to the experimental values from Revil-Baudard et al. (2015).</p><p>Revil-Baudard, T., Chauchat, J., Hurther, D., and Barraud, P.-A. (2015). In- vestigation of sheet-flow processes based on novel acoustic high-resolution velocity and concentration measurements. Journal of Fluid Mechanics, 767:1–30.</p><p>In the dictionary <em>interfacialProperties</em> file the drag model from GidaspowSchillerNaumann is used and the shape factor sF is taken to 0.5 to match the settling velocity of a single particle with the measured data (w_fall = 0.056 m/s).</p><p>In this tutorial, the kinetic theory is used for the granular stress model and the <em>kineticTheoryProperties</em> reads:</p><pre>kineticTheory   on;
 
 equilibrium     off;
 
@@ -2412,7 +2412,7 @@ laplacianSchemes
     laplacian(nuFra,Ua)  Gauss linear corrected;
 // pEqn
     laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
-// k and EpsilonEqn 
+// k and EpsilonEqn
     laplacian(DkEff,k) Gauss linear corrected;
     laplacian(DkEff,beta) Gauss linear corrected;
     laplacian(DepsilonEff,epsilon) Gauss linear corrected;
