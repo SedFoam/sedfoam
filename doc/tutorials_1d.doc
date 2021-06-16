@@ -960,7 +960,7 @@ python plot_tutoBedLoadTurb.py
 
 and you should see the following figures:
 
-@image html "res_TutoBedloadTurb.png" "Figure 6: Comparison with DEM data of the packing fraction, particle streamwise velocity and fluid streamwise profiles for a turbulent flow over a granular bed." width=800px
+@image html "res_TutoBedloadTurb.png" "Figure 6: Turbulent flow over a granular bed. Comparison with DEM data of the packing fraction, particle and fluid streamwise velocity, transport profile and granular temperature." width=800px
 @image latex "res_TutoBedloadTurb.png" "Figure 6: Comparison with DEM data of the packing fraction, particle streamwise velocity and fluid streamwise profiles for a turbulent flow over a granular bed. "
 
 

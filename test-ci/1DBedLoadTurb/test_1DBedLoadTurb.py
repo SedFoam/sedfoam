@@ -9,7 +9,7 @@ def rms(x):
 ##################
 # Loading Data
 ##################
-zDATA, phiDATA, vxPDATA, vxFDATA = np.loadtxt('DATA/BedloadTurbDATA.txt', unpack=True)
+zDATA, phiDATA, vxPDATA, vxFDATA, TDATA = np.loadtxt('DATA/BedloadTurbDATA.txt', unpack=True)
 
 ######################################
 # Loading OpenFoam results
@@ -40,6 +40,7 @@ z = Y
 phi = fluidfoam.readscalar(sol, tread, 'alpha_a')
 vxPart   = fluidfoam.readvector(sol, tread, 'Ua')[0]
 vxFluid    = fluidfoam.readvector(sol, tread, 'Ub')[0]
+T = fluidfoam.readscalar(sol, tread, 'Theta')
 
 phi_interp = np.interp(zDATA, z, phi);
 rms_phi = rms(phi_interp - phiDATA)
@@ -52,4 +53,9 @@ assert(rms_vxP<=0.1)
 
 vxFluid_interp = np.interp(zDATA, z, vxFluid);
 rms_vxF = rms(vxFluid_interp-vxFDATA)
-assert(rms_vxF<=0.2)
+assert(rms_vxF<=0.15)
+
+T_interp = np.interp(zDATA, z, T);
+I = np.where(zDATA<17.5*0.006)
+rms_T = rms(T_interp[I]-TDATA[I])
+assert(rms_T<=0.02)
