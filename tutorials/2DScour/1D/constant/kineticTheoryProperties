@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-kineticTheory   on;
+kineticTheory   off;
 
 limitProduction off;
 
