@@ -14,29 +14,23 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-convertToMeters 1;
-// 
+scale 0.06;
+
 vertices        
 (
-    (0.0   -0.05  0.025)//0
-    (0.08  -0.05  0.025)//1
-    (0.08  0      0.025)//2
-    (0.08  0.15   0.025)//3 
-    (0.0   0.15   0.025)//4
-    (0.0   0      0.025)//5
-
-    (0.0  -0.05 -0.025)//6
-    (0.08 -0.05 -0.025)//7
-    (0.08  0     -0.025)//8
-    (0.08  0.15  -0.025)//9
-    (0.0   0.15  -0.025)//10
-    (0.0   0     -0.025) //11
+    (-0.125 0   0.005) //0
+    ( 0.125 0   0.005) //1
+    ( 0.125 1.  0.005) //2
+    (-0.125 1.  0.005) //3
+    (-0.125 0  -0.005) //4
+    ( 0.125 0  -0.005) //5
+    ( 0.125 1. -0.005) //6
+    (-0.125 1. -0.005) //7
 );
 
 blocks          
 (
-    hex (0 1 7 6 5 2 8 11) (400 1 100 ) simpleGrading (1 1 0.1 )
-    hex (5 2 8 11 4 3 9 10) (400 1 300 ) simpleGrading (1 1 10 )
+    hex (0 1 5 4 3 2 6 7) (30 1 120) simpleGrading (1 1 1)
 );
 
 edges           
@@ -45,50 +39,32 @@ edges
 
 boundary         
 (
-    inandouthalf21 
+    inlet 
     {
-     type   cyclic;
-     faces 
-	    ((0 6 11 5));
-     neighbourPatch inandouthalf22;
+     type   wall;
+     faces ((0 3 7 4));
     }
-    inandouthalf22
+    outlet
     {
-     type cyclic;
-     faces ((1 2 8 7));
-     neighbourPatch inandouthalf21;
-    }
-    inandouthalf11
-    {
-     type   cyclic;
-     faces  (
-             (5 11 10 4));
-     neighbourPatch inandouthalf12;
-    }
-   inandouthalf12
-    {
-     type cyclic;
-     faces ((2 8 9 3));
-     neighbourPatch inandouthalf11;
+     type   wall;
+     faces  ((1 5 6 2));
     }
     top
     { 
      type wall;
-        faces ((3 4 10 9));
+        faces ((7 6 2 3));
     }
-    walls 
+    bottom 
     {
      type wall;
-     faces ((0 1 7 6));
+     faces ((0 4 5 1)); 
     }
     frontAndBackPlanes
     {
     type empty;
     faces (
-           (0 5 2 1)
-           (5 4 3 2)
-           (6 7 8 11)
-           (11 8 9 10)
+           (0 1 2 3)
+           (4 7 6 5)
           );
     }
 );

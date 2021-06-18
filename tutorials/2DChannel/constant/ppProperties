@@ -15,8 +15,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// parameters for pff
-
 ppModel          JohnsonJackson;
 
 alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.58;
@@ -28,7 +26,6 @@ Fr               Fr [ 1 -1 -2 0 0 0 0 ] 5e-2;
 eta0             eta0 [ 0 0 0 0 0 0 0 ] 3;
 
 eta1             eta1 [ 0 0 0 0 0 0 0 ] 5;
-
 
 packingLimiter  no;
 
