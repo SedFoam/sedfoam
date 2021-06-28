@@ -21,30 +21,23 @@ internalField   uniform 0;
 
 boundaryField
 {
-    inandouthalf11
+    inlet
     {
-        type            cyclic;
+        type            zeroGradient;
     }
-    inandouthalf12
+    outlet
     {
-        type            cyclic;
-    }
-    inandouthalf21
-    {
-        type            cyclic;
-    }
-    inandouthalf22
-    {
-        type            cyclic;
+        type            zeroGradient;
     }
     top
     {
 	type		fixedValue;
-        value		uniform 0;
+	value		uniform 0;
     }
-    walls
+    bottom
     {
-        type		zeroGradient;
+	type 		fixedFluxPressure;
+	gradient	$internalField;
     }
     frontAndBackPlanes
     {

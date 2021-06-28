@@ -39,7 +39,7 @@ nu              nu [ 0 2 -1 0 0 0 0 ] 1.e-6;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e-1;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-5;  // minimum volume fraction (phase a) for division by alpha 
 
 alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
 

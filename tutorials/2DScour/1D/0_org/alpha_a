@@ -43,7 +43,7 @@ internalField   #codeStream
         forAll(mesh.C(), i)
         {
             scalar y = mesh.C()[i].y();
-            alpha_a[i] = 0.57*0.5*(1.0+tanh(-y/0.002));
+            alpha_a[i] = 0.57*0.5*(1.0+tanh((0.000625-y)/0.002));
         }
         alpha_a.writeEntry("", os);
     #};

@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  1.7.1                                 |
+|  \\    /   O peration     | Version:  2.4.0                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -20,8 +20,8 @@ solvers
     p_rbgh
     {
         solver          GAMG;
-        tolerance       1e-06;
-        relTol          0.000;
+        tolerance       1e-9;
+        relTol          0.0001;
         smoother        DIC;
         nPreSweeps      0;
         nPostSweeps     2;
@@ -35,70 +35,35 @@ solvers
     p_rbghFinal
     {
         $p_rbgh;
-        tolerance       1e-6;
+        tolerance       1e-9;
         relTol          0;
     }
+    "(alpha_a|Ua|Ub|pa_new_value|alphaPlastic)"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-9;
+        relTol          0;
+    }
+    "(alpha_aFinal|UaFinal|UbFinal|paFinal|alphaPlasticFinal)"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-9;
+        relTol          0;
+    }
+}
 
-    "(k|epsilon|pa_new_value|alphaPlastic)"
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-09;
-        relTol          0.00001;
-    }
-
-    "(kFinal|epsilonFinal|paFinal|alphaPlasticFinal)"
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-09;
-        relTol          0;
-    }
-
-    "Ua|UaFinal"
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-6;
-        relTol          0;
-    }
-
-    "Ub|UbFinal"
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-6;
-        relTol          0;
-    }
-
-    alpha_a
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-15;
-        relTol          0;
-    }
-    alpha_aFinal
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-15;
-        relTol          0;
-    }
-    Theta
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-10;
-        relTol          0;
-    }
-    ThetaFinal
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-10;
-        relTol          0;
-    }
+PIMPLE
+{
+    momentumPredictor 0;
+    nOuterCorrectors  1;
+    nCorrectors     1;
+    nNonOrthogonalCorrectors 0;
+    correctAlpha    0;
+    nAlphaCorr      1;
+    pRefCell        0;
+    pRefValue       0;
 }
 
 
@@ -106,16 +71,15 @@ relaxationFactors
 {
     fields
     {
-        pa              1.;
+        p_rbgh               1.;
+        p_rbghFinal          1;
     }
-}
+    equations
+    {
+        "Ua|Ub|k|omega"             1.;
+        "(Ua|Ub|k|omega)Final"      1;
+    }
 
-PIMPLE
-{
-    nCorrectors     1;
-    nNonOrthogonalCorrectors 0;
-    correctAlpha    0;
-    nAlphaCorr      1;
 }
 
 // ************************************************************************* //

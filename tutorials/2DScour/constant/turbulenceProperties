@@ -25,8 +25,6 @@ RASModel        twophasekOmega; // 2006 version
     printCoeffs     on;
     twophasekOmegaCoeffs
     {
-
-
         alphaOmega       0.52;
         betaOmega        0.0708; // original k-omega: 0.072 // k-omega (2006): 0.0708
         C3om             0.35;

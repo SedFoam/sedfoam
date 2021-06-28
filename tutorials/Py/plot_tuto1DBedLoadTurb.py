@@ -9,7 +9,7 @@ plt.ion()
 import matplotlib.ticker as mticker
 from matplotlib.ticker import StrMethodFormatter, NullFormatter
 from matplotlib import rc
-rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+#rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
 rc('text', usetex=True)
 
 label_size = 20
@@ -63,6 +63,7 @@ plt.plot(phi, z/d, label=r'SedFoam')
 plt.xlabel(r'$\phi$', fontsize=25)
 plt.ylabel(r'$\frac{z}{d}$', fontsize=30, rotation=True, horizontalalignment='right')
 plt.grid()
+plt.ylim([-1.525, 32.025])
 plt.legend()
 
 plt.subplot(142)
@@ -78,24 +79,30 @@ plt.grid()
 plt.legend()
 ax = plt.gca()
 ax.set_yticklabels([])
+plt.legend()
 
 plt.subplot(143)
 plt.plot(phiDEM*vxPDEM, zDEM/d, 'k--', label=r'DEM')
 plt.plot(phi*vxPart, z/d, label=r'SedFoam')
 plt.xlabel(r'$q = \phi v_x^p$', fontsize=25)
 plt.grid()
+plt.ylim([-1.525, 32.025])
 ax = plt.gca()
 ax.set_yticklabels([])
 
 plt.subplot(144)
+
 I = np.where(phiDEM>0.001)[0]
 plt.plot(TDEM[I], zDEM[I]/d, 'k--', label=r'DEM')
 I = np.where(phi>0.001)[0]
 plt.plot(T[I], z[I]/d, label=r'SedFoam')
 plt.xlabel(r'$T$', fontsize=25)
-plt.ylim([-1.525, 32.025])
 plt.grid()
+plt.ylim([-1.525, 32.025])
 ax = plt.gca()
 ax.set_yticklabels([])
 
 plt.savefig('Figures/res_TutoBedloadTurb.png', bbox_inches='tight')
+
+plt.show(block=False)
+
