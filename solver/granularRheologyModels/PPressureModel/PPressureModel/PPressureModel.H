@@ -26,6 +26,9 @@ Class
 
 Description
 
+    This file is in the \dir PPressureModel/PPressureModel subdirectory
+    inside the \dir PPressureModel subdirectory
+
 SourceFiles
     PPressureModel.C
 

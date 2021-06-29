@@ -25,6 +25,8 @@ Class
     Foam::SinclairJacksonRadial
 
 Description
+    This file is in the \dir kineticTheoryModels/radialModel/SinclairJackson
+    directory
 
 SourceFiles
     SinclairJacksonRadial.C

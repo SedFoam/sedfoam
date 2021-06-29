@@ -28,7 +28,7 @@ basepath='../'
 # Loading OpenFoam results
 #
 casedir='1DBoundaryLayer/'
-tout='2000'
+tout='2500'
 
 sol=basepath+casedir
 

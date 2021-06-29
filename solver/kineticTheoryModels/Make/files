@@ -5,6 +5,8 @@ viscosityModel/viscosityModel/newViscosityModel.C
 viscosityModel/Gidaspow/GidaspowViscosity.C
 viscosityModel/Syamlal/SyamlalViscosity.C
 viscosityModel/HrenyaSinclair/HrenyaSinclairViscosity.C
+viscosityModel/GarzoDufty/GarzoDuftyViscosity.C
+viscosityModel/GarzoDuftyMod/GarzoDuftyModViscosity.C
 viscosityModel/none/noneViscosity.C
 
 conductivityModel/conductivityModel/conductivityModel.C
@@ -12,6 +14,8 @@ conductivityModel/conductivityModel/newConductivityModel.C
 conductivityModel/Gidaspow/GidaspowConductivity.C
 conductivityModel/Syamlal/SyamlalConductivity.C
 conductivityModel/HrenyaSinclair/HrenyaSinclairConductivity.C
+conductivityModel/GarzoDufty/GarzoDuftyConductivity.C
+conductivityModel/GarzoDuftyMod/GarzoDuftyModConductivity.C
 
 radialModel/radialModel/radialModel.C
 radialModel/radialModel/newRadialModel.C
@@ -20,17 +24,13 @@ radialModel/Torquato/TorquatoRadial.C
 radialModel/Gidaspow/GidaspowRadial.C
 radialModel/LunSavage/LunSavageRadial.C
 radialModel/SinclairJackson/SinclairJacksonRadial.C
+radialModel/ChialvoSundaresan/ChialvoSundaresanRadial.C
+radialModel/ChialvoSundaresanFric/ChialvoSundaresanFricRadial.C
 
 granularPressureModel/granularPressureModel/granularPressureModel.C
 granularPressureModel/granularPressureModel/newGranularPressureModel.C
 granularPressureModel/Lun/LunPressure.C
 granularPressureModel/SyamlalRogersOBrien/SyamlalRogersOBrienPressure.C
 granularPressureModel/Torquato/TorquatoPressure.C
-
-frictionalStressModel/frictionalStressModel/frictionalStressModel.C
-frictionalStressModel/frictionalStressModel/newFrictionalStressModel.C
-frictionalStressModel/JohnsonJackson/JohnsonJacksonFrictionalStress.C
-frictionalStressModel/SrivastavaSundaresan/SrivastavaSundaresanFrictionalStress.C
-frictionalStressModel/Schaeffer/SchaefferFrictionalStress.C
 
 LIB = $(FOAM_USER_LIBBIN)/libkineticTheorySedModel

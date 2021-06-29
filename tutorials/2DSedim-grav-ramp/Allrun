@@ -5,11 +5,5 @@ blockMesh
 # create the intial time folder
 cp -r 0_org 0
 
-## initialise alpha field
-setFields
-
-# Decompose the case in order to run in parallel (on 4 cores)
-decomposePar
-
 # Run sedFoam in parallel
-mpirun -np 4 sedFoam_rbgh -parallel > log 2> err &
+sedFoam_rbgh > log 2> err &

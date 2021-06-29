@@ -26,6 +26,9 @@ Class
 
 Description
 
+    This file is in the \dir FrictionModel/MuI subdirectory
+    inside the \dir FrictionModel subdirectory
+
 SourceFiles
     MuI.C
 

@@ -1,9 +1,8 @@
+import sys
 import subprocess
 import numpy as np
 import fluidfoam
-from pylab import *
-import matplotlib.gridspec as gridspec
-import matplotlib.colors as mcolors
+from pylab import matplotlib, plt, show
 
 plt.rcParams.update({'font.size': 16})
 plt.rc('font', family='serif')
@@ -23,14 +22,14 @@ gravity = 9.81 # gravity in m/s2
 rhoFluid=1041  # fluid density in kg/m3
 h =  0.0049 # initial granular height in m
 
-timeAdim=(d/gravity)**0.5	
+timeAdim=(d/gravity)**0.5
 velAdim=1000.*(gravity*d)**0.5
 pressureAdim=rhoFluid*h*gravity
 
 ##################################################################
 # Experimental data extracted from Pailha et al. (2008)
 ##################################################################
-	
+
 data1 = np.genfromtxt('DATA/ExperimentalDataPailha2008/v_t_exp_562.txt',delimiter='\t', names=True)
 time_v_562 = data1['time']/timeAdim
 velocity_562 = data1['velocity']/velAdim
@@ -112,14 +111,14 @@ for i in range(200,int(final_tread)):
 				if ((X[k]>-tolL) and (X[k]<tolL) and (Y[k]<h) and (Y[k]>h-tolL) and (velCol==0)):
 						vel_sim_dila_0.append(Ua_0[0, k]*1000/velAdim)
 						velCol=1
-				if (alpha_0[k]<tolAlpha and (X[k]>-tolL) and (X[k]<tolL) and (Y[k]>h) and (P1Col==0)):	
+				if (alpha_0[k]<tolAlpha and (X[k]>-tolL) and (X[k]<tolL) and (Y[k]>h) and (P1Col==0)):
 						P1Col=1
 						P_surface=p_rbgh_0[k]
-				if (alpha_0[k]>tolAlpha and (X[k]>-tolL) and (X[k]<tolL) and (Y[k]<tolL) and (P2Col==0)):	
+				if (alpha_0[k]>tolAlpha and (X[k]>-tolL) and (X[k]<tolL) and (Y[k]<tolL) and (P2Col==0)):
 						P2Col=1
-						P_bottom=p_rbgh_0[k]	
-				if ((velCol==1) and (P1Col==1) and (P2Col==1)):	
-					break	  	
+						P_bottom=p_rbgh_0[k]
+				if ((velCol==1) and (P1Col==1) and (P2Col==1)):
+            break	  	
 		p_sim_dila_0.append((P_bottom-P_surface)/pressureAdim)
 			
 #########################################

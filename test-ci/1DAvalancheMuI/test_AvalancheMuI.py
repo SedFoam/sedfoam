@@ -3,11 +3,10 @@ import subprocess
 import os
 import numpy as np
 import fluidfoam
-from pylab import *
+import sys
 
 def rms(x):
     return np.sqrt(x.dot(x)/x.size)
-
 
 #
 # compute the analytical solution in dimensionless form

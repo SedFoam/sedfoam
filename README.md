@@ -8,12 +8,9 @@ sedfoam
 [![OpenFOAM v19xx](https://img.shields.io/badge/OpenFOAM-v19xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v18xx](https://img.shields.io/badge/OpenFOAM-v18xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v17xx](https://img.shields.io/badge/OpenFOAM-v17xx-brightgreen.svg)](https://openfoam.com/)
-[![OpenFOAM 7.x](https://img.shields.io/badge/OpenFOAM-7-brightgreen.svg)](https://openfoam.org/)
-[![OpenFOAM 6](https://img.shields.io/badge/OpenFOAM-6-brightgreen.svg)](https://openfoam.org/)
-[![OpenFOAM 5.x](https://img.shields.io/badge/OpenFOAM-5.x-brightgreen.svg)](https://openfoam.org/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.836642.svg)](https://doi.org/10.5281/zenodo.836642)
 
-This repository provides the SedFoam solver (version OpenFOAM classic).
+This repository provides the SedFoam solver.
 
 [![](https://i.ibb.co/WgS6PYB/Capture-d-e-cran-2018-12-14-a-11-27-01.png)](https://www.youtube.com/watch?v=cVf7qm_ZDK0)
 
@@ -33,7 +30,7 @@ Installation
 
 ```bash
 cd $WM_PROJECT_USER_DIR
-git clone https://github.com/sedfoam/sedfoam sedfoam
+git clone --recurse-submodules https://github.com/sedfoam/sedfoam sedfoam
 cd sedfoam
 ./Allwclean
 ./Allwmake
@@ -44,30 +41,38 @@ Usage
 
 There are tutorials located in `tutorials` and details can be found [here.](http://sedfoam.github.io/sedfoam)
 
-Publications
-------------
-
-Julien Chauchat, Zhen Cheng, Tim Nagel, Cyrille Bonamy, and Tian-Jian Hsu (2017) [SedFoam-2.0: a 3-D two-phase flow numerical model for sediment transport ](Geosci. Model Dev., 10, 4367-4392) [![DOI](https://img.shields.io/badge/DOI-10.5195%2Fgmd_10_4367_2017-blue.svg)](https://doi.org/10.5194/gmd-10-4367-2017)
-
-Antoine Mathieu, Julien Chauchat, Cyrille Bonamy, Tim Nagel(2019) [Two-phase flow simulation of tunnel and lee-wake erosion of scour below a submarine pipeline](Water, 11, 8) [![DOI](https://img.shields.io/badge/DOI-10.3390%2Fw11081727-blue.svg)](https://www.mdpi.com/2073-4441/11/8/1727)
-
-Tim Nagel, Julien Chauchat, Cyrille Bonamy, Xiaofeng Liu, Zhen Cheng, and Tian-Jian Hsu. (2020). [Three-dimensional scour simulations with a two-phase flow model] (Advances in Water Resources) [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.advwatres.2020.103544-blue.svg)](https://doi.org/10.1016/j.advwatres.2020.103544) 
-
 How to cite
 -----------
 
-The sedfoam solver can be cited via DOI thanks to Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.836642.svg)](https://doi.org/10.5281/zenodo.836642)
+The sedfoam solver should be referenced using the GMD paper :
+
+Julien Chauchat, Zhen Cheng, Tim Nagel, Cyrille Bonamy, and Tian-Jian Hsu (2017) SedFoam-2.0: a 3-D two-phase flow numerical model for sediment transport (Geosci. Model Dev., 10, 4367-4392) [![DOI](https://img.shields.io/badge/DOI-10.5195%2Fgmd_10_4367_2017-blue.svg)](https://doi.org/10.5194/gmd-10-4367-2017)
+
+and the reference in which a specific configuration and/or feature has been first presented (please see list of references in the documentation).
+
+If you are using a sedFoam version without modification, you should also refer to the Zenodo DOI of the version, current version is [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.836642.svg)](https://doi.org/10.5281/zenodo.836642)
+
+
+Publications
+------------
+
+Julien Chauchat, Zhen Cheng, Tim Nagel, Cyrille Bonamy, and Tian-Jian Hsu (2017) SedFoam-2.0: a 3-D two-phase flow numerical model for sediment transport (Geosci. Model Dev., 10, 4367-4392) [![DOI](https://img.shields.io/badge/DOI-10.5195%2Fgmd_10_4367_2017-blue.svg)](https://doi.org/10.5194/gmd-10-4367-2017)
+
+Antoine Mathieu, Julien Chauchat, Cyrille Bonamy, Tim Nagel (2019) Two-phase flow simulation of tunnel and lee-wake erosion of scour below a submarine pipeline (Water, 11, 8) [![DOI](https://img.shields.io/badge/DOI-10.3390%2Fw11081727-blue.svg)](https://www.mdpi.com/2073-4441/11/8/1727)
+
+Tim Nagel, Julien Chauchat, Cyrille Bonamy, Xiaofeng Liu, Zhen Cheng, and Tian-Jian Hsu (2020) Three-dimensional scour simulations with a two-phase flow model (Advances in Water Resources) [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.advwatres.2020.103544-blue.svg)](https://doi.org/10.1016/j.advwatres.2020.103544) 
 
 Developers
 ----------
 
-  * Cyrille Bonamy
-  * Julien Chauchat
-  * Zhen Cheng
-  * Tian-Jian Hsu
-  * Tim Nagel
-  * Antoine Mathieu
-  * Eduard Puig Montella
+*   Cyrille Bonamy
+*   Julien Chauchat
+*   Zhen Cheng
+*   Tian-Jian Hsu
+*   Tim Nagel
+*   Antoine Mathieu
+*   Eduard Puig Montella
+*   Rémi Chassagne
 
 Acknowledgements
 ----------------

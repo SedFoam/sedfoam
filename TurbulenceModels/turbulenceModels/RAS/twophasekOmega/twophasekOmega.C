@@ -39,7 +39,10 @@ namespace RASModels
 template<class BasicTurbulenceModel>
 void twophasekOmega<BasicTurbulenceModel>::correctNut()
 {
-    this->nut_ = k_/omega_;
+    this->nut_ = k_/
+    (
+        max(omega_, Clim_*sqrt((2.0*(magSqr(symm(fvc::grad(this->U_)))))/Cmu_))
+    );
 
     this->nut_.min(nutMax_);
     this->nut_.correctBoundaryConditions();
@@ -75,59 +78,68 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
         transport,
         propertiesName
     ),
-    twophaseRASProperties_
+    popeCorrection_
     (
-        IOobject
+        Switch::lookupOrAddToDict
         (
-            "twophaseRASProperties",
-            this->runTime_.constant(),
-            this->mesh_,
-            IOobject::MUST_READ,
-            IOobject::NO_WRITE
+            "popeCorrection",
+            this->coeffDict_,
+            true
         )
     ),
-    ppProperties_
+    writeTke_
     (
-        IOobject
+        Switch::lookupOrAddToDict
         (
-            "ppProperties",
-            this->runTime_.constant(),
-            this->mesh_,
-            IOobject::MUST_READ,
-            IOobject::NO_WRITE
+            "writeTke",
+            this->coeffDict_,
+            false
         )
     ),
     C3om_
     (
-        twophaseRASProperties_.lookup("C3om")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "C3om",
+            this->coeffDict_,
+            0.35
+        )
     ),
     C4om_
     (
-        twophaseRASProperties_.lookup("C4om")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "C4om",
+            this->coeffDict_,
+            1.0
+        )
     ),
     KE2_
     (
-        twophaseRASProperties_.lookup("KE2")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "KE2",
+            this->coeffDict_,
+            1.0
+        )
     ),
     KE4_
     (
-        twophaseRASProperties_.lookup("KE4")
-    ),
-    omegaBC_
-    (
-        twophaseRASProperties_.lookupOrDefault
+        dimensioned<scalar>::lookupOrAddToDict
         (
-            "omegaBC",
-            dimensionedScalar("omegaBC", dimensionSet(0, 0, -1, 0, 0, 0, 0), 0)
+            "KE4",
+            this->coeffDict_,
+            1.0
         )
-    ),
-    B_
-    (
-        twophaseRASProperties_.lookup("B")
     ),
     Cmu_
     (
-        twophaseRASProperties_.lookup("Cmu")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "Cmu",
+            this->coeffDict_,
+            0.09
+        )
     ),
     betaOmega_
     (
@@ -138,13 +150,32 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
             0.072
         )
     ),
-    kSmall_
-    (
-        twophaseRASProperties_.lookup("kSmall")
-    ),
     nutMax_
     (
-        twophaseRASProperties_.lookup("nutMax")
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "nutMax",
+            this->coeffDict_,
+            0
+        )
+    ),
+    Clim_
+    (
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "Clim",
+            this->coeffDict_,
+            0.0
+        )
+    ),
+    sigmad_
+    (
+        dimensioned<scalar>::lookupOrAddToDict
+        (
+            "sigmad",
+            this->coeffDict_,
+            0.0
+        )
     ),
     alphaKOmega_
     (
@@ -173,22 +204,11 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
             0.5
         )
     ),
-    //alpha_(U.db().lookupObject<volScalarField>("alpha")),
     tmfexp_(U.db().lookupObject<volScalarField> ("tmfexp")),
     ESD3_(U.db().lookupObject<volScalarField> ("ESD3")),
     ESD4_(U.db().lookupObject<volScalarField> ("ESD4")),
     ESD5_(U.db().lookupObject<volScalarField> ("ESD5")),
     ESD_(U.db().lookupObject<volScalarField> ("ESD")),
-    alphaMax_
-    (
-        ppProperties_.lookupOrDefault
-        (
-            "alphaMax",
-            dimensionedScalar("alphaMax",
-                              dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                              0.635)
-        )
-    ),
     k_
     (
         IOobject
@@ -272,12 +292,11 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
     (
         this->GName(),
         nut*2*magSqr(symm(GradU))
-//        nut*(GradU && dev(twoSymm(GradU)))
     );
 
     // Update omega and G at the wall
     omega_.boundaryFieldRef().updateCoeffs();
-/*
+
     volTensorField Omij(-skew(GradU));
     volVectorField Gradk(fvc::grad(k_));
     volVectorField Gradomega(fvc::grad(omega_));
@@ -285,9 +304,30 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
 
     const volScalarField CDkOmega
     (
-    0.125*pos(0.15-alpha)*pos(alphadCheck_)*(alphadCheck_)/omega_
+    sigmad_*pos(0.15-alpha)*pos(alphadCheck_)*(alphadCheck_)/omega_
     );
-*/
+
+
+    volScalarField XsiOmega
+    (
+        IOobject
+        (
+            IOobject::groupName("XsiOmega", U.group()),
+            this->runTime_.timeName(),
+            this->mesh_,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        this->mesh_,
+        dimensionedScalar("zero", dimless, 0.0)
+    );
+    if (popeCorrection_)
+    {
+        XsiOmega =
+        (
+            mag((Omij & Omij & Sij)/(pow((Cmu_*omega_), 3)))
+        );
+    }
 
     // Turbulence specific dissipation rate equation
     tmp<fvScalarMatrix> omegaEqn
@@ -297,16 +337,25 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
       - fvm::Sp(fvc::div(phi), omega_)
       - fvm::laplacian(DomegaEff(), omega_, "laplacian(DomegaEff,omega)")
       ==
-      - fvm::SuSp (-alphaOmega_*G/max(k_, kSmall_), omega_)
+      - fvm::SuSp (-alphaOmega_*G/k_, omega_)
       - fvm::Sp(ESD_, omega_)
-      - fvm::Sp(betaOmega_*omega_, omega_)
+      - fvm::Sp
+        (
+            betaOmega_*
+            (
+                (scalar(1.0)+scalar(85.0)*XsiOmega())
+                /(scalar(1.0)+scalar(100.0)*XsiOmega())
+            )*omega_(),
+            omega_
+        )
+      + CDkOmega
       + ESD2()*fvm::Sp(C3om_*KE2_, omega_)
       + fvm::Sp((C4om_*KE4_*ESD5_*nut/k_), omega_)
-      // BC in porous bed
-      + (-C3om_*KE2_*ESD2() + betaOmega_*omega_ - C4om_*KE4_*ESD5_*nut/k_)
-       *pos(alpha-0.9*alphaMax_)*omegaBC_
     );
-
+    if (writeTke_)
+    {
+        #include "writeTKEBudget_kOmega.H"
+    }
     omegaEqn.ref().relax();
     fvOptions.constrain(omegaEqn.ref());
     omegaEqn.ref().boundaryManipulate(omega_.boundaryFieldRef());

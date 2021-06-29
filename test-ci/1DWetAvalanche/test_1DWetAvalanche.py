@@ -1,8 +1,7 @@
 import subprocess
 import numpy as np
 import fluidfoam
-from pylab import *
-import matplotlib.gridspec as gridspec
+import sys
 
 def rms(x):
     return np.sqrt(x.dot(x)/x.size)
@@ -55,23 +54,22 @@ p_rbgh_list=[]
 delta_list=[]
 
 tolAlpha=0.54
-for k in range(len(alpha_0)):
-		if (alpha_0[k]<tolAlpha):
-				break 
-		Y_list.append(Y[k])		
-		alpha_list.append(alpha_0[k])	
-		vel_list.append(Ua_0[0,k])		 	
-		p_rbgh_list.append(p_rbgh_0[k])		 	
-		delta_list.append(delta_0[k])		 	
-	 	
-#file0 = open("DATAphi592.txt","w") 
-#file0.writelines(["Y_data ","alpha ","velocity ","pressure ","dilatancy_angle "+'\n']) 
+for k, alpha0k in enumerate(alpha_0):
+    if (alpha0k<tolAlpha):
+        break
+    Y_list.append(Y[k])
+    alpha_list.append(alpha0k)
+    vel_list.append(Ua_0[0,k])
+    p_rbgh_list.append(p_rbgh_0[k])
+    delta_list.append(delta_0[k])
+
+#file0 = open("DATAphi592.txt","w")
+#file0.writelines(["Y_data ","alpha ","velocity ","pressure ","dilatancy_angle "+'\n'])
 #tolAlpha=0.54
 #for k in range(len(alpha_0)):
 		#if (alpha_0[k]<tolAlpha):
-				#break  	
-		#file0.writelines([str(Y[k])+" ",str(alpha_0[k])+" ",str(Ua_0[0,k])+" ",str(p_rbgh_0[k])+" ",str(delta_0[k])+'\n']) 		
-			
+				#break
+		#file0.writelines([str(Y[k])+" ",str(alpha_0[k])+" ",str(Ua_0[0,k])+" ",str(p_rbgh_0[k])+" ",str(delta_0[k])+'\n'])
 
 iprof=0
 

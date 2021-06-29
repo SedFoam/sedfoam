@@ -26,6 +26,8 @@ Class
 
 Description
 
+This file is in the \dir ppModel directory.
+
 SourceFiles
     ppModel.C
     newPpModel.C
