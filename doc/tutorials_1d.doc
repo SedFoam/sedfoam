@@ -285,11 +285,7 @@ PPressureModel  none;
 
 FluidViscosityModel Einstein;
 
-<<<<<<< HEAD
-\endverbatim 
-=======
 \endverbatim
->>>>>>> upstream/master
 
 On the first line the switch granularRheology allows to turn on and off this module. The keywords FrictionModel, PPressureModel and FluidViscosityModel allow to choose the friction model, the shear induced particle pressure model and the effective viscosity model (see \ref inputs for details).
 
@@ -1253,13 +1249,7 @@ The dilatancy model is switch off during the sedimentation process:
 \verbatim
 granularRheology   on;
 
-<<<<<<< HEAD
-granularDilatancy  off;
-
-alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
-=======
 granularDilatancy  on;
->>>>>>> upstream/master
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
@@ -1326,7 +1316,7 @@ The dilatancy model is turn on in *granularRheologyProperties* to reproduce the 
 \verbatim
 
 K_dila          K_dila [ 0 0 0 0 0 0 0 ] 4.0;
-
+ 
 \endverbatim
 
 
@@ -1357,6 +1347,7 @@ the volume fraction, particle velocity and excess of pore pressure along the ver
 
 @image html "1DWetAvalancheVerticalProfiles.png" "Figure 12: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical." width=1000px
 @image latex "1DWetAvalancheVerticalProfiles.png" "Figure 12: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical."
+
 
 \section BoundaryLayer 1DBoundaryLayer: Single-phase turbulent boundary layer flow
 

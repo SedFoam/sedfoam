@@ -38,17 +38,9 @@ relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 FrictionModel   Coulomb;
 //FrictionModel   MuIv;
 
-<<<<<<< HEAD
-FrictionModel  MuI;
-
-PPressureModel MuI;
-
-FluidViscosityModel  BoyerEtAl;
-=======
 PPressureModel  none;
 //PPressureModel  MuIv;
 
 FluidViscosityModel Einstein;
->>>>>>> upstream/master
 
 // ************************************************************************* //
