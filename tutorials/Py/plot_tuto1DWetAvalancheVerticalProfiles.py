@@ -23,7 +23,7 @@ rhoSolid=2500  # solid density in kg/m3
 h =  0.0049 # initial granular height in m
 theta=25 # plane slope
 val_p=(rhoSolid-rhoFluid)*gravity*h # pressure at the bottom
-timeAdim=(d/gravity)**0.5	
+timeAdim=(d/gravity)**0.5
 velAdim=1000.*(gravity*d)**0.5
 pressureAdim=rhoFluid*h*gravity
 
@@ -33,7 +33,7 @@ pressureAdim=rhoFluid*h*gravity
 
 sol =  '../1DWetAvalanche'
 X,Y,Z = fluidfoam.readmesh(sol)
-tolAlpha=0.55	
+tolAlpha=0.55
 
 # this part of the script analyzes the vertical profiles at time=0 (before tilting the plane)
 alpha_0 = fluidfoam.readscalar(sol, '200', 'alpha_a')
@@ -77,7 +77,6 @@ for i in range(len(times)):
 	pff_A = fluidfoam.readscalar(sol, tread, 'pff')
 	pa_A = fluidfoam.readscalar(sol, tread, 'pa')
 	p_rbgh_A = fluidfoam.readscalar(sol, tread, 'p_rbgh')
-	
 	vel_values=[]
 	phi_values=[]
 	y_values=[]
@@ -88,8 +87,8 @@ for i in range(len(times)):
 	for k in range(len(alpha_A)):
 		if (alpha_A[k]<tolAlpha):
 			newHeight=Y[k]
-			break	
-	
+			break
+
 	for k in range(len(alpha_A)):
 		if (alpha_A[k]>tolAlpha and Y[k]<h):
 			vel_values.append(Ua_A[0, k]*1000/velAdim)
@@ -102,7 +101,7 @@ for i in range(len(times)):
 
 	velocityProfiles.append(vel_values)
 	phiProfiles.append(phi_values)
-	yProfiles.append(y_values)			
+	yProfiles.append(y_values)
 	particlePressureProfiles.append(p_particle_values)
 	excessPressureProfiles.append(p_excess_values)
 	
