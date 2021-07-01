@@ -1279,7 +1279,7 @@ BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 0e0;
 
 relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
 
-K_dila          K_dila [ 0 0 0 0 0 0 0 ] 4.0;
+K_dila          K_dila [ 0 0 0 0 0 0 0 ] 0.0;
 
 alpha_c         alpha_c [ 0 0 0 0 0 0 0 ] 0.585;
 
@@ -1320,12 +1320,12 @@ value           ( 4.14588187090559 -8.8908809188120586 0 );
 
 
 The dilatancy model is turn on in *granularRheologyProperties* to reproduce the coupling between the dilatancy
- and the pore pressure feedback:
+ and the pore pressure feedback. The dilatancy prefactor in this example is set to \f$K_1 = 4\f$:
 
 
 \verbatim
 
-granularDilatancy  on;
+K_dila          K_dila [ 0 0 0 0 0 0 0 ] 4.0;
 
 \endverbatim
 
@@ -1357,9 +1357,6 @@ the volume fraction, particle velocity and excess of pore pressure along the ver
 
 @image html "1DWetAvalancheVerticalProfiles.png" "Figure 12: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical." width=1000px
 @image latex "1DWetAvalancheVerticalProfiles.png" "Figure 12: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical."
-=======
-@image html "1DWetAvalancheVerticalProfiles.png" "Figure 11: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical." width=1000px
-@image latex "1DWetAvalancheVerticalProfiles.png" "Figure 11: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical."
 
 \section BoundaryLayer 1DBoundaryLayer: Single-phase turbulent boundary layer flow
 

@@ -57,7 +57,7 @@ for k in range(len(alpha_0)):
 			p_c_0.append(0)
 			p_excess_0.append((p_rbgh_0[k]/val_p))
 		else:
-      break
+			break
 
 # this part of the script analyzes the vertical profiles at times>0 (after tilting the plane)
 times=[10,20,60,200,400]# please select specific times where data will be reconstructed
@@ -92,11 +92,11 @@ for i in range(len(times)):
 	
 	for k in range(len(alpha_A)):
 		if (alpha_A[k]>tolAlpha and Y[k]<h):
-      vel_values.append(Ua_A[0, k]*1000/velAdim)
-      phi_values.append(alpha_A[k])
-      y_values.append(Y[k]/h)
-      p_particle_values.append((pff_A[k]+pa_A[k]-alpha_A[k]*(rhoSolid-rhoFluid)*gravity*np.cos(theta*np.pi/180)*(newHeight-Y[k]))/val_p)
-      p_excess_values.append((p_rbgh_A[k]/val_p))
+			vel_values.append(Ua_A[0, k]*1000/velAdim)
+			phi_values.append(alpha_A[k])
+			y_values.append(Y[k]/h)
+			p_particle_values.append((pff_A[k]+pa_A[k]-alpha_A[k]*(rhoSolid-rhoFluid)*gravity*np.cos(theta*np.pi/180)*(newHeight-Y[k]))/val_p)
+			p_excess_values.append((p_rbgh_A[k]/val_p))
 		else:
 			break	
 

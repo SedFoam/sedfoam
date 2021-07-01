@@ -118,7 +118,7 @@ for i in range(200,int(final_tread)):
 						P2Col=1
 						P_bottom=p_rbgh_0[k]
 				if ((velCol==1) and (P1Col==1) and (P2Col==1)):
-            break	  	
+						break	  	
 		p_sim_dila_0.append((P_bottom-P_surface)/pressureAdim)
 			
 #########################################
