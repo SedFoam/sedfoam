@@ -1,37 +1,34 @@
 /*---------------------------------------------------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
-     \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
+Copyright (C) 2015 Cyrille Bonamy, Julien Chauchat, Tian-Jian Hsu
+                   and contributors
 
-    OpenFOAM is free software: you can redistribute it and/or modify it
+License
+    This file is part of SedFOAM.
+
+    SedFOAM is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    SedFOAM is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
     for more details.
 
     You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
-
+    along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 \*---------------------------------------------------------------------------*/
-//
-volTensorField gradUaT = fvc::grad(Ua)().T();
-volTensorField gradUbT = fvc::grad(Ub)().T();
-volSymmTensorField D_tensor = symm(gradUaT);
-volScalarField magDtensor = ::sqrt(2.0)*mag(D_tensor);
+
+gradUaT = fvc::grad(Ua)().T();
+gradUbT = fvc::grad(Ub)().T();
+volScalarField magDtensor
+(
+    ::sqrt(2.0)*mag(symm(gradUaT))
+);
 
 if (granularRheology.dilatancy())
 {
     //// Solving the evolution of plastic volume fraction
-    volScalarField dila_shearRate = delta*magDtensor;
 
     fvScalarMatrix phi_pl_Eqn
     (
@@ -39,7 +36,7 @@ if (granularRheology.dilatancy())
      + fvm::div(phia, alphaPlastic, "div(phia,alphaPlastic)")
      - fvm::Sp(fvc::div(phia), alphaPlastic)
      ==
-     -fvc::Sp(dila_shearRate, alphaPlastic) // explicit term
+     -fvc::Sp(delta*magDtensor, alphaPlastic) // explicit term
     );
     phi_pl_Eqn.relax();
     phi_pl_Eqn.solve();
@@ -79,7 +76,7 @@ if (kineticTheory.on())
     );
 
     // Compute Frictional viscosity
-    volScalarField muEff_f =
+    volScalarField muEff_f
     (
         pff*Foam::sin(kineticTheory.phi())
        /sqrt(pow(magDtensor, 2) + Dsmall2)

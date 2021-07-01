@@ -1,25 +1,22 @@
 /*---------------------------------------------------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
-     \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
+Copyright (C) 2015 Cyrille Bonamy, Julien Chauchat, Tian-Jian Hsu
+                   and contributors
 
-    OpenFOAM is free software: you can redistribute it and/or modify it
+License
+    This file is part of SedFOAM.
+
+    SedFOAM is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    SedFOAM is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
     for more details.
 
     You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+    along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 \*---------------------------------------------------------------------------*/
 
@@ -159,7 +156,7 @@ bool twophaseMixingLength<BasicTurbulenceModel>::read()
 template<class BasicTurbulenceModel>
 void twophaseMixingLength<BasicTurbulenceModel>::correct()
 {
-    if (not this->turbulence_)
+    if (this->turbulence_ == false)
     {
         return;
     }
@@ -184,21 +181,17 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
 
     volScalarField divU(fvc::div(fvc::absolute(this->phi(), U)));
 
-    tmp<volTensorField> gradU = fvc::grad(U);
-    volSymmTensorField D = symm(gradU);
-    volScalarField magD = ::sqrt(2.0)*mag(D);
-    gradU.clear();
+    volScalarField magD(::sqrt(2.0)*mag(symm(fvc::grad(U))));
 
-    volVectorField centres = U.mesh().C();
-    volScalarField Y = centres.component(1);
+    volScalarField Y(U.mesh().C().component(vector::Y));
 
-    scalar Lm = 0.;
+    scalar Lm(0.);
     scalar dY;
-    scalar expoLM=expoLM_.value();
-    scalar kappaLMs=kappaLM_.value();
-    scalar alphaMaxLMs = alphaMaxLM_.value();
-    scalar LmPhi = 0.;
-    scalar cmu34 = pow(Cmu_.value(), 3.0/4.0);
+    scalar expoLM(expoLM_.value());
+    scalar kappaLMs(kappaLM_.value());
+    scalar alphaMaxLMs(alphaMaxLM_.value());
+    scalar LmPhi(0.);
+    scalar cmu34(pow(Cmu_.value(), 3.0/4.0));
 
 
     nut.storePrevIter();
