@@ -21,27 +21,22 @@ internalField   uniform (0 0 0);
 
 boundaryField
 {
-    inandouthalf11 // inlet
+    inlet
     {
-        type            cyclic;
+        type            fixedValue;
+        value           uniform (0 0 0);
     }
-    inandouthalf12
+    outlet
     {
-        type            cyclic;
-    }
-    inandouthalf21
-    {
-        type            cyclic;
-    }
-    inandouthalf22
-    {
-        type            cyclic;
+        type            fixedValue;
+        value           uniform (0 0 0);
     }
     top
     {
-        type            zeroGradient;
+        type            fixedValue;
+        value           uniform (0 0 0);
     }
-    walls
+    bottom
     {
         type            fixedValue;
         value           uniform (0 0 0);

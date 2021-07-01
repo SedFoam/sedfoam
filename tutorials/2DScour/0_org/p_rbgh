@@ -32,13 +32,15 @@ boundaryField
     }
     inandouthalf21
     {
-        type            zeroGradient;
+        type            fixedFluxPressure;
+        gradient           $internalField;
+        value           uniform 2262.02;
     }
     inandouthalf22
     {
-		
-       type            fixedValue;
-       value           uniform  0;	
+        type            fixedFluxPressure;
+        gradient           $internalField;
+        value           uniform 2262.02;
     }
     top
     {
