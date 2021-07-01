@@ -37,7 +37,7 @@ velocity_562 = data1['velocity']/velAdim
 data1 = np.genfromtxt('DATA/ExperimentalDataPailha2008/p_t_exp_562.txt',delimiter='\t', names=True)
 time_p_562 = data1['time']/timeAdim
 pressure_562 = data1['pressure']/pressureAdim
-	
+
 data1 = np.genfromtxt('DATA/ExperimentalDataPailha2008/v_t_exp_568.txt',delimiter='\t', names=True)
 time_v_568 = data1['time']/timeAdim
 velocity_568 = data1['velocity']/velAdim
@@ -118,7 +118,7 @@ for i in range(200,int(final_tread)):
 						P2Col=1
 						P_bottom=p_rbgh_0[k]
 				if ((velCol==1) and (P1Col==1) and (P2Col==1)):
-            break	  	
+						break
 		p_sim_dila_0.append((P_bottom-P_surface)/pressureAdim)
 			
 #########################################

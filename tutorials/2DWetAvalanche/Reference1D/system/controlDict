@@ -47,11 +47,11 @@ runTimeModifiable on;
 
 adjustTimeStep  yes;
 
-maxCo           0.1;
+maxCo           0.3;
 
-maxAlphaCo      0.1;
+maxAlphaCo      0.3;
 
-maxDeltaT       0.001;
+maxDeltaT       0.004;
 
 //libs (
     //"libincompressibleRASModels.so"
