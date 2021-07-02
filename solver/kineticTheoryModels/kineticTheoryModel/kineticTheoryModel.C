@@ -325,14 +325,14 @@ void Foam::kineticTheoryModel::solve
     const dimensionedScalar& tt
 )
 {
-    if (not kineticTheory_)
+    if (kineticTheory_ == false)
     {
         return;
     }
     ////////////////////////////////
     //Define some usefull quantities
     ////////////////////////////////
-    const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    const scalar sqrtPi(sqrt(constant::mathematical::pi));
     dimensionedScalar alphaSmall
     (
         "small",
@@ -345,20 +345,20 @@ void Foam::kineticTheoryModel::solve
         dimensionSet(0, 2, -2, 0, 0, 0, 0),
         SMALL
     );
-    volScalarField ThetaSqrt = sqrt(Theta_);
+    volScalarField ThetaSqrt(sqrt(Theta_));
     dimensionedScalar Tpsmall_
     (
          "Tpsmall_",
          dimensionSet(1, -1, -3, 0, 0, 0, 0),
          scalar(1e-30)
     );
-    volTensorField dU = fvc::grad(Ua_);//gradUat.T(); //that is fvc::grad(Ua_);
-    volSymmTensorField D = symm(dU);   //0.5*(dU + dU.T)
+    volTensorField dU(fvc::grad(Ua_));//gradUat.T(); //that is fvc::grad(Ua_);
+    volSymmTensorField D(symm(dU));   //0.5*(dU + dU.T)
 
-    volScalarField ThetaClip = Theta_;
+    volScalarField ThetaClip(Theta_);
     if (limitProduction_) // limit the production by clipping Theta to 2/3kb
     {
-        volScalarField ThetaClip = min(Theta_, (2.0/3.0)*max(kb));
+        ThetaClip = min(Theta_, (2.0/3.0)*max(kb));
     }
 
     //////////////////////////////////
@@ -369,12 +369,15 @@ void Foam::kineticTheoryModel::solve
     //////////////////////////////////////////
     // collisional pressure  (Eq. 3.22, p. 45)
     // ///////////////////////////////////////
-    volScalarField PsCoeff = granularPressureModel_->granularPressureCoeff
+    volScalarField PsCoeff
     (
-        alpha_,
-        gs0_,
-        rhoa_,
-        e_
+        granularPressureModel_->granularPressureCoeff
+        (
+            alpha_,
+            gs0_,
+            rhoa_,
+            e_
+        )
     );
 
     //////////////////////////////////////////////
@@ -391,14 +394,19 @@ void Foam::kineticTheoryModel::solve
     lambda_ = viscosityModel_->lambda(alpha_, ThetaClip, gs0_, rhoa_, da_, e_);
 
     // stress tensor, Definitions, Table 3.1, p. 43
-    volSymmTensorField tau = 2.0*mua_*D + (lambda_ - (2.0/3.0)*mua_)*tr(D)*I;
-
+    volSymmTensorField tau
+    (
+        2.0*mua_*D + (lambda_ - (2.0/3.0)*mua_)*tr(D)*I
+    );
     //////////////////////
     // Contact dissipation
     //////////////////////
 
     // Correlation length for the extended kinetic theory
-    volScalarField Lc = da_*(alpha_+alphaSmall)/(alpha_+alphaSmall);
+    volScalarField Lc
+    (
+        da_*(alpha_+alphaSmall)/(alpha_+alphaSmall)
+    );
     if (extended_)
     {// extended kinetic theory Jenkins (2007)
         Lc = da_*max
@@ -408,13 +416,15 @@ void Foam::kineticTheoryModel::solve
         );
     }
     // Inelastic dissipation (Eq. 3.24, p.50)
-    volScalarField gammaCoeff = (3.0*(1.0 - sqr(e_))*sqr(alpha_)*rhoa_*gs0_
-            *(4.0/Lc*ThetaSqrt/sqrtPi-tr(D)));
-
+    volScalarField gammaCoeff
+    (
+        (3.0*(1.0 - sqr(e_))*sqr(alpha_)*rhoa_*gs0_
+            *(4.0/Lc*ThetaSqrt/sqrtPi-tr(D)))
+    );
     // Frictional dissipation (Chialvo and Sundaresan (2013) eqs. 22-23)
-    dimensionedScalar f_mu = 3./2*muPart_*exp(-3*muPart_);
-    dimensionedScalar e_eff = e_ - f_mu;
-    dimensionedScalar fric_correction = (1-pow(e_eff, 2))/(1-pow(e_, 2));
+    dimensionedScalar f_mu(3./2*muPart_*exp(-3*muPart_));
+    dimensionedScalar e_eff(e_ - f_mu);
+    dimensionedScalar fric_correction((1-pow(e_eff, 2))/(1-pow(e_, 2)));
     gammaCoeff *= fric_correction;
 
     //////////////////////////////////////////////////////////
@@ -423,21 +433,24 @@ void Foam::kineticTheoryModel::solve
     // this is inconsistent with momentum equation,
     // since the following form missed the drift velocity
     /////////////////////////////////////////////////////////
-    volScalarField Ur_ = mag(Ua_ - Ub_);
-    volScalarField K = draga_.K(Ur_);
+    volScalarField K(draga_.K(mag(Ua_ - Ub_)));
     // The following is to calculate parameter tmf_ in u_f*u_s correlation
     // (Danon et al. (1977))
-    volScalarField flucVelCor_ = Foam::exp(-B*rhoa_*scalar(6.0)*epsilonb/
-              (max(kb*(1.0-alpha_)*K, Tpsmall_)));
+    volScalarField flucVelCor_
+    (
+        Foam::exp(-B*rhoa_*6*epsilonb/max(kb*(1-alpha_)*K, Tpsmall_))
+    );
     // Eq. 3.25, p. 50 J_int = J2 - J1*Theta_
-    volScalarField J1 = alpha_*(1-alpha_)*K*(3+2*quadraticCorrectionJ1_);
-    volScalarField J2 = alpha_*(1-alpha_)*K*(2*flucVelCor_*kb);
+    volScalarField J1(alpha_*(1-alpha_)*K*(3+2*quadraticCorrectionJ1_));
+    volScalarField J2(alpha_*(1-alpha_)*K*(2*flucVelCor_*kb));
 
     ////////////////////////////////
     // Granular temperature equation
     // /////////////////////////////
-    surfaceScalarField phi = 1.5*rhoa_*phia_*
-     fvc::interpolate((alpha_+alphaSmall));
+    surfaceScalarField phi
+    (
+        1.5*rhoa_*phia_*fvc::interpolate((alpha_+alphaSmall))
+    );
     // construct the granular temperature equation (Eq. 3.20, p. 44)
     // NB. note that there are two typos in Eq. 3.20
     // no grad in front of Ps

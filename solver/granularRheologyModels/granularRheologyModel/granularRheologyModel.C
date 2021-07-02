@@ -1,25 +1,22 @@
 /*---------------------------------------------------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 1991-2010 OpenCFD Ltd.
-     \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
+Copyright (C) 2015 Cyrille Bonamy, Julien Chauchat, Tian-Jian Hsu
+                   and contributors
 
-    OpenFOAM is free software: you can redistribute it and/or modify it
+License
+    This file is part of SedFOAM.
+
+    SedFOAM is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    SedFOAM is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
     for more details.
 
     You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+    along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 \*---------------------------------------------------------------------------*/
 
@@ -329,7 +326,7 @@ void Foam::granularRheologyModel::solve
     const dimensionedScalar& Dsmall
 )
 {
-    if (not granularRheology_)
+    if (granularRheology_ == false)
     {
         return;
     }
@@ -343,7 +340,7 @@ void Foam::granularRheologyModel::solve
     //
     // compute the particulate velocity shear rate
     //
-    volScalarField magD2 = pow(magD, 2);
+    volScalarField magD2(pow(magD, 2));
     
     //
     // Shear induced particulate pressure
@@ -357,7 +354,7 @@ void Foam::granularRheologyModel::solve
     // Relaxing shear induced particulate pressure
     //  relaxPa_ controls the relaxation of pa. Low values lead to relaxed pa
     //  whereas large value are prone to numerical error
-    volScalarField tau_inv_par = relaxPa_*alpha_*magD;
+    volScalarField tau_inv_par(relaxPa_*alpha_*magD);
     tau_inv_par.max(tau_inv_min_);
 
     fvScalarMatrix paEqn
@@ -392,9 +389,20 @@ void Foam::granularRheologyModel::solve
     {
     //delta_ = DilatancyModel_->delta(K_dila_, alpha_c_, alpha_, magD,
 // da_, rhob_, nub_, p_p_total_, PaMin);
-        volScalarField alphaEq_ = PPressureModel_->alphaEq
-          (p_p_total_, Bphi_, rhoa_, da_, rhob_, nub_, magD, alpha_c_);
-
+        volScalarField alphaEq_
+        (
+            PPressureModel_->alphaEq
+            (
+                p_p_total_,
+                Bphi_,
+                rhoa_,
+                da_,
+                rhob_,
+                nub_,
+                magD,
+                alpha_c_
+            )
+        );
         delta_ = K_dila_*(alpha_ - alphaEq_);
 
         delta_.min( 0.5);

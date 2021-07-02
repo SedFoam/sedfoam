@@ -22,7 +22,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 \*---------------------------------------------------------------------------*/
-scalar pi = constant::mathematical::pi;
+scalar pi(constant::mathematical::pi);
 
 // following is general form of mean flow + sine wave and 2nd order stokes waves
 // Add oscilitary pressure gradient
@@ -37,7 +37,7 @@ gradPOSC =
 rho = alpha*rhoa+beta*rhob;
 
 // Compute concentration gradient stress contribution on cell faces for phase a
-surfaceScalarField phiRa =
+surfaceScalarField phiRa
 (
    -fvc::interpolate(nuEffa)*mesh.magSf()*(fvc::snGrad(alpha))
    /fvc::interpolate(alpha+ alphaSmall)
@@ -66,7 +66,7 @@ UaEqn += fvm::Sp(beta/rhoa*K, Ua);
 //fvOptions.constrain(UaEqn());
 
 // Compute concentration gradient stress contribution on cell faces for phase b
-surfaceScalarField phiRb =
+surfaceScalarField phiRb
 (
   - fvc::interpolate(nuEffb)*mesh.magSf()*(fvc::snGrad(beta))
    /fvc::interpolate(beta)

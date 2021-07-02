@@ -462,6 +462,16 @@ volScalarField pa
     dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
 );
 
+volTensorField gradUaT
+(
+    fvc::grad(Ua)().T()
+);
+
+volTensorField gradUbT
+(
+    fvc::grad(Ub)().T()
+);
+
 volTensorField Taub
 (
     IOobject
@@ -596,7 +606,7 @@ if (interfacialProperties.found("dragPhase"))
     bool validDrag =
         dragPhase == "a" || dragPhase == "b" || dragPhase == "blended";
 
-    if (not validDrag)
+    if (validDrag == false)
     {
         FatalErrorIn(args.executable())
             << "invalid dragPhase " << dragPhase

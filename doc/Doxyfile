@@ -771,6 +771,7 @@ INPUT                  = index.doc \
                          publications.doc \
                          input.doc \
                          howtogit.doc \
+                         howtodocker.doc \ 
                          faq.doc \
                          credits.doc \  
                          ../solverMULES \
