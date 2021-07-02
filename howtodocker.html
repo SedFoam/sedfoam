@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Foam::EinsteinViscosity class | SedFOAM</title>
+  <title>How To work with sedfoam container | SedFOAM</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600&amp;subset=latin-ext" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="sedFoam_favicon.png" type="image/png" />
@@ -29,6 +29,7 @@
               <ol>
                 <li><a href="index.html">About sedFoam</a></li>
                 <li><a href="install.html">Installation</a></li>
+                <li><a href="howtodocker.html" id="m-navbar-current">How To work with sedfoam container</a></li>
                 <li><a href="starting.html">Getting started</a></li>
                 <li><a href="howtogit.html">How To work with github</a></li>
                 <li><a href="faq.html">Frequently Asked Questions</a></li>
@@ -61,11 +62,25 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          Foam::EinsteinViscosity <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="EinsteinViscosity_8H.html">&lt;/root/sedfoam/solver/granularRheologyModels/FluidViscosityModel/Einstein/EinsteinViscosity.H&gt;</a></div>
+          How To work with sedfoam container
         </h1>
-        <p>This file is in the.</p>
-<p><a name="Description"></a></p>
+        <p>How To use sedfoam docker to test and use sedFoam.</p>
+        <div class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li><a href="#configuration">Configuration of the docker sedfoam</a></li>
+            <li>
+              <a href="#howtouse">How to use/launch sedfoam docker ?</a>
+              <ul>
+                <li><a href="#macOS">On macOS with GUI (graphical interface):</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+<p>Here is a How To about using the sedFoam docker. This page is organised in two sections:</p><ul><li><a href="howtodocker.html#configuration" class="m-doc">Configuration of the docker sedfoam</a></li><li><a href="howtodocker.html#howtouse" class="m-doc">How to use/launch sedfoam docker ?</a></li></ul><section id="configuration"><h2><a href="#configuration">Configuration of the docker sedfoam</a></h2><p>Openfoam version : v2006 (openfoam.com)</p><p>sudo password : openfoam</p><p>Installed packages : swak4foam, python3-numpy, python3-matplotlib, fluidfoam, vim...</p><p>Official link : <a href="https://hub.docker.com/r/cbonamy/sedfoam_v2006_centos73">https://hub.docker.com/r/cbonamy/sedfoam_<wbr />v2006_<wbr />centos73</a></p><p>Dockerfile : <a href="https://github.com/SedFoam/sedfoam/blob/master/docker/Dockerfile">https:/<wbr />/<wbr />github.com/<wbr />SedFoam/<wbr />sedfoam/<wbr />blob/<wbr />master/<wbr />docker/<wbr />Dockerfile</a></p></section><section id="howtouse"><h2><a href="#howtouse">How to use/launch sedfoam docker ?</a></h2><ul><li><a href="howtodocker.html#macOS" class="m-doc">On macOS with GUI (graphical interface):</a></li><li>windows</li><li>linux</li></ul><section id="macOS"><h3><a href="#macOS">On macOS with GUI (graphical interface):</a></h3><p>On host :</p><ul><li>configure xquartz (or xauth for linux?)<ul><li>install xquartz to allow network connection</li><li>in Xquartz : Go to Preferences &gt; Security</li><li>and Check &quot;allow connections from network clients&quot;</li><li>in a terminal : IP=$(ifconfig en0 | grep inet | awk &#x27;$1==&quot;inet&quot; {print $2}&#x27;) &amp;&amp; xhost + $IP</li></ul></li><li><p>launch/initiate docker :</p><pre>     docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name &quot;sedfoam_v2006&quot; --workdir=&quot;/home/ofuser&quot; -v=&quot;/Users/bonamy2c&quot;:/home/ofuser/workingDir &quot;cbonamy/sedfoam_v2006_centos73&quot; /bin/bash
+</pre><p>Please adapt the directories to your configuration. In this example, &quot;/Users/bonamy2c&quot; will be mounted on the vm in /home/ofuser/workingDir.</p></li><li><p>start an image (if existing and not running) :</p><pre>     docker container start sedfoam_v2006
+</pre></li><li><p>attach to a running image (if existing and running):</p><pre>     docker container attach sedfoam_v2006
+</pre></li></ul><p>On container :</p><ul><li>hack and enjoy! The sedfoam files will be in /home/ofuser and the solver is already compiled. Just test and use.</li></ul></section></section>
       </div>
     </div>
   </div>
