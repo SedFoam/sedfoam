@@ -1,9 +1,15 @@
 #!/bin/sh
-cd ${0%/*} || exit 1    # run from this directory
+cd "${0%/*}" || exit                            # Run from this directory
+#------------------------------------------------------------------------------
 set -x
 
 turbulenceModels/Allwmake
 
-wallFunctions/Allwmake
+if [ -f wallFunctions/Allwmake ]
+then
+    wallFunctions/Allwmake
+else
+    echo "Missing: wallFunctions/Allwmake"
+fi
 
-# ----------------------------------------------------------------- end-of-file
+#------------------------------------------------------------------------------

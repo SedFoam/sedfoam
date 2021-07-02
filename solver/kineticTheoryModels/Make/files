@@ -33,4 +33,4 @@ granularPressureModel/Lun/LunPressure.C
 granularPressureModel/SyamlalRogersOBrien/SyamlalRogersOBrienPressure.C
 granularPressureModel/Torquato/TorquatoPressure.C
 
-LIB = $(FOAM_USER_LIBBIN)/libkineticTheorySedModel
+LIB = $(FOAM_MODULE_LIBBIN)/libkineticTheorySedModel
