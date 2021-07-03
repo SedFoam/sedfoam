@@ -5,4 +5,4 @@ MerckelbachKranenburg/MerckelbachKranenburg.C
 Chauchat/Chauchat.C
 Hsu/Hsu.C
 
-LIB = $(FOAM_USER_LIBBIN)/libEulerianPpSedModels
+LIB = $(FOAM_MODULE_LIBBIN)/libEulerianPpSedModels

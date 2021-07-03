@@ -1,7 +1,8 @@
 #!/bin/sh
-cd ${0%/*} || exit 1    # run from this directory
+cd "${0%/*}" || exit                            # Run from this directory
+#------------------------------------------------------------------------------
 set -x
 
-wclean libso turbulenceModels 
+wclean libso turbulenceModels
 
-# ----------------------------------------------------------------- end-of-file
+#------------------------------------------------------------------------------

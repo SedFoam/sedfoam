@@ -9,4 +9,4 @@ dragModels/WenYu/WenYu.C
 dragModels/SyamlalOBrien/SyamlalOBrien.C
 dragModels/DallaValle/DallaValle.C
 
-LIB = $(FOAM_USER_LIBBIN)/libEulerianInterfacialSedModels
+LIB = $(FOAM_MODULE_LIBBIN)/libEulerianInterfacialSedModels

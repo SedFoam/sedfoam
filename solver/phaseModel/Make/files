@@ -1,2 +1,3 @@
 phaseModel/phaseModel.C
-LIB = $(FOAM_USER_LIBBIN)/libtwoPhaseModel
+
+LIB = $(FOAM_MODULE_LIBBIN)/libtwoPhaseModel

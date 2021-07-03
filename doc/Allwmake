@@ -1,6 +1,8 @@
 #!/bin/bash
+cd "${0%/*}" || exit                            # Run from this directory
+#------------------------------------------------------------------------------
+
 module load python/3.8.2
-cd ${0%/*} || exit 1 # run from this directory
 set -x
 
 umask 22
@@ -15,4 +17,4 @@ cp images/* mcssout/html/.
 # fix permissions (NB: '+X' and not '+x'!)
 chmod -R a+rX ./
 
-# ----------------------------------------------------------------- end-of-file
+#------------------------------------------------------------------------------

@@ -1,18 +1,37 @@
 #!/bin/sh
-cd ${0%/*} || exit 1    # run from this directory
-set -x
+cd "${0%/*}" || exit                            # Run from this directory
 
-# Export OpenFOAM version
-export OF_VERSION=`echo $WM_PROJECT_VERSION"-00" | sed -e 's/v//' -e 's/+//' -e 's/\.x/-9/' -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -3 | tr -d '\n' | head -c3`
+if [ -f "$WM_PROJECT_DIR"/wmake/scripts/AllwmakeParseArguments ]
+then  . "$WM_PROJECT_DIR"/wmake/scripts/AllwmakeParseArguments
+fi
+
+#------------------------------------------------------------------------------
+# Newer openfoam.com provides 'wmake -version' -> API
+foam_api=$(wmake -version 2>/dev/null)
+if [ -z "$foam_api" ]
+then
+   # Or get from the WM_PROJECT_VERSION
+   foam_api="${WM_PROJECT_VERSION}-00"
+   foam_api="$(echo "$foam_api" | sed -e 's/[v+]//g; s/\.x/-9/; s/[-.]/\n/g' | grep "[0-9]" | head -3 | tr -d '\n')"
+fi
+if [ "${#foam_api}" -gt 3 ]
+then
+    # Truncate to 3 characters
+    foam_api="$(echo "$foam_api" | head -c3)"
+fi
+#------------------------------------------------------------------------------
+export OF_VERSION="$foam_api"
+
+## echo "Using OpenFOAM canonical version:$OF_VERSION" 1>&2
 
 cd ../solver
 wmake libso phaseModel
 wmake libso interfacialModels
-wmake libso ppModel 
+wmake libso ppModel
 wmake libso kineticTheoryModels
 wmake libso granularRheologyModels
 
 cd -
 wmake
 
-# ----------------------------------------------------------------- end-of-file
+#------------------------------------------------------------------------------
