@@ -67,12 +67,18 @@ Foam::tmp<Foam::volScalarField> Foam::GidaspowErgunWenYu::K
     const volScalarField& Ur
 ) const
 {
-    volScalarField beta = max(scalar(1) - alpha_, scalar(1.0e-6));
+    volScalarField beta
+    (
+        max(scalar(1) - alpha_, scalar(1.0e-6))
+    );
 
     //    volScalarField bp = pow(beta, -2.65);
-    volScalarField bp = pow(beta, -phasea_.hExp());
-    volScalarField Re = max(beta*Ur*phasea_.d()*phasea_.sF()/phaseb_.nu(),
-                            scalar(1.0e-9));
+    volScalarField bp(pow(beta, -phasea_.hExp()));
+    volScalarField Re
+    (
+        max(beta*Ur*phasea_.d()*phasea_.sF()/phaseb_.nu(),
+                            scalar(1.0e-9))
+    );
 
     volScalarField Cds
     (
