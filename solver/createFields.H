@@ -555,15 +555,19 @@ volScalarField rho
 
 Info<< "Calculating field DDtUa and DDtUb\n" << endl;
 
-volVectorField DDtUa =
+volVectorField DDtUa
+(
     fvc::ddt(Ua)
   + fvc::div(phia, Ua)
-  - fvc::div(phia)*Ua;
+  - fvc::div(phia)*Ua
+);
 
-volVectorField DDtUb =
+volVectorField DDtUb
+(
     fvc::ddt(Ub)
   + fvc::div(phib, Ub)
-  - fvc::div(phib)*Ub;
+  - fvc::div(phib)*Ub
+);
 
 
 Info<< "Calculating field g.h\n" << endl;

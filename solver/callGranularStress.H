@@ -154,7 +154,7 @@ else
 // Add a numerical viscosity to damp the instabilities close to the outlet
 if (spongeLayer)
 {
-    volScalarField XX = mesh.C().component(vector::X);
+    volScalarField XX(mesh.C().component(vector::X));
     nuEffa +=
     (
         pos(XX-xSmin)*nua*1e3

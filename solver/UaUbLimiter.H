@@ -21,7 +21,7 @@ License
 // if alpha < alphaSmall then set Ua = Ub
 if (ClipUa.value()==1)
 {
-    surfaceScalarField alphaf = fvc::interpolate(alpha);
+    surfaceScalarField alphaf(fvc::interpolate(alpha));
     forAll(alpha, cell)
     {
         if (alpha[cell]<alphaSmall.value())
@@ -42,12 +42,12 @@ if (ClipUa.value()==1)
 if (InitFreeze.value()==1)
 {
 // in this way the bed is immobile in streamwise
-    volScalarField temp = Ua & gravity;
+    volScalarField temp(Ua & gravity);
 // extract vertical component of velocity component,we get ( 0 ,0,w)
-    volVectorField Uatemp = temp*gravity/magSqr(gravity);
+    volVectorField Uatemp(temp*gravity/magSqr(gravity));
 
-    scalar indv1 = (vector(0, 1, 0) & gravity.value());
-    scalar indv2 = (vector(0, 0, 1) & gravity.value());
+    scalar indv1((vector(0, 1, 0) & gravity.value()));
+    scalar indv2((vector(0, 0, 1) & gravity.value()));
 
     int ind = 0;
     if (indv1 != 0) {ind = 1;}
@@ -71,14 +71,14 @@ if (InitFreeze.value()==1)
 if (InitFreeze.value()==2)
 {
 // in this way the bed is immobile in streamwise
-    volScalarField temp = Ua & gravity;
+    volScalarField temp(Ua & gravity);
 // extract vertical component of velocity component,we get ( 0 ,0,w)
-    volVectorField Uatemp = temp*gravity/magSqr(gravity);
+    volVectorField Uatemp(temp*gravity/magSqr(gravity));
 // extract spanwise component of velocity, we get ( 0,v,0)
-    volVectorField Uatemp2 = (Ua & vector(0, 1, 0))*vector(0, 1, 0);
+    volVectorField Uatemp2((Ua & vector(0, 1, 0))*vector(0, 1, 0));
 
-    scalar indv1 = (vector(0, 1, 0) & gravity.value());
-    scalar indv2 = (vector(0, 0, 1) & gravity.value());
+    scalar indv1((vector(0, 1, 0) & gravity.value()));
+    scalar indv2((vector(0, 0, 1) & gravity.value()));
 
     int ind = 0;
     if (indv1 != 0) {ind = 1;}
