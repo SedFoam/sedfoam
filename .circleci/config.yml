@@ -230,7 +230,7 @@ jobs:
       - run:
           name: sedfoam test1D sedim
           command: >
-            shopt -s expand_aliases &&
+            shopt -s expand_aliases && source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
             cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
             cp -f system/controlDict.sedim system/controlDict  && chmod -R a+rwX /root &&
             runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
@@ -239,7 +239,7 @@ jobs:
       - run:
           name: sedfoam test1D bedload
           command: >
-            shopt -s expand_aliases &&
+            shopt -s expand_aliases && source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
             cd /root/sedfoam/test-ci/1DSedim && cp -f constant/forceProperties.bedload constant/forceProperties &&
             cp -f system/controlDict.bedload system/controlDict && chmod -R a+rwX /root &&
             runuser -l sudofoam -c 'cd /root/sedfoam/test-ci/1DSedim &&
@@ -270,6 +270,7 @@ jobs:
           name: sedfoam 1D Avalanche
           command: >
             shopt -s expand_aliases && chmod -R a+rwX /root &&
+            source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
             runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
             source /usr/lib/openfoam/openfoam2106/etc/bashrc && cd /root/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DAvalancheMuI && python3 test_AvalancheMuI.py
@@ -298,6 +299,7 @@ jobs:
           name: sedfoam 1DBedLoadTurb 
           command: >
             shopt -s expand_aliases && chmod -R a+rwX /root &&
+            source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
             runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
             source /usr/lib/openfoam/openfoam2106/etc/bashrc && cd /root/sedfoam/test-ci/1DBedLoadTurb && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DBedLoadTurb && python3 test_1DBedLoadTurb.py
@@ -307,6 +309,7 @@ jobs:
           name: sedfoam 1DBoundaryLayer
           command: >
             shopt -s expand_aliases && chmod -R a+rwX /root &&
+            source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
             runuser -l sudofoam -c 'cd /root/sedfoam/test-ci/1DBoundaryLayer &&
             source /usr/lib/openfoam/openfoam2106/etc/bashrc && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DBoundaryLayer && python3 test_1DBoundaryLayer.py
@@ -334,7 +337,7 @@ jobs:
       - run:
           name: sedfoam 1DWetAvalanche
           command: >
-            shopt -s expand_aliases && chmod -R a+rwX /root &&
+            shopt -s expand_aliases && chmod -R a+rwX /root && source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
             runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
             source /usr/lib/openfoam/openfoam2106/etc/bashrc && cd /root/sedfoam/test-ci/1DWetAvalanche && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DWetAvalanche && python3 test_1DWetAvalanche.py
