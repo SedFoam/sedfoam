@@ -17,13 +17,15 @@ Here is a How To about using the sedFoam docker. This page is organised in two s
 //****************************************
 \section configuration Configuration of the docker sedfoam
 
-Openfoam version : v2006 (openfoam.com)
+Operating System : Ubuntu focal
 
-sudo password : openfoam
+Openfoam version : v2106 (openfoam.com)
+
+user : sudofoam (with sudo)
 
 Installed packages : swak4foam, python3-numpy, python3-matplotlib, fluidfoam, vim...
 
-Official link : https://hub.docker.com/r/cbonamy/sedfoam_v2006_centos73
+Official link : https://hub.docker.com/r/cbonamy/sedfoam_v2106_ubuntu
 
 Dockerfile : https://github.com/SedFoam/sedfoam/blob/master/docker/Dockerfile
 
@@ -46,16 +48,16 @@ On host :
     - in a terminal : IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') && xhost + $IP
 - launch/initiate docker : 
 \verbatim
-     docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_v2006" --workdir="/home/ofuser" -v="/Users/bonamy2c":/home/ofuser/workingDir "cbonamy/sedfoam_v2006_centos73" /bin/bash
+     docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_v2106" --workdir="/home/ofuser" -v="/Users/bonamy2c":/home/ofuser/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
 \endverbatim
 Please adapt the directories to your configuration. In this example, "/Users/bonamy2c" will be mounted on the vm in /home/ofuser/workingDir.
 - start an image (if existing and not running) : 
 \verbatim
-     docker container start sedfoam_v2006
+     docker container start sedfoam_v2106
 \endverbatim
 - attach to a running image (if existing and running): 
 \verbatim
-     docker container attach sedfoam_v2006
+     docker container attach sedfoam_v2106
 \endverbatim
 
 On container : 
