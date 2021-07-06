@@ -76,39 +76,43 @@ dimensionedScalar alphaMax
 
 dimensionedScalar alphaMinFriction
 (
-    ppProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "alphaMinFriction",
-        dimensionedScalar("alphaMinFriction",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0.57)
+        ppProperties,
+        dimless,
+        0.57
     )
 );
 
 dimensionedScalar Fr_
 (
-    ppProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "Fr",
-        dimensionedScalar("Fr",
-                          dimensionSet(1, -1, -2, 0, 0, 0, 0),
-                          5e-2)
+        ppProperties,
+        dimensionSet(1, -1, -2, 0, 0, 0, 0),
+        5e-2
     )
 );
 dimensionedScalar eta0_
 (
-    ppProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
-       "eta0",
-       dimensionedScalar("eta0", dimensionSet(0, 0, 0, 0, 0, 0, 0), 3 )
+        "eta0",
+        ppProperties,
+        dimless,
+        3
     )
 );
 dimensionedScalar eta1_
 (
-    ppProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
-       "eta1",
-       dimensionedScalar("eta1", dimensionSet(0, 0, 0, 0, 0, 0, 0), 5 )
+        "eta1",
+        ppProperties,
+        dimless,
+        5
     )
 );
 Switch packingLimiter(ppProperties.lookup("packingLimiter"));
@@ -117,56 +121,56 @@ Switch packingLimiter(ppProperties.lookup("packingLimiter"));
 
 dimensionedScalar alphaDiffusion
 (
-    transportProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "alphaDiffusion",
-        dimensionedScalar("alphaDiffusion",
-                          dimensionSet(0, 2, -1, 0, 0, 0, 0),
-                          0e0)
+        transportProperties,
+        dimensionSet(0, 2, -1, 0, 0, 0, 0),
+        0e0
     )
 );
 
 dimensionedScalar alphaSmall
 (
-    transportProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "alphaSmall",
-        dimensionedScalar("alphaSmall",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          1e-6)
+        transportProperties,
+        dimless,
+        1e-6
     )
 );
 
 dimensionedScalar nuMax
 (
-    transportProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "nuMax",
-        dimensionedScalar("nuMax",
-                          dimensionSet(0, 1, -2, 0, 0, 0, 0),
-                          1e0)
+        transportProperties,
+        dimensionSet(0, 1, -2, 0, 0, 0, 0),
+        1e0
     )
 );
 
 dimensionedScalar Dsmall
 (
-    transportProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "Dsmall",
-        dimensionedScalar("Dsmall",
-                          dimensionSet(0, 0, -1, 0, 0, 0, 0),
-                          1e-6)
+        transportProperties,
+        dimensionSet(0, 0, -1, 0, 0, 0, 0),
+        1e-6
     )
 );
 
 dimensionedScalar nuMaxExp
 (
-    transportProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "nuMaxExp",
-        dimensionedScalar("nuMaxExp",
-                          dimensionSet(0, 1, -2, 0, 0, 0, 0),
-                          1e0)
+        transportProperties,
+        dimensionSet(0, 1, -2, 0, 0, 0, 0),
+        1e0
     )
 );
 // Initialize phase a and b variables
