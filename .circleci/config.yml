@@ -38,7 +38,7 @@ jobs:
 
   docs-build:
     docker:
-      - image: ubuntu:focal 
+      - image: opencfd/openfoam2106-dev 
 
     environment:
       WM_NCOMPPROCS: 2
@@ -53,17 +53,6 @@ jobs:
             apt-get update && apt-get -y install git python3-pip dvisvgm libclang-9-dev &&
             apt-get -y install ack-grep libclang-cpp9 wget graphviz tex-gyre texlive-base &&
             apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended
-
-      - run:
-          name: Add OpenFOAM package repository
-          command: >
-            apt-get -y install software-properties-common wget apt-transport-https &&
-            sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -" &&
-            add-apt-repository http://dl.openfoam.org/ubuntu
-
-      - run:
-          name: Install OpenFOAM 7
-          command: apt-get update && apt-get -y install openfoam7
 
       - run:
           name: Install python packages
@@ -184,7 +173,7 @@ jobs:
 
   build:
     docker:
-      - image: openfoamplus/of_v2006_centos73
+      - image: opencfd/openfoam2106-dev 
 
     environment:
       WM_NCOMPPROCS: 2
@@ -204,7 +193,7 @@ jobs:
       - run:
           name: pull submodules
           command: >
-            yum -y install git &&
+            apt-get update && apt-get -y install git &&
             shopt -s expand_aliases &&
             git submodule init &&
             git submodule update --remote
@@ -213,7 +202,6 @@ jobs:
           name: Build sedFoam
           command: >
             shopt -s expand_aliases &&
-            source /opt/OpenFOAM/setImage_v2006.sh &&
             ./Allwmake
       - persist_to_workspace:
           root: /root
@@ -221,7 +209,7 @@ jobs:
 
   test:
     docker:
-      - image: openfoamplus/of_v2006_centos73
+      - image: opencfd/openfoam2106-dev 
     working_directory: /root/sedfoam
 
     steps:
@@ -229,7 +217,8 @@ jobs:
           name: Install python3 packages
           command: >
             shopt -s expand_aliases &&
-            yum -y install python3 python3-pip && 
+            apt-get update && apt-get -y install python3 &&
+            apt-get -y install python3-pip && 
             pip3 install fluidfoam
 
       - checkout:
@@ -242,36 +231,32 @@ jobs:
           name: sedfoam test1D sedim
           command: >
             shopt -s expand_aliases &&
-            source /opt/OpenFOAM/setImage_v2006.sh &&
             cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
             cp -f system/controlDict.sedim system/controlDict  && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
-            source /opt/OpenFOAM/setImage_v2006.sh &&
+            runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
             cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
             python3 test_Sedimentation.py
       - run:
           name: sedfoam test1D bedload
           command: >
             shopt -s expand_aliases &&
-            source /opt/OpenFOAM/setImage_v2006.sh &&
             cd /root/sedfoam/test-ci/1DSedim && cp -f constant/forceProperties.bedload constant/forceProperties &&
             cp -f system/controlDict.bedload system/controlDict && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'source /opt/OpenFOAM/setImage_v2006.sh &&
-            cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
+            runuser -l sudofoam -c 'cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
             python3 test_Bedload.py
           no_output_timeout: 30m
 
   advanced-test:
     docker:
-      - image: openfoamplus/of_v2006_centos73
+      - image: opencfd/openfoam2106-dev 
     working_directory: /root/sedfoam
 
     steps:
       - run:
           name: Install python3 packages
           command: >
-            shopt -s expand_aliases &&
-            yum -y install python3 python3-pip && 
+            shopt -s expand_aliases && apt-get update &&
+            apt-get -y install python3 python3-pip && 
             pip3 install fluidfoam
 
       - checkout:
@@ -283,25 +268,23 @@ jobs:
       - run:
           name: sedfoam 1D Avalanche
           command: >
-            shopt -s expand_aliases &&
-            source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
-            source /opt/OpenFOAM/setImage_v2006.sh &&
+            shopt -s expand_aliases && chmod -R a+rwX /root &&
+            runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
             cd /root/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DAvalancheMuI && python3 test_AvalancheMuI.py
           no_output_timeout: 30m
   
   advanced-test1:
     docker:
-      - image: openfoamplus/of_v2006_centos73
+      - image: opencfd/openfoam2106-dev 
     working_directory: /root/sedfoam
 
     steps:
       - run:
           name: Install python3 packages
           command: >
-            shopt -s expand_aliases &&
-            yum -y install python3 python3-pip && 
+            shopt -s expand_aliases && apt-get update &&
+            apt-get -y install python3 python3-pip && 
             pip3 install fluidfoam
 
       - checkout:
@@ -313,10 +296,8 @@ jobs:
       - run:
           name: sedfoam 1DBedLoadTurb 
           command: >
-            shopt -s expand_aliases &&
-            source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
-            source /opt/OpenFOAM/setImage_v2006.sh &&
+            shopt -s expand_aliases && chmod -R a+rwX /root &&
+            runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
             cd /root/sedfoam/test-ci/1DBedLoadTurb && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DBedLoadTurb &&python3 test_1DBedLoadTurb.py
           no_output_timeout: 30m
@@ -324,24 +305,22 @@ jobs:
       - run:
           name: sedfoam 1DBoundaryLayer
           command: >
-            shopt -s expand_aliases &&
-            source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'source /opt/OpenFOAM/setImage_v2006.sh &&
-            cd /root/sedfoam/test-ci/1DBoundaryLayer && ./Allrun' &&
+            shopt -s expand_aliases && chmod -R a+rwX /root &&
+            runuser -l sudofoam -c 'cd /root/sedfoam/test-ci/1DBoundaryLayer && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DBoundaryLayer && python3 test_1DBoundaryLayer.py
           no_output_timeout: 30m
 
   advanced-test2:
     docker:
-      - image: openfoamplus/of_v2006_centos73
+      - image: opencfd/openfoam2106-dev 
     working_directory: /root/sedfoam
 
     steps:
       - run:
           name: Install python3 packages
           command: >
-            shopt -s expand_aliases &&
-            yum -y install python3 python3-pip && 
+            shopt -s expand_aliases && apt-get update &&
+            apt-get -y install python3 python3-pip && 
             pip3 install fluidfoam
 
       - checkout:
@@ -353,10 +332,8 @@ jobs:
       - run:
           name: sedfoam 1DWetAvalanche
           command: >
-            shopt -s expand_aliases &&
-            source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
-            source /opt/OpenFOAM/setImage_v2006.sh &&
+            shopt -s expand_aliases && chmod -R a+rwX /root &&
+            runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
             cd /root/sedfoam/test-ci/1DWetAvalanche && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DWetAvalanche && python3 test_1DWetAvalanche.py
           no_output_timeout: 30m
