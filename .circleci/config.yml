@@ -374,11 +374,9 @@ workflows:
             - builddock
       - test:
           requires:
-            - checkstyle
             - build
       - advanced-test2:
           requires:
-            - checkstyle
             - build
       - docs-build
       - docs-deploy:
@@ -399,19 +397,15 @@ workflows:
       - build
       - test:
           requires:
-            - checkstyle
             - build
       - advanced-test:
           requires:
-            - checkstyle
             - build
       - advanced-test1:
           requires:
-            - checkstyle
             - build
       - advanced-test2:
           requires:
-            - checkstyle
             - build
       - builddock:
           requires:
