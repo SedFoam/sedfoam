@@ -21,7 +21,7 @@ License
 
 dimensionedScalar SUSread
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "SUS",
         dimensionedScalar("SUS", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
@@ -29,7 +29,7 @@ dimensionedScalar SUSread
 );
 dimensionedScalar SUS_I
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "SUS_I",
         dimensionedScalar("SUS_I", dimensionSet(0, 0, 0, 0, 0, 0, 0), 1)
@@ -38,7 +38,7 @@ dimensionedScalar SUS_I
 
 dimensionedScalar SUS_A
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "SUS_A",
         dimensionedScalar("SUS_A", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
@@ -61,12 +61,12 @@ volScalarField SUS
 
 Switch SUSlocal
 (
-    twophaseRASProperties.lookupOrDefault("SUSlocal", false)
+    twophaseRASProperties.getOrDefault("SUSlocal", false)
 );
 
 dimensionedScalar Usmall
 (
-    transportProperties.lookupOrDefault
+    transportProperties.getOrDefault
     (
         "Usmall",
         dimensionedScalar("Usmall", dimensionSet(0, 1, -1, 0, 0, 0, 0), 1e-6)
@@ -75,7 +75,7 @@ dimensionedScalar Usmall
 
 dimensionedScalar B
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "B",
         dimensionedScalar("B", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0.25)
@@ -84,7 +84,7 @@ dimensionedScalar B
 
 dimensionedScalar KE1
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "KE1",
         dimensionedScalar("KE1", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
@@ -92,7 +92,7 @@ dimensionedScalar KE1
 );
 dimensionedScalar Tpsmall
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "Tpsmall",
         dimensionedScalar("Tpsmall", dimensionSet(0, 0, 1, 0, 0, 0, 0), 1e-6)
@@ -100,7 +100,7 @@ dimensionedScalar Tpsmall
 );
 dimensionedScalar KE3
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "KE3",
         dimensionedScalar("KE3", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)

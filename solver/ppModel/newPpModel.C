@@ -33,7 +33,7 @@ Foam::autoPtr<Foam::ppModel> Foam::ppModel::New
 {
     word ppModelType
     (
-        ppDict.lookup("ppModel")
+        ppDict.get<word>("ppModel")
     );
 
     Info << "Selecting ppModel "

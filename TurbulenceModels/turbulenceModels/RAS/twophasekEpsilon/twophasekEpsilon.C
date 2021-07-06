@@ -73,7 +73,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     C3ep_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C3ep",
             this->coeffDict_,
@@ -82,7 +82,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     C4ep_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C4ep",
             this->coeffDict_,
@@ -91,7 +91,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     KE2_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "KE2",
             this->coeffDict_,
@@ -100,7 +100,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     KE4_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "KE4",
             this->coeffDict_,
@@ -109,7 +109,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     Cmu_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "Cmu",
             this->coeffDict_,
@@ -118,7 +118,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     C1_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C1",
             this->coeffDict_,
@@ -127,7 +127,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     C2_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C2",
             this->coeffDict_,
@@ -136,7 +136,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     nutMax_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "nutMax",
             this->coeffDict_,
@@ -145,7 +145,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     alphak_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "alphak",
             this->coeffDict_,
@@ -154,7 +154,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     alphaEps_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "alphaEps",
             this->coeffDict_,

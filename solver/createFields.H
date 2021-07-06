@@ -65,108 +65,112 @@ IOdictionary ppProperties
 
 dimensionedScalar alphaMax
 (
-    ppProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "alphaMax",
-        dimensionedScalar("alphaMax",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0.635)
+        ppProperties,
+        dimless,
+        0.635
     )
 );
 
 dimensionedScalar alphaMinFriction
 (
-    ppProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "alphaMinFriction",
-        dimensionedScalar("alphaMinFriction",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0.57)
+        ppProperties,
+        dimless,
+        0.57
     )
 );
 
 dimensionedScalar Fr_
 (
-    ppProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "Fr",
-        dimensionedScalar("Fr",
-                          dimensionSet(1, -1, -2, 0, 0, 0, 0),
-                          5e-2)
+        ppProperties,
+        dimensionSet(1, -1, -2, 0, 0, 0, 0),
+        5e-2
     )
 );
 dimensionedScalar eta0_
 (
-    ppProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
-       "eta0",
-       dimensionedScalar("eta0", dimensionSet(0, 0, 0, 0, 0, 0, 0), 3 )
+        "eta0",
+        ppProperties,
+        dimless,
+        3
     )
 );
 dimensionedScalar eta1_
 (
-    ppProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
-       "eta1",
-       dimensionedScalar("eta1", dimensionSet(0, 0, 0, 0, 0, 0, 0), 5 )
+        "eta1",
+        ppProperties,
+        dimless,
+        5
     )
 );
-Switch packingLimiter(ppProperties.lookup("packingLimiter"));
+Switch packingLimiter(ppProperties.get<Switch>("packingLimiter"));
 
 // Read transportProperties
 
 dimensionedScalar alphaDiffusion
 (
-    transportProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "alphaDiffusion",
-        dimensionedScalar("alphaDiffusion",
-                          dimensionSet(0, 2, -1, 0, 0, 0, 0),
-                          0e0)
+        transportProperties,
+        dimensionSet(0, 2, -1, 0, 0, 0, 0),
+        0e0
     )
 );
 
 dimensionedScalar alphaSmall
 (
-    transportProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "alphaSmall",
-        dimensionedScalar("alphaSmall",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          1e-6)
+        transportProperties,
+        dimless,
+        1e-6
     )
 );
 
 dimensionedScalar nuMax
 (
-    transportProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "nuMax",
-        dimensionedScalar("nuMax",
-                          dimensionSet(0, 1, -2, 0, 0, 0, 0),
-                          1e0)
+        transportProperties,
+        dimensionSet(0, 2, -1, 0, 0, 0, 0),
+        1e0
     )
 );
 
 dimensionedScalar Dsmall
 (
-    transportProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "Dsmall",
-        dimensionedScalar("Dsmall",
-                          dimensionSet(0, 0, -1, 0, 0, 0, 0),
-                          1e-6)
+        transportProperties,
+        dimensionSet(0, 0, -1, 0, 0, 0, 0),
+        1e-6
     )
 );
 
 dimensionedScalar nuMaxExp
 (
-    transportProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "nuMaxExp",
-        dimensionedScalar("nuMaxExp",
-                          dimensionSet(0, 1, -2, 0, 0, 0, 0),
-                          1e0)
+        transportProperties,
+        dimensionSet(0, 2, -1, 0, 0, 0, 0),
+        1e0
     )
 );
 // Initialize phase a and b variables
@@ -218,77 +222,79 @@ IOdictionary forceProperties
 
 dimensionedScalar tilt
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "tilt",
-        dimensionedScalar("tilt", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
 dimensionedVector gradPAMP1
 (
-    forceProperties.lookupOrDefault
+    dimensionedVector::getOrDefault
     (
         "gradPAMP1",
-        dimensionedVector("gradPAMP1",
-                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
-                          vector(0, 0, 0) )
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
     )
 );
 
 dimensionedVector gradPAMP2
 (
-    forceProperties.lookupOrDefault
+    dimensionedVector::getOrDefault
     (
         "gradPAMP2",
-        dimensionedVector("gradPAMP2",
-                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
-                          vector(0, 0, 0) )
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
     )
 );
 
 dimensionedVector gradPMEAN
 (
-    forceProperties.lookupOrDefault
+    dimensionedVector::getOrDefault
     (
         "gradPMEAN",
-        dimensionedVector("gradPMEAN",
-                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
-                          vector(0, 0, 0) )
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
     )
 );
 
 dimensionedVector gradPOSC
 (
-    forceProperties.lookupOrDefault
+    dimensionedVector::getOrDefault
     (
         "gradPOSC",
-        dimensionedVector("gradPOSC",
-                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
-                          vector(0, 0, 0) )
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
     )
 );
 
 dimensionedVector gradConvAcc
 (
-    forceProperties.lookupOrDefault
+    dimensionedVector::getOrDefault
     (
         "gradConvAcc",
-        dimensionedVector("gradPOSC",
-                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
-                          vector(0, 0, 0) )
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
     )
 );
 dimensionedScalar gradPOSCMin ("gradPOSCMin", gradPOSC.dimensions(), 1e-6);
 
 dimensionedScalar oscpT
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "oscpT",
-        dimensionedScalar("oscpT",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
@@ -298,100 +304,112 @@ oscpT=max(oscpTMin, oscpT);
 
 dimensionedScalar Cvm
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "Cvm",
-        dimensionedScalar("Cvm",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
 dimensionedScalar Cl
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "Cl",
-        dimensionedScalar("Cl",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
 dimensionedScalar Ct
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "Ct",
-        dimensionedScalar("Ct",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
 dimensionedScalar initTheta
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "initTheta",
-        dimensionedScalar("initTheta", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 dimensionedScalar InitFreeze
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "InitFreeze",
-        dimensionedScalar("InitFreeze", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 dimensionedScalar fixbeddepth
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "fixbeddepth",
-        dimensionedScalar("fixbeddepth", dimensionSet(0, 1, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimensionSet(0, 1, 0, 0, 0, 0, 0),
+        0
     )
 );
 dimensionedScalar ClipUa
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "ClipUa",
-        dimensionedScalar("ClipUa", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
 // Debuging info
 Switch debugInfo
 (
-    forceProperties.lookupOrDefault("debugInfo", false)
+    forceProperties.getOrDefault<Switch>("debugInfo", false)
 );
 // Sponge Layer
 Switch spongeLayer
 (
-    forceProperties.lookupOrDefault("spongeLayer", false)
+    forceProperties.getOrDefault<Switch>("spongeLayer", false)
 );
 dimensionedScalar xSmin
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "xSmin",
-        dimensionedScalar("xSmin", dimensionSet(0, 1, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimensionSet(0, 1, 0, 0, 0, 0, 0),
+        0
     )
 );
 dimensionedScalar xSmax
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "xSmax",
-        dimensionedScalar("xSmax", dimensionSet(0, 1, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimensionSet(0, 1, 0, 0, 0, 0, 0),
+        0
     )
 );
 
 Switch writeTau
 (
-    forceProperties.lookupOrDefault<Switch>("writeTau", false)
+    forceProperties.getOrDefault<Switch>("writeTau", false)
 );
 
 
@@ -605,7 +623,7 @@ autoPtr<dragModel> dragb = dragModel::New
 word dragPhase("blended");
 if (interfacialProperties.found("dragPhase"))
 {
-    dragPhase = word(interfacialProperties.lookup("dragPhase"));
+    dragPhase = interfacialProperties.get<word>("dragPhase");
 
     bool validDrag =
         dragPhase == "a" || dragPhase == "b" || dragPhase == "blended";

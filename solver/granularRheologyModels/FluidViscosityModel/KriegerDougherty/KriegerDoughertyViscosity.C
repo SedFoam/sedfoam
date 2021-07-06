@@ -63,7 +63,7 @@ Foam::tmp<Foam::volScalarField> Foam::granularRheologyModels::
     const dimensionedScalar& n
 ) const
 {
-    return nub*pow(1.0 - min(alpha/alphaMax, 0.99), -n)/(1.0-alpha);
+    return nub*pow(1.0 - min(alpha/alphaMax, scalar(0.99)), -n)/(1.0-alpha);
 }
 
 // ************************************************************************* //

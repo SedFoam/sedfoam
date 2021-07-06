@@ -32,7 +32,7 @@ Foam::autoPtr<Foam::conductivityModel> Foam::conductivityModel::New
     const dictionary& dict
 )
 {
-    word conductivityModelType(dict.lookup("conductivityModel"));
+    word conductivityModelType(dict.get<word>("conductivityModel"));
 
     Info<< "Selecting conductivityModel "
         << conductivityModelType << endl;

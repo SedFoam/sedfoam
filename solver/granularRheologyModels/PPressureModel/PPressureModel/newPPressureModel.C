@@ -30,7 +30,7 @@ Foam::granularRheologyModels::PPressureModel::New
     const dictionary& dict
 )
 {
-    word PPressureModelType(dict.lookup("PPressureModel"));
+    word PPressureModelType(dict.get<word>("PPressureModel"));
 
     Info<< "Selecting PPressureModel "
         << PPressureModelType << endl;

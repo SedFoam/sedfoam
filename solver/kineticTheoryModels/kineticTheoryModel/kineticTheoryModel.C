@@ -60,15 +60,15 @@ Foam::kineticTheoryModel::kineticTheoryModel
     ),
     kineticTheory_
     (
-        kineticTheoryProperties_.lookup("kineticTheory")
+        kineticTheoryProperties_.get<Switch>("kineticTheory")
     ),
     extended_
     (
-        kineticTheoryProperties_.lookupOrDefault("extended", false)
+        kineticTheoryProperties_.getOrDefault<Switch>("extended", false)
     ),
     limitProduction_
     (
-        kineticTheoryProperties_.lookupOrDefault("limitProduction", false)
+        kineticTheoryProperties_.getOrDefault<Switch>("limitProduction", false)
     ),
     viscosityModel_
     (
@@ -100,7 +100,7 @@ Foam::kineticTheoryModel::kineticTheoryModel
     ),
     e_
     (
-        kineticTheoryProperties_.lookupOrDefault
+        kineticTheoryProperties_.getOrDefault
         (
             "e",
             dimensionedScalar("e",
@@ -108,19 +108,9 @@ Foam::kineticTheoryModel::kineticTheoryModel
                           0.9)
         )
     ),
-    muPart_
-    (
-        kineticTheoryProperties_.lookupOrDefault
-        (
-            "muPart",
-            dimensionedScalar("muPart",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0.0)
-        )
-    ),
     alphaMax_
     (
-        kineticTheoryProperties_.lookupOrDefault
+        kineticTheoryProperties_.getOrDefault
         (
             "alphaMax",
             dimensionedScalar("alphaMax",
@@ -130,7 +120,7 @@ Foam::kineticTheoryModel::kineticTheoryModel
     ),
     MaxTheta
     (
-        kineticTheoryProperties_.lookupOrDefault
+        kineticTheoryProperties_.getOrDefault
         (
             "MaxTheta",
             dimensionedScalar("MaxTheta",
@@ -140,7 +130,7 @@ Foam::kineticTheoryModel::kineticTheoryModel
     ),
     phi_
     (
-        kineticTheoryProperties_.lookupOrDefault
+        kineticTheoryProperties_.getOrDefault
         (
             "phi",
             dimensionedScalar("phi",
@@ -148,9 +138,19 @@ Foam::kineticTheoryModel::kineticTheoryModel
                           32)
         )*M_PI/180.0 //32° angle of repose
     ),
+    muPart_
+    (
+        kineticTheoryProperties_.getOrDefault
+        (
+            "muPart",
+            dimensionedScalar("muPart",
+                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                          0.0)
+        )
+    ),
     killJ2_
     (
-        kineticTheoryProperties_.lookupOrDefault
+        kineticTheoryProperties_.getOrDefault
         (
             "killJ2_",
             dimensionedScalar
@@ -163,7 +163,7 @@ Foam::kineticTheoryModel::kineticTheoryModel
     ),
     quadraticCorrectionJ1_
     (
-        kineticTheoryProperties_.lookupOrDefault
+        kineticTheoryProperties_.getOrDefault
         (
             "quadraticCorrectionJ1_",
             dimensionedScalar
@@ -411,7 +411,7 @@ void Foam::kineticTheoryModel::solve
     {// extended kinetic theory Jenkins (2007)
         Lc = da_*max
         (
-            1.,
+            scalar(1),
             0.5*pow(30./(1.+sqr(sqrtPi)/12.)*(1-e_)*sqr(alpha_)*gs0_, 1./3.)
         );
     }

@@ -32,7 +32,7 @@ Foam::autoPtr<Foam::granularPressureModel> Foam::granularPressureModel::New
     const dictionary& dict
 )
 {
-    word granularPressureModelType(dict.lookup("granularPressureModel"));
+    word granularPressureModelType(dict.get<word>("granularPressureModel"));
 
     Info<< "Selecting granularPressureModel "
         << granularPressureModelType << endl;

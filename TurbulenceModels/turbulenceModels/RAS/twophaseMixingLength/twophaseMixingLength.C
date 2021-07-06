@@ -72,7 +72,7 @@ twophaseMixingLength<BasicTurbulenceModel>::twophaseMixingLength
     ),
     Cmu_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "Cmu",
             this->coeffDict_,
@@ -81,7 +81,7 @@ twophaseMixingLength<BasicTurbulenceModel>::twophaseMixingLength
     ),
     expoLM_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "expoLM",
             this->coeffDict_,
@@ -90,7 +90,7 @@ twophaseMixingLength<BasicTurbulenceModel>::twophaseMixingLength
     ),
     alphaMaxLM_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "alphaMaxLM",
             this->coeffDict_,
@@ -99,7 +99,7 @@ twophaseMixingLength<BasicTurbulenceModel>::twophaseMixingLength
     ),
     kappaLM_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "kappaLM",
             this->coeffDict_,

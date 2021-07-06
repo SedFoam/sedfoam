@@ -58,7 +58,7 @@ Foam::kineticTheoryModels::HrenyaSinclairViscosity::HrenyaSinclairViscosity
     L_("L", dimLength, coeffsDict_)
 #else
     coeffsDict_(dict.subDict(typeName + "Coeffs")),
-    L_(coeffsDict_.lookup("L"))
+    L_(coeffsDict_.get<scalar>("L"))
 #endif
 {}
 

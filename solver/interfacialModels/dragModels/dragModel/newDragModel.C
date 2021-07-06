@@ -36,7 +36,7 @@ Foam::autoPtr<Foam::dragModel> Foam::dragModel::New
 {
     word dragModelType
     (
-        interfaceDict.lookup("dragModel" + phasea.name())
+        interfaceDict.get<word>("dragModel" + phasea.name())
     );
 
     Info << "Selecting dragModel for phase "
