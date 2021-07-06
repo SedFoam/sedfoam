@@ -79,13 +79,6 @@ class twophaseMixingLength
 :
     public eddyViscosity<RASModel<BasicTurbulenceModel>>
 {
-    // Private Member Functions
-
-    // Disallow default bitwise copy construct and assignment
-    twophaseMixingLength(const twophaseMixingLength&);
-    void operator=(const twophaseMixingLength&);
-
-
 protected:
 
     // Protected data
@@ -103,7 +96,14 @@ protected:
     volScalarField epsilon_;
 
     // Protected Member Functions
-    virtual void correctNut();
+
+        virtual void correctNut();
+
+        //- No copy construct and assignment
+        twophaseMixingLength(const twophaseMixingLength&) = delete;
+
+        //- No copy assignment
+        void operator=(const twophaseMixingLength&) = delete;
 
 
 public:
@@ -133,12 +133,8 @@ public:
 
 
     //- Destructor
-    #if (OFVERSION < 220 and OFVERSION >= 200) or OFVERSION == 00
-        virtual ~twophaseMixingLength() = default;
-    #else
-        virtual ~twophaseMixingLength()
-        {}
-    #endif
+    virtual ~twophaseMixingLength()
+    {}
 
 
     // Member Functions
@@ -157,6 +153,7 @@ public:
     {
         return epsilon_;
     }
+
     virtual tmp<volScalarField> omega() const
     {
         return tmp<volScalarField>
