@@ -5,8 +5,8 @@ ARG WM_NCOMPPROCS=10
 RUN apt-get update -y \
   && apt-get install -y \
   git python3 python3-pip unzip \
-  mercurial readline-devel \
-  texlive dvipng python3-tkinter \
+  mercurial libreadline-dev \
+  texlive dvipng python3-tk \
   && apt-get clean
 RUN pip3 install fluidfoam
 
