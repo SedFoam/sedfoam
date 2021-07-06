@@ -77,7 +77,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     popeCorrection_
     (
-        Switch::lookupOrAddToDict
+        Switch::getOrAddToDict
         (
             "popeCorrection",
             this->coeffDict_,
@@ -86,7 +86,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     writeTke_
     (
-        Switch::lookupOrAddToDict
+        Switch::getOrAddToDict
         (
             "writeTke",
             this->coeffDict_,
@@ -95,7 +95,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     C3om_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C3om",
             this->coeffDict_,
@@ -104,7 +104,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     C4om_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C4om",
             this->coeffDict_,
@@ -113,7 +113,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     KE2_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "KE2",
             this->coeffDict_,
@@ -122,7 +122,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     KE4_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "KE4",
             this->coeffDict_,
@@ -131,7 +131,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     Cmu_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "Cmu",
             this->coeffDict_,
@@ -140,7 +140,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     betaOmega_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "betaOmega",
             this->coeffDict_,
@@ -149,7 +149,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     nutMax_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "nutMax",
             this->coeffDict_,
@@ -158,7 +158,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     Clim_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "Clim",
             this->coeffDict_,
@@ -167,7 +167,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     sigmad_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "sigmad",
             this->coeffDict_,
@@ -176,7 +176,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     alphaKOmega_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "alphaKOmega",
             this->coeffDict_,
@@ -185,7 +185,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     alphaOmega_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "alphaOmega",
             this->coeffDict_,
@@ -194,7 +194,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     alphaOmegaOmega_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "alphaOmegaOmega",
             this->coeffDict_,

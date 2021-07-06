@@ -58,8 +58,8 @@ Foam::granularRheologyModel::granularRheologyModel
             IOobject::NO_WRITE
         )
     ),
-    granularRheology_(granularRheologyProperties_.lookup("granularRheology")),
-    granularDilatancy_(granularRheologyProperties_.lookup("granularDilatancy")),
+    granularRheology_(granularRheologyProperties_.get<Switch>("granularRheology")),
+    granularDilatancy_(granularRheologyProperties_.get<Switch>("granularDilatancy")),
     FrictionModel_
     (
         granularRheologyModels::FrictionModel::New
@@ -83,7 +83,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     alphaMaxG_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "alphaMaxG",
             dimensionedScalar("alphaMaxG",
@@ -93,7 +93,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     mus_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "mus",
             dimensionedScalar("mus",
@@ -103,7 +103,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     mu2_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "mu2",
             dimensionedScalar("mu2",
@@ -113,7 +113,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     I0_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "I0",
             dimensionedScalar("I0",
@@ -123,7 +123,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     Bphi_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "Bphi",
             dimensionedScalar("Bphi",
@@ -133,7 +133,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     n_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "n",
             dimensionedScalar("n",
@@ -143,7 +143,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     BulkFactor_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
                 "BulkFactor",
                 dimensionedScalar("BulkFactor",
@@ -153,7 +153,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     alpha_c_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
                 "alpha_c",
                 dimensionedScalar("alpha_c",
@@ -164,7 +164,7 @@ Foam::granularRheologyModel::granularRheologyModel
 
     K_dila_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
                 "K_dila",
                 dimensionedScalar("K_dila",
@@ -174,7 +174,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     relaxPa_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "relaxPa",
             dimensionedScalar("relaxPa",
@@ -184,7 +184,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     PaMin_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "PaMin",
             dimensionedScalar("PaMin",
@@ -194,7 +194,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     tau_inv_min_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "tau_inv_min",
             dimensionedScalar("tau_inv_min",
