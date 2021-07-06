@@ -48,9 +48,9 @@ On host :
     - in a terminal : IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') && xhost + $IP
 - launch/initiate docker : 
 \verbatim
-     docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_v2106" --workdir="/home/ofuser" -v="/Users/bonamy2c":/home/ofuser/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
+     docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_v2106" --workdir="/home/sudofoam" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
 \endverbatim
-Please adapt the directories to your configuration. In this example, "/Users/bonamy2c" will be mounted on the vm in /home/ofuser/workingDir.
+Please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir.
 - start an image (if existing and not running) : 
 \verbatim
      docker container start sedfoam_v2106
@@ -60,8 +60,10 @@ Please adapt the directories to your configuration. In this example, "/Users/bon
      docker container attach sedfoam_v2106
 \endverbatim
 
-On container : 
+On container :
+- source the openfoam environment:
+source /usr/lib/openfoam/openfoam2106/etc/bashrc 
 - hack and enjoy!
-The sedfoam files will be in /home/ofuser and the solver is already compiled. Just test and use.
+The sedfoam files will be in /home/sudofoam and the solver is already compiled. Just test and use.
 
 */

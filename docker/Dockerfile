@@ -4,7 +4,7 @@ ARG WM_NCOMPPROCS=10
 
 RUN apt-get update -y \
   && apt-get install -y \
-  git python3 python3-pip unzip \
+  git python3 python3-pip unzip python \
   mercurial libreadline-dev \
   texlive dvipng python3-tk \
   && apt-get clean
@@ -16,18 +16,18 @@ WORKDIR /home/sudofoam
 RUN git clone --recurse-submodules https://github.com/sedfoam/sedfoam.git
 
 WORKDIR /home/sudofoam
-RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r v2020.06 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
+RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r vcompile/p2106 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
 
 WORKDIR /home/sudofoam/swak4Foam
 RUN /bin/bash -c "shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh"
 WORKDIR /home/sudofoam/swak4Foam
-RUN /bin/bash -c "shopt -s expand_aliases && ./Allwmake"
+RUN /bin/bash -c "shopt -s expand_aliases && source /usr/lib/openfoam/openfoam2106/etc/bashrc && ./Allwmake"
 
 WORKDIR /home/sudofoam
 RUN rm -rf swak4Foam
 
 WORKDIR /home/sudofoam/sedfoam
-RUN /bin/bash -c "shopt -s expand_aliases && ./Allwmake && ./Allwclean"
+RUN /bin/bash -c "shopt -s expand_aliases && source /usr/lib/openfoam/openfoam2106/etc/bashrc && ./Allwmake && ./Allwclean"
 #RUN find /home/ofuser/sedfoam -name "*.o" -exec rm -f {} \;
 
 WORKDIR /home/sudofoam
