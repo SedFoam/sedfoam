@@ -392,11 +392,11 @@ void Foam::granularRheologyModel::solve
     //  Compute the inertial/viscous number
     I_ = FrictionModel_->I(p_p_total_, rhoa_, da_, rhob_, nub_, magD);
 
-// Dilatancy model
+    // Dilatancy model
     if (granularDilatancy_)
     {
     //delta_ = DilatancyModel_->delta(K_dila_, alpha_c_, alpha_, magD,
-// da_, rhob_, nub_, p_p_total_, PaMin);
+    // da_, rhob_, nub_, p_p_total_, PaMin);
         volScalarField alphaEq_
         (
             PPressureModel_->alphaEq
