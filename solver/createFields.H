@@ -147,7 +147,7 @@ dimensionedScalar nuMax
     (
         "nuMax",
         transportProperties,
-        dimensionSet(0, 1, -2, 0, 0, 0, 0),
+        dimensionSet(0, 2, -1, 0, 0, 0, 0),
         1e0
     )
 );
@@ -169,7 +169,7 @@ dimensionedScalar nuMaxExp
     (
         "nuMaxExp",
         transportProperties,
-        dimensionSet(0, 1, -2, 0, 0, 0, 0),
+        dimensionSet(0, 2, -1, 0, 0, 0, 0),
         1e0
     )
 );
