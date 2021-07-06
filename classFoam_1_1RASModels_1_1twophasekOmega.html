@@ -67,19 +67,7 @@
           <span class="m-breadcrumb"><a href="namespaceFoam.html">Foam</a>::<wbr/></span><span class="m-breadcrumb"><a href="namespaceFoam_1_1RASModels.html">RASModels</a>::<wbr/></span>twophasekOmega <span class="m-thin">class</span>
         </h1>
         <p>Standard high Reynolds-number k-omega turbulence model for incompressible and compressible flows.</p>
-        <div class="m-block m-default">
-          <h3>Contents</h3>
-          <ul>
-            <li>
-              Reference
-              <ul>
-                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
-                <li><a href="#pub-methods">Public functions</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-<p>Group grpRASTurbulence</p><p><a name="Description"></a></p><p>References:</p><pre>    Original model:
+<p><a name="Description"></a></p><p>References:</p><pre>    Original model:
         Wilcox, D. C. (1998).
         Turbulence modeling for CFD
         (Vol. 2, pp. 103-217). La Canada, CA: DCW industries.
@@ -113,63 +101,6 @@
         popeCorrection   True (only for 3D cases);
     }
 </pre><p>This file is in the</p>
-        <section id="typeless-methods">
-          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
-          <dl class="m-doc">
-            <dt id="ab178bdab016b7e55af835c15fbf3fa5f">
-              <span class="m-doc-wrap-bumper"><a href="#ab178bdab016b7e55af835c15fbf3fa5f" class="m-doc-self">TypeName</a>(</span><span class="m-doc-wrap">&quot;twophasekOmega&quot;)</span>
-            </dt>
-            <dd>Runtime type information.</dd>
-            <dt id="a0efd25bba010ee857e5f680b151b5e4c">
-              <span class="m-doc-wrap-bumper"><a href="#a0efd25bba010ee857e5f680b151b5e4c" class="m-doc-self">twophasekOmega</a>(</span><span class="m-doc-wrap">const <a href="classFoam_1_1RASModels_1_1twophasekOmega.html#a06a66094f33d6817d19225445c5ea874" class="m-doc">alphaField</a>&amp; alpha,
-              const <a href="classFoam_1_1RASModels_1_1twophasekOmega.html#a1dda906cfc9022335f0782a632302cd8" class="m-doc">rhoField</a>&amp; rho,
-              const volVectorField&amp; U,
-              const surfaceScalarField&amp; alphaRhoPhi,
-              const surfaceScalarField&amp; phi,
-              const <a href="classFoam_1_1RASModels_1_1twophasekOmega.html#ac0a5dc3c45a2d1c61a649bc435a1a48a" class="m-doc">transportModel</a>&amp; transport,
-              const word&amp; propertiesName = turbulenceModel::propertiesName,
-              const word&amp; type = typeName)</span>
-            </dt>
-            <dd>Construct from components.</dd>
-            <dt id="a8ef0fdee9a735f8b722ca0681d108396">
-              <span class="m-doc-wrap-bumper"><a href="#a8ef0fdee9a735f8b722ca0681d108396" class="m-doc-self">~twophasekOmega</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Destructor.</dd>
-          </dl>
-        </section>
-        <section id="pub-methods">
-          <h2><a href="#pub-methods">Public functions</a></h2>
-          <dl class="m-doc">
-            <dt id="af816873151ddb0126e98bb2f914d8ed5">
-              <span class="m-doc-wrap-bumper">auto <a href="#af816873151ddb0126e98bb2f914d8ed5" class="m-doc-self">read</a>(</span><span class="m-doc-wrap">) -&gt; bool <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Read RASProperties dictionary.</dd>
-            <dt id="a1faa4b448524c4de622637dc51aa4a30">
-              <span class="m-doc-wrap-bumper">auto <a href="#a1faa4b448524c4de622637dc51aa4a30" class="m-doc-self">DkEff</a>(</span><span class="m-doc-wrap">) const -&gt; tmp&lt;volScalarField&gt;</span>
-            </dt>
-            <dd>Return the effective diffusivity for k.</dd>
-            <dt id="a20a2301c30b9c071889b1e33f40723d1">
-              <span class="m-doc-wrap-bumper">auto <a href="#a20a2301c30b9c071889b1e33f40723d1" class="m-doc-self">DomegaEff</a>(</span><span class="m-doc-wrap">) const -&gt; tmp&lt;volScalarField&gt;</span>
-            </dt>
-            <dd>Return the effective diffusivity for omega.</dd>
-            <dt id="a2cc3daa68147a9052c2b37e9ac37eca4">
-              <span class="m-doc-wrap-bumper">auto <a href="#a2cc3daa68147a9052c2b37e9ac37eca4" class="m-doc-self">k</a>(</span><span class="m-doc-wrap">) const -&gt; tmp&lt;volScalarField&gt; <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Return the turbulence kinetic energy.</dd>
-            <dt id="a384ad699f7960a8b9686b4a5fe7f3e1a">
-              <span class="m-doc-wrap-bumper">auto <a href="#a384ad699f7960a8b9686b4a5fe7f3e1a" class="m-doc-self">omega</a>(</span><span class="m-doc-wrap">) const -&gt; tmp&lt;volScalarField&gt; <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Return the turbulence specific dissipation rate.</dd>
-            <dt id="ad79e047917669fbb490d351478651e20">
-              <span class="m-doc-wrap-bumper">auto <a href="#ad79e047917669fbb490d351478651e20" class="m-doc-self">epsilon</a>(</span><span class="m-doc-wrap">) const -&gt; tmp&lt;volScalarField&gt; <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Return the turbulence kinetic energy dissipation rate.</dd>
-            <dt id="a3ae44b28050c3aa494c1d8e18cf618c1">
-              <span class="m-doc-wrap-bumper">void <a href="#a3ae44b28050c3aa494c1d8e18cf618c1" class="m-doc-self">correct</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Solve the turbulence equations and correct the turbulence viscosity.</dd>
-          </dl>
-        </section>
       </div>
     </div>
   </div>

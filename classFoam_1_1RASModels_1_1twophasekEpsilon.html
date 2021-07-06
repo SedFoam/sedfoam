@@ -67,20 +67,7 @@
           <span class="m-breadcrumb"><a href="namespaceFoam.html">Foam</a>::<wbr/></span><span class="m-breadcrumb"><a href="namespaceFoam_1_1RASModels.html">RASModels</a>::<wbr/></span>twophasekEpsilon <span class="m-thin">class</span>
         </h1>
         <p>k-epsilon turbulence model for incompressible two phase flows.</p>
-        <div class="m-block m-default">
-          <h3>Contents</h3>
-          <ul>
-            <li>
-              Reference
-              <ul>
-                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
-                <li><a href="#pub-methods">Public functions</a></li>
-                <li><a href="#pro-methods">Protected functions</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-<p>Group grpRASTurbulence</p><p><a name="Description"></a></p><p>Reference:</p><pre>    Original model:
+<p><a name="Description"></a></p><p>Reference:</p><pre>    Original model:
         Launder, B. E., &amp; Spalding, D. B. (1972).
         Lectures in mathematical models of turbulence.
 
@@ -111,72 +98,6 @@
         KE4         1.0;
     }
 </pre><p>This file is in the</p>
-        <section id="typeless-methods">
-          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
-          <dl class="m-doc">
-            <dt id="acb39f5dcf36ec81be3aa6918403fee4e">
-              <span class="m-doc-wrap-bumper"><a href="#acb39f5dcf36ec81be3aa6918403fee4e" class="m-doc-self">twophasekEpsilon</a>(</span><span class="m-doc-wrap">const <a href="classFoam_1_1RASModels_1_1twophasekEpsilon.html" class="m-doc">twophasekEpsilon</a>&amp;) <span class="m-label m-flat m-warning">protected</span> <span class="m-label m-flat m-danger">deleted</span></span>
-            </dt>
-            <dd>No copy construct and assignment.</dd>
-            <dt id="a5ba9d9f48eb73fcde78e5f199fc447b0">
-              <span class="m-doc-wrap-bumper"><a href="#a5ba9d9f48eb73fcde78e5f199fc447b0" class="m-doc-self">TypeName</a>(</span><span class="m-doc-wrap">&quot;twophasekEpsilon&quot;)</span>
-            </dt>
-            <dd>Runtime type information.</dd>
-            <dt id="ac5c8b7105d9590d65286f3525035ef5b">
-              <span class="m-doc-wrap-bumper"><a href="#ac5c8b7105d9590d65286f3525035ef5b" class="m-doc-self">twophasekEpsilon</a>(</span><span class="m-doc-wrap">const <a href="classFoam_1_1RASModels_1_1twophasekEpsilon.html#a06a66094f33d6817d19225445c5ea874" class="m-doc">alphaField</a>&amp; alpha,
-              const <a href="classFoam_1_1RASModels_1_1twophasekEpsilon.html#a1dda906cfc9022335f0782a632302cd8" class="m-doc">rhoField</a>&amp; rho,
-              const volVectorField&amp; U,
-              const surfaceScalarField&amp; alphaRhoPhi,
-              const surfaceScalarField&amp; phi,
-              const <a href="classFoam_1_1RASModels_1_1twophasekEpsilon.html#ac0a5dc3c45a2d1c61a649bc435a1a48a" class="m-doc">transportModel</a>&amp; transport,
-              const word&amp; propertiesName = turbulenceModel::propertiesName,
-              const word&amp; type = typeName)</span>
-            </dt>
-            <dd>Construct from components.</dd>
-            <dt id="aad233eceac1acbb2abbf91831156bcd8">
-              <span class="m-doc-wrap-bumper"><a href="#aad233eceac1acbb2abbf91831156bcd8" class="m-doc-self">~twophasekEpsilon</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Destructor.</dd>
-          </dl>
-        </section>
-        <section id="pub-methods">
-          <h2><a href="#pub-methods">Public functions</a></h2>
-          <dl class="m-doc">
-            <dt id="af816873151ddb0126e98bb2f914d8ed5">
-              <span class="m-doc-wrap-bumper">auto <a href="#af816873151ddb0126e98bb2f914d8ed5" class="m-doc-self">read</a>(</span><span class="m-doc-wrap">) -&gt; bool <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Read RASProperties dictionary.</dd>
-            <dt id="a1faa4b448524c4de622637dc51aa4a30">
-              <span class="m-doc-wrap-bumper">auto <a href="#a1faa4b448524c4de622637dc51aa4a30" class="m-doc-self">DkEff</a>(</span><span class="m-doc-wrap">) const -&gt; tmp&lt;volScalarField&gt;</span>
-            </dt>
-            <dd>Return the effective diffusivity for k.</dd>
-            <dt id="aaeb98c07acb7524ea98bf458352bc85a">
-              <span class="m-doc-wrap-bumper">auto <a href="#aaeb98c07acb7524ea98bf458352bc85a" class="m-doc-self">DepsilonEff</a>(</span><span class="m-doc-wrap">) const -&gt; tmp&lt;volScalarField&gt;</span>
-            </dt>
-            <dd>Return the effective diffusivity for epsilon.</dd>
-            <dt id="a2cc3daa68147a9052c2b37e9ac37eca4">
-              <span class="m-doc-wrap-bumper">auto <a href="#a2cc3daa68147a9052c2b37e9ac37eca4" class="m-doc-self">k</a>(</span><span class="m-doc-wrap">) const -&gt; tmp&lt;volScalarField&gt; <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Return the turbulence kinetic energy.</dd>
-            <dt id="ad79e047917669fbb490d351478651e20">
-              <span class="m-doc-wrap-bumper">auto <a href="#ad79e047917669fbb490d351478651e20" class="m-doc-self">epsilon</a>(</span><span class="m-doc-wrap">) const -&gt; tmp&lt;volScalarField&gt; <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Return the turbulence kinetic energy dissipation rate.</dd>
-            <dt id="a3ae44b28050c3aa494c1d8e18cf618c1">
-              <span class="m-doc-wrap-bumper">void <a href="#a3ae44b28050c3aa494c1d8e18cf618c1" class="m-doc-self">correct</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Solve the turbulence equations and correct the turbulence viscosity.</dd>
-          </dl>
-        </section>
-        <section id="pro-methods">
-          <h2><a href="#pro-methods">Protected functions</a></h2>
-          <dl class="m-doc">
-            <dt id="ace304ba1e7277a4ff2122eab7aa0854e">
-              <span class="m-doc-wrap-bumper">void <a href="#ace304ba1e7277a4ff2122eab7aa0854e" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap">const <a href="classFoam_1_1RASModels_1_1twophasekEpsilon.html" class="m-doc">twophasekEpsilon</a>&amp;) <span class="m-label m-flat m-danger">deleted</span></span>
-            </dt>
-            <dd>No copy assignment.</dd>
-          </dl>
-        </section>
       </div>
     </div>
   </div>

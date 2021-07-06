@@ -66,19 +66,6 @@
           <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="GidaspowErgunWenYu_8H.html">&lt;/root/sedfoam/solver/interfacialModels/dragModels/GidaspowErgunWenYu/GidaspowErgunWenYu.H&gt;</a></div>
         </h1>
         <p>D. Gidaspow, Multiphase flow and fluidization, Academic Press, New York, 1994.</p>
-        <div class="m-block m-default">
-          <h3>Contents</h3>
-          <ul>
-            <li>
-              Reference
-              <ul>
-                <li><a href="#base-classes">Base classes</a></li>
-                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
-                <li><a href="#pub-methods">Public functions</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
 <p><a name="Description"></a></p><aside class="m-note m-default"><h4>Source files</h4><ul><li><a href="https://github.com/sedfoam/sedfoam/blob/master/solver/interfacialModels/dragModels/GidaspowErgunWenYu/GidaspowErgunWenYu.H">GidaspowErgunWenYu.H</a></li><li><a href="https://github.com/sedfoam/sedfoam/blob/master/solver/interfacialModels/dragModels/GidaspowErgunWenYu/GidaspowErgunWenYu.C">GidaspowErgunWenYu.C</a></li></ul></aside>
         <section id="base-classes">
           <h2><a href="#base-classes">Base classes</a></h2>
@@ -88,44 +75,6 @@
             </dt>
             <dd></dd>
           </dl>
-        </section>
-        <section id="typeless-methods">
-          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
-          <dl class="m-doc">
-            <dt id="af9db2b83459be6cbcd78981faa4ecc7e">
-              <span class="m-doc-wrap-bumper"><a href="#af9db2b83459be6cbcd78981faa4ecc7e" class="m-doc-self">TypeName</a>(</span><span class="m-doc-wrap">&quot;GidaspowErgunWenYu&quot;)</span>
-            </dt>
-            <dd>Runtime type information.</dd>
-            <dt id="ae9c2e5b02ce6a34fc75d6ce0945b6558">
-              <span class="m-doc-wrap-bumper"><a href="#ae9c2e5b02ce6a34fc75d6ce0945b6558" class="m-doc-self">GidaspowErgunWenYu</a>(</span><span class="m-doc-wrap">const dictionary&amp; interfaceDict,
-              const <a href="classFoam_1_1phaseModel.html" class="m-doc">phaseModel</a>&amp; phasea,
-              const <a href="classFoam_1_1phaseModel.html" class="m-doc">phaseModel</a>&amp; phaseb)</span>
-            </dt>
-            <dd>Construct from components.</dd>
-            <dt id="a576034aefff832693301d990e6accda2">
-              <span class="m-doc-wrap-bumper"><a href="#a576034aefff832693301d990e6accda2" class="m-doc-self">~GidaspowErgunWenYu</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Destructor.</dd>
-          </dl>
-        </section>
-        <section id="pub-methods">
-          <h2><a href="#pub-methods">Public functions</a></h2>
-          <dl class="m-doc">
-            <dt>
-              <span class="m-doc-wrap-bumper">auto <a href="#a1c1bddf3f69e10cb76569e8db1d3b92c" class="m-doc">K</a>(</span><span class="m-doc-wrap">const volScalarField&amp; Ur) const -&gt; tmp&lt;volScalarField&gt; <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>the dragfunction K used in the momentum eq.</dd>
-          </dl>
-        </section>
-        <section>
-          <h2>Function documentation</h2>
-          <section class="m-doc-details" id="a1c1bddf3f69e10cb76569e8db1d3b92c"><div>
-            <h3>
-              <span class="m-doc-wrap-bumper">tmp&lt;volScalarField&gt; Foam::<wbr />GidaspowErgunWenYu::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1c1bddf3f69e10cb76569e8db1d3b92c" class="m-doc-self">K</a>(</span><span class="m-doc-wrap">const volScalarField&amp; Ur) const <span class="m-label m-warning">virtual</span></span></span>
-            </h3>
-            <p>the dragfunction K used in the momentum eq.</p>
-<p>ddt(alpha.rhoa.Ua) + ... = ... alpha.beta.K.(Ua-Ub) ddt(beta.rhob.Ub) + ... = ... alpha.beta.K.(Ub-Ua)</p><ul><li>* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * // for numerical reasons alpha and beta has been extracted from the dragFunction K, so you MUST divide K by alpha.beta when implemnting the drag function</li><li>* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //</li></ul>
-          </div></section>
         </section>
       </div>
     </div>

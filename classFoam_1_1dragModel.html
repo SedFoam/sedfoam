@@ -65,19 +65,6 @@
           <span class="m-breadcrumb"><a href="namespaceFoam.html">Foam</a>::<wbr/></span>dragModel <span class="m-thin">class</span>
           <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="dragModel_8H.html">&lt;/root/sedfoam/solver/interfacialModels/dragModels/dragModel/dragModel.H&gt;</a></div>
         </h1>
-        <div class="m-block m-default">
-          <h3>Contents</h3>
-          <ul>
-            <li>
-              Reference
-              <ul>
-                <li><a href="#derived-classes">Derived classes</a></li>
-                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
-                <li><a href="#pub-methods">Public functions</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
 <p><a name="Description"></a></p><aside class="m-note m-default"><h4>Source files</h4><ul><li><a href="https://github.com/sedfoam/sedfoam/blob/master/solver/interfacialModels/dragModels/dragModel/dragModel.H">dragModel.H</a></li><li><a href="https://github.com/sedfoam/sedfoam/blob/master/solver/interfacialModels/dragModels/dragModel/dragModel.C">dragModel.C</a></li><li><a href="https://github.com/sedfoam/sedfoam/blob/master/solver/interfacialModels/dragModels/dragModel/newDragModel.C">newDragModel.C</a></li></ul></aside>
         <section id="derived-classes">
           <h2><a href="#derived-classes">Derived classes</a></h2>
@@ -115,38 +102,6 @@
             </dt>
             <dd>H, Enwald, E. Peirano, A-E Almstedt &#x27;Eulerian Two-Phase Flow Theory Applied to Fluidization&#x27; Int. J. Multiphase Flow, Vol. 22, Suppl, pp. 21-66 (1996) Eq. 86-87, p. 40.</dd>
           </dl>
-        </section>
-        <section id="typeless-methods">
-          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
-          <dl class="m-doc">
-            <dt id="a676cab8ef1a30a2de2568bd0e1676e01">
-              <span class="m-doc-wrap-bumper"><a href="#a676cab8ef1a30a2de2568bd0e1676e01" class="m-doc-self">TypeName</a>(</span><span class="m-doc-wrap">&quot;dragModel&quot;)</span>
-            </dt>
-            <dd>Runtime type information.</dd>
-            <dt id="a0d19cff2d3425692eed1711f9ae54154">
-              <span class="m-doc-wrap-bumper"><a href="#a0d19cff2d3425692eed1711f9ae54154" class="m-doc-self">~dragModel</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Destructor.</dd>
-          </dl>
-        </section>
-        <section id="pub-methods">
-          <h2><a href="#pub-methods">Public functions</a></h2>
-          <dl class="m-doc">
-            <dt>
-              <span class="m-doc-wrap-bumper">auto <a href="#a7dd95bf8813a9cae5ae8692d2a640fca" class="m-doc">K</a>(</span><span class="m-doc-wrap">const volScalarField&amp; Ur) const -&gt; tmp&lt;volScalarField&gt; <span class="m-label m-flat m-warning">pure virtual</span></span>
-            </dt>
-            <dd>the dragfunction K used in the momentum eq.</dd>
-          </dl>
-        </section>
-        <section>
-          <h2>Function documentation</h2>
-          <section class="m-doc-details" id="a7dd95bf8813a9cae5ae8692d2a640fca"><div>
-            <h3>
-              <span class="m-doc-wrap-bumper">tmp&lt;volScalarField&gt; Foam::<wbr />dragModel::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a7dd95bf8813a9cae5ae8692d2a640fca" class="m-doc-self">K</a>(</span><span class="m-doc-wrap">const volScalarField&amp; Ur) const <span class="m-label m-warning">pure virtual</span></span></span>
-            </h3>
-            <p>the dragfunction K used in the momentum eq.</p>
-<p>ddt(alpha.rhoa.Ua) + ... = ... alpha.beta.K.(Ua-Ub) ddt(beta.rhob.Ub) + ... = ... alpha.beta.K.(Ub-Ua)</p><ul><li>* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * // for numerical reasons alpha and beta has been extracted from the dragFunction K, so you MUST divide K by alpha.beta when implemnting the drag function</li><li>* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //</li></ul>
-          </div></section>
         </section>
       </div>
     </div>

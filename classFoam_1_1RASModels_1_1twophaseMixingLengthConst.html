@@ -67,20 +67,7 @@
           <span class="m-breadcrumb"><a href="namespaceFoam.html">Foam</a>::<wbr/></span><span class="m-breadcrumb"><a href="namespaceFoam_1_1RASModels.html">RASModels</a>::<wbr/></span>twophaseMixingLengthConst <span class="m-thin">class</span>
         </h1>
         <p>Standard high Reynolds-number k-omega turbulence model for incompressible flows.</p>
-        <div class="m-block m-default">
-          <h3>Contents</h3>
-          <ul>
-            <li>
-              Reference
-              <ul>
-                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
-                <li><a href="#pub-methods">Public functions</a></li>
-                <li><a href="#pro-methods">Protected functions</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-<p>Group grpRASTurbulence</p><p><a name="Description"></a></p><p>References:</p><pre>    &quot;Turbulence Modeling for CFD&quot;
+<p><a name="Description"></a></p><p>References:</p><pre>    &quot;Turbulence Modeling for CFD&quot;
     D. C. Wilcox,
     DCW Industries, Inc., La Canada,
     California, 1988.
@@ -96,64 +83,6 @@
         alphaOmega  0.5;
     }
 </pre><p>This file is in the</p>
-        <section id="typeless-methods">
-          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
-          <dl class="m-doc">
-            <dt id="ac913ee3b02aac9c1f103fe269d67c81b">
-              <span class="m-doc-wrap-bumper"><a href="#ac913ee3b02aac9c1f103fe269d67c81b" class="m-doc-self">twophaseMixingLengthConst</a>(</span><span class="m-doc-wrap">const <a href="classFoam_1_1RASModels_1_1twophaseMixingLengthConst.html" class="m-doc">twophaseMixingLengthConst</a>&amp;) <span class="m-label m-flat m-warning">protected</span> <span class="m-label m-flat m-danger">deleted</span></span>
-            </dt>
-            <dd>No copy construct.</dd>
-            <dt id="af1ccf567a0de564130f7133118ac83d1">
-              <span class="m-doc-wrap-bumper"><a href="#af1ccf567a0de564130f7133118ac83d1" class="m-doc-self">TypeName</a>(</span><span class="m-doc-wrap">&quot;twophaseMixingLengthConst&quot;)</span>
-            </dt>
-            <dd>Runtime type information.</dd>
-            <dt id="a0b0e583703cd5d0d2eb0d1df03ff77e8">
-              <span class="m-doc-wrap-bumper"><a href="#a0b0e583703cd5d0d2eb0d1df03ff77e8" class="m-doc-self">twophaseMixingLengthConst</a>(</span><span class="m-doc-wrap">const <a href="classFoam_1_1RASModels_1_1twophaseMixingLengthConst.html#a06a66094f33d6817d19225445c5ea874" class="m-doc">alphaField</a>&amp; alpha,
-              const <a href="classFoam_1_1RASModels_1_1twophaseMixingLengthConst.html#a1dda906cfc9022335f0782a632302cd8" class="m-doc">rhoField</a>&amp; rho,
-              const volVectorField&amp; U,
-              const surfaceScalarField&amp; alphaRhoPhi,
-              const surfaceScalarField&amp; phi,
-              const <a href="classFoam_1_1RASModels_1_1twophaseMixingLengthConst.html#ac0a5dc3c45a2d1c61a649bc435a1a48a" class="m-doc">transportModel</a>&amp; transport,
-              const word&amp; propertiesName = turbulenceModel::propertiesName,
-              const word&amp; type = typeName)</span>
-            </dt>
-            <dd>Construct from components.</dd>
-            <dt id="aefea58874d3560d003012b7b7d038c5a">
-              <span class="m-doc-wrap-bumper"><a href="#aefea58874d3560d003012b7b7d038c5a" class="m-doc-self">~twophaseMixingLengthConst</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Destructor.</dd>
-          </dl>
-        </section>
-        <section id="pub-methods">
-          <h2><a href="#pub-methods">Public functions</a></h2>
-          <dl class="m-doc">
-            <dt id="af816873151ddb0126e98bb2f914d8ed5">
-              <span class="m-doc-wrap-bumper">auto <a href="#af816873151ddb0126e98bb2f914d8ed5" class="m-doc-self">read</a>(</span><span class="m-doc-wrap">) -&gt; bool <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Read RASProperties dictionary.</dd>
-            <dt id="a2cc3daa68147a9052c2b37e9ac37eca4">
-              <span class="m-doc-wrap-bumper">auto <a href="#a2cc3daa68147a9052c2b37e9ac37eca4" class="m-doc-self">k</a>(</span><span class="m-doc-wrap">) const -&gt; tmp&lt;volScalarField&gt; <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Return the turbulence kinetic energy.</dd>
-            <dt id="ad79e047917669fbb490d351478651e20">
-              <span class="m-doc-wrap-bumper">auto <a href="#ad79e047917669fbb490d351478651e20" class="m-doc-self">epsilon</a>(</span><span class="m-doc-wrap">) const -&gt; tmp&lt;volScalarField&gt; <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Return the turbulence specific dissipation rate.</dd>
-            <dt id="a3ae44b28050c3aa494c1d8e18cf618c1">
-              <span class="m-doc-wrap-bumper">void <a href="#a3ae44b28050c3aa494c1d8e18cf618c1" class="m-doc-self">correct</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd>Solve the turbulence equations and correct the turbulence viscosity.</dd>
-          </dl>
-        </section>
-        <section id="pro-methods">
-          <h2><a href="#pro-methods">Protected functions</a></h2>
-          <dl class="m-doc">
-            <dt id="a2d411b8a1378622cd0acbe7dce80d617">
-              <span class="m-doc-wrap-bumper">void <a href="#a2d411b8a1378622cd0acbe7dce80d617" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap">const <a href="classFoam_1_1RASModels_1_1twophaseMixingLengthConst.html" class="m-doc">twophaseMixingLengthConst</a>&amp;) <span class="m-label m-flat m-danger">deleted</span></span>
-            </dt>
-            <dd>No copy assignment.</dd>
-          </dl>
-        </section>
       </div>
     </div>
   </div>
