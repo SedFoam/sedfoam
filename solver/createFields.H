@@ -222,77 +222,79 @@ IOdictionary forceProperties
 
 dimensionedScalar tilt
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "tilt",
-        dimensionedScalar("tilt", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
 dimensionedVector gradPAMP1
 (
-    forceProperties.lookupOrDefault
+    dimensionedVector::getOrDefault
     (
         "gradPAMP1",
-        dimensionedVector("gradPAMP1",
-                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
-                          vector(0, 0, 0) )
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
     )
 );
 
 dimensionedVector gradPAMP2
 (
-    forceProperties.lookupOrDefault
+    dimensionedVector::getOrDefault
     (
         "gradPAMP2",
-        dimensionedVector("gradPAMP2",
-                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
-                          vector(0, 0, 0) )
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
     )
 );
 
 dimensionedVector gradPMEAN
 (
-    forceProperties.lookupOrDefault
+    dimensionedVector::getOrDefault
     (
         "gradPMEAN",
-        dimensionedVector("gradPMEAN",
-                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
-                          vector(0, 0, 0) )
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
     )
 );
 
 dimensionedVector gradPOSC
 (
-    forceProperties.lookupOrDefault
+    dimensionedVector::getOrDefault
     (
         "gradPOSC",
-        dimensionedVector("gradPOSC",
-                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
-                          vector(0, 0, 0) )
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
     )
 );
 
 dimensionedVector gradConvAcc
 (
-    forceProperties.lookupOrDefault
+    dimensionedVector::getOrDefault
     (
         "gradConvAcc",
-        dimensionedVector("gradPOSC",
-                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
-                          vector(0, 0, 0) )
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
     )
 );
 dimensionedScalar gradPOSCMin ("gradPOSCMin", gradPOSC.dimensions(), 1e-6);
 
 dimensionedScalar oscpT
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "oscpT",
-        dimensionedScalar("oscpT",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
@@ -302,67 +304,75 @@ oscpT=max(oscpTMin, oscpT);
 
 dimensionedScalar Cvm
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "Cvm",
-        dimensionedScalar("Cvm",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
 dimensionedScalar Cl
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "Cl",
-        dimensionedScalar("Cl",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
 dimensionedScalar Ct
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "Ct",
-        dimensionedScalar("Ct",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
 dimensionedScalar initTheta
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "initTheta",
-        dimensionedScalar("initTheta", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 dimensionedScalar InitFreeze
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "InitFreeze",
-        dimensionedScalar("InitFreeze", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 dimensionedScalar fixbeddepth
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "fixbeddepth",
-        dimensionedScalar("fixbeddepth", dimensionSet(0, 1, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimensionSet(0, 1, 0, 0, 0, 0, 0),
+        0
     )
 );
 dimensionedScalar ClipUa
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "ClipUa",
-        dimensionedScalar("ClipUa", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimless,
+        0
     )
 );
 
