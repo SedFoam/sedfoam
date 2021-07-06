@@ -65,12 +65,12 @@ IOdictionary ppProperties
 
 dimensionedScalar alphaMax
 (
-    ppProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "alphaMax",
-        dimensionedScalar("alphaMax",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0.635)
+        ppProperties,
+        dimless,
+        0.635
     )
 );
 
