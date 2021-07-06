@@ -19,7 +19,7 @@ Here is a How To about using the sedFoam docker. This page is organised in two s
 
 Operating System : Ubuntu focal
 
-Openfoam version : v2106 (openfoam.com)
+Openfoam version : v2106 (openfoam.com) with all tutorials and source files
 
 user : sudofoam (with sudo)
 
