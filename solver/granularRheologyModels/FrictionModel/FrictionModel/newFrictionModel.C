@@ -30,7 +30,7 @@ Foam::granularRheologyModels::FrictionModel::New
     const dictionary& dict
 )
 {
-    word FrictionModelType(dict.lookup("FrictionModel"));
+    word FrictionModelType(dict.get<word>("FrictionModel"));
 
     Info<< "Selecting FrictionModel "
         << FrictionModelType << endl;

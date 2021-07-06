@@ -31,7 +31,7 @@ Description
 
 scalar maxAlphaCo
 (
-    readScalar(runTime.controlDict().lookup("maxAlphaCo"))
+    runTime.controlDict().get<scalar>("maxAlphaCo")
 );
 
 scalar alphaCoNum = 0.0;

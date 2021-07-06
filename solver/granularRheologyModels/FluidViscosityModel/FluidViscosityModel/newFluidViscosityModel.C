@@ -29,7 +29,7 @@ Foam::granularRheologyModels::FluidViscosityModel::New
     const dictionary& dict
 )
 {
-    word FluidViscosityModelType(dict.lookup("FluidViscosityModel"));
+    word FluidViscosityModelType(dict.get<word>("FluidViscosityModel"));
 
     Info<< "Selecting FluidViscosityModel "
         << FluidViscosityModelType << endl;

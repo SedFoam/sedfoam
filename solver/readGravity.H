@@ -36,7 +36,7 @@ IOdictionary gravitationalProperties
     )
 );
 
-const scalar gRampTime(gravitationalProperties.lookupOrDefault("gRampTime",
+const scalar gRampTime(gravitationalProperties.getOrDefault<scalar>("gRampTime",
                                                                 scalar(0)));
 
 Info << "rampTime for gravity set to " << gRampTime << "\n";

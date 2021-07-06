@@ -32,7 +32,7 @@ Foam::autoPtr<Foam::radialModel> Foam::radialModel::New
     const dictionary& dict
 )
 {
-    word radialModelType(dict.lookup("radialModel"));
+    word radialModelType(dict.get<word>("radialModel"));
 
     Info<< "Selecting radialModel "
         << radialModelType << endl;

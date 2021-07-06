@@ -115,7 +115,7 @@ dimensionedScalar eta1_
         5
     )
 );
-Switch packingLimiter(ppProperties.lookup("packingLimiter"));
+Switch packingLimiter(ppProperties.get<Switch>("packingLimiter"));
 
 // Read transportProperties
 
@@ -379,33 +379,37 @@ dimensionedScalar ClipUa
 // Debuging info
 Switch debugInfo
 (
-    forceProperties.lookupOrDefault("debugInfo", false)
+    forceProperties.getOrDefault<Switch>("debugInfo", false)
 );
 // Sponge Layer
 Switch spongeLayer
 (
-    forceProperties.lookupOrDefault("spongeLayer", false)
+    forceProperties.getOrDefault<Switch>("spongeLayer", false)
 );
 dimensionedScalar xSmin
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "xSmin",
-        dimensionedScalar("xSmin", dimensionSet(0, 1, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimensionSet(0, 1, 0, 0, 0, 0, 0),
+        0
     )
 );
 dimensionedScalar xSmax
 (
-    forceProperties.lookupOrDefault
+    dimensionedScalar::getOrDefault
     (
         "xSmax",
-        dimensionedScalar("xSmax", dimensionSet(0, 1, 0, 0, 0, 0, 0), 0)
+        forceProperties,
+        dimensionSet(0, 1, 0, 0, 0, 0, 0),
+        0
     )
 );
 
 Switch writeTau
 (
-    forceProperties.lookupOrDefault<Switch>("writeTau", false)
+    forceProperties.getOrDefault<Switch>("writeTau", false)
 );
 
 
@@ -619,7 +623,7 @@ autoPtr<dragModel> dragb = dragModel::New
 word dragPhase("blended");
 if (interfacialProperties.found("dragPhase"))
 {
-    dragPhase = word(interfacialProperties.lookup("dragPhase"));
+    dragPhase = interfacialProperties.get<word>("dragPhase");
 
     bool validDrag =
         dragPhase == "a" || dragPhase == "b" || dragPhase == "blended";
