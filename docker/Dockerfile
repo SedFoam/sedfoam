@@ -2,12 +2,13 @@ FROM opencfd/openfoam2106-default
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
-RUN apt-get update -y \
-  && apt-get install -y \
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y \
   git python3 python3-pip unzip python \
   mercurial libreadline-dev \
   texlive dvipng python3-tk \
-  && apt-get clean
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 RUN pip3 install fluidfoam
 
 USER 1000
