@@ -411,7 +411,7 @@ void Foam::kineticTheoryModel::solve
     {// extended kinetic theory Jenkins (2007)
         Lc = da_*max
         (
-            1.,
+            scalar(1),
             0.5*pow(30./(1.+sqr(sqrtPi)/12.)*(1-e_)*sqr(alpha_)*gs0_, 1./3.)
         );
     }
