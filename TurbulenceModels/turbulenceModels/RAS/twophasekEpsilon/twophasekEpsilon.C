@@ -216,17 +216,15 @@ bool twophasekEpsilon<BasicTurbulenceModel>::read()
         alphaEps_.readIfPresent(this->coeffDict_);
         return true;
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
 
 
 template<class BasicTurbulenceModel>
 void twophasekEpsilon<BasicTurbulenceModel>::correct()
 {
-    if (not this->turbulence_)
+    if (!this->turbulence_)
     {
         return;
     }

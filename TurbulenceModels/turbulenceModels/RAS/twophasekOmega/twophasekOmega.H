@@ -140,6 +140,7 @@ protected:
             volScalarField k_;
             volScalarField omega_;
 
+
     // Protected Member Functions
 
         virtual void correctNut();
@@ -173,12 +174,8 @@ public:
 
 
     //- Destructor
-    #if (OFVERSION < 220 and OFVERSION >= 200) or OFVERSION == 00
-        virtual ~twophasekOmega() = default;
-    #else
-        virtual ~twophasekOmega()
-        {}
-    #endif
+    virtual ~twophasekOmega()
+    {}
 
 
     // Member Functions
@@ -254,7 +251,6 @@ public:
 
         //- Solve the turbulence equations and correct the turbulence viscosity
         virtual void correct();
-
 };
 
 

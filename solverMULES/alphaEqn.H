@@ -48,7 +48,11 @@ License
         );
 
         // Limit to 0.99*alphaMax to avoid extremely small time steps
-        #if OFVERSION >= 600
+
+#if (defined(OPENFOAM) && (OPENFOAM >= 1906)) || \
+    (defined(OFVERSION) && (OFVERSION >= 600))
+    /* >= OpenFOAM-v1906 or >= OpenFOAM-6 */
+
             MULES::explicitSolve
             (
                 geometricOneField(),
@@ -60,19 +64,7 @@ License
                 UniformField<scalar>(0.99*alphaMax.value()),
                 zeroField()
             );
-        #elif (OFVERSION < 220 and OFVERSION >= 190) or OFVERSION == 00
-            MULES::explicitSolve
-            (
-                geometricOneField(),
-                alpha,
-                phi,
-                phiAlpha,
-                zeroField(),
-                zeroField(),
-                UniformField<scalar>(0.99*alphaMax.value()),
-                zeroField()
-            );
-        #else
+#else
             MULES::explicitSolve
             (
                 geometricOneField(),
@@ -84,7 +76,7 @@ License
                 0.99*alphaMax.value(),
                 0
             );
-        #endif
+#endif
 
         /*if (packingLimiter)
         {

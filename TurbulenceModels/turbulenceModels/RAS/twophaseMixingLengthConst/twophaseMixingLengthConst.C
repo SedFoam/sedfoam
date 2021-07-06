@@ -110,17 +110,17 @@ bool twophaseMixingLengthConst<BasicTurbulenceModel>::read()
 {
     if (eddyViscosity<RASModel<BasicTurbulenceModel>>::read())
     {
-      return true;
+        return true;
     }
-    else
-    {
-      return false;
-    }
+
+    return false;
 }
+
+
 template<class BasicTurbulenceModel>
 void twophaseMixingLengthConst<BasicTurbulenceModel>::correct()
 {
-    if (this->turbulence_ == false)
+    if (!this->turbulence_)
     {
         return;
     }
@@ -164,7 +164,9 @@ void twophaseMixingLengthConst<BasicTurbulenceModel>::correct()
     }
     nut.relax();
 }
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
 } // End namespace RASModels
 } // End namespace Foam
 

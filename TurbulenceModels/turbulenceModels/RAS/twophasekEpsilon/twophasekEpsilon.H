@@ -96,13 +96,6 @@ class twophasekEpsilon
 :
     public eddyViscosity<RASModel<BasicTurbulenceModel>>
 {
-    // Private Member Functions
-
-        // Disallow default bitwise copy construct and assignment
-        twophasekEpsilon(const twophasekEpsilon&);
-        void operator=(const twophasekEpsilon&);
-
-
 protected:
 
     // Protected data
@@ -133,7 +126,14 @@ protected:
             volScalarField epsilon_;
 
     // Protected Member Functions
+
         virtual void correctNut();
+
+        //- No copy construct and assignment
+        twophasekEpsilon(const twophasekEpsilon&) = delete;
+
+        //- No copy assignment
+        void operator=(const twophasekEpsilon&) = delete;
 
 
 public:
@@ -163,12 +163,8 @@ public:
 
 
     //- Destructor
-    #if (OFVERSION < 220 and OFVERSION >= 200) or OFVERSION == 00
-        virtual ~twophasekEpsilon() = default;
-    #else
-        virtual ~twophasekEpsilon()
-        {}
-    #endif
+    virtual ~twophasekEpsilon()
+    {}
 
 
     // Member Functions
@@ -208,6 +204,7 @@ public:
         {
             return epsilon_;
         }
+
         virtual tmp<volScalarField> omega() const
         {
             return tmp<volScalarField>
@@ -225,6 +222,7 @@ public:
                 )
             );
         }
+
         virtual tmp<volScalarField> tmf() const
         {
             return Foam::exp(Cmu_*tmfexp_*omega());
