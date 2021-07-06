@@ -23,7 +23,7 @@ Class
 
 Description
     Dense granular-flow rheology model for particle phase stress
-    
+
     References:
     \verbatim
         GDRmidi (2004).
@@ -69,12 +69,12 @@ class granularRheologyModel
 
     const volScalarField& alpha_;
     const surfaceScalarField& phia_;
-    volScalarField pa_new_value;
     const dimensionedScalar& rhoa_;
     const dimensionedScalar& da_;
-
     const dimensionedScalar& rhob_;
     const dimensionedScalar& nub_;
+
+    volScalarField pa_new_value;
 
     //- dictionary holding the modeling info
     IOdictionary granularRheologyProperties_;
@@ -90,7 +90,7 @@ class granularRheologyModel
 
     //- use dilatancy model or not.
     Switch granularDilatancy_;
-    
+
     autoPtr<granularRheologyModels::FrictionModel> FrictionModel_;
     autoPtr<granularRheologyModels::PPressureModel> PPressureModel_;
     autoPtr<granularRheologyModels::FluidViscosityModel> FluidViscosityModel_;
@@ -115,7 +115,7 @@ class granularRheologyModel
 
     //- Bulk viscosity amplification factor
     const dimensionedScalar BulkFactor_;
-    
+
     // critical volume fraction
     const dimensionedScalar alpha_c_;
 
@@ -130,16 +130,10 @@ class granularRheologyModel
 
     //- Minimum relaxation timescale
     const dimensionedScalar tau_inv_min_;
-    
+
     //- The friction coefficient
     volScalarField muI_;
 
-    ////- The  dilatancy angle
-    volScalarField delta_;
-
-    //- Total particle  pressure
-    volScalarField p_p_total_;
-    
     //- The granular viscosity
     volScalarField mua_;
 
@@ -149,9 +143,15 @@ class granularRheologyModel
     //- The granular pressure
     volScalarField pa_;
 
+    //- Total particle  pressure
+    volScalarField p_p_total_;
+
+    ////- The  dilatancy angle
+    volScalarField delta_;
+
     //- Fluid Effective viscosity (viscous contribution)
     volScalarField nuvb_;
-    
+
     //-Viscous number
     volScalarField I_;
 
