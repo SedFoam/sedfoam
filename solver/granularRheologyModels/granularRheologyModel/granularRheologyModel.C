@@ -58,8 +58,14 @@ Foam::granularRheologyModel::granularRheologyModel
             IOobject::NO_WRITE
         )
     ),
-    granularRheology_(granularRheologyProperties_.get<Switch>("granularRheology")),
-    granularDilatancy_(granularRheologyProperties_.get<Switch>("granularDilatancy")),
+    granularRheology_
+    (
+        granularRheologyProperties_.get<Switch>("granularRheology")
+    ),
+    granularDilatancy_
+    (
+        granularRheologyProperties_.get<Switch>("granularDilatancy")
+    ),
     FrictionModel_
     (
         granularRheologyModels::FrictionModel::New

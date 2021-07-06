@@ -1,6 +1,6 @@
 [submodule "foamStyleCheck"]
 	path = foamStyleCheck
-	url = https://github.com/petebachant/foamStyleCheck
+	url = https://github.com/SedFoam/foamStyleCheck
 [submodule "TurbulenceModels/wallFunctions"]
 	path = TurbulenceModels/wallFunctions
 	url = https://github.com/SedFoam/wallFunctions
