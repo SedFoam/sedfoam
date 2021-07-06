@@ -42,9 +42,10 @@ Foam::granularRheologyModel::granularRheologyModel
     phia_(phasea.phi()),
     rhoa_(phasea.rho()),
     da_(phasea.d()),
-    pa_new_value(pa),
     rhob_(phaseb.rho()),
     nub_(phaseb.nu()),
+
+    pa_new_value(pa),
 
     granularRheologyProperties_
     (
@@ -160,7 +161,7 @@ Foam::granularRheologyModel::granularRheologyModel
                     0.585)
         )
     ),
-    
+
     K_dila_
     (
         granularRheologyProperties_.lookupOrDefault
@@ -181,16 +182,6 @@ Foam::granularRheologyModel::granularRheologyModel
                           1)
         )
     ),
-    tau_inv_min_
-    (
-        granularRheologyProperties_.lookupOrDefault
-        (
-            "tau_inv_min",
-            dimensionedScalar("tau_inv_min",
-                          dimensionSet(0, 0, -1, 0, 0, 0, 0),
-                          1e-12)
-        )
-    ),
     PaMin_
     (
         granularRheologyProperties_.lookupOrDefault
@@ -199,6 +190,16 @@ Foam::granularRheologyModel::granularRheologyModel
             dimensionedScalar("PaMin",
                           dimensionSet(0, 1, 0, 0, 0, 0, 0),
                           1e-6)
+        )
+    ),
+    tau_inv_min_
+    (
+        granularRheologyProperties_.lookupOrDefault
+        (
+            "tau_inv_min",
+            dimensionedScalar("tau_inv_min",
+                          dimensionSet(0, 0, -1, 0, 0, 0, 0),
+                          1e-12)
         )
     ),
     muI_
@@ -281,8 +282,9 @@ Foam::granularRheologyModel::granularRheologyModel
         alpha_.mesh(),
         dimensionedScalar("zero", alpha_.dimensions(), 0.0)
     ),
-     nuvb_
-     (
+
+    nuvb_
+    (
         IOobject
         (
             "nuvb",
@@ -293,7 +295,7 @@ Foam::granularRheologyModel::granularRheologyModel
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(0, 2, -1, 0, 0), 0.0)
-     ),
+    ),
     I_
     (
         IOobject
@@ -341,7 +343,7 @@ void Foam::granularRheologyModel::solve
     // compute the particulate velocity shear rate
     //
     volScalarField magD2(pow(magD, 2));
-    
+
     //
     // Shear induced particulate pressure
     //

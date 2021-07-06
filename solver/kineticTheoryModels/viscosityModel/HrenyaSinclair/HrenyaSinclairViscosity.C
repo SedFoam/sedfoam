@@ -53,8 +53,13 @@ Foam::kineticTheoryModels::HrenyaSinclairViscosity::HrenyaSinclairViscosity
 )
 :
     viscosityModel(dict),
+#if (defined(OPENFOAM) && (OPENFOAM >= 1812))
+    coeffsDict_(dict.optionalSubDict(typeName + "Coeffs")),
+    L_("L", dimLength, coeffsDict_)
+#else
     coeffsDict_(dict.subDict(typeName + "Coeffs")),
     L_(coeffsDict_.lookup("L"))
+#endif
 {}
 
 

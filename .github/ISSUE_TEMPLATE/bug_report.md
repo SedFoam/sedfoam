@@ -25,7 +25,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
 -   OS: (e.g. linux debian9)
--   OpenFoam Version (e.g. openfoam-org/7)
+-   OpenFoam Version (e.g. OpenFOAM-v2106)
 
 **Additional context**
 Add any other context about the problem here.

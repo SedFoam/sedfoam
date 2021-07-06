@@ -77,8 +77,8 @@ Developers
 Acknowledgements
 ----------------
 
-OpenFOAM is free, open source software for computational fluid dynamics (CFD),
-developed primarily by [CFD Direct](http://cfd.direct), on behalf of the
-[OpenFOAM](http://openfoam.org) Foundation.
+[OpenFOAM](https://www.openfoam.com) is the free, open source CFD
+software developed primarily by OpenCFD Ltd since 2004.
+The OpenFOAM trademark is owned by OpenCFD Ltd.
 
 ![scour image](https://i.ibb.co/pWjZqd4/scour3-D-cylinder.jpg)

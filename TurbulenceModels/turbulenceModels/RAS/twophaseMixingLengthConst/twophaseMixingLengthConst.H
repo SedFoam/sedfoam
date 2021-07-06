@@ -83,21 +83,22 @@ class twophaseMixingLengthConst
 :
     public eddyViscosity<RASModel<BasicTurbulenceModel>>
 {
-    // Private Member Functions
-
-    // Disallow default bitwise copy construct and assignment
-    twophaseMixingLengthConst(const twophaseMixingLengthConst&);
-    void operator=(const twophaseMixingLengthConst&);
-
-
 protected:
 
     // Fields
     volScalarField k_;
     volScalarField epsilon_;
 
+
     // Protected Member Functions
-    virtual void correctNut();
+
+        virtual void correctNut();
+
+        //- No copy construct
+        twophaseMixingLengthConst(const twophaseMixingLengthConst&) = delete;
+
+        //- No copy assignment
+        void operator=(const twophaseMixingLengthConst&) = delete;
 
 
 public:
@@ -127,12 +128,8 @@ public:
 
 
     //- Destructor
-    #if (OFVERSION < 220 and OFVERSION >= 200) or OFVERSION == 00
-        virtual ~twophaseMixingLengthConst() = default;
-    #else
-        virtual ~twophaseMixingLengthConst()
-        {}
-    #endif
+    virtual ~twophaseMixingLengthConst()
+    {}
 
 
     // Member Functions
@@ -152,6 +149,7 @@ public:
         {
             return epsilon_;
         }
+
         virtual tmp<volScalarField> omega() const
         {
             return tmp<volScalarField>
@@ -179,6 +177,7 @@ public:
 
 } // End namespace RASModels
 } // End namespace Foam
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #ifdef NoRepository

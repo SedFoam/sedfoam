@@ -256,17 +256,15 @@ bool twophasekOmega<BasicTurbulenceModel>::read()
 
         return true;
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
 
 
 template<class BasicTurbulenceModel>
 void twophasekOmega<BasicTurbulenceModel>::correct()
 {
-    if (not this->turbulence_)
+    if (!this->turbulence_)
     {
         return;
     }

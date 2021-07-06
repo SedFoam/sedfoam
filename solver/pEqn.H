@@ -249,7 +249,7 @@ License
             // Set pressure reference
             pEqn.setReference(pRefCell, getRefCellValue(p_rbgh, pRefCell));
 
-#if OFVERSION >= 700
+#if (defined(OFVERSION) && (OFVERSION >= 700))
             pEqn.solve();
 #else
             pEqn.solve(mesh.solver(p_rbgh.select(pimple.finalInnerIter())));

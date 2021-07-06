@@ -1,6 +1,10 @@
 #!/bin/sh
 cd "${0%/*}" || exit                            # Run from this directory
 
+[ -d "$WM_PROJECT_DIR" ] || {
+    echo "$0: The OpenFOAM environment not set?" 1>&2
+    exit 1
+}
 if [ -f "$WM_PROJECT_DIR"/wmake/scripts/AllwmakeParseArguments ]
 then  . "$WM_PROJECT_DIR"/wmake/scripts/AllwmakeParseArguments
 fi
