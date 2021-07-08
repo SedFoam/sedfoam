@@ -83,7 +83,7 @@ jobs:
             cd doc &&
             git clone git://github.com/mosra/m.css &&
             cd m.css/documentation && cp ../../doxygen.py . &&
-            source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
+            source /openfoam/bash.rc &&
             python3 doxygen.py ../../conf.py &&
             cd ../.. && cp images/* mcssout/html/. &&
             ack "ource file" -l --print0 | xargs -0 -n 1 sed -i "s/\"\/root\/sedfoam/\"https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
@@ -202,7 +202,8 @@ jobs:
           name: Build sedFoam
           command: >
             shopt -s expand_aliases &&
-            source /usr/lib/openfoam/openfoam2106/etc/bashrc && ./Allwmake
+            export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN &&
+            source /openfoam/bash.rc && ./Allwmake -prefix=group
       - persist_to_workspace:
           root: /root
           paths: OpenFOAM
@@ -230,20 +231,19 @@ jobs:
       - run:
           name: sedfoam test1D sedim
           command: >
-            shopt -s expand_aliases && source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
+            shopt -s expand_aliases && source /openfoam/bash.rc &&
             cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
             cp -f system/controlDict.sedim system/controlDict  && chmod -R a+rwX /root &&
-            runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
-            source /usr/lib/openfoam/openfoam2106/etc/bashrc && cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
+            runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
             python3 test_Sedimentation.py
       - run:
           name: sedfoam test1D bedload
           command: >
-            shopt -s expand_aliases && source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
+            shopt -s expand_aliases && source /openfoam/bash.rc &&
             cd /root/sedfoam/test-ci/1DSedim && cp -f constant/forceProperties.bedload constant/forceProperties &&
             cp -f system/controlDict.bedload system/controlDict && chmod -R a+rwX /root &&
             runuser -l sudofoam -c 'cd /root/sedfoam/test-ci/1DSedim &&
-            source /usr/lib/openfoam/openfoam2106/etc/bashrc && ./Allrun' &&
+            source /openfoam/bash.rc && ./Allrun' &&
             python3 test_Bedload.py
           no_output_timeout: 30m
 
@@ -270,9 +270,9 @@ jobs:
           name: sedfoam 1D Avalanche
           command: >
             shopt -s expand_aliases && chmod -R a+rwX /root &&
-            source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
+            source /openfoam/bash.rc &&
             runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
-            source /usr/lib/openfoam/openfoam2106/etc/bashrc && cd /root/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
+            source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DAvalancheMuI && python3 test_AvalancheMuI.py
           no_output_timeout: 30m
   
@@ -299,9 +299,9 @@ jobs:
           name: sedfoam 1DBedLoadTurb 
           command: >
             shopt -s expand_aliases && chmod -R a+rwX /root &&
-            source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
+            source /openfoam/bash.rc &&
             runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
-            source /usr/lib/openfoam/openfoam2106/etc/bashrc && cd /root/sedfoam/test-ci/1DBedLoadTurb && ./Allrun' &&
+            source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DBedLoadTurb && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DBedLoadTurb && python3 test_1DBedLoadTurb.py
           no_output_timeout: 30m
 
@@ -309,9 +309,9 @@ jobs:
           name: sedfoam 1DBoundaryLayer
           command: >
             shopt -s expand_aliases && chmod -R a+rwX /root &&
-            source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
+            source /openfoam/bash.rc &&
             runuser -l sudofoam -c 'cd /root/sedfoam/test-ci/1DBoundaryLayer &&
-            source /usr/lib/openfoam/openfoam2106/etc/bashrc && ./Allrun' &&
+            source /openfoam/bash.rc && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DBoundaryLayer && python3 test_1DBoundaryLayer.py
           no_output_timeout: 30m
 
@@ -337,9 +337,9 @@ jobs:
       - run:
           name: sedfoam 1DWetAvalanche
           command: >
-            shopt -s expand_aliases && chmod -R a+rwX /root && source /usr/lib/openfoam/openfoam2106/etc/bashrc &&
+            shopt -s expand_aliases && chmod -R a+rwX /root && source /openfoam/bash.rc &&
             runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
-            source /usr/lib/openfoam/openfoam2106/etc/bashrc && cd /root/sedfoam/test-ci/1DWetAvalanche && ./Allrun' &&
+            source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DWetAvalanche && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DWetAvalanche && python3 test_1DWetAvalanche.py
           no_output_timeout: 30m
 
