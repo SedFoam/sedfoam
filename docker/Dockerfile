@@ -23,13 +23,13 @@ WORKDIR /home/sudofoam/swak4Foam
 RUN /bin/bash -c "shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh"
 
 WORKDIR /home/sudofoam/swak4Foam
-RUN /bin/bash -c "shopt -s expand_aliases && source /openfoam/bash.rc && ./Allwmake"
+RUN /bin/bash -c "shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && export FOAM_USER_APPBIN=$FOAM_SITE_APPBIN && ./Allwmake"
 
 WORKDIR /home/sudofoam
 RUN rm -rf swak4Foam
 
 WORKDIR /home/sudofoam/sedfoam
-RUN /bin/bash -c "shopt -s expand_aliases && source /openfoam/bash.rc && ./Allwmake && ./Allwclean"
+RUN /bin/bash -c "shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group && ./Allwclean"
 
 WORKDIR /home/sudofoam
 ENV HOME /home/sudofoam

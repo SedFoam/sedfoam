@@ -270,8 +270,7 @@ jobs:
           command: >
             shopt -s expand_aliases && chmod -R a+rwX /root &&
             source /openfoam/bash.rc &&
-            runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
-            source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
+            runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DAvalancheMuI && python3 test_AvalancheMuI.py
           no_output_timeout: 30m
   
@@ -299,8 +298,7 @@ jobs:
           command: >
             shopt -s expand_aliases && chmod -R a+rwX /root &&
             source /openfoam/bash.rc &&
-            runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
-            source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DBedLoadTurb && ./Allrun' &&
+            runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DBedLoadTurb && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DBedLoadTurb && python3 test_1DBedLoadTurb.py
           no_output_timeout: 30m
 
@@ -337,8 +335,7 @@ jobs:
           name: sedfoam 1DWetAvalanche
           command: >
             shopt -s expand_aliases && chmod -R a+rwX /root && source /openfoam/bash.rc &&
-            runuser -l sudofoam -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2106 /home/sudofoam/OpenFOAM/sudofoam-v2106 &&
-            source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DWetAvalanche && ./Allrun' &&
+            runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DWetAvalanche && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DWetAvalanche && python3 test_1DWetAvalanche.py
           no_output_timeout: 30m
 
@@ -349,16 +346,23 @@ workflows:
     jobs:
       - checkstyle
       - build
-      - builddock
-      - publishdock:
-          requires:
-            - builddock
       - test:
           requires:
             - build
       - advanced-test2:
           requires:
             - build
+      - builddock:
+          requires:
+            - build
+            - test
+            - advanced-test2
+      - publishdock:
+          requires:
+            - builddock
+          filters:
+            branches:
+              only: master
       - docs-build
       - docs-deploy:
           requires:
@@ -394,6 +398,12 @@ workflows:
             - advanced-test
             - advanced-test1
             - advanced-test2
+      - publishdock:
+          requires:
+            - builddock
+          filters:
+            branches:
+              only: master
       - docs-build
       - docs-deploy:
           requires:
