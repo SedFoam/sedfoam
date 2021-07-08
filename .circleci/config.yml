@@ -204,8 +204,8 @@ jobs:
             shopt -s expand_aliases && source /openfoam/bash.rc &&
             export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group
       - persist_to_workspace:
-          root: /root
-          paths: OpenFOAM
+          root: /usr/lib/openfoam/openfoam2106
+          paths: site
 
   test:
     docker:
@@ -225,7 +225,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /root
+          at: /usr/lib/openfoam/openfoam2106
 
       - run:
           name: sedfoam test1D sedim
@@ -263,7 +263,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /root
+          at: /usr/lib/openfoam/openfoam2106
 
       - run:
           name: sedfoam 1D Avalanche
@@ -292,7 +292,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /root
+          at: /usr/lib/openfoam/openfoam2106
 
       - run:
           name: sedfoam 1DBedLoadTurb 
@@ -331,7 +331,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /root
+          at: /usr/lib/openfoam/openfoam2106
 
       - run:
           name: sedfoam 1DWetAvalanche
