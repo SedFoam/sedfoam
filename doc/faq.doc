@@ -11,6 +11,27 @@
 
 Here is a list of Frequently Asked Questions about sedFoam:
 
+\section sedfoam_app Which non-standard applications does sedFoam consist?
+
+SedFoam is an Eulerian two-phase model for a wide range of sediment transport processes. By solving the mass and momentum equations for the water phase and fluid phase with closure on turbulence, particle stress, and interphase momentum coupling, SedFoam resolves the full dynamics of sediment transport throughout the entire water column and down to the immobile porous sediment bed without the need to artificially separate transport into near-bed load and suspended load layers. Compared with the conventional single-phase sediment transport model, SedFoam does not require empirical closures on reference concentration, bedload transport rate, and Exner equation for updating the bathymetry evolution.
+
+\section parallel Are sedFoam applications parallel?
+
+sedFoam is parallel (many thanks to openfoam)
+
+\section industry Is there any example that sedFoam was applied onto industry-related engineering problems?
+
+sedFoam has been used for Three-dimensional scour simulations (cf. paper in Advances in Water Resources : https://doi.org/10.1016/j.advwatres.2020.103544). The French company, Artelia, plans to use the software in its activities but the cost of calculation is prohibitive for 3D calculations on real scale cases.
+
+\section limitations What are the limitations of sedFoam; what remains unresolved?
+
+From an industrial point of view, it is surely the computational cost. A model resolving a mixture can improve the model.
+And there is a lot of possible improvement : update of the kinetic theory (Done!), implementation of the finite size model in the official sedfoam release : http://dx.doi.org/10.1017%2Fjfm.2021.4, integrate the dilatancy effects (Done!), implementation of dynamic mesh functionality... We work on all that.
+
+\section maintain_duration Roughly, how long do you or your colleagues plan to maintain sedFoam?
+
+Cyrille Bonamy (me), Julien Chauchat, Tian-Jian Hsu and other people involved in the project do not plan to stop the maintenance of the software. We are three people with a permanent position, and so there is no problem for the next few years.
+
 \section CFL How to choose the CFL number?
 
 sedFoam is based on the PISO algorithm which is an unsteady flow algorithm even when we are looking at steady-state solutions. Another point is the coupling between the two-phase which adds another constraint on the time step. The choice of the time step also depends on the ddt scheme that you are using, values of order unity is possible when using upwind schemes but lower values are required when using second order temporal schemes such as backward or Crank-Nicholson scheme. According to our experience, it is necessary to use a CFL number smaller than unity and sometimes smaller than 0.3 or even less (0.1). The stability of the model remains a difficult problem and more theoretical work is needed to improve this point. 
