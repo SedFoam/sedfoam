@@ -201,9 +201,8 @@ jobs:
       - run:
           name: Build sedFoam
           command: >
-            shopt -s expand_aliases &&
-            export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN &&
-            source /openfoam/bash.rc && ./Allwmake -prefix=group
+            shopt -s expand_aliases && source /openfoam/bash.rc &&
+            export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group
       - persist_to_workspace:
           root: /root
           paths: OpenFOAM

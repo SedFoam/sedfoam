@@ -21,15 +21,15 @@ RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r 
 
 WORKDIR /home/sudofoam/swak4Foam
 RUN /bin/bash -c "shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh"
+
 WORKDIR /home/sudofoam/swak4Foam
-RUN /bin/bash -c "shopt -s expand_aliases && source /usr/lib/openfoam/openfoam2106/etc/bashrc && ./Allwmake"
+RUN /bin/bash -c "shopt -s expand_aliases && source /openfoam/bash.rc && ./Allwmake"
 
 WORKDIR /home/sudofoam
 RUN rm -rf swak4Foam
 
 WORKDIR /home/sudofoam/sedfoam
-RUN /bin/bash -c "shopt -s expand_aliases && source /usr/lib/openfoam/openfoam2106/etc/bashrc && ./Allwmake && ./Allwclean"
-#RUN find /home/ofuser/sedfoam -name "*.o" -exec rm -f {} \;
+RUN /bin/bash -c "shopt -s expand_aliases && source /openfoam/bash.rc && ./Allwmake && ./Allwclean"
 
 WORKDIR /home/sudofoam
 ENV HOME /home/sudofoam
