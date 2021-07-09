@@ -4,18 +4,22 @@
  * \date        June 15, 2021
  * \brief       howtodocker (doc)
  */
-/*! \page howtodocker How To work with sedfoam container
-@brief How To use sedfoam docker to test and use sedFoam
+/*! \page howtodocker How To work with sedFoam container
+@brief How To use sedFoam docker to test and use sedFoam
 
 \tableofcontents
 
-Here is a How To about using the sedFoam docker. This page is organised in two sections:
+Here is a How To about using the sedFoam docker.
+
+The prerequisites is to install Docker : https://docs.docker.com/engine/install/
+
+This page is organised in two sections:
 
 - \ref configuration
 - \ref howtouse
 
 //****************************************
-\section configuration Configuration of the docker sedfoam
+\section configuration Configuration of the sedFoam docker
 
 Operating System : Ubuntu focal
 
@@ -29,8 +33,11 @@ Official link : https://hub.docker.com/r/cbonamy/sedfoam_v2106_ubuntu
 
 Dockerfile : https://github.com/SedFoam/sedfoam/blob/master/docker/Dockerfile
 
+Please note that Paraview is not included in the sedFoam docker. The users are
+encouraged to install and use Paraview on the host machine.
+
 //****************************************
-\section howtouse How to use/launch sedfoam docker ?
+\section howtouse How to use/launch sedFoam docker ?
 
 - \ref macOS 
 - \ref windows
@@ -38,7 +45,9 @@ Dockerfile : https://github.com/SedFoam/sedfoam/blob/master/docker/Dockerfile
 
 
 //****************************************
-\subsection macOS On macOS with GUI (graphical interface):
+
+
+\subsection macOS On macOS with GUI (graphical interface without paraview):
 
 On host :
 - configure xquartz (or xauth for linux?)
@@ -46,24 +55,46 @@ On host :
     - in Xquartz : Go to Preferences > Security
     - and Check "allow connections from network clients"
     - in a terminal : IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') && xhost + $IP
-- launch/initiate docker : 
+- launch/initiate docker :
 \verbatim
-     docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_v2106" --workdir="/home/sudofoam" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
+    docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_v2106" --workdir="/home/sudofoam" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
 \endverbatim
 Please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir.
-- start an image (if existing and not running) : 
+- start an image (if existing and not running) :
+\verbatim
+    docker container start sedfoam_v2106
+\endverbatim
+- attach to a running image (if existing and running):
+\verbatim
+    docker container attach sedfoam_v2106
+\endverbatim
+
+On container :
+- source the openfoam environment:
+source /openfoam/bash.rc 
+- hack and enjoy!
+The sedFoam files will be in /home/sudofoam and the solver is already compiled. Just test and use.
+
+\subsection linux On linux with GUI (graphical interface without paraview):
+
+- launch/initiate docker :
+\verbatim
+    docker run -it --net=host --env DISPLAY=$DISPLAY --volume $XAUTH:/root/.Xauthority --name "sedfoam_v2106" --workdir="/home/sudofoam" -v="/home/users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
+\endverbatim
+Please adapt the directories to your configuration. In this example, "/home/users/toto" will be mounted on the vm in /home/sudofoam/workingDir.
+- start an image (if existing and not running) :
 \verbatim
      docker container start sedfoam_v2106
 \endverbatim
-- attach to a running image (if existing and running): 
+- attach to a running image (if existing and running):
 \verbatim
      docker container attach sedfoam_v2106
 \endverbatim
 
 On container :
 - source the openfoam environment:
-source /usr/lib/openfoam/openfoam2106/etc/bashrc 
+source /openfoam/bash.rc 
 - hack and enjoy!
-The sedfoam files will be in /home/sudofoam and the solver is already compiled. Just test and use.
+The sedFoam files will be in /home/sudofoam and the solver is already compiled. Just test and use.
 
 */

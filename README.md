@@ -71,7 +71,9 @@ Developers
 *   Tim Nagel
 *   Antoine Mathieu
 *   Eduard Puig Montella
-*   Rémi Chassagne
+*   Rémi Chassagn
+*   Ali Salimi-Tarazouj
+*   Benjamin Tsai
 
 Acknowledgements
 ----------------
