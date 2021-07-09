@@ -11,25 +11,28 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 RUN pip3 install fluidfoam
 
+WORKDIR /root/
+RUN git clone --recurse-submodules https://github.com/sedfoam/sedfoam.git
+
+WORKDIR /root
+RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r vcompile/p2106 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
+
+WORKDIR /root/swak4Foam
+RUN /bin/bash -c "shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh"
+
+WORKDIR /root/swak4Foam
+RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && export FOAM_USER_APPBIN=$FOAM_SITE_APPBIN && ./Allwmake'
+
+WORKDIR /root/sedfoam
+RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group'
+
+WORKDIR /home/sudofoam
+RUN rm -rf swak4Foam sedfoam
+
 USER 1000
 
 WORKDIR /home/sudofoam
 RUN git clone --recurse-submodules https://github.com/sedfoam/sedfoam.git
-
-WORKDIR /home/sudofoam
-RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r vcompile/p2106 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
-
-WORKDIR /home/sudofoam/swak4Foam
-RUN /bin/bash -c "shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh"
-
-WORKDIR /home/sudofoam/swak4Foam
-RUN /bin/bash -c "shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && export FOAM_USER_APPBIN=$FOAM_SITE_APPBIN && ./Allwmake"
-
-WORKDIR /home/sudofoam
-RUN rm -rf swak4Foam
-
-WORKDIR /home/sudofoam/sedfoam
-RUN /bin/bash -c "shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group && ./Allwclean"
 
 WORKDIR /home/sudofoam
 ENV HOME /home/sudofoam

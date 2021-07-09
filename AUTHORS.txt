@@ -1,17 +1,22 @@
 AUTHORS
 
- * Cyrille Bonamy (LEGI UMR 5519 - Grenoble - France)
+ * Cyrille Bonamy (LEGI UGA/GINP/CNRS UMR 5519 - Grenoble - France)
    Cyrille.Bonamy (A) univ-grenoble-alpes.fr
- * Zhen Cheng (University of Delaware) 
+ * Zhen Cheng (University of Delaware, Civil & Environmental Engineering, Center for Applied Coastal Research Now at Convergence CFD) 
    zcheng (A) udel.edu
- * Julien Chauchat (LEGI UMR 5519 - Grenoble - France)
+ * Julien Chauchat (LEGI UGA/GINP/CNRS UMR 5519 - Grenoble - France)
    Julien.Chauchat (A) univ-grenoble-alpes.fr
- * Tian-Jian Hsu (University of Delaware)
+ * Tian-Jian Hsu (University of Delaware, Civil & Environmental Engineering, Center for Applied Coastal Research Now at Convergence CFD)
    thsu (A) udel.edu
- * Tim Nagel (LEGI UMR 5519 - Grenoble - France)
+ * Tim Nagel (LEGI UGA/GINP/CNRS UMR 5519 - Grenoble - France)
    Tim.Nagel (A) legi.cnrs.fr
- * Antoine Mathieu (LEGI UMR 5519 - Grenoble - France)
+ * Antoine Mathieu (LEGI UGA/GINP/CNRS UMR 5519 - Grenoble - France)
    Antoine.Mathieu (A) univ-grenoble-alpes.fr
- * Eduard Puig Montella (LEGI UMR 5519 - Grenoble - France)
+ * Eduard Puig Montella (LEGI UGA/GINP/CNRS UMR 5519 - Grenoble - France)
    eduard.puig-montella (A) univ-grenoble-alpes.fr
-
+ * Remi Chassagne (LEGI UGA/GINP/CNRS UMR 5519 - Grenoble - France)
+   remi.chassagne (A) univ-grenoble-alpes.fr
+ * Ali Salimi-Tarazouj (University of Delaware, University of Delaware, Civil & Environmental Engineering, Center for Applied Coastal Research)
+   alisalim (A) udel.edu
+ * Benjamin Tsai (University of Delaware, University of Delaware, Civil & Environmental Engineering, Center for Applied Coastal Research)
+   btsai (A) udel.edu
