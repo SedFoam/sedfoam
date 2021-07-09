@@ -167,6 +167,6 @@ if (spongeLayer)
 );
 }
 // Limit viscosities for numerical stability
-nuFra.min(nuMax);
+nuFra.min(nuFraMax);
 nuEffa.min(nuMax);
 nuEffb.min(nuMax);
