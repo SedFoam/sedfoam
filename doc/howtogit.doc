@@ -107,32 +107,34 @@ git branch -va
 \endverbatim
 
 At this point you need to make sure your branch (we'll discuss them later)
-is the master branch:
+is the develop branch:
 \verbatim
-# Checkout the master branch
-git checkout master
+# Checkout the develop branch
+git checkout develop
 \endverbatim
 
-Then you can merge the upstream repository's master branch:
+Then you can merge the upstream repository's develop branch:
 \verbatim
 # Merge upstream
-git merge upstream/master
+git merge upstream/develop
 \endverbatim
 
-Now, your local master branch is up-to-date!
+Now, your local develop branch is up-to-date!
 
 //****************************************
 \subsection createbranch Create branches
 
 Branching is the way to work on several versions of a repository at the same
-time. By default your repository has one branch named master. Whenever you
-begin to develop a new feature, it's important to create a new branch (a copy of
-the master branch). It is common to use a certain branch for each new feature.
+time. By default your repository has one branch named master (latest official
+release), and one branch named develop (with the latest developments).
+Whenever you begin to develop a new feature, it's important to create a new
+branch (a copy of the develop branch). It is common to use a certain branch
+for each new feature.
 Experimenting in new branches is not only a good practice, but it also helps you
-keep the changes organized and separated from the master branch. To create a
-new branch, first, you want to make sure you are in the master branch:
+keep the changes organized and separated from the develop branch. To create a
+new branch, first, you want to make sure you are in the develop branch:
 \verbatim
-git checkout master
+git checkout develop
 \endverbatim
 
 Then, a new branch named Newfeature (you can give the name you want)
@@ -141,7 +143,7 @@ is created typing:
 git branch Newfeature
 \endverbatim
 
-We have, so far, created a copy of the master branch called Newfeature. To
+We have, so far, created a copy of the develop branch called Newfeature. To
 start working in the new branch you should execute the following command:
 \verbatim
 git checkout Newfeature
@@ -198,7 +200,7 @@ repository to the remote repository, both named Newfeature.
 Whenever you consider the new feature is ready, you can propose your changes
 and request someone to review your work. The maintainer will carefully study
 the new features and, eventually, if they are sound, he/she will pull in your
-contribution and merge it into the master branch.
+contribution and merge it into the develop branch.
 
 The easiest way to carry out a pull requests is to go to your GitHub fork
 and click the pull request button on the main repository page. Then click on
