@@ -352,27 +352,36 @@ workflows:
       - advanced-test2:
           requires:
             - build
-      - builddock
+      - builddock:
+          requires:
+            - test
+            - advanced-test2
+          filters:
+            branches:
+              only:
+                - master
+                - develop
       - publishdock:
           requires:
             - builddock
-          filters:
-            branches:
-              only: master
       - docs-build
       - docs-deploy:
           requires:
             - docs-build
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - develop
   weekly:
     triggers:
       - schedule:
           cron: "0 2 * * 0"
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - develop
     jobs:
       - checkstyle
       - build
@@ -397,13 +406,7 @@ workflows:
       - publishdock:
           requires:
             - builddock
-          filters:
-            branches:
-              only: master
       - docs-build
       - docs-deploy:
           requires:
             - docs-build
-          filters:
-            branches:
-              only: master
