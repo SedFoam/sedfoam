@@ -37,7 +37,7 @@ Description
     \endverbatim
 
 Version
-    3.1
+    3.2
 
 Author
     Julien Chauchat, Cyrille Bonamy, Antoine Mathieu, Rémi Chassagne,
