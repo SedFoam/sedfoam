@@ -34,7 +34,7 @@ The documentation is divided into two parts, the first one is the user manual:
 <li>Section \ref algoSedFoam describes sedFoam algorithm. 
 <li>Section \ref tutorials_1d describes the 1D tutorials provided with SedFoam sources including postprocessing using a python toolbox also provided with the source and the expected results.
 <li>Section \ref tutorials_2d3d describes the 2D and 3D tutorials provided with SedFoam sources
-<li>Section \ref pulicationList list of publications using SedFoam
+<li>Section \ref publicationList list of publications using SedFoam
 <li>Section \ref inputs describes the input parameters for SedFoam 
 <li>Section \ref howtogit provides a survival guide on how to use git to use/develop sedFoam
 <li>Section \ref faq provides answers to typical Frequently Asked Questions about SedFoam 
@@ -45,7 +45,7 @@ The second part provides informations for developers.
 
 \n<h2>sedFoam license</h2>
 
-Copyright &copy; 2020 by
+Copyright &copy; 2021 by
 <a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">Cyrille Bonamy</a>,
 <a href="mailto:julien.chauchat@univ-grenoble-alpes.fr">Julien Chauchat</a>,
 <a href="https://sites.udel.edu/thsu/group-members">Tian-Jian Hsu</a>,
