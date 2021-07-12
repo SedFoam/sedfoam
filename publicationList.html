@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Getting started | SedFOAM</title>
+  <title>Publications | SedFOAM</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600&amp;subset=latin-ext" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="sedFoam_favicon.png" type="image/png" />
@@ -30,9 +30,9 @@
                 <li><a href="index.html">About sedFoam</a></li>
                 <li><a href="install.html">Installation</a></li>
                 <li><a href="howtodocker.html">How To work with sedFoam container</a></li>
-                <li><a href="starting.html" id="m-navbar-current">Getting started</a></li>
                 <li><a href="howtogit.html">How To work with github</a></li>
                 <li><a href="faq.html">Frequently Asked Questions</a></li>
+                <li><a href="publicationList.html" id="m-navbar-current">Publications</a></li>
               </ol>
             </li>
             <li>
@@ -45,7 +45,13 @@
             </li>
           </ol>
           <ol class="m-col-t-6 m-col-m-none" start="3">
-            <li><a href="namespaces.html">Namespaces</a></li>
+            <li>
+              <a href="governing.html">Governing equations</a>
+              <ol>
+                <li><a href="governing.html">Governing equations</a></li>
+                <li><a href="algoSedFoam.html">Algorithm</a></li>
+              </ol>
+            </li>
             <li><a href="annotated.html">Classes</a></li>
             <li><a href="files.html">Files</a></li>
             <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
@@ -62,16 +68,20 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          Getting started
+          Publications
         </h1>
-        <p>General informations about OpenFoam test-case.</p>
+        <p>Publications using sedFoam.</p>
         <div class="m-block m-default">
           <h3>Contents</h3>
           <ul>
-            <li><a href="#running">Running a case</a></li>
+            <li><a href="#pubs2021">2021</a></li>
+            <li><a href="#pubs2020">2020</a></li>
+            <li><a href="#pubs2019">2019</a></li>
+            <li><a href="#pubs2018">2018</a></li>
+            <li><a href="#pubs2017">2017</a></li>
           </ul>
         </div>
-<p>The executable <code>sedFoam_rbgh</code> is the main program that allows to launch a computation.</p><p>This page gives some practical details about the computation set-up and the input/output files.</p><section id="running"><h2><a href="#running">Running a case</a></h2><p>A computation is run in a case_directory that contains several sub-folders and files:</p><ul><li>constant directory: contains the description of the mesh in the subdirectory polyMesh and files specifying physical properties for the application concerned, e.g. transportProperties.</li><li>system directory: contains the setting parameters associated with the solution procedure. It contains at least the following 3 files: controlDict where run control parameters are set including start/end time, time step and parameters for data output; fvSchemes where discretisation schemes used in the solution may be selected at run-time; and, fvSolution where the equation solvers, tolerances and other algorithm controls are set for the run.</li><li>The ‘time’ directories containing variable fields, like velocity, pressure, TKE, etc... in separated files, one file per variable. Each file contains internal field values and boundary field conditions and values. The name of each time directory is based on the simulated time at which the data is written.</li></ul><p>The system folder also contains dictionary files allowing to set complex initial conditions (funkySetFieldsDict), decompose the numerical domain for parrallel computations (decomposeParDict) for example. We usually use a 0_org folder with uniform fields distribution before using funkySetFields to be able to rerun easily the utilty.<br /></p><p>More detailed informations can be found <a href="http://cfd.direct/openfoam/user-guide/case-file-structure/#x16-1180004.1">here</a>. The specific SedFoam input files will be described in the tutorial section.</p><p><a name="extract_all"></a></p>Go to the <a href="tutorials_1d.html">tutorials</a> section or return to the
+<section id="pubs2021"><h2><a href="#pubs2021">2021</a></h2><ul><li>Montella E. P., J. Chauchat, B. Chareyre, C. Bonamy and T. J. Hsu (under revision). A two-fluid model for immersed granular avalanches with dilatancy effects. Journal of Fluid Mechanics</li><li>Mathieu, A., Chauchat, J., Bonamy, C., Balarac, G. and T.-J. Hsu (2021). A finite-size correction model for two-fluid large-eddy simulation of particle-laden boundary layer flow. Journal of Fluid Mechanics, DOI : <a href="https://doi.org/10.1017/jfm.2021.4">https:/<wbr />/<wbr />doi.org/<wbr />10.1017/<wbr />jfm.2021.4</a></li><li>Salimi Tarazouj, A., Hsu, T.-J., Traykovski, P., Cheng, Z., and Chauchat (2021), J. A numerical study of onshore ripple migration using a eulerian two-phase model. Journal of Geophysical Research : Oceans, DOI : <a href="https://doi.org/10.1029/2020JC016773">https:/<wbr />/<wbr />doi.org/<wbr />10.1029/<wbr />2020JC016773</a></li></ul></section><section id="pubs2020"><h2><a href="#pubs2020">2020</a></h2><ul><li>Rafati, Yashar; Hsu, Tian-Jian; Cheng, Zhen; Yu, Xiao; Calantoni, Joseph; 2020. Armoring and exposure effects on the wave-driven sediment transport. Continental Shelf Research, 211, 104291. <a href="https://doi.org/10.1016/j.csr.2020.104291">https:/<wbr />/<wbr />doi.org/<wbr />10.1016/<wbr />j.csr.2020.104291</a></li><li>Chauchat, J., Zhen Cheng, Tim Nagel, Cyrille Bonamy, and Tian-Jian Hsu (2017) SedFoam-2.0: a 3-D two-phase flow numerical model for sediment transport (Geosci. Model Dev., 10, 4367-4392) <a href="https://doi.org/10.5194/gmd-10-4367-2017">https:/<wbr />/<wbr />doi.org/<wbr />10.5194/<wbr />gmd-10-4367-2017</a></li></ul></section><section id="pubs2019"><h2><a href="#pubs2019">2019</a></h2><ul><li>Mathieu, Antoine; Chauchat, Julien; Bonamy, Cyrille; Nagel, Tim; 2019. Two-Phase Flow Simulation of Tunnel and Lee-Wake Erosion of Scour below a Submarine Pipeline. Water, 11, 1727. <a href="https://doi.org/10.3390/w11081727">https:/<wbr />/<wbr />doi.org/<wbr />10.3390/<wbr />w11081727</a></li></ul></section><section id="pubs2018"><h2><a href="#pubs2018">2018</a></h2><ul><li>Cheng, Z., Hsu, T.-J., and Chauchat, J. (2018). An eulerian two-phase model for steady sheet flow using large-eddy simulation methodology. Advances in Water Resources, 111(Supplement C):205 – 223. <a href="https://doi.org/10.1016/j.advwatres.2017.11.016">https:/<wbr />/<wbr />doi.org/<wbr />10.1016/<wbr />j.advwatres.2017.11.016</a></li><li>Nagel, Tim; Chauchat, Julien; Bonamy, Cyrille; Mathieu, Antoine; Liu, Xiaofeng; Cheng, Zhen; Hsu, Tian-Jian; 2018. TWO-PHASE FLOW SIMULATIONS OF SCOUR AROUND VERTICAL AND HORIZONTAL CYLINDERS. Coastal Engineering Proceedings, , 22. <a href="https://doi.org/10.9753/icce.v36.sediment.22">https:/<wbr />/<wbr />doi.org/<wbr />10.9753/<wbr />icce.v36.sediment.22</a></li></ul></section><section id="pubs2017"><h2><a href="#pubs2017">2017</a></h2><ul><li>Chauchat, J., Zhen Cheng, Tim Nagel, Cyrille Bonamy, and Tian-Jian Hsu (2017) SedFoam-2.0: a 3-D two-phase flow numerical model for sediment transport (Geosci. Model Dev., 10, 4367-4392) <a href="https://doi.org/10.5194/gmd-10-4367-2017">https:/<wbr />/<wbr />doi.org/<wbr />10.5194/<wbr />gmd-10-4367-2017</a></li><li>Cheng, Zhen; Hsu, Tian-Jian; Calantoni, Joseph; 2017. SedFoam: A multi-dimensional Eulerian two-phase model for sediment transport and its application to momentary bed failure. Coastal Engineering, 119, 32–50. <a href="https://doi.org/10.1016/j.coastaleng.2016.08.007">https:/<wbr />/<wbr />doi.org/<wbr />10.1016/<wbr />j.coastaleng.2016.08.007</a></li></ul>Go to the <a href="tutorials_1d.html">next</a> section or return to the
  <a href="index.html">index</a>.</section>
       </div>
     </div>
@@ -107,7 +117,7 @@
   <div class="m-container">
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
-        <p>sedFoam docs. Part of the <a href="https://github.com/SedFoam/sedfoam">sedFoam project</a>, copyright © <a href="cyrille.bonamy@univ-grenoble-alpes.fr/">Cyrille Bonamy</a> and <a href="credits-contributors.html">contributors</a>, 2015&ndash;2020.<br />Generated by <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>. Contact the team via <a href="https://github.com/SedFoam/sedfoam">GitHub</a>, <a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">e-mail</a> or <a href="https://twitter.com/sedfoam">Twitter</a>.</p>
+        <p>sedFoam docs. Part of the <a href="https://github.com/SedFoam/sedfoam">sedFoam project</a>, copyright © <a href="cyrille.bonamy@univ-grenoble-alpes.fr/">Cyrille Bonamy</a> and <a href="credits-contributors.html">contributors</a>, 2015&ndash;2021.<br />Generated by <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>. Contact the team via <a href="https://github.com/SedFoam/sedfoam">GitHub</a>, <a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">e-mail</a> or <a href="https://twitter.com/sedfoam">Twitter</a>.</p>
       </div>
     </div>
   </div>

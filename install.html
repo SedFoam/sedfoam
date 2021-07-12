@@ -30,9 +30,9 @@
                 <li><a href="index.html">About sedFoam</a></li>
                 <li><a href="install.html" id="m-navbar-current">Installation</a></li>
                 <li><a href="howtodocker.html">How To work with sedFoam container</a></li>
-                <li><a href="starting.html">Getting started</a></li>
                 <li><a href="howtogit.html">How To work with github</a></li>
                 <li><a href="faq.html">Frequently Asked Questions</a></li>
+                <li><a href="publicationList.html">Publications</a></li>
               </ol>
             </li>
             <li>
@@ -45,7 +45,13 @@
             </li>
           </ol>
           <ol class="m-col-t-6 m-col-m-none" start="3">
-            <li><a href="namespaces.html">Namespaces</a></li>
+            <li>
+              <a href="governing.html">Governing equations</a>
+              <ol>
+                <li><a href="governing.html">Governing equations</a></li>
+                <li><a href="algoSedFoam.html">Algorithm</a></li>
+              </ol>
+            </li>
             <li><a href="annotated.html">Classes</a></li>
             <li><a href="files.html">Files</a></li>
             <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
@@ -69,13 +75,14 @@
           <h3>Contents</h3>
           <ul>
             <li><a href="#install_src_unix">Compiling from source with supported OpenFOAM (last ESI version)</a></li>
+            <li><a href="#use_docker">Don&#x27;t install sedFoam and use the latest sedFoam docker</a></li>
           </ul>
         </div>
-<section id="install_src_unix"><h2><a href="#install_src_unix">Compiling from source with supported OpenFOAM (last ESI version)</a></h2><p>You need OpenFOAM-v2012 to build the executable.</p><ul><li>First go to the <a href="https://www.openfoam.com/download">download</a> page of the software</li><li><a href="https://www.openfoam.com/download/installation.php">Install OpenFOAM</a>.</li></ul><p>To take full advantage of SedFoam the following additional tools should be installed.</p><ul><li><a href="https://openfoamwiki.net/index.php/Contrib/swak4Foam">swak4Foam</a> extension combines many fonctionalities and is needed for the tutorials</li><li>the python package <a href="https://github.com/fluiddyn/fluidfoam">fluidfoam</a> is needed for postprocessing of the tutorials.</li></ul><p>Compilation is now done by performing the following steps:</p><ol><li><p>Download the official SedFoam package:</p><pre>git clone --recurse-submodules http://github.com/sedfoam/sedfoam
+<section id="install_src_unix"><h2><a href="#install_src_unix">Compiling from source with supported OpenFOAM (last ESI version)</a></h2><p>You need OpenFOAM-v2106 to build the executable.</p><ul><li>First go to the <a href="https://www.openfoam.com/download">download</a> page of the software</li><li><a href="https://www.openfoam.com/download/installation.php">Install OpenFOAM</a>.</li></ul><p>To take full advantage of SedFoam the following additional tools should be installed.</p><ul><li><a href="https://openfoamwiki.net/index.php/Contrib/swak4Foam">swak4Foam</a> extension combines many fonctionalities and is needed for the tutorials</li><li>the python package <a href="https://github.com/fluiddyn/fluidfoam">fluidfoam</a> is needed for postprocessing of the tutorials.</li></ul><p>Compilation is now done by performing the following steps:</p><ol><li><p>Download the official SedFoam package:</p><pre>git clone --recurse-submodules http://github.com/sedfoam/sedfoam
 </pre></li><li><p>Compile the program by running Allwmake:</p><pre>cd sedfoam
 source $FOAM_ETC/bashrc # load the openfoam environment
 ./Allwmake
-</pre><p>The program should compile without problems and the binary <code>sedFoam_rbgh</code> and associated libraries should be available in the $FOAM_USER_APPBIN and $FOAM_USER_LIBBIN directories.</p></li></ol>Go to the <a href="starting.html">next</a> section or return to the
+</pre><p>The program should compile without problems and the binary <code>sedFoam_rbgh</code> and associated libraries should be available in the $FOAM_USER_APPBIN and $FOAM_USER_LIBBIN directories.</p></li></ol></section><section id="use_docker"><h2><a href="#use_docker">Don&#x27;t install sedFoam and use the latest sedFoam docker</a></h2><p>For this : go <a href="howtodocker.html">Here</a>.</p>Go to the <a href="howtodocker.html">next</a> section or return to the
  <a href="index.html">index</a>.</section>
       </div>
     </div>
@@ -111,7 +118,7 @@ source $FOAM_ETC/bashrc # load the openfoam environment
   <div class="m-container">
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
-        <p>sedFoam docs. Part of the <a href="https://github.com/SedFoam/sedfoam">sedFoam project</a>, copyright © <a href="cyrille.bonamy@univ-grenoble-alpes.fr/">Cyrille Bonamy</a> and <a href="credits-contributors.html">contributors</a>, 2015&ndash;2020.<br />Generated by <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>. Contact the team via <a href="https://github.com/SedFoam/sedfoam">GitHub</a>, <a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">e-mail</a> or <a href="https://twitter.com/sedfoam">Twitter</a>.</p>
+        <p>sedFoam docs. Part of the <a href="https://github.com/SedFoam/sedfoam">sedFoam project</a>, copyright © <a href="cyrille.bonamy@univ-grenoble-alpes.fr/">Cyrille Bonamy</a> and <a href="credits-contributors.html">contributors</a>, 2015&ndash;2021.<br />Generated by <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>. Contact the team via <a href="https://github.com/SedFoam/sedfoam">GitHub</a>, <a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">e-mail</a> or <a href="https://twitter.com/sedfoam">Twitter</a>.</p>
       </div>
     </div>
   </div>
