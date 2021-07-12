@@ -12,7 +12,7 @@
 
 \section install_src_unix Compiling from source with supported OpenFOAM (last ESI version)
 
-You need OpenFOAM-v2012 to build the executable.
+You need OpenFOAM-v2106 to build the executable.
 <ul>
 <li>First go to the <a href="https://www.openfoam.com/download">download</a> page of the software
 <li><a href="https://www.openfoam.com/download/installation.php">Install OpenFOAM</a>.
@@ -46,8 +46,12 @@ Compilation is now done by performing the following steps:
 
 </ol>
 
+\section use_docker Don't install sedFoam and use the latest sedFoam docker
+
+For this : go <a href="howtodocker.html">Here</a>.
+
 \htmlonly
-Go to the <a href="starting.html">next</a> section or return to the
+Go to the <a href="howtodocker.html">next</a> section or return to the
  <a href="index.html">index</a>.
 \endhtmlonly
 

@@ -29,7 +29,6 @@ The documentation is divided into two parts, the first one is the user manual:
 <ul>
 <li>Section \ref install explains how to download, compile and install SedFoam.
 <li>Section \ref howtodocker provides a survival guide on how to use SedFoam docker
-<li>Section \ref starting gives informations on how the case directory is organised. 
 <li>Section \ref governing describes sedFoam governing equations. 
 <li>Section \ref algoSedFoam describes sedFoam algorithm. 
 <li>Section \ref tutorials_1d describes the 1D tutorials provided with SedFoam sources including postprocessing using a python toolbox also provided with the source and the expected results.

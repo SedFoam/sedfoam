@@ -13,10 +13,10 @@ LINKS_NAVBAR1 = [
     (None, 'pages', [
         ("<a href=\"index.html\">About sedFoam</a>",),
         (None, 'install'),
-        (None, 'starting'),
         (None, 'howtodocker'),
         (None, 'howtogit'),
-        (None, 'faq')
+        (None, 'faq'),
+        ("Publications", 'publicationList')
     ]),
     ('Tutorials', 'pages', [
         ("One dimensional Tutorials", 'tutorials_1d'),
@@ -27,8 +27,7 @@ LINKS_NAVBAR1 = [
 LINKS_NAVBAR2 = [
     ('Model', 'governing', [
         ("Governing equations", 'governing'),
-        ("Algorithm", 'algoSedFoam'),
-        ("Publications", 'publicationList'),
+        ("Algorithm", 'algoSedFoam')
     ]),
     (None, 'annotated', []),
     (None, 'files', [])
