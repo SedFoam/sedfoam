@@ -30,7 +30,7 @@ And there is a lot of possible improvement : update of the kinetic theory (Done!
 
 \section maintain_duration Roughly, how long do you or your colleagues plan to maintain sedFoam?
 
-Cyrille Bonamy (me), Julien Chauchat, Tian-Jian Hsu and other people involved in the project do not plan to stop the maintenance of the software. We are three people with a permanent position, and so there is no problem for the next few years.
+Cyrille Bonamy, Julien Chauchat, Tian-Jian Hsu and other people involved in the project do not plan to stop the maintenance of the software. We are three people with a permanent position, and so there is no problem for the next few years.
 
 \section CFL How to choose the CFL number?
 
