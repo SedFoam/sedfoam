@@ -59,7 +59,7 @@ On host :
 \endverbatim
 Please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
 
-\subsubsection window On Windows with GUI (graphical interface without paraview):
+\subsubsection windows On Windows with GUI (graphical interface without paraview):
 - configure Docker Engine for windows (with all system requirements : WSL2, step 1-5 from https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 - configure vcxsrv : https://sourceforge.net/projects/vcxsrv/ (disable access control in extra settings)
 - Get your IP and set DISPLAY variable :
