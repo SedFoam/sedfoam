@@ -9,8 +9,7 @@ RUN apt-get update \
   texlive dvipng python3-tk \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
-RUN pip3 install --no-cache-dir --upgrade pip3 && \
-    pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy
+RUN pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy
 
 WORKDIR /root/
 RUN git clone --recurse-submodules https://github.com/sedfoam/sedfoam.git
