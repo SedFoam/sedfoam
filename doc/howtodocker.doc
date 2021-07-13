@@ -52,7 +52,11 @@ On host :
     - install xquartz to allow network connection
     - in Xquartz : Go to Preferences > Security
     - and Check "allow connections from network clients"
-    - in a terminal : IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') && xhost + $IP
+    - in a terminal : 
+\verbatim
+    IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+    xhost + $IP
+\endverbatim
 - initiate docker :
 \verbatim
     docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_v2106" --workdir="/home/sudofoam" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
@@ -66,6 +70,7 @@ Please adapt the directories to your configuration. In this example, "/Users/tot
 \verbatim
     set-variable -name DISPLAY -value YOUR-IP:0.0
 \endverbatim
+- initiate docker :
 \verbatim
     docker run -it --net=host --env DISPLAY=$DISPLAY --name "sedfoam_v2106" --workdir="/home/sudofoam" -v="c:/mydataspace":/home/sudofoam/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
 \endverbatim
