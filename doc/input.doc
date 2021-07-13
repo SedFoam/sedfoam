@@ -38,13 +38,13 @@ The file 'g' contains the gravity vector. The user shall be careful when using a
 
 \section inputParams Physical processes
 
-sedFoam include a variety of physical processes: fluid-particle forces such as drag froce, fluid and particle phase rheology, elastic pressure for the solid phase, turbulence modeling. Each process can be switched on or off. The various tutorials available with the source code give a good overview of different combination of physical processes. The table below lists the keywords used to switch on or off physical processes in sedFoam and the key input parameters.
+sedFoam includes a variety of physical processes: fluid-particle forces such as drag froce, fluid and particle phase rheology, elastic pressure for the solid phase, turbulence modeling. Each process can be switched on or off. The various tutorials available with the source code give a good overview of different combination of physical processes. The table below lists the keywords used to switch on or off physical processes in sedFoam and the key input parameters.
 
 In the following the input parameters will be described file-by-file.
 
 \subsection transportProperties File transportProperties
 
-In the file 'transportProperties' the user can specified the input parameters listed in the table below:
+In the file 'transportProperties' the user can specify the input parameters listed in the table below:
 
 parameter     | description            |    default   |     range    |    units     |
 --------------|------------------------|--------------|--------------|--------------|
@@ -87,7 +87,7 @@ Camenen                | for mud flocs (see Chauchat et al 2013)                
 
 \subsection ppProperties File ppProperties
 
-In the file 'ppProperties' the user can specified the input parameters for the elastic pressure model for 'pff':
+In the file 'ppProperties' the user can specify the input parameters for the elastic pressure model for 'pff':
 
 ppModel                  |   description                                                      |
 -------------------------|--------------------------------------------------------------------|
@@ -109,7 +109,7 @@ eta1            | empirical exponent        |    5         | 5            |  -  
 
 \subsection granularRheologyProperties File granularRheologyProperties
 
-In the file 'granularRheologyProperties' the user can specified the input parameters for the dense granular flow rhology, in particular the user decide is he/she wants to use the dense granular flow rheology or not by setting the swith 'granularRheology' to on/off. If it's switched on, the user has to decide which rheological model to use for the different components, _i.e._ granular shear stresss, granular normal stress and fluid shear stress, amongst:
+In the file 'granularRheologyProperties' the user can specify the input parameters for the dense granular flow rheology, in particular the user decides if he/she wants to use the dense granular flow rheology or not by setting the switch 'granularRheology' to on/off. If it's switched on, the user has to decide which rheological model to use for the different components, _i.e._ granular shear stresss, granular normal stress and fluid shear stress, amongst:
 
 FrictionModel      |   description                                                     |
 -------------------|-------------------------------------------------------------------|
@@ -147,9 +147,14 @@ BulkFactor      | coef for 2nd viscosity    |    0         | 0-10         |  -  
 Dsmall          | regularisation param.     |    1e-6      | 1e-4-1e-9    |  1/s         |
 relaxPa         | relaxation factor for Pa  |    1.0      | 1e-9-1       |  -           |
 
+
+Additionally, the switch 'granularDilatancy' found in the file 'granularRheologyProperties' is used to incoporate dilatancy effects in the model. This feature is important to capture the coupling between the pore
+pressure feedback mechanism and the initial dynamics of a granular medium subjected to shear stress. 
+
+
 \subsection forceProperties File forceProperties
 
-In the file 'forceProperties' the user can specified the input parameters for the external pressure gradient and select the fluid-particle forces to be added in the model, _e.g._ lift force, added mass force, Ct model:
+In the file 'forceProperties' the user can specify the input parameters for the external pressure gradient and select the fluid-particle forces to be added in the model, _e.g._ lift force, added mass force, Ct model:
 
 parameter       | description                      |    default   |     range    |    units     |
 ----------------|----------------------------------|--------------|--------------|--------------|
@@ -175,14 +180,14 @@ xSmax           | max. X position for sponge layer |    0         | min(X)-max(X
 
 \subsection turbulenceProperties File turbulenceProperties
 
-In the file 'turbulenceProperties' the user can specified the turbulence model to be used:
+In the file 'turbulenceProperties' the user can specify the turbulence model to be used:
 
 simulationType     |   description                                                     |
 -------------------|-------------------------------------------------------------------|
 laminar            | laminar flow - no turbulence model (nutb=0)                       |
 RAS                | Reynolds Averaged turbulence model                                |
 
-If simulationType=RAS is selected, the user need to specify a turbulence model using the keyword 'RASModel' in the 'RAS' dictionnary. All singlephase turbulence model can be selected and specific two-phase flow turbulence models are provided with sedFoam:
+If simulationType=RAS is selected, the user needs to specify a turbulence model using the keyword 'RASModel' in the 'RAS' dictionnary. All singlephase turbulence model can be selected and specific two-phase flow turbulence models are provided with sedFoam:
 
 RASModel                |   description                                                     |
 ------------------------|-------------------------------------------------------------------|
