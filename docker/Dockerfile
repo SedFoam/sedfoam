@@ -4,12 +4,13 @@ ARG WM_NCOMPPROCS=10
 
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
-  git python3 python3-pip unzip python \
-  mercurial libreadline-dev \
+  git python3 python3-pip unzip python ipython3 \
+  mercurial libreadline-dev vim nano emacs neovim \
   texlive dvipng python3-tk \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
-RUN pip3 install fluidfoam
+RUN pip3 install --no-cache-dir --upgrade pip3 && \
+    pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy
 
 WORKDIR /root/
 RUN git clone --recurse-submodules https://github.com/sedfoam/sedfoam.git
