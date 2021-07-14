@@ -152,6 +152,17 @@ dimensionedScalar nuMax
     )
 );
 
+dimensionedScalar nuFraMax
+(
+    dimensionedScalar::getOrDefault
+    (
+        "nuFraMax",
+        transportProperties,
+        dimensionSet(0, 2, -1, 0, 0, 0, 0),
+        1e4
+    )
+);
+
 dimensionedScalar Dsmall
 (
     dimensionedScalar::getOrDefault
