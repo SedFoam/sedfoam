@@ -34,7 +34,7 @@ Foam::granularRheologyModels::FluidViscosityModel::New
     Info<< "Selecting FluidViscosityModel "
         << FluidViscosityModelType << endl;
 
-    dictionaryConstructorTable::iterator cstrIter =
+    auto cstrIter =
         dictionaryConstructorTablePtr_->find(FluidViscosityModelType);
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())

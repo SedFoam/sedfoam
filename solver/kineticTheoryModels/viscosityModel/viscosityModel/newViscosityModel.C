@@ -38,7 +38,7 @@ Foam::kineticTheoryModels::viscosityModel::New
     Info<< "Selecting viscosityModel "
         << viscosityModelType << endl;
 
-    dictionaryConstructorTable::iterator cstrIter =
+    auto cstrIter =
         dictionaryConstructorTablePtr_->find(viscosityModelType);
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())

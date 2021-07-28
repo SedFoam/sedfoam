@@ -35,7 +35,7 @@ Foam::granularRheologyModels::FrictionModel::New
     Info<< "Selecting FrictionModel "
         << FrictionModelType << endl;
 
-    dictionaryConstructorTable::iterator cstrIter =
+    auto cstrIter =
         dictionaryConstructorTablePtr_->find(FrictionModelType);
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())
