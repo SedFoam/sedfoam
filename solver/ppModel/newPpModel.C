@@ -39,7 +39,7 @@ Foam::autoPtr<Foam::ppModel> Foam::ppModel::New
     Info << "Selecting ppModel "
         << ppModelType << endl;
 
-    dictionaryConstructorTable::iterator cstrIter =
+    auto cstrIter =
         dictionaryConstructorTablePtr_->find(ppModelType);
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())

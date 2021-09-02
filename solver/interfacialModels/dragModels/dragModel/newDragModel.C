@@ -44,7 +44,7 @@ Foam::autoPtr<Foam::dragModel> Foam::dragModel::New
         << ": "
         << dragModelType << endl;
 
-    dictionaryConstructorTable::iterator cstrIter =
+    auto cstrIter =
         dictionaryConstructorTablePtr_->find(dragModelType);
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())

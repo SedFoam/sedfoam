@@ -39,62 +39,61 @@ encouraged to install and use Paraview on the host machine.
 //****************************************
 \section howtouse How to use/launch sedFoam docker ?
 
+\subsection launch launch/initiate docker:
+
 - \ref macOS 
 - \ref windows
 - \ref linux
 
-
-//****************************************
-
-
-\subsection macOS On macOS with GUI (graphical interface without paraview):
+\subsubsection macOS On macOS with GUI (graphical interface without paraview):
 
 On host :
-- configure xquartz (or xauth for linux?)
+- configure xquartz
     - install xquartz to allow network connection
     - in Xquartz : Go to Preferences > Security
     - and Check "allow connections from network clients"
-    - in a terminal : IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') && xhost + $IP
-- launch/initiate docker :
+    - in a terminal : 
+\verbatim
+    IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+    xhost + $IP
+\endverbatim
+- initiate docker :
 \verbatim
     docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_v2106" --workdir="/home/sudofoam" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
 \endverbatim
-Please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir.
-- start an image (if existing and not running) :
+Please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
+
+\subsubsection windows On Windows with GUI (graphical interface without paraview):
+- configure Docker Engine for windows (with all system requirements : WSL2, step 1-5 from https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- configure vcxsrv : https://sourceforge.net/projects/vcxsrv/ (disable access control in extra settings)
+- Get your IP and set DISPLAY variable :
+\verbatim
+    set-variable -name DISPLAY -value YOUR-IP:0.0
+\endverbatim
+- initiate docker :
+\verbatim
+    docker run -it --net=host --env DISPLAY=$DISPLAY --name "sedfoam_v2106" --workdir="/home/sudofoam" -v="c:/mydataspace":/home/sudofoam/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
+\endverbatim
+Please adapt the directories to your configuration. In this example, "c:/mydataspace" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
+
+\subsubsection linux On linux with GUI (graphical interface without paraview):
+
+\verbatim
+    docker run -it --net=host --env DISPLAY=$DISPLAY --volume $XAUTH:/root/.Xauthority --name "sedfoam_v2106" --workdir="/home/sudofoam" -v="/home/users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
+\endverbatim
+Please adapt the directories to your configuration. In this example, "/home/users/toto" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
+
+\subsection start Start a container (if existing and not running) :
 \verbatim
     docker container start sedfoam_v2106
 \endverbatim
-- attach to a running image (if existing and running):
+\subsection attach Attach to a running container (if existing and running):
 \verbatim
     docker container attach sedfoam_v2106
 \endverbatim
 
-On container :
-- source the openfoam environment:
-source /openfoam/bash.rc 
-- hack and enjoy!
-The sedFoam files will be in /home/sudofoam and the solver is already compiled. Just test and use.
+Now hack and enjoy!
+The sedFoam files will be in /home/sudofoam and the solver is already compiled. Note that the bashrc file from openfoam is here : /openfoam/bash.rc
 
-\subsection linux On linux with GUI (graphical interface without paraview):
-
-- launch/initiate docker :
-\verbatim
-    docker run -it --net=host --env DISPLAY=$DISPLAY --volume $XAUTH:/root/.Xauthority --name "sedfoam_v2106" --workdir="/home/sudofoam" -v="/home/users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_v2106_ubuntu" /bin/bash
-\endverbatim
-Please adapt the directories to your configuration. In this example, "/home/users/toto" will be mounted on the vm in /home/sudofoam/workingDir.
-- start an image (if existing and not running) :
-\verbatim
-     docker container start sedfoam_v2106
-\endverbatim
-- attach to a running image (if existing and running):
-\verbatim
-     docker container attach sedfoam_v2106
-\endverbatim
-
-On container :
-- source the openfoam environment:
-source /openfoam/bash.rc 
-- hack and enjoy!
-The sedFoam files will be in /home/sudofoam and the solver is already compiled. Just test and use.
 
 */
