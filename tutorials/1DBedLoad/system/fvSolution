@@ -80,6 +80,7 @@ PIMPLE
     nAlphaCorr      1;
     pRefCell        0;
     pRefValue       0;
+    faceMomentum    true;
 }
 
 relaxationFactors

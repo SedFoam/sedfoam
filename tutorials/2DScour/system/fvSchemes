@@ -38,6 +38,8 @@ divSchemes
     div(phib,Ub)    Gauss linearUpwind grad(Ub);
     div(phiRa,Ua)   Gauss linear;
     div(phiRb,Ub)   Gauss linear;
+    div(Rca)        Gauss linear;
+    div(Rcb)        Gauss linear;
 // pEqn
     div(alpha,nu)   Gauss linear;
 // k and EpsilonEqn

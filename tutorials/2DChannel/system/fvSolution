@@ -116,6 +116,7 @@ PIMPLE
     nNonOrthogonalCorrectors 0;
     correctAlpha    0;
     nAlphaCorr      0;
+    faceMomentum    true;
 }
 
 // ************************************************************************* //

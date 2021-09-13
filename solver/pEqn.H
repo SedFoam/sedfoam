@@ -303,11 +303,11 @@ License
                 //       using updated semi-implicit drag
                 Ua = U + beta*Ur;
                 Ua.correctBoundaryConditions();
-                //fvOptions.correct(Ua);
+                fvOptions.correct(Ua);
 
                 Ub = U - alpha*Ur;
                 Ub.correctBoundaryConditions();
-                //fvOptions.correct(Ub);
+                fvOptions.correct(Ub);
 
                 // Compute total pressure including hydrostatic contribution
                 p = p_rbgh + rhob*gh;

@@ -59,11 +59,13 @@ fvVectorMatrix UaEqn
   - fvm::Sp(fvc::div(phiRa), Ua)
     ==
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
-  //    + fvOptions(Ua)
+  + fvOptions(alpha, Ua)  
 );
 UaEqn.relax();
 UaEqn += fvm::Sp(beta/rhoa*K, Ua);
-//fvOptions.constrain(UaEqn());
+fvOptions.constrain(UaEqn);
+Ua.correctBoundaryConditions();
+fvOptions.correct(Ua);
 
 // Compute concentration gradient stress contribution on cell faces for phase b
 surfaceScalarField phiRb
@@ -86,7 +88,11 @@ fvVectorMatrix UbEqn
   - fvm::Sp(fvc::div(phiRb), Ub)
     ==
     alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift and added mass forces
-//  + fvOptions(Ub)
+  + fvOptions(beta, Ub)
 );
 UbEqn.relax();
 UbEqn += fvm::Sp(alpha/rhob*K, Ub);
+fvOptions.constrain(UbEqn);
+Ub.correctBoundaryConditions();
+fvOptions.correct(Ub);
+

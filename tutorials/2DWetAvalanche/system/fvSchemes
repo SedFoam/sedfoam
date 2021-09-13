@@ -36,7 +36,8 @@ divSchemes
     div(phib,Ub)    Gauss limitedLinearV 1;
     div(phiRa,Ua)   Gauss limitedLinear 1;
     div(phiRb,Ub)   Gauss limitedLinear 1;
-    
+    div(Rca)        Gauss linear;
+    div(Rcb)        Gauss linear;    
 //alphaPlastic_Eqn    
     div(phia,alphaPlastic)   Gauss limitedLinear01 1;
 //ShearInduced_Eqn
