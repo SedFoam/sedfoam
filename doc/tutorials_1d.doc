@@ -28,10 +28,10 @@ Like in OpenFOAM, cases are setup by editing case files using a text editor such
 
 OpenFOAM always operates in a 3 dimensional Cartesian coordinate system and all geometries are generated in 3 dimensions. OpenFOAM solves the case in 3 dimensions by default but can be instructed to solve in 2 dimensions by specifying a ‘special’ empty boundary condition on boundaries normal to the (3rd) dimension for which no solution is required. In 2 dimensions, the directions x and y are always chosen even if the mesh is given in the x-z plane.
 
-The sedimentation domain consists of a square of side length L = 0.006 m in the x–y plane and of height h=0.06 m in the vertical direction z. The side length is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 100 cells will be used. The block structure is shown in Figure 1.
+The sedimentation domain consists of a square of side length L = 0.0006 m in the x–y plane and of height h=0.06 m in the vertical direction z. The side length is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 120 cells will be used. The block structure is shown in Figure 1.
 
-@image html "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
-@image latex "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
+@image html "thumb-Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
+@image latex "thumb-Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
 
 
 
