@@ -42,7 +42,8 @@ divSchemes
     div(phiRb,Ub)   Gauss linear;
 //    div(phiRa,Ua)   Gauss upwind phi;
 //    div(phiRb,Ub)   Gauss upwind phi;
-
+    div(Rca)        Gauss linear;
+    div(Rcb)        Gauss linear;
 // pEqn
     div(alpha,nu) Gauss linear;
 // k and EpsilonEqn

@@ -36,6 +36,8 @@ divSchemes
     div(phib,Ub)    Gauss limitedLinearV 1;
     div(phiRa,Ua)   Gauss limitedLinear 1;
     div(phiRb,Ub)   Gauss limitedLinear 1;
+    div(Rca)        Gauss linear;
+    div(Rcb)        Gauss linear;
 // pEqn
     div(alpha,nu)   Gauss linear;
 // alphaPlastic
