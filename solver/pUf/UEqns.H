@@ -91,7 +91,7 @@ fvVectorMatrix UaEqn
 //  - gradPf                  // contact pressure gradient moved to p-equation
   - fvc::grad(pff)/(rhoa*(alpha + alphaSmall))
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
-  + fvOptions(alpha, Ua)  
+  + fvOptions(alpha, Ua)
 );
 UaEqn.relax();
 UaEqn += fvm::Sp(beta/rhoa*K, Ua);
