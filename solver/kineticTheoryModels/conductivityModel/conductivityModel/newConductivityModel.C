@@ -37,7 +37,7 @@ Foam::autoPtr<Foam::conductivityModel> Foam::conductivityModel::New
     Info<< "Selecting conductivityModel "
         << conductivityModelType << endl;
 
-    dictionaryConstructorTable::iterator cstrIter =
+    auto cstrIter =
         dictionaryConstructorTablePtr_->find(conductivityModelType);
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())

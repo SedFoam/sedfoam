@@ -35,7 +35,7 @@ Foam::granularRheologyModels::PPressureModel::New
     Info<< "Selecting PPressureModel "
         << PPressureModelType << endl;
 
-    dictionaryConstructorTable::iterator cstrIter =
+    auto cstrIter =
         dictionaryConstructorTablePtr_->find(PPressureModelType);
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())

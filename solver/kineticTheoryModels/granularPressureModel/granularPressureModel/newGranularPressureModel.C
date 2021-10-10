@@ -37,7 +37,7 @@ Foam::autoPtr<Foam::granularPressureModel> Foam::granularPressureModel::New
     Info<< "Selecting granularPressureModel "
         << granularPressureModelType << endl;
 
-    dictionaryConstructorTable::iterator cstrIter =
+    auto cstrIter =
         dictionaryConstructorTablePtr_->find(granularPressureModelType);
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())
