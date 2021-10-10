@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Install vera++
           command: >
-            apt-get install -y ca-certificates && apt-get update &&
+            apt-get update &&
             apt-get install -y ca-certificates git vera++
 
       - run:
@@ -52,6 +52,8 @@ jobs:
       - run:
           name: Install docs packages
           command: >
+            rm /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt &&
+            update-ca-certificates &&
             apt-get update && apt-get -y install ca-certificates git python3-pip dvisvgm libclang-9-dev &&
             apt-get -y install ack-grep libclang-cpp9 wget graphviz tex-gyre texlive-base &&
             apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended
@@ -195,6 +197,8 @@ jobs:
       - run:
           name: pull submodules
           command: >
+            rm /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt &&
+            update-ca-certificates &&
             apt-get update && apt-get -y install ca-certificates git &&
             shopt -s expand_aliases &&
             git submodule init &&
@@ -219,6 +223,8 @@ jobs:
           name: Install python3 packages
           command: >
             shopt -s expand_aliases &&
+            rm /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt &&
+            update-ca-certificates &&
             apt-get update && apt-get -y install python3 &&
             apt-get -y install python3-pip &&
             pip3 install fluidfoam
@@ -257,7 +263,10 @@ jobs:
       - run:
           name: Install python3 packages
           command: >
-            shopt -s expand_aliases && apt-get update &&
+            shopt -s expand_aliases &&
+            rm /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt &&
+            update-ca-certificates &&
+            apt-get update &&
             apt-get -y install python3 python3-pip &&
             pip3 install fluidfoam
 
@@ -285,7 +294,10 @@ jobs:
       - run:
           name: Install python3 packages
           command: >
-            shopt -s expand_aliases && apt-get update &&
+            shopt -s expand_aliases &&
+            rm /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt &&
+            update-ca-certificates &&
+            apt-get update &&
             apt-get -y install python3 python3-pip &&
             pip3 install fluidfoam
 
@@ -323,7 +335,10 @@ jobs:
       - run:
           name: Install python3 packages
           command: >
-            shopt -s expand_aliases && apt-get update &&
+            shopt -s expand_aliases &&
+            rm /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt &&
+            update-ca-certificates &&
+            apt-get update &&
             apt-get -y install python3 python3-pip &&
             pip3 install fluidfoam
 
