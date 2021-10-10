@@ -59,7 +59,7 @@ fvVectorMatrix UaEqn
   - fvm::Sp(fvc::div(phiRa), Ua)
     ==
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
-  + fvOptions(alpha, Ua)  
+  + fvOptions(alpha, Ua)
 );
 UaEqn.relax();
 UaEqn += fvm::Sp(beta/rhoa*K, Ua);
@@ -95,4 +95,3 @@ UbEqn += fvm::Sp(alpha/rhob*K, Ub);
 fvOptions.constrain(UbEqn);
 Ub.correctBoundaryConditions();
 fvOptions.correct(Ub);
-
