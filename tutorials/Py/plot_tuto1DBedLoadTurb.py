@@ -104,5 +104,5 @@ ax.set_yticklabels([])
 
 plt.savefig('Figures/res_TutoBedloadTurb.png', bbox_inches='tight')
 
-plt.show(block=False)
+plt.show(block=True)
 
