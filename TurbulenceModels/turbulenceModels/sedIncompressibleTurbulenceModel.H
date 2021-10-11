@@ -127,6 +127,9 @@ public:
 
         //- Return the source term for the momentum equation
         virtual tmp<fvVectorMatrix> divDevRhoReff(volVectorField& U) const;
+        
+        //virtual tmp<Foam::volScalarField> spherSigmaSGS() const;
+
 };
 
 
