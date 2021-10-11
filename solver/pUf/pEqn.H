@@ -36,7 +36,7 @@ License
 
     // Interpolate inverse matrix for momentum balance of phase a and b
     //     at cell faces
-    rUaAf = fvc::interpolate(rUaA);
+    surfaceScalarField rUaAf(fvc::interpolate(rUaA));
     surfaceScalarField rUbAf(fvc::interpolate(rUbA));
 
     // interpolate 1/(alpha+alphaSmall) on the faces
