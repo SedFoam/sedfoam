@@ -149,10 +149,10 @@ partDynamicLagrangian<BasicTurbulenceModel>::partDynamicLagrangian
             this->runTime_.timeName(),
             this->mesh_,
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         this->mesh_,
-        0.0
+        dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
     ),
     /*
     LHMx_
@@ -520,7 +520,7 @@ void partDynamicLagrangian<BasicTurbulenceModel>::correct()
     volSymmTensorField Sf(dev(symm(fvc::grad(Uf))));
     volScalarField magSf(mag(Sf));
     volScalarField magSqrSf(magSqr(Sf));
-
+    
     volSymmTensorField L(dev(filter_(sqr(U)) - (sqr(filter_(U)))));
     volSymmTensorField M
     (
@@ -544,13 +544,11 @@ void partDynamicLagrangian<BasicTurbulenceModel>::correct()
       - fvm::Sp(invT, flma_)
       + fvOptions(alpha, rho, flma_)
     );
-
     flmEqn.relax();
     fvOptions.constrain(flmEqn);
     flmEqn.solve();
     fvOptions.correct(flma_);
     bound(flma_, flma0_);
-
     volScalarField MM(M && M);
 
     fvScalarMatrix fmmEqn

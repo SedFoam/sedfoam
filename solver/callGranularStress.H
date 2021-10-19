@@ -90,7 +90,7 @@ if (kineticTheory.on())
     nuEffb = nub + turbulenceb->nut();
 
     // Update solid phase viscosities and collisional pressure
-    nuEffa = kineticTheory.mua()/((alpha + alphaSmall)*rhoa);
+    nuEffa = kineticTheory.mua()/((alpha + alphaSmall)*rhoa) + turbulencea->nut();
     lambdaUa = kineticTheory.lambda();
     pa = kineticTheory.pa();
 
@@ -129,7 +129,7 @@ else if (granularRheology.on())
 // in UaEqn
     nuFra = granularRheology.mua()/ rhoa;
 
-    nuEffa = sqr(Ct)*turbulenceb->nut() + nua;
+    nuEffa = sqr(Ct)*turbulenceb->nut() + nua + turbulencea->nut();
     lambdaUa = nua*rhoa*scalar(0.0);
 
 // Compute nuEffb the total fluid phase viscosity
@@ -148,7 +148,7 @@ else
     // set pa and nuFra to zero if kineticTheory and granularRheology are off
     pa = pa*scalar(0.0);
     nuFra = nua*scalar(0.0);
-    nuEffa = nua;
+    nuEffa = nua + turbulencea->nut();
     lambdaUa = nua*rhoa*scalar(0.0);
 }
 // Add a numerical viscosity to damp the instabilities close to the outlet

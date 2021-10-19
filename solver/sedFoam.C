@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
 
     #include "readGravity.H"
     #include "createFields.H"
-    #include "createRASTurbulence.H"
+    #include "createTurbulence.H"
     #include "createFvOptions.H"
 
     #include "initContinuityErrs.H"
@@ -174,8 +174,12 @@ int main(int argc, char *argv[])
             if (pimple.turbCorr())
             {
 //              Solve for turbulence models
-                #include "updateTwoPhaseRASTurbulence.H"
+                #include "updateTwoPhaseTurbulence.H"
                 turbulenceb->correct();
+                //spherSigmaSGSb = turbulenceb->spherSigmaSGS();
+                
+                turbulencea->correct();
+                //spherSigmaSGSa = turbulencea->spherSigmaSGS();
 
                 if (debugInfo)
                 {
