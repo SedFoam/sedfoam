@@ -129,7 +129,7 @@ public:
         virtual tmp<fvVectorMatrix> divDevRhoReff(volVectorField& U) const;
         
         //- Return the spherical part of the subgrid scale stress tensor 
-        //virtual tmp<Foam::volScalarField> spherSigmaSGS();
+        virtual tmp<Foam::volScalarField> spherSigmaSGS();
 
 };
 

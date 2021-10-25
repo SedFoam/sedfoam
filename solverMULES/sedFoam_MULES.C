@@ -88,6 +88,7 @@ int main(int argc, char *argv[])
     #include "createTimeControls.H"
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
+    #include "createFavreAveraging.H"
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     // Test on SUSlocal
@@ -177,6 +178,10 @@ int main(int argc, char *argv[])
 //              Solve for turbulence models
                 #include "updateTwoPhaseTurbulence.H"
                 turbulenceb->correct();
+                //spherSigmaSGSb = turbulenceb->spherSigmaSGS();
+                
+                turbulencea->correct();
+                //spherSigmaSGSa = turbulencea->spherSigmaSGS();
 
                 if (debugInfo)
                 {

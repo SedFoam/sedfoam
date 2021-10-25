@@ -46,7 +46,8 @@ nuFraExp.correctBoundaryConditions();
 volTensorField Rca
 (
     "Rca",
-    ((2.0/3.0)*I)*(nuEffa+nuFraExp/(alpha+alphaSmall))*tr(gradUaT)
+    ((2.0/3.0)*I)*((nuEffa+nuFraExp/(alpha+alphaSmall))*tr(gradUaT) 
+    + spherSigmaSGSa)
     - (nuEffa+nuFraExp/(alpha+alphaSmall))*gradUaT
 );
 
@@ -103,7 +104,7 @@ fvOptions.correct(Ua);
 volTensorField Rcb
 (
     "Rcb",
-    ((2.0/3.0)*I)*nuEffb*tr(gradUbT)
+    ((2.0/3.0)*I)*(nuEffb*tr(gradUbT) + spherSigmaSGSb)
     - nuEffb*gradUbT
 );
 // Compute concentration gradient stress contribution on cell faces for phase b

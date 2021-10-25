@@ -151,7 +151,7 @@ public:
         //- Construct from components
         twophasekEpsilon
         (
-            const alphaField& alpha,
+            const alphaField& beta,
             const rhoField& rho,
             const volVectorField& U,
             const surfaceScalarField& alphaRhoPhi,

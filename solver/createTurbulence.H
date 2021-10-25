@@ -22,7 +22,8 @@ License
 
 singlePhaseTransportModel phaseaTransport(Ua, phia);
 
-surfaceScalarField alphacf("alphacf", fvc::interpolate(alpha));
+volScalarField alphaEff = alpha+10*alphaSmall;
+surfaceScalarField alphacf("alphacf", fvc::interpolate(alphaEff));
 surfaceScalarField alphaPhia("alphaPhiac", alphacf*phia);
 
 autoPtr<sedIncompressibleTurbulenceModel<singlePhaseTransportModel>>
@@ -30,7 +31,7 @@ turbulencea
 (
     sedIncompressibleTurbulenceModel<singlePhaseTransportModel>::New
     (
-        beta,
+        alphaEff,
         Ua,
         alphaPhia,
         phia,
@@ -102,7 +103,7 @@ volScalarField nuEffb
     dimensionedScalar("zero", dimensionSet(0, 2, -1, 0, 0), 0.0)
 );
 
-/*volScalarField spherSigmaSGSb
+volScalarField spherSigmaSGSb
 (
     IOobject
     (
@@ -128,4 +129,4 @@ volScalarField spherSigmaSGSa
     ),
     mesh,
     dimensionedScalar("zero", dimensionSet(0, 2, -2, 0, 0), 0.0)
-);*/
+);

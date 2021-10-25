@@ -182,11 +182,11 @@ Foam::sedIncompressibleTurbulenceModel<TransportModel>::divDevRhoReff
     return divDevReff(U);
 }
 
-/*template<class TransportModel>
+template<class TransportModel>
 Foam::tmp<Foam::volScalarField>
 Foam::sedIncompressibleTurbulenceModel<TransportModel>::
 spherSigmaSGS()
 {
     return spherSigmaSGS();
-}*/
+}
 // ************************************************************************* //

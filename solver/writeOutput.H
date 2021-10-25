@@ -18,6 +18,11 @@ License
     You should have received a copy of the GNU General Public License
     along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 \*---------------------------------------------------------------------------*/
+
+if (favreAveraging)
+{
+    #include "calcFavreAverage.H"
+}
 if (runTime.outputTime())
 {
     if (writeTau == 1)
