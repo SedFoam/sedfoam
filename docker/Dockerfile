@@ -2,8 +2,7 @@ FROM opencfd/openfoam2106-default
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
-RUN rm /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt \
-  && update-ca-certificates && apt-get update \
+RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
   git python3 python3-pip unzip python ipython3 \
   mercurial libreadline-dev vim nano emacs neovim \
