@@ -16,3 +16,11 @@ EXE_INC = \
     -I$(LIB_SRC)/TurbulenceModels/phaseIncompressible/lnInclude \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude
+
+LIB_LIBS = \
+    -lfiniteVolume \
+    -lmeshTools \
+    -lcompressibleTransportModels \
+    -lincompressibleTransportModels \
+    -lturbulenceModels \
+    -lincompressibleTurbulenceModels
