@@ -119,11 +119,23 @@ public:
         //- Return the effective stress tensor
         virtual tmp<volSymmTensorField> devReff() const;
 
+        //- Return the effective stress tensor based on a given velocity field
+        virtual tmp<volSymmTensorField> devReff
+        (
+            const volVectorField& U
+        ) const;
+
         //- Return the source term for the momentum equation
         virtual tmp<fvVectorMatrix> divDevReff(volVectorField& U) const;
 
         //- Return the effective stress tensor
         virtual tmp<volSymmTensorField> devRhoReff() const;
+
+        //- Return the effective stress tensor based on a given velocity field
+        virtual tmp<volSymmTensorField> devRhoReff
+        (
+            const volVectorField& U
+        ) const;
 
         //- Return the source term for the momentum equation
         virtual tmp<fvVectorMatrix> divDevRhoReff(volVectorField& U) const;
