@@ -84,7 +84,7 @@ print("max(uex)=" + str(np.max(uex)) + " m/s")
 #########################################
 #
 case = '1DBedLoad'
-basepath = '../'
+basepath = '../laminar/'
 # basepath='../../'
 sol = basepath + case + '/'
 

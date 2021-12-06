@@ -52,7 +52,7 @@ beta = 26*np.pi/180.
 # Loading OpenFoam results
 #########################################
 case = '1DAvalancheMuI/'
-basepath = '../'
+basepath = '../laminar/'
 sol = basepath + case + '/'
 
 #

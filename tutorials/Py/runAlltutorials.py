@@ -9,10 +9,10 @@ import os,sys,time,subprocess
 import numpy as np
 
 #
-#caseList = ['1DSedim','1DBedLoad',...
-#            '1DAvalancheMuI','1DSimpleShear','1DBoundaryLayer',...
-#            '2DChannel','1DSheetFlow']
-caseList = ['1DSedim','1DBedLoad']
+#caseList = ['laminar/1DSedim','laminar/1DBedLoad',...
+#            'laminar/1DAvalancheMuI','RAS/1DBoundaryLayer',...
+#            'RAS/2DChannel','RAS/1DSheetFlow']
+caseList = ['laminar/1DSedim','laminar/1DBedLoad']
 
 action = "run"
 #action = "clean"

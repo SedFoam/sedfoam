@@ -95,7 +95,7 @@ PpMuI = PpMuI * drho * g * D
 
 #
 case = '1DBedLoad'
-basepath = '../'
+basepath = '../laminar/'
 # basepath='../../'
 sol = basepath + case + '/'
 

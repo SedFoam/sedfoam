@@ -21,7 +21,7 @@ delta=sqrt(viscof*T0/pi)
 #
 # Loading OpenFoam results
 #
-mypath='../'
+mypath='../RAS/'
 
 #
 #  Solution folder

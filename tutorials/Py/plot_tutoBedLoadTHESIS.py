@@ -81,7 +81,7 @@ print("max(uex)=" + str(np.max(uex)) + " m/s")
 # Loading OpenFoam results
 #########################################
 case = '1DSedim'
-basepath = '../'
+basepath = '../laminar/'
 sol = basepath + case + '/'
 
 tread = 'latestTime'

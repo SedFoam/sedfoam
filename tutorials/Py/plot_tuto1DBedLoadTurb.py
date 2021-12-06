@@ -32,7 +32,7 @@ zDEM, phiDEM, vxPDEM, vxFDEM, TDEM = np.loadtxt('DATA/BedloadTurbDEM.txt', unpac
 ######################
 #Read SedFoam results
 ######################
-sol = '../1DBedLoadTurb/'
+sol = '../RAS/1DBedLoadTurb/'
 try:
     proc = subprocess.Popen(
             ["foamListTimes", "-latestTime", "-case", sol],
