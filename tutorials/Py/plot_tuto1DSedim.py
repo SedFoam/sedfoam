@@ -42,7 +42,7 @@ exec(open("DATA/exp_lmsgc.py").read())
 #
 #
 case = '1DSedim'
-basepath = '../'
+basepath = '../laminar/'
 sol = basepath + case + '/'
 
 Nx = 1

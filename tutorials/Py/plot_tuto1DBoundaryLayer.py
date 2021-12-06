@@ -21,7 +21,7 @@ figheight=9
 #
 #---------------Loading OpenFoam results--------------------
 #
-basepath='../'
+basepath='../RAS/'
 
 
 #

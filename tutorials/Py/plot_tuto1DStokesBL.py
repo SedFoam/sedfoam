@@ -19,7 +19,7 @@ delta=sqrt(viscof*T0/pi)
 
 # Loading OpenFoam results
 #
-mypath='../'
+mypath='../laminar/'
 #
 #  Solution folder
 #

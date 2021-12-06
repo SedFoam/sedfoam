@@ -36,7 +36,7 @@ def max_depth(case, t0, tfinal, dt, xi, yi):
 
 
 # Case information
-case = '../2DPipelineScour/'
+case = '../RAS/2DPipelineScour/'
 
 # Number of division for linear interpolation
 ngridx = 500

@@ -22,7 +22,7 @@ This tutorial will describe how to pre-process, run and post-process a case corr
 
 \subsection preproc Pre-processing
 
-Like in OpenFOAM, cases are setup by editing case files using a text editor such as atome, vscode/vscodium, emacs, vi, gedit, nedit, etc. The I/O uses a dictionary format with keywords. A case involves data for mesh, fields, properties, control parameters, etc  that are stored in a set of files within a case directory rather than in a single case file. The case directory is given a suitably descriptive name. This tutorial consists of a set of cases located in the SedFoam distribution under the folder *sedFoamDirectory/tutorials/1DSedim*.
+Like in OpenFOAM, cases are setup by editing case files using a text editor such as atome, vscode/vscodium, emacs, vi, gedit, nedit, etc. The I/O uses a dictionary format with keywords. A case involves data for mesh, fields, properties, control parameters, etc  that are stored in a set of files within a case directory rather than in a single case file. The case directory is given a suitably descriptive name. This tutorial consists of a set of cases located in the SedFoam distribution under the folder *sedFoamDirectory/tutorials/laminar/1DSedim*.
 
 \paragraph meshgen Mesh generation
 
@@ -588,7 +588,7 @@ flow driven by a pressure gradient in a horizontal channel. This situation has b
 
 \subsection preprocBL Pre-processing
 
-This tutorial is distributed with sedFoam3.0 under the folder *sedFoamDirectory/tutorials/1DBedLoad*.
+This tutorial is distributed with sedFoam under the folder *sedFoamDirectory/tutorials/laminar/1DBedLoad*.
 
 \paragraph meshgenBL Mesh generation
 
@@ -767,15 +767,15 @@ that results in the following figures:
 
 \section BedLoadTurb 1DBedloadTurb: Turbulent bedload transport
 
-The aim of this tutorial is to reproduce, with sedFOAM, coupled fluid-discrete element method (DEM) simulations of turbulent bedload transport. In DEM simulations, the motion of each particles is solved individually. The source code is YADE (Smilauer et al. 2015) and the coupling with the fluid phase presented in Maurin et al. (2015). Averaged quantities are computed in the DEM (packing fraction, particle velocity, …) which will be considered as a basis to compare with the sedFoam code.
-First the \f$\mu(Iv)\f$ rheology for bedload transport of Maurin et al. (2016) will be used. Another possibility is to use the Kinetic Theory of granular gas to close the particle stresses. We will show how this can be done in sedfoam.
+The aim of this tutorial is to reproduce, with SedFoam, coupled fluid-discrete element method (DEM) simulations of turbulent bedload transport. In DEM simulations, the motion of each particles is solved individually. The source code is YADE (Smilauer et al. 2015) and the coupling with the fluid phase presented in Maurin et al. (2015). Averaged quantities are computed in the DEM (packing fraction, particle velocity, …) which will be considered as a basis to compare with the sedFoam code.
+First the \f$\mu(Iv)\f$ rheology for bedload transport of Maurin et al. (2016) will be used. Another possibility is to use the Kinetic Theory of granular gas to close the particle stresses. We will show how this can be done in SedFoam.
 
 @image html "DEM_setup.png" "Figure 5: Turbulent bedload simulation with coupled fluid-DEM simulation.  " width=600px
 @image latex "DEM_setup.png" "Figure 5: Turbulent bedload simulation with coupled fluid-DEM simulation."
 
 \subsection preprocBLTurb Pre-processing
 
-This tutorial is distributed with sedFoam3.0 under the folder *sedFoamDirectory/tutorials/1DBedLoadTurb*.
+This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/RAS/1DBedLoadTurb*.
 
 \paragraph meshgenBLTurb Mesh generation
 
@@ -997,7 +997,7 @@ Numerical results are contrasted with the analytical solution (Bagnold's solutio
 \subsection preprocAva Pre-processing
 
 
-This tutorial is distributed with sedFoam5.0 under the folder *sedFoamDirectory/tutorials/1DAvalancheMuI*.
+This tutorial is distributed with sedFoam5.0 under the folder *sedFoamDirectory/tutorials/laminar/1DAvalancheMuI*.
 
 \paragraph meshgenAva Mesh generation
 
@@ -1182,7 +1182,7 @@ of the granular medium that modifies the pore space.  Consequently,  negative (d
 \subsection preprocWetAva Pre-processing
 
 
-This tutorial is distributed with sedFoam5.0 under the folder *sedFoamDirectory/tutorials/1DWetAvalanche*.
+This tutorial is distributed with sedFoam5.0 under the folder *sedFoamDirectory/tutorials/laminar/1DWetAvalanche*.
 
 
 \paragraph PhysPropWetAva Physical properties
@@ -1357,7 +1357,7 @@ In this test case, tturbulence model k-omega (Wilcox, 1988) is validated for a s
 @image latex "Sketch1DBoundaryLayer.png" "Figure 13: Sketch of the numerical domain for the boudary layer shear flow configuration"
 
 
-This tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/1DBoundaryLayer.
+This tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/RAS/1DBoundaryLayer.
 
 The domain is divided in 64 elements, with a cell expansion ratio of 1.026 along the vertical direction (the ratio between the first cell and the last cell is equal to 10). For such mesh the normalized distance to the wall from the first cell is \f$z^+=z u_\tau/\nu=1\f$ with \f$u_\tau\f$ the bottom friction velocity and \f$\nu\f$ the fluid viscosity.
 
@@ -1439,7 +1439,7 @@ In this tutorial, the turbulent flow over a flat erodible bed drives sediment tr
 
 \subsection preprocSF Pre-processing
 
-This tutorial is distributed with sedFoam under the folder *sedFoamDirectory/tutorials/1DSheetFlow*.
+This tutorial is distributed with sedFoam under the folder *sedFoamDirectory/tutorials/RAS/1DSheetFlow*.
 
 \paragraph meshgenSF Mesh generation
 

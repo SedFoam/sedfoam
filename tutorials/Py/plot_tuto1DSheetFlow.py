@@ -77,7 +77,7 @@ Ustarexp = 0.05
 #
 # Loading OpenFoam results
 #
-basepath = '../'
+basepath = '../RAS/'
 
 Nx = 1
 Ny = 400

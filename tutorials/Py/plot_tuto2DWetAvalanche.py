@@ -76,7 +76,7 @@ pressure_592 = data1['pressure']/pressureAdim
 #########################################
 # Loading SedFoam results
 #########################################
-sol =  '../2DWetAvalanche'
+sol =  '../laminar/2DWetAvalanche'
 
 try:
     proc = subprocess.Popen(

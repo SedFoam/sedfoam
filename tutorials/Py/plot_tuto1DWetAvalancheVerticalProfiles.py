@@ -31,7 +31,7 @@ pressureAdim=rhoFluid*h*gravity
 # Loading SedFoam results
 #########################################
 
-sol =  '../1DWetAvalanche'
+sol =  '../laminar/1DWetAvalanche'
 X,Y,Z = fluidfoam.readmesh(sol)
 tolAlpha=0.55
 
