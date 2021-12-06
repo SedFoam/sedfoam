@@ -18,7 +18,7 @@ is simplified and sketched in figure 1.
 
 \subsection preprocSA Pre-processing
 
-This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/2DScourApron*.
+This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/RAS/2DScour*.
 
 \subsection meshgenSA Mesh generation
 
@@ -210,7 +210,7 @@ In this tutorial, the experimental configuration investigating scour under a sub
 
 \subsection preprocSP Pre-processing
 
-This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/2DPipelineScour*.
+This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/RAS/2DPipelineScour*.
 
 \subsection meshgen_SP Mesh generation
 
@@ -364,7 +364,7 @@ of the granular medium that modifies the pore space.  Consequently,  negative (d
 
 \subsection preprocSA Pre-processing
 
-This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/2DWetAvalanche*.
+This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/laminar/2DWetAvalanche*.
 
 
 \subsection sediment1DwetAva 1D Deposition process
