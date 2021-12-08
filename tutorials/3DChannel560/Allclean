@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Remove the mesh
+foamCleanPolyMesh
+
+# Remove time folders
+foamListTimes -rm
+
+# Remove processor directories
+rm -rf  processor* dynamicCode
+
+# Remove logs
+rm  gradPOSC.txt log

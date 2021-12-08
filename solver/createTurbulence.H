@@ -59,6 +59,30 @@ turbulenceb
     )
 );
 
+IOdictionary turbulencePropertiesa
+(
+    IOobject
+    (
+        "turbulenceProperties.phasea",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::NO_WRITE
+    )
+);
+
+IOdictionary turbulencePropertiesb
+(
+    IOobject
+    (
+        "turbulenceProperties.phaseb",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::NO_WRITE
+    )
+);
+
 Info<< "Calculating field nuEffa\n" << endl;
 volScalarField nuEffa
 (

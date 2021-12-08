@@ -1,0 +1,66 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     sedFoam_rbgh;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+//endTime         40;
+endTime         520;
+
+deltaT          2e-4;
+
+writeControl    runTime;
+
+writeInterval   0.5;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+maxAlphaCo  1;
+
+favreAveraging true;
+
+functions
+{
+    uTau
+    {
+        type patchExpression;
+        patches ( bottomWall topWall);
+        outputControlMode timeStep;
+        outputInterval 1;
+        expression "sqrt((nu+nut)*mag(snGrad(Ub)))";
+        verbose true;
+        accumulations ( average );
+    }
+}
+// ************************************************************************* //
