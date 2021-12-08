@@ -38,8 +38,6 @@ if(fin.fail()){
 	inFileTot.open("ForceTotFile.txt", std::ios_base::app);
 	inFileTot <<  "Time" << tab << "FCont_x" << tab << "FCont_y" << tab << "FCont_z" << tab << "FCol_x" << tab << "FCol_y" << tab << "FCol_z" << tab  << "FShear_x" << tab << "FShear_y" << tab << "FShear_z"<< "\n";
 	inFileTot.close ();
-	
-
 } 
 
 label Patchid=mesh.boundaryMesh().findPatchID("cylinder");
@@ -106,15 +104,15 @@ if (runTime.outputTime())
 		//volTensorField TauaMod = Taua;
 		tensorField TauaMod = Taua.boundaryField()[Patchid].T();
 
-		forAll(TauaMod,cellI)
-		{
-			TauaMod[cellI].xx()=0;
-			TauaMod[cellI].yy()=0;
+		//forAll(TauaMod,cellI)
+		//{
+			//TauaMod[cellI].xx()=0;
+			//TauaMod[cellI].yy()=0;
 
-			//Taua.boundaryField()[Patchid][cellI][4]=0;
-			// Info << "TauaMod.boundaryField()[Patchid].xx()[cellI]: " << TauaMod[cellI]<< endl;
+			////Taua.boundaryField()[Patchid][cellI][4]=0;
+			//// Info << "TauaMod.boundaryField()[Patchid].xx()[cellI]: " << TauaMod[cellI]<< endl;
 
-		}
+		//}
 		
 
 	   //TauaMod.component(tensor::XX) = 0;
