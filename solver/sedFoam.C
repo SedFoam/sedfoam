@@ -155,11 +155,8 @@ int main(int argc, char *argv[])
             #include "callGranularStress.H"
 
 //          Assemble the momentum balance equations for both phases a and b
-//            #include "UEqns.H"
-
-//          Assemble and solve the pressure poisson equation
+//          And assemble and solve the pressure poisson equation
 //             and apply the velocity correction step for both phases a and b
-//            #include "pEqn.H"
             if (faceMomentum)
             {
                 #include "pUf/UEqns.H"
@@ -197,6 +194,7 @@ int main(int argc, char *argv[])
 //      Write output
         #include "OutputGradPOSC.H"
         #include "writeOutput.H"
+       //#include "writeLiftDragCoeff.H"
 
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
