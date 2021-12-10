@@ -1,8 +1,6 @@
 from netCDF4 import Dataset
-import subprocess
 import fluidfoam
 import numpy as np
-import sys
 
 
 case = '3DChannel560'
@@ -12,7 +10,7 @@ sol = basepath + case + '/'
 #
 # Reading SedFoam results
 #
-tread = '8.5'
+tread = '8'
 
 print('########## Writing averaged data file ##########')
 # Read vertical coordinates

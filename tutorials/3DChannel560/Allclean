@@ -6,6 +6,9 @@ foamCleanPolyMesh
 # Remove time folders
 foamListTimes -rm
 
+# Remove netCDF file
+rm -f postProcessing/*.nc
+
 # Remove processor directories
 rm -rf  processor* dynamicCode
 

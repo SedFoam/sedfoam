@@ -1,8 +1,8 @@
 from netCDF4 import Dataset
 import matplotlib.pyplot as plt
 import matplotlib
-import numpy as np
 import os
+
 
 case = '3DChannel560'
 basepath = '../'
@@ -38,7 +38,7 @@ ax2.grid(linestyle=':')
 # plot 3
 ax3 = plt.subplot(gs[0, 2])
 ax3.axis([0, 1e-2, 0, 1])
-ax3.set_xlabel(r"$\langle\tilde u^{f'} \tilde v^{f'}\rangle_F$, " \
+ax3.set_xlabel(r"$\langle\tilde u^{f'} \tilde v^{f'}\rangle_F$, "
                r"$\langle\tilde u^{s'} \tilde v^{s'}\rangle_F$")
 ax3.set_yticklabels([])
 ax3.grid(linestyle=':')
