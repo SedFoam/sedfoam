@@ -1,3 +1,0 @@
-blockMesh
-funkySetFields -time 0
-sedFoam >log &
