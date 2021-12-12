@@ -112,7 +112,6 @@ PIMPLE
     correctAlpha    yes;
 //    pRefCell        0;
 //    pRefValue       0;
-    faceMomentum    false;
 }
 
 

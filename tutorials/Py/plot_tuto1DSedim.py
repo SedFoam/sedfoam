@@ -41,7 +41,7 @@ exec(open("DATA/exp_lmsgc.py").read())
 #
 #
 #
-case = '1DSedim'
+case = '1DSimpleShear'
 basepath = '../laminar/'
 sol = basepath + case + '/'
 

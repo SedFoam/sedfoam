@@ -12,7 +12,7 @@
 <h2>Introduction</h2>
 This documentation describes the three-dimensional two-phase flow solver for sediment transport applications:  SedFoam. The solver is based on twoPhaseEulerFoam available in the official release of the open-source CFD software OpenFOAM (based on OF2.4). In this approach the sediment phase is modeled as a continuum, and constitutive laws have to be prescribed for the sediment stresses. In the proposed solver, two different inter-granular stress models are implemented: the kinetic theory of granular flows and the dense granular flow rheology &mu(I). For the fluid stress, laminar or turbulent flow regimes can be simulated and three different turbulence models are available for sediment transport: a simple mixing length model (one-dimensional configuration only), a &k-&epsilon and a &k-&omega model. 
 
-Different easy benchmarks/tutorials_1d are provided to illustrate the model capabilities: a sedimentation of spherical partiles at low Reynolds number, the laminar bed-load problem, the turbulent sheet-flow regime. Moreover some advanced multi-dimensional cases/tutorials_2d3d are proposed. The source code and tutorial cases are disseminated at the public website: https://github.com/sedfoam/sedfoam and detailed tutorial description.
+Different laminar flow benchmarks/tutorials_laminar are provided to illustrate the model capabilities e.g. a sedimentation of spherical partiles at low Reynolds number, the laminar bed-load problem as well as turbulent flow benchmarks/tutorials_RAS are proposed. The source code and tutorial cases are disseminated at the public website: https://github.com/sedfoam/sedfoam and detailed tutorial description.
 
 This manual is written as the documentation of the open-source solver sedFoam, it includes the installation procedure and a description of the model input/output files. 
 
@@ -31,8 +31,8 @@ The documentation is divided into two parts, the first one is the user manual:
 <li>Section \ref howtodocker provides a survival guide on how to use SedFoam docker
 <li>Section \ref governing describes sedFoam governing equations. 
 <li>Section \ref algoSedFoam describes sedFoam algorithm. 
-<li>Section \ref tutorials_1d describes the 1D tutorials provided with SedFoam sources including postprocessing using a python toolbox also provided with the source and the expected results.
-<li>Section \ref tutorials_2d3d describes the 2D and 3D tutorials provided with SedFoam sources
+<li>Section \ref tutorials_laminar describes the laminar flow tutorials provided with SedFoam sources including postprocessing using a python toolbox also provided with the source and the expected results.
+<li>Section \ref tutorials_RAS describes turbulent flow tutorials using RAS models provided with SedFoam sources
 <li>Section \ref publicationList list of publications using SedFoam
 <li>Section \ref inputs describes the input parameters for SedFoam 
 <li>Section \ref howtogit provides a survival guide on how to use git to use/develop sedFoam
