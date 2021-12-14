@@ -1,0 +1,89 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.2.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     sedFoam_rbgh;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         20;
+
+deltaT          2e-4;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.25;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+adjustTimeStep yes;
+
+maxCo          0.3;
+
+maxAlphaCo     0.3;
+
+maxDeltaT      1e-3;
+
+functions
+{
+probesVel
+{
+        type probes;
+
+        probeLocations
+        (
+                (0.0 0.129 0.0)
+                (0.0 0.055 0.0) 
+                (0.0 0.050 0.0)
+                (0.0 0.045 0.0)
+                (0.0 0.043 0.0)
+        );
+
+        fields
+        (
+            Ub
+            alpha_a
+        );
+};
+}
+
+
+libs (
+	"libOpenFOAM.so"
+	"libsimpleFunctionObjects.so"
+	"libsimpleSwakFunctionObjects.so"
+	"libswakFunctionObjects.so"
+        "libdynamicSmagorinskyModel.so"
+	);
+
+
+// ************************************************************************* //
