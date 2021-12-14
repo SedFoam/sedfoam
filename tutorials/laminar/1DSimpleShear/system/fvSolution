@@ -20,8 +20,8 @@ solvers
     p_rbgh
     {
         solver          GAMG;
-        tolerance       1e-06;
-        relTol          0.0001;
+        tolerance       1e-08;
+        relTol          0;
         smoother        DIC;
         nPreSweeps      0;
         nPostSweeps     2;
@@ -35,51 +35,22 @@ solvers
     p_rbghFinal
     {
         $p_rbgh;
-        tolerance       1e-6;
+        tolerance       1e-8;
         relTol          0;
     }
 
-    "(k|epsilon|omega|pa_new_value|alphaPlastic)"
+    "(alpha_a|Ua|Ub|Theta|pa_new_value)"
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-6;
-        relTol          0.001;
-    }
-
-    "(kFinal|epsilonFinal|omegaFinal|paFinal|alphaPlasticFinal)"
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-6;
+        tolerance       1e-10;
         relTol          0;
     }
-    alpha_a
+    "(alpha_aFinal|UaFinal|UbFinal|ThetaFinal|paFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-15;
-        relTol          0;
-    }
-    alpha_aFinal
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-15;
-        relTol          0;
-    }
-    Theta
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-6;
-        relTol          0;
-    }
-    ThetaFinal
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-6;
+        tolerance       1e-10;
         relTol          0;
     }
 }
@@ -87,11 +58,30 @@ solvers
 
 PIMPLE
 {
+    momentumPredictor 0;
     nOuterCorrectors  1;
     nCorrectors     1;
     nNonOrthogonalCorrectors 0;
-    correctAlpha    0;
+    correctAlpha    1;
     nAlphaCorr      1;
+    pRefCell        0;
+    pRefValue       0;
 }
+
+relaxationFactors
+{
+    fields
+    {
+        p_rbgh               0.3;
+    }
+    equations
+    {
+        Ua            0.7;
+        Ub            0.7;
+        k             0.9;
+        omega         0.9;
+    }
+}
+
 
 // ************************************************************************* //

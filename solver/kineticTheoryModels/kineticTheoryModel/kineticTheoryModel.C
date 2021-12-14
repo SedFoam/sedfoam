@@ -488,6 +488,9 @@ void Foam::kineticTheoryModel::solve
     mua_ = viscosityModel_->mua(alpha_, Theta_, gs0_, rhoa_, da_, e_);
     lambda_ = viscosityModel_->lambda(alpha_, Theta_, gs0_, rhoa_, da_, e_);
 
+    pa_.max(0.0);
+    pa_.correctBoundaryConditions();
+
     mua_.max(0.0);
     mua_.correctBoundaryConditions();
 
