@@ -50,7 +50,7 @@ void twophasekEpsilon<BasicTurbulenceModel>::correctNut()
 template<class BasicTurbulenceModel>
 twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
 (
-    const alphaField& alpha,
+    const alphaField& beta,
     const rhoField& rho,
     const volVectorField& U,
     const surfaceScalarField& alphaRhoPhi,
@@ -63,7 +63,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     eddyViscosity<RASModel<BasicTurbulenceModel>>
     (
         type,
-        alpha,
+        beta,
         rho,
         U,
         alphaRhoPhi,

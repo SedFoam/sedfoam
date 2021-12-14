@@ -162,7 +162,7 @@ public:
         //- Construct from components
         twophasekOmega
         (
-            const alphaField& alpha,
+            const alphaField& beta,
             const rhoField& rho,
             const volVectorField& U,
             const surfaceScalarField& alphaRhoPhi,

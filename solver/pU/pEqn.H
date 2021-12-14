@@ -98,7 +98,7 @@ License
           - (
                 scalar(2.0/3.0)*oneOverAlpha
                *fvc::snGrad((alpha+alphaSmall)*(sqr(Ct)*turbulenceb->k()
-              + nuEffa*tr(gradUaT)))
+              + nuEffa*tr(gradUaT) + spherSigmaSGSa))
             )
            *rUaAf*mesh.magSf()
           - (scalar(2.0/3.0)*oneOverAlpha*fvc::snGrad(nuFraExp*tr(gradUaT)))
@@ -131,7 +131,8 @@ License
         // -phiTempb
             // diagnoal part of stress
           - (fvc::interpolate(scalar(2.0)/(beta*scalar(3.0)))
-           *fvc::snGrad(((nuEffb*tr(gradUbT)))*beta))*rUbAf*mesh.magSf()
+           *fvc::snGrad(((nuEffb*tr(gradUbT) + spherSigmaSGSb))*beta))
+           *rUbAf*mesh.magSf()
           // stress part 3
           + rUbAf*(fvc::interpolate(scalar(1.0)/beta)
            *fvc::interpolate
