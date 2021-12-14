@@ -178,14 +178,15 @@ xSmax           | max. X position for sponge layer |    0         | min(X)-max(X
 
 
 
-\subsection turbulenceProperties File turbulenceProperties
+\subsection turbulenceProperties File turbulenceProperties.phaseb
 
-In the file 'turbulenceProperties' the user can specify the turbulence model to be used:
+In the file 'turbulenceProperties.phaseb' the user can specify the turbulence model to be used for the fluid phase:
 
 simulationType     |   description                                                     |
 -------------------|-------------------------------------------------------------------|
 laminar            | laminar flow - no turbulence model (nutb=0)                       |
 RAS                | Reynolds Averaged turbulence model                                |
+LES                | Large-Eddy Simulation turbulence model                            |
 
 If simulationType=RAS is selected, the user needs to specify a turbulence model using the keyword 'RASModel' in the 'RAS' dictionnary. All singlephase turbulence model can be selected and specific two-phase flow turbulence models are provided with sedFoam:
 
@@ -195,26 +196,42 @@ twophaseMixingLength    | two-phase flow mixing length model (see chauchat et al
 twophasekEpsilon        | two-phase flow k-epsilon model (see chauchat et al. 2017, GMD)    |
 twophaseLaunderSharmaKE | two-phase flow k-epsilon model from Launder and Sharma            |
 twophasekOmega          | two-phase flow k-omega model (see chauchat et al. 2017, GMD)      |
-twophasekOmega2006      | two-phase flow k-omega model from Wilcox (2006)                   |
+
+Coefficients of the turbulence models can be modified in the file *turbulenceproperties.phaseb* using the dictionaries *twophasekOmegaCoeffs*, *twophaseMixingLengthCoeffs* and *twophasekEpsilonCoeffs*. Values for the different turbulence models can be found in the tutorials.
+
+If simulationType=LES is selected, the user needs to specify a turbulence model using the keyword 'LESModel' in the 'LES' dictionnary. For the moment, only the dynamic Lagragian sub-grid scale model from Meneveau et al. (1996) can be used with the keyword *fluidDynamicLagrangian*
+
+\subsection turbulenceProperties File turbulenceProperties.phasea
+
+In the file 'turbulenceProperties.phasea' the user can specify the turbulence model to be used for the solid phase:
+
+simulationType     |   description                                                     |
+-------------------|-------------------------------------------------------------------|
+laminar            | laminar flow - no turbulence model (nutb=0)                       |
+LES                | Large-Eddy Simulation turbulence model                            |
+
+No RAS model is available for the solid phase. When fluid turbulence is modeled using a RAS model, simulationType keyword should be laminar for the solid phase. 
+
+If simulationType=LES is selected, the user needs to specify a turbulence model using the keyword 'LESModel' in the 'LES' dictionnary. For the moment, only the dynamic Lagragian sub-grid scale model from Meneveau et al. (1996) can be used with the keyword *solidDynamicLagrangian*
 
 \subsection twophaseRASProperties File twophaseRASProperties
 
 In the file 'twophaseRASProperties' the user can specified the input parameters for the turbulence model:
 
-parameter       | description                      |    default   |     range    |    units     |
-----------------|----------------------------------|--------------|--------------|--------------|
-SUSread         | turbulent Schmidt number         |    0         | 0-3          |  -           |
-SUSlocal        | switch to turn on local SUS model|    false     | true or false|  boolean     |
-Usmall          | min. u* value for local SUS      |  1e-6        | 1e-9-1e-4    | m/s          |
-Cmu             | Cmu constant for k-eps or k-omega|  0.09        | 0.09         | -            |
-B               | empirical parameter for turb drag|  0.25        | 0.1-1        | -            |
-kSmall          | min. Tp value for turb. drag     |  1e-6        | 1e-9-1e-4    | m^2/s^2      |
-TpSmall         | min. Tp value for turb. drag     |  1e-6        | 1e-9-1e-4    |  kg/m^3/s    |
-nutMax          | max. eddy viscosity value        |  -           | 5e-3-1e1     | m^2/s        |
-KE1             | coef. for density stratif (Uf-Us)|   0          | 0 or 1       | -            |
-KE2             | coef. for turbulence modulation  |   0          | 0 or 1       | -            |
-KE3             | coef. for turbulence generation  |   0          | 0 or 1       | -            |
-KE4             | coef. for density stratif g      |   0          | 0 or 1       | -            |
+parameter       | description                      |    default   |     range      |    units     |
+----------------|----------------------------------|--------------|----------------|--------------|
+SUSread         | turbulent Schmidt number         |    0         | 0-3 (0 for LES)|  -           |
+SUSlocal        | switch to turn on local SUS model|    false     | true or false  |  boolean     |
+Usmall          | min. u* value for local SUS      |  1e-6        | 1e-9-1e-4      | m/s          |
+Cmu             | Cmu constant for k-eps or k-omega|  0.09        | 0.09           | -            |
+B               | empirical parameter for turb drag|  0.25        | 0.1-1          | -            |
+kSmall          | min. Tp value for turb. drag     |  1e-6        | 1e-9-1e-4      | m^2/s^2      |
+TpSmall         | min. Tp value for turb. drag     |  1e-6        | 1e-9-1e-4      |  kg/m^3/s    |
+nutMax          | max. eddy viscosity value        |  -           | 5e-3-1e1       | m^2/s        |
+KE1             | coef. for density stratif (Uf-Us)|   0          | 0 or 1         | -            |
+KE2             | coef. for turbulence modulation  |   0          | 0 or 1         | -            |
+KE3             | coef. for turbulence generation  |   0          | 0 or 1         | -            |
+KE4             | coef. for density stratif g      |   0          | 0 or 1         | -            |
 
 
 */
