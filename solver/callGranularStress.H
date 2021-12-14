@@ -90,7 +90,8 @@ if (kineticTheory.on())
     nuEffb = nub + turbulenceb->nut();
 
     // Update solid phase viscosities and collisional pressure
-    nuEffa = kineticTheory.mua()/((alpha + alphaSmall)*rhoa) + turbulencea->nut();
+    nuEffa = kineticTheory.mua()/((alpha + alphaSmall)*rhoa) 
+             + turbulencea->nut();
     lambdaUa = kineticTheory.lambda();
     pa = kineticTheory.pa();
 
