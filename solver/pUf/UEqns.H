@@ -46,7 +46,7 @@ nuFraExp.correctBoundaryConditions();
 volTensorField Rca
 (
     "Rca",
-    ((2.0/3.0)*I)*((nuEffa+nuFraExp/(alpha+alphaSmall))*tr(gradUaT) 
+    ((2.0/3.0)*I)*((nuEffa+nuFraExp/(alpha+alphaSmall))*tr(gradUaT)
     + spherSigmaSGSa)
     - (nuEffa+nuFraExp/(alpha+alphaSmall))*gradUaT
 );
