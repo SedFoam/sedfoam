@@ -68,6 +68,8 @@ where the source term \f$\mathbf{R^a}\f$ contains the following terms:
 Following Rusche (2002) the terms involving the ratio of particle phase volume gradient to the volume concentration are treated at the cell face level in the predictor-corrector algorithm.
 However, we noted the exception of the particle phase normal stress \f$p^{ff}\f$ gradient for which a reconstruction of the surface normal gradient  at the cell centre allows to get more stable solutions.
 
+In sedFoam, two options are proposed to treat the explicit shear stress terms (i) they can be solved at the cell faces and added in pEqn using the keyword 'faceMomentum' = true (the solver is using the code given in the pUf folder) or (ii) they can be solved at the cell centers and added in UEqn using the keyword 'faceMomentum' = false (the solver is using the code given in the pU folder). By default, the explicit shear stress terms are solved at the cell centers and the keyword 'faceMomentum' = false.
+
 The advantage of separating the right hand side of the momentum equations as the sum of two terms: \f$\mathbf{R}\f$ and \f$\mathbf{H}\f$, is for writing the pressure-velocity algorithm. A similar method as Rhie and Chow (1983) one can be applied for the gradient terms. 
 The details of the velocity-pressure algorithm are presented in the next subsection.
 
