@@ -24,7 +24,7 @@ singlePhaseTransportModel phaseaTransport(Ua, phia);
 
 volScalarField alphaEff = alpha+10*alphaSmall;
 surfaceScalarField alphacf("alphacf", fvc::interpolate(alphaEff));
-surfaceScalarField alphaPhia("alphaPhiac", alphacf*phia);
+surfaceScalarField alphaPhia("alphaPhia", alphacf*phia);
 
 autoPtr<sedIncompressibleTurbulenceModel<singlePhaseTransportModel>>
 turbulencea
@@ -43,7 +43,7 @@ turbulencea
 singlePhaseTransportModel phasebTransport(Ub, phib);
 
 surfaceScalarField betacf("betacf", fvc::interpolate(beta));
-surfaceScalarField betaPhib("betaPhibc", betacf*phib);
+surfaceScalarField betaPhib("betaPhib", betacf*phib);
 
 autoPtr<sedIncompressibleTurbulenceModel<singlePhaseTransportModel>>
 turbulenceb
