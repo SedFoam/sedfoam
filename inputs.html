@@ -38,9 +38,8 @@
             <li>
               <a href="pages.html">Tutorials</a>
               <ol>
-                <li><a href="tutorials_laminar.html">Laminar flow tutorials</a></li>
-                <li><a href="tutorials_RAS.html">Reynolds-averaged flow tutorials</a></li>
-                <li><a href="tutorials_LES.html">LES tutorials</a></li>
+                <li><a href="tutorials_1d.html">One-dimensional test cases</a></li>
+                <li><a href="tutorials_2d3d.html">Multi-dimensional tutorials</a></li>
                 <li><a href="inputs.html" id="m-navbar-current">Input Parameters</a></li>
               </ol>
             </li>
@@ -94,7 +93,7 @@
 system/controlDict
 system/fvSchemes
 system/fvSolution
-</pre><p>The file &#x27;blockMesh&#x27; contains the description of the mesh (see <a href="tutorials_laminar.html#meshgen" class="m-doc">Mesh generation</a>). The file &#x27;controlDict&#x27; contains the runtime parameters such as the timestep and the output interval, etc... The files &#x27;fvScheme&#x27; describes the numerical shemes for the different differential operators (temporal, divergens, laplacian) and the file &#x27;fvSolution&#x27; describes the algebraic solvers and the associated tolerance for each equation as well as the PIMPLE algorithm controls such as the number of inner and outer iterations ...</p><p>The keyword &#x27;faceMomentum&#x27; in the PIMPLE dictionary of the file system/fvSolution correponds to solving the explicit shear stress terms at the cell faces and added in pEqn when set to false (the solver is using the code given in the pUf folder) and they are the cell centers and added in UEqn using the keyword &#x27;faceMomentum&#x27; = true (the solver is using the code given in the pU folder) which is the default value.</p><p>The files that contain the specific input parameters for sedFoam are:</p><pre>constant/g
+</pre><p>The file &#x27;blockMesh&#x27; contains the description of the mesh (see <a href="tutorials_1d.html#meshgen" class="m-doc">Mesh generation</a>). The file &#x27;controlDict&#x27; contains the runtime parameters such as the timestep and the output interval, etc... The files &#x27;fvScheme&#x27; describes the numerical shemes for the different differential operators (temporal, divergens, laplacian) and the file &#x27;fvSolution&#x27; describes the algebraic solvers and the associated tolerance for each equation as well as the PIMPLE algorithm controls such as the number of inner and outer iterations ...</p><p>The files that contain the specific input parameters for sedFoam are:</p><pre>constant/g
 constant/transportProperties
 constant/interfacialProperties
 constant/forceProperties
