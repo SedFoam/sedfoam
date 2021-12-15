@@ -38,8 +38,9 @@
             <li>
               <a href="pages.html">Tutorials</a>
               <ol>
-                <li><a href="tutorials_1d.html">One-dimensional test cases</a></li>
-                <li><a href="tutorials_2d3d.html">Multi-dimensional tutorials</a></li>
+                <li><a href="tutorials_laminar.html">Laminar flow tutorials</a></li>
+                <li><a href="tutorials_RAS.html">Reynolds-averaged flow tutorials</a></li>
+                <li><a href="tutorials_LES.html">LES tutorials</a></li>
                 <li><a href="inputs.html">Input Parameters</a></li>
               </ol>
             </li>
@@ -1179,7 +1180,7 @@ $p^{ff}$
 <use x='5.875143' y='-4.338437' xlink:href='#eq16-g0-102'/>
 <use x='10.821909' y='-4.338437' xlink:href='#eq16-g0-102'/>
 </g>
-</svg> gradient for which a reconstruction of the surface normal gradient at the cell centre allows to get more stable solutions.</p><p>The advantage of separating the right hand side of the momentum equations as the sum of two terms: <svg class="m-math" style="width: 1.045em; height: 0.854em; vertical-align: -0.000em;" viewBox="0 -8.202578 10.031842 8.202578">
+</svg> gradient for which a reconstruction of the surface normal gradient at the cell centre allows to get more stable solutions.</p><p>In sedFoam, two options are proposed to treat the explicit shear stress terms (i) they can be solved at the cell faces and added in pEqn using the keyword &#x27;faceMomentum&#x27; = true (the solver is using the code given in the pUf folder) or (ii) they can be solved at the cell centers and added in UEqn using the keyword &#x27;faceMomentum&#x27; = false (the solver is using the code given in the pU folder). By default, the explicit shear stress terms are solved at the cell centers and the keyword &#x27;faceMomentum&#x27; = false.</p><p>The advantage of separating the right hand side of the momentum equations as the sum of two terms: <svg class="m-math" style="width: 1.045em; height: 0.854em; vertical-align: -0.000em;" viewBox="0 -8.202578 10.031842 8.202578">
 <title>
 $\mathbf{R}$
 </title>
