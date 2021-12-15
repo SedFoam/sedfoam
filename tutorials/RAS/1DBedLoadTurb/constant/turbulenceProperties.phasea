@@ -15,21 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-simulationType  RAS;
+simulationType  laminar;
 
-RAS{
-RASModel        twophaseMixingLength;
-//RASModel        twophasekEpsilon;
-//RASModel        twophasekOmega;
-
-turbulence      on;
-printCoeffs     on;
-twophaseMixingLengthCoeffs
-{
-expoLM 1.0;
-alphaMaxLM 0.61;
-kappaLM 0.41;
-}
-}
 
 // ************************************************************************* //
