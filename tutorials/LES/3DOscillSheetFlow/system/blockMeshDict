@@ -1,0 +1,141 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1;
+
+vertices        
+(
+    (-0.1 0    0.025)
+    ( 0.1 0    0.025)
+    (-0.1 0.03 0.025)
+    ( 0.1 0.03 0.025)
+    (-0.1 0.06 0.025)
+    ( 0.1 0.06 0.025)
+    (-0.1 0.13 0.025)
+    ( 0.1 0.13 0.025) 
+
+    (-0.1 0    -0.025)
+    ( 0.1 0    -0.025)
+    (-0.1 0.03 -0.025)
+    ( 0.1 0.03 -0.025)
+    (-0.1 0.06 -0.025)
+    ( 0.1 0.06 -0.025)
+    (-0.1 0.13 -0.025)
+    ( 0.1 0.13 -0.025)
+);
+
+blocks          
+(
+    hex (0 1 9 8 2 3 11 10) (100 46 10) simpleGrading (1 1 0.046423)
+    hex (2 3 11 10 4 5 13 12) (100 46 66) simpleGrading (1 1 1) 
+    hex (4 5 13 12 6 7 15 14) (100 46 54) simpleGrading (1 1 6.27)
+);
+
+edges           
+(
+);
+
+boundary         
+(
+    inandouthalf11 
+    {
+     type   cyclic;
+     neighbourPatch inandouthalf12;
+     faces ((0 2 10 8));
+    }
+    inandouthalf12
+    {
+     type   cyclic;
+     neighbourPatch  inandouthalf11;
+     faces  ((1 9 11 3));
+    }
+    inandouthalf21
+    {
+     type cyclic;
+     neighbourPatch  inandouthalf22;
+     faces ((2 4 12 10));
+    }
+    inandouthalf22
+    {
+     type cyclic;
+     neighbourPatch  inandouthalf21;
+     faces ((3 11 13 5));
+    }
+    inandouthalf31
+    {
+     type cyclic;
+     neighbourPatch  inandouthalf32;
+     faces ((4 6 14 12));
+    }
+    inandouthalf32
+    {
+     type cyclic;
+     neighbourPatch  inandouthalf31;
+     faces ((5 13 15 7));
+    }
+    top
+    { 
+     type symmetryPlane;
+        faces ((6 7 15 14));
+    }
+    walls 
+    {
+     type wall;
+     faces ((0 8 9 1)); 
+    }
+    frontAndBack11
+    {
+     type cyclic;
+     neighbourPatch  frontAndBack12;
+     faces ((0 1 3 2));
+    }
+    frontAndBack12
+    {
+     type cyclic;
+     neighbourPatch  frontAndBack11;
+     faces ((8 10 11 9));
+    }
+    frontAndBack21
+    {
+     type cyclic;
+     neighbourPatch  frontAndBack22;
+     faces ((2 3 5 4));
+    }
+    frontAndBack22
+    {
+     type cyclic;
+     neighbourPatch  frontAndBack21;
+     faces ((10 12 13 11));
+    }
+    frontAndBack31
+    {
+     type cyclic;
+     neighbourPatch  frontAndBack32;
+     faces ((4 5 7 6));
+    }
+    frontAndBack32
+    {
+     type cyclic;
+     neighbourPatch  frontAndBack31;
+     faces ((12 14 15 13));
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

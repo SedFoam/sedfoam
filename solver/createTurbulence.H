@@ -18,23 +18,68 @@ License
     You should have received a copy of the GNU General Public License
     along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 \*---------------------------------------------------------------------------*/
-#include "createTwoPhaseRASTurbulence.H"
+#include "createTwoPhaseTurbulence.H"
+
+singlePhaseTransportModel phaseaTransport(Ua, phia);
+
+volScalarField alphaEff = alpha+10*alphaSmall;
+surfaceScalarField alphacf("alphacf", fvc::interpolate(alphaEff));
+surfaceScalarField alphaPhia("alphaPhiac", alphacf*phia);
+
+autoPtr<sedIncompressibleTurbulenceModel<singlePhaseTransportModel>>
+turbulencea
+(
+    sedIncompressibleTurbulenceModel<singlePhaseTransportModel>::New
+    (
+        alphaEff,
+        Ua,
+        alphaPhia,
+        phia,
+        phaseaTransport,
+        "turbulenceProperties.phasea"
+    )
+);
 
 singlePhaseTransportModel phasebTransport(Ub, phib);
 
-surfaceScalarField alphacf("alphacf", fvc::interpolate(alpha));
-surfaceScalarField alphaPhic("alphaPhic", alphacf*phib);
+surfaceScalarField betacf("betacf", fvc::interpolate(beta));
+surfaceScalarField betaPhib("betaPhibc", betacf*phib);
 
 autoPtr<sedIncompressibleTurbulenceModel<singlePhaseTransportModel>>
 turbulenceb
 (
     sedIncompressibleTurbulenceModel<singlePhaseTransportModel>::New
     (
-        alpha,
+        beta,
         Ub,
-        alphaPhic,
+        betaPhib,
         phib,
-        phasebTransport
+        phasebTransport,
+        "turbulenceProperties.phaseb"
+    )
+);
+
+IOdictionary turbulencePropertiesa
+(
+    IOobject
+    (
+        "turbulenceProperties.phasea",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::NO_WRITE
+    )
+);
+
+IOdictionary turbulencePropertiesb
+(
+    IOobject
+    (
+        "turbulenceProperties.phaseb",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::NO_WRITE
     )
 );
 
@@ -80,4 +125,32 @@ volScalarField nuEffb
     ),
     mesh,
     dimensionedScalar("zero", dimensionSet(0, 2, -1, 0, 0), 0.0)
+);
+
+volScalarField spherSigmaSGSb
+(
+    IOobject
+    (
+        "sphereSigmaSGSb",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimensionSet(0, 2, -2, 0, 0), 0.0)
+);
+
+volScalarField spherSigmaSGSa
+(
+    IOobject
+    (
+        "spherSigmaSGSa",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimensionSet(0, 2, -2, 0, 0), 0.0)
 );

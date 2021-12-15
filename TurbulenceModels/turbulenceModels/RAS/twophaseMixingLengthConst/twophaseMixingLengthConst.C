@@ -49,7 +49,7 @@ void twophaseMixingLengthConst<BasicTurbulenceModel>::correctNut()
 template<class BasicTurbulenceModel>
 twophaseMixingLengthConst<BasicTurbulenceModel>::twophaseMixingLengthConst
 (
-    const alphaField& alpha,
+    const alphaField& beta,
     const rhoField& rho,
     const volVectorField& U,
     const surfaceScalarField& alphaRhoPhi,
@@ -62,7 +62,7 @@ twophaseMixingLengthConst<BasicTurbulenceModel>::twophaseMixingLengthConst
     eddyViscosity<RASModel<BasicTurbulenceModel>>
     (
         type,
-        alpha,
+        beta,
         rho,
         U,
         alphaRhoPhi,

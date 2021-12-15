@@ -49,7 +49,7 @@ void twophaseMixingLength<BasicTurbulenceModel>::correctNut()
 template<class BasicTurbulenceModel>
 twophaseMixingLength<BasicTurbulenceModel>::twophaseMixingLength
 (
-    const alphaField& alpha,
+    const alphaField& beta,
     const rhoField& rho,
     const volVectorField& U,
     const surfaceScalarField& alphaRhoPhi,
@@ -62,7 +62,7 @@ twophaseMixingLength<BasicTurbulenceModel>::twophaseMixingLength
     eddyViscosity<RASModel<BasicTurbulenceModel>>
     (
         type,
-        alpha,
+        beta,
         rho,
         U,
         alphaRhoPhi,
@@ -172,7 +172,8 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
     );
 
 // Local references
-    const volScalarField& alpha = this->alpha_;
+    const volScalarField& beta = this->alpha_;
+    const volScalarField& alpha = 1 - beta;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
 

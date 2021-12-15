@@ -54,7 +54,7 @@ void twophasekOmega<BasicTurbulenceModel>::correctNut()
 template<class BasicTurbulenceModel>
 twophasekOmega<BasicTurbulenceModel>::twophasekOmega
 (
-    const alphaField& alpha,
+    const alphaField& beta,
     const rhoField& rho,
     const volVectorField& U,
     const surfaceScalarField& alphaRhoPhi,
@@ -67,7 +67,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     eddyViscosity<RASModel<BasicTurbulenceModel>>
     (
         type,
-        alpha,
+        beta,
         rho,
         U,
         alphaRhoPhi,
@@ -270,7 +270,8 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
     }
 
     // Local references
-    const alphaField& alpha = this->alpha_;
+    const alphaField& beta = this->alpha_;
+    const alphaField& alpha = 1 - beta;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
     const surfaceScalarField& phi = this->phi_;

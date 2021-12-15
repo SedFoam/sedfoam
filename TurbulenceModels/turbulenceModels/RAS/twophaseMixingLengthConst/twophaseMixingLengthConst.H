@@ -116,7 +116,7 @@ public:
     //- Construct from components
     twophaseMixingLengthConst
     (
-        const alphaField& alpha,
+        const alphaField& beta,
         const rhoField& rho,
         const volVectorField& U,
         const surfaceScalarField& alphaRhoPhi,
