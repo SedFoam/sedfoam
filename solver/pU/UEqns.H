@@ -36,6 +36,21 @@ gradPOSC =
 // Compute mixture density
 rho = alpha*rhoa+beta*rhob;
 
+// limiter for the explicit stress terms to avoid numerical instability and
+// too strong limitation on the time step
+volScalarField nuFraExp(nuFra);
+nuFraExp.min(nuMaxExp);
+nuFraExp.correctBoundaryConditions();
+
+// Compute explicit stress term for phase a
+volTensorField Rca
+(
+    "Rca",
+    ((2.0/3.0)*I)*((nuEffa+nuFraExp/(alpha+alphaSmall))*tr(gradUaT)
+    + spherSigmaSGSa)
+    - (nuEffa+nuFraExp/(alpha+alphaSmall))*gradUaT
+);
+
 // Compute concentration gradient stress contribution on cell faces for phase a
 surfaceScalarField phiRa
 (
@@ -57,7 +72,11 @@ fvVectorMatrix UaEqn
   - fvm::laplacian(nuEffa, Ua)
   + fvm::div(phiRa, Ua, "div(phiRa,Ua)")
   - fvm::Sp(fvc::div(phiRa), Ua)
+  + fvc::div(Rca)
+  + (fvc::grad(alpha)/(alpha+alphaSmall) & Rca)
     ==
+//  - gradPf                  // contact pressure gradient moved to p-equation
+  - fvc::grad(pff)/(rhoa*(alpha + alphaSmall))
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
   + fvOptions(alpha, Ua)
 );
@@ -66,6 +85,14 @@ UaEqn += fvm::Sp(beta/rhoa*K, Ua);
 fvOptions.constrain(UaEqn);
 Ua.correctBoundaryConditions();
 fvOptions.correct(Ua);
+
+// Compute explicit stress term for phase b
+volTensorField Rcb
+(
+    "Rcb",
+    ((2.0/3.0)*I)*(nuEffb*tr(gradUbT) + spherSigmaSGSb)
+    - nuEffb*gradUbT
+);
 
 // Compute concentration gradient stress contribution on cell faces for phase b
 surfaceScalarField phiRb
@@ -86,6 +113,8 @@ fvVectorMatrix UbEqn
   - fvm::laplacian(nuEffb, Ub)
   + fvm::div(phiRb, Ub, "div(phiRb,Ub)")
   - fvm::Sp(fvc::div(phiRb), Ub)
+  + fvc::div(Rcb)
+  + (fvc::grad(beta)/(beta) & Rcb)
     ==
     alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift and added mass forces
   + fvOptions(beta, Ub)

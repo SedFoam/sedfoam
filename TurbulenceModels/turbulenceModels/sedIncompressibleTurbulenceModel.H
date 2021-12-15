@@ -139,6 +139,10 @@ public:
 
         //- Return the source term for the momentum equation
         virtual tmp<fvVectorMatrix> divDevRhoReff(volVectorField& U) const;
+
+        //- Return the spherical part of the subgrid scale stress tensor
+        virtual tmp<Foam::volScalarField> spherSigmaSGS();
+
 };
 
 
@@ -149,7 +153,7 @@ public:
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #ifdef NoRepository
-    #include "sedIncompressibleTurbulenceModel.C"
+#include "sedIncompressibleTurbulenceModel.C"
 #endif
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
