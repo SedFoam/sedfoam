@@ -52,7 +52,7 @@ twophaseMixingLengthConst<BasicTurbulenceModel>::twophaseMixingLengthConst
     const alphaField& beta,
     const rhoField& rho,
     const volVectorField& U,
-    const surfaceScalarField& alphaRhoPhi,
+    const surfaceScalarField& betaRhoPhi,
     const surfaceScalarField& phi,
     const transportModel& transport,
     const word& propertiesName,
@@ -65,7 +65,7 @@ twophaseMixingLengthConst<BasicTurbulenceModel>::twophaseMixingLengthConst
         beta,
         rho,
         U,
-        alphaRhoPhi,
+        betaRhoPhi,
         phi,
         transport,
         propertiesName

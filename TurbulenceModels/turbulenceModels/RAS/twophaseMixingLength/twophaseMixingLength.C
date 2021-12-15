@@ -52,7 +52,7 @@ twophaseMixingLength<BasicTurbulenceModel>::twophaseMixingLength
     const alphaField& beta,
     const rhoField& rho,
     const volVectorField& U,
-    const surfaceScalarField& alphaRhoPhi,
+    const surfaceScalarField& betaRhoPhi,
     const surfaceScalarField& phi,
     const transportModel& transport,
     const word& propertiesName,
@@ -65,7 +65,7 @@ twophaseMixingLength<BasicTurbulenceModel>::twophaseMixingLength
         beta,
         rho,
         U,
-        alphaRhoPhi,
+        betaRhoPhi,
         phi,
         transport,
         propertiesName
@@ -173,7 +173,7 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
 
 // Local references
     const volScalarField& beta = this->alpha_;
-    const volScalarField& alpha = 1 - beta;
+    const volScalarField alpha = 1 - beta;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
 
@@ -192,7 +192,6 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
     scalar alphaMaxLMs(alphaMaxLM_.value());
     scalar LmPhi(0.);
     scalar cmu34(pow(Cmu_.value(), 3.0/4.0));
-
 
     nut.storePrevIter();
     forAll(U, cellI)

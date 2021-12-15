@@ -124,7 +124,7 @@ public:
         const alphaField& beta,
         const rhoField& rho,
         const volVectorField& U,
-        const surfaceScalarField& alphaRhoPhi,
+        const surfaceScalarField& betafRhoPhi,
         const surfaceScalarField& phi,
         const transportModel& transport,
         const word& propertiesName = turbulenceModel::propertiesName,

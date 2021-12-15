@@ -57,7 +57,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     const alphaField& beta,
     const rhoField& rho,
     const volVectorField& U,
-    const surfaceScalarField& alphaRhoPhi,
+    const surfaceScalarField& betaRhoPhi,
     const surfaceScalarField& phi,
     const transportModel& transport,
     const word& propertiesName,
@@ -70,7 +70,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
         beta,
         rho,
         U,
-        alphaRhoPhi,
+        betaRhoPhi,
         phi,
         transport,
         propertiesName
@@ -271,7 +271,7 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
 
     // Local references
     const alphaField& beta = this->alpha_;
-    const alphaField& alpha = 1 - beta;
+    const alphaField alpha = 1 - beta;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
     const surfaceScalarField& phi = this->phi_;
