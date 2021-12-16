@@ -178,7 +178,8 @@ int main(int argc, char *argv[])
 //              Solve for turbulence models
                 #include "updateTwoPhaseTurbulence.H"
                 turbulenceb->correct();
-                if (turbulencePropertiesb.found("LES;"))
+//                if (turbulencePropertiesb.found("LES;"))
+                if (turbulenceProperties.found("LES;"))
                 {
                     spherSigmaSGSb = turbulenceb->spherSigmaSGS();
                 }

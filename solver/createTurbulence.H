@@ -55,7 +55,7 @@ turbulenceb
         betaPhib,
         phib,
         phasebTransport,
-        "turbulenceProperties.phaseb"
+        "turbulenceProperties"
     )
 );
 
@@ -71,11 +71,11 @@ IOdictionary turbulencePropertiesa
     )
 );
 
-IOdictionary turbulencePropertiesb
+IOdictionary turbulenceProperties
 (
     IOobject
     (
-        "turbulenceProperties.phaseb",
+        "turbulenceProperties",
         runTime.constant(),
         mesh,
         IOobject::MUST_READ,
