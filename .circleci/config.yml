@@ -366,6 +366,7 @@ workflows:
       - builddock:
           requires:
             - test
+            - advanced-test1
             - advanced-test2
           filters:
             branches:
