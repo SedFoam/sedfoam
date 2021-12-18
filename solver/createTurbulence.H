@@ -73,8 +73,6 @@ surfaceScalarField betaPhib
     betacf*phib
 );
 
-
-
 autoPtr<sedIncompressibleTurbulenceModel<singlePhaseTransportModel>>
 turbulenceb
 (
