@@ -52,7 +52,7 @@ for data in datalist:
 
     #ufile=basepath+data+'Uf.xy'
     #zu,u=np.loadtxt(ufile,unpack=True)
-    Ub = fluidfoam.readvector(sol, data+'/', 'Ub')
+    Ub = fluidfoam.readvector(sol, data+'/', 'U.b')
     u=Ub[0, :]
     Taub = fluidfoam.readtensor(sol, data+'/', 'Taub')
     Rfw=Taub[3, :]/1e3

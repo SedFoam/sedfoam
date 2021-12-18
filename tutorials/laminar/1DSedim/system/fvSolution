@@ -38,14 +38,15 @@ solvers
         tolerance       1e-9;
         relTol          0;
     }
-    "(alpha_a|Ua|Ub|pa_new_value|alphaPlastic)"
+
+    "(alpha.a|Theta|pa_new_value|alphaPlastic)"
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-9;
         relTol          0;
     }
-    "(alpha_aFinal|UaFinal|UbFinal|paFinal|alphaPlasticFinal)"
+    "(alpha.aFinal|ThetaFinal|paFinal|alphaPlasticFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -64,22 +65,6 @@ PIMPLE
     nAlphaCorr      1;
     pRefCell        0;
     pRefValue       0;
-}
-
-
-relaxationFactors
-{
-    fields
-    {
-        p_rbgh               1.;
-        p_rbghFinal          1;
-    }
-    equations
-    {
-        "Ua|Ub|k|omega"             1.;
-        "(Ua|Ub|k|omega)Final"      1;
-    }
-
 }
 
 // ************************************************************************* //

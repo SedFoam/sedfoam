@@ -21,10 +21,31 @@ License
 #include "createTwoPhaseTurbulence.H"
 
 singlePhaseTransportModel phaseaTransport(Ua, phia);
+volScalarField alphaEff
+(
+    IOobject
+    (
+        IOobject::groupName("alphaEff", "a"),
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar(dimless, Zero)
+);
 
-volScalarField alphaEff = alpha+10*alphaSmall;
+alphaEff = alpha+10*alphaSmall;
 surfaceScalarField alphacf("alphacf", fvc::interpolate(alphaEff));
-surfaceScalarField alphaPhia("alphaPhia", alphacf*phia);
+surfaceScalarField alphaPhia
+(
+    IOobject::groupName
+    (
+        "alphaPhi",
+        "a"
+    ),
+    alphacf*phia
+);
 
 autoPtr<sedIncompressibleTurbulenceModel<singlePhaseTransportModel>>
 turbulencea
@@ -35,15 +56,24 @@ turbulencea
         Ua,
         alphaPhia,
         phia,
-        phaseaTransport,
-        "turbulenceProperties.phasea"
+        phaseaTransport
     )
 );
 
 singlePhaseTransportModel phasebTransport(Ub, phib);
 
 surfaceScalarField betacf("betacf", fvc::interpolate(beta));
-surfaceScalarField betaPhib("betaPhib", betacf*phib);
+surfaceScalarField betaPhib
+(
+    IOobject::groupName
+    (
+        "betaPhi",
+        "b"
+    ),
+    betacf*phib
+);
+
+
 
 autoPtr<sedIncompressibleTurbulenceModel<singlePhaseTransportModel>>
 turbulenceb
@@ -54,8 +84,7 @@ turbulenceb
         Ub,
         betaPhib,
         phib,
-        phasebTransport,
-        "turbulenceProperties.phaseb"
+        phasebTransport
     )
 );
 
@@ -63,7 +92,7 @@ IOdictionary turbulencePropertiesa
 (
     IOobject
     (
-        "turbulenceProperties.phasea",
+        "turbulenceProperties.a",
         runTime.constant(),
         mesh,
         IOobject::MUST_READ,
@@ -75,7 +104,7 @@ IOdictionary turbulencePropertiesb
 (
     IOobject
     (
-        "turbulenceProperties.phaseb",
+        "turbulenceProperties.b",
         runTime.constant(),
         mesh,
         IOobject::MUST_READ,

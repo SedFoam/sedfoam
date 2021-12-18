@@ -8,6 +8,3 @@ cp -r 0_org 0
 
 # Run sedFoam
 sedFoam_rbgh
-
-
-

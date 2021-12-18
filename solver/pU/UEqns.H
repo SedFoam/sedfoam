@@ -64,7 +64,7 @@ fvVectorMatrix UaEqn
     (scalar(1.0) + Cvm*rhob*beta/rhoa)*
     (
         fvm::ddt(Ua)
-      + fvm::div(phia, Ua, "div(phia,Ua)")
+      + fvm::div(phia, Ua)
       - fvm::Sp(fvc::div(phia), Ua)
     )
 // effective stress term from dispersed phase
@@ -107,7 +107,7 @@ fvVectorMatrix UbEqn
     (scalar(1.0) + Cvm*rhob*alpha/rhob)*
     (
         fvm::ddt(Ub)
-      + fvm::div(phib, Ub, "div(phib,Ub)")
+      + fvm::div(phib, Ub)
       - fvm::Sp(fvc::div(phib), Ub)
     )
   - fvm::laplacian(nuEffb, Ub)

@@ -23,24 +23,25 @@ ddtSchemes
 gradSchemes
 {
         default         Gauss linear;
-        grad(epsilon)        cellLimited Gauss linear 1;
-        grad(k)        cellLimited Gauss linear 1;
-        grad(omega)    cellLimited Gauss linear 1;
+        grad(epsilon.b)        cellLimited Gauss linear 1;
+        grad(k.b)        cellLimited Gauss linear 1;
+        grad(omega.b)    cellLimited Gauss linear 1;
 }
 
 divSchemes
 {
     default         none;
+
 // alphaEqn
     div(phi,alpha)  Gauss limitedLinear01 1;
     div(phir,alpha) Gauss limitedLinear01 1;
 //    div(phi,alpha)   Gauss vanLeer;
 //    div(phir,alpha)  Gauss vanLeer;
 // UEqn
-    div(phia,Ua)    Gauss linearUpwind grad(Ua);
-    div(phib,Ub)    Gauss linearUpwind grad(Ub);
-//    div(phia,Ua)    Gauss upwind phi;
-//    div(phib,Ub)    Gauss upwind phi;
+    div(phi.a,U.a)    Gauss linearUpwind grad(Ua);
+    div(phi.b,U.b)    Gauss linearUpwind grad(Ub);
+//    div(phi.a,U.a)    Gauss upwind phi;
+//    div(phi.b,U.b)    Gauss upwind phi;
     div(phiRa,Ua)   Gauss linear;
     div(phiRb,Ub)   Gauss linear;
 //    div(phiRa,Ua)   Gauss upwind phi;
@@ -50,12 +51,12 @@ divSchemes
 // pEqn
     div(alpha,nu) Gauss linear;
 // k and EpsilonEqn
-    div(phib,k)     Gauss linearUpwind grad(k);
-    div(phib,epsilon) Gauss linearUpwind grad(epsilon);
-    div(phib,omega) Gauss linearUpwind grad(omega);
-//    div(phib,k)     Gauss upwind phi;
-//    div(phib,epsilon) Gauss upwind phi;
-//    div(phib,omega) Gauss upwind phi;
+    div(phi.b,k.b)     Gauss linearUpwind grad(k);
+    div(phi.b,epsilon.b) Gauss linearUpwind grad(epsilon);
+    div(phi.b,omega.b) Gauss linearUpwind grad(omega);
+//    div(phi.b,k.b)     Gauss upwind phi;
+//    div(phi.b,epsilon.b) Gauss upwind phi;
+//    div(phi.b,omega.b) Gauss upwind phi;
 // ThetaEqn
     div(phi,Theta)  Gauss limitedLinear 1;
 // alphaPlastic
