@@ -55,30 +55,14 @@ solvers
         relTol          0;
     }
 
-    "Ua|UaFinal"
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-6;
-        relTol          0;
-    }
-
-    "Ub|UbFinal"
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-6;
-        relTol          0;
-    }
-
-    alpha_a
+    alpha.a
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-15;
         relTol          0;
     }
-    alpha_aFinal
+    alpha.aFinal
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -101,14 +85,6 @@ solvers
     }
 }
 
-
-relaxationFactors
-{
-    fields
-    {
-        pa              1.;
-    }
-}
 
 PIMPLE
 {

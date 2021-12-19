@@ -19,19 +19,19 @@ expressions
  (
 	alpha1
     	{
-		field alpha_a;
+		field alpha.a;
 		expression "0.552*0.5*(1.0+tanh(-(pos().y-0.005522)/(0.0005)))";
                 keepPatches 1;
 	}
         Ua
         {
-                field Ua;
+                field U.a;
 		expression "vector(0, 0, 0)";
                 keepPatches 1;
         }
         Ub
         {
-                field Ub;
+                field U.b;
 		expression "vector(0, 0, 0)";
                 keepPatches 1;
         }

@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.1.0                                 |
+|  \\    /   O peration     | Version:  2.4.0                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -10,20 +10,12 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      setFieldsDict;
+    location    "constant";
+    object      turbulenceProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-expressions
- (
-	alpha1
-    	{
-		field alpha.a;
-		//expression "0.5*0.61*(1+tanh((0.075*240+0.04*240*(sin((pos().x-0.46/4)*2*pi/0.46)))-240*pos().y))";
-		expression "0.5*0.61*(1+tanh((0.075*240-240*pos().y)))";
-		keepPatches 1;
-	}
- );
+simulationType  laminar;
+
 
 // ************************************************************************* //

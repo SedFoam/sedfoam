@@ -37,9 +37,9 @@ tread = output.decode().rstrip().split('\n')[0]
 X,Y,Z = fluidfoam.readmesh(sol)
 
 z = Y
-phi = fluidfoam.readscalar(sol, tread, 'alpha_a')
-vxPart   = fluidfoam.readvector(sol, tread, 'Ua')[0]
-vxFluid    = fluidfoam.readvector(sol, tread, 'Ub')[0]
+phi = fluidfoam.readscalar(sol, tread, 'alpha.a')
+vxPart   = fluidfoam.readvector(sol, tread, 'U.a')[0]
+vxFluid    = fluidfoam.readvector(sol, tread, 'U.b')[0]
 T = fluidfoam.readscalar(sol, tread, 'Theta')
 
 phi_interp = np.interp(zDATA, z, phi);

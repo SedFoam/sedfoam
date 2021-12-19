@@ -15,14 +15,14 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defaultFieldValues ( volScalarFieldValue alpha_a 0 );
+defaultFieldValues ( volScalarFieldValue alpha.a 0 );
 
 regions 
 (
       boxToCell 
       {
            box ( 0 -0.05 -0.025 ) ( 0.08 0 0.025 ) ;
-           fieldValues ( volScalarFieldValue alpha_a 0.4); 
+           fieldValues ( volScalarFieldValue alpha.a 0.4); 
       }
 );
 

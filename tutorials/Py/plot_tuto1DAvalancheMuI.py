@@ -73,9 +73,9 @@ tread = output.decode().rstrip().split('\n')[0]
 #########################################
 
 X,Y,Z = fluidfoam.readmesh(sol)
-alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
-Ua = fluidfoam.readvector(sol, tread, 'Ua')
-Ub = fluidfoam.readvector(sol, tread, 'Ub')
+alpha = fluidfoam.readscalar(sol, tread, 'alpha.a')
+Ua = fluidfoam.readvector(sol, tread, 'U.a')
+Ub = fluidfoam.readvector(sol, tread, 'U.b')
 pff = fluidfoam.readscalar(sol, tread, 'pff')
 pa = fluidfoam.readscalar(sol, tread, 'pa')
 muI = fluidfoam.readscalar(sol, tread, 'muI')
@@ -85,11 +85,11 @@ nuFra = fluidfoam.readscalar(sol, tread, 'nuFra')
 Tauf = fluidfoam.readtensor(sol, tread, 'Taub')
 Taus = fluidfoam.readtensor(sol, tread, 'Taua')
 try:
-    gradUa = fluidfoam.readtensor(sol, tread, 'grad(Ua)')
+    gradUa = fluidfoam.readtensor(sol, tread, 'grad(U.a)')
 except:
-    print("grad(Ua) was not found -> postProcess -func 'grad(Ua)'")
-    os.system("postProcess -case "+sol+" -func \'grad(Ua)\' -time "+tread)
-    gradUa = fluidfoam.readtensor(sol, tread, 'grad(Ua)')
+    print("grad(U.a) was not found -> postProcess -func 'grad(U.a)'")
+    os.system("postProcess -case "+sol+" -func \'grad(U.a)\' -time "+tread)
+    gradUa = fluidfoam.readtensor(sol, tread, 'grad(U.a)')
 
 
 Ny = np.size(Y)

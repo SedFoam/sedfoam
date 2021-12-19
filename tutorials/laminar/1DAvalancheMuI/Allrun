@@ -9,4 +9,4 @@ cp -r 0_org 0
 # Run sedFoam
 sedFoam_rbgh > log&
 
-# postProcess -func "grad(Ua)"
+# postProcess -func "grad(U.a)"
