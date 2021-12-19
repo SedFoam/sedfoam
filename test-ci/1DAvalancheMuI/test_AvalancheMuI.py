@@ -68,7 +68,7 @@ try:
     gradUa = fluidfoam.readtensor(sol, tread, 'grad(U.a)')
 except:
     print("grad(Ua) was not found -> Introduce - postProcess -func 'grad(U.a)' - in the command line")
-    os.system("postProcess -func \'grad(Ua)\' -time "+tread)
+    os.system("postProcess -func \'grad(U.a)\' -time "+tread)
     gradUa = fluidfoam.readtensor(sol, tread, 'grad(U.a)')
 
 

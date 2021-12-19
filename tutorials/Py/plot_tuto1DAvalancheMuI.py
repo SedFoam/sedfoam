@@ -85,10 +85,10 @@ nuFra = fluidfoam.readscalar(sol, tread, 'nuFra')
 Tauf = fluidfoam.readtensor(sol, tread, 'Taub')
 Taus = fluidfoam.readtensor(sol, tread, 'Taua')
 try:
-    gradUa = fluidfoam.readtensor(sol, tread, 'grad(Ua)')
+    gradUa = fluidfoam.readtensor(sol, tread, 'grad(U.a)')
 except:
-    print("grad(Ua) was not found -> postProcess -func 'grad(Ua)'")
-    os.system("postProcess -case "+sol+" -func \'grad(Ua)\' -time "+tread)
+    print("grad(U.a) was not found -> postProcess -func 'grad(U.a)'")
+    os.system("postProcess -case "+sol+" -func \'grad(U.a)\' -time "+tread)
     gradUa = fluidfoam.readtensor(sol, tread, 'grad(U.a)')
 
 

@@ -36,8 +36,8 @@ divSchemes
 // ShearInduced_Eqn
     div(phia,pa_new_value)   Gauss limitedLinear01 1;
 // UEqn
-    div(phia,Ua)    Gauss limitedLinearV 1;
-    div(phib,Ub)    Gauss limitedLinearV 1;
+    div(phi.a,U.a)    Gauss limitedLinearV 1;
+    div(phi.b,U.b)    Gauss limitedLinearV 1;
     div(phiRa,Ua)   Gauss limitedLinear 1;
     div(phiRb,Ub)   Gauss limitedLinear 1;
     div(Rca)        Gauss linear;
@@ -45,22 +45,21 @@ divSchemes
 // pEqn
     div(alpha,nu)   Gauss linear;
 // k and EpsilonEqn
-    div(phib,k)     Gauss limitedLinear 1;
-    div(phib,epsilon) Gauss limitedLinear 1;
+    div(phi.b,k.b)     Gauss limitedLinear 1;
+    div(phi.b,epsilon.b) Gauss limitedLinear 1;
 // ThetaEqn
     div(phi,Theta)  Gauss limitedLinear 1;
 }
-
 
 laplacianSchemes
 {
     default         none;
 // alphaEqn
-    laplacian(Da,alpha_a)  Gauss linear corrected;
+    laplacian(Da,alpha.a)  Gauss linear corrected;
 // UEqn
-    laplacian(nuEffa,Ua) Gauss linear corrected;
-    laplacian(nuEffb,Ub) Gauss linear corrected;
-    laplacian(nuFra,Ua)  Gauss linear corrected;
+    laplacian(nuEffa,U.a) Gauss linear corrected;
+    laplacian(nuEffb,U.b) Gauss linear corrected;
+    laplacian(nuFra,U.a)  Gauss linear corrected;
 // pEqn
     laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
 // k and EpsilonEqn 

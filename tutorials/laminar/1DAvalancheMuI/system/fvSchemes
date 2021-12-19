@@ -53,7 +53,7 @@ divSchemes
 
 laplacianSchemes
 {
-    default         none; 
+    default         none;
 // alphaEqn
     laplacian(Da,alpha.a)  Gauss linear corrected;
 // UEqn

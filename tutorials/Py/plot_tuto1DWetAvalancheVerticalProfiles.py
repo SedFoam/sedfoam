@@ -36,11 +36,11 @@ X,Y,Z = fluidfoam.readmesh(sol)
 tolAlpha=0.55
 
 # this part of the script analyzes the vertical profiles at time=0 (before tilting the plane)
-alpha_0 = fluidfoam.readscalar(sol, '200', 'alpha_a')
+alpha_0 = fluidfoam.readscalar(sol, '200', 'alpha.a')
 pff_0 = fluidfoam.readscalar(sol, '200', 'pff')
 pa_0 = fluidfoam.readscalar(sol, '200', 'pa')
 p_rbgh_0 = fluidfoam.readscalar(sol, '200', 'p_rbgh')
-Ua_0= fluidfoam.readvector(sol,  '200', 'Ua')
+Ua_0= fluidfoam.readvector(sol,  '200', 'U.a')
 
 vel_0=[]
 phi_0=[]
@@ -72,8 +72,8 @@ newHeight=h
 for i in range(len(times)):
 	time_v=times[i]
 	tread=str(times[i]+200)+'/'
-	alpha_A = fluidfoam.readscalar(sol, tread, 'alpha_a')
-	Ua_A = fluidfoam.readvector(sol, tread, 'Ua')
+	alpha_A = fluidfoam.readscalar(sol, tread, 'alpha.a')
+	Ua_A = fluidfoam.readvector(sol, tread, 'U.a')
 	pff_A = fluidfoam.readscalar(sol, tread, 'pff')
 	pa_A = fluidfoam.readscalar(sol, tread, 'pa')
 	p_rbgh_A = fluidfoam.readscalar(sol, tread, 'p_rbgh')
