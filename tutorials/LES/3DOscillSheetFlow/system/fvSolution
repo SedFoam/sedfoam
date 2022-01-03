@@ -31,7 +31,7 @@ solvers
         relTol          0;
     }
 
-    "flmb|flmbFinal|fmmb|fmmbFinal|flma|flmaFinal|fmma|fmmaFinal"
+    "flmb.b|flmb.bFinal|fmmb.b|fmmb.bFinal|flma.a|flma.aFinal|fmma.a|fmma.aFinal"
     {
         solver          PBiCGStab;
         preconditioner  DILU;
@@ -39,14 +39,14 @@ solvers
         relTol          0;
     }
 
-    "Ua|UaFinal"
+    "U.a|U.aFinal"
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-5;
         relTol          0;
     }
-    "Ub|UbFinal"
+    "U.b|U.bFinal"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -54,21 +54,21 @@ solvers
         relTol          0;
     }
 
-    "k|kFinal"
+    "k.b|k.bFinal"
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-5;
         relTol          0;
     }
-    alpha_a
+    alpha.a
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-5;
         relTol          0;
     }
-    alpha_aFinal
+    alpha.aFinal
     {
         solver          PBiCG;
         preconditioner  DILU;

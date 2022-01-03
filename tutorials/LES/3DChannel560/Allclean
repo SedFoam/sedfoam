@@ -4,13 +4,16 @@
 foamCleanPolyMesh
 
 # Remove time folders
-foamListTimes -rm
+foamListTimes -rm -time 0: -withZero
 
-# Remove netCDF file
-rm -f postProcessing/*.nc
+# Remove processors directories
+rm -r processor*
 
-# Remove processor directories
-rm -rf  processor* dynamicCode
+# Remove postProcessing
+rm -r postProcessing/*
+
+# Remove mesh information in constant
+rm constant/C*
 
 # Remove logs
 rm  gradPOSC.txt log
