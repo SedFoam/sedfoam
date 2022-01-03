@@ -38,7 +38,7 @@ solvers
         relTol          0;
     }
 
-    "(k|epsilon|omega)"
+    "(k.b|epsilon.b|omega.b)"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -46,7 +46,7 @@ solvers
         relTol          0.000;
     }
 
-    "(k|epsilon|omega)Final"
+    "(k.b|epsilon.b|omega.b)Final"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -55,7 +55,7 @@ solvers
     }
 
 
-    "Ua|UaFinal"
+    "U.a|U.aFinal"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -63,7 +63,7 @@ solvers
         relTol          0;
     }
 
-    "Ub|UbFinal"
+    "U.b|U.bFinal"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -71,14 +71,14 @@ solvers
         relTol          0;
     }
 
-    "(alpha_a|alphaPlastic|pa)"
+    "(alpha.a|alphaPlastic|pa)"
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-9;
         relTol          0;
     }
-    "(alpha_aFinal|alphaPlasticFinal|paFinal)"
+    "(alpha.aFinal|alphaPlasticFinal|paFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;

@@ -39,7 +39,7 @@ solvers
         relTol          0;
     }
 
-    "(k|epsilon|omega|pa_new_value|alphaPlastic)"
+    "(k.b|epsilon.b|omega.b|pa_new_value|alphaPlastic)"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -47,7 +47,7 @@ solvers
         relTol          0.00001;
     }
 
-    "(k|epsilon|omega|pa|alphaPlastic)Final"
+    "(k.b|epsilon.b|omega.b|pa|alphaPlastic)Final"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -55,7 +55,7 @@ solvers
         relTol          0;
     }
 
-    "Ua|UaFinal"
+    "U.a|U.aFinal"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -63,7 +63,7 @@ solvers
         relTol          0;
     }
 
-    "Ub|UbFinal"
+    "U.b|U.bFinal"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -71,14 +71,14 @@ solvers
         relTol          0;
     }
 
-    alpha_a
+    alpha.a
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-15;
         relTol          0;
     }
-    alpha_aFinal
+    alpha.aFinal
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -106,8 +106,8 @@ relaxationFactors
 {
     fields
     {
-        k              0.1;
-	omega          0.1;
+        k.b              0.1;
+	omega.b          0.1;
     }
 }
 

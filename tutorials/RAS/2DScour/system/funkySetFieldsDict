@@ -19,10 +19,10 @@ expressions
  (
 	sedimentvelocity
 	{
-	field Ua; //field to initialise
+	field U.a; //field to initialise
 	fields
 	(
-	z Ua
+	z U.a
 	);
 	lookuptables (
 	{
@@ -48,10 +48,10 @@ expressions
 
 	fluidvelocity
 	{
-	field Ub; //field to initialise
+	field U.b; //field to initialise
 	fields
 	(
-	z Ub
+	z U.b
 	);
 	lookuptables (
 	{
@@ -75,12 +75,12 @@ expressions
 	keepPatches 1;
         }
 
-       alpha
+       alpha.a
         {
-        field alpha_a; //field to initialise
+        field alpha.a; //field to initialise
         fields
         (
-        z alpha
+        z alpha.a
         );
         lookuptables (
         {
@@ -93,12 +93,12 @@ expressions
         keepPatches 1;
         }
 
-       k
+       k.b
         {
-        field k; //field to initialise
+        field k.b; //field to initialise
         fields
         (
-        z k
+        z k.b
         );
         lookuptables (
         {
@@ -111,12 +111,12 @@ expressions
         keepPatches 1;
         }
 /*
-       epsilon
+       epsilon.b
         {
-        field epsilon; //field to initialise
+        field epsilon.b; //field to initialise
         fields
         (
-        z epsilon
+        z epsilon.b
         );
         lookuptables (
         {
@@ -129,12 +129,12 @@ expressions
         keepPatches 1;
         }
 */        
-        omega
+        omega.b
     	{
-		field omega;
+		field omega.b;
                 fields
                     (
-                        z omega
+                        z omega.b
                     );
                 lookuptables (
                     {

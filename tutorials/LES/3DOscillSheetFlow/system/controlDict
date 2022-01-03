@@ -24,6 +24,7 @@ startTime       0;
 stopAt          endTime;
 
 endTime         20;
+//endTime         40;
 
 deltaT          2e-4;
 
@@ -47,11 +48,11 @@ runTimeModifiable true;
 
 adjustTimeStep yes;
 
-maxCo          0.3;
+maxCo          0.1;
 
-maxAlphaCo     0.3;
+maxAlphaCo     0.1;
 
-maxDeltaT      1e-3;
+maxDeltaT      1e-2;
 
 functions
 {
@@ -82,7 +83,6 @@ libs (
 	"libsimpleFunctionObjects.so"
 	"libsimpleSwakFunctionObjects.so"
 	"libswakFunctionObjects.so"
-        "libdynamicSmagorinskyModel.so"
 	);
 
 

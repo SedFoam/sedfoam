@@ -82,7 +82,7 @@ solvers
 
     }
 
-    "Ua|UaFinal"
+    "U.a|U.aFinal"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -90,7 +90,7 @@ solvers
         relTol          0;
     }
 
-    "Ub|UbFinal"
+    "U.b|U.bFinal"
     {
         solver          PBiCG;
         preconditioner  DILU;

@@ -36,8 +36,8 @@ divSchemes
 // UEqn
 //    div(phia,Ua)    Gauss linearUpwind grad(Ua);
 //    div(phib,Ub)    Gauss linearUpwind grad(Ub);
-    div(phia,Ua)    Gauss upwind phi;
-    div(phib,Ub)    Gauss upwind phi;
+    div(phi.a,U.a)    Gauss upwind phi;
+    div(phi.b,U.b)    Gauss upwind phi;
     div(phiRa,Ua)   Gauss linear;
     div(phiRb,Ub)   Gauss linear;
 //    div(phiRa,Ua)   Gauss upwind phi;
@@ -47,9 +47,9 @@ divSchemes
 // pEqn
     div(alpha,nu) Gauss linear;
 // k and EpsilonEqn
-    div(phib,k)     Gauss linearUpwind grad(k);
-    div(phib,epsilon) Gauss linearUpwind grad(epsilon);
-    div(phib,omega) Gauss linearUpwind grad(omega);
+    div(phi.b,k.b)     Gauss linearUpwind grad(k);
+    div(phi.b,epsilon.b) Gauss linearUpwind grad(epsilon);
+    div(phi.b,omega.b) Gauss linearUpwind grad(omega);
 // ThetaEqn
     div(phi,Theta)  Gauss limitedLinear 1;
 // alphaPlastic
@@ -64,9 +64,9 @@ laplacianSchemes
 // alphaEqn
     laplacian(alphaPpMag,alpha) Gauss linear corrected;
 // UEqn
-    laplacian(nuEffa,Ua) Gauss linear corrected;
-    laplacian(nuEffb,Ub) Gauss linear corrected;
-    laplacian(nuFra,Ua)  Gauss linear corrected;
+    laplacian(nuEffa,U.a) Gauss linear corrected;
+    laplacian(nuEffb,U.b) Gauss linear corrected;
+    laplacian(nuFra,U.a)  Gauss linear corrected;
 // pEqn
     laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
 // k and EpsilonEqn 
