@@ -62,6 +62,10 @@ Foam::kineticTheoryModel::kineticTheoryModel
     (
         kineticTheoryProperties_.get<Switch>("kineticTheory")
     ),
+    writeTBudget_
+    (
+        kineticTheoryProperties_.getOrDefault<Switch>("writeTBudget", false)
+    ),
     extended_
     (
         kineticTheoryProperties_.getOrDefault<Switch>("extended", false)
@@ -474,6 +478,10 @@ void Foam::kineticTheoryModel::solve
        + (1-killJ2_)*J2
     );
 
+    if (writeTBudget_)
+    {
+        #include "writeTBudget.H"
+    }
     ThetaEqn.relax();
     ThetaEqn.solve();
 

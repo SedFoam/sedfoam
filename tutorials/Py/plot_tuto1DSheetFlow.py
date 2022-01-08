@@ -23,12 +23,12 @@ def readOpenFoam(sol):
 	tread = output.decode().rstrip().split('\n')[0]
 	Nt = 1
 	X, Y, Z = fluidfoam.readmesh(sol)
-	alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
-	Ua = fluidfoam.readvector(sol, tread, 'Ua')
-	Ub = fluidfoam.readvector(sol, tread, 'Ub')
+	alpha = fluidfoam.readscalar(sol, tread, 'alpha.a')
+	Ua = fluidfoam.readvector(sol, tread, 'U.a')
+	Ub = fluidfoam.readvector(sol, tread, 'U.b')
 	Tauf = fluidfoam.readtensor(sol, tread, 'Taub')
 	Taus = fluidfoam.readtensor(sol, tread, 'Taua')
-	k = fluidfoam.readscalar(sol, tread, 'k')
+	k = fluidfoam.readscalar(sol, tread, 'k.b')
 	Theta = fluidfoam.readscalar(sol, tread, 'Theta')
 
 	return Nt, Y, Ua[0, :], Ub[0, :], alpha, Tauf[3, :], Taus[3, :], k,Theta
@@ -130,11 +130,12 @@ ax2 = subplot(gs[0, 1])
 p2_3 = ax2.plot(alpha0, (y + Z0num) / (2. * rs), '-r', label=label)
 p2_1 = ax2.plot(Phiexp, Zexpp / (2. * rs), 'ok',
                 markersize=ms, label='experiment')
+ax2.set_xscale('log')
 handles2, labels2 = ax2.get_legend_handles_labels()
 ax2.legend(handles2[0:4], labels2[0:4], loc=1, prop={'size': 14})
 ax2.set_yticklabels([])
 xlabel(r'$\alpha$')
-axis([0, alphasmax, zmin, zmax])
+axis([1e-6, alphasmax, zmin, zmax])
 grid()
 
 #
