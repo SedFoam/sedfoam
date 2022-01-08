@@ -21,7 +21,6 @@ License
 \*---------------------------------------------------------------------------*/
 if (this->runTime_.outputTime())
 {
-
     volScalarField Kprod
     (
        IOobject
@@ -56,7 +55,7 @@ if (this->runTime_.outputTime())
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
        ),
-       -Cmu_*omega_*k_
+       -epsilon_
     );
     
     volScalarField Kdissdrag1

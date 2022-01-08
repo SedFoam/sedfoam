@@ -728,6 +728,32 @@ volVectorField gradPf
     dimensionedVector("zero", dimensionSet(0, 1, -2, 0, 0), vector::zero)
 );
 
+volVectorField susa
+(
+    IOobject
+    (
+        "susa",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedVector("zero", dimensionSet(0, 1, -2, 0, 0), vector::zero)
+);
+volVectorField susb
+(
+    IOobject
+    (
+        "susb",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedVector("zero", dimensionSet(0, 1, -2, 0, 0), vector::zero)
+);
 volScalarField pff
 (
     IOobject

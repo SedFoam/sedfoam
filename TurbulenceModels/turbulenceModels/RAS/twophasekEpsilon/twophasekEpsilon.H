@@ -101,6 +101,7 @@ protected:
     // Protected data
 
         // Model coefficients
+            Switch writeTke_;
 
             dimensionedScalar C3ep_;
             dimensionedScalar C4ep_;

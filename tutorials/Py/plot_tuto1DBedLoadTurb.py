@@ -47,9 +47,9 @@ timeStep = output.decode().rstrip().split('\n')[0] #Some management on the outpu
 #Read the data
 X, Y, Z = fluidfoam.readmesh(sol)
 z = Y
-phi = fluidfoam.readscalar(sol, timeStep, 'alpha_a')
-vxPart = fluidfoam.readvector(sol, timeStep, 'Ua')[0]
-vxFluid = fluidfoam.readvector(sol, timeStep, 'Ub')[0]
+phi = fluidfoam.readscalar(sol, timeStep, 'alpha.a')
+vxPart = fluidfoam.readvector(sol, timeStep, 'U.a')[0]
+vxFluid = fluidfoam.readvector(sol, timeStep, 'U.b')[0]
 T = fluidfoam.readscalar(sol, timeStep, 'Theta')
 
 ######################

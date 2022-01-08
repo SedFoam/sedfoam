@@ -71,6 +71,15 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
         transport,
         propertiesName
     ),
+    writeTke_
+    (
+        Switch::getOrAddToDict
+        (
+            "writeTke",
+            this->coeffDict_,
+            false
+        )
+    ),
     C3ep_
     (
         dimensioned<scalar>::getOrAddToDict
@@ -266,7 +275,10 @@ void twophasekEpsilon<BasicTurbulenceModel>::correct()
       + ESD2()*fvm::Sp(C3ep_*KE2_, epsilon_)
       + fvm::Sp(C4ep_*KE4_*ESD5_*nut/k_, epsilon_)
     );
-
+    if (writeTke_)
+    {
+        #include "writeTKEBudget_kEpsilon.H"
+    }
     epsEqn.ref().relax();
     fvOptions.constrain(epsEqn.ref());
     epsEqn.ref().boundaryManipulate(epsilon_.boundaryFieldRef());

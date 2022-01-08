@@ -36,6 +36,29 @@ gradPOSC =
 // Compute mixture density
 rho = alpha*rhoa+beta*rhob;
 
+if (SUSaniso)
+{
+    susa = SUS*(K/rhoa)*beta/(alpha+alphaSmall)*turbulenceb->nut()
+                   *((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha));
+    susb = SUS*(K/rhob)*turbulenceb->nut()
+                   *((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha));
+}
+
+// limiter for the explicit stress terms to avoid numerical instability and
+// too strong limitation on the time step
+volScalarField nuFraExp(nuFra);
+nuFraExp.min(nuMaxExp);
+nuFraExp.correctBoundaryConditions();
+
+// Compute explicit stress term for phase a
+volTensorField Rca
+(
+    "Rca",
+    ((2.0/3.0)*I)*((nuEffa+nuFraExp/(alpha+alphaSmall))*tr(gradUaT)
+    + spherSigmaSGSa)
+    - (nuEffa+nuFraExp/(alpha+alphaSmall))*gradUaT
+);
+
 // Compute concentration gradient stress contribution on cell faces for phase a
 surfaceScalarField phiRa
 (
@@ -58,6 +81,8 @@ fvVectorMatrix UaEqn
   + fvm::div(phiRa, Ua, "div(phiRa,Ua)")
   - fvm::Sp(fvc::div(phiRa), Ua)
     ==
+//  - gradPf                  // contact pressure gradient moved to p-equation
+  - susa                      // anistropic turbulent suspension term
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
   + fvOptions(alpha, Ua)
 );
@@ -87,7 +112,8 @@ fvVectorMatrix UbEqn
   + fvm::div(phiRb, Ub, "div(phiRb,Ub)")
   - fvm::Sp(fvc::div(phiRb), Ub)
     ==
-    alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift and added mass forces
+    susb                                    // anistropic turbulent suspension term
+  + alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift and added mass forces
   + fvOptions(beta, Ub)
 );
 UbEqn.relax();

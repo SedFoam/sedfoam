@@ -19,83 +19,80 @@ License
     along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 \*---------------------------------------------------------------------------*/
-if (this->runTime_.outputTime())
+if (Ua_.time().outputTime())
 {
-
-    volScalarField Kprod
+    volScalarField psTerm
     (
        IOobject
        (
-            "Kprod",
-            k_.time().timeName(),
-            k_.mesh(),
+            "psTerm",
+            Ua_.time().timeName(),
+            Ua_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
        ),
-       G
-    );
-    volScalarField Kdiff
-    (
-       IOobject
-       (
-            "Kdiff",
-            k_.time().timeName(),
-            k_.mesh(),
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-       ),
-       fvc::laplacian(DkEff(), k_)
-    );
-    volScalarField Kdissip
-    (
-       IOobject
-       (
-            "Kdissip",
-            k_.time().timeName(),
-            k_.mesh(),
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-       ),
-       -Cmu_*omega_*k_
-    );
-    
-    volScalarField Kdissdrag1
-    (
-       IOobject
-       (
-            "Kdissdrag1",
-            k_.time().timeName(),
-            k_.mesh(),
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-       ),
-       ESD_*k_
-    );
-    volScalarField Kdissdrag2
-    (
-       IOobject
-       (
-            "Kdissdrag2",
-            k_.time().timeName(),
-            k_.mesh(),
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-       ),
-       KE4_*ESD4_*nut
-    );
-    volScalarField Kdissdrag3
-    (
-       IOobject
-       (
-            "Kdissdrag3",
-            k_.time().timeName(),
-            k_.mesh(),
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-       ),
-       ESD2()*KE2_ * k_
+       -fvc::SuSp((PsCoeff*I) && dU, Theta_)
     );
 
-    this->runTime_.write();
-
+    volScalarField Tprod
+    (
+       IOobject
+       (
+            "Tprod",
+            Ua_.time().timeName(),
+            Ua_.mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+       ),
+       tau && dU
+    );
+    volScalarField Tdiff
+    (
+       IOobject
+       (
+            "Tdiff",
+            Ua_.time().timeName(),
+            Ua_.mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+       ),
+       fvc::laplacian(kappa_, Theta_, "laplacian(kappa,Theta)")
+    );
+    volScalarField Tdissip
+    (
+       IOobject
+       (
+            "Tdissip",
+            Ua_.time().timeName(),
+            Ua_.mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+       ),
+       fvc::Sp(-gammaCoeff, Theta_)
+    );
+    volScalarField TdragJ1
+    (
+       IOobject
+       (
+            "TdragJ1",
+            Ua_.time().timeName(),
+            Ua_.mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+       ),
+       fvc::Sp(-J1, Theta_)
+    );
+    volScalarField TdragJ2
+    (
+       IOobject
+       (
+            "TdragJ2",
+            Ua_.time().timeName(),
+            Ua_.mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+       ),
+       (1-killJ2_)*J2
+    );
+    Ua_.time().write();
 }
