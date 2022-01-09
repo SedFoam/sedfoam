@@ -72,7 +72,7 @@
           How To work with sedFoam container
         </h1>
         <p>How To use sedFoam docker to test and use sedFoam.</p>
-        <div class="m-block m-default">
+        <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
             <li><a href="#configuration">Configuration of the sedFoam docker</a></li>
@@ -92,7 +92,7 @@
               </ul>
             </li>
           </ul>
-        </div>
+        </nav>
 <p>Here is a How To about using the sedFoam docker.</p><p>The prerequisites is to install Docker : <a href="https://docs.docker.com/engine/install/">https:/<wbr />/<wbr />docs.docker.com/<wbr />engine/<wbr />install/<wbr /></a></p><p>This page is organised in two sections:</p><ul><li><a href="howtodocker.html#configuration" class="m-doc">Configuration of the sedFoam docker</a></li><li><a href="howtodocker.html#howtouse" class="m-doc">How to use/launch sedFoam docker ?</a></li></ul><section id="configuration"><h2><a href="#configuration">Configuration of the sedFoam docker</a></h2><p>Operating System : Ubuntu focal</p><p>Openfoam version : v2106 (openfoam.com) with all tutorials and source files</p><p>user : sudofoam (with sudo)</p><p>Installed packages : swak4foam, python3-numpy, python3-matplotlib, fluidfoam, vim...</p><p>Official link : <a href="https://hub.docker.com/r/cbonamy/sedfoam_v2106_ubuntu">https://hub.docker.com/r/cbonamy/sedfoam_<wbr />v2106_<wbr />ubuntu</a></p><p>Dockerfile : <a href="https://github.com/SedFoam/sedfoam/blob/master/docker/Dockerfile">https:/<wbr />/<wbr />github.com/<wbr />SedFoam/<wbr />sedfoam/<wbr />blob/<wbr />master/<wbr />docker/<wbr />Dockerfile</a></p><p>Please note that Paraview is not included in the sedFoam docker. The users are encouraged to install and use Paraview on the host machine.</p></section><section id="howtouse"><h2><a href="#howtouse">How to use/launch sedFoam docker ?</a></h2><section id="launch"><h3><a href="#launch">launch/initiate docker:</a></h3><ul><li><a href="howtodocker.html#macOS" class="m-doc">On macOS with GUI (graphical interface without paraview):</a></li><li><a href="howtodocker.html#windows" class="m-doc">On Windows with GUI (graphical interface without paraview):</a></li><li><a href="howtodocker.html#linux" class="m-doc">On linux with GUI (graphical interface without paraview):</a></li></ul><section id="macOS"><h4><a href="#macOS">On macOS with GUI (graphical interface without paraview):</a></h4><p>On host :</p><ul><li>configure xquartz<ul><li>install xquartz to allow network connection</li><li>in Xquartz : Go to Preferences &gt; Security</li><li>and Check &quot;allow connections from network clients&quot;</li><li><p>in a terminal :</p><pre>    IP=$(ifconfig en0 | grep inet | awk &#x27;$1==&quot;inet&quot; {print $2}&#x27;)
     xhost + $IP
 </pre></li></ul></li><li><p>initiate docker :</p><pre>    docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name &quot;sedfoam_v2106&quot; --workdir=&quot;/home/sudofoam&quot; -v=&quot;/Users/toto&quot;:/home/sudofoam/workingDir &quot;cbonamy/sedfoam_v2106_ubuntu&quot; /bin/bash
