@@ -233,7 +233,7 @@ bool twophasekEpsilon<BasicTurbulenceModel>::read()
 template<class BasicTurbulenceModel>
 void twophasekEpsilon<BasicTurbulenceModel>::correct()
 {
-    if (!this->turbulence_)
+    if (not this->turbulence_)
     {
         return;
     }

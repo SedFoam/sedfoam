@@ -33,7 +33,7 @@ if (Foam::mag(gravity).value() != 0)
 }
 Urh = (Ub-Ua) - Urtemp;
 
-if (!SUSaniso)
+if (not SUSaniso)
 {
 // ESD1 for horizontal, ESD4 for vertical density stratification
 // for 1D ESD1 ==0, obviously
@@ -50,16 +50,16 @@ else
 {
 // ESD1 for horizontal, ESD4 for vertical density stratification
 // for 1D ESD1 ==0, obviously
-ESD1 = SUS*(K/rhob)*(SUS_I*iso-SUS_A*aniso)&(fvc::grad(alpha)) 
+ESD1 = SUS*(K/rhob)*(SUS_I*iso-SUS_A*aniso)&(fvc::grad(alpha))
           & Urh;
 
 // stratification
-ESD4 = - SUS/beta*(rhoa/rhob-1.0)*gravity 
+ESD4 = - SUS/beta*(rhoa/rhob-1.0)*gravity
             & fvc::grad(alpha);
 ESD4 = ESD4 + KE1*ESD1;
 
 // the following term is implemented in epsilon equation.
-ESD5 = - SUS/beta*(rhoa/rhob-1.0)*gravity 
+ESD5 = - SUS/beta*(rhoa/rhob-1.0)*gravity
             & fvc::grad(alpha);
 }
 // if ESD5 > 0, then it should be implemented, else, no

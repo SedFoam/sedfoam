@@ -131,10 +131,10 @@ protected:
         virtual void correctNut();
 
         //- No copy construct and assignment
-        twophasekEpsilon(const twophasekEpsilon&) = delete;
+        twophasekEpsilon(const twophasekEpsilon&) = delete ;
 
         //- No copy assignment
-        void operator=(const twophasekEpsilon&) = delete;
+        void operator=(const twophasekEpsilon&) = delete ;
 
 
 public:
