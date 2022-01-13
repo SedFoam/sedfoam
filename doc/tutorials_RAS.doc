@@ -58,7 +58,7 @@ and written in the file *constant/forceProperties* using the keyword *gradPMEAN*
 
 The inlet and outlet boundaries are set to cyclic while the front and back boundaries are set to empty. The latter boundary condition means that the y-components are not considered by the solver (i.e. 2 velocity components only). At the top boundary, the pressure is fixed to zero and a zero gradient (\*i.e* Neumann boundary condition) is imposed on all the other quantities. At the wall, the velocity is set to zero, a zeroGradient condition is imposed for the pressure and a wall function is imposed for the TKE dissipation.
 
-The wall function is prescribing the value of TKE dissipation \f$\omega\f$ at the wall to follow the analytical solution from Wilcox (1988). In this tutorial, a rough wall function is used prescribing the value of \f$\omega\f$ at the wall following:
+The wall function is prescribing the value of TKE dissipation \f$\omega.b\f$ at the wall to follow the analytical solution from Wilcox (1988). In this tutorial, a rough wall function is used prescribing the value of \f$\omega.b\f$ at the wall following:
 \f[
  \omega_{wall} = S_r\frac{u_\tau^2}{\nu}
 \f]
@@ -115,7 +115,7 @@ blockMesh
 
 \paragraph BC_initiBLTurb Boundary and initial conditions
 
-The case is set up to start at time \f$t = 0\f$ s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, alphaMinFriction, alphaPlastic, Ua, Ub, p_rbgh, muI, pa, pa_new, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. The initial profile of concentration (in alpha_a) is a hyperbolic tangent whose parameters have been compute so that the exact same amount of granular mass as in the DEM simulation is set in the sedFoam simulation. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.
+The case is set up to start at time \f$t = 0\f$ s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha.a, alphaMinFriction, alphaPlastic, U.a, U.b, p_rbgh, muI, pa, pa_new, Theta, one for each of the solid phase volume fraction (alpha.a), velocities of solid and fluid phases (U.a and U.b), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. The initial profile of concentration (in alpha.a) is a hyperbolic tangent whose parameters have been compute so that the exact same amount of granular mass as in the DEM simulation is set in the sedFoam simulation. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.
 
 \verbatim
 forAll(mesh.C(), i)
@@ -332,7 +332,7 @@ blockMesh
 
 \paragraph BC_initiSF Boundary and initial conditions
 
-The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files:  alpha_a, alphaMinFriction, alphaPlastic, Ua, Ub, p_rbgh, muI, pa, pa_new, Theta, k, epsilon, omega and nut one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. No-slip boundary conditions are imposed at the bottom and zero gradient at the top for both phase velocities.
+The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files:  alpha.a, alphaMinFriction, alphaPlastic, U.a, U.b, p_rbgh, muI, pa, pa_new, Theta, k.b, epsilon.b, omega.b and nut one for each of the solid phase volume fraction (alpha.a), velocities of solid and fluid phases (U.a and U.b), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. No-slip boundary conditions are imposed at the bottom and zero gradient at the top for both phase velocities.
 
 
 
@@ -457,16 +457,16 @@ divSchemes
     div(phi,alpha)  Gauss limitedLinear01 1;
     div(phir,alpha) Gauss limitedLinear01 1;
 // UEqn
-    div(phia,Ua)    Gauss limitedLinearV 1;
-    div(phib,Ub)    Gauss limitedLinearV 1;
+    div(phi.a,U.a)    Gauss limitedLinearV 1;
+    div(phi.b,U.b)    Gauss limitedLinearV 1;
     div(phiRa,Ua)   Gauss limitedLinear 1;
     div(phiRb,Ub)   Gauss limitedLinear 1;
 // pEqn
     div(alpha,nu)   Gauss linear;
 // k and EpsilonEqn
-    div(phib,k)     Gauss limitedLinear 1;
-    div(phib,epsilon) Gauss limitedLinear 1;
-    div(phib,omega) Gauss limitedLinear 1;
+    div(phi.b,k.b)     Gauss limitedLinear 1;
+    div(phi.b,epsilon.b) Gauss limitedLinear 1;
+    div(phi.b,omega.b) Gauss limitedLinear 1;
 // ThetaEqn
     div(phi,Theta)  Gauss limitedLinear 1;
 // alphaPlastic
@@ -479,17 +479,17 @@ laplacianSchemes
 {
     default         none;
 // UEqn
-    laplacian(nuEffa,Ua) Gauss linear corrected;
-    laplacian(nuEffb,Ub) Gauss linear corrected;
-    laplacian(nuFra,Ua)  Gauss linear corrected;
+    laplacian(nuEffa,U.a) Gauss linear corrected;
+    laplacian(nuEffb,U.b) Gauss linear corrected;
+    laplacian(nuFra,U.a)  Gauss linear corrected;
 // pEqn
     laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
 // k and EpsilonEqn
-    laplacian(DkEff,k) Gauss linear corrected;
+    laplacian(DkEff,k.b) Gauss linear corrected;
     laplacian(DkEff,beta) Gauss linear corrected;
-    laplacian(DepsilonEff,epsilon) Gauss linear corrected;
+    laplacian(DepsilonEff,epsilon.b) Gauss linear corrected;
     laplacian(DepsilonEff,beta) Gauss linear corrected;
-    laplacian(DomegaEff,omega) Gauss linear corrected;
+    laplacian(DomegaEff,omega.b) Gauss linear corrected;
 //ThetaEqn
     laplacian(kappa,Theta) Gauss linear corrected;
     laplacian(kappa2,alpha) Gauss linear corrected;
@@ -733,13 +733,13 @@ See the perl script for details about the different parameters.
 
 The boundary conditions have to be adapted from the RB case :
 
-(i) At the inlet, vertical profiles obtained from a 1D vertical simulation are imposed for \f$ u^s, u^f , k , \omega, \alpha_a\f$. Zero transverse velocity is prescribed.
+(i) At the inlet, vertical profiles obtained from a 1D vertical simulation are imposed for \f$ u^s, u^f , k , \omega.b, \alpha.a\f$. Zero transverse velocity is prescribed.
 
 (ii) At the outlet, Neumann boundary conditions are specified for all quantities, except for the pressure for which a homogeneous Dirichlet boundary condition is imposed for the reduced pressure. For the velocities, a homogeneous Neumann boundary condition is used when the velocity vector points outside of the domain at the outlet, and a homogeneous Dirichlet boundary condition is used otherwise.
 
 (iii) At the top and side boundaries, the same boundary conditions as in the Rigid-Bed case are used.
 
-(iv) At the walls (including the cylinder), zero velocity (no-slip) is imposed for the three components and a small value is imposed for the turbulent kinetic energy (TKE) k. The boundary condition for \f$\omega\f$ is specified using the classical wall function from openFOAM at the cylinder and using a constant value is imposed at the bottom.
+(iv) At the walls (including the cylinder), zero velocity (no-slip) is imposed for the three components and a small value is imposed for the turbulent kinetic energy (TKE) k.b. The boundary condition for \f$\omega.b\f$ is specified using the classical wall function from openFOAM at the cylinder and using a constant value is imposed at the bottom.
 
 \subsection PhysProp_S3D Physical properties
 
