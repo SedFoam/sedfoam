@@ -25,6 +25,8 @@ Operating System : Ubuntu focal
 
 Openfoam version : v2106 (openfoam.com) with all tutorials and source files
 
+sedFoam version : the latest of the develop branch
+
 user : sudofoam (with sudo)
 
 Installed packages : swak4foam, python3-numpy, python3-matplotlib, fluidfoam, vim...
