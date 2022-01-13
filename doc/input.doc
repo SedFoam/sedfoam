@@ -181,7 +181,7 @@ xSmax           | max. X position for sponge layer |    0         | min(X)-max(X
 
 
 
-\subsection turbulenceProperties.phaseb File turbulenceProperties.phaseb
+\subsection turbulencePropertiesphaseb File turbulenceProperties.phaseb
 
 In the file 'turbulenceProperties.phaseb' the user can specify the turbulence model to be used for the fluid phase:
 
@@ -204,7 +204,7 @@ Coefficients of the turbulence models can be modified in the file *turbulencepro
 
 If simulationType=LES is selected, the user needs to specify a turbulence model using the keyword 'LESModel' in the 'LES' dictionnary. For the moment, only the dynamic Lagragian sub-grid scale model from Meneveau et al. (1996) can be used with the keyword *fluidDynamicLagrangian*
 
-\subsection turbulenceProperties.phasea File turbulenceProperties.phasea
+\subsection turbulencePropertiesphasea File turbulenceProperties.phasea
 
 In the file 'turbulenceProperties.phasea' the user can specify the turbulence model to be used for the solid phase:
 
