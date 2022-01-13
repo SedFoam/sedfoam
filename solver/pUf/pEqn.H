@@ -114,13 +114,13 @@ License
           // mean pressure gradient
           + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
         );
-	if (!SUSaniso)
-	{
-	    // turbulent suspension term
-	    phiDraga += -(fvc::interpolate(SUS*(K/rhoa)*turbulenceb->nut()
-	 			    *(beta/(alpha + alphaSmall)))
-           		    *fvc::snGrad(alpha))*rUaAf*mesh.magSf();
-	}
+    if (not SUSaniso)
+    {
+        // turbulent suspension term
+        phiDraga += -(fvc::interpolate(SUS*(K/rhoa)*turbulenceb->nut()
+                   *(beta/(alpha + alphaSmall)))
+                   *fvc::snGrad(alpha))*rUaAf*mesh.magSf();
+    }
 
         // Momentum flux at the cell faces for phase b
         surfaceScalarField phiDragb
@@ -143,12 +143,13 @@ License
           - rUbAf*fvc::interpolate(neg(alpha-0.3))*((gradConvAcc/rhob)
             & mesh.Sf())
         );
-	if (!SUSaniso)
-	{
-	    // turbulent suspension term
-	    phiDragb += fvc::interpolate(SUS*(K/rhob)*turbulenceb->nut())*fvc::snGrad(alpha)
-                		*rUbAf*mesh.magSf();
-	}
+    if (not SUSaniso)
+    {
+        // turbulent suspension term
+        phiDragb += fvc::interpolate(SUS*(K/rhob)
+                        *turbulenceb->nut())*fvc::snGrad(alpha)
+                        *rUbAf*mesh.magSf();
+    }
         //    fvOptions.makeRelative(phiHabyA);
         //    fvOptions.makeRelative(phiHbbyA);
 

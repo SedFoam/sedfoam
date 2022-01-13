@@ -124,8 +124,8 @@ fvVectorMatrix UbEqn
   + fvc::div(Rcb)
   + (fvc::grad(beta)/(beta) & Rcb)
     ==
-    susb                                    // anistropic turbulent suspension term
-  + alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift and added mass forces
+    susb     // anistropic turbulent suspension term
+  + alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift & added mass forces
   + fvOptions(beta, Ub)
 );
 UbEqn.relax();
