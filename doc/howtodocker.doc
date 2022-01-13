@@ -59,7 +59,8 @@ On host :
     - The previous command will give you a url like http://127.0.0.1:8888/?token=ae5f299fc77312f079793a9ca818d5973ed4df5a5a85b9fa
     - Just copy and paste the link into your web browser
 
-Please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
+The  -v="/Users/toto":/home/sudofoam/workingDir option is not mmandatory. It is used to mmount a shared space between host and jupyter notebook.
+If you use this option, please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir.
 
 \subsubsection macOS On macOS with GUI (graphical interface without paraview):
 
