@@ -25,6 +25,8 @@ Operating System : Ubuntu focal
 
 Openfoam version : v2106 (openfoam.com) with all tutorials and source files
 
+sedFoam version : the latest of the develop branch
+
 user : sudofoam (with sudo)
 
 Installed packages : swak4foam, python3-numpy, python3-matplotlib, fluidfoam, vim...
@@ -32,6 +34,8 @@ Installed packages : swak4foam, python3-numpy, python3-matplotlib, fluidfoam, vi
 Official link : https://hub.docker.com/r/cbonamy/sedfoam_v2106_ubuntu
 
 Dockerfile : https://github.com/SedFoam/sedfoam/blob/master/docker/Dockerfile
+
+Extended docker (supporting notebook) : https://hub.docker.com/r/cbonamy/sedfoam_v2106_notebook
 
 Please note that Paraview is not included in the sedFoam docker. The users are
 encouraged to install and use Paraview on the host machine.
@@ -41,9 +45,24 @@ encouraged to install and use Paraview on the host machine.
 
 \subsection launch launch/initiate docker:
 
+- \ref notebook 
 - \ref macOS 
 - \ref windows
 - \ref linux
+
+\subsubsection notebook In jupyter notebook using your web browser (macOS, linux, windows):
+
+On host :
+- initiate docker :
+\verbatim
+    docker run -p 8888:8888 --name "sedfoam_v2106_notebook" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_v2106_notebook"
+\endverbatim
+- use your web browser :
+    - The previous command will give you a url like http://127.0.0.1:8888/?token=ae5f299fc77312f079793a9ca818d5973ed4df5a5a85b9fa
+    - Just copy and paste the link into your web browser
+
+The  -v="/Users/toto":/home/sudofoam/workingDir option is not mmandatory. It is used to mmount a shared space between host and jupyter notebook.
+If you use this option, please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir.
 
 \subsubsection macOS On macOS with GUI (graphical interface without paraview):
 

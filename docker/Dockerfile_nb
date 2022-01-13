@@ -63,8 +63,6 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
 WORKDIR /root/
-RUN rm -rf sedfoam
-RUN git clone --branch dev_notebook_dock --recurse-submodules https://github.com/CyrilleBonamy/sedfoam.git
 
 # Copy a script that we will use to correct permissions after running certain commands
 RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions"
@@ -87,17 +85,11 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     fix-permissions $HOME && \
     fix-permissions $CONDA_DIR
 
-WORKDIR /root/sedfoam
-RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group'
-
 WORKDIR /home/sudofoam
-RUN rm -rf sedfoam .cache
+RUN rm -rf .cache
 
 USER 1000
 ARG PYTHON_VERSION=default
-
-WORKDIR /home/sudofoam
-RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
 
 # Install conda as jovyan and check the md5 sum provided on the download site
 ENV MINICONDA_VERSION="${miniconda_version}" \

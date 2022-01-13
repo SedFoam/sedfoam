@@ -138,7 +138,7 @@ The running status of blockMesh is reported in the terminal window. Any mistakes
 
 \paragraph BC_init Boundary and initial conditions
 
-Once the mesh generation is complete, the user can look at this initial fields set up for this case. The case is set up to start at time t = 0 s, so the initial field data is stored in a 0_org sub-directory of the 1DSedim directory. The 0_org sub-directory contains several files: alpha_a, Ua, Ub, p_rbgh, muI, pa, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. Let us examine file Ua:
+Once the mesh generation is complete, the user can look at this initial fields set up for this case. The case is set up to start at time t = 0 s, so the initial field data is stored in a 0_org sub-directory of the 1DSedim directory. The 0_org sub-directory contains several files: alpha.a, U.a, U.b, p_rbgh, muI, pa, Theta, one for each of the solid phase volume fraction (alpha.a), velocities of solid and fluid phases (U.a and U.b), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. Let us examine file U.a:
 
 \verbatim
 dimensions      [0 1 -1 0 0 0 0];
@@ -186,7 +186,7 @@ There are 3 principal entries in field data files:
 
 For this case 1DSedim, the boundary consists of cyclic boundaries at the inlet and outlet (left and right boundaries) and walls at the top and bottom boundaries, the top boundary is zeroGradient whereas the bottom boundary is a no-slip boundary conditions i.e zero velocity at the wall. The frontAndBack patch represents the front and back planes of the 2D case and therefore must be set as empty.
 
-The user can similarly examine the fluid phase velocity field in the 0_org/Ub file. The solid phase volume fraction has zeroGradient boundary conditions at the top and bottom boundaries whereas the pressure has fixedValue at the top boundary (equivalent to setting the atmospheric pressure) and a fixedFluxPressure at the bottom boundary. We shall explain below what this boundary condition means.
+The user can similarly examine the fluid phase velocity field in the 0_org/U.b file. The solid phase volume fraction has zeroGradient boundary conditions at the top and bottom boundaries whereas the pressure has fixedValue at the top boundary (equivalent to setting the atmospheric pressure) and a fixedFluxPressure at the bottom boundary. We shall explain below what this boundary condition means.
 
 \paragraph PhysProp Physical properties
 
@@ -221,7 +221,7 @@ alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (
 
 \endverbatim
 
-The hindrance function exponent of the Richardson-Zaki law can be tuned using the parameter hExp. This is important for this first test case which is in the laminar regime for the drag. The transportModel has to be prescribed when using turbulence model, it is present here for compatibility with the other test cases. The nuMax value is a viscosity limiter for the all the viscosities, it allows the user to control the numerical stability of the solver and will be discussed in the second test case. It is especially important as some shear stress terms are discretized explicitly and that the frictional viscosity can reach huge values. The alphaSmall value is used to regularise the division by alpha_a in the source code, the default value is set to \f$ 10^{-6} \f$.
+The hindrance function exponent of the Richardson-Zaki law can be tuned using the parameter hExp. This is important for this first test case which is in the laminar regime for the drag. The transportModel has to be prescribed when using turbulence model, it is present here for compatibility with the other test cases. The nuMax value is a viscosity limiter for the all the viscosities, it allows the user to control the numerical stability of the solver and will be discussed in the second test case. It is especially important as some shear stress terms are discretized explicitly and that the frictional viscosity can reach huge values. The alphaSmall value is used to regularise the division by alpha.a in the source code, the default value is set to \f$ 10^{-6} \f$.
 
 The dictionary *interfacialProperties* allows to specify the drag model:
 
@@ -368,8 +368,8 @@ divSchemes
     div(phi,alpha)  Gauss upwind;//limitedLinear01 1;
     div(phir,alpha) Gauss upwind;//limitedLinear01 1;
 // UEqn
-    div(phia,Ua)    Gauss limitedLinearV 1;
-    div(phib,Ub)    Gauss limitedLinearV 1;
+    div(phi.a,U.a)    Gauss limitedLinearV 1;
+    div(phi.b,U.b)    Gauss limitedLinearV 1;
     div(phiRa,Ua)   Gauss limitedLinear 1;
     div(phiRb,Ub)   Gauss limitedLinear 1;
 // pEqn
@@ -384,9 +384,9 @@ laplacianSchemes
 {
     default         none;
 // UEqn
-    laplacian(nuEffa,Ua) Gauss linear corrected;
-    laplacian(nuEffb,Ub) Gauss linear corrected;
-    laplacian(nuFra,Ua)  Gauss linear corrected;
+    laplacian(nuEffa,U.a) Gauss linear corrected;
+    laplacian(nuEffb,U.b) Gauss linear corrected;
+    laplacian(nuFra,U.a)  Gauss linear corrected;
 // pEqn
     laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
 }
@@ -436,14 +436,14 @@ solvers
         tolerance       1e-9;
         relTol          0;
     }
-    "(alpha_a|Ua|Ub|pa_new_value|alphaPlastic)"
+    "(alpha.a|U.a|U.b|pa_new_value|alphaPlastic)"
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-9;
         relTol          0;
     }
-    "(alpha_aFinal|UaFinal|UbFinal|paFinal|alphaPlasticFinal)"
+    "(alpha.aFinal|U.aFinal|U.bFinal|paFinal|alphaPlasticFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -474,8 +474,8 @@ relaxationFactors
     }
     equations
     {
-        "Ua|Ub|k|omega"             1.;
-        "(Ua|Ub|k|omega)Final"      1;
+        "U.a|U.b"             1.;
+        "(U.a|U.b)Final"      1;
     }
 
 }
@@ -498,7 +498,7 @@ cp -r 0_org 0
 sedFoam_rbgh > log&
 \endverbatim
 
-The script is self documented, the blockMesh command has already been introduced. The initial condition stored in the 0_org folder is first copied to the zero (0) folder. The initial condition for solid phase volume fraction profile *alpha_a* is set using codeStream following an hyperbolic tangent profile described in the file *0_org/alpha_a* as follows:
+The script is self documented, the blockMesh command has already been introduced. The initial condition stored in the 0_org folder is first copied to the zero (0) folder. The initial condition for solid phase volume fraction profile *alpha.a* is set using codeStream following an hyperbolic tangent profile described in the file *0_org/alpha.a* as follows:
 
 \verbatim
 internalField   #codeStream
@@ -602,7 +602,7 @@ blockMesh
 
 \paragraph BC_initiBL Boundary and initial conditions
 
-The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, alphaMinFriction, alphaPlastic, Ua, Ub, p_rbgh, muI, pa, pa_new, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.
+The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha.a, alphaMinFriction, alphaPlastic, U.a, U.b, p_rbgh, muI, pa, pa_new, Theta, one for each of the solid phase volume fraction (alpha.a), velocities of solid and fluid phases (U.a and U.b), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.
 
 \paragraph PhysPropBL Physical properties
 
@@ -630,7 +630,7 @@ nu              nu [ 0 2 -1 0 0 0 0 ] 2.52e-4;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e1;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha_a
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha.a
 
 \endverbatim
 
@@ -805,7 +805,7 @@ blockMesh
 
 
 
-The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha_a, Ua, Ub, p_rbgh, muI, pa, Theta, one for each of the solid phase volume fraction (alpha_a), velocities of solid and fluid phases (Ua and Ub), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set.
+The case is set up to start at time t = 0 s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha.a, U.a, U.b, p_rbgh, muI, pa, Theta, one for each of the solid phase volume fraction (alpha.a), velocities of solid and fluid phases (U.a and U.b), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set.
 No-slip boundary conditions are imposed for both phases at the top and bottom boundaries (zero velocity at the solid boundaries).  Additionally, cyclic boundaries are considered in the inlet and outlet (upstream and downstream boundaries in figure 6.). Cyclic boundaries are imposed to connect two equal meshes.
 The frontAndBack patch represents the front and back planes of the 2D case and therefore must be set as empty.
 
@@ -1317,7 +1317,7 @@ D. Berzi, “Extended kinetic theory applied to dense, granular, simple shear fl
 
 This tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/1DSimpleShear.
 
-In this configuration, significant complexity arise from the boundary conditions for the granular velocity Ua (slip with friction) and the granular temperature Theta (pseudo heat flux at the boundary). These boundary conditions are not implemented yet in sedFoam and in the configuration presented here the velocity and granular temperature are imposed as Dirichlet conditions at the top and bottom boundaries. No body force acts on the fluid or the grain.
+In this configuration, significant complexity arise from the boundary conditions for the granular velocity U.a (slip with friction) and the granular temperature Theta (pseudo heat flux at the boundary). These boundary conditions are not implemented yet in sedFoam and in the configuration presented here the velocity and granular temperature are imposed as Dirichlet conditions at the top and bottom boundaries. No body force acts on the fluid or the grain.
 
 The parameters are set in the file constant/transportProperties and ar given as follows:
 \verbatim
