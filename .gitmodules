@@ -4,3 +4,6 @@
 [submodule "TurbulenceModels/wallFunctions"]
 	path = TurbulenceModels/wallFunctions
 	url = https://github.com/SedFoam/wallFunctions
+[submodule "docker/docker-stacks"]
+	path = docker/docker-stacks
+	url = https://github.com/jupyter/docker-stacks

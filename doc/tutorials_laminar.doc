@@ -30,8 +30,8 @@ OpenFOAM always operates in a 3 dimensional Cartesian coordinate system and all 
 
 The sedimentation domain consists of a square of side length L = 0.006 m in the x–y plane and of height h=0.06 m in the vertical direction z. The side length is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 100 cells will be used. The block structure is shown in Figure 1.
 
-@image html "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
-@image latex "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
+@image html "Sketch1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
+@image latex "Sketch1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
 
 
 
