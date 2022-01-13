@@ -64,7 +64,7 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
 
 WORKDIR /root/
 RUN rm -rf sedfoam
-RUN git clone --branch dev_notebook_dock --recurse-submodules https://github.com/CyrilleBonamy/sedfoam.git
+RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
 
 # Copy a script that we will use to correct permissions after running certain commands
 RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions"
