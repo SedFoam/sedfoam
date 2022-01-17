@@ -21,26 +21,27 @@ granularDilatancy  off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
-mus             mus  [ 0 0 0 0 0 0 0 ] 0.24;
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.32;
 
-mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.39;
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.94;
 
-I0              I0  [ 0 0 0 0 0 0 0 ] 0.01;
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.0077;
 
-Bphi            Bphi [ 0 0 0 0 0 0 0 ] 1.;
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 1.0;
 
-n               n [ 0 0 0 0 0 0 0 ] 1.;
+n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
 Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.0;
 
-FrictionModel   Coulomb;
-//FrictionModel   MuIv;
+FrictionModel  Coulomb;
+//FrictionModel  MuIv;
 
 PPressureModel  none;
-//PPressureModel  MuIv;
+//PPressureModel MuIv;
 
-FluidViscosityModel Einstein;
+FluidViscosityModel  Einstein;
+//FluidViscosityModel BoyerEtAl;
 
 // ************************************************************************* //
