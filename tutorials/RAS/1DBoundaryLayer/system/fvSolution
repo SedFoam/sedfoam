@@ -84,7 +84,6 @@ solvers
     }
 }
 
-
 PIMPLE
 {
     momentumPredictor 0;
@@ -96,21 +95,5 @@ PIMPLE
     pRefCell        0;
     pRefValue       0;
 }
-
-relaxationFactors
-{
-    fields
-    {
-        p_rbgh               0.3;
-    }
-    equations
-    {
-        U.a            0.7;
-        U.b            0.7;
-        k.b             0.9;
-        omega.b         0.9;
-    }
-}
-
 
 // ************************************************************************* //

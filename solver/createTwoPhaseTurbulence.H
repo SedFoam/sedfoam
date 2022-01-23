@@ -35,7 +35,6 @@ dimensionedScalar SUS_I
         dimensionedScalar("SUS_I", dimensionSet(0, 0, 0, 0, 0, 0, 0), 1)
     )
 );
-
 dimensionedScalar SUS_A
 (
     twophaseRASProperties.getOrDefault
@@ -43,6 +42,22 @@ dimensionedScalar SUS_A
         "SUS_A",
         dimensionedScalar("SUS_A", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
     )
+);
+// Tensor for anistropic drift velocity model
+dimensionedTensor iso
+(
+  "iso",
+  dimensionSet(0, 0, 0, 0, 0, 0, 0),
+  tensor(1e0, 0e0, 0e0, 0e0, 1e0, 0e0, 0e0, 0e0, 1e0)
+  //      XX, XY,   XZ,   YX, YY,  YZ,  ZX,  ZY,  ZZ
+);
+
+dimensionedTensor aniso
+(
+  "aniso",
+  dimensionSet(0, 0, 0, 0, 0, 0, 0),
+  tensor(0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0)
+  //      XX, XY,  XZ,  YX,  YY,  YZ,  ZX,  ZY, ZZ
 );
 
 volScalarField SUS
@@ -62,6 +77,11 @@ volScalarField SUS
 Switch SUSlocal
 (
     twophaseRASProperties.getOrDefault("SUSlocal", false)
+);
+
+Switch SUSaniso
+(
+    twophaseRASProperties.getOrDefault("SUSaniso", false)
 );
 
 dimensionedScalar Usmall

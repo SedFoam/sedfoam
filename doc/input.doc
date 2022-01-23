@@ -32,7 +32,8 @@ constant/forceProperties
 constant/ppProperties
 constant/granularRheologyProperties
 constant/kineticTheoryProperties
-constant/turbulenceProperties
+constant/turbulenceProperties.phasea
+constant/turbulenceProperties.phaseb
 constant/twophaseRASProperties
 \endverbatim
 
@@ -171,7 +172,7 @@ Cl              | Lift force coef.                 |    0         | 0-10        
 Ct              | Ct model coef. nuEffa=Ct^2 nutb  |    0         | 0-1          | -            |
 InitFreeze      | Freeze solid phase               |    0         | 0, 1 or 2    | -            |
 fixbeddepth     | depth below which to freeze      |    0         | 0 to max(Y)  | m            |
-ClipUa          | impose Ua=Ub for alpha<alphaSmall|    0         | 0 or 1       | -            |
+ClipUa          | impose U.a=U.b for alpha<alphaSmall|    0         | 0 or 1       | -            |
 writeTau        | write shear stress tensors       |    false     | true or false| boolean      |
 debugInfo       | show debugging information       |    false     | true or false| boolean      |
 spongeLayer     | sponge layer                     |    false     | true or false| boolean      |
@@ -180,7 +181,7 @@ xSmax           | max. X position for sponge layer |    0         | min(X)-max(X
 
 
 
-\subsection turbulenceProperties File turbulenceProperties
+\subsection turbulencePropertiesphaseb File turbulenceProperties.phaseb
 
 In the file 'turbulenceProperties.phaseb' the user can specify the turbulence model to be used for the fluid phase:
 
@@ -203,7 +204,7 @@ Coefficients of the turbulence models can be modified in the file *turbulencepro
 
 If simulationType=LES is selected, the user needs to specify a turbulence model using the keyword 'LESModel' in the 'LES' dictionnary. For the moment, only the dynamic Lagragian sub-grid scale model from Meneveau et al. (1996) can be used with the keyword *fluidDynamicLagrangian*
 
-\subsection turbulenceProperties File turbulenceProperties.phasea
+\subsection turbulencePropertiesphasea File turbulenceProperties.phasea
 
 In the file 'turbulenceProperties.phasea' the user can specify the turbulence model to be used for the solid phase:
 

@@ -36,6 +36,13 @@ gradPOSC =
 // Compute mixture density
 rho = alpha*rhoa+beta*rhob;
 
+if (SUSaniso)
+{
+    susa = SUS*(K/rhoa)*beta/(alpha+alphaSmall)*turbulenceb->nut()
+                   *((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha));
+    susb = SUS*(K/rhob)*turbulenceb->nut()
+                   *((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha));
+}
 // limiter for the explicit stress terms to avoid numerical instability and
 // too strong limitation on the time step
 volScalarField nuFraExp(nuFra);
@@ -76,6 +83,7 @@ fvVectorMatrix UaEqn
   + (fvc::grad(alpha)/(alpha+alphaSmall) & Rca)
     ==
 //  - gradPf                  // contact pressure gradient moved to p-equation
+  - susa                      // anistropic turbulent suspension term
   - fvc::grad(pff)/(rhoa*(alpha + alphaSmall))
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
   + fvOptions(alpha, Ua)
@@ -116,7 +124,8 @@ fvVectorMatrix UbEqn
   + fvc::div(Rcb)
   + (fvc::grad(beta)/(beta) & Rcb)
     ==
-    alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift and added mass forces
+    susb     // anistropic turbulent suspension term
+  + alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift & added mass forces
   + fvOptions(beta, Ub)
 );
 UbEqn.relax();

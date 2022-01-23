@@ -17,7 +17,7 @@ FoamFile
 
 ddtSchemes
 {
-    default         Euler implicit;
+    default         Euler;
 }
 
 gradSchemes
