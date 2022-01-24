@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+expressions
+ (
+        U.a_bot
+        {
+                field U.a;
+                variables "Ubar=0.5096;h=0.02;retau=590;";
+		expression "vector(3*Ubar*(pos().y/h-0.5*sqr(pos().y/h))+4*Ubar*0.125*pos().y*retau/h/40.0*exp(-0.0001*sqr(pos().y*retau/h)+0.5)*cos(2*pi/200*pos().z*retau/h)*rand(), 0, 4*Ubar/200.0*sin(2*pi/500*pos().x*retau/h)*pos().y*retau/h*exp(-0.0002*sqr(pos().y*retau/h))*rand())";
+                condition "pos().y <= h";
+                keepPatches 1;
+        }
+        U.a_top
+        {
+                field U.a;
+                variables "Ubar=0.5096;h=0.02;retau=590;";
+		expression "vector(3*Ubar*(pos().y/h-0.5*sqr(pos().y/h))+4*Ubar*0.125*(pos().y-2*h)*retau/h/40.0*exp(-0.0001*sqr((pos().y-2*h)*retau/h)+0.5)*cos(2*pi/200*pos().z*retau/h)*rand(), 0, 4*Ubar/200.0*sin(2*pi/500*pos().x*retau/h)*(pos().y-2*h)*retau/h*exp(-0.0002*sqr((pos().y-2*h)*retau/h))*rand())";
+                condition "pos().y >= h";
+                keepPatches 1;
+        }
+        U.b_bot
+        {
+                field U.b;
+                variables "Ubar=0.5096;h=0.02;retau=590;";
+		expression "vector(3*Ubar*(pos().y/h-0.5*sqr(pos().y/h))+4*Ubar*0.125*pos().y*retau/h/40.0*exp(-0.0001*sqr(pos().y*retau/h)+0.5)*cos(2*pi/200*pos().z*retau/h)*rand(), 0, 4*Ubar/200.0*sin(2*pi/500*pos().x*retau/h)*pos().y*retau/h*exp(-0.0002*sqr(pos().y*retau/h))*rand())";
+                condition "pos().y <= h";
+                keepPatches 1;
+        }
+        U.b_top
+        {
+                field U.b;
+                variables "Ubar=0.5096;h=0.02;retau=590;";
+		expression "vector(3*Ubar*(pos().y/h-0.5*sqr(pos().y/h))+4*Ubar*0.125*(pos().y-2*h)*retau/h/40.0*exp(-0.0001*sqr((pos().y-2*h)*retau/h)+0.5)*cos(2*pi/200*pos().z*retau/h)*rand(), 0, 4*Ubar/200.0*sin(2*pi/500*pos().x*retau/h)*(pos().y-2*h)*retau/h*exp(-0.0002*sqr((pos().y-2*h)*retau/h))*rand())";
+                condition "pos().y >= h";
+                keepPatches 1;
+        }
+ );
+
+// ************************************************************************* //

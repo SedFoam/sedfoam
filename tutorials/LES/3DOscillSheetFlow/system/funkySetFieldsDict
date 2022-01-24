@@ -1,0 +1,47 @@
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+
+    root            "";
+    case            "";
+    instance        "system";
+    local           "";
+
+    class           dictionary;
+    object          funkySetFieldsDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+expressions
+(
+ alpha_a 
+  {
+    field alpha.a;
+    keepPatches true;
+    expression "0.5*0.607835*(1+tanh(500-10000*pos().y))";
+//    expression "1.005*alpha";
+//    condition "alpha>0.6";
+  }
+/*  Ua
+  {
+    field U.a;
+    keepPatches true;
+    expression "0*U.a";
+    condition "alpha.a>0.57";
+  }
+  Ub
+  {
+    field U.b;
+    keepPatches true;
+    expression "0*U.b";
+    condition "alpha.a>0.57";
+  }
+  Theta
+  {
+    field Theta;
+    keepPatches true;
+    expression "0*Theta";
+    condition "alpha.a>0.57";
+  }*/
+);
