@@ -159,10 +159,17 @@ In the file 'forceProperties' the user can specify the input parameters for the 
 parameter       | description                      |    default   |     range    |    units     |
 ----------------|----------------------------------|--------------|--------------|--------------|
 gradPMEAN       | mean pressure gradient           |    0         | 0-           |  kg/m^2/s^2  |
-gradPAMP1       | 1st order Stokes wave contrib.   |    0         | 0-           |  kg/m^2/s^2  |
-gradPAMP2       | 2nd order Stokes wave contrib.   |    0         | 0-           |  kg/m^2/s^2  |
+gradPAMP1       | 1st order wave contrib.          |    0         | 0-           |  kg/m^2/s^2  |
+gradPAMP2       | 2nd order wave contrib.          |    0         | 0-           |  kg/m^2/s^2  |
+gradPAMP3       | 3rd order wave contrib.          |    0         | 0-           |  kg/m^2/s^2  |
+gradPAMP4       | 4th order wave contrib.          |    0         | 0-           |  kg/m^2/s^2  |
+gradPAMP5       | 5th order wave contrib.          |    0         | 0-           |  kg/m^2/s^2  |
 oscpT           | wave period                      |    0         | 0-           |  s           |
-initTheta       | initial wave phase               |    0         | 0-359        |  deg         |  
+initTheta1      | initial phase of 1st harmonic    |    0         | 0-359        |  deg         |  
+initTheta2      | initial phase of 2nd harmonic    |    0         | 0-359        |  deg         |          
+initTheta3      | initial phase of 3rd harmonic    |    0         | 0-359        |  deg         |          
+initTheta4      | initial phase of 4th harmonic    |    0         | 0-359        |  deg         |          
+initTheta5      | initial phase of 5th harmonic    |    0         | 0-359        |  deg         |          
 tilt            | to mimic bedslope with gradPMEAN |    0         | 0 or 1       |  -           |
 Cvm             | virtual mass force coef.         |    0         | 0-10         | -            |
 Cl              | Lift force coef.                 |    0         | 0-10         | -            |
