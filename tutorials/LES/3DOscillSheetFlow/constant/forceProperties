@@ -21,7 +21,7 @@ gradPAMP1        gradPAMP1        [ 1 -2 -2 0 0 0 0 ] (1884.9556 0 0 );       //
 gradPOSC         gradPOSC         [ 1 -2 -2 0 0 0 0 ] (1884.9556 0 0 ); // pressure osci real value
 gradPMEAN        gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (0 0 0 ); // mean pressure
 oscpT            oscpT            [ 0  0  0 0 0 0 0 ] 5.0;            // osci period
-initTheta        initTheta        [ 0  0  0 0 0 0 0 ] 0;              // initial deg since osci pressure is programed with sin
+initTheta1       initTheta1       [ 0  0  0 0 0 0 0 ] 0;              // initial phase of 1st order wave
 InitFreeze       InitFreeze       [ 0  0  0 0 0 0 0 ] 0;              // Ua set to zero at each time step
 ClipUa           ClipUa           [ 0  0  0 0 0 0 0 ] 0;
 
