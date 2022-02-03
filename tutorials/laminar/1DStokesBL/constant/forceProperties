@@ -21,7 +21,8 @@ gradPAMP1       gradPAMP1 [ 1 -2 -2 0 0 0 0 ] (1727.87 0 0 );     // pressure os
 gradPAMP2       gradPAMP2 [ 1 -2 -2 0 0 0 0 ] (0 0 0 );     // pressure osci amp
 gradPMEAN       gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (0 0 0 ); // mean pressure
 oscpT           oscpT [ 0 0 0 0 0 0 0 ] 4.0;       // osci period
-initTheta       initTheta [ 0 0 0 0 0 0 0] 0;
+initTheta1      initTheta1 [ 0 0 0 0 0 0 0] 0;
+initTheta2      initTheta2 [ 0 0 0 0 0 0 0] 0;
 Cvm             Cvm [ 0 0 0 0 0 ] 0;                // Virtual/Added Mass coefficient
 
 Cl              Cl [ 0 0 0 0 0 ] 0;                 // Lift force coefficient
