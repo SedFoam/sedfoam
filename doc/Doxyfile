@@ -765,8 +765,9 @@ INPUT                  = index.doc \
                          install.doc \
                          governingEq.doc \
                          algorithm.doc \
-                         tutorials_1d.doc \
-                         tutorials_2d3d.doc \
+                         tutorials_laminar.doc \
+			 tutorials_RAS.doc \
+			 tutorials_LES.doc \
                          publications.doc \
                          input.doc \
                          howtogit.doc \

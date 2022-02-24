@@ -95,7 +95,7 @@ PpMuI = PpMuI * drho * g * D
 
 #
 case = '1DBedLoad'
-basepath = '../'
+basepath = '../laminar/'
 # basepath='../../'
 sol = basepath + case + '/'
 
@@ -120,11 +120,10 @@ eps_file = sol + case + '.eps'
 # Reading SedFoam results
 #
 X, Y, Z = fluidfoam.readmesh(sol)
-alpha = fluidfoam.readscalar(sol, tread, 'alpha_a')
-Ua = fluidfoam.readvector(sol, tread, 'Ua')
-Ub = fluidfoam.readvector(sol, tread, 'Ub')
+alpha = fluidfoam.readscalar(sol, tread, 'alpha.a')
+Ua = fluidfoam.readvector(sol, tread, 'U.a')
+Ub = fluidfoam.readvector(sol, tread, 'U.b')
 pff = fluidfoam.readscalar(sol, tread, 'pff')
-p = fluidfoam.readscalar(sol, tread, 'p')
 
 Ny = np.size(Y)
 U = np.zeros(Ny)

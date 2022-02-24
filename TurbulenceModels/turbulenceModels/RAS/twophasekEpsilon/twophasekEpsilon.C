@@ -50,10 +50,10 @@ void twophasekEpsilon<BasicTurbulenceModel>::correctNut()
 template<class BasicTurbulenceModel>
 twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
 (
-    const alphaField& alpha,
+    const alphaField& beta,
     const rhoField& rho,
     const volVectorField& U,
-    const surfaceScalarField& alphaRhoPhi,
+    const surfaceScalarField& betaRhoPhi,
     const surfaceScalarField& phi,
     const transportModel& transport,
     const word& propertiesName,
@@ -63,13 +63,22 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     eddyViscosity<RASModel<BasicTurbulenceModel>>
     (
         type,
-        alpha,
+        beta,
         rho,
         U,
-        alphaRhoPhi,
+        betaRhoPhi,
         phi,
         transport,
         propertiesName
+    ),
+    writeTke_
+    (
+        Switch::getOrAddToDict
+        (
+            "writeTke",
+            this->coeffDict_,
+            false
+        )
     ),
     C3ep_
     (
@@ -224,7 +233,7 @@ bool twophasekEpsilon<BasicTurbulenceModel>::read()
 template<class BasicTurbulenceModel>
 void twophasekEpsilon<BasicTurbulenceModel>::correct()
 {
-    if (!this->turbulence_)
+    if (not this->turbulence_)
     {
         return;
     }
@@ -266,7 +275,10 @@ void twophasekEpsilon<BasicTurbulenceModel>::correct()
       + ESD2()*fvm::Sp(C3ep_*KE2_, epsilon_)
       + fvm::Sp(C4ep_*KE4_*ESD5_*nut/k_, epsilon_)
     );
-
+    if (writeTke_)
+    {
+        #include "writeTKEBudget_kEpsilon.H"
+    }
     epsEqn.ref().relax();
     fvOptions.constrain(epsEqn.ref());
     epsEqn.ref().boundaryManipulate(epsilon_.boundaryFieldRef());

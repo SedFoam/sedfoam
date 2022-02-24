@@ -28,7 +28,7 @@ def depth(sol, t, x, y, xi, yi):
 
 
 # Case information
-case_toplot = '../2DPipelineScour/'
+case_toplot = '../RAS/2DPipelineScour/'
 time1 = 11
 time2 = 18
 time3 = 25

@@ -29,12 +29,23 @@ scalar pi(constant::mathematical::pi);
 gradPOSC =
 (
     gradPMEAN
-  + gradPAMP1*Foam::cos(initTheta*(pi)/180.0 + 2.0*(pi)*runTime.value()/oscpT)
-  + gradPAMP2*Foam::sin(initTheta*(pi)/90.0 + 4.0*(pi)*runTime.value()/oscpT)
+  + gradPAMP1*Foam::cos(initTheta1*pi/180.0 + 1.0*2.0*pi*runTime.value()/oscpT)
+  + gradPAMP2*Foam::cos(initTheta2*pi/180.0 + 2.0*2.0*pi*runTime.value()/oscpT)
+  + gradPAMP3*Foam::cos(initTheta3*pi/180.0 + 3.0*2.0*pi*runTime.value()/oscpT)
+  + gradPAMP4*Foam::cos(initTheta4*pi/180.0 + 4.0*2.0*pi*runTime.value()/oscpT)
+  + gradPAMP5*Foam::cos(initTheta5*pi/180.0 + 5.0*2.0*pi*runTime.value()/oscpT)
 );
 
 // Compute mixture density
 rho = alpha*rhoa+beta*rhob;
+
+if (SUSaniso)
+{
+    susa = SUS*(K/rhoa)*beta/(alpha+alphaSmall)*turbulenceb->nut()
+                   *((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha));
+    susb = SUS*(K/rhob)*turbulenceb->nut()
+                   *((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha));
+}
 
 // limiter for the explicit stress terms to avoid numerical instability and
 // too strong limitation on the time step
@@ -46,7 +57,8 @@ nuFraExp.correctBoundaryConditions();
 volTensorField Rca
 (
     "Rca",
-    ((2.0/3.0)*I)*(nuEffa+nuFraExp/(alpha+alphaSmall))*tr(gradUaT)
+    ((2.0/3.0)*I)*((nuEffa+nuFraExp/(alpha+alphaSmall))*tr(gradUaT)
+    + spherSigmaSGSa)
     - (nuEffa+nuFraExp/(alpha+alphaSmall))*gradUaT
 );
 
@@ -56,20 +68,6 @@ surfaceScalarField phiRa
    -fvc::interpolate(nuEffa)*mesh.magSf()*(fvc::snGrad(alpha))
    /fvc::interpolate(alpha+ alphaSmall)
 );
-/*
-// Compute elastic pressure gradient
-surfaceScalarField gradPff = fvc::snGrad(pff)*mesh.magSf();
-
-forAll(p_rbgh.boundaryField(), patchi)
-{
-    if (isA<zeroGradientFvPatchScalarField>(p_rbgh.boundaryField()[patchi]))
-    {
-        gradPff.boundaryFieldRef()[patchi] = 0.0;
-    }
-}
-
-gradPf = (fvc::reconstruct(gradPff))/(rhoa*(alpha + alphaSmall));
-*/
 
 // Assemble momentum balance equation for phase a
 fvVectorMatrix UaEqn
@@ -77,7 +75,7 @@ fvVectorMatrix UaEqn
     (scalar(1.0) + Cvm*rhob*beta/rhoa)*
     (
         fvm::ddt(Ua)
-      + fvm::div(phia, Ua, "div(phia,Ua)")
+      + fvm::div(phia, Ua)
       - fvm::Sp(fvc::div(phia), Ua)
     )
 // effective stress term from dispersed phase
@@ -85,11 +83,9 @@ fvVectorMatrix UaEqn
   - fvm::laplacian(nuEffa, Ua)
   + fvm::div(phiRa, Ua, "div(phiRa,Ua)")
   - fvm::Sp(fvc::div(phiRa), Ua)
-  + fvc::div(Rca)
-  + (fvc::grad(alpha)/(alpha+alphaSmall) & Rca)
     ==
 //  - gradPf                  // contact pressure gradient moved to p-equation
-  - fvc::grad(pff)/(rhoa*(alpha + alphaSmall))
+  - susa                      // anistropic turbulent suspension term
   - beta/rhoa*(liftCoeff - Cvm*rhob*DDtUb)  // lift and added mass forces
   + fvOptions(alpha, Ua)
 );
@@ -99,13 +95,6 @@ fvOptions.constrain(UaEqn);
 Ua.correctBoundaryConditions();
 fvOptions.correct(Ua);
 
-// Compute explicit stress term for phase b
-volTensorField Rcb
-(
-    "Rcb",
-    ((2.0/3.0)*I)*nuEffb*tr(gradUbT)
-    - nuEffb*gradUbT
-);
 // Compute concentration gradient stress contribution on cell faces for phase b
 surfaceScalarField phiRb
 (
@@ -119,16 +108,15 @@ fvVectorMatrix UbEqn
     (scalar(1.0) + Cvm*rhob*alpha/rhob)*
     (
         fvm::ddt(Ub)
-      + fvm::div(phib, Ub, "div(phib,Ub)")
+      + fvm::div(phib, Ub)
       - fvm::Sp(fvc::div(phib), Ub)
     )
   - fvm::laplacian(nuEffb, Ub)
   + fvm::div(phiRb, Ub, "div(phiRb,Ub)")
   - fvm::Sp(fvc::div(phiRb), Ub)
-  + fvc::div(Rcb)
-  + (fvc::grad(beta)/(beta) & Rcb)
     ==
-    alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift and added mass forces
+    susb                         // anistropic turbulent suspension term
+  + alpha/rhob*(liftCoeff + Cvm*rhob*DDtUa) // lift & added mass forces
   + fvOptions(beta, Ub)
 );
 UbEqn.relax();

@@ -42,8 +42,8 @@ tread = output.decode().rstrip().split('\n')[0]
 prec=9
 X,Y,Z = fluidfoam.readmesh(sol)
 
-alpha_0 = fluidfoam.readscalar(sol, tread, 'alpha_a')
-Ua_0   = fluidfoam.readvector(sol, tread, 'Ua')
+alpha_0 = fluidfoam.readscalar(sol, tread, 'alpha.a')
+Ua_0   = fluidfoam.readvector(sol, tread, 'U.a')
 p_rbgh_0    = fluidfoam.readscalar(sol, tread, 'p_rbgh')
 delta_0 = fluidfoam.readscalar(sol, tread, 'delta')
 

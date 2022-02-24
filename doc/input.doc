@@ -20,6 +20,8 @@ system/fvSolution
 
 The file 'blockMesh' contains the description of the mesh (see \ref meshgen). The file 'controlDict' contains the runtime parameters such as the timestep and the output interval, etc... The files 'fvScheme' describes the numerical shemes for the different differential operators (temporal, divergens, laplacian) and the file 'fvSolution' describes the algebraic solvers and the associated tolerance for each equation as well as the PIMPLE algorithm controls such as the number of inner and outer iterations ...
 
+The keyword 'faceMomentum' in  the PIMPLE dictionary of the file system/fvSolution correponds to solving the explicit shear stress terms at the cell faces and added in pEqn when set to false (the solver is using the code given in the pUf folder) and they are the cell centers and added in UEqn using the keyword 'faceMomentum' = true (the solver is using the code given in the pU folder) which is the default value.
+
 The files that contain the specific input parameters for sedFoam are:
 
 \verbatim
@@ -30,7 +32,8 @@ constant/forceProperties
 constant/ppProperties
 constant/granularRheologyProperties
 constant/kineticTheoryProperties
-constant/turbulenceProperties
+constant/turbulenceProperties.phasea
+constant/turbulenceProperties.phaseb
 constant/twophaseRASProperties
 \endverbatim
 
@@ -159,17 +162,24 @@ In the file 'forceProperties' the user can specify the input parameters for the 
 parameter       | description                      |    default   |     range    |    units     |
 ----------------|----------------------------------|--------------|--------------|--------------|
 gradPMEAN       | mean pressure gradient           |    0         | 0-           |  kg/m^2/s^2  |
-gradPAMP1       | 1st order Stokes wave contrib.   |    0         | 0-           |  kg/m^2/s^2  |
-gradPAMP2       | 2nd order Stokes wave contrib.   |    0         | 0-           |  kg/m^2/s^2  |
+gradPAMP1       | 1st order wave contribution      |    0         | 0-           |  kg/m^2/s^2  |
+gradPAMP2       | 2nd order wave contribution      |    0         | 0-           |  kg/m^2/s^2  |
+gradPAMP3       | 3rd order wave contribution      |    0         | 0-           |  kg/m^2/s^2  |
+gradPAMP4       | 4th order wave contribution      |    0         | 0-           |  kg/m^2/s^2  |
+gradPAMP5       | 5th order wave contribution      |    0         | 0-           |  kg/m^2/s^2  |
 oscpT           | wave period                      |    0         | 0-           |  s           |
-initTheta       | initial wave phase               |    0         | 0-359        |  deg         |  
+initTheta1      | initial phase of 1st order wave  |    0         | 0-359        |  deg         |
+initTheta2      | initial phase of 2nd order wave  |    0         | 0-359        |  deg         |           
+initTheta3      | initial phase of 3rd order wave  |    0         | 0-359        |  deg         |           
+initTheta4      | initial phase of 4th order wave  |    0         | 0-359        |  deg         |           
+initTheta5      | initial phase of 5th order wave  |    0         | 0-359        |  deg         |           
 tilt            | to mimic bedslope with gradPMEAN |    0         | 0 or 1       |  -           |
 Cvm             | virtual mass force coef.         |    0         | 0-10         | -            |
 Cl              | Lift force coef.                 |    0         | 0-10         | -            |
 Ct              | Ct model coef. nuEffa=Ct^2 nutb  |    0         | 0-1          | -            |
 InitFreeze      | Freeze solid phase               |    0         | 0, 1 or 2    | -            |
 fixbeddepth     | depth below which to freeze      |    0         | 0 to max(Y)  | m            |
-ClipUa          | impose Ua=Ub for alpha<alphaSmall|    0         | 0 or 1       | -            |
+ClipUa          | impose U.a=U.b for alpha<alphaSmall|    0         | 0 or 1       | -            |
 writeTau        | write shear stress tensors       |    false     | true or false| boolean      |
 debugInfo       | show debugging information       |    false     | true or false| boolean      |
 spongeLayer     | sponge layer                     |    false     | true or false| boolean      |
@@ -178,14 +188,15 @@ xSmax           | max. X position for sponge layer |    0         | min(X)-max(X
 
 
 
-\subsection turbulenceProperties File turbulenceProperties
+\subsection turbulencePropertiesphaseb File turbulenceProperties.phaseb
 
-In the file 'turbulenceProperties' the user can specify the turbulence model to be used:
+In the file 'turbulenceProperties.phaseb' the user can specify the turbulence model to be used for the fluid phase:
 
 simulationType     |   description                                                     |
 -------------------|-------------------------------------------------------------------|
 laminar            | laminar flow - no turbulence model (nutb=0)                       |
 RAS                | Reynolds Averaged turbulence model                                |
+LES                | Large-Eddy Simulation turbulence model                            |
 
 If simulationType=RAS is selected, the user needs to specify a turbulence model using the keyword 'RASModel' in the 'RAS' dictionnary. All singlephase turbulence model can be selected and specific two-phase flow turbulence models are provided with sedFoam:
 
@@ -195,26 +206,42 @@ twophaseMixingLength    | two-phase flow mixing length model (see chauchat et al
 twophasekEpsilon        | two-phase flow k-epsilon model (see chauchat et al. 2017, GMD)    |
 twophaseLaunderSharmaKE | two-phase flow k-epsilon model from Launder and Sharma            |
 twophasekOmega          | two-phase flow k-omega model (see chauchat et al. 2017, GMD)      |
-twophasekOmega2006      | two-phase flow k-omega model from Wilcox (2006)                   |
+
+Coefficients of the turbulence models can be modified in the file *turbulenceproperties.phaseb* using the dictionaries *twophasekOmegaCoeffs*, *twophaseMixingLengthCoeffs* and *twophasekEpsilonCoeffs*. Values for the different turbulence models can be found in the tutorials.
+
+If simulationType=LES is selected, the user needs to specify a turbulence model using the keyword 'LESModel' in the 'LES' dictionnary. For the moment, only the dynamic Lagragian sub-grid scale model from Meneveau et al. (1996) can be used with the keyword *fluidDynamicLagrangian*
+
+\subsection turbulencePropertiesphasea File turbulenceProperties.phasea
+
+In the file 'turbulenceProperties.phasea' the user can specify the turbulence model to be used for the solid phase:
+
+simulationType     |   description                                                     |
+-------------------|-------------------------------------------------------------------|
+laminar            | laminar flow - no turbulence model (nutb=0)                       |
+LES                | Large-Eddy Simulation turbulence model                            |
+
+No RAS model is available for the solid phase. When fluid turbulence is modeled using a RAS model, simulationType keyword should be laminar for the solid phase. 
+
+If simulationType=LES is selected, the user needs to specify a turbulence model using the keyword 'LESModel' in the 'LES' dictionnary. For the moment, only the dynamic Lagragian sub-grid scale model from Meneveau et al. (1996) can be used with the keyword *solidDynamicLagrangian*
 
 \subsection twophaseRASProperties File twophaseRASProperties
 
 In the file 'twophaseRASProperties' the user can specified the input parameters for the turbulence model:
 
-parameter       | description                      |    default   |     range    |    units     |
-----------------|----------------------------------|--------------|--------------|--------------|
-SUSread         | turbulent Schmidt number         |    0         | 0-3          |  -           |
-SUSlocal        | switch to turn on local SUS model|    false     | true or false|  boolean     |
-Usmall          | min. u* value for local SUS      |  1e-6        | 1e-9-1e-4    | m/s          |
-Cmu             | Cmu constant for k-eps or k-omega|  0.09        | 0.09         | -            |
-B               | empirical parameter for turb drag|  0.25        | 0.1-1        | -            |
-kSmall          | min. Tp value for turb. drag     |  1e-6        | 1e-9-1e-4    | m^2/s^2      |
-TpSmall         | min. Tp value for turb. drag     |  1e-6        | 1e-9-1e-4    |  kg/m^3/s    |
-nutMax          | max. eddy viscosity value        |  -           | 5e-3-1e1     | m^2/s        |
-KE1             | coef. for density stratif (Uf-Us)|   0          | 0 or 1       | -            |
-KE2             | coef. for turbulence modulation  |   0          | 0 or 1       | -            |
-KE3             | coef. for turbulence generation  |   0          | 0 or 1       | -            |
-KE4             | coef. for density stratif g      |   0          | 0 or 1       | -            |
+parameter       | description                      |    default   |     range      |    units     |
+----------------|----------------------------------|--------------|----------------|--------------|
+SUSread         | turbulent Schmidt number         |    0         | 0-3 (0 for LES)|  -           |
+SUSlocal        | switch to turn on local SUS model|    false     | true or false  |  boolean     |
+Usmall          | min. u* value for local SUS      |  1e-6        | 1e-9-1e-4      | m/s          |
+Cmu             | Cmu constant for k-eps or k-omega|  0.09        | 0.09           | -            |
+B               | empirical parameter for turb drag|  0.25        | 0.1-1          | -            |
+kSmall          | min. Tp value for turb. drag     |  1e-6        | 1e-9-1e-4      | m^2/s^2      |
+TpSmall         | min. Tp value for turb. drag     |  1e-6        | 1e-9-1e-4      |  kg/m^3/s    |
+nutMax          | max. eddy viscosity value        |  -           | 5e-3-1e1       | m^2/s        |
+KE1             | coef. for density stratif (Uf-Us)|   0          | 0 or 1         | -            |
+KE2             | coef. for turbulence modulation  |   0          | 0 or 1         | -            |
+KE3             | coef. for turbulence generation  |   0          | 0 or 1         | -            |
+KE4             | coef. for density stratif g      |   0          | 0 or 1         | -            |
 
 
 */

@@ -12,7 +12,7 @@ RUN update-ca-certificates && apt-get update \
 RUN pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy
 
 WORKDIR /root/
-RUN git clone --recurse-submodules https://github.com/sedfoam/sedfoam.git
+RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
 
 WORKDIR /root
 RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r vcompile/p2106 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
@@ -32,7 +32,7 @@ RUN rm -rf swak4Foam sedfoam
 USER 1000
 
 WORKDIR /home/sudofoam
-RUN git clone --recurse-submodules https://github.com/sedfoam/sedfoam.git
+RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
 
 WORKDIR /home/sudofoam
 ENV HOME /home/sudofoam

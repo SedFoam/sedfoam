@@ -42,7 +42,7 @@ exec(open("DATA/exp_lmsgc.py").read())
 #
 #
 case = '1DSedim'
-basepath = '../'
+basepath = '../laminar/'
 sol = basepath + case + '/'
 
 Nx = 1
@@ -77,7 +77,7 @@ for t in tread:
     print("Reading time: %s s" % t)
     k = k + 1
 
-    alphat[:, k] = fluidfoam.readscalar(sol, t + '/', 'alpha_a')
+    alphat[:, k] = fluidfoam.readscalar(sol, t + '/', 'alpha.a')
     time[k] = float(t)
 
 

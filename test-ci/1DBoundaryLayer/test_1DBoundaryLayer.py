@@ -31,8 +31,8 @@ tout='2500'
 sol=basepath+casedir
 
 x, z, y = fluidfoam.readmesh(sol)
-k      = fluidfoam.readscalar(sol, tout,'k')
-U      = fluidfoam.readvector(sol,tout,'Ub')
+k      = fluidfoam.readscalar(sol, tout,'k.b')
+U      = fluidfoam.readvector(sol,tout,'U.b')
 Tauf   = fluidfoam.readtensor(sol, tout, 'Taub')
 u=U[0,:]
 #########################################

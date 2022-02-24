@@ -39,12 +39,6 @@ License
     surfaceScalarField rUaAf(fvc::interpolate(rUaA));
     surfaceScalarField rUbAf(fvc::interpolate(rUbA));
 
-    // limiter for the explicit stress terms to avoid numerical instability and
-    // too strong limitation on the time step
-    volScalarField nuFraExp(nuFra);
-    nuFraExp.min(nuMaxExp);
-    nuFraExp.correctBoundaryConditions();
-
     // interpolate 1/(alpha+alphaSmall) on the faces
     surfaceScalarField oneOverAlpha
     (
@@ -81,37 +75,11 @@ License
         // Momentum flux at the cell faces for phase a
         surfaceScalarField phiDraga
         (
-          // turbulent suspension term
-          -(fvc::interpolate
-            (
-                SUS*(K/rhoa)*turbulenceb->nut()*(beta/(alpha + alphaSmall))
-            )
-           *fvc::snGrad(alpha))*rUaAf*mesh.magSf()
           // grad(pa)
           - (oneOverAlpha/rhoa*fvc::snGrad(pa))*rUaAf*mesh.magSf()
-          // grad(Pf)
-          - (oneOverAlpha/rhoa*fvc::snGrad(pff))*rUaAf*mesh.magSf()
-          // diagonal part of stress
+          // diagonal part of stress --> move to Rca in UEqns.H ?
           + (oneOverAlpha/rhoa*fvc::snGrad(lambdaUa*tr(gradUaT)))
            *rUaAf*mesh.magSf()
-          // diagonal part of stress 2
-          - (
-                scalar(2.0/3.0)*oneOverAlpha
-               *fvc::snGrad((alpha+alphaSmall)*(sqr(Ct)*turbulenceb->k()
-              + nuEffa*tr(gradUaT)))
-            )
-           *rUaAf*mesh.magSf()
-          - (scalar(2.0/3.0)*oneOverAlpha*fvc::snGrad(nuFraExp*tr(gradUaT)))
-           *rUaAf*mesh.magSf()
-          // stress part 3
-          + rUaAf*(oneOverAlpha
-           *fvc::interpolate
-            (
-                fvc::div((alpha+alphaSmall)*nuEffa*gradUaT, schemeA)
-            )
-          & mesh.Sf())
-          + rUaAf*(oneOverAlpha
-           *fvc::interpolate(fvc::div(nuFraExp*gradUaT, schemeA)) & mesh.Sf())
           // gravity
           + rUaAf
            *(
@@ -120,31 +88,30 @@ License
           // mean pressure gradient
           + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
         );
+        if (not SUSaniso)
+        {
+            //turbulent suspension term
+            phiDraga += -(fvc::interpolate(SUS*(K/rhoa)*turbulenceb->nut()
+                                *(beta/(alpha + alphaSmall)))
+                                *fvc::snGrad(alpha))*rUaAf*mesh.magSf();
+        }
 
         // Momentum flux at the cell faces for phase b
         surfaceScalarField phiDragb
         (
-          // turbulent suspension term
-            fvc::interpolate(SUS*(K/rhob)*turbulenceb->nut())*fvc::snGrad(alpha)
-            *rUbAf*mesh.magSf()
-        // drag modification to account for particle fluctuations
-        // -phiTempb
-            // diagnoal part of stress
-          - (fvc::interpolate(scalar(2.0)/(beta*scalar(3.0)))
-           *fvc::snGrad(((nuEffb*tr(gradUbT)))*beta))*rUbAf*mesh.magSf()
-          // stress part 3
-          + rUbAf*(fvc::interpolate(scalar(1.0)/beta)
-           *fvc::interpolate
-            (
-                fvc::div(beta*nuEffb*gradUbT, schemeA)) & mesh.Sf()
-            )
           // driving force
-          + rUbAf*((gradPOSC/rhob) & mesh.Sf())
+            rUbAf*((gradPOSC/rhob) & mesh.Sf())
           // Convective acceleration for 1D non-uniform simulation
           - rUbAf*fvc::interpolate(neg(alpha-0.3))*((gradConvAcc/rhob)
             & mesh.Sf())
         );
-
+        if (not SUSaniso)
+        {
+            // turbulent suspension term
+            phiDragb += fvc::interpolate(SUS*(K/rhob)*
+                        turbulenceb->nut())*fvc::snGrad(alpha)
+                        *rUbAf*mesh.magSf();
+        }
         //    fvOptions.makeRelative(phiHabyA);
         //    fvOptions.makeRelative(phiHbbyA);
 
