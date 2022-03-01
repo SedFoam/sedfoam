@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  5                                     |
+|  \\    /   O peration     | Version:  2.4.0                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -9,20 +9,19 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volVectorField;
-    location    "1";
-    object      Ua;
+    class       volScalarField;
+    location    "0";
+    object      alpha_a;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 1 -1 0 0 0 0];
+dimensions      [0 0 0 0 0 0 0];
 
 internalField   #codeStream
 {
     codeInclude
     #{
         #include "fvCFD.H"
-        #include "Random.H"
     #};
 
     codeOptions
@@ -39,77 +38,76 @@ internalField   #codeStream
     #{
         const IOdictionary& d = static_cast<const IOdictionary&>(dict);
 	    const fvMesh& mesh = refCast<const fvMesh>(d.db());
-        vectorField Ua(mesh.nCells());
-        scalar Ubar = 0.5096;
-        scalar h = 0.02;
-        scalar retau = 590;
-        scalar pi = Foam::constant::mathematical::pi;
+        scalarField alpha_a(mesh.nCells(), 0);
+
         forAll(mesh.C(), i)
         {
-            scalar x = mesh.C()[i].x();
             scalar y = mesh.C()[i].y();
-            scalar z = mesh.C()[i].z();
-            Random perturbation(1234567);
-            scalar deviation=1.0 + 0.5*perturbation.GaussNormal<scalar>();
-            if (y >= h)
-            {
-                Ua[i] = vector(3*Ubar*(y/h-0.5*sqr(y/h))+4*Ubar*0.125*(y-2*h)*retau/h/40.0*exp(-0.0001*sqr((y-2*h)*retau/h)+0.5)*cos(2*pi/200*z*retau/h)*deviation, 0, 4*Ubar/200.0*sin(2*pi/500*x*retau/h)*(y-2*h)*retau/h*exp(-0.0002*sqr((y-2*h)*retau/h))*deviation);
-            }
-            else
-            {
-                Ua[i] = vector(3*Ubar*(y/h-0.5*sqr(y/h))+4*Ubar*0.125*y*retau/h/40.0*exp(-0.0001*sqr(y*retau/h)+0.5)*cos(2*pi/200*z*retau/h)*deviation, 0, 4*Ubar/200.0*sin(2*pi/500*x*retau/h)*y*retau/h*exp(-0.0002*sqr(y*retau/h))*deviation);
-            }
+            alpha_a[i] = 0.5*0.607835*(1+tanh(50-1000*y));
         }
-        Ua.writeEntry("", os);
+        alpha_a.writeEntry("", os);
     #};
 
-}; 
+};
 
 boundaryField
 {
-    bottomWall
+    top
     {
-        type            fixedValue;
-        value           uniform (0 0 0);
+        type            symmetryPlane;
     }
-    topWall
+    walls
     {
-        type            fixedValue;
-        value           uniform (0 0 0);
+        type            zeroGradient;
     }
-    sides1_half0
+    frontAndBack11
     {
         type            cyclic;
     }
-    sides2_half0
+    frontAndBack12
     {
         type            cyclic;
     }
-    inout1_half0
+    frontAndBack21
     {
         type            cyclic;
     }
-    inout2_half0
+    frontAndBack22
     {
         type            cyclic;
     }
-    sides2_half1
+    frontAndBack31
     {
         type            cyclic;
     }
-    sides1_half1
+    frontAndBack32
     {
         type            cyclic;
     }
-    inout1_half1
+    inandouthalf11
     {
         type            cyclic;
     }
-    inout2_half1
+    inandouthalf12
+    {
+        type            cyclic;
+    }
+    inandouthalf21
+    {
+        type            cyclic;
+    }
+    inandouthalf22
+    {
+        type            cyclic;
+    }
+    inandouthalf31
+    {
+        type            cyclic;
+    }
+    inandouthalf32
     {
         type            cyclic;
     }
 }
-
 
 // ************************************************************************* //

@@ -9,6 +9,9 @@ foamListTimes -rm -time 0: -withZero
 # Remove processors directories
 rm -r processor*
 
+# Remove dynamicCode
+rm -r dynamicCode
+
 # Remove postProcessing
 rm -r postProcessing/*
 

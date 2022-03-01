@@ -23,7 +23,7 @@ h = 0.02
 
 # plot 1
 ax1 = plt.subplot(gs[0, 0])
-ax1.axis([1e-15, 0.3, 0, 1])
+ax1.axis([1e-10, 0.3, 0, 1])
 ax1.set_xlabel(r'$\langle\bar\phi\rangle$')
 ax1.set_ylabel(r'$y/h$')
 ax1.grid(linestyle=':')
