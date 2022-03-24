@@ -84,7 +84,7 @@ jobs:
             shopt -s expand_aliases &&
             export PATH=$PWD/doxygen-1.9.3/bin:$PATH &&
             cd doc &&
-            git clone git://github.com/mosra/m.css &&
+            git clone git@github.com:mosra/m.css &&
             cd m.css/documentation && cp ../../doxygen.py . &&
             source /openfoam/bash.rc &&
             python3 doxygen.py ../../conf.py &&
