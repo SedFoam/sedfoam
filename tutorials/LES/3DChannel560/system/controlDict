@@ -23,14 +23,14 @@ startTime       0;
 
 stopAt          endTime;
 
-//endTime         8;
-endTime         16;
+endTime         8;
+//endTime         16;
 
 deltaT          2e-4;
 
 writeControl    runTime;
 
-writeInterval   1;
+writeInterval   0.5;
 
 purgeWrite      0;
 
@@ -48,6 +48,6 @@ runTimeModifiable true;
 
 maxAlphaCo  1;
 
-favreAveraging true;
+favreAveraging false;
 
 // ************************************************************************* //

@@ -25,7 +25,7 @@ e               e [ 0 0 0 0 0 0 0 ] 0.8;
 
 muPart          muPart [ 0 0 0 0 0 0 0 ] 0.4;
 
-alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
+alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.612;
 
 MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 5;
 

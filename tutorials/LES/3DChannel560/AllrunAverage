@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Run sedFoam in parallel
+mpirun -np 16 sedFoam_rbgh -parallel > log&
