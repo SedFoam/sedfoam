@@ -80,14 +80,13 @@ int main(int argc, char *argv[])
 
     #include "readGravity.H"
     #include "createFields.H"
-    #include "createTurbulence.H"
+    #include "createRASTurbulence.H"
     #include "createFvOptions.H"
 
     #include "initContinuityErrs.H"
     #include "createTimeControls.H"
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
-    #include "createFavreAveraging.H"
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     // Test on SUSlocal
@@ -156,8 +155,11 @@ int main(int argc, char *argv[])
             #include "callGranularStress.H"
 
 //          Assemble the momentum balance equations for both phases a and b
-//          And assemble and solve the pressure poisson equation
+//            #include "UEqns.H"
+
+//          Assemble and solve the pressure poisson equation
 //             and apply the velocity correction step for both phases a and b
+//            #include "pEqn.H"
             if (faceMomentum)
             {
                 #include "pUf/UEqns.H"
@@ -175,17 +177,8 @@ int main(int argc, char *argv[])
             if (pimple.turbCorr())
             {
 //              Solve for turbulence models
-                #include "updateTwoPhaseTurbulence.H"
+                #include "updateTwoPhaseRASTurbulence.H"
                 turbulenceb->correct();
-                if (turbulencePropertiesb.get<word>("simulationType")=="LES")
-                {
-                    spherSigmaSGSb = turbulenceb->spherSigmaSGS();
-                }
-                turbulencea->correct();
-                if (turbulencePropertiesa.get<word>("simulationType")=="LES")
-                {
-                    spherSigmaSGSa = turbulenceb->spherSigmaSGS();
-                }
 
                 if (debugInfo)
                 {
@@ -204,7 +197,6 @@ int main(int argc, char *argv[])
 //      Write output
         #include "OutputGradPOSC.H"
         #include "writeOutput.H"
-       #include "writeLiftDragCoeff.H"
 
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
