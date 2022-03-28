@@ -83,7 +83,6 @@ volScalarField partDynamicLagrangian<BasicTurbulenceModel>::hAlpha
     const tmp<volScalarField>& alpha
 )
 {
-    //volScalarField alphaL = max(alpha_,0.999*alphaMax_);
     return -tanh(alpha/Ch1_)*sqrt(alpha/alphaMax_)*sqr(1-alpha/alphaMax_)
             *(1-Ch2_*alpha/alphaMax_+Ch3_*sqr(alpha/alphaMax_));
 }
@@ -151,164 +150,6 @@ partDynamicLagrangian<BasicTurbulenceModel>::partDynamicLagrangian
         this->mesh_,
         dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
     ),
-    /*
-    LHMx_
-    (
-        IOobject
-        (
-            "LHMx",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        this->mesh_,
-        dimensionedScalar("zero", dimensionSet(0, 2, -2, 0, 0), 0.0)
-    ),
-    LHMy_
-    (
-        IOobject
-        (
-            "LHMy",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        this->mesh_,
-        dimensionedScalar("zero", dimensionSet(0, 2, -2, 0, 0), 0.0)
-    ),
-    LHMz_
-    (
-        IOobject
-        (
-            "LHMz",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        this->mesh_,
-        dimensionedScalar("zero", dimensionSet(0, 2, -2, 0, 0), 0.0)
-    ),
-    MMx_
-    (
-        IOobject
-        (
-            "MMx",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        this->mesh_,
-        dimensionedScalar("zero", dimensionSet(0, 2, -2, 0, 0), 0.0)
-    ),
-    MMy_
-    (
-        IOobject
-        (
-            "MMy",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        this->mesh_,
-        dimensionedScalar("zero", dimensionSet(0, 2, -2, 0, 0), 0.0)
-    ),
-    MMz_
-    (
-        IOobject
-        (
-            "MMz",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        this->mesh_,
-        dimensionedScalar("zero", dimensionSet(0, 2, -2, 0, 0), 0.0)
-    ),
-    deltaStar_
-    (
-        IOobject
-        (
-            "deltaStar",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        this->mesh_,
-        dimensionedScalar("zero", dimensionSet(1, -3, 0, 0, 0), 0.0)
-    ),
-    deltaStar2_
-    (
-        IOobject
-        (
-            "deltaStar2",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        this->mesh_,
-        dimensionedScalar("zero", dimensionSet(1, -3, 0, 0, 0), 0.0)
-    ),
-    hAlpha_
-    (
-        IOobject
-        (
-            "hAlpha",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        this->mesh_,
-        0.0
-    ),
-    hAlphaf_
-    (
-        IOobject
-        (
-            "hAlphaf",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        this->mesh_,
-        0.0
-    ),
-    fDelta_
-    (
-        IOobject
-        (
-            "fDelta",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        this->mesh_,
-        0.0
-    ),
-    fDelta2_
-    (
-        IOobject
-        (
-            "fDelta2",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        this->mesh_,
-        0.0
-    ),
-    */
     theta_
     (
         dimensioned<scalar>::lookupOrAddToDict
@@ -457,11 +298,6 @@ partDynamicLagrangian<BasicTurbulenceModel>::partDynamicLagrangian
 
     flma0_("flma0", flma_.dimensions(), 0.0),
     fmma0_("fmma0", fmma_.dimensions(), VSMALL)
-    /*
-    MMx0_("MMx0", MMx_.dimensions(), VSMALL),
-    MMy0_("MMy0", MMy_.dimensions(), VSMALL),
-    MMz0_("MMz0", MMz_.dimensions(), VSMALL)
-    */
 {
     if (type == typeName)
     {
@@ -623,15 +459,6 @@ Ksgs()
     tmp<volTensorField> tgradUaf(fvc::grad(Uaf));
     const volTensorField& gradUaf = tgradUaf();
 
-    /*
-    deltaStar_ = deltaStar(this->delta(),alpha,Ur,K);
-    deltaStar2_ = deltaStar(2*this->delta(),alphaf,Urf,K);
-    hAlpha = hAlpha(alpha);
-    hAlphaf = hAlpha(alphaf);
-    fDelta_ = fDelta(deltaStar_);
-    fDelta2_ = fDelta(deltaStar2_);
-    hAlphaf_ = hAlpha(alphaf);
-    */
     volScalarField deltaStarr(deltaStar(this->delta(), alpha, Ur, K));
     volScalarField deltaStarrf(deltaStar(2*this->delta(), alphaf, Urf, K));
 
@@ -695,23 +522,10 @@ Ksgs()
             M.component(vector::Z)*M.component(vector::Z)
         )
     );
-    /*
-    LHMx_ = fvc::average((L.component(vector::X))*M.component(vector::X));
-    LHMy_ = fvc::average((L.component(vector::Y))*M.component(vector::Y));
-    LHMz_ = fvc::average((L.component(vector::Z))*M.component(vector::Z));
-    MMx_ = fvc::average(M.component(vector::X)*M.component(vector::X));
-    MMy_ = fvc::average(M.component(vector::Y)*M.component(vector::Y));
-    MMz_ = fvc::average(M.component(vector::Z)*M.component(vector::Z));
-    */
+
     MMx.max(VSMALL);
     MMy.max(VSMALL);
     MMz.max(VSMALL);
-    
-    /*
-    volScalarField Kxx(max(min(fDelta_*hAlpha_*LHMx_/MMx_, 100.0), -100.0));
-    volScalarField Kyy(max(min(fDelta_*hAlpha_*LHMy_/MMy_, 100.0), -100.0));
-    volScalarField Kzz(max(min(fDelta_*hAlpha_*LHMz_/MMz_, 100.0), -100.0));
-    */
 
     volScalarField Kxx(LHMx/MMx);
     volScalarField Kyy(LHMy/MMy);
