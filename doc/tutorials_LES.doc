@@ -1,4 +1,4 @@
-/**
+﻿/**
  * \file        tutorials_LES.doc
  * \author      Cyrille Bonamy and Julien Chauchat
  * \date        June 03, 2021
@@ -20,10 +20,10 @@ This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tut
 
 \subsection meshgen_Chan Mesh and boundary conditions
 
-The numerical domain dimensions presented in figure 9. The numerical domain is a bi-periodic rectangular box with cyclic boundary conditions in \f$x\f$ and \f$z\f$ directions and no slip boundary condition at the top and bottom boundaries for the velocities. The gradient of any other quantities is set to zero at the walls. The mesh is composed of \f$100\times80\times80\f$ elements. The mesh is stretched along the \f$y\f$-axis to increase the resolution close to the walls.
+The numerical domain dimensions presented in figure 1. The numerical domain is a bi-periodic rectangular box with cyclic boundary conditions in \f$x\f$ and \f$z\f$ directions and no slip boundary condition at the top and bottom boundaries for the velocities. The gradient of any other quantities is set to zero at the walls. The mesh is composed of \f$100\times80\times80\f$ elements. The mesh is stretched along the \f$y\f$-axis to increase the resolution close to the walls.
 
-@image html "sketch_3DChannel560.png" "Figure 9: Sketch of the numerical domain for tutorial 3DChannel560." width=350px
-@image latex "sketch_3DChannel560.png" "Figure 9: Sketch of the numerical domain for tutorial 3DChannel560."
+@image html "sketch_3DChannel560.png" "Figure 1: Sketch of the numerical domain for tutorial 3DChannel560." width=350px
+@image latex "sketch_3DChannel560.png" "Figure 1: Sketch of the numerical domain for tutorial 3DChannel560."
 
 \subsection  init_Chan Initial conditions
 
@@ -121,8 +121,8 @@ The script writedata_tuto3DChannel560.py reads time averaged OpenFoam data, perf
 
 The script plot_tuto3DChannel560.py reads the netCDF file and plots vertical profile of concentration, velocities and Reynolds stresses
 
-@image html "tuto3DChannel560.png" "Figure 10: Concentration, velocity and Reynolds stress profiles for the 3DChannel560 tutorial." width=700px
-@image latex "tuto3DChannel560.png" "Figure 10: Concentration, velocity and Reynolds stress profiles for the 3DChannel560 tutorial."
+@image html "tuto3DChannel560.png" "Figure 2: Concentration, velocity and Reynolds stress profiles for the 3DChannel560 tutorial." width=700px
+@image latex "tuto3DChannel560.png" "Figure 2: Concentration, velocity and Reynolds stress profiles for the 3DChannel560 tutorial."
 
 \section OscillSheetFlow_sec 3DOscillSheetFlow: Oscillatory sheet flow
 In this tutorial, the oscillatory sheet flow experimental configuration with fine sand from O'Donoghue and Wright (2004) is reproduced using Large-Eddy Simulation (LES).
@@ -133,10 +133,10 @@ This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tut
 
 \subsection meshgen_Odo Mesh and boundary conditions
 
-The numerical domain is a periodic box presented in figure 11 with \f$\delta=\sqrt{2\nu^f/\omega}\f$ and \f$\omega\f$ the wave angular frequency. The mesh is composed of \f$100\times130\times46\f$ elements with celles refined at the location of the deposited sediment bed. A symmetry boundary condition is applied at the top boundary, a smooth wall boundary condition is applied at the bottom boundary and cyclic boundary conditions are applied for the lateral boundaries.
+The numerical domain is a periodic box presented in figure 3 with \f$\delta=\sqrt{2\nu^f/\omega}\f$ and \f$\omega\f$ the wave angular frequency. The mesh is composed of \f$100\times130\times46\f$ elements with celles refined at the location of the deposited sediment bed. A symmetry boundary condition is applied at the top boundary, a smooth wall boundary condition is applied at the bottom boundary and cyclic boundary conditions are applied for the lateral boundaries.
 
-@image html "sketch_3DOscillSheetFlow.png" "Figure 11: Sketch of the numerical domain for tutorial 3DOscillSheetFlow." width=350px
-@image latex "sketch_3DOscillSheetFlow.png" "Figure 11: Sketch of the numerical domain for tutorial 3DOscillSheetFlow."
+@image html "sketch_3DOscillSheetFlow.png" "Figure 3: Sketch of the numerical domain for tutorial 3DOscillSheetFlow." width=350px
+@image latex "sketch_3DOscillSheetFlow.png" "Figure 3: Sketch of the numerical domain for tutorial 3DOscillSheetFlow."
 
 \subsection  init_Odo Initial conditions
 
@@ -236,8 +236,8 @@ The script writedata_tuto3DOscillSheetFlow.py reads OpenFoam data, performs a sp
 
 The script plot_tuto3DOscillSheetFlow.py reads the netCDF files and plots vertical profile of concentration, velocities and Reynolds stresses at different moments of the wave period.
 
-@image html "tuto3DOscillSheetFlow.png" "Figure 12: Concentration and velocity profiles for the 3DOscillSheetFlow tutorial." width=600px
-@image latex "tuto3DOscillSheetFlow.png" "Figure 12: Concentration and velocity profiles for the 3DOscillSheetFlow tutorial."
+@image html "tuto3DOscillSheetFlow.png" "Figure 4: Concentration and velocity profiles for the 3DOscillSheetFlow tutorial." width=600px
+@image latex "tuto3DOscillSheetFlow.png" "Figure 4: Concentration and velocity profiles for the 3DOscillSheetFlow tutorial."
 
 
 */
