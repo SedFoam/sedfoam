@@ -184,7 +184,7 @@ int main(int argc, char *argv[])
                 turbulencea->correct();
                 if (turbulencePropertiesa.get<word>("simulationType")=="LES")
                 {
-                    spherSigmaSGSa = turbulenceb->spherSigmaSGS();
+                    spherSigmaSGSa = turbulencea->spherSigmaSGS();
                 }
 
                 if (debugInfo)
