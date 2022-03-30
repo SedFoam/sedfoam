@@ -110,8 +110,7 @@ jobs:
             git config user.name "puigmontella"
       - add_ssh_keys:
           fingerprints:
-          - $GITHUB_TOKEN
-	  - "4c:c1:19:ef:cd:1f:dc:5d:0b:3d:62:8e:21:64:22:e7"
+           - "4c:c1:19:ef:cd:1f:dc:5d:0b:3d:62:8e:21:64:22:e7"
       - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
