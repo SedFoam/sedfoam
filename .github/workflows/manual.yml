@@ -1,0 +1,498 @@
+version: 2
+
+jobs:
+  checkstyle:
+    docker:
+      - image: ubuntu:focal
+
+    environment:
+      WM_NCOMPPROCS: 2
+      TZ: Europe/Paris
+      DEBIAN_FRONTEND: noninteractive
+
+    working_directory: /root/sedfoam
+    steps:
+      - run:
+          name: Make project and user dir
+          command: mkdir -p /root/sedfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - run:
+          name: Install vera++
+          command: >
+            apt-get update &&
+            apt-get install -y ca-certificates git vera++
+
+      - run:
+          name: pull checkStyle submodule
+          command: >
+            shopt -s expand_aliases &&
+            git submodule init &&
+            git submodule update --remote
+
+      - run:
+          name: Check style
+          command: >
+            shopt -s expand_aliases &&
+            ./foamStyleCheck/checkStyle
+
+  docs-build:
+    docker:
+      - image: opencfd/openfoam2106-dev
+
+    environment:
+      WM_NCOMPPROCS: 2
+      TZ: Europe/Paris
+      DEBIAN_FRONTEND: noninteractive
+
+    working_directory: /root/sedfoam
+    steps:
+      - run:
+          name: Install docs packages
+          command: >
+            update-ca-certificates &&
+            apt-get update && apt-get -y install ca-certificates git python3-pip dvisvgm libclang-9-dev &&
+            apt-get -y install ack-grep libclang-cpp9 wget graphviz tex-gyre texlive-base &&
+            apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended
+
+      - run:
+          name: Install python packages
+          command: >
+            shopt -s expand_aliases && python3 --version &&
+            pip3 --version &&
+            pip3 install -U jinja2 Pygments
+
+      - run:
+          name: Make project and user dir
+          command: mkdir -p /root/sedfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - run:
+          name: install doxygen 1.9.3
+          command: >
+            shopt -s expand_aliases &&
+            wget https://sourceforge.net/projects/doxygen/files/rel-1.9.3/doxygen-1.9.3.linux.bin.tar.gz &&
+            tar -xvf doxygen-1.9.3.linux.bin.tar.gz
+
+      - run:
+          name: clone m.css and build doc
+          command: >
+            shopt -s expand_aliases &&
+            export PATH=$PWD/doxygen-1.9.3/bin:$PATH &&
+            cd doc &&
+            git clone git@github.com:mosra/m.css &&
+            cd m.css/documentation && cp ../../doxygen.py . &&
+            source /openfoam/bash.rc &&
+            python3 doxygen.py ../../conf.py &&
+            cd ../.. && cp images/* mcssout/html/. &&
+            ack "ource file" -l --print0 | xargs -0 -n 1 sed -i "s/\"\/root\/sedfoam/\"https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
+
+      - persist_to_workspace:
+          root: /root/sedfoam/doc/mcssout
+          paths: html
+
+  docs-deploy:
+    docker:
+      - image: node:17.8.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: docs/_build
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "eduard.puig-montella@univ-grenoble-alpes.fr"
+            git config user.name "puigmontella"
+      - add_ssh_keys:
+          fingerprints:
+          - $GITHUB_TOKEN
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
+
+  builddock_nb:
+    working_directory: /app
+    docker:
+      - image: docker:20.10-dind
+    resource_class: xlarge
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/app.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i /caches/app.tar | true
+          no_output_timeout: 30m
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build --cache-from=app -t cbonamy/sedfoam_2106_notebook:latest -f docker/Dockerfile_nb docker
+          no_output_timeout: 4h
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/app.tar cbonamy/sedfoam_2106_notebook:latest
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/app.tar
+      - persist_to_workspace:
+          root: /caches
+          paths:
+            - app.tar
+          no_output_timeout: 4h
+
+  publishdock_nb:
+    # Use docker-publisher from above as the Docker container to run this job in
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      # Set up a separate Docker environment to run `docker` commands in
+      - setup_remote_docker
+
+      # Load and un-archive the Docker image
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Load Docker image
+          command: docker load --input /tmp/workspace/app.tar
+
+      # Log in to Docker Hub and push the image
+      - run:
+          name: Publish Docker image
+          command: |
+            echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
+            docker push cbonamy/sedfoam_2106_notebook:latest
+  builddock:
+    working_directory: /app
+    docker:
+      - image: docker:20.10-dind
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/app.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i /caches/app.tar | true
+          no_output_timeout: 30m
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build --cache-from=app -t cbonamy/$IMAGE_NAME:latest docker
+          no_output_timeout: 4h
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/app.tar cbonamy/$IMAGE_NAME:latest
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/app.tar
+      - persist_to_workspace:
+          root: /caches
+          paths:
+            - app.tar
+
+  publishdock:
+    # Use docker-publisher from above as the Docker container to run this job in
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      # Set up a separate Docker environment to run `docker` commands in
+      - setup_remote_docker
+
+      # Load and un-archive the Docker image
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Load Docker image
+          command: docker load --input /tmp/workspace/app.tar
+
+      # Log in to Docker Hub and push the image
+      - run:
+          name: Publish Docker image
+          command: |
+            echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
+            docker push cbonamy/$IMAGE_NAME:latest
+
+  build:
+    docker:
+      - image: opencfd/openfoam2112-dev
+
+    environment:
+      WM_NCOMPPROCS: 2
+      TZ: Europe/Paris
+      DEBIAN_FRONTEND: noninteractive
+
+    working_directory: /root/sedfoam
+
+    steps:
+      - run:
+          name: Make project and user dir
+          command: mkdir -p /root/sedfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - run:
+          name: pull submodules
+          command: >
+            update-ca-certificates &&
+            apt-get update && apt-get -y install ca-certificates git &&
+            shopt -s expand_aliases &&
+            git submodule init &&
+            git submodule update --remote
+
+      - run:
+          name: Build sedFoam
+          command: >
+            shopt -s expand_aliases && source /openfoam/bash.rc &&
+            export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group
+      - persist_to_workspace:
+          root: /usr/lib/openfoam/openfoam2112
+          paths: site
+
+  test:
+    docker:
+      - image: opencfd/openfoam2112-dev
+    working_directory: /root/sedfoam
+
+    steps:
+      - run:
+          name: Install python3 packages
+          command: >
+            shopt -s expand_aliases &&
+            update-ca-certificates &&
+            apt-get update && apt-get -y install python3 &&
+            apt-get -y install python3-pip &&
+            pip3 install fluidfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - attach_workspace:
+          at: /usr/lib/openfoam/openfoam2112
+
+      - run:
+          name: sedfoam test1D sedim
+          command: >
+            shopt -s expand_aliases && source /openfoam/bash.rc &&
+            cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
+            cp -f system/controlDict.sedim system/controlDict  && chmod -R a+rwX /root &&
+            runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
+            python3 test_Sedimentation.py
+      - run:
+          name: sedfoam test1D bedload
+          command: >
+            shopt -s expand_aliases && source /openfoam/bash.rc &&
+            cd /root/sedfoam/test-ci/1DSedim && cp -f constant/forceProperties.bedload constant/forceProperties &&
+            cp -f system/controlDict.bedload system/controlDict && chmod -R a+rwX /root &&
+            runuser -l sudofoam -c 'cd /root/sedfoam/test-ci/1DSedim &&
+            source /openfoam/bash.rc && ./Allrun' &&
+            python3 test_Bedload.py
+          no_output_timeout: 30m
+
+  advanced-test:
+    docker:
+      - image: opencfd/openfoam2112-dev
+    working_directory: /root/sedfoam
+
+    steps:
+      - run:
+          name: Install python3 packages
+          command: >
+            shopt -s expand_aliases &&
+            update-ca-certificates &&
+            apt-get update &&
+            apt-get -y install python3 python3-pip &&
+            pip3 install fluidfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - attach_workspace:
+          at: /usr/lib/openfoam/openfoam2112
+
+      - run:
+          name: sedfoam 1D Avalanche
+          command: >
+            shopt -s expand_aliases && chmod -R a+rwX /root &&
+            source /openfoam/bash.rc &&
+            runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
+            cd /root/sedfoam/test-ci/1DAvalancheMuI && python3 test_AvalancheMuI.py
+          no_output_timeout: 30m
+
+  advanced-test1:
+    docker:
+      - image: opencfd/openfoam2112-dev
+    working_directory: /root/sedfoam
+
+    steps:
+      - run:
+          name: Install python3 packages
+          command: >
+            shopt -s expand_aliases &&
+            update-ca-certificates &&
+            apt-get update &&
+            apt-get -y install python3 python3-pip &&
+            pip3 install fluidfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - attach_workspace:
+          at: /usr/lib/openfoam/openfoam2112
+
+      - run:
+          name: sedfoam 1DBedLoadTurb
+          command: >
+            shopt -s expand_aliases && chmod -R a+rwX /root &&
+            source /openfoam/bash.rc &&
+            runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DBedLoadTurb && ./Allrun' &&
+            cd /root/sedfoam/test-ci/1DBedLoadTurb && python3 test_1DBedLoadTurb.py
+          no_output_timeout: 30m
+
+      - run:
+          name: sedfoam 1DBoundaryLayer
+          command: >
+            shopt -s expand_aliases && chmod -R a+rwX /root &&
+            source /openfoam/bash.rc &&
+            runuser -l sudofoam -c 'cd /root/sedfoam/test-ci/1DBoundaryLayer &&
+            source /openfoam/bash.rc && ./Allrun' &&
+            cd /root/sedfoam/test-ci/1DBoundaryLayer && python3 test_1DBoundaryLayer.py
+          no_output_timeout: 30m
+
+  advanced-test2:
+    docker:
+      - image: opencfd/openfoam2112-dev
+    working_directory: /root/sedfoam
+
+    steps:
+      - run:
+          name: Install python3 packages
+          command: >
+            shopt -s expand_aliases &&
+            update-ca-certificates &&
+            apt-get update &&
+            apt-get -y install python3 python3-pip &&
+            pip3 install fluidfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - attach_workspace:
+          at: /usr/lib/openfoam/openfoam2112
+
+      - run:
+          name: sedfoam 1DWetAvalanche
+          command: >
+            shopt -s expand_aliases && chmod -R a+rwX /root && source /openfoam/bash.rc &&
+            runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DWetAvalanche && ./Allrun' &&
+            cd /root/sedfoam/test-ci/1DWetAvalanche && python3 test_1DWetAvalanche.py
+          no_output_timeout: 30m
+
+# Orchestrate our job run sequence
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - checkstyle
+      - build
+      - test:
+          requires:
+            - build
+      - advanced-test1:
+          requires:
+            - build
+      - advanced-test2:
+          requires:
+            - build
+      - builddock:
+          requires:
+            - test
+            - advanced-test1
+            - advanced-test2
+          filters:
+            branches:
+              only:
+                - master
+                - develop
+      - publishdock:
+          requires:
+            - builddock
+      - builddock_nb:
+          requires:
+            - publishdock
+      - publishdock_nb:
+          requires:
+            - builddock_nb
+      - docs-build
+      - docs-deploy:
+          requires:
+            - docs-build
+          filters:
+            branches:
+              only:
+                - master
+                - develop
+  weekly:
+    triggers:
+      - schedule:
+          cron: "0 2 * * 0"
+          filters:
+            branches:
+              only:
+                - develop
+    jobs:
+      - checkstyle
+      - build
+      - test:
+          requires:
+            - build
+      - advanced-test:
+          requires:
+            - build
+      - advanced-test1:
+          requires:
+            - build
+      - advanced-test2:
+          requires:
+            - build
+      - builddock:
+          requires:
+            - test
+            - advanced-test
+            - advanced-test1
+            - advanced-test2
+      - publishdock:
+          requires:
+            - builddock
+      - builddock_nb:
+          requires:
+            - publishdock
+      - publishdock_nb:
+          requires:
+            - builddock_nb
+      - docs-build
+      - docs-deploy:
+          requires:
+            - docs-build
