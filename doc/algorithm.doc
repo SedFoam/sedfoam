@@ -260,4 +260,5 @@ In the above solution procedure, the velocity-pressure coupling steps are looped
 
 The time step, \f$\Delta t\f$, can be set to a constant value or adjusted automatically based on two Courant numbers, one related to the local flow velocity and the local grid size \f$Co=1/2 \sum_f \Phi_f \Delta t / V_p\f$ (the same as for single phase problems) and one related to the relative velocity  \f$Co_r=1/2 \sum_f \left|\Phi^a_f-\Phi^b_f\right| \Delta t / V_p\f$ which is specific to the coupling of the fluid and sediment phase momentum equations in the two-phase flow model. The most limiting time step is used as the criterion for setting the adjustable time step. Our practice is to set these two Courant numbers to 0.3 and 0.1, respectively. 
 
+
 */
