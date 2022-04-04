@@ -320,7 +320,7 @@ workflows:
             branches:
               only:
                 - master
-                - develop
+                - developEduLocal
       - publishdock:
           requires:
             - builddock
@@ -338,7 +338,7 @@ workflows:
             branches:
               only:
                 - master
-                - develop
+                - developEduLocal
   weekly:
     triggers:
       - schedule:
@@ -346,7 +346,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - developEduLocal
     jobs:
       - checkstyle
       - build
