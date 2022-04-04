@@ -234,8 +234,6 @@ jobs:
             echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
             docker push puigmontella/$IMAGE_NAME:latest
 
-
-
   build:
     docker:
       - image: opencfd/openfoam2112-dev
@@ -302,6 +300,115 @@ jobs:
             cp -f system/controlDict.sedim system/controlDict  && chmod -R a+rwX /root &&
             runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
             python3 test_Sedimentation.py
+      - run:
+          name: sedfoam test1D bedload
+          command: >
+            shopt -s expand_aliases && source /openfoam/bash.rc &&
+            cd /root/sedfoam/test-ci/1DSedim && cp -f constant/forceProperties.bedload constant/forceProperties &&
+            cp -f system/controlDict.bedload system/controlDict && chmod -R a+rwX /root &&
+            runuser -l sudofoam -c 'cd /root/sedfoam/test-ci/1DSedim &&
+            source /openfoam/bash.rc && ./Allrun' &&
+            python3 test_Bedload.py
+          no_output_timeout: 30m
+
+  advanced-test:
+    docker:
+      - image: opencfd/openfoam2112-dev
+    working_directory: /root/sedfoam
+
+    steps:
+      - run:
+          name: Install python3 packages
+          command: >
+            shopt -s expand_aliases &&
+            update-ca-certificates &&
+            apt-get update &&
+            apt-get -y install python3 python3-pip &&
+            pip3 install fluidfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - attach_workspace:
+          at: /usr/lib/openfoam/openfoam2112
+
+      - run:
+          name: sedfoam 1D Avalanche
+          command: >
+            shopt -s expand_aliases && chmod -R a+rwX /root &&
+            source /openfoam/bash.rc &&
+            runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
+            cd /root/sedfoam/test-ci/1DAvalancheMuI && python3 test_AvalancheMuI.py
+          no_output_timeout: 30m
+
+  advanced-test1:
+    docker:
+      - image: opencfd/openfoam2112-dev
+    working_directory: /root/sedfoam
+
+    steps:
+      - run:
+          name: Install python3 packages
+          command: >
+            shopt -s expand_aliases &&
+            update-ca-certificates &&
+            apt-get update &&
+            apt-get -y install python3 python3-pip &&
+            pip3 install fluidfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - attach_workspace:
+          at: /usr/lib/openfoam/openfoam2112
+
+      - run:
+          name: sedfoam 1DBedLoadTurb
+          command: >
+            shopt -s expand_aliases && chmod -R a+rwX /root &&
+            source /openfoam/bash.rc &&
+            runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DBedLoadTurb && ./Allrun' &&
+            cd /root/sedfoam/test-ci/1DBedLoadTurb && python3 test_1DBedLoadTurb.py
+          no_output_timeout: 30m
+
+      - run:
+          name: sedfoam 1DBoundaryLayer
+          command: >
+            shopt -s expand_aliases && chmod -R a+rwX /root &&
+            source /openfoam/bash.rc &&
+            runuser -l sudofoam -c 'cd /root/sedfoam/test-ci/1DBoundaryLayer &&
+            source /openfoam/bash.rc && ./Allrun' &&
+            cd /root/sedfoam/test-ci/1DBoundaryLayer && python3 test_1DBoundaryLayer.py
+          no_output_timeout: 30m
+
+  advanced-test2:
+    docker:
+      - image: opencfd/openfoam2112-dev
+    working_directory: /root/sedfoam
+
+    steps:
+      - run:
+          name: Install python3 packages
+          command: >
+            shopt -s expand_aliases &&
+            update-ca-certificates &&
+            apt-get update &&
+            apt-get -y install python3 python3-pip &&
+            pip3 install fluidfoam
+
+      - checkout:
+          path: /root/sedfoam
+
+      - attach_workspace:
+          at: /usr/lib/openfoam/openfoam2112
+
+      - run:
+          name: sedfoam 1DWetAvalanche
+          command: >
+            shopt -s expand_aliases && chmod -R a+rwX /root && source /openfoam/bash.rc &&
+            runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DWetAvalanche && ./Allrun' &&
+            cd /root/sedfoam/test-ci/1DWetAvalanche && python3 test_1DWetAvalanche.py
+          no_output_timeout: 30m
 
 # Orchestrate our job run sequence
 workflows:
@@ -313,9 +420,17 @@ workflows:
       - test:
           requires:
             - build
+      - advanced-test1:
+          requires:
+            - build
+      - advanced-test2:
+          requires:
+            - build
       - builddock:
           requires:
             - test
+            - advanced-test1
+            - advanced-test2
           filters:
             branches:
               only:
@@ -353,9 +468,21 @@ workflows:
       - test:
           requires:
             - build
+      - advanced-test:
+          requires:
+            - build
+      - advanced-test1:
+          requires:
+            - build
+      - advanced-test2:
+          requires:
+            - build
       - builddock:
           requires:
             - test
+            - advanced-test
+            - advanced-test1
+            - advanced-test2
       - publishdock:
           requires:
             - builddock
