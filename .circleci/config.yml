@@ -87,7 +87,7 @@ jobs:
             git clone git@github.com:mosra/m.css &&
             cd m.css/documentation && cp ../../doxygen.py . &&
             source /openfoam/bash.rc &&
-            python3 doxygen.py ../../conf.py &&
+            python3 doxygen.py ../../conf.py && python3 doxygen.py ../../conf.py &&
             cd ../.. && cp images/* mcssout/html/. &&
             ack "ource file" -l --print0 | xargs -0 -n 1 sed -i "s/\"\/root\/sedfoam/\"https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
 
