@@ -17,6 +17,17 @@ The mass conservation equations for the particle phase and fluid phase are writt
 \label{eq_conti_sed}
 \f}
 
+hola \ref{eq_conti_sed}
+
+
+\begin{align\*}
+\frac{\partial {\alpha}}{\partial {t}} + \frac{\partial{{\alpha}u^a_i}}{\partial{x_i}}=0,
+\label{eq_conti_sed22}
+\end{align\*}
+
+
+adeu \ref{eq_conti_sed22}
+
 \f{equation}{
 \frac{\partial \beta}{\partial {t}} + \frac{\partial{\beta u^b_i}}{\partial{x_i}}=0,
 \label{eq_conti_fl}
