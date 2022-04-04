@@ -1,3 +1,3 @@
 MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "ams" } }
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
 });
