@@ -33,6 +33,16 @@ In the above equation, the first two terms on the RHS are treated implicitly whi
 
 It is more convenient to rewrite the above equation into a matrix form:
 
+$$
+ \big[\mathbf{\sf A^b}\big] \cdot\mathbf{u^b}= \mathbf{H^b}+\mathbf{R^b}+ \dfrac{\alpha K}{\rho^b}\mathbf{u^a} -\dfrac{1}{\rho^b}\nabla{p^*}\label{eq_mom_fluid_4}
+$$
+
+$$
+  \dfrac{\alpha K}{\rho^b}\tag{hola}  \label{eq_mom_fluid_4}
+$$
+
+heyyy this is \ref{eq_mom_fluid_4} and  \ref{hola}
+
 \f{equation}{
  \big[\mathbf{\sf A^b}\big] \cdot\mathbf{u^b}= \mathbf{H^b}+\mathbf{R^b}+ \dfrac{\alpha K}{\rho^b}\mathbf{u^a} -\dfrac{1}{\rho^b}\nabla{p^*}\label{eq_mom_fluid_4}
 \f}
