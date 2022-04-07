@@ -18,6 +18,8 @@ The mass conservation equations for the particle phase and fluid phase are writt
 \label{eq_conti_sed}
 \f}
 
+
+
 \f{equation}{
 \frac{\partial \beta}{\partial {t}} + \frac{\partial{\beta u^b_i}}{\partial{x_i}}=0,
 \label{eq_conti_fl}
