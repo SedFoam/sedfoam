@@ -23,6 +23,13 @@ The last term in the above equation, the gradient of fluid phase shear stress, c
 
 In the above equation, the first two terms on the RHS are treated implicitly while the last two terms are treated explicitly. By substituting the expanded shear stress formulation in the momentum equation, the following equation is obtained:
 
+
+\f$\dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}= \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) + \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T}  -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\} \label{hola}
+\f$
+
+\f$\dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}= \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) + \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T}  -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\} \tag{hola}
+\f$
+
 \f{equation}{
 \dfrac{\partial{\mathbf{u}^b}}{\partial{t}}+\nabla\cdot(\mathbf{u^b}\mathbf{u^b})  -(\nabla\cdot\mathbf{u^b})\mathbf{u^b} 
 - \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) - \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} 
@@ -41,7 +48,7 @@ $$
   \dfrac{\alpha K}{\rho^b}\tag{hola}  \label{eq_mom_fluid_4}
 $$
 
-heyyy this is \ref{eq_mom_fluid_4} and  \ref{hola}
+heyyy this is \ref{eq_mom_fluid_4} and  \ref{hola} and and  \ref hola 
 
 \f{equation}{
  \big[\mathbf{\sf A^b}\big] \cdot\mathbf{u^b}= \mathbf{H^b}+\mathbf{R^b}+ \dfrac{\alpha K}{\rho^b}\mathbf{u^a} -\dfrac{1}{\rho^b}\nabla{p^*}\label{eq_mom_fluid_4}
