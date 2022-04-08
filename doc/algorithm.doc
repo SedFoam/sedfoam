@@ -10,29 +10,47 @@ The numerical implementation of the present Eulerian two-phase flow sediment tra
 
 To illustrate the numerical discretization, the fluid phase momentum equation are taken as an example. Rearranging the fluid phase momentum equation by dividing \f$\beta\rho^b\f$, the resulting equation can be written as
 
-\f$
+\f[
 \dfrac{\partial{\mathbf{u}^b}}{\partial{t}}+\nabla\cdot(\mathbf{u^b}\mathbf{u^b})-(\nabla\cdot\mathbf{u^b})\mathbf{u^b}=-\dfrac{1}{\rho^b}\nabla{p^*}
   - \dfrac{\alpha K}{\rho^b}(\mathbf{u^b}-\mathbf{u^a}) + \dfrac{K}{\rho^b} \dfrac{1}{\sigma_c} \ \nu^{bt}\nabla{\alpha}+ \dfrac{\mathbf{f}}{\rho^b}+ \dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}
-\f$
+\tag{1}  \f] Eq1
+ 
 
-The last term in the above equation, the gradient of fluid phase shear stress, can be written as can be written according to equation (ref{eq_tauf}) and expanded as follows:
+The last term in the above equation, the gradient of fluid phase shear stress, can be written and expanded as follows:
 
-\f$\dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}= \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) + \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T}  -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\}.
-\f$
+\f[
+\dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}= \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) + \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T}  -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\}
+ \tag{2} \f]
+
 
 In the above equation, the first two terms on the RHS are treated implicitly while the last two terms are treated explicitly. By substituting the expanded shear stress formulation in the momentum equation, the following equation is obtained:
 
-\f$ \dfrac{\partial{\mathbf{u}^b}}{\partial{t}}+\nabla\cdot(\mathbf{u^b}\mathbf{u^b})  -(\nabla\cdot\mathbf{u^b})\mathbf{u^b} 
+
+
+\anchor Eq3 \f[\dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}= \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) + \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T}  -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\} \tag{3} 
+\f]
+
+
+
+\anchor Eq4 
+\f[
+\dfrac{\partial{\mathbf{u}^b}}{\partial{t}}+\nabla\cdot(\mathbf{u^b}\mathbf{u^b})  -(\nabla\cdot\mathbf{u^b})\mathbf{u^b} 
 - \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) - \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} 
 + \dfrac{\alpha K}{\rho^b} \mathbf{u^b} = -\dfrac{1}{\rho^b}\nabla{p^*}
-  + \dfrac{\alpha K}{\rho^b}\mathbf{u^a} + \dfrac{1}{\sigma_c} \  \dfrac{K \nu^{bt} }{\rho^b}\nabla{\alpha}  + \dfrac{\mathbf{f}}{\rho^b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T} -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\} \f$
+  + \dfrac{\alpha K}{\rho^b}\mathbf{u^a} + \dfrac{1}{\sigma_c} \  \dfrac{K \nu^{bt} }{\rho^b}\nabla{\alpha}  + \dfrac{\mathbf{f}}{\rho^b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T} -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\} \tag{4}
+\f]
+
 
 It is more convenient to rewrite the above equation into a matrix form:
 
-\f$ \big[\mathbf{\sf A^b}\big] \cdot\mathbf{u^b}= \mathbf{H^b}+\mathbf{R^b}+ \dfrac{\alpha K}{\rho^b}\mathbf{u^a} -\dfrac{1}{\rho^b}\nabla{p^*}
-\f$
 
-The matrix \f$\big[\mathbf{\sf A^b}\big]\f$ is composed of the diagonal terms of the algebraic system associated with equation (ref{eq_mom_fluid_3}), whereas \f$\mathbf{H^b}\f$ includes the off-diagonal terms and the source terms. \f$\mathbf{R^b}\f$ is composed of the explicit drag term, the turbulent suspension term, the gravity term and the explicit diffusion terms:
+
+
+\anchor Eq5 \f[  \big[\mathbf{\sf A^b}\big] \cdot\mathbf{u^b}= \mathbf{H^b}+\mathbf{R^b}+ \dfrac{\alpha K}{\rho^b}\mathbf{u^a} -\dfrac{1}{\rho^b}\nabla{p^*}\tag{5}\f]
+
+
+The matrix \f$\big[\mathbf{\sf A^b}\big]\f$ is composed of the diagonal terms of the algebraic system associated with  \ref Eq5 , whereas \f$\mathbf{H^b}\f$ includes the off-diagonal terms and the source terms. \f$\mathbf{R^b} \f$  is composed of the explicit drag term, the turbulent suspension term, the gravity term and the explicit diffusion terms:
+  
   
 \f$
 \mathbf{R^b}=    \dfrac{\mathbf{f}}{\rho^b}
