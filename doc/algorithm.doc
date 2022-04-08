@@ -206,9 +206,9 @@ in which the explicit drag contributions coming from the other phase are still m
 
 and  the face flux associated with the relative velocity as:
 
-\f{equation}{
+\f[
 \Phi^{r**} =\Phi^{a**} -\Phi^{b**}= \Phi_s^{a} + AK_a (\Phi_s^b + AK_b \Phi^{a**})  - \left[ \Phi_s^{b} + AK_b (\Phi_s^a + AK_a \Phi^{b**}) \right] \tag{27}
-\f}
+\f]
 
 \f[
 \Phi^{r**} = \Phi_s^{a} + AK_a \Phi_s^b  - \left[ \Phi_s^{b} + AK_b \Phi_s^a \right] + AK_a AK_b \left[ \Phi^{a**}  - \Phi^{b**} \right]\tag{28}
