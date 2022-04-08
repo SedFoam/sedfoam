@@ -83,8 +83,7 @@ git clone --recurse-submodules https://github.com/USERNAME/sedfoam.git
 \endverbatim
 Previous URL is found in your SedFoam fork. 
 
-It is strongly recommended to keep your fork up to date by tracking the
-original upstream repository that you forked. To do so, you need to add a
+It is strongly recommended to keep your fork up to date by tracking the upstream repository that you forked. To do so, you need to add a
 remote:
 \verbatim
 # Add 'upstream' repo to list of remotes
@@ -96,7 +95,7 @@ git remote -v
 
 
 It is good practice to periodically update your fork with the latest version
-of the original (usptream) repository. First, fetch the upstream repository's
+of the usptream repository. First, fetch the upstream repository's
 branches and latest commits to bring them into your repository:
 \verbatim
 # Fetch from upstream remote
@@ -120,6 +119,15 @@ git merge upstream/develop
 \endverbatim
 
 Now, your local develop branch is up-to-date!
+
+Alternatively, you can update you branch with the following command:
+
+\verbatim
+git pull --rebase upstream develop
+\endverbatim
+
+ git pull is simply shortcut to run a  git fetch  and then a git merge
+
 
 //****************************************
 \subsection createbranch Create branches
@@ -180,6 +188,12 @@ In case you want to delete some files:
 git rm <File Name>
 \endverbatim
 
+
+Before commiting any files it is a good practice to inspect the diff output to make sure your changes are correctly introduced:
+\verbatim
+git diff <File Name>
+\endverbatim
+
 Then, files staged in your local repository need to be committed:
 \verbatim
 git commit -m "Write a message describing the new feature you introduce"
@@ -192,14 +206,14 @@ git push origin Newfeature
 \endverbatim
 
 After executing the last command, you pushed the changes in your local
-repository to the remote repository, both named Newfeature.
+repository to the remote GitHub repository (called origin), both named Newfeature.
 
 //****************************************
 \subsection pullrequest Open a Pull Request
 
 Whenever you consider the new feature is ready, you can propose your changes
 and request someone to review your work. The maintainer will carefully study
-the new features and, eventually, if they are sound, he/she will pull in your
+the new features and, eventually, if they are sound, he/she/they will pull in your
 contribution and merge it into the develop branch.
 
 The easiest way to carry out a pull requests is to go to your GitHub fork
@@ -210,6 +224,39 @@ The maintainer will decide to merge/deny or comment your changes. If the
 maintainer suggests some modifications before merging, you can simply push
 these changes into your fork and the pull request will be updated automatically.
 
+//****************************************
+\subsection deleting How to delete a branch
 
+Using the following command deletes a specific local branch:
+\verbatim
+ git branch -d  NewFeature
+\endverbatim
+
+If you also want to delete a remote branch, then:
+
+\verbatim
+ git push origin --delete  NewFeature
+\endverbatim
+
+Finally, git fetch --prune will clean the outdated branches. It will connect to a shared remote repository remote and fetch all remote branch reference. It will then delete remote reference that are no longer in use on the remote repository.
+
+//****************************************
+\subsection fixConfict How to fix the conflicts
+
+A common scenario one can easily come across is to try to push some changes in a branch that has been already modified by others. Once you want to get changes done by others:
+\verbatim
+git pull --rebase upstream develop #Pull new updates from the upstream to your branch.
+git push  #Merge changes from upstream into your gitlab repo (origin)
+\endverbatim
+
+Then, an error will pop up. A possible way to keep on and update your branch consist in preserving your changes to stash:
+\verbatim
+git stash #backup and hide changes
+git pull --rebase upstream master
+git push
+git stash pop #restore backed up changes
+\endverbatim
+
+//****************************************
 
 */
