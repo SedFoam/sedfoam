@@ -227,14 +227,14 @@ This new expression for the relative flux allows to treat the drag force almost 
 The predicted fluxes for each phase is then obtained from the mixture flux plus a correction coming from the relative flux. Let's write the mixture velocity and relative velocity expression:
 
 \f[
-\Phi^{**}=\alpha_f \Phi^{a**} + \beta_f \Phi^{b**} \quad \text{and} \quad  \Phi^{r**} = \Phi^{a**} - \Phi^{b**}
+\Phi^{**}=\alpha_f \Phi^{a**} + \beta_f \Phi^{b**} \quad \text{and} \quad  \Phi^{r**} = \Phi^{a**} - \Phi^{b**} \tag{31}
 \f]
 
 
 from which we can deduce the following relationships:
 
 \f[
-\Phi^{a}= \Phi^{**} + \beta_f  \Phi^{r**}  \quad \text{and} \quad \Phi^{b}= \Phi^{**} - \alpha_f  \Phi^{r**} 
+\Phi^{a}= \Phi^{**} + \beta_f  \Phi^{r**}  \quad \text{and} \quad \Phi^{b}= \Phi^{**} - \alpha_f  \Phi^{r**}  \tag{32}
 \f]
 
 The same type of procedure is applied for the reconstruction of the velocities at the cell centres: \f$U,U^a,U^b\f$.
