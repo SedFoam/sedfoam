@@ -6,54 +6,60 @@
  */
 /*! \page algoSedFoam Algorithm 
 
+
 The numerical implementation of the present Eulerian two-phase flow sediment transport model is based on an open-source finite volume CFD library called OpenFOAM. Taking advantage of the numerical discretization schemes and framework of finite volume solvers in OpenFOAM, the two-phase flow governing equations are implemented by modifying the solver twoPhaseEulerFoam (Rusche, 2002; Weller, 2002; Peltola, 2009). OpenFOAM uses the Finite Volume Method (FVM) over a collocated grid arrangement. The collocated arrangement stores all dependent variables at the cell center and the same Control Volume (CV) is used for all variables to minimize the computational effort. The advantage of the FVM is that the system of partial differential equations can be discretized on arbitrary three-dimensional structured or unstructured meshes. Thus, complex geometries can be easily handled. The Gauss theorem is applied to the convection and diffusion terms leading to conservative schemes. 
 
 To illustrate the numerical discretization, the fluid phase momentum equation are taken as an example. Rearranging the fluid phase momentum equation by dividing \f$\beta\rho^b\f$, the resulting equation can be written as
 
-\f{equation}{
+\f[
 \dfrac{\partial{\mathbf{u}^b}}{\partial{t}}+\nabla\cdot(\mathbf{u^b}\mathbf{u^b})-(\nabla\cdot\mathbf{u^b})\mathbf{u^b}=-\dfrac{1}{\rho^b}\nabla{p^*}
   - \dfrac{\alpha K}{\rho^b}(\mathbf{u^b}-\mathbf{u^a}) + \dfrac{K}{\rho^b} \dfrac{1}{\sigma_c} \ \nu^{bt}\nabla{\alpha}+ \dfrac{\mathbf{f}}{\rho^b}+ \dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}
-\tag{1}  \f} 
+\tag{1}  \f] Eq1
+ 
 
 The last term in the above equation, the gradient of fluid phase shear stress, can be written and expanded as follows:
 
-\f{equation}{
+\f[
 \dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}= \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) + \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T}  -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\}.
- \tag{2}  \f}
+ \tag{2} \f]
+
 
 In the above equation, the first two terms on the RHS are treated implicitly while the last two terms are treated explicitly. By substituting the expanded shear stress formulation in the momentum equation, the following equation is obtained:
 
 
 
-\anchor Eq3 \f$\dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}= \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) + \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T}  -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\} \tag{3} 
-\f$ 
+\anchor Eq3 \f[\dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}= \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) + \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T}  -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\} \tag{3} 
+\f]
+
 
 
 \anchor Eq4 
- \f{equation}{
+\f[
 \dfrac{\partial{\mathbf{u}^b}}{\partial{t}}+\nabla\cdot(\mathbf{u^b}\mathbf{u^b})  -(\nabla\cdot\mathbf{u^b})\mathbf{u^b} 
 - \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) - \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} 
 + \dfrac{\alpha K}{\rho^b} \mathbf{u^b} = -\dfrac{1}{\rho^b}\nabla{p^*}
   + \dfrac{\alpha K}{\rho^b}\mathbf{u^a} + \dfrac{1}{\sigma_c} \  \dfrac{K \nu^{bt} }{\rho^b}\nabla{\alpha}  + \dfrac{\mathbf{f}}{\rho^b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T} -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\} \tag{4}
-\f}
+\f]
+
 
 It is more convenient to rewrite the above equation into a matrix form:
 
 
 
 
-\anchor Eq5 \f{equation}{  \big[\mathbf{\sf A^b}\big] \cdot\mathbf{u^b}= \mathbf{H^b}+\mathbf{R^b}+ \dfrac{\alpha K}{\rho^b}\mathbf{u^a} -\dfrac{1}{\rho^b}\nabla{p^*}\tag{5}\f}
+\anchor Eq5 \f[  \big[\mathbf{\sf A^b}\big] \cdot\mathbf{u^b}= \mathbf{H^b}+\mathbf{R^b}+ \dfrac{\alpha K}{\rho^b}\mathbf{u^a} -\dfrac{1}{\rho^b}\nabla{p^*}\tag{5}\f]
+
 
 The matrix \f$\big[\mathbf{\sf A^b}\big]\f$ is composed of the diagonal terms of the algebraic system associated with  \ref Eq5 , whereas \f$\mathbf{H^b}\f$ includes the off-diagonal terms and the source terms. \f$\mathbf{R^b} \f$  is composed of the explicit drag term, the turbulent suspension term, the gravity term and the explicit diffusion terms:
   
-\f{equation}{
+\f[
 \mathbf{R^b}=    \dfrac{\mathbf{f}}{\rho^b}
 + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T} -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\} + \dfrac{1}{\sigma_c} \dfrac{K \ \nu^{bt}}{\rho^b} \nabla{\alpha}\label{eq_mom_fluid_7}
-\tag{6} \f} 
+\tag{6} \f]
 
 The same process can be carried out for the solid phase momentum equation that leads to:
 
-\f{equation}{
+\f[
  \dfrac{\partial{\mathbf{u}^a}}{\partial{t}} +\nabla\cdot(\mathbf{u^a}\mathbf{u^a})  -(\nabla\cdot\mathbf{u^a})\mathbf{u^a} 
 - \dfrac{1}{\tilde{\alpha}} \nabla\cdot\left( \nu^{a}_{Fr} \nabla\mathbf{u}^{a}\right) - \nabla\cdot\left( \nu^{a}_{Eff} \nabla\mathbf{u}^{a}\right) 
 - \nu^{a}_{Eff} \dfrac{\nabla\alpha}{\tilde{\alpha}} \nabla\mathbf{u}^{a} 
@@ -61,22 +67,22 @@ The same process can be carried out for the solid phase momentum equation that l
 \displaystyle   -\dfrac{1}{\rho^a}\nabla{p^*} + \dfrac{\beta K}{\rho^a}\mathbf{u^b} -\dfrac{1}{\sigma_c} \dfrac{\beta K \ \nu^{bt}}{\tilde{\alpha} \rho^a} \nabla{\alpha}+ \mathbf{g} \left(1-\dfrac{\rho^b}{\rho^a}\right)+ \dfrac{\mathbf{f}}{\rho^a} - \dfrac{1}{\tilde{\alpha} \rho^a} \nabla{p^{a}}
 + \dfrac{1}{\tilde{\alpha}} \left\{\nabla\cdot\left[(\alpha \nu^{a}_{Eff}+\nu^a_{Fr}) \nabla\mathbf{u}^{a\ T}\right]\right\}
 +\dfrac{1}{\tilde{\alpha}} \left\{\nabla\left[\left(\lambda-\dfrac{2}{3}( \alpha \nu^{a}_{Eff}+\nu^a_{Fr} ) \right)\nabla\cdot{\mathbf{u}^a}\right]\right\}
- \tag{7} \f}
+ \tag{7} \f]
 
 where \f$\alpha\f$ at the denominator is substituted by \f$\tilde{\alpha}=\alpha+\alpha_{Small}\f$  to avoid dividing by zero when the solid phase volume concentration vanishes. This partial differential system of equations can also be written as a matrix equation as follows:
 
-\anchor Eq8 \f{equation}{
+\anchor Eq8 \f[
  \big[\mathbf{\sf A^a}\big]\cdot\mathbf{u^a}= \mathbf{H^a}+\mathbf{R^a} + \dfrac{\beta K}{\rho^a}\mathbf{u^b}-\dfrac{1}{\rho^a}\nabla{p^*},
 \tag{8} \f} 
 
 where the source term \f$\mathbf{R^a}\f$  contains the following terms:
 
-\f{equation}{
+\f[
 \mathbf{R^a}= -\dfrac{1}{\sigma_c} \dfrac{\beta K \ \nu^{bt}}{\tilde{\alpha} \rho^a} \nabla{\alpha}
 + \mathbf{g}  \left(1-\dfrac{\rho^b}{\rho^a}\right)+ \dfrac{\mathbf{f}}{\rho^a}- \dfrac{1}{\tilde{\alpha} \rho^a} \nabla{p^{a}}
 + \dfrac{1}{\tilde{\alpha}}\left\{\nabla\cdot\left[(\alpha \nu^{a}_{Eff}+\nu^a_{Fr}) \nabla\mathbf{u}^{a\ T}\right]\right\}
 +\dfrac{1}{\tilde{\alpha}}\left\{\nabla\left[\left(\lambda-\dfrac{2}{3}( \alpha \nu^{a}_{Eff}+\nu^a_{Fr} ) \right)\nabla\cdot{\mathbf{u}^a}\right]\right\}\label{eq_mom_sed5}
- \tag{9} \f} 
+ \tag{9} \f]
 
 Following Rusche (2002) the terms involving the ratio of particle phase volume gradient to the volume concentration are treated at the cell face level in the predictor-corrector algorithm.
 However, we noted the exception of the particle phase normal stress \f$p^{ff}\f$   gradient for which a reconstruction of the surface normal gradient  at the cell centre allows to get more stable solutions.
@@ -95,13 +101,13 @@ The PISO algorithm is used to solve fluid and particle velocities (Rusche2002,We
 
 First, the intermediate velocities \f$\mathbf{u^{a*}}\f$  ,\f$\mathbf{u^{b*}}\f$   (denoted as HabyA and HbbyA) are computed using the corresponding momentum equations (equations without the pressure gradient term and the explicit part of the drag term): 
 
-\f{equation}{
+\f[
  \mathbf{u^{a*}}= \big[\mathbf{\sf A^a}\big]^{-1}\mathbf{H^a} = HabyA,\label{ustara} \tag{10}
-\f}
+\f]
 
 \f{equation}{
  \mathbf{u^{b*}}= \big[\mathbf{\sf A^b}\big]^{-1}\mathbf{H^b} = HbbyA,\label {ustarb}  \tag{11}
-\f}
+\f]
 
 where \f$\big[\mathbf{ A^a}\big]^{-1}=rUAa\f$ and \f$\big[\mathbf{ A^b}\big]^{-1}=rUAb\f$ represent the inverse matrices of \f$\big[\mathbf{A^a}\big]\f$ and \f$\big[\mathbf{A^b}\big]\f$, respectively. These intermediate velocities do not satisfy the mass conservation equations. 
 
@@ -110,27 +116,27 @@ where \f$\big[\mathbf{ A^a}\big]^{-1}=rUAa\f$ and \f$\big[\mathbf{ A^b}\big]^{-1
 
 The right hand side of equations (\ref Eq5  - \ref Eq8 ) are computed at the cell faces:
 
-\f{equation}{
+\f[
 \Phi_R^a = \Big[A^a_f\Big]^{-1}\mathbf{R^a_f}\quad \text{and} \quad  \Phi_R^b = \Big[A^b_f\Big]^{-1} \mathbf{R^b_f}  \tag{12}
-\f}
+\f]
 
 and the velocity flux associated with the predictor step is interpolated at the cell faces:
 
-\f{equation}{
+\f[
 \Phi_U^{a} = \left(\Big[A^a\Big]^{-1}\mathbf{H^a}\right)_f \quad \text{and} \quad \Phi_U^{b} = \left(\Big[A^b\Big]^{-1} \mathbf{H^b}\right)_f  \tag{13}
-\f}
+\f]
 
 Introducing the notation:
 
-\f{equation}{
+\f[
  AK_a = \left( \Big[A^a\Big]^{-1} \beta K / \rho_a \right)_f \quad \text{and} \quad  AK_b = \left( \Big[A^b\Big]^{-1} \alpha K / \rho_b \right)_f  \tag{14}
-\f}
+\f]
 
 one can write the volume averaged velocity flux at the cell faces as: 
 
-\f{equation}{
+\f[
 \Phi^{*} = \alpha_f \left[\Phi_U^{a} +\Phi_R^a + AK_a \Phi^b\right]  +\beta_f \left[ \Phi_U^{b} +\Phi_R^b + AK_b \Phi^a \right]  \tag{15}
-\f}
+\f]
 
 where \f$\Phi^a=\mathbf{u^a}\vert_f.\mathbf{n}\vert_f S_f\f$ and \f$\Phi^b=\mathbf{u^b}\vert_f.\mathbf{n}\vert_f S_f\f$ denote the fluid and particle phases velocity fluxes at the previous iteration or time step and at the cell faces, respectively, and \f$S_f\f$ is the cell face area associated with face \f$f\f$. At this stage, the drag force is partially treated explicitly for the mixture flux \f$\Phi^*\f$  
 
@@ -138,66 +144,66 @@ where \f$\Phi^a=\mathbf{u^a}\vert_f.\mathbf{n}\vert_f S_f\f$ and \f$\Phi^b=\math
 
 Writing the semi-discrete velocity equation including the pressure gradient term leads to the following equations:
 
-\anchor Eq16 \f{equation}{
+\anchor Eq16 \f[
 \Phi^{a**} = \Phi_U^{a} +\Phi_R^{a}+\left(\dfrac{\beta K}{\rho^a \ \big[A^a\big]}\right)_f \Phi^{b**} - \dfrac{\mathbf{\nabla^{\perp}}p^*\vert_f}{\rho^a \big[A^a\big]_f}  \tag{16} 
-\f}
+\f]
 
-\anchor Eq17 \f{equation}{
+\anchor Eq17 \f[
 \Phi^{b**} = \Phi_U^{b} +\Phi_R^{b} +\left(\dfrac{\alpha K}{\rho^b \ \big[A^b\big]}\right)_f \Phi^{a**} - \dfrac{\mathbf{\nabla^{\perp}}p^*\vert_f}{\rho^b \big[A^b\big]_f}  \tag{17}
-\f}
+\f]
 
 Taking the divergence of the volume averaged mixture velocity given by the velocity correction equation  and imposing the incompressibility constraint, \f$\nabla\cdot\mathbf{U^{**}}=\nabla\cdot(\alpha \mathbf{u^{a**}} + \beta \mathbf{u^{b**}})=0\f$, one can built the pressure equation as a function of the predicted velocity or predicted face fluxes:
 
-\f{equation}{
+\f[
 \int_{Vp} \nabla\cdot \left[\left(\dfrac{\alpha}{\rho^a \big[A^a\big]} + \dfrac{\beta}{\rho^b \big[A^b\big]}\right)\nabla{p^*}\right] dV=
 \int_{Vp}\nabla\cdot\mathbf{U^{*}} dV  \quad \\
 \text{or} \quad  \oint_{S} \left(\dfrac{\alpha_f}{\rho^a \big[A^a\big]_f} + \dfrac{\beta_f}{\rho^b \big[A^b\big]_f}\right)\nabla^\perp{p^*}\vert_f \ \mathbf{n}\vert_f \ dS= \oint_S \mathbf{U^{*}}\vert_f\ \mathbf{n}\vert_f \ dS 
-\tag{18}\f}
+\tag{18}\f]
 
-\anchor Eq19 \f{equation}{
+\anchor Eq19 \f[
  \int_{Vp} \nabla\cdot\left[\alpha\mathbf{u^{a**}} + \beta\mathbf{u^{b**}}\right] dV= \oint_S \left[\alpha_f\mathbf{u^{a**}}\vert_f + \beta_f\mathbf{u^{b**}}\vert_f\right]\cdot \mathbf{n}\ dS =0
 \tag{19}
-\f}
+\f]
 
 where the subscript \f$f\f$ denotes variables interpolated at the cell faces. The two expressions shown above are equivalent by using the Gauss theorem. At the discrete level, this equation is written as:
 
-\anchor Eq20 \f{equation}{
+\anchor Eq20 \f[
 \sum_f\big[\alpha_f\Phi^{a**}+\beta_f{\Phi^{b**}}\big] = 0
 \tag{20} 
-\f}
+\f]
 
 substituting the velocity corrector equations ( \ref Eq16   - \ref Eq17 )  into the previous equation, the Poisson equation for the pressure reads:
 
-\anchor Eq21 \f{equation}{
+\anchor Eq21 \f[
 \sum_f \left(\dfrac{\alpha_f}{\rho^a \big[A^a\big]_f} + \dfrac{\beta_f}{\rho^b \big[A^b\big]_f}\right) \nabla^\perp{p^*}\vert_f \ \mathbf{n}\vert_f \ S_f=
-\sum_f \Phi^{*}.
-\label{21}
-\f}
+\sum_f \Phi^{*}
+\tag{21}
+\f]
 
 This equation leads to a matrix system written at the cell faces. The resulting algebraic system is usually solved using an multigrid solver (GAMG). The resulting pressure field \f$p^*\f$ is used for the correction step in which the mixture velocity face flux is corrected using equations ( \ref Eq16   - \ref Eq17 ):
-\f{equation}{
+\f[
 \Phi^{**} =  \Phi^* - \sum_f \mathbf{\nabla^{\perp}}p^*\vert_f S_f \tag{22}
-\f}
+\f]
 
 And the fluid and particle phase face fluxes are corrected accordingly
 
-\anchor Eq23 \f{equation}{
+\anchor Eq23  \f[
 \Phi_s^a = \Phi_U^a+\Phi_R^a - \dfrac{\mathbf{\nabla^{\perp}}p^*\vert_f}{\rho^a \big[A^a\big]_f} \tag{23}
-\f}
+\f]
 
-\anchor Eq24 \f{equation}{
+\anchor Eq24 \f[}{
 \Phi_s^b = \Phi_U^b+\Phi_R^b - \dfrac{\mathbf{\nabla^{\perp}}p^*\vert_f}{\rho^b \big[A^b\big]_f}\tag{24}
-\f}
+\f]
 
 in which the explicit drag contributions coming from the other phase are still missing. We can rewrite the corrected fluxes for each phase as:
 
-\f{equation}{
+\f[
 \Phi^{a**} = \Phi_s^a +AK_a \Phi^{b**}  \tag{25}
-\f}
+\f]
 
-\f{equation}{
+\f[
 \Phi^{b**} = \Phi_s^b +AK_b \Phi^{a**} \tag{26}
-\f}
+\f]
 
 and  the face flux associated with the relative velocity as:
 
@@ -205,33 +211,32 @@ and  the face flux associated with the relative velocity as:
 \Phi^{r**} =\Phi^{a**} -\Phi^{b**}= \Phi_s^{a} + AK_a (\Phi_s^b + AK_b \Phi^{a**})  - \left[ \Phi_s^{b} + AK_b (\Phi_s^a + AK_a \Phi^{b**}) \right] \tag{27}
 \f}
 
-\f{equation}{
+\f[
 \Phi^{r**} = \Phi_s^{a} + AK_a \Phi_s^b  - \left[ \Phi_s^{b} + AK_b \Phi_s^a \right] + AK_a AK_b \left[ \Phi^{a**}  - \Phi^{b**} \right]\tag{28}
-\f} 
+\f]
 
-\f{equation}{
+\f[
 (1-AK_a AK_b) \Phi^{r**} = \Phi_s^{a} + AK_a \Phi_s^b  - \left[ \Phi_s^{b} + AK_b \Phi_s^a \right] \tag{29}
-\f}
+\f]
 
-\f{equation}{
+\f[
 \Phi^{r**} = \dfrac{1}{1-AK_a AK_b} \left\{\Phi_s^{a} + AK_a \Phi_s^b  - \left[ \Phi_s^{b} + AK_b \Phi_s^a \right] \right\}\tag{30}
-\f}
-
+\f]
 
 This new expression for the relative flux allows to treat the drag force almost implicitly. This is supposed to stabilize the coupling between the two momentum equations and allows for higher time steps with regard to the particle response time.
 
 The predicted fluxes for each phase is then obtained from the mixture flux plus a correction coming from the relative flux. Let's write the mixture velocity and relative velocity expression:
 
-\f{equation}{
+\f[
 \Phi^{**}=\alpha_f \Phi^{a**} + \beta_f \Phi^{b**} \quad \text{and} \quad  \Phi^{r**} = \Phi^{a**} - \Phi^{b**}
-\f}
+\f]
 
 
 from which we can deduce the following relationships:
 
-\f{equation}{
+\f[
 \Phi^{a}= \Phi^{**} + \beta_f  \Phi^{r**}  \quad \text{and} \quad \Phi^{b}= \Phi^{**} - \alpha_f  \Phi^{r**} 
-\f}
+\f]
 
 The same type of procedure is applied for the reconstruction of the velocities at the cell centres: \f$U,U^a,U^b\f$.
 
