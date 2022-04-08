@@ -20,7 +20,7 @@ To illustrate the numerical discretization, the fluid phase momentum equation ar
 The last term in the above equation, the gradient of fluid phase shear stress, can be written and expanded as follows:
 
 \f[
-\dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}= \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) + \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T}  -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\}.
+\dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}= \nabla\cdot\left( \nu^{b}_{Eff} \nabla\mathbf{u}^{b}\right) + \nu^{b}_{Eff} \dfrac{\nabla\beta}{\beta} \nabla\mathbf{u}^{b} + \dfrac{1}{\beta}\nabla\cdot\left\{\beta \ \nu^{b}_{Eff} \left[ \nabla\mathbf{u}^{b T}  -\dfrac{2}{3} \nabla\cdot \mathbf{u}^b \right]\right\}
  \tag{2} \f]
 
 
