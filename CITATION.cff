@@ -1,5 +1,3 @@
-cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
 authors:
 - family-names: "Bonamy"
   given-names: "Cyrille"
@@ -9,33 +7,28 @@ authors:
   orcid: "https://orcid.org/0000-0002-5979-0620"
 - family-names: "Hsu"
   given-names: "Tian-Jian"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
 - family-names: "Puig-Montella"
   given-names: "Eduard"
   orcid: "https://orcid.org/0000-0001-7184-0945"
 - family-names: "Chassagne"
   given-names: "Rémi"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
 - family-names: "Mathieu"
   given-names: "Antoine"
   orcid: "https://orcid.org/0000-0003-1607-4787"
   - family-names: "Cheng"
   given-names: "Zhen"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
   - family-names: "Nagel"
   given-names: "Tim"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
   - family-names: "Salimi-Tarazouj"
   given-names: "Ali"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
   - family-names: "Tsai"
   given-names: "Benjamin"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
   - family-names: "Higuera"
   given-names: "Pablo"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
 title: "sedfoam"
-version: 3.2
 doi: 10.5281/zenodo.836642
-date-released: 2021-07-13
 url: "https://github.com/sedfoam/sedfoam"
+cff-version: "1.2.0"
+date-released: 2021-07-13
+message: "If you use this software, please cite it as below."
+version: 3.2
