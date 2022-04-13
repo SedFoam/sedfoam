@@ -17,13 +17,12 @@ The mass conservation equations for the particle phase and fluid phase are writt
 \f]
 
 
-
 \f[
 \frac{\partial \beta}{\partial {t}} + \frac{\partial{\beta u^b_i}}{\partial{x_i}}=0, \tag{2}
 \f]
 
 
-where \f$\alpha\f$, and \f$\beta=1-\alpha\f$ are the particle and fluid volume concentrations, \f$u^a_i, u^b_i\f$ are the sediment and fluid phase velocities, and \f$i=1, 2, 3\f$ represents streamwise, spanwise and vertical component, respectively. The momentum equations for fluid and particle phases can be written as:
+where \f$\alpha\f$ and \f$\beta=1-\alpha\f$ are the particle and fluid volume concentrations, \f$u^a_i, u^b_i\f$ are the sediment and fluid phase velocities, and \f$i=1, 2, 3\f$ represents streamwise, spanwise and vertical component, respectively. The momentum equations for fluid and particle phases can be written as:
 
 
 \anchor eq3 \f[
