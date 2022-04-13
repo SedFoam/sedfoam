@@ -1,7 +1,7 @@
-/**
+﻿/**
  * \file        howtogit.doc
  * \author      Eduard Puig-Montella, Cyrille Bonamy and Julien Chauchat
- * \date        April 13, 2023
+ * \date        June 03, 2021
  * \brief       howtogit (doc)
  */
 /*! \page howtogit How To work with github
@@ -33,7 +33,6 @@ of files and folders as the GitHub page.
 
 SedFoam github repository is updated regularly and to stay up-to-date with the latest version it is not necessary
 to download SedFoam again. Instead, we recommend to execute the following command:
-
 \verbatim
 git pull
 \endverbatim
@@ -158,6 +157,15 @@ start working in the new branch you should execute the following command:
 git checkout Newfeature
 \endverbatim
 
+//****************************************
+
+\subsection clonebranch Cloning a specific branch
+
+In some case, specially if you are developing a new feature with more people, you might be interested in cloning a specific branch. In order to clone a specific branch you should execute “git clone -b” and specify the branch you want to clone:
+
+\verbatim
+git clone -b branchToBeCloned https://github.com/USERNAME/sedfoam.git
+\endverbatim 
 
 //****************************************
 \subsection commitchanges Make and commit changes
@@ -187,6 +195,11 @@ git add -A
 In case you want to delete some files:
 \verbatim
 git rm <File Name>
+\endverbatim
+
+In case you want to restore some files in the working tree:
+\verbatim
+git restore <File Name>
 \endverbatim
 
 
