@@ -112,6 +112,11 @@ is the develop branch:
 git checkout develop
 \endverbatim
 
+Optionally, you can propmt the changes before merging executing:
+\verbatim
+git diff develop..origin/develop 
+\endverbatim
+
 Then you can merge the upstream repository's develop branch:
 \verbatim
 # Merge upstream
@@ -126,7 +131,7 @@ Alternatively, you can update you branch with the following command:
 git pull --rebase upstream develop
 \endverbatim
 
- git pull is simply shortcut to run a  git fetch  and then a git merge
+git pull is simply shortcut to run a  git fetch  and then a git merge
 
 
 //****************************************
