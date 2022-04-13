@@ -1,7 +1,7 @@
 /**
  * \file        howtogit.doc
  * \author      Eduard Puig-Montella, Cyrille Bonamy and Julien Chauchat
- * \date        June 03, 2021
+ * \date        April 13, 2023
  * \brief       howtogit (doc)
  */
 /*! \page howtogit How To work with github
@@ -33,6 +33,7 @@ of files and folders as the GitHub page.
 
 SedFoam github repository is updated regularly and to stay up-to-date with the latest version it is not necessary
 to download SedFoam again. Instead, we recommend to execute the following command:
+
 \verbatim
 git pull
 \endverbatim
