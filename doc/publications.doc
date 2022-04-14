@@ -1,4 +1,4 @@
-/**
+﻿/**
  * \file        install.doc
  * \author      Cyrille Bonamy and Julien Chauchat
  * \date        June 03, 2021
@@ -13,13 +13,13 @@
 \section pubs2022 2022
 
 <ul>
-<li>Tsai, B., Mathieu, A., Montell`a, E. P., Hsu, T.-J., and Chauchat, J. (2022). An eulerian two-phase flow model investigation on scour onset and backfill of a 2d pipeline. European Journal of Mechanics - B/Fluids, 91:10–26. DOI : https://doi.org/10.1016/j.euromechflu.2021.09.004
+<li>Tsai, B., Mathieu, A., Montellà, E. P., Hsu, T.-J., and Chauchat, J. (2022). An eulerian two-phase flow model investigation on scour onset and backfill of a 2d pipeline. European Journal of Mechanics - B/Fluids, 91:10–26. DOI : https://doi.org/10.1016/j.euromechflu.2021.09.004
 </ul>
 
 \section pubs2021 2021
 
 <ul>
-<li>Montella, E. P., Chauchat, J., Chareyre, B., Bonamy, C. and Hsu, T.-J. (2021). A two-fluid model for immersed granular avalanches with dilatancy effects. Journal of Fluid Mechanics, DOI : https://doi.org/10.1017/jfm.2021.666
+<li>Montellà, E. P., Chauchat, J., Chareyre, B., Bonamy, C. and Hsu, T.-J. (2021). A two-fluid model for immersed granular avalanches with dilatancy effects. Journal of Fluid Mechanics, DOI : https://doi.org/10.1017/jfm.2021.666
 <li>Mathieu, A., Chauchat, J., Bonamy, C., Balarac, G. and Hsu, T.-J. (2021). A finite-size correction model for two-fluid large-eddy simulation of particle-laden boundary layer flow. Journal of Fluid Mechanics, DOI : https://doi.org/10.1017/jfm.2021.4
 <li>Salimi Tarazouj, A., Hsu, T.-J., Traykovski, P., Cheng, Z., and Chauchat, J. (2021). A numerical study of onshore ripple migration using a eulerian two-phase model. Journal of Geophysical Research : Oceans, DOI : https://doi.org/10.1029/2020JC016773
 <li>Salimi Tarazouj, A., Hsu, T.-J., Traykovski, P., and Chauchat, J. (2021). Eulerian Two-Phase Model Reveals the Importance of Wave Period in Ripple Evolution and Equilibrium Geometry. Journal of Geophysical Research : Earth Surface, DOI :  https://doi.org/10.1029/2021JF006132

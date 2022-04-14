@@ -37,8 +37,6 @@ PaMin           PaMin [ 0 0 0 0 0 0 0 ] 1e-6;
 
 relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 
-tau_inv_min     tau_inv_min [ 0 0 -1 0 0 0 0 ] 1e-3;
-
 FrictionModel   MuI;
 
 PPressureModel  MuI;

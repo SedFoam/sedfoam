@@ -75,20 +75,6 @@ protected:
         volScalarField flma_;
         volScalarField fmma_;
         volScalarField Cya_;
-        /*
-        volScalarField LHMx_;
-        volScalarField LHMy_;
-        volScalarField LHMz_;
-        volScalarField MMx_;
-        volScalarField MMy_;
-        volScalarField MMz_;
-        volScalarField deltaStar_;
-        volScalarField deltaStar2_;
-        volScalarField hAlpha_;
-        volScalarField hAlphaf_;
-        volScalarField fDelta_;
-        volScalarField fDelta2_;
-        */
         dimensionedScalar theta_;
         dimensionedScalar Cf_;
         dimensionedScalar Ch1_;
@@ -110,11 +96,6 @@ protected:
 
         dimensionedScalar flma0_;
         dimensionedScalar fmma0_;
-        /*
-        dimensionedScalar MMx0_;
-        dimensionedScalar MMy0_;
-        dimensionedScalar MMz0_;
-        */
 
     // Protected Member Functions
 
