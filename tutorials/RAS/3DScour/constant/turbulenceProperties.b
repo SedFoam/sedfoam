@@ -39,7 +39,7 @@ RASModel        twophasekOmega; // 2006 version
         KE2              1.0; //turb modulation
         KE4              1.0; //density stratification g  
         nutMax           5e-3;
-        popeCorrection   false;
+        popeCorrection   true;
     }
     twophaseMixingLengthCoeffs
     {
@@ -65,3 +65,4 @@ RASModel        twophasekOmega; // 2006 version
 }
 
 // ************************************************************************* //
+

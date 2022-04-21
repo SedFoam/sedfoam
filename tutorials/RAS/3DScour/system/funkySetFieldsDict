@@ -19,7 +19,7 @@ expressions
  (
 	sedimentvelocity
 	{
-	field Ua; //field to initialise
+	field U.a; //field to initialise
 	fields
 	(
 	z Ua
@@ -28,17 +28,17 @@ expressions
 	{
 	name inletprofilesedvel;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ua0.xy";
+	file "$FOAM_CASE/1d_profil/U.a0.xy";
 	}
 	{
 	name inletprofilesedvelv;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ua2.xy";
+	file "$FOAM_CASE/1d_profil/U.a2.xy";
 	}
 	{
 	name inletprofilesedvelw;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ua1.xy";
+	file "$FOAM_CASE/1d_profil/U.a1.xy";
 	}
 	);
         value uniform (1 0 0);
@@ -47,7 +47,7 @@ expressions
 }
 	fluidvelocity
 	{
-	field Ub; //field to initialise
+	field U.b; //field to initialise
 	fields
 	(
 	z Ub
@@ -56,17 +56,17 @@ expressions
 	{
 	name inletprofilefvel;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ub0.xy";
+	file "$FOAM_CASE/1d_profil/U.b0.xy";
 	}
 	{
 	name inletprofilefvelv;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ub2.xy";
+	file "$FOAM_CASE/1d_profil/U.b2.xy";
 	}
 	{
 	name inletprofilefvelw;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ub1.xy";
+	file "$FOAM_CASE/1d_profil/U.b1.xy";
 	}
 	);
         value uniform (1 0 0);
@@ -76,7 +76,7 @@ expressions
 
        alpha
         {
-        field alpha_a; //field to initialise
+        field alpha.a; //field to initialise
         fields
         (
         z alpha
@@ -85,7 +85,7 @@ expressions
         {
         name inletprofilealpha;
         outOfBounds clamp;
-        file "$FOAM_CASE/1d_profil/alpha_a.xy";
+        file "$FOAM_CASE/1d_profil/alpha.a.xy";
         }
         );
         expression "inletprofilealpha(pos().z)";
@@ -112,7 +112,7 @@ expressions
 
        k
         {
-        field k; //field to initialise
+        field k.b; //field to initialise
         fields
         (
         z k
@@ -121,7 +121,7 @@ expressions
         {
         name inletprofilek;
         outOfBounds clamp;
-        file "$FOAM_CASE/1d_profil/k.xy";
+        file "$FOAM_CASE/1d_profil/k.b.xy";
         }
         );
         expression "inletprofilek(pos().z)";
@@ -129,7 +129,7 @@ expressions
         }
        omega
         {
-        field omega; //field to initialise
+        field omega.b; //field to initialise
         fields
         (
         z omega
@@ -138,7 +138,7 @@ expressions
         {
         name inletprofileomega;
         outOfBounds clamp;
-        file "$FOAM_CASE/1d_profil/omega.xy";
+        file "$FOAM_CASE/1d_profil/omega.b.xy";
         }
         );
         expression "inletprofileomega(pos().z)";

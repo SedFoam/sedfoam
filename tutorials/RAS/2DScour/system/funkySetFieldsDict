@@ -22,23 +22,23 @@ expressions
 	field U.a; //field to initialise
 	fields
 	(
-	z U.a
+	z Ua
 	);
 	lookuptables (
 	{
 	name inletprofilesedvel;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ua0.xy";
+	file "$FOAM_CASE/1d_profil/U.a0.xy";
 	}
 	{
 	name inletprofilesedvelv;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ua1.xy";
+	file "$FOAM_CASE/1d_profil/U.a1.xy";
 	}
 	{
 	name inletprofilesedvelw;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ua2.xy";
+	file "$FOAM_CASE/1d_profil/U.a2.xy";
 	}
 	);
         value uniform (1 0 0);
@@ -51,23 +51,23 @@ expressions
 	field U.b; //field to initialise
 	fields
 	(
-	z U.b
+	z Ub
 	);
 	lookuptables (
 	{
 	name inletprofilefvel;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ub0.xy";
+	file "$FOAM_CASE/1d_profil/U.b0.xy";
 	}
 	{
 	name inletprofilefvelv;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ub1.xy";
+	file "$FOAM_CASE/1d_profil/U.b1.xy";
 	}
 	{
 	name inletprofilefvelw;
 	outOfBounds clamp;
-	file "$FOAM_CASE/1d_profil/Ub2.xy";
+	file "$FOAM_CASE/1d_profil/U.b2.xy";
 	}
 	);
         value uniform (1 0 0);
@@ -80,13 +80,13 @@ expressions
         field alpha.a; //field to initialise
         fields
         (
-        z alpha.a
+        z alpha
         );
         lookuptables (
         {
         name inletprofilealpha;
         outOfBounds clamp;
-        file "$FOAM_CASE/1d_profil/alpha_a.xy";
+        file "$FOAM_CASE/1d_profil/alpha.a.xy";
         }
         );
         expression "inletprofilealpha(pos().y)";
@@ -98,13 +98,13 @@ expressions
         field k.b; //field to initialise
         fields
         (
-        z k.b
+        z k
         );
         lookuptables (
         {
         name inletprofilek;
         outOfBounds clamp;
-        file "$FOAM_CASE/1d_profil/k.xy";
+        file "$FOAM_CASE/1d_profil/k.b.xy";
         }
         );
         expression "inletprofilek(pos().y)";
@@ -116,13 +116,13 @@ expressions
         field epsilon.b; //field to initialise
         fields
         (
-        z epsilon.b
+        z epsilon
         );
         lookuptables (
         {
         name inletprofilepsilon;
         outOfBounds clamp;
-        file "$FOAM_CASE/1d_profil/epsilon.xy";
+        file "$FOAM_CASE/1d_profil/epsilon.b.xy";
         }
         );
         expression "inletprofilepsilon(pos().y)";
@@ -130,22 +130,23 @@ expressions
         }
 */        
         omega.b
-    	{
-		field omega.b;
-                fields
-                    (
-                        z omega.b
-                    );
-                lookuptables (
-                    {
-                        name inletprofilom;
-                        outOfBounds clamp;
-                        file "$FOAM_CASE/1d_profil/omega.xy";
-                    }
-                );
-                expression "inletprofilom(pos().y)";
-		keepPatches 1;		
-	}
+    	  {
+            field omega.b;
+            fields
+            (
+                z omega
+            );
+            lookuptables 
+            (
+                {
+                    name inletprofilom;
+                    outOfBounds clamp;
+                    file "$FOAM_CASE/1d_profil/omega.b.xy";
+                }
+            );
+            expression "inletprofilom(pos().y)";
+            keepPatches 1;		
+        }
  );
 
 // ************************************************************************* //
