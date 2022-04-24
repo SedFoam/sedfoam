@@ -1,7 +1,7 @@
 ﻿/**
  * \file        howtogit.doc
- * \author      Eduard Puig-Montella, Cyrille Bonamy and Julien Chauchat
- * \date        June 03, 2021
+ * \author      Eduard Puig Montellà, Cyrille Bonamy and Julien Chauchat
+ * \date        April 25, 2022
  * \brief       howtogit (doc)
  */
 /*! \page howtogit How To work with github
@@ -17,7 +17,7 @@ Here is a How To about using and contributing to the development of sedFoam. Thi
 //****************************************
 \section howtoclone Simple user level: How to download and update sedFoam sources 
 
-Cloning SedFoam GitHub repository and creates a local copy on your
+Cloning SedFoam GitHub repository and creating a local copy on your
 computer:
 
 On https://github.com/SedFoam/sedfoam, there's a green button labeled Clone. Click the button 
@@ -54,6 +54,8 @@ to:
 - \ref createbranch 
 - \ref commitchanges 
 - \ref pullrequest 
+- \ref deleting 
+- \ref fixConfict 
 
 
 //****************************************
@@ -63,8 +65,7 @@ First of all, we need to know that in a collective project we are all in the sam
 page. Thus, there is a common repository everyone has access to. That's, once
 again: https://github.com/SedFoam/sedfoam.
 
-To avoid unwanted modifications, irreversible mistakes, or untested new fea-
-tures, direct code changes in the common repository are not allowed. Instead,
+To avoid unwanted modifications, irreversible mistakes, or untested new features, direct code changes in the common repository are not allowed. Instead,
 a maintainer needs to review and accept the commits from any developer who
 wants to contribute to the project.
 
@@ -208,7 +209,7 @@ git restore <File Name>
 \endverbatim
 
 
-Before commiting any files it is a good practice to inspect the diff output to make sure your changes are correctly introduced:
+Before committing any files it is a good practice to inspect the diff output to make sure your changes are correctly introduced:
 \verbatim
 git diff <File Name>
 \endverbatim
@@ -257,7 +258,11 @@ If you also want to delete a remote branch, then:
  git push origin --delete  NewFeature
 \endverbatim
 
-Finally, git fetch --prune will clean the outdated branches. It will connect to a shared remote repository remote and fetch all remote branch reference. It will then delete remote reference that are no longer in use on the remote repository.
+Finally,
+\verbatim
+ git fetch --prune
+\endverbatim
+ will clean the outdated branches. It will connect to a shared remote repository remote and fetch all remote branch reference. It will then delete remote reference that are no longer in use on the remote repository.
 
 //****************************************
 \subsection fixConfict How to fix the conflicts
