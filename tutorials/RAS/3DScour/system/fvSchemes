@@ -70,10 +70,10 @@ laplacianSchemes
 // pEqn
     laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
 // k and EpsilonEqn 
-    laplacian(DkEff,k) Gauss linear corrected;
+    laplacian(DkEff,k.b) Gauss linear corrected;
     laplacian(DkEff,beta) Gauss linear corrected;
-    laplacian(DepsilonEff,epsilon) Gauss linear corrected;
-    laplacian(DomegaEff,omega) Gauss linear corrected;
+    laplacian(DepsilonEff,epsilon.b) Gauss linear corrected;
+    laplacian(DomegaEff,omega.b) Gauss linear corrected;
     laplacian(DepsilonEff,beta) Gauss linear corrected;
 //ThetaEqn
     laplacian(kappa,Theta) Gauss linear corrected;
