@@ -23,7 +23,6 @@ if (favreAveraging)
 {
     #include "calcFavreAverage.H"
 }
-
 if (runTime.outputTime())
 {
     if (writeTau == 1)

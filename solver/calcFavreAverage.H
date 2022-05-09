@@ -19,7 +19,6 @@ License
     along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 \*---------------------------------------------------------------------------*/
-Info<<"Compute Favre-averaged quantities"<<endl;
 
 betaUbMean = (beta*Ub + avCount*betaUbMean)/(avCount+1);
 alphaUaMean = (alpha*Ua + avCount*alphaUaMean)/(avCount+1);
