@@ -138,12 +138,9 @@ public:
             const word& type = typeName
         );
 
-
     //- Destructor
     virtual ~fluidSmagorinsky()
     {}
-
-
 
     // Member Functions
 
