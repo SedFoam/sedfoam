@@ -79,7 +79,7 @@ if (TKEBudgetLES)
     BB = - beta*(2.0*symm(fvc::grad(Ub))
     -((2.0/3.0)*I)*tr(fvc::grad(Ub)().T()));
 
-    turbDiffMean = (turbDiffMean - 
+    turbDiffMean = (turbDiffMean -
     avCount*0.5*(UbPrimeF*magSqr(UbPrimeF)))/(avCount+1);
     
     turbDiffusionMean = fvc::div(turbDiffMean);
@@ -87,7 +87,7 @@ if (TKEBudgetLES)
     //Pressure Diffusion Term
     pressDiffusionMean = (pressDiffusionMean - avCount*1./phaseb->rho()*
     (UbPrimeF & fvc::grad(pPrimeF)))/(avCount+1);
-    SGSDiffMean = (SGSDiffMean -avCount * (UbPrimeF & 
+    SGSDiffMean = (SGSDiffMean -avCount * (UbPrimeF &
     (turbulenceb->nut()*dev(twoSymm(fvc::grad(Ub))))))/(avCount+1);
     SGSDiffusionMean = fvc::div(SGSDiffMean);
     
