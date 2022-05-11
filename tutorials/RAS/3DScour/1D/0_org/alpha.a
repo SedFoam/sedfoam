@@ -17,51 +17,54 @@ FoamFile
 
 dimensions      [0 0 0 0 0 0 0];
 
-internalField   uniform 0; 
+internalField   #codeStream
+{
+    codeInclude
+    #{
+        #include "fvCFD.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+    codeLibs
+    #{
+        -lfiniteVolume \
+        -lmeshTools
+    #};
+    code
+    #{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+        const fvMesh& mesh = refCast<const fvMesh>(d.db());
+        scalarField alpha_a(mesh.nCells(), 0);
+
+        forAll(mesh.C(), i)
+        {
+            scalar y = mesh.C()[i].y();
+            alpha_a[i] = 0.57*0.5*(1.0+tanh(-y/0.002));
+        }
+        alpha_a.writeEntry("", os);
+    #};
+
+};
 
 boundaryField
 {
-    inandouthalf11
+    inlet
     {
-//         type            fixedValue;
-//         value           uniform 1e-6;
-         type            groovyBC;
-         refValue        uniform 0;
-         refGradient     uniform 0;
-         valueFraction   uniform 1;
-         value           uniform 0;
-         valueExpression "inletprofilealpha(pos().y)/100.";
-         gradientExpression "0";
-         fractionExpression "1";
-         evaluateDuringConstruction 1;
-         variables       "";
-         timelines       (
- );
-         lookuptables    (
- {
-         name            inletprofilealpha;
-         file            "$FOAM_CASE/1d_profil/alpha.a.xy";
-         outOfBounds     clamp;
- }
- );
+        type            cyclic;
     }
-    inandouthalf12
+    outlet
     {
-       type            zeroGradient;
-    }
-    inandouthalf21
-    {
-       type		zeroGradient;
-    }
-    inandouthalf22
-    {
-        type		zeroGradient;
+        type            cyclic;
     }
     top
     {
         type            zeroGradient;
     }
-    walls
+    bottom
     {
         type            zeroGradient;
     }

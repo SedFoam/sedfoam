@@ -8,7 +8,7 @@
 FoamFile
 {
     version     2.0;
-    format      ascii;
+    format      binary;
     class       volScalarField;
     location    "0";
     object      alpha_a;
@@ -21,53 +21,56 @@ internalField   uniform 0;
 
 boundaryField
 {
-    inandouthalf11
-    {
-//         type            fixedValue;
-//         value           uniform 1e-6;
-         type            groovyBC;
-         refValue        uniform 0;
-         refGradient     uniform 0;
-         valueFraction   uniform 1;
-         value           uniform 0;
-         valueExpression "inletprofilealpha(pos().y)/100.";
-         gradientExpression "0";
-         fractionExpression "1";
-         evaluateDuringConstruction 1;
-         variables       "";
-         timelines       (
- );
-         lookuptables    (
- {
-         name            inletprofilealpha;
-         file            "$FOAM_CASE/1d_profil/alpha.a.xy";
-         outOfBounds     clamp;
- }
- );
-    }
-    inandouthalf12
-    {
-       type            zeroGradient;
-    }
-    inandouthalf21
-    {
-       type		zeroGradient;
-    }
-    inandouthalf22
-    {
-        type		zeroGradient;
-    }
-    top
+    cylinder
     {
         type            zeroGradient;
     }
-    walls
+    inlet
+    {
+        type            groovyBC;
+        refValue        uniform 0;
+        valueExpression "inletprofilealpha(pos().z)";
+        gradientExpression "0";
+        fractionExpression "1";
+        evaluateDuringConstruction 1;
+        variables       "";
+        timelines       (
+);
+        lookuptables    (
+{
+        name            inletprofilealpha;
+        file        "$FOAM_CASE/1d_profil/alpha.a.xy";
+        outOfBounds     clamp;
+}
+);
+    }
+    outlet
     {
         type            zeroGradient;
     }
-    frontAndBackPlanes
+    outletb
     {
-        type            empty;
+        type            zeroGradient;
+    }
+    pit
+    {
+        type            zeroGradient;
+    }
+    lateral
+    {
+        type            cyclic;
+    }
+    symplane
+    {
+        type            cyclic;
+    }
+    bottom
+    {
+        type            zeroGradient;
+    }
+    surface
+    {
+        type            zeroGradient;
     }
 }
 

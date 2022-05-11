@@ -25,6 +25,11 @@ Switch favreAveraging
     runTime.controlDict().lookupOrDefault("favreAveraging", false)
 );
 
+Switch TKEBudgetLES
+(
+    runTime.controlDict().lookupOrDefault("TKEBudgetLES", false)
+);
+
 scalar avCount = 0;
 
 volVectorField UbPrimeF
@@ -62,6 +67,44 @@ volVectorField UaPrimeF
         "UaPrimeF",
         dimVelocity,
         vector (0, 0, 0)
+    )
+);
+
+volScalarField pMeanF
+(
+    IOobject
+    (
+        "pMeanF",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "pMeanF",
+        dimPressure,
+        0
+    )
+);
+
+volScalarField pPrimeF
+(
+    IOobject
+    (
+        "pPrimeF",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "pPrimeF",
+        dimPressure,
+        0
     )
 );
 
@@ -310,6 +353,345 @@ volTensorField UaPrime2MeanF
         tensor::zero
     )
 );
+
+volScalarField TKEMean
+(
+    IOobject
+    (
+        "TKEMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "TKEMean",
+        dimVelocity*dimVelocity,
+        0
+    )
+);
+volScalarField TKEMeanProd
+(
+    IOobject
+    (
+        "TKEMeanProd",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "TKEMeanProd",
+        dimVelocity*dimVelocity*dimVelocity/dimLength,
+        0
+    )
+);
+
+volSymmTensorField SGSstrainTensor
+(
+    IOobject
+    (
+        "SGSstrainTensor",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedSymmTensor
+    (
+        "SGSstrainTensor",
+        dimVelocity/dimLength,
+        symmTensor::zero
+    )
+);
+volSymmTensorField BB
+(
+    IOobject
+    (
+        "BB",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedSymmTensor
+    (
+        "BB",
+        dimVelocity/dimLength,
+        symmTensor::zero
+    )
+);
+volScalarField turbDiffusionMean
+(
+    IOobject
+    (
+        "turbDiffusionMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "turbDiffusionMean",
+        dimVelocity*dimVelocity*dimVelocity/dimLength,
+        0.0
+    )
+);
+volVectorField turbDiffMean
+(
+    IOobject
+    (
+        "turbDiffMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedVector
+    (
+        "turbDiffMean",
+        dimVelocity*dimVelocity*dimVelocity,
+        vector::zero
+    )
+);
+volScalarField pressDiffusionMean
+(
+    IOobject
+    (
+        "pressDiffusionMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "pressDiffusionMean",
+        dimVelocity*dimVelocity*dimVelocity/dimLength,
+        0.0
+    )
+);
+
+volSymmTensorField strainTensor
+(
+    IOobject
+    (
+        "strainTensor",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedSymmTensor
+    (
+        "strainTensor",
+        dimVelocity/dimLength,
+        symmTensor::zero
+    )
+);
+
+volScalarField viscDissMean
+(
+    IOobject
+    (
+        "viscDissMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "viscDissMean",
+        dimVelocity*dimVelocity*dimVelocity/dimLength,
+        0.0
+    )
+);
+volScalarField viscDiffMean
+(
+    IOobject
+    (
+        "viscDiffMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "viscDiffMean",
+        dimVelocity*dimVelocity*dimVelocity/dimLength,
+        0.0
+    )
+);
+volSymmTensorField SGSStrainTensor
+(
+    IOobject
+    (
+        "SGSstrainTensor",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedSymmTensor
+    (
+        "SGSStrainTensor",
+        dimVelocity/dimLength,
+        symmTensor::zero
+    )
+);
+
+volScalarField SGSDissMean
+(
+    IOobject
+    (
+        "SGSDissMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "SGSDissMean",
+        dimVelocity*dimVelocity*dimVelocity/dimLength,
+        0.0
+    )
+);
+volVectorField SGSDiffMean
+(
+    IOobject
+    (
+        "SGSDiffMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedVector
+    (
+        "SGSDiffMean",
+        dimVelocity*dimVelocity*dimVelocity,
+        vector::zero
+    )
+);
+volScalarField SGSDiffusionMean
+(
+    IOobject
+    (
+        "SGSDiffusionMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "SGSDiffusionMean",
+        dimVelocity*dimVelocity*dimVelocity/dimLength,
+        0.0
+    )
+);
+volScalarField dragContbMean
+(
+    IOobject
+    (
+        "dragContbMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "dragContbMean",
+        dimVelocity*dimVelocity*dimVelocity/dimLength,
+        0.0
+    )
+);
+
+volVectorField betaFluct
+(
+    IOobject
+    (
+        "betaFluct",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedVector
+    (
+        "betaFluct",
+        dimVelocity*dimVelocity*dimVelocity,
+        vector::zero
+    )
+);
+
+volVectorField betaFluctMean
+(
+    IOobject
+    (
+        "betaFluctMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedVector
+    (
+        "betaFluctMean",
+        dimVelocity*dimVelocity*dimVelocity,
+        vector::zero
+    )
+);
+
+// Checks if field betaFluctMean is present
+IOobject betaFluctMeanHeader
+    (
+        "betaFluctMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ
+    );
+
+if (betaFluctMeanHeader.typeHeaderOk<volVectorField>(true))
+{
+    volVectorField betaFluctMean2
+        (
+            IOobject
+            (
+                "betaFluctMean",
+                runTime.timeName(),
+                mesh,
+                IOobject::MUST_READ,
+                IOobject::NO_WRITE
+            ),
+            mesh
+        );
+    betaFluctMean = betaFluctMean2;
+}
 
 // Checks if field alpha_aMean is present
 IOobject alpha_aMeanHeader

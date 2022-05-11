@@ -2,7 +2,7 @@
 
 # create input file from 1D computation for funkySetFields
 mkdir 1d_profil
-python3 -c "import fluidfoam; fluidfoam.create1dprofil('1D', '.', '300', 'Y', ['Ua', 'Ub', 'alpha_a', 'k', 'p_rbgh', 'omega'])"
+python3 -c "import fluidfoam; fluidfoam.create1dprofil('1D', '.', '300', 'Y', ['U.a', 'U.b', 'alpha.a', 'k.b', 'p_rbgh', 'omega.b'])"
 
 # create the mesh
 blockMesh
