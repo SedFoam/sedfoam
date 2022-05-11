@@ -87,7 +87,7 @@ jobs:
             git clone git@github.com:mosra/m.css &&
             cd m.css/documentation && cp ../../doxygen.py . &&
             source /openfoam/bash.rc &&
-            python3 doxygen.py ../../conf.py && python3 doxygen.py ../../conf.py &&
+            python3 doxygen.py ../../conf.py &&
             cd ../.. && cp images/* mcssout/html/. &&
             ack "ource file" -l --print0 | xargs -0 -n 1 sed -i "s/\"\/root\/sedfoam/\"https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
 
@@ -106,11 +106,11 @@ jobs:
           name: Install and configure dependencies
           command: |
             npm install -g --silent gh-pages@2.0.1
-            git config user.email "eduard.puig-montella@univ-grenoble-alpes.fr"
-            git config user.name "puigmontella"
+            git config user.email "cyrille.bonamy@univ-grenoble-alpes.fr"
+            git config user.name "CyrilleBonamy"
       - add_ssh_keys:
           fingerprints:
-           - "4c:c1:19:ef:cd:1f:dc:5d:0b:3d:62:8e:21:64:22:e7"
+          - $GITHUB_TOKEN
       - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
@@ -137,13 +137,13 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
-            docker build --cache-from=app -t puigmontella/sedfoam_2106_notebook:latest -f docker/Dockerfile_nb docker
+            docker build --cache-from=app -t cbonamy/sedfoam_2106_notebook:latest -f docker/Dockerfile_nb docker
           no_output_timeout: 4h
       - run:
           name: Save Docker image layer cache
           command: |
             mkdir -p /caches
-            docker save -o /caches/app.tar puigmontella/sedfoam_2106_notebook:latest
+            docker save -o /caches/app.tar cbonamy/sedfoam_2106_notebook:latest
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
@@ -174,7 +174,7 @@ jobs:
           name: Publish Docker image
           command: |
             echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
-            docker push puigmontella/sedfoam_2106_notebook:latest
+            docker push cbonamy/sedfoam_2106_notebook:latest
   builddock:
     working_directory: /app
     docker:
@@ -196,13 +196,13 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
-            docker build --cache-from=app -t puigmontella/$IMAGE_NAME:latest docker
+            docker build --cache-from=app -t cbonamy/$IMAGE_NAME:latest docker
           no_output_timeout: 4h
       - run:
           name: Save Docker image layer cache
           command: |
             mkdir -p /caches
-            docker save -o /caches/app.tar puigmontella/$IMAGE_NAME:latest
+            docker save -o /caches/app.tar cbonamy/$IMAGE_NAME:latest
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
@@ -232,7 +232,7 @@ jobs:
           name: Publish Docker image
           command: |
             echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
-            docker push puigmontella/$IMAGE_NAME:latest
+            docker push cbonamy/$IMAGE_NAME:latest
 
   build:
     docker:
@@ -435,7 +435,7 @@ workflows:
             branches:
               only:
                 - master
-                - developEduLocal
+                - develop
       - publishdock:
           requires:
             - builddock
@@ -453,7 +453,7 @@ workflows:
             branches:
               only:
                 - master
-                - developEduLocal
+                - develop
   weekly:
     triggers:
       - schedule:
@@ -461,7 +461,7 @@ workflows:
           filters:
             branches:
               only:
-                - developEduLocal
+                - develop
     jobs:
       - checkstyle
       - build
@@ -496,3 +496,4 @@ workflows:
       - docs-deploy:
           requires:
             - docs-build
+

@@ -13,7 +13,7 @@ To illustrate the numerical discretization, the fluid phase momentum equation ar
 \f[
 \dfrac{\partial{\mathbf{u}^b}}{\partial{t}}+\nabla\cdot(\mathbf{u^b}\mathbf{u^b})-(\nabla\cdot\mathbf{u^b})\mathbf{u^b}=-\dfrac{1}{\rho^b}\nabla{p^*}
   - \dfrac{\alpha K}{\rho^b}(\mathbf{u^b}-\mathbf{u^a}) + \dfrac{K}{\rho^b} \dfrac{1}{\sigma_c} \ \nu^{bt}\nabla{\alpha}+ \dfrac{\mathbf{f}}{\rho^b}+ \dfrac{1}{\beta}\nabla\cdot\mathbf{\tau^b}
-\tag{1}  \f] Eq1
+\tag{1}  \f] 
  
 
 The last term in the above equation, the gradient of fluid phase shear stress, can be written and expanded as follows:
