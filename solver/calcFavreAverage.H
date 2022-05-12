@@ -79,30 +79,26 @@ if (TKEBudgetLES)
     BB = - beta*(2.0*symm(fvc::grad(Ub))
     -((2.0/3.0)*I)*tr(fvc::grad(Ub)().T()));
 
-    turbDiffMean = (turbDiffMean -
-    avCount*0.5*(UbPrimeF*magSqr(UbPrimeF)))/(avCount+1);
-    
+    turbDiffMean = (turbDiffMean - avCount*0.5*(UbPrimeF*magSqr(UbPrimeF)))/
+                    (avCount+1);
     turbDiffusionMean = fvc::div(turbDiffMean);
-    
     //Pressure Diffusion Term
     pressDiffusionMean = (pressDiffusionMean - avCount*1./phaseb->rho()*
-    (UbPrimeF & fvc::grad(pPrimeF)))/(avCount+1);
-    SGSDiffMean = (SGSDiffMean -avCount * (UbPrimeF &
-    (turbulenceb->nut()*dev(twoSymm(fvc::grad(Ub))))))/(avCount+1);
+                    (UbPrimeF & fvc::grad(pPrimeF)))/
+                    (avCount+1);         
+    SGSDiffMean = (SGSDiffMean -avCount * (UbPrimeF & (turbulenceb->nut()*
+                    dev(twoSymm(fvc::grad(Ub))))))/(avCount+1);
     SGSDiffusionMean = fvc::div(SGSDiffMean);
-    
     //Tensor of Strain Rate of Resolved Fluctuations
-    SGSstrainTensor = symm(fvc::grad(UbPrimeF));
-
+    SGSstrainTensor = symm(fvc::grad(UbPrimeF)); 
     //Viscous Dissipation of Resolved Fluctuations
     viscDissMean = (viscDissMean - avCount*2*phaseb->nu()*
-    (SGSstrainTensor && SGSstrainTensor))/(avCount+1);
-    SGSDissMean = (SGSDissMean + avCount*(turbulenceb->nut()
-    *BB && SGSstrainTensor))/(avCount+1);
+                   (SGSstrainTensor && SGSstrainTensor))/(avCount+1); 
+    SGSDissMean = (SGSDissMean + avCount*(turbulenceb->nut()*BB && 
+                   SGSstrainTensor))/(avCount+1);
 
     dragContbMean = ((-UbPrimeF & (alpha*beta*draga->K(mag(Ub-Ua))*
-                     (Ub-Ua))/rhob)
-                     + avCount*dragContbMean)/(avCount+1);
+                     (Ub-Ua))/rhob)+ avCount*dragContbMean)/(avCount+1);
 //    dragContbMean = ((-UbPrimeF & (alpha*beta*(Ub-Ua))/rhob)
 //                     + avCount*dragContbMean)/(avCount+1);
 

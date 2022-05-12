@@ -138,10 +138,10 @@ public:
             const word& type = typeName
         );
 
-
     //- Destructor
     virtual ~partSmagorinsky()
     {}
+
     // Member Functions
         //- Read model coefficients if they have changed
         virtual bool read();
