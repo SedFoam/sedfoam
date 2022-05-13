@@ -152,12 +152,6 @@
                 <li><a href="#PhysProp2DAvalanche">Physical properties</a></li>
                 <li><a href="#lauch_2DwetAvalanche">Computation launching</a></li>
                 <li><a href="#postAvalanche2D">Post-processing using python</a></li>
-                <li>
-                  <a href="#SimpleShear">1DSimpleShear: Simple shear with kinetic theory</a>
-                  <ul>
-                    <li><a href="#postSimpleShear">Post-processing using python</a></li>
-                  </ul>
-                </li>
               </ul>
             </li>
           </ul>
@@ -2002,70 +1996,7 @@ FluidViscosityModel  BoyerEtAl;
 decomposePar
 mpirun -np 18 sedFoam_rbgh -parallel &gt; log&amp;
 </pre></section><section id="postAvalanche2D"><h3><a href="#postAvalanche2D">Post-processing using python</a></h3><p>You just have to run the python script <em>plot_tuto2DWetAvalanche.py</em> located in the folder <em>tutorials/Py</em>:</p><pre>python plot_tuto2DWetAvalanche.py
-</pre><p>and you should see the following figures:</p><figure class="m-figure"><img src="2DWetAvalancheResults.png" alt="Image" style="width: 800px;" /><figcaption>Figure 14: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailha et al.(2008).</figcaption></figure></section><section id="SimpleShear"><h3><a href="#SimpleShear">1DSimpleShear: Simple shear with kinetic theory</a></h3><p>This configuration is the simplest possible configuration for a sheared granular flow. In this tutorial the goal is to validate the implementation of the kinetic theory including extended version by Berzi (2014). The configuration is shown in the figure below.</p><p>D. Berzi, “Extended kinetic theory applied to dense, granular, simple shear flows.” Acta Mechanica (2014), 10.1007/s00707-014-1125-1.</p><figure class="m-figure"><img src="SketchSimpleShear.png" alt="Image" style="width: 400px;" /><figcaption>Figure 15: Sketch of the simple shear flow configuration (source: Vescovi et al. PoF (2014).</figcaption></figure><p>This tutorial is distributed with sedFoam under the folder <em>sedFoamDirectory/tutorials/1DSimpleShear</em>.</p><p>In this configuration, significant complexity arise from the boundary conditions for the granular velocity U.a (slip with friction) and the granular temperature Theta (pseudo heat flux at the boundary). These boundary conditions are not implemented yet in sedFoam and in the configuration presented here the velocity and granular temperature are imposed as Dirichlet conditions at the top and bottom boundaries. No body force acts on the fluid or the grain.</p><p>The parameters are set in the file constant/transportProperties and ar given as follows:</p><pre>// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
-phasea
-{
-    rho             rho [ 1 -3 0 0 0 ] 1;
-    nu              nu [ 0 2 -1 0 0 ] 1e-6;
-    d               d [ 0 1 0 0 0 0 0 ] 1;
-}
-
-phaseb
-{
-    rho             rho [ 1 -3 0 0 0 ] 1e-3;
-    nu              nu [ 0 2 -1 0 0 ] 1e-6;
-    d               d [ 0 1 0 0 0 0 0 ] 1;
-}
-//*********************************************************************** //
-transportModel  Newtonian;
-
-nu              nu [ 0 2 -1 0 0 0 0 ] 1e-6;
-
-// Diffusivity for mass conservation resolution (avoid num instab around shocks)
-alphaDiffusion  alphaDiffusion [0 2 -1 0 0 0 0] 0e0;
-
-nuMax           nuMax [0 2 -1 0 0 0 0] 1e0;      // viscosity limiter for the Frictional model (required for stability)
-
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
-</pre><p>The kinetic theory parameters are given by:</p><pre>kineticTheory   on;
-
-equilibrium     off;
-
-extended        on;
-
-limitProduction off;
-
-e               e [ 0 0 0 0 0 0 0 ] 0.8;
-
-alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
-
-DiluteCut       DiluteCut [ 0 0 0 0 0 0 0 ] 0.0001;
-
-ttzero          ttzero [ 0 0 1 0 0 0 0 ] 0;
-
-ttone          ttone [ 0 0 1 0 0 0 0 ] 0;
-
-MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 1.;
-
-phi             phi [ 0 0 0 0 0 0 0 ] 21;
-
-KineticJ1      KineticJ1 [ 0 0 0 0 0 0 0 ] 0; //turn off the viscous dissipation
-
-KineticJ2       KineticJ2 [ 0 0 0 0 0 0 0] 0;
-
-KineticJ3       KineticJ3 [ 0 0 0 0 0 0 0] 0;
-
-viscosityModel  Syamlal;
-
-conductivityModel Syamlal;
-
-granularPressureModel SyamlalRogersOBrien;
-
-frictionalStressModel JohnsonJackson;
-
-radialModel     CarnahanStarling;
-</pre><p>with a restitution coefficient of e=0.8.</p><section id="postSimpleShear"><h4><a href="#postSimpleShear">Post-processing using python</a></h4><p>The SedFoam results are plotted using the python script <em>plot_tuto1DSimpleShear.py</em> located in the folder <em>tutorials/Py</em>:</p><pre>python plot_tuto1DSimpleShear.py
-</pre><p>and you should see the following figure:</p><figure class="m-figure"><img src="res_tutoSimpleShear.png" alt="Image" style="width: 800px;" /><figcaption>Figure 17: Results of the simple shear flow configuration compared with DEM simulations from Vescovi et al. PoF (2014).</figcaption></figure></section></section></section>
+</pre><p>and you should see the following figures:</p><figure class="m-figure"><img src="2DWetAvalancheResults.png" alt="Image" style="width: 800px;" /><figcaption>Figure 14: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailha et al.(2008).</figcaption></figure></section></section>
       </div>
     </div>
   </div>
