@@ -143,7 +143,6 @@ public:
     {}
 
     // Member Functions
-
         //- Read model coefficients if they have changed
         virtual bool read();
 

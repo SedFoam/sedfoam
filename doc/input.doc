@@ -18,9 +18,9 @@ system/fvSchemes
 system/fvSolution
 \endverbatim
 
-The file 'blockMesh' contains the description of the mesh (see \ref meshgen). The file 'controlDict' contains the runtime parameters such as the timestep and the output interval, etc... The files 'fvScheme' describes the numerical shemes for the different differential operators (temporal, divergens, laplacian) and the file 'fvSolution' describes the algebraic solvers and the associated tolerance for each equation as well as the PIMPLE algorithm controls such as the number of inner and outer iterations ...
+The file 'blockMesh' contains the description of the mesh (see \ref meshgen). The file 'controlDict' contains the runtime parameters such as the timestep and the output interval, etc... The files 'fvScheme' describes the numerical shemes for the different differential operators (temporal, divergence, laplacian) and the file 'fvSolution' describes the algebraic solvers and the associated tolerance for each equation as well as the PIMPLE algorithm controls such as the number of inner and outer iterations ...
 
-The keyword 'faceMomentum' in  the PIMPLE dictionary of the file system/fvSolution correponds to solving the explicit shear stress terms at the cell faces and added in pEqn when set to false (the solver is using the code given in the pUf folder) and they are the cell centers and added in UEqn using the keyword 'faceMomentum' = true (the solver is using the code given in the pU folder) which is the default value.
+The keyword 'faceMomentum' in  the PIMPLE dictionary of the file system/fvSolution corresponds to solving the explicit shear stress terms at the cell faces and added in pEqn when set to false (the solver is using the code given in the pUf folder) and they are the cell centers and added in UEqn using the keyword 'faceMomentum' = true (the solver is using the code given in the pU folder) which is the default value.
 
 The files that contain the specific input parameters for sedFoam are:
 
@@ -41,7 +41,7 @@ The file 'g' contains the gravity vector. The user shall be careful when using a
 
 \section inputParams Physical processes
 
-sedFoam includes a variety of physical processes: fluid-particle forces such as drag froce, fluid and particle phase rheology, elastic pressure for the solid phase, turbulence modeling. Each process can be switched on or off. The various tutorials available with the source code give a good overview of different combination of physical processes. The table below lists the keywords used to switch on or off physical processes in sedFoam and the key input parameters.
+sedFoam includes a variety of physical processes: fluid-particle forces such as drag force, fluid and particle phase rheology, elastic pressure for the solid phase, turbulence modeling. Each process can be switched on or off. The various tutorials available with the source code give a good overview of different combination of physical processes. The table below lists the keywords used to switch on or off physical processes in sedFoam and the key input parameters.
 
 In the following the input parameters will be described file-by-file.
 
@@ -84,7 +84,7 @@ GidaspowSchillerNaumann|                                                        
 SchillerNaumann        | for dilute suspensions at any Re_p                                 |
 SyamlalOBrien          |                                                                    |
 WenYu                  |                                                                    |
-Camenen                | for mud flocs (see Chauchat et al 2013)                            |
+Camenen                | for mud flocks (see Chauchat et al 2013)                            |
 
 
 
@@ -112,7 +112,7 @@ eta1            | empirical exponent        |    5         | 5            |  -  
 
 \subsection granularRheologyProperties File granularRheologyProperties
 
-In the file 'granularRheologyProperties' the user can specify the input parameters for the dense granular flow rheology, in particular the user decides if he/she wants to use the dense granular flow rheology or not by setting the switch 'granularRheology' to on/off. If it's switched on, the user has to decide which rheological model to use for the different components, _i.e._ granular shear stresss, granular normal stress and fluid shear stress, amongst:
+In the file 'granularRheologyProperties' the user can specify the input parameters for the dense granular flow rheology, in particular the user decides if he/she wants to use the dense granular flow rheology or not by setting the switch 'granularRheology' to on/off. If it's switched on, the user has to decide which rheological model to use for the different components, _i.e._ granular shear stress, granular normal stress and fluid shear stress, amongst:
 
 FrictionModel      |   description                                                     |
 -------------------|-------------------------------------------------------------------|
@@ -148,11 +148,82 @@ Bphi            | empirical coeff. phi(I)   |    0.31      | 0.3-1        |  -  
 n               | exponent. effective visc. |    2.5       | 1-3          |  -           |
 BulkFactor      | coef for 2nd viscosity    |    0         | 0-10         |  -           |
 Dsmall          | regularisation param.     |    1e-6      | 1e-4-1e-9    |  1/s         |
-relaxPa         | relaxation factor for Pa  |    1.0      | 1e-9-1       |  -           |
+relaxPa         | relaxation factor for Pa  |    1.0       | 1e-9-1       |  -           |
 
 
-Additionally, the switch 'granularDilatancy' found in the file 'granularRheologyProperties' is used to incoporate dilatancy effects in the model. This feature is important to capture the coupling between the pore
+Additionally, the switch 'granularDilatancy' found in the file 'granularRheologyProperties' is used to incorporate dilatancy effects in the model. This feature is important to capture the coupling between the pore
 pressure feedback mechanism and the initial dynamics of a granular medium subjected to shear stress. 
+
+
+
+
+\subsection kineticTheoryProperties File kineticTheoryProperties
+
+In the file 'kineticTheoryProperties' the user can specify the input parameters for the kinetic theory of granular flows, in particular the user decides if he/she wants to use the kinetic theory or not by setting the switch 'kineticTheory' to on/off. If it's switched on, the user has to decide which rheological model to use for the different components. 
+
+The possible closure models for the particle pressure  are:
+
+
+granularPressureModel        |   description                                           |
+-------------------|-------------------------------------------------------------------|
+Lun                |                                                                   |
+SyamlalRogersOBrien|                                                                   |
+Torquato           |                                                                   |
+
+
+
+With the binary collision assumption adopted in the kinetic theory of granular flow, the radial distribution function is introduced to describe the crowdedness of a particle. Several  radial distribution functions can be selected: 
+
+radialModel        |   description                                                     |
+-------------------|-------------------------------------------------------------------|
+CarnahanStarling   |                                                                   |
+ChialvoSundaresan  |                                                                   |
+Gidaspow           |                                                                   |
+LunSavage          |                                                                   |
+SinclairJackson    |                                                                   |
+Torquato           |                                                                   |
+
+
+Both the  particle shear viscosity and the bulk viscosity are modeled by the following closure models:
+
+viscosityModel     |   description                                                     |
+-------------------|-------------------------------------------------------------------|
+GarzoDufty         |                                                                   |
+GarzoDuftyMod      |                                                                   |
+Gidaspow           |                                                                   |
+HrenyaSinclair     |                                                                   |
+Syamlal            |                                                                   |
+none               |                                                                   |
+
+
+The conductivity of granular temperature can be computed with the following models:
+
+conductivityModel  |   description                                                     |
+-------------------|-------------------------------------------------------------------|
+GarzoDufty         |                                                                   |
+GarzoDuftyMod      |                                                                   |
+Gidaspow           |                                                                   |
+HrenyaSinclair     |                                                                   |
+Syamlal            |                                                                   |
+
+
+
+
+
+The following list of parameters can be modified from the 'kineticTheoryProperties' file:
+
+parameter            | description					   |    default  |     range    |    units     |
+---------------------|-----------------------------------------------------|-------------|--------------|--------------|
+e		     | coeff. of restitution				   |    0.9      | 0.6-1.0      |  -           |
+muPart               | interparticle friction coefficient                  |    0.0      | 0.0-1.0      |  -           |
+alphaMax             | max. solid vol. fraction				   |    0.6      | 0.6-1.0      |  -           |
+MaxTheta             | max.granular temperature				   |    1e3      | 0.001-1e5    |  -           |
+phi                  | friction angle                                      |    32       | 20-40        |  -           |
+killJ2               | Tuns on (0) / off (1) the fluid-particle interaction|    1        | 0 or 1       |  -           |
+quadraticCorrectionJ1| correction to consider the quadratic nature of drag |    1        |              |  -           |
+
+
+
 
 
 \subsection forceProperties File forceProperties
@@ -198,7 +269,7 @@ laminar            | laminar flow - no turbulence model (nutb=0)                
 RAS                | Reynolds Averaged turbulence model                                |
 LES                | Large-Eddy Simulation turbulence model                            |
 
-If simulationType=RAS is selected, the user needs to specify a turbulence model using the keyword 'RASModel' in the 'RAS' dictionnary. All singlephase turbulence model can be selected and specific two-phase flow turbulence models are provided with sedFoam:
+If simulationType=RAS is selected, the user needs to specify a turbulence model using the keyword 'RASModel' in the 'RAS' dictionary. All singlephase turbulence model can be selected and specific two-phase flow turbulence models are provided with sedFoam:
 
 RASModel                |   description                                                     |
 ------------------------|-------------------------------------------------------------------|
@@ -222,7 +293,7 @@ LES                | Large-Eddy Simulation turbulence model                     
 
 No RAS model is available for the solid phase. When fluid turbulence is modeled using a RAS model, simulationType keyword should be laminar for the solid phase. 
 
-If simulationType=LES is selected, the user needs to specify a turbulence model using the keyword 'LESModel' in the 'LES' dictionnary. For the moment, only the dynamic Lagragian sub-grid scale model from Meneveau et al. (1996) can be used with the keyword *solidDynamicLagrangian*
+If simulationType=LES is selected, the user needs to specify a turbulence model using the keyword 'LESModel' in the 'LES' dictionary. For the moment, only the dynamic Lagragian sub-grid scale model from Meneveau et al. (1996) can be used with the keyword *solidDynamicLagrangian*
 
 \subsection twophaseRASProperties File twophaseRASProperties
 

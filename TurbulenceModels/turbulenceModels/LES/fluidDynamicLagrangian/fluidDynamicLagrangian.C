@@ -40,6 +40,7 @@ void fluidDynamicLagrangian<BasicTurbulenceModel>::correctNut
 {
     this->nut_ = min((flmb_/fmmb_)*sqr(this->delta())*mag(dev(symm(gradU))),
                      nutMax_);
+
 //    this->nut_ = min((flmb_/max(fmmb_,fmmb0_))*sqr(this->delta())*
 //                              mag(dev(symm(gradU))),nutMax_);
 

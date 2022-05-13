@@ -141,7 +141,6 @@ public:
     //- Destructor
     virtual ~fluidSmagorinsky()
     {}
-
     // Member Functions
 
         //- Read model coefficients if they have changed
