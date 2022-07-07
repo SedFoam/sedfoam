@@ -7,3 +7,4 @@
 [submodule "docker/docker-stacks"]
 	path = docker/docker-stacks
 	url = https://github.com/jupyter/docker-stacks
+        branch = main
