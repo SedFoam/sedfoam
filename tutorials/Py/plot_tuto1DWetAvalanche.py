@@ -75,7 +75,7 @@ pressure_592 = data1['pressure']/pressureAdim
 #########################################
 # Loading SedFoam results
 #########################################
-sol =  '../1DWetAvalanche'
+sol =  '../laminar/1DWetAvalanche'
 
 try:
     proc = subprocess.Popen(
@@ -98,8 +98,8 @@ for i in range(200,int(final_tread)):
 	if (i % 20 ==0):
 		time_sim_dila_0.append((i-200)/timeAdim)
 		tread=str(i)+'/'
-		alpha_0 = fluidfoam.readscalar(sol, tread, 'alpha_a')
-		Ua_0 = fluidfoam.readvector(sol, tread, 'Ua')
+		alpha_0 = fluidfoam.readscalar(sol, tread, 'alpha.a')
+		Ua_0 = fluidfoam.readvector(sol, tread, 'U.a')
 		p_rbgh_0 = fluidfoam.readscalar(sol, tread, 'p_rbgh')
 		for k in range(len(alpha_0)):
 				if (alpha_0[k]<tolAlpha):

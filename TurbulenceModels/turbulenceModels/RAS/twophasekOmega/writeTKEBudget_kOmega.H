@@ -21,170 +21,79 @@ License
 \*---------------------------------------------------------------------------*/
 if (this->runTime_.outputTime())
 {
-    //write the dissipation term of the specific dissipation
-    volScalarField omegad
+
+    volScalarField Kprod
     (
        IOobject
        (
-            "omegad",
-            this->runTime_.timeName(),
-            this->mesh_,
+            "Kprod",
+            k_.time().timeName(),
+            k_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
        ),
-       -betaOmega_*sqr(omega_)
+       G
     );
-
-    //write the dissipation term of the specific dissipation
-    volScalarField omegad2
+    volScalarField Kdiff
     (
-        IOobject
-        (
-            "omegad2",
-            this->runTime_.timeName(),
-            this->mesh_,
+       IOobject
+       (
+            "Kdiff",
+            k_.time().timeName(),
+            k_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
-        ),
-        - scalar(0.0708)
-         *((scalar(1.0)+scalar(85.0)*XsiOmega)
-         /(scalar(1.0)+scalar(100.0)*XsiOmega))*sqr(omega_)
+       ),
+       fvc::laplacian(DkEff(), k_)
     );
-
-    //write the dissipation term of the specific dissipation
-    volScalarField XsiOmega_
+    volScalarField Kdissip
     (
-        IOobject
-        (
-            "XsiOmega",
-            this->runTime_.timeName(),
-            this->mesh_,
+       IOobject
+       (
+            "Kdissip",
+            k_.time().timeName(),
+            k_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
-        ),
-        XsiOmega
+       ),
+       -Cmu_*omega_*k_
     );
-
-    //write the dissipation term of the specific dissipation
-    volScalarField cross
+    
+    volScalarField Kdissdrag1
     (
-        IOobject
-        (
-            "cross",
-            this->runTime_.timeName(),
-            this->mesh_,
+       IOobject
+       (
+            "Kdissdrag1",
+            k_.time().timeName(),
+            k_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
-        ),
-    // (min((CDkOmega*pos((1-alpha_)-0.92)),
-    //  dimensionedScalar("test", dimensionSet(0, 0, -2, 0, 0), 1.0e-4)))
-    // (min(CDkOmega*0.5*(1+tanh(-10*(alpha_-0.1))),
-    //  dimensionedScalar("test", dimensionSet(0, 0, -2, 0, 0), 1.0e-2)))
-        (CDkOmega)
+       ),
+       ESD_*k_
     );
-
-    //write the dissipation term of the specific dissipation
-    volTensorField vort2
+    volScalarField Kdissdrag2
     (
-        IOobject
-        (
-            "vort2",
-            this->runTime_.timeName(),
-            this->mesh_,
+       IOobject
+       (
+            "Kdissdrag2",
+            k_.time().timeName(),
+            k_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
-        ),
-        skew(fvc::grad(U)) & skew(fvc::grad(U))
+       ),
+       KE4_*ESD4_*nut
     );
-
-    /*
-    //write the total contribution of particle presence on the specific
-    //dissipation
-    volScalarField omegaTot
+    volScalarField Kdissdrag3
     (
-        IOobject
-        (
-            "omegaTot",
-            runTime_.timeName(),
-            mesh_,
+       IOobject
+       (
+            "Kdissdrag3",
+            k_.time().timeName(),
+            k_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
-        ),
-    - ESD_*omega_
-    + ESD2()*C3om_*KE2_*omega_
-    + C4om_*KE4_*(ESD5_*nut_/k_)*omega_
-    );
-
-    //write the drag contribution of particle presence on the specific
-    //dissipation
-    volScalarField omegaDrag
-    (
-        IOobject
-        (
-            "omegaDrag",
-            runTime_.timeName(),
-            mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        ESD2()*C3om_*KE2_*omega_
-    );
-
-    //write the suspension contribution of particle presence on the specific
-    //dissipation
-    volScalarField omegaSUSP
-    (
-        IOobject
-        (
-            "omegaSUSP",
-            runTime_.timeName(),
-            mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        C4om_*KE4_*(ESD5_*nut_/k_)*omega_
-    );
-
-    //write the drag contribution of particle presence on the specific
-    //dissipation
-    volScalarField omega1
-    (
-        IOobject
-        (
-            "omega1",
-            runTime_.timeName(),
-            mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        - ESD_*omega_
-    );
-    */
-
-    volVectorField gradomega
-    (
-        IOobject
-        (
-            "gradomega",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        Gradomega
-    );
-
-    volVectorField gradk
-    (
-        IOobject
-        (
-            "gradk",
-            this->runTime_.timeName(),
-            this->mesh_,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        Gradk
+       ),
+       ESD2()*KE2_ * k_
     );
 
     this->runTime_.write();

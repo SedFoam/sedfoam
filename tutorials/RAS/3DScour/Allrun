@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# create input file from 1D computation for funkySetFields
+mkdir 1d_profil
+python3 -c "import fluidfoam; fluidfoam.create1dprofil('1D', '.', '300', 'Y', ['U.a', 'U.b', 'alpha.a', 'k.b', 'p_rbgh', 'omega.b'])"
+
+# create the mesh
+blockMesh
+
+# create the intial time folder
+cp -r 0_org 0
+
+# Initialize the alpha field
+funkySetFields -time 0
+
+# Decompose the case in order to run in parallel (on 4 cores)
+decomposePar
+
+# Run sedFoam in parallel
+mpirun -np 20 sedFoam_rbgh -parallel > log&

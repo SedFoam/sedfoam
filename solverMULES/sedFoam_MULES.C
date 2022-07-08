@@ -81,13 +81,14 @@ int main(int argc, char *argv[])
 
     #include "readGravity.H"
     #include "createFields.H"
-    #include "createRASTurbulence.H"
+    #include "createTurbulence.H"
     #include "createFvOptions.H"
 
     #include "initContinuityErrs.H"
     #include "createTimeControls.H"
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
+    #include "createFavreAveraging.H"
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     // Test on SUSlocal
@@ -175,8 +176,17 @@ int main(int argc, char *argv[])
             if (pimple.turbCorr())
             {
 //              Solve for turbulence models
-                #include "updateTwoPhaseRASTurbulence.H"
+                #include "updateTwoPhaseTurbulence.H"
                 turbulenceb->correct();
+                if (turbulencePropertiesb.get<word>("simulationType")=="LES")
+                {
+                    spherSigmaSGSb = turbulenceb->spherSigmaSGS();
+                }
+                turbulencea->correct();
+                if (turbulencePropertiesa.get<word>("simulationType")=="LES")
+                {
+                    spherSigmaSGSa = turbulencea->spherSigmaSGS();
+                }
 
                 if (debugInfo)
                 {

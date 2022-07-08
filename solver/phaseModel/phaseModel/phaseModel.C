@@ -95,7 +95,7 @@ Foam::phaseModel::phaseModel
     (
         IOobject
         (
-            "U" + phaseName,
+            IOobject::groupName("U", phaseName),
             mesh.time().timeName(),
             mesh,
             IOobject::MUST_READ,
@@ -107,7 +107,7 @@ Foam::phaseModel::phaseModel
     (
         IOobject
         (
-            "alpha_" + phaseName,
+            IOobject::groupName("alpha", phaseName),
             mesh.time().timeName(),
             mesh,
             IOobject::READ_IF_PRESENT,
@@ -117,7 +117,7 @@ Foam::phaseModel::phaseModel
         dimensionedScalar("alpha", dimless, 0)
     )
 {
-    const word phiName = "phi" + phaseName;
+    const word phiName = IOobject::groupName("phi", phaseName);
 
     IOobject phiHeader
     (
@@ -198,7 +198,6 @@ Foam::autoPtr<Foam::phaseModel> Foam::phaseModel::New
         new phaseModel(mesh, transportProperties, phaseName)
     );
 }
-
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 

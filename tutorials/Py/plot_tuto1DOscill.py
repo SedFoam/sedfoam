@@ -21,7 +21,7 @@ delta=sqrt(viscof*T0/pi)
 #
 # Loading OpenFoam results
 #
-mypath='../'
+mypath='../RAS/'
 
 #
 #  Solution folder
@@ -180,7 +180,7 @@ for data in datalist:
     
     #ufile=basepath+data+'Uf.xy'
     #zu,u=np.loadtxt(ufile,unpack=True)
-    Ub = fluidfoam.readvector(sol, data+'/', 'Ub')
+    Ub = fluidfoam.readvector(sol, data+'/', 'U.b')
     u=Ub[0, :]
     zu=y-np.min(y)
    
@@ -223,7 +223,7 @@ for data in datalist:
     i=i+1
     print (data)
     
-    k = fluidfoam.readscalar(sol, data+'/', 'k')
+    k = fluidfoam.readscalar(sol, data+'/', 'k.b')
     zk=y-np.min(y)
     #omega = fluidfoam.readscalar(sol, data+'/', 'omega')
 

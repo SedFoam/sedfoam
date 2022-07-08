@@ -253,6 +253,39 @@ dimensionedVector gradPAMP2
     )
 );
 
+dimensionedVector gradPAMP3
+(
+    dimensionedVector::getOrDefault
+    (
+        "gradPAMP3",
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
+    )
+);
+
+dimensionedVector gradPAMP4
+(
+    dimensionedVector::getOrDefault
+    (
+        "gradPAMP4",
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
+    )
+);
+
+dimensionedVector gradPAMP5
+(
+    dimensionedVector::getOrDefault
+    (
+        "gradPAMP5",
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
+    )
+);
+
 dimensionedVector gradPMEAN
 (
     dimensionedVector::getOrDefault
@@ -335,16 +368,61 @@ dimensionedScalar Ct
     )
 );
 
-dimensionedScalar initTheta
+dimensionedScalar initTheta1
 (
     dimensionedScalar::getOrDefault
     (
-        "initTheta",
+        "initTheta1",
         forceProperties,
         dimless,
         0
     )
 );
+
+dimensionedScalar initTheta2
+(
+    dimensionedScalar::getOrDefault
+    (
+        "initTheta2",
+        forceProperties,
+        dimless,
+        0
+    )
+);
+
+dimensionedScalar initTheta3
+(
+    dimensionedScalar::getOrDefault
+    (
+        "initTheta3",
+        forceProperties,
+        dimless,
+        0
+    )
+);
+
+dimensionedScalar initTheta4
+(
+    dimensionedScalar::getOrDefault
+    (
+        "initTheta4",
+        forceProperties,
+        dimless,
+        0
+    )
+);
+
+dimensionedScalar initTheta5
+(
+    dimensionedScalar::getOrDefault
+    (
+        "initTheta5",
+        forceProperties,
+        dimless,
+        0
+    )
+);
+
 dimensionedScalar InitFreeze
 (
     dimensionedScalar::getOrDefault
@@ -355,6 +433,7 @@ dimensionedScalar InitFreeze
         0
     )
 );
+
 dimensionedScalar fixbeddepth
 (
     dimensionedScalar::getOrDefault
@@ -365,6 +444,7 @@ dimensionedScalar fixbeddepth
         0
     )
 );
+
 dimensionedScalar ClipUa
 (
     dimensionedScalar::getOrDefault
@@ -728,6 +808,32 @@ volVectorField gradPf
     dimensionedVector("zero", dimensionSet(0, 1, -2, 0, 0), vector::zero)
 );
 
+volVectorField susa
+(
+    IOobject
+    (
+        "susa",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedVector("zero", dimensionSet(0, 1, -2, 0, 0), vector::zero)
+);
+volVectorField susb
+(
+    IOobject
+    (
+        "susb",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedVector("zero", dimensionSet(0, 1, -2, 0, 0), vector::zero)
+);
 volScalarField pff
 (
     IOobject

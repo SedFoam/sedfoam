@@ -1,0 +1,113 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      alpha_a;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   #codeStream
+{
+    codeInclude
+    #{
+        #include "fvCFD.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+    codeLibs
+    #{
+        -lfiniteVolume \
+        -lmeshTools
+    #};
+    code
+    #{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+	    const fvMesh& mesh = refCast<const fvMesh>(d.db());
+        scalarField alpha_a(mesh.nCells(), 0);
+
+        forAll(mesh.C(), i)
+        {
+            scalar y = mesh.C()[i].y();
+            alpha_a[i] = 0.5*0.607835*(1+tanh(50-1000*y));
+        }
+        alpha_a.writeEntry("", os);
+    #};
+
+};
+
+boundaryField
+{
+    top
+    {
+        type            symmetryPlane;
+    }
+    walls
+    {
+        type            zeroGradient;
+    }
+    frontAndBack11
+    {
+        type            cyclic;
+    }
+    frontAndBack12
+    {
+        type            cyclic;
+    }
+    frontAndBack21
+    {
+        type            cyclic;
+    }
+    frontAndBack22
+    {
+        type            cyclic;
+    }
+    frontAndBack31
+    {
+        type            cyclic;
+    }
+    frontAndBack32
+    {
+        type            cyclic;
+    }
+    inandouthalf11
+    {
+        type            cyclic;
+    }
+    inandouthalf12
+    {
+        type            cyclic;
+    }
+    inandouthalf21
+    {
+        type            cyclic;
+    }
+    inandouthalf22
+    {
+        type            cyclic;
+    }
+    inandouthalf31
+    {
+        type            cyclic;
+    }
+    inandouthalf32
+    {
+        type            cyclic;
+    }
+}
+
+// ************************************************************************* //

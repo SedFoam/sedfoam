@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# create the mesh
+foamCleanPolyMesh
+blockMesh
+
+# create the intial time folder
+cp -r 0_org 0
+
+# create C fles for post-processing
+postpProcess -func writeCellCentres -constant
+
+# Decompose the case in order to run in parallel (on 16 cores)
+decomposePar
+
+# Run sedFoam in parallel
+mpirun -np 16 sedFoam_rbgh -parallel > log&

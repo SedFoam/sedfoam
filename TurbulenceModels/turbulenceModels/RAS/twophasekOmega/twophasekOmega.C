@@ -54,10 +54,10 @@ void twophasekOmega<BasicTurbulenceModel>::correctNut()
 template<class BasicTurbulenceModel>
 twophasekOmega<BasicTurbulenceModel>::twophasekOmega
 (
-    const alphaField& alpha,
+    const alphaField& beta,
     const rhoField& rho,
     const volVectorField& U,
-    const surfaceScalarField& alphaRhoPhi,
+    const surfaceScalarField& betaRhoPhi,
     const surfaceScalarField& phi,
     const transportModel& transport,
     const word& propertiesName,
@@ -67,10 +67,10 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     eddyViscosity<RASModel<BasicTurbulenceModel>>
     (
         type,
-        alpha,
+        beta,
         rho,
         U,
-        alphaRhoPhi,
+        betaRhoPhi,
         phi,
         transport,
         propertiesName
@@ -264,13 +264,14 @@ bool twophasekOmega<BasicTurbulenceModel>::read()
 template<class BasicTurbulenceModel>
 void twophasekOmega<BasicTurbulenceModel>::correct()
 {
-    if (!this->turbulence_)
+    if (not this->turbulence_)
     {
         return;
     }
 
     // Local references
-    const alphaField& alpha = this->alpha_;
+    const alphaField& beta = this->alpha_;
+    const alphaField alpha = 1 - beta;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
     const surfaceScalarField& phi = this->phi_;
@@ -329,7 +330,7 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
         fvm::ddt(omega_)
       + fvm::div(phi, omega_)
       - fvm::Sp(fvc::div(phi), omega_)
-      - fvm::laplacian(DomegaEff(), omega_, "laplacian(DomegaEff,omega)")
+      - fvm::laplacian(DomegaEff(), omega_)
       ==
       - fvm::SuSp (-alphaOmega_*G/k_, omega_)
       - fvm::Sp(ESD_, omega_)
@@ -364,7 +365,7 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
         fvm::ddt(k_)
       + fvm::div(phi, k_)
       - fvm::Sp(fvc::div(phi), k_)
-      - fvm::laplacian(DkEff(), k_, "laplacian(DkEff,k)")
+      - fvm::laplacian(DkEff(), k_)
       ==
       - fvm::SuSp(-G/k_, k_)
       + fvm::Sp(-Cmu_*omega_, k_)

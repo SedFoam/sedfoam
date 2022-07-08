@@ -101,6 +101,7 @@ protected:
     // Protected data
 
         // Model coefficients
+            Switch writeTke_;
 
             dimensionedScalar C3ep_;
             dimensionedScalar C4ep_;
@@ -151,10 +152,10 @@ public:
         //- Construct from components
         twophasekEpsilon
         (
-            const alphaField& alpha,
+            const alphaField& beta,
             const rhoField& rho,
             const volVectorField& U,
-            const surfaceScalarField& alphaRhoPhi,
+            const surfaceScalarField& betaRhoPhi,
             const surfaceScalarField& phi,
             const transportModel& transport,
             const word& propertiesName = turbulenceModel::propertiesName,

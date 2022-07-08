@@ -19,8 +19,9 @@ LINKS_NAVBAR1 = [
         ("Publications", 'publicationList')
     ]),
     ('Tutorials', 'pages', [
-        ("One dimensional Tutorials", 'tutorials_1d'),
-        ("Multi-dimensinal tutorials", 'tutorials_2d3d'),
+        ("Laminar flow Tutorials", 'tutorials_laminar'),
+        ("Turbulence-averaged flow tutorials", 'tutorials_RAS'),
+        ("Turbulence-resolving flow tutorials", 'tutorials_LES'),
         ("Input description", 'inputs')
     ])
 ]

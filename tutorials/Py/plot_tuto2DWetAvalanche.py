@@ -76,7 +76,7 @@ pressure_592 = data1['pressure']/pressureAdim
 #########################################
 # Loading SedFoam results
 #########################################
-sol =  '../2DWetAvalanche'
+sol =  '../laminar/2DWetAvalanche'
 
 try:
     proc = subprocess.Popen(
@@ -167,3 +167,4 @@ plt.savefig('Figures/pressurePlot2D_phi0592.png', dpi=200)
 
 
 show(block=True)
+

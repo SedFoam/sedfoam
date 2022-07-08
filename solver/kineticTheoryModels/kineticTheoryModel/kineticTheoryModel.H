@@ -82,6 +82,9 @@ class kineticTheoryModel
         //- use kinetic theory or not.
         Switch kineticTheory_;
 
+        //- write budget of granular temperature or not.
+        Switch writeTBudget_;
+
         //- use extended kinetic theory or not
         Switch extended_;
 
