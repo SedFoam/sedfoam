@@ -97,5 +97,4 @@ Foam::kineticTheoryModels::SyamlalViscosity::lambda
     );
 }
 
-
 // ************************************************************************* //

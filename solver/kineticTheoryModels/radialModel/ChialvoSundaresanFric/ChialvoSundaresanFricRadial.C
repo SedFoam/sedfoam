@@ -63,7 +63,8 @@ Foam::ChialvoSundaresanFricRadial::~ChialvoSundaresanFricRadial()
 Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanFricRadial::g0
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& muPart
 ) const
 {
     return (2-alpha)/(2*pow((1-alpha), 3)) +
@@ -74,7 +75,8 @@ Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanFricRadial::g0
 Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanFricRadial::g0prime
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& muPart
 ) const
 {
     return 3*1.7/(2*alphaMax)*pow(mag(1.0 - alpha/alphaMax), -2.7);

@@ -105,4 +105,5 @@ Foam::kineticTheoryModels::GarzoDuftyViscosity::lambda
      1152./(45*pi)*(1+e)*pow(alpha, 2)*g0
     );
 }
+
 // ************************************************************************* //

@@ -117,6 +117,4 @@ Foam::kineticTheoryModels::HrenyaSinclairViscosity::lambda
         (4.0/3.0)*sqr(alpha)*g0*(1.0+e)/sqrtPi
     );
 }
-
-
 // ************************************************************************* //
