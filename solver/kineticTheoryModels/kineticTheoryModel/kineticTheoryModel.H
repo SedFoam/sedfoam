@@ -88,6 +88,9 @@ class kineticTheoryModel
         //- use extended kinetic theory or not
         Switch extended_;
 
+	//- use extended kinetic theory or not
+        Switch saltation_;
+
         //- use production limiter for Theta (to 2/3kb)
         Switch limitProduction_;
 

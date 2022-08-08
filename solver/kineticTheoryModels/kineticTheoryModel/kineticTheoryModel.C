@@ -22,7 +22,6 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 \*---------------------------------------------------------------------------*/
-
 #include "kineticTheoryModel.H"
 #include "surfaceInterpolate.H"
 #include "mathematicalConstants.H"
@@ -69,6 +68,10 @@ Foam::kineticTheoryModel::kineticTheoryModel
     extended_
     (
         kineticTheoryProperties_.getOrDefault<Switch>("extended", false)
+    ),
+    saltation_
+    (
+        kineticTheoryProperties_.getOrDefault<Switch>("saltation", false)
     ),
     limitProduction_
     (
@@ -350,6 +353,12 @@ void Foam::kineticTheoryModel::solve
         dimensionSet(0, 2, -2, 0, 0, 0, 0),
         SMALL
     );
+    dimensionedScalar Ksmall
+    (
+        "small",
+        dimensionSet(1, -3, -1, 0, 0, 0, 0),
+        scalar(1.0e-4)
+    );
     volScalarField ThetaSqrt(sqrt(Theta_));
     dimensionedScalar Tpsmall_
     (
@@ -385,16 +394,16 @@ void Foam::kineticTheoryModel::solve
         )
     );
 
-    //////////////////////////////////////////////
-    // Temperature conductivity (Table 3.3, p. 49)
-    //////////////////////////////////////////////
-    kappa_ = conductivityModel_->kappa(alpha_, ThetaClip, gs0_, rhoa_, da_, e_);
-
     ///////////////////////////////////////
     // Granular viscosity (Table 3.2, p.47)
     // and shear stress
     ///////////////////////////////////////
-    mua_ = viscosityModel_->mua(alpha_, ThetaClip, gs0_, rhoa_, da_, e_);
+    volScalarField musalt = pow(10,6)*(alpha_+alphaSmall)/(alpha_+alphaSmall);
+    volScalarField K(draga_.K(mag(Ua_ - Ub_)));
+    if (saltation_){
+        musalt = rhoa_*alpha_*ThetaSqrt/(3*da_*(K+Ksmall));}
+
+    mua_ = viscosityModel_->mua(alpha_, ThetaClip, gs0_, musalt, rhoa_, da_, e_);
     // bulk viscosity  p. 45.
     lambda_ = viscosityModel_->lambda(alpha_, ThetaClip, gs0_, rhoa_, da_, e_);
 
@@ -403,6 +412,13 @@ void Foam::kineticTheoryModel::solve
     (
         2.0*mua_*D + (lambda_ - (2.0/3.0)*mua_)*tr(D)*I
     );
+
+    //////////////////////////////////////////////
+    // Temperature conductivity (Table 3.3, p. 49)
+    //////////////////////////////////////////////
+    volScalarField kappasalt = musalt/0.5;
+    kappa_ = conductivityModel_->kappa(alpha_, ThetaClip, gs0_, kappasalt, rhoa_, da_, e_);
+
     //////////////////////
     // Contact dissipation
     //////////////////////
@@ -417,7 +433,13 @@ void Foam::kineticTheoryModel::solve
         Lc = da_*max
         (
             scalar(1),
-            0.5*pow(30./(1.+sqr(sqrtPi)/12.)*(1-e_)*sqr(alpha_)*gs0_, 1./3.)
+            //0.5*pow(30./(1.+sqr(sqrtPi)/12.)*(1-e_)*sqr(alpha_)*gs0_, 1./3.)
+	    //0.5*pow(30*sqr(alpha_+alphaSmall)*(1-e_)/(1+sqr(sqrtPi)*(1+e_)*(1-3*e_)/(1-1./4.*(1-sqr(e_))-5./24.*sqr(1-e_))), 1./3.)
+	    0.5*pow(30*pow(alpha_+alphaSmall,2)*(1-e_)/
+		    (1-Pi*(1+e_)*(1-3*e_)/
+		     (1-1./4.*pow(1-e_,2)-5./24.*(1-pow(e_,2)))
+		     ), 1./3.)
+	    *pow((alpha_+alphaSmall)*gs0_, 2./9.)
         );
     }
     // Inelastic dissipation (Eq. 3.24, p.50)
@@ -451,7 +473,6 @@ void Foam::kineticTheoryModel::solve
     // this is inconsistent with momentum equation,
     // since the following form missed the drift velocity
     /////////////////////////////////////////////////////////
-    volScalarField K(draga_.K(mag(Ua_ - Ub_)));
     // The following is to calculate parameter tmf_ in u_f*u_s correlation
     // (Danon et al. (1977))
     volScalarField flucVelCor_
@@ -507,7 +528,7 @@ void Foam::kineticTheoryModel::solve
     PsCoeff = granularPressureModel_->granularPressureCoeff(
           alpha_, gs0_, rhoa_, e_);
     pa_ = PsCoeff*Theta_;
-    mua_ = viscosityModel_->mua(alpha_, Theta_, gs0_, rhoa_, da_, e_);
+    mua_ = viscosityModel_->mua(alpha_, Theta_, gs0_, musalt, rhoa_, da_, e_);
     lambda_ = viscosityModel_->lambda(alpha_, Theta_, gs0_, rhoa_, da_, e_);
 
     pa_.max(0.0);
