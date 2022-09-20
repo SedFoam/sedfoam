@@ -75,7 +75,7 @@ Foam::tmp<Foam::volScalarField> Foam::SyamlalOBrien::K
       + pos(beta - 0.85)*(pow(beta, 2.65))
     );
 
-    volScalarField Re(max(Ur*phasea_.d()/phaseb_.nu(), scalar(1.0e-3)));
+    volScalarField Re(max(Ur*phasea_.d()*phasea_.sF()/phaseb_.nu(), scalar(1.0e-3)));
 
     volScalarField Vr
     (
@@ -87,7 +87,7 @@ Foam::tmp<Foam::volScalarField> Foam::SyamlalOBrien::K
 
     volScalarField Cds(sqr(0.63 + 4.8*sqrt(Vr/Re)));
 
-    return 0.75*Cds*phaseb_.rho()*Ur/(phasea_.d()*sqr(Vr));
+    return 0.75*Cds*phaseb_.rho()*Ur/(phasea_.d()*phasea_.sF()*sqr(Vr));
 }
 
 
