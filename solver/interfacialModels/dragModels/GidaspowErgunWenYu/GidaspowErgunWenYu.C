@@ -117,8 +117,8 @@ Foam::tmp<Foam::volScalarField> Foam::GidaspowErgunWenYu::K
     return pos(beta - 0.8)
           *(0.75*Cds*phaseb_.rho()*Ur*bp/(phasea_.d()*phasea_.sF()))
          + neg(beta - 0.8)
-          *(150.0*alpha_*phaseb_.nu()*phaseb_.rho()/sqr(beta*phasea_.d())
-                + 1.75*phaseb_.rho()*Ur/(beta*phasea_.d()));
+          *(150.0*alpha_*phaseb_.nu()*phaseb_.rho()/sqr(beta*phasea_.d()*phasea_.sF())
+                + 1.75*phaseb_.rho()*Ur/(beta*phasea_.d()*phasea_.sF()));
 }
 
 
