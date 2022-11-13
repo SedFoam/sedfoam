@@ -1,0 +1,72 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2206                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    arch        "LSB;label=32;scalar=64";
+    class       surfaceScalarField;
+    location    "2.1";
+    object      phi.a_0;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 3 -1 0 0 0 0];
+
+oriented        oriented;
+
+internalField   nonuniform List<scalar> 
+99
+(®®+·C6¾Äş…Ğ¬À<¾ºÈ7Ëw>¾>Ê’h@¾‹Mäc~Ç@¾Òù&WkgA¾º4ÒEÔA¾d¤X&B¾@%s
+ıA¾‡Š,óœŞA¾9_ªA¾²1m„pA¾ü½ëÏîDA¾øĞœ{!A¾O÷7A¾#¢ötJõ@¾ævùÇê@¾Z„œl´æ@¾QÀºè@¾Æb—+î@¾Y(ö³	ø@¾ËÔv›ÿA¾­xP`A¾ÀV>oŒ%A¾uS”Òó7A¾&/úKA¾Ik©×t^A¾Ör3³qA¾hğÃKw„A¾Ì54z–A¾{0SÌ„§A¾=ÿÚ9o·A¾lÕŠŞÆA¾ÛŞ‰ÓA¾ØQ.N«ßA¾÷«R6‹êA¾ŞÜ…7ôA¾÷CœÃüA¾ˆxşDB¾Ùô›"Ò
+B¾û…ˆ…B¾NßJ vB¾_?xºB¾U®gB¾Ä¯‰	‘ B¾Óä†äG#B¾ñY±›%B¾'âçš'B¾è†ÚN)B¾ôVDrÄ*B¾Y½eÄ,B¾µ¿‚-B¾dn`Hı-B¾ìĞô»Ã.B¾’a®l/B¾‡LC5ü/B¾ÔÒ…Âu0B¾ƒ‘9;Ü0B¾²èG21B¾óF	Yy1B¾gC€ç³1B¾«'Bã1B¾Qx-t2B¾ÛêyŞ#2B¾|ÿú‰52B¾â,k>2B¾0©h9>2B¾èŒc™22B¾¶ğÍG2B¾EŞî2B¾ï“e¨82B¾¾Œ¤¹a2B¾ûÄğ„2B¾b*÷¦2B¾9·§¿2B¾rdÉĞ2B¾+ò'Øä2B¾¯÷çğ2B¾¨×Úû2B¾v|3B¾|Äù³ÿ2B¾£‘
+Üï2B¾ğo~Ğ2B¾VTú3˜2B¾©Ş52B¾·‡º+‹1B¾	++g0B¾ÉÂu.B¾7$F%+B¾ıöR$„%B¾º?~}òB¾•Qğ«B¾å„JìïA¾‰¢œ¾wÀA¾äÔËÒnA¾V#*äà@¾œ*Ë?¾ï(¨2º.<¾ô$Ó:5¾);
+
+boundaryField
+{
+    bottom
+    {
+        type            fixedValue;
+        value           uniform 0;
+    }
+    top
+    {
+        type            calculated;
+        value           uniform -1.00267e-10;
+    }
+    inlet
+    {
+        type            cyclic;
+        value           nonuniform List<scalar> 
+100
+(Êçü¥‰‚5¾¹ØI;Ë]I¾Zv<KİP¾ÉHöÔT¾™ğÎˆV¾ºÕ½°Â_X¾;‡™VªY¾­,N€Z¾’3ØìZ¾ê²†ßS[¾µUóÍ`[¾cÒƒvÚZ¾
+VEltZ¾?¸
+i›ëY¾ceÇõFY¾&sõË‡ŒX¾Q¼X¬êÁW¾G›)ó$ìV¾ßZØe¨V¾<õGR0U¾~¡s)pQT¾¤|‚ÇuS¾Ñx+ŸŸR¾rŠîÉĞQ¾ê$í´±
+Q¾§µÛbNP¾IRì.9O¾w](x„ëM¾Q{ü1´L¾íŞ?ñ<“K¾r?jßVˆJ¾J”öí’I¾0Ìöî;²H¾_Ø.SåG¾.ún$*+G¾z¥b÷¤‚F¾d²~ êE¾B²vêaE¾Y=îşcçD¾ÍVj5èyD¾j_¹^D¾éxÖ¿ºÁC¾8kéütC¾ÊîØf41C¾OÆs°õB¾wŞıÒÁB¾HÕu“B¾™İâ›òjB¾~T³@ôGB¾à#Àˆ)B¾¦ÿ£.(B¾Ş˜WøA¾,ù6¨äA¾°Ç—¶ÓA¾^ïÈ)ÅA¾'>fy²¸A¾"Cú+
+®A¾¼¾a`ò¤A¾èPb×3A¾ë*æ–A¾9—'Ù‘A¾’ŠDFŒA¾ccÒõ=ˆA¾U}D|Î„A¾t¢U8ÛA¾ *iEJA¾õÖÑ}A¾Ws£ºÆzA¾Ãœ’7ÕwA¾Šn9 uA¾ıíÎFUtA¾Œƒ¤qtA¾ÂÒi ¬sA¾?}5i"tA¾Ù})Ï©sA¾I·ürA¾Öó”´«sA¾1îˆsA¾‡aŸğxsA¾|mz~tA¾ÂwA–ÖtA¾(«x±ütA¾›;‹ÌuA¾±3q)uA¾ğC·@PuA¾Ã3œƒuA¾tÂòÁuA¾¹+	vA¾bM%UvA¾ğ&ö* vA¾¿Š!·àvA¾…bºwA¾ê¢ŞÔwA¾eé:yµvA¾V–m ÷uA¾=ï%v—tA¾'pf¤\rA¾k>ÈåoA¾ù‚æ(§jA¾**Ø¾fA¾);
+    }
+    outlet
+    {
+        type            cyclic;
+        value           nonuniform List<scalar> 
+100
+(Íçü¥‰‚5>ºØI;Ë]I>Zv<KİP>ÉHöÔT>™ğÎˆV>³Õ½°Â_X>;‡™VªY>®,N€Z>’3ØìZ>ê²†ßS[>µUóÍ`[>cÒƒvÚZ>
+VEltZ>?¸
+i›ëY>ceÇõFY>&sõË‡ŒX>Q¼X¬êÁW>#›)ó$ìV>[Øe¨V><õGR0U>[¡s)pQT>¤|‚ÇuS>Ëx+ŸŸR>rŠîÉĞQ>ê$í´±
+Q>§µÛbNP>IRì.9O>w](x„ëM>Q{ü1´L>íŞ?ñ<“K>r?jßVˆJ>J”öí’I>3Ìöî;²H>_Ø.SåG>.ún$*+G>z¥b÷¤‚F>d²~ êE>C²vêaE>Z=îşcçD>ÍVj5èyD>j_¹^D>éxÖ¿ºÁC>;kéütC>ÊîØf41C>OÆs°õB>wŞıÒÁB>HÕu“B>™İâ›òjB>}T³@ôGB>#à#Àˆ)B>¦ÿ£.(B>Ş˜WøA>,ù6¨äA>°Ç—¶ÓA>^ïÈ)ÅA>'>fy²¸A>"Cú+
+®A>¼¾a`ò¤A>èPb×3A>ë*æ–A>9—'Ù‘A>’ŠDFŒA>ccÒõ=ˆA>\}D|Î„A>t¢U8ÛA> *iEJA>üÖÑ}A>]s£ºÆzA>Ãœ’7ÕwA>Œn9 uA>ıíÎFUtA>Œƒ¤qtA>ÂÒi ¬sA>?}5i"tA>Ù})Ï©sA>I·ürA>Öó”´«sA>1îˆsA>‹aŸğxsA>|mz~tA>ÂwA–ÖtA>(«x±ütA>›;‹ÌuA>º3q)uA>öC·@PuA>Ã3œƒuA>uÂòÁuA>¹+	vA>bM%UvA>ğ&ö* vA>¿Š!·àvA>bºwA>ê¢ŞÔwA>bé:yµvA>V–m ÷uA>=ï%v—tA>)pf¤\rA>k>ÈåoA>ù‚æ(§jA>D*Ø¾fA>);
+    }
+    defaultFaces
+    {
+        type            empty;
+        value           nonuniform List<scalar> 0;
+    }
+}
+
+
+// ************************************************************************* //
