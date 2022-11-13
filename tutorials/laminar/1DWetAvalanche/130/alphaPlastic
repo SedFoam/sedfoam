@@ -1,50 +1,0 @@
-/*--------------------------------*- C++ -*----------------------------------*\
-| =========                 |                                                 |
-| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2206                                  |
-|   \\  /    A nd           | Website:  www.openfoam.com                      |
-|    \\/     M anipulation  |                                                 |
-\*---------------------------------------------------------------------------*/
-FoamFile
-{
-    version     2.0;
-    format      binary;
-    arch        "LSB;label=32;scalar=64";
-    class       volScalarField;
-    location    "130";
-    object      alphaPlastic;
-}
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-dimensions      [0 0 0 0 0 0 0];
-
-internalField   nonuniform List<scalar> 
-250
-(ú^ffff‚?◊\ffff‚?›_ffff‚?9hffff‚?Î\ffff‚?Eaffff‚?˙]ffff‚?æ_ffff‚?lyffff‚?™_ffff‚?|bffff‚?}bffff‚?4[ffff‚?zcffff‚?iXffff‚?Ñgffff‚?âhffff‚?≥gffff‚?Hpffff‚?˝xffff‚?ﬁuffff‚?ådffff‚?ÜÑffff‚? xffff‚?wtffff‚?yÇffff‚?ΩÅffff‚?Áffff‚?¬yffff‚?Èáffff‚?#Çffff‚?E}ffff‚?plffff‚?vffff‚?÷yffff‚?∫wffff‚?1sffff‚?÷[ffff‚?nffff‚?Zaffff‚?Âxffff‚?∫effff‚?∑pffff‚?ûiffff‚?¥pffff‚?›iffff‚?øpffff‚?3Yffff‚?/`ffff‚?}_ffff‚?&dffff‚?_ffff‚?ûffff‚?H*ffff‚?[kffff‚?Ú\ffff‚?™Wffff‚?=mffff‚?∂zffff‚?ı]ffff‚?ïWffff‚?™lffff‚?ãpffff‚?öffff‚?ﬁYffff‚??ffff‚?mffff‚?Ì©ffff‚?Oyffff‚?Ú;ffff‚?†?ffff‚?ÏDffff‚?‡]ffff‚?affff‚?ìdffff‚?<Wffff‚?lffff‚?"rffff‚?¶nffff‚?äiffff‚?ˆuffff‚?Umffff‚?˘bffff‚?Lmffff‚?btffff‚?mffff‚?i[ffff‚?QYffff‚?Ôlffff‚?≠lffff‚?Ädffff‚?>vffff‚?‚uffff‚?1vffff‚?˜lffff‚?wjffff‚?ïeffff‚?zffff‚?$uffff‚?mffff‚?xffff‚?AYffff‚?nbffff‚?†mffff‚?2fffff‚?¡wffff‚?°mffff‚?Ùoffff‚?›yffff‚?kpffff‚?Arffff‚?„offff‚?	Zffff‚?¯nffff‚?˜bffff‚?;mffff‚?bffff‚?‚iffff‚?òrffff‚?Gcffff‚?alffff‚?õtffff‚? uffff‚?mffff‚?òuffff‚?¢mffff‚?yffff‚?‚Zffff‚?ßyffff‚?,fffff‚?Üffff‚?ájffff‚?–_ffff‚?Íjffff‚?”hffff‚?ÿ`ffff‚?,jffff‚?îdffff‚?îyffff‚?∏Çffff‚?ﬁiffff‚?çhffff‚?Öbffff‚?Éffff‚?∑Üffff‚?≤iffff‚?ßbffff‚?iffff‚?îjffff‚?Ñffff‚?≤xffff‚?öÉffff‚?ñÉffff‚?ögffff‚?ºÑffff‚?æhffff‚?xffff‚?Òbffff‚?gffff‚?ÂÑffff‚?èÑffff‚?¡effff‚?ƒjffff‚?“Çffff‚?~gffff‚?siffff‚?¢Çffff‚?¿fffff‚?Öffff‚?åiffff‚?lxffff‚?dffff‚?E_ffff‚?|lffff‚?§iffff‚?fbffff‚?yffff‚?ígffff‚?xffff‚?Sjffff‚?ﬂ`ffff‚?ajffff‚?b^ffff‚?Ñkffff‚?W]ffff‚?âdffff‚?±^ffff‚?/cffff‚?æ\ffff‚?ïaffff‚?Fyffff‚?xjffff‚?˜wffff‚?ƒkffff‚?Àjffff‚?˝kffff‚?3yffff‚?¡hffff‚?Á_ffff‚?Akffff‚?Ä]ffff‚?çkffff‚?qiffff‚?effff‚?˘fffff‚?Ùgffff‚?˙Åffff‚?áiffff‚?‰iffff‚?¥gffff‚?p^ffff‚?Æffff‚?fÑffff‚?8fffff‚?ˇÉffff‚?Beffff‚?≤tffff‚?£dffff‚?äeffff‚?óÜffff‚?–iffff‚?∂hffff‚?9Åffff‚?vlffff‚?~hffff‚?-Çffff‚?±Üffff‚?+yffff‚?Îlffff‚?Liffff‚?bhffff‚?©Çffff‚?´iffff‚?8gffff‚?D{ffff‚?;bffff‚?Òyffff‚?8iffff‚?gffff‚?¥jffff‚?€Çffff‚?Xgffff‚?6hffff‚?DÉffff‚?”^ffff‚?Rgffff‚?3bffff‚?4zffff‚?effff‚?ùyffff‚?);
-
-boundaryField
-{
-    inlet
-    {
-        type            cyclic;
-    }
-    outlet
-    {
-        type            cyclic;
-    }
-    top
-    {
-        type            zeroGradient;
-    }
-    bottom
-    {
-        type            zeroGradient;
-    }
-    frontAndBackPlanes
-    {
-        type            empty;
-    }
-}
-
-
-// ************************************************************************* //
