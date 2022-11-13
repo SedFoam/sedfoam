@@ -76,7 +76,7 @@ volScalarField UfallField
 );
 
 scalar iter=0;
-while ((err > eps)||(iter < 10))
+while ((err > eps) and (iter < 10))
 {
     iter = iter + 1;
     UfallField = mag(gravity)*(rhoa-rhob)/draga->K(Ufalltmp);
