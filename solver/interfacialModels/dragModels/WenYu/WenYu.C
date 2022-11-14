@@ -77,7 +77,8 @@ Foam::tmp<Foam::volScalarField> Foam::WenYu::K
       + pos(Re - 1000)*0.44
     );
 
-    return 0.75*Cds*phaseb_.rho()*Ur*pow(beta, -2.65)/(phasea_.d()*phasea_.sF());
+    return 0.75*Cds*phaseb_.rho()*Ur*pow(beta, -2.65)/
+    (phasea_.d()*phasea_.sF());
 }
 
 

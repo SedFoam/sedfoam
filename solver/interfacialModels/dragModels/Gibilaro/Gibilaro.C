@@ -72,7 +72,8 @@ Foam::tmp<Foam::volScalarField> Foam::Gibilaro::K
     volScalarField Re(max(beta*Ur*phasea_.d()*phasea_.sF()
     /phaseb_.nu(), scalar(1.0e-3)));
 
-    return (17.3/Re + scalar(0.336))*phaseb_.rho()*Ur*bp/(phasea_.d()*phasea_.sF());
+    return (17.3/Re + scalar(0.336))*phaseb_.rho()*Ur*bp/
+    (phasea_.d()*phasea_.sF());
 }
 
 
