@@ -17,7 +17,7 @@ FoamFile
 
 // * * * * * * * * * * * * * following are for presure * * * * * * * * * * * * * * * //
 //tilt             tilt             [ 0  0  0 0 0 0 0 ] 0;
-gradPAMP1        gradPAMP1        [ 1 -2 -2 0 0 0 0 ] ( 500 0 0 );
+gradPAMP1        gradPAMP1        [ 1 -2 -2 0 0 0 0 ] ( 0 0 0 );
 gradPAMP2        gradPAMP2        [ 1 -2 -2 0 0 0 0 ] ( 0 0 0 );  
 gradPAMP3        gradPAMP3        [ 1 -2 -2 0 0 0 0 ] ( 0 0 0 );
 gradPAMP4        gradPAMP4        [ 1 -2 -2 0 0 0 0 ] ( 0 0 0 );

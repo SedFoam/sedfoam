@@ -15,30 +15,29 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-//simulationType  laminar;
-//
+simulationType  laminar;
 
-simulationType  RAS;
+//simulationType  RAS;
 
-RAS{
+//RAS{
 
-RASModel        twophasekEpsilon;
-//RASModel        twophasekOmega;
+//RASModel        twophasekEpsilon;
+////RASModel        twophasekOmega;
 
-turbulence      on;
-printCoeffs     on;
-    twophasekEpsilonCoeffs
-    {
-        C1        1.44;
-        C2        1.92;
-        C3ep      1.2;
-        C4ep      1;
-        alphak    1.0;
-        alphaEps  1.3;
-        Cmu              0.09;
-        KE2              1.0; //turb modulation
-        KE4              1.0; //density stratification g
-        nutMax           5e-3;
-    }
-}
+//turbulence      on;
+//printCoeffs     on;
+  //  twophasekEpsilonCoeffs
+    //{
+      //  C1        1.44;
+       // C2        1.92;
+       // C3ep      1.2;
+       // C4ep      1;
+        //alphak    1.0;
+       // alphaEps  1.3;
+       // Cmu              0.09;
+       // KE2              1.0; //turb modulation
+       // KE4              1.0; //density stratification g
+       // nutMax           5e-3;
+//    }
+//}
 // ************************************************************************* //

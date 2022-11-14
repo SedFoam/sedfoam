@@ -16,6 +16,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 granularRheology   on;
+granularDilatancy	off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
 
@@ -38,8 +39,8 @@ relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 5e-2;
 // FrictionModel   Coulomb;
 FrictionModel   MuI;
 
-// PPressureModel  none;
-PPressureModel  MuI;
+PPressureModel  none;
+//PPressureModel  MuI;
 
 FluidViscosityModel BoyerEtAl;
 

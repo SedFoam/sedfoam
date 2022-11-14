@@ -22,7 +22,7 @@ solvers
         solver          PCG;
         preconditioner  DIC;
 
-        tolerance       1e-12;
+        tolerance       1e-10;
         relTol          0;
         maxIter         1000;
 	minIter 1;
@@ -43,6 +43,20 @@ solvers
         nCellsInCoarsestLevel 10;
         agglomerator    faceAreaPair;
         mergeLevels     1;
+    }
+
+    pcorr
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-05;
+        relTol          0.0;
+    }
+
+    pcorrFinal
+    {
+        $pcorr;
+        relTol          0;
     }
 
     p_rbghFinal
@@ -136,10 +150,11 @@ relaxationFactors
 
 PIMPLE
 {
-    momentumPredictor yes;
+    correctPhi	no;
+massFluxInterpolation no;
+    momentumPredictor  no;
     nOuterCorrectors    1;
-
-    nCorrectors    2;
+    nCorrectors    3;
     nNonOrthogonalCorrectors 1;
     nAlphaCorr      1;
     correctAlpha    yes;

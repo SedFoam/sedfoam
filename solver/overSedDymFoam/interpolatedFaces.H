@@ -1,5 +1,6 @@
 // Interpolation used
-interpolationCellPoint<vector> UInterpolator(HbyA);
+interpolationCellPoint<vector> UaInterpolator(HabyA);
+interpolationCellPoint<vector> UbInterpolator(HbbyA);
 
 // Determine faces on outside of interpolated cells
 bitSet isOwnerInterpolatedFace(mesh.nInternalFaces());
@@ -11,7 +12,8 @@ labelListList donorCell(mesh.nInternalFaces());
 scalarListList weightCellCells(mesh.nInternalFaces());
 
 // Interpolated HbyA faces
-vectorField UIntFaces(mesh.nInternalFaces(), Zero);
+vectorField UaIntFaces(mesh.nInternalFaces(), Zero);
+vectorField UbIntFaces(mesh.nInternalFaces(), Zero);
 
 // Determine receptor neighbour cells
 labelList receptorNeigCell(mesh.nInternalFaces(), -1);
@@ -89,9 +91,16 @@ labelList receptorNeigCell(mesh.nInternalFaces(), -1);
 
                         forAll(stencil, i)
                         {
-                            UIntFaces[faceI] +=
+                            UaIntFaces[faceI] +=
                                 weightCellCells[faceI][i]
-                               *UInterpolator.interpolate
+                               *UaInterpolator.interpolate
+                                (
+                                    fc,
+                                    donorCell[faceI][i]
+                                );
+                            UbIntFaces[faceI] +=
+                                weightCellCells[faceI][i]
+                               *UbInterpolator.interpolate
                                 (
                                     fc,
                                     donorCell[faceI][i]
@@ -153,9 +162,16 @@ labelList receptorNeigCell(mesh.nInternalFaces(), -1);
 
                         forAll(stencil, i)
                         {
-                            UIntFaces[faceI] +=
+                            UaIntFaces[faceI] +=
                                 weightCellCells[faceI][i]
-                               *UInterpolator.interpolate
+                               *UaInterpolator.interpolate
+                                (
+                                    fc,
+                                    donorCell[faceI][i]
+                                );
+                            UbIntFaces[faceI] +=
+                                weightCellCells[faceI][i]
+                               *UbInterpolator.interpolate
                                 (
                                     fc,
                                     donorCell[faceI][i]
@@ -173,7 +189,8 @@ labelList receptorNeigCell(mesh.nInternalFaces(), -1);
 }
 
 // contravariant U
-vectorField U1Contrav(mesh.nInternalFaces(), Zero);
+vectorField Ua1Contrav(mesh.nInternalFaces(), Zero);
+vectorField Ub1Contrav(mesh.nInternalFaces(), Zero);
 
 surfaceVectorField faceNormals(mesh.Sf()/mesh.magSf());
 
@@ -260,14 +277,22 @@ forAll(isNeiInterpolatedFace, faceI)
 //                n2 & x ,n2 & y, n2 & z
 //             );
 
-        U1Contrav[faceI].x() =
-           2*transform(rot, UIntFaces[faceI]).x()
-           - transform(rot, HbyA[receptorNeigCell[faceI]]).x();
+        Ua1Contrav[faceI].x() =
+           2*transform(rot, UaIntFaces[faceI]).x()
+           - transform(rot, HabyA[receptorNeigCell[faceI]]).x();
 
-        U1Contrav[faceI].y() = transform(rot, HbyA[cellId]).y();
+        Ua1Contrav[faceI].y() = transform(rot, HabyA[cellId]).y();
 
-        U1Contrav[faceI].z() = transform(rot, HbyA[cellId]).z();
+        Ua1Contrav[faceI].z() = transform(rot, HabyA[cellId]).z();
 
-        HbyA[cellId] = transform(inv(rot), U1Contrav[faceI]);
+        Ub1Contrav[faceI].x() =
+           2*transform(rot, UbIntFaces[faceI]).x()
+           - transform(rot, HbbyA[receptorNeigCell[faceI]]).x();
+
+        Ub1Contrav[faceI].y() = transform(rot, HbbyA[cellId]).y();
+
+        Ub1Contrav[faceI].z() = transform(rot, HbbyA[cellId]).z();
+        
+        HbbyA[cellId] = transform(inv(rot), Ub1Contrav[faceI]);
     }
 }

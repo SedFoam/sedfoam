@@ -84,7 +84,7 @@ snGradSchemes
 oversetInterpolation
 {
     method         cellVolumeWeight;
-
+//method inverseDistance;
     //method              trackingInverseDistance;
     //searchBoxDivisions  2{(100 100 1)};
 }
@@ -96,10 +96,10 @@ fluxRequired
     p_rbgh               ;
     alpha.a               ;
 }
-oversetInterpolationSuppressed
-{
-    grad(p_rbgh);
-    surfaceIntegrate(phiHbyA);
-}
+//oversetInterpolationSuppressed
+//{
+  //  grad(p_rbgh);
+    //surfaceIntegrate(phiHbyA);
+//}
 
 // ************************************************************************* //

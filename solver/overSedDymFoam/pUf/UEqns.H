@@ -23,8 +23,8 @@ License
 
 \*---------------------------------------------------------------------------*/
 scalar pi(constant::mathematical::pi);
-//MRF.correctBoundaryVelocity(Ua);
-//MRF.correctBoundaryVelocity(Ub);
+MRF.correctBoundaryVelocity(Ua);
+MRF.correctBoundaryVelocity(Ub);
 //MRF.correctBoundaryVelocity(U);
 
 // following is general form of mean flow + sine wave and 2nd order stokes waves
@@ -112,7 +112,7 @@ fvVectorMatrix UaEqn
         fvm::ddt(Ua)
       + fvm::div(phia, Ua)
       - fvm::Sp(fvc::div(phia), Ua)
-     // + MRF.DDt(Ua)
+      + MRF.DDt(Ua)
     )
 // effective stress term from dispersed phase
   - scalar(1.0)/(alpha+alphaSmall)*fvm::laplacian(nuFra, Ua)
@@ -146,7 +146,7 @@ fvVectorMatrix UbEqn
         fvm::ddt(Ub)
       + fvm::div(phib, Ub)
       - fvm::Sp(fvc::div(phib), Ub)
-   //   + MRF.DDt(Ub)
+      + MRF.DDt(Ub)
     )
   - fvm::laplacian(nuEffb, Ub)
   + fvm::div(phiRb, Ub, "div(phiRb,Ub)")

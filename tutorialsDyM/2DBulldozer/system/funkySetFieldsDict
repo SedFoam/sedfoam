@@ -32,6 +32,8 @@ expressions
         }
         );
         expression "inletprofilealpha(pos().y)";
+        condition "pos().x < 0.175";
+
         keepPatches 1;
         }
 

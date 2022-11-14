@@ -81,10 +81,10 @@ License
         volVectorField HbbyA(Ub);
         HbbyA = rUbA*UbEqn.H();
 
-//if (massFluxInterpolation)
-//{
-//    #include "interpolatedFaces.H"
-//}
+	if (massFluxInterpolation)
+	{
+		#include "interpolatedFaces.H"
+	}
         surfaceScalarField phiDraga
         ( faceMask*(
           // grad(pa)
@@ -207,6 +207,7 @@ License
         //       including semi-implicit drag contribution
         MRF.makeRelative(phiaHbyA);
         MRF.makeRelative(phibHbyA);
+        
         surfaceScalarField phiHbyA
         (
             alphaf*(phiaHbyA + faceMask*rAUKda*phib)
@@ -241,7 +242,8 @@ License
             /(mesh.magSf().boundaryField()*Dp.boundaryField())
         );
 
-  //  constrainPressure(p_rbgh, U, phiHbyA, Dp, MRF);
+    constrainPressure(p_rbgh, Ua, phiaHbyA, Dp, MRF);
+    constrainPressure(p_rbgh, Ub, phibHbyA, Dp, MRF);
 
 
         while (pimple.correctNonOrthogonal())

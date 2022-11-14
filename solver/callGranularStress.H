@@ -41,7 +41,7 @@ if (granularRheology.dilatancy())
     phi_pl_Eqn.relax();
     phi_pl_Eqn.solve();
 
-    alphaPlastic.max(0.48);
+    alphaPlastic.max(0.40);
     alphaPlastic.min(0.585);
 }
 else
@@ -49,11 +49,65 @@ else
     alphaPlastic=alphaMinFriction*Unity;
 }
 
+//volScalarField pffNew=pff;
 // Pff corresponds to "contact" pressure which prevent the granular phase from
 // exceeding the maximum volume fraction.
+//pff_new=pff;
+
 pff = pp->pff(alpha, alphaPlastic, alphaMax, Fr_, eta0_, eta1_);
 
-//
+//pff=(1-0.01)*pff_new+pff*0.01;
+
+
+//forAll(pff, cell)
+//{
+//// initially, we need to fix the bed level, and let the flow develop
+//// only cell centers are considered
+//// 0-->x, 1-->y, 2-->z
+   //if (mesh.cellCentres()[cell][1] >-0.053 and  pff[cell] >120)
+   //{
+//// only exclude the streamwise conponents
+	   //pff[cell] =120;
+   //}
+//}
+
+//pff.min(575);
+
+
+
+////Info << "abans pff" << pff <<endl;
+
+
+////volScalarField SecondInvariant(sqrt(mag(0.5*(sqr(tr(gradUaT)) - tr(((gradUaT) & (gradUaT)))))));
+//////Info << "pff" << pff <<endl;
+
+////Info << "max(SecondInvariant)" << max(SecondInvariant) <<endl;
+////Info << "min(SecondInvariant)" << min(SecondInvariant) <<endl;
+
+////volScalarField kLee(alpha*2*0.001*SecondInvariant);
+    //dimensionedScalar kLee
+    //(
+        //"kLee",
+        //dimensionSet(0, -0, -1, 0, 0, 0, 0),
+        //0.01
+    //);
+//fvScalarMatrix pff_pl_Eqn
+//(
+ //fvm::ddt(pff_new)
+ //+ fvm::div(phia, pff_new, "div(phia,pff)")
+ //- fvm::Sp(fvc::div(phia), pff_new)
+ //==
+	//kLee*(pff)
+	//-fvm::Sp(kLee, pff_new)
+	 //);
+//pff_pl_Eqn.relax();
+//pff_pl_Eqn.solve();
+
+//pff_new.correctBoundaryConditions();
+//pff=pff_new;
+//pff.max(0.);
+
+////
 //
 //  Kinetic THEORY PART
 //
@@ -94,6 +148,8 @@ if (kineticTheory.on())
              + turbulencea->nut();
     lambdaUa = kineticTheory.lambda();
     pa = kineticTheory.pa();
+    
+    pS=pa+pff;
 
     if (debugInfo)
     {
@@ -116,7 +172,30 @@ else if (granularRheology.on())
 
 // Particulate pressure and viscosity
     pa = granularRheology.pa();
+    pS=pa+pff;
 
+
+
+	//const labelListList & cellCells = pS.mesh().cellCells();
+
+	//forAll( cellCells, celli )
+	//{
+		//const labelList& neighbour = pff.mesh().cellCells()[celli];
+		//scalar sum = pff[celli];
+
+		//forAll(neighbour,celli)
+		//{
+
+		//sum += pff[neighbour[celli]];
+
+		//}
+
+		//sum /= (neighbour.size()+1);
+		//pS[celli]=sum;
+	
+	//}
+	
+	
     delta=granularRheology.delta();
 
     if (debugInfo)
@@ -131,7 +210,10 @@ else if (granularRheology.on())
     nuFra = granularRheology.mua()/ rhoa;
 
     nuEffa = sqr(Ct)*turbulenceb->nut() + nua + turbulencea->nut();
-    lambdaUa = nua*rhoa*scalar(0.0);
+   // lambdaUa = nua*rhoa*scalar(0.0);
+    lambdaUa = granularRheology.lambda();
+
+     muEff =    granularRheology.mua()+granularRheology.nuvb()*rhob*(1-alpha)+rho*turbulenceb->nut();
 
 // Compute nuEffb the total fluid phase viscosity
     nuEffb = turbulenceb->nut() + granularRheology.nuvb();
@@ -151,6 +233,8 @@ else
     nuFra = nua*scalar(0.0);
     nuEffa = nua + turbulencea->nut();
     lambdaUa = nua*rhoa*scalar(0.0);
+    
+    muEff =    nub*rhob;
 }
 // Add a numerical viscosity to damp the instabilities close to the outlet
 if (spongeLayer)
@@ -169,5 +253,7 @@ if (spongeLayer)
 }
 // Limit viscosities for numerical stability
 nuFra.min(nuMax);
+muEff.min(nuMax/rhoa);
+
 nuEffa.min(nuMax);
 nuEffb.min(nuMax);

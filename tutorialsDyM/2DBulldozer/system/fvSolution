@@ -103,10 +103,11 @@ solvers
 
 PIMPLE
 {
-    momentumPredictor   no;
-    correctPhi          no;
+    massFluxInterpolation no;
+    momentumPredictor   no; //recomnended on for high Reynolds
+    correctPhi          no; //off if we use Overset
     nOuterCorrectors    1;
-    nCorrectors         1;
+    nCorrectors         3;
     nNonOrthogonalCorrectors 1;
 
     ddtCorr             true;

@@ -13,3 +13,5 @@ setFields
 decomposePar
 
 mpirun -np 6 overSedDymFoam_rbgh -parallel > log&
+#overSedDymFoam_rbgh > log&
+

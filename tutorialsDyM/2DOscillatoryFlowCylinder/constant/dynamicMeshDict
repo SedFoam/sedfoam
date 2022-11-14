@@ -46,7 +46,7 @@ sixDoFRigidBodyMotionCoeffs
 {
 
     patches         (cylinder);
-    innerDistance   0;
+    innerDistance   0.0;
     outerDistance   0.1;
         
     accelerationRelaxation 1e-1;
@@ -54,7 +54,6 @@ sixDoFRigidBodyMotionCoeffs
     
     //  mass reduced by Buoyancy: (rhosolid - rhofluid ) * VolumeSphere
     mass	0.00104137182;
-//mass            0.00018551104619447744;
     velocity        ( 0 -0. -0. );
     centreOfMass    ( 0 0.0 0.0005 );     
     momentOfInertia ( 1717 591 1717);

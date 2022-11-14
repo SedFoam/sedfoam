@@ -78,6 +78,13 @@ License
         volVectorField HbbyA(Ub);
         HbbyA = rUbA*UbEqn.H();
 
+
+		if (massFluxInterpolation)
+		{
+			#include "interpolatedFaces.H"
+		}
+
+
         // Momentum flux at the cell faces for phase a
         surfaceScalarField phiDraga
         ( faceMask*(
@@ -128,6 +135,7 @@ License
         // Momentum flux at the cell faces for phase b
         surfaceScalarField phiDragb
         (
+        faceMask*(
         // drag modification to account for particle fluctuations
         // -phiTempb
             // diagnoal part of stress
@@ -145,7 +153,7 @@ License
           // Convective acceleration for 1D non-uniform simulation
           - rUbAf*fvc::interpolate(neg(alpha-0.3))*((gradConvAcc/rhob)
             & mesh.Sf())
-        );
+        ));
     if (not SUSaniso)
     {
         // turbulent suspension term
@@ -260,8 +268,9 @@ License
         );
         
         
-   // constrainPressure(p_rbgh, U, phiHbyA, Dp, MRF);
-
+    constrainPressure(p_rbgh, Ua, phiaHbyA, Dp, MRF);
+    constrainPressure(p_rbgh, Ub, phibHbyA, Dp, MRF);
+    
         while (pimple.correctNonOrthogonal())
         {
             // Solve for the Poisson equation on the pressure

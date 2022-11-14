@@ -45,7 +45,6 @@ Cl              Cl [ 0 0 0 0 0 ] 0;                 // Lift force coefficient
 transportModel  Newtonian;
 
 nu              nu [ 0 2 -1 0 0 0 0 ] 1e-06;
-nuMax        nuMax [0 2 -1 0 0 0 0] 1e2;      // viscosity limiter for the Frictional model (required for stability)
-nuFraMax        nuFraMax [0 2 -1 0 0 0 0] 1e1;      // viscosity limiter for the Frictional model (required for stability)
+nuMax        nuMax [0 2 -1 0 0 0 0] 1e4;      // viscosity limiter for the Frictional model (required for stability)
 
 // ************************************************************************* //

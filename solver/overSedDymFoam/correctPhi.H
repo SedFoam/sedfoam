@@ -1,62 +1,40 @@
-/*---------------------------------------------------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
-     \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
-
-    OpenFOAM is free software: you can redistribute it and/or modify it
-    under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
-    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-    for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
-
-\*---------------------------------------------------------------------------*/
-if (mesh.changing())
 {
-    volVectorField::Boundary& bfld = Ub.boundaryFieldRef();
-    forAll(bfld, patchi)
+    if (mesh.changing())
     {
-        if (bfld[patchi].fixesValue())
+        volVectorField::Boundary& bfld = U.boundaryFieldRef();
+        forAll(bfld, patchi)
         {
-            bfld[patchi].initEvaluate();
+            if (bfld[patchi].fixesValue())
+            {
+                bfld[patchi].initEvaluate();
+            }
+        }
+
+        surfaceScalarField::Boundary& phiBfld = phi.boundaryFieldRef();
+        forAll(bfld, patchi)
+        {
+            if (bfld[patchi].fixesValue())
+            {
+                bfld[patchi].evaluate();
+
+                phiBfld[patchi] =
+                    bfld[patchi]
+                  & mesh.Sf().boundaryField()[patchi];
+            }
         }
     }
 
-    surfaceScalarField::Boundary& phiBfld = phi.boundaryFieldRef();
-    forAll(bfld, patchi)
-    {
-        if (bfld[patchi].fixesValue())
-        {
-            bfld[patchi].evaluate();
-
-            phiBfld[patchi] = bfld[patchi] & mesh.Sf().boundaryField()[patchi];
-        }
-    }
-}
-    // Initialize BCs list for pcorr to zero-gradient
     wordList pcorrTypes
     (
         p_rbgh.boundaryField().size(),
         zeroGradientFvPatchScalarField::typeName
     );
 
-    // Set BCs of pcorr to fixed-value for patches at which p is fixed
-    forAll(p_rbgh.boundaryField(), patchi)
+    for (label i=0; i<p_rbgh.boundaryField().size(); i++)
     {
-        if (p_rbgh.boundaryField()[patchi].fixesValue())
+        if (p_rbgh.boundaryField()[i].fixesValue())
         {
-            pcorrTypes[patchi] = fixedValueFvPatchScalarField::typeName;
+            pcorrTypes[i] = fixedValueFvPatchScalarField::typeName;
         }
     }
 
@@ -71,11 +49,19 @@ if (mesh.changing())
             IOobject::NO_WRITE
         ),
         mesh,
-        dimensionedScalar(p.dimensions(), Zero),
+        dimensionedScalar(p_rbgh.dimensions(), Zero),
         pcorrTypes
     );
 
-{
+    if (pcorr.needReference())
+    {
+        fvc::makeRelative(phi, U);
+        adjustPhi(phi, U, pcorr);
+        fvc::makeAbsolute(phi, U);
+    }
+
+    mesh.setFluxRequired(pcorr.name());
+
     dimensionedScalar rAUf("rAUf", dimTime/rho.dimensions(), 1.0);
 
     const cellCellStencilObject& overlap = Stencil::New(mesh);
@@ -85,8 +71,8 @@ if (mesh.changing())
     while (pimple.correctNonOrthogonal())
     {
         label nZones = gMax(zoneIDs)+1;
-
         //label refCellI2 = -1;
+
         labelList refCells(nZones, -1);
         labelList refZones(nZones, -1);
 
@@ -110,7 +96,6 @@ if (mesh.changing())
             fvm::laplacian(rAUf, pcorr) == fvc::div(phi)
         );
 
-
         // Only set reference for cells that are CALCULATED
         {
             DynamicList<label> validCells(refCells.size());
@@ -130,13 +115,15 @@ if (mesh.changing())
             );
         }
 
+
         const dictionary& d = mesh.solver
-        (
-            pcorr.select
             (
-                pimple.finalInnerIter()
-            )
-        );
+                pcorr.select
+                (
+                    pimple.finalInnerIter()
+                )
+            );
+
         //Bypass virtual layer
         mesh.fvMesh::solve(pcorrEqn, d);
 
