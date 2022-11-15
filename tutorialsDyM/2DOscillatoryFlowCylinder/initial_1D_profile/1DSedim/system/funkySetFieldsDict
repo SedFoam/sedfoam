@@ -19,7 +19,7 @@ expressions
  (
 	alpha1
     	{
-		field alpha.a;
+		field alpha_a;
 		expression "0.57*0.5*(1.0-tanh(500*(pos().y)))";
                 condition "(pos().z<10.0)";
                 keepPatches 1;

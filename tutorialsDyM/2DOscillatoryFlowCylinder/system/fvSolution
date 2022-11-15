@@ -22,7 +22,7 @@ solvers
         solver          PCG;
         preconditioner  DIC;
 
-        tolerance       1e-10;
+        tolerance       1e-12;
         relTol          0;
         maxIter         1000;
 	minIter 1;
@@ -45,24 +45,30 @@ solvers
         mergeLevels     1;
     }
 
-    pcorr
-    {
-        solver          PCG;
-        preconditioner  DIC;
-        tolerance       1e-05;
-        relTol          0.0;
-    }
-
-    pcorrFinal
-    {
-        $pcorr;
-        relTol          0;
-    }
-
     p_rbghFinal
     {
         $p_rbgh;
         tolerance       1e-10;
+        relTol          0;
+    }
+
+
+
+    pcorr
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-5;
+        relTol          0;
+    }
+
+
+
+    pcorrFinal
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-7
         relTol          0;
     }
 
@@ -150,9 +156,9 @@ relaxationFactors
 
 PIMPLE
 {
-    correctPhi	no;
-massFluxInterpolation no;
-    momentumPredictor  no;
+    massFluxInterpolation yes;
+    momentumPredictor   no; //recommended on for high Reynolds
+    correctPhi          yes; //off if we use Overset
     nOuterCorrectors    1;
     nCorrectors    3;
     nNonOrthogonalCorrectors 1;
@@ -160,16 +166,5 @@ massFluxInterpolation no;
     correctAlpha    yes;
 }
 
-/*
-SIMPLE
-{
-    nCorrectors     3;
-    nNonOrthogonalCorrectors 0;
-    nAlphaCorr      2;
-    correctAlpha    yes;
-    pRefCell        0;
-    pRefValue       0;
-}
-*/
 
 // ************************************************************************* //

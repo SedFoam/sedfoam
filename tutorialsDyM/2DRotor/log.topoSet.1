@@ -1,0 +1,56 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2206                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _76d719d1e6-20220624 OPENFOAM=2206 version=v2206
+Arch   : "LSB;label=32;scalar=64"
+Exec   : topoSet
+Date   : Nov 15 2022
+Time   : 10:35:35
+Host   : cl2n012
+PID    : 1507492
+I/O    : uncollated
+Case   : /.fsdyn_people/puigmont9e/calcul/home/OpenFOAM/puigmont9e-v1906/src/SedFoamDila_V4/tutorialsDyM/2DRotor
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create polyMesh for time = 0
+
+Reading topoSetDict
+
+Time = 0
+    mesh not changed.
+Created cellSet c0
+    Applying source regionToCell
+    Adding all cells of connected region containing points 1((0.001 0.001 0.001)) ...
+    Found location (0.001 0.001 0.001) in cell 909 on processor 0 in global region 0 out of 2 regions.
+    cellSet c0 now size 15000
+Created cellSet c1
+    Applying source cellToCell
+    Adding all elements of cellSet (c0)
+    cellSet c1 now size 15000
+Read set cellSet c1 size:15000
+    Inverting cellSet
+    cellSet c1 now size 2100
+Created cellSet box
+    Applying source cellToCell
+    Adding all elements of cellSet (c1)
+    cellSet box now size 2100
+Read set cellSet box size:2100
+    Applying source boxToCell
+    Adding cells with centre within boxes 1((0.0025 0.0045 -100) (0.0075 0.0055 100))
+    cellSet box now size 500
+Read set cellSet box size:500
+    Inverting cellSet
+    cellSet box now size 16600
+
+End
+

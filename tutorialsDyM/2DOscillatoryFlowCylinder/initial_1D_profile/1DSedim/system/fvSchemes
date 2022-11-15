@@ -27,22 +27,22 @@ gradSchemes
 
 divSchemes
 {
-    default         Gauss linear;
+    default         none;
 // alphaEqn
     div(phi,alpha)  Gauss upwind;//limitedLinear01 1;
     div(phir,alpha) Gauss upwind;//limitedLinear01 1;
 // UEqn
-    div(phi.a,U.a)    Gauss limitedLinearV 1;
-    div(phi.b,U.b)    Gauss limitedLinearV 1;
-    div(phiRa,U.a)   Gauss limitedLinear 1;
-    div(phiRb,U.b)   Gauss limitedLinear 1;
+    div(phia,Ua)    Gauss limitedLinearV 1;
+    div(phib,Ub)    Gauss limitedLinearV 1;
+    div(phiRa,Ua)   Gauss limitedLinear 1;
+    div(phiRb,Ub)   Gauss limitedLinear 1;
 // pEqn
     div(alpha,nu)   Gauss linear;
 }
 
 laplacianSchemes
 {
-    default         Gauss linear corrected;
+    default         none;
 // alphaEqn
     laplacian(Da,alpha_a)  Gauss linear corrected;
 // UEqn
