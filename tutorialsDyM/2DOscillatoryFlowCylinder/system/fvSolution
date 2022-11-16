@@ -156,10 +156,10 @@ relaxationFactors
 
 PIMPLE
 {
-    massFluxInterpolation yes;
+    massFluxInterpolation no;
     momentumPredictor   no; //recommended on for high Reynolds
-    correctPhi          yes; //off if we use Overset
-    nOuterCorrectors    1;
+    correctPhi          no; //off if we use Overset
+    nOuterCorrectors    3; //recommended at least 2 for moving bodies
     nCorrectors    3;
     nNonOrthogonalCorrectors 1;
     nAlphaCorr      1;
