@@ -164,9 +164,7 @@ int main(int argc, char *argv[])
         #include "gravityRamp.H"
 
 
-//      Pressure-velocity PIMPLE corrector loop
-        while (pimple.loop())
-        {
+
 		bool changed = mesh.update();
 
         if (changed)
@@ -237,11 +235,14 @@ int main(int argc, char *argv[])
 			{
 				 #include "correctPhi.H"
 			}
-			
-			MRF.makeAbsolute(phia);
 
+//      Pressure-velocity PIMPLE corrector loop
+        while (pimple.loop())
+        {
             #include "alphaEqn.H"
             #include "liftDragCoeffs.H"
+            
+			MRF.makeAbsolute(phia);
 
 //          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
 //             from Kinetic Theory of granular flows or mu(I) rheology

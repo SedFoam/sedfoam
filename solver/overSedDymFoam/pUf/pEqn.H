@@ -368,11 +368,11 @@ License
         
         // Correct Uf if the mesh is moving
         {
-            //Uf = fvc::interpolate(U);
+            Uf = fvc::interpolate(U);
             Ufa = fvc::interpolate(Ua);
             Ufb = fvc::interpolate(Ub);
             surfaceVectorField n(mesh.Sf()/mesh.magSf());
-          //  Uf += n*(phi/mesh.magSf() - (n & Uf));
+            Uf += n*(phi/mesh.magSf() - (n & Uf));
             Ufa += n*(phia/mesh.magSf() - (n & Ufa));
             Ufb += n*(phib/mesh.magSf() - (n & Ufb));
         }

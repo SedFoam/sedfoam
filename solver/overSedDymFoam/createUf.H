@@ -63,5 +63,18 @@ surfaceVectorField Ufa
     fvc::interpolate(Ua)
 );
 
+Info<< "Reading/calculating face velocity Uf\n" << endl;
 
+surfaceVectorField Uf
+(
+    IOobject
+    (
+        "Uf",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+    fvc::interpolate(U)
+);
 // ************************************************************************* //
