@@ -1,0 +1,6 @@
+#!/bin/sh
+blockMesh
+snappyHexMesh -overwrite
+transformPoints -scale '0.0075'
+topoSet
+#------------------------------------------------------------------------------

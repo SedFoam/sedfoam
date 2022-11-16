@@ -1,0 +1,112 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      alpha_a;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+//internalField   uniform 0.01; 
+
+internalField   #codeStream
+{
+    codeInclude
+    #{
+        #include "fvCFD.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+    codeLibs
+    #{
+        -lfiniteVolume \
+        -lmeshTools
+    #};
+    code
+    #{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+	    const fvMesh& mesh = refCast<const fvMesh>(d.db());
+        scalarField alpha_a(mesh.nCells(), 0);
+
+        forAll(mesh.C(), i)
+        {
+            scalar z = mesh.C()[i].z();
+            
+
+		if (z < -0.1)
+            {
+                alpha_a[i] = 0.00;
+            }
+            else
+            {
+		 alpha_a[i] = 0.00;
+            }
+        }
+// OpenFoam.com version and Old OpenFoam.org (<= 6)
+        alpha_a.writeEntry("", os);
+// New OpenFoam.org version (>=7)
+//        writeEntry(os, "", alpha_a);
+    #};
+
+};
+
+
+boundaryField
+{
+    #includeEtc "caseDicts/setConstraintTypes"
+
+    overset
+    {
+        type            overset;
+    }
+
+    sphere
+    {
+        type            zeroGradient;
+
+    }
+
+    inlet
+    {
+        type            zeroGradient;
+
+    }
+
+    outlet
+    {
+        type            zeroGradient;
+
+    }
+    top
+    {
+        type            zeroGradient;
+
+    }
+    Bottom
+    {
+        type            zeroGradient;
+
+    }
+    frontAndBack
+    {
+        type            zeroGradient;
+
+    }
+}
+
+
+// ************************************************************************* //

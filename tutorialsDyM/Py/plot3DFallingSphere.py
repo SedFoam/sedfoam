@@ -30,7 +30,7 @@ data_TenCate_vel = np.genfromtxt("DATA/tenCate2002velocityRe1.5.csv", delimiter=
 
 
 #version=input("choose version:")
-version="../3DFallingSphere/sphereAndBackground/"
+version="../FallingSphere3D/sphereAndBackground/"
 	
 
 #sol_Mixt_RefSedim = 'caseB_fixedVerticalLine/background/'
