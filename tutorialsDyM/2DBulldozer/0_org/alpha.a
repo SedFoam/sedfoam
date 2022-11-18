@@ -17,123 +17,46 @@ FoamFile
 
 dimensions      [0 0 0 0 0 0 0];
 internalField uniform 0;
-//internalField   #codeStream
-//{
-    //codeInclude
-    //#{
-        //#include "fvCFD.H"
-    //#};
 
-    //codeOptions
-    //#{
-        //-I$(LIB_SRC)/finiteVolume/lnInclude \
-        //-I$(LIB_SRC)/meshTools/lnInclude
-    //#};
-    //codeLibs
-    //#{
-        //-lfiniteVolume \
-        //-lmeshTools
-    //#};
-    //code
-    //#{
-        //const IOdictionary& d = static_cast<const IOdictionary&>(dict);
-	    //const fvMesh& mesh = refCast<const fvMesh>(d.db());
-        //scalarField alpha_a(mesh.nCells(), 0);
-
-        //forAll(mesh.C(), i)
-        //{
-            //scalar y = mesh.C()[i].y();
-            //if (y < 0.02)
-            //{
-                //alpha_a[i] = 0.5;
-            //}
-            //else
-            //{
-                //alpha_a[i] = 0.5*0.57*(1.0+tanh((y-0.025)/(0.02-y)*10.0));
-////alpha_a[i] = 0.5*0.5*(1.0+tanh((y-0.0025)/(0.0005-y)*10.0));      
-////  alpha_a[i] = 0;    
-//}
-        //}
-//// OpenFoam.com version and Old OpenFoam.org (<= 6)
-        //alpha_a.writeEntry("", os);
-//// New OpenFoam.org version (>=7)
-////        writeEntry(os, "", alpha_a);
-    //#};
-
-//};
 
 boundaryField
 {
-    outlet
-    {
-         type            zeroGradient;
-/*         value           uniform 0;
-         type            groovyBC;
-         refValue        uniform 0;
-         refGradient     uniform 0;
-         valueFraction   uniform 1;
-         value           uniform 0;
-         valueExpression "inletprofilealpha(pos().y)/100.";
-         gradientExpression "0";
-         fractionExpression "1";
-         evaluateDuringConstruction 1;
-         variables       "";
-         timelines       (
- );
-         lookuptables    (
- {
-         name            inletprofilealpha;
-         file            "$FOAM_CASE/1d_profil/alpha_a.xy";
-         outOfBounds     clamp;
- }
- );
-*/
-    }
-    inandouthalf12
-    {
-       type            zeroGradient;
-    }
-    inandouthalf21
-    {
-       type		zeroGradient;
-    }
-    hole
-    {
-        type		zeroGradient;
-    }
-    top
-    {
-//        type            fixedValue;
-  //              value uniform 0;
-        type            zeroGradient;
+  top
+  {
+      type            zeroGradient;
 
-    }
-    bottom
-    {
-        type            zeroGradient;
-    }
-    
-    inlet
-    {
-        type            zeroGradient;
-    }
-    outlet
-    {
-        type            zeroGradient;
-    }
-    
-    "overset.*"
-    {
-        type            overset;
-    }
-    walls
-    {
-        type            zeroGradient;
-    }
-    frontAndBack
-    {
-        type            empty;
-    }
+  }
+
+  hole
+  {
+      type		zeroGradient;
+  }  
+  bottom
+  {
+      type            zeroGradient;
+  }
+
+  inlet
+  {
+      type            zeroGradient;
+  }
+  outlet
+  {
+      type            zeroGradient;
+  }
+
+  "overset.*"
+  {
+      type            overset;
+  }
+  walls
+  {
+      type            zeroGradient;
+  }
+  frontAndBack
+  {
+      type            empty;
+  }
 }
 
 

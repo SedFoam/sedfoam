@@ -43,15 +43,15 @@ internalField   #codeStream
         forAll(mesh.C(), i)
         {
             scalar y = mesh.C()[i].y();
-            if (y < 0.002)
+            if (y < 0.0035)
             {
                 alpha_a[i] = 0.5;
             }
             else
             {
                 alpha_a[i] = 0.5*0.5*(1.0+tanh((y-0.0025)/(0.002-y)*10.0));
-//alpha_a[i] = 0.5*0.5*(1.0+tanh((y-0.0025)/(0.0005-y)*10.0));      
-//  alpha_a[i] = 0;    
+//alpha_a[i] = 0.5*0.5*(1.0+tanh((y-0.0025)/(0.0005-y)*10.0));
+//  alpha_a[i] = 0;
 }
         }
 // OpenFoam.com version and Old OpenFoam.org (<= 6)
@@ -67,44 +67,13 @@ boundaryField
     outlet
     {
          type            zeroGradient;
-/*         value           uniform 0;
-         type            groovyBC;
-         refValue        uniform 0;
-         refGradient     uniform 0;
-         valueFraction   uniform 1;
-         value           uniform 0;
-         valueExpression "inletprofilealpha(pos().y)/100.";
-         gradientExpression "0";
-         fractionExpression "1";
-         evaluateDuringConstruction 1;
-         variables       "";
-         timelines       (
- );
-         lookuptables    (
- {
-         name            inletprofilealpha;
-         file            "$FOAM_CASE/1d_profil/alpha_a.xy";
-         outOfBounds     clamp;
- }
- );
-*/
     }
-    inandouthalf12
-    {
-       type            zeroGradient;
-    }
-    inandouthalf21
-    {
-       type		zeroGradient;
-    }
+
     hole
     {
         type		zeroGradient;
     }
-    top
-    {
-        type            zeroGradient;
-    }
+
     "overset.*"
     {
         type            overset;
@@ -113,7 +82,8 @@ boundaryField
     {
         type            zeroGradient;
     }
-    frontAndBackPlanes
+
+    frontAndBack
     {
         type            empty;
     }

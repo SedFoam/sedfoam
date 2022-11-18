@@ -20,38 +20,38 @@ internalField   uniform (0 0 0);
 
 boundaryField
 {
-    ".*"
-    {
-        type            uniformFixedValue;
-        uniformValue    (0 0 0);
-    }
-    top
-    {
-        type            zeroGradient;
+  ".*"
+  {
+      type            uniformFixedValue;
+      uniformValue    (0 0 0);
+  }
+  top
+  {
+      type            zeroGradient;
 
-    }
-    bottom
-    {
-        type            zeroGradient;
-    }
-    inlet
-    {
-        type            zeroGradient;
-    }
-    outlet
-    {
-        type            zeroGradient;
-    }
-    overset
-    {
-        patchType       overset;
-        type            zeroGradient;
-    }
+  }
+  bottom
+  {
+      type            zeroGradient;
+  }
+  inlet
+  {
+      type            zeroGradient;
+  }
+  outlet
+  {
+      type            zeroGradient;
+  }
+  overset
+  {
+      patchType       overset;
+      type            zeroGradient;
+  }
 
-    hole
-    {
-        type            zeroGradient;
-    }
+  hole
+  {
+      type            zeroGradient;
+  }
 }
 
 // ************************************************************************* //

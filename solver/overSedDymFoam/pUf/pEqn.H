@@ -120,7 +120,7 @@ License
             )
           // mean pressure gradient
           + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
-          
+
 	//	+ fvc::interpolate(alpha/alphaMax/rhoa)*(gradPhasea & mesh.Sf()) * rUaAf
 
         ));
@@ -207,7 +207,7 @@ License
         //}
         // Compute corrected velocity fluxes at cell faces
         //      (account for time evolution)
-        
+
     surfaceScalarField faceMaskOld
     (
         localMin<scalar>(mesh).interpolate(cellMask.oldTime())
@@ -266,11 +266,11 @@ License
              )
             /(mesh.magSf().boundaryField()*Dp.boundaryField())
         );
-        
-        
+
+
     constrainPressure(p_rbgh, Ua, phiaHbyA, Dp, MRF);
     constrainPressure(p_rbgh, Ub, phibHbyA, Dp, MRF);
-    
+
         while (pimple.correctNonOrthogonal())
         {
             // Solve for the Poisson equation on the pressure
@@ -362,10 +362,10 @@ License
                 // Update mixture velocity
                 U = alpha*Ua + beta*Ub;
                 U.correctBoundaryConditions();
-                
+
             }
         }
-        
+
         // Correct Uf if the mesh is moving
         {
             Uf = fvc::interpolate(U);

@@ -21,13 +21,10 @@ internalField   uniform (0 0 0);
 boundaryField
 {
     #includeEtc "caseDicts/setConstraintTypes"
-
     walls
     {
-        //type            slip;
      type            uniformFixedValue;
-        value           uniform (0 0 0);    
-    }
+        value           uniform (0 0 0);    }
 
     hole
     {
@@ -35,16 +32,6 @@ boundaryField
         value           uniform (0 0 0);
     }
 
-//    left1
-//    {
-//        type            pressureInletOutletVelocity;
-//        value           uniform (0 0 0);
-//    }
-//    left1
-//    {
-//        type            fixedValue;
-//        value           $internalField;
-//    }
     top
     {
      type            zeroGradient;
@@ -57,17 +44,22 @@ boundaryField
     inlet
     {
      type            fixedValue;
-        value           uniform (0 0 0);    }    
+        value           uniform (0 0 0);    }
     outlet
     {
      type            fixedValue;
-        value           uniform (0 0 0);    
+        value           uniform (0 0 0);
     }
 
     overset
     {
         type            overset;
     }
-}
 
+
+    frontAndBack
+    {
+        type            empty;
+    }
+}
 // ************************************************************************* //

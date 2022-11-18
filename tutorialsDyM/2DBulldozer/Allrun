@@ -6,7 +6,6 @@ cd "${0%/*}" || exit                                # Run from this directory
 mkdir 1d_profil
 python3 -c "import fluidfoam; fluidfoam.create1dprofil('./Case1D', '.', '100', 'Y', ['U.a', 'U.b', 'alpha.a'])"
 
-
 runApplication blockMesh
 
 # Select cellSets
@@ -22,4 +21,6 @@ runApplication setFields
 
 funkySetFields -time 0
 
-overSedDymFoam_rbgh > log &
+decomposePar
+mpirun -np 3 overSedDymFoam_rbgh -parallel > log &
+#overSedDymFoam_rbgh > log &

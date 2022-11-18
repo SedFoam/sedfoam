@@ -51,6 +51,6 @@ EXE_LIBS = \
     -lturbulenceModels \
     -lincompressibleTurbulenceModels \
     -ltwoPhaseTurbulenceModels \
-	-lsixDoFRigidBodyMotionSedFoam \
-	-lforcesSedFoam \
-    -loverset 
+    -lsixDoFRigidBodyMotionSedFoam \
+    -lforcesSedFoam \
+    -loverset

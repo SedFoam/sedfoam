@@ -11,30 +11,36 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      delta;
+    object      alphaPlastic;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -1 0 0 0 0];
-internalField   uniform 0;
+dimensions      [0 0 0 0 0 0 0];
+
+
+internalField   uniform 0.575;
 
 boundaryField
 {
-    hole
+    inlet
     {
         type            zeroGradient;
     }
+    outlet
+    {
+        type            zeroGradient;
+    }
+    inandouthalf12
+    {
+       type            zeroGradient;
+    }
+    hole
+    {
+	type		zeroGradient;
+    }
     "overset.*"
     {
-       type            overset;
-    }
-    inandouthalf21
-    {
-	type		zeroGradient;
-    }
-    inandouthalf22
-    {
-	type		zeroGradient;
+	type		overset;
     }
     top
     {
@@ -42,14 +48,6 @@ boundaryField
 
     }
     bottom
-    {
-        type            zeroGradient;
-    }
-    inlet
-    {
-        type            zeroGradient;
-    }
-    outlet
     {
         type            zeroGradient;
     }

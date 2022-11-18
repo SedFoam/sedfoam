@@ -29,8 +29,8 @@ License
 
     surfaceScalarField phic("phic", MRF.absolute(phi));
     surfaceScalarField phir("phir", MRF.absolute(phia - phib));
-	
-	
+
+
 
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
     {
@@ -52,12 +52,13 @@ License
                 i++;
             }
         }
+
         alpha.min(alphaMax);
         alpha.max(0);
 
         alpha *= cellMask;
         alpha.correctBoundaryConditions();
-      
+
 
       //  beta = cellMask*(scalar(1.0) - alpha);
         beta = (scalar(1.0) - alpha);

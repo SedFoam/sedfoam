@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2006                                 |
+|  \\    /   O peration     | Version:  v2206                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -13,15 +13,14 @@ FoamFile
     object      topoSetDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
 actions
 (
     {
         name    c0;
         type    cellSet;
         action  new;
-        source  regionsToCell;
-        insidePoints ((0.13 0.01 0.001));
+        source  regionToCell;
+        insidePoints ((0.001 0.001 0.001));
     }
 
     {
@@ -38,38 +37,14 @@ actions
         action  invert;
     }
 
-    {
-        name    c2;
-        type    cellSet;
-        action  new;
-        source  regionsToCell;
-        insidePoints ((0.17 0.00 0.001));
-        set     c1;
-    }
+    // Select box to remove from region 1
 
-    {
-        name    c1;
-        type    cellSet;
-        action  subtract;
-        source  cellToCell;
-        set     c2;
-    }
-
-    // Select box to remove from region 1 and 2
     {
         name    box;
         type    cellSet;
         action  new;
         source  cellToCell;
         set     c1;
-    }
-
-    {
-        name    box;
-        type    cellSet;
-        action  add;
-        source  cellToCell;
-        set     c2;
     }
 
     {
@@ -77,13 +52,9 @@ actions
         type    cellSet;
         action  subset;
         source  boxToCell;
-        boxes
-        (
-            (0.175 0.002 -100)(0.185 0.025 100)
-           // (0.165 0.001 -100)(0.175 0.025 100)
-        );
+        box     (0.08 0.002 -100)(0.09 0.035 100);
+        //        box     (0.105 0.0001 -100)(0.115 0.035 100);
     }
-
     {
         name    box;
         type    cellSet;

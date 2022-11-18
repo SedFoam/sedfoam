@@ -22,44 +22,37 @@ internalField   uniform 0.0;
 
 boundaryField
 {
-    hole
-    {
-        type            zeroGradient;
-    }
-    "overset.*"
-    {
-       type            overset;
-    }
-    inandouthalf21
-    {
-	type		zeroGradient;
-    }
-    inandouthalf22
-    {
-	type		zeroGradient;
-    }
-    top
-    {
-        type            zeroGradient;
+  hole
+  {
+      type            zeroGradient;
+  }
+  "overset.*"
+  {
+     type            overset;
+  }
 
-    }
-    bottom
-    {
-        type            zeroGradient;
-    }
-    inlet
-    {
-        type            zeroGradient;
-    }
-    outlet
-    {
-        type            zeroGradient;
-    }
-    walls
-    {
-        type            zeroGradient;
-    }
-    frontAndBackPlanes
+  top
+  {
+      type            zeroGradient;
+
+  }
+  bottom
+  {
+      type            zeroGradient;
+  }
+  inlet
+  {
+      type            zeroGradient;
+  }
+  outlet
+  {
+      type            zeroGradient;
+  }
+  walls
+  {
+      type            zeroGradient;
+  }
+    frontAndBack
     {
         type            empty;
     }

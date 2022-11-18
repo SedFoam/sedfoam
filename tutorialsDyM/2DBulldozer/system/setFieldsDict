@@ -43,17 +43,6 @@ regions
         );
     }
 
-    cellToCell
-    {
-        set c2;
-
-        fieldValues
-        (
-            volScalarFieldValue zoneID 2
-        );
-    }
-
-
 );
 
 // ************************************************************************* //

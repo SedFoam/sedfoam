@@ -17,7 +17,7 @@ FoamFile
 
 dimensions      [0 2 -2 0 0 0 0];
 
-internalField   uniform 1e-6; 
+internalField   uniform 1e-6;
 
 boundaryField
 {
@@ -33,20 +33,12 @@ boundaryField
     {
         type            zeroGradient;
     }
-    inandouthalf22
-    {
-        type            zeroGradient;
-    }
-    top
-    {
-//        type            symmetryPlane;
-        type            zeroGradient;
-    }
+
     walls
     {
         type            zeroGradient;
     }
-    frontAndBackPlanes
+    frontAndBack
     {
         type            empty;
     }

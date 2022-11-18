@@ -15,8 +15,10 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -3 0 0 0 0];
-internalField   uniform 1e-8; 
+dimensions      [0 0 0 0 0 0 0];
+
+
+internalField   uniform 0.0;
 
 boundaryField
 {

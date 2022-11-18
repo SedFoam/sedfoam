@@ -27,27 +27,10 @@ boundaryField
         type            zeroGradient;
     }
 
-//    left1
-//    {
-//        type            uniformTotalPressure;
-//        pressure        table
-//        (
-//            (0 10)
-//            (1 40)
-//        );
-//        p0              40; // only used for restarts
-//        U               U;
-//        phi             phi;
-//        rho             none;
-//        psi             none;
-//        gamma           1;
-//        value           uniform 40;
-//    }
-//    left1
-//    {
-//        type            zeroGradient;
-//    }
-//
+    frontAndBack
+    {
+        type            empty;
+    }
     outlet
     {
         type            fixedValue;   //calculated;

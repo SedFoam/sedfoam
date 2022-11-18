@@ -18,5 +18,6 @@ runApplication setFields
 
 
 #funkySetFields -time 0
-
-overSedDymFoam_rbgh > log &
+decomposePar
+mpirun -np 3 overSedDymFoam_rbgh -parallel > log &
+#overSedDymFoam_rbgh > log &

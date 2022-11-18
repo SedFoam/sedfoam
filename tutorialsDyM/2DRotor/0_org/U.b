@@ -35,23 +35,15 @@ boundaryField
         value           uniform (0 0 0);
     }
 
-//    left1
-//    {
-//        type            pressureInletOutletVelocity;
-//        value           uniform (0 0 0);
-//    }
-//    left1
-//    {
-//        type            fixedValue;
-//        value           $internalField;
-//    }
-//
     outlet
     {
         type            zeroGradient;   //calculated;
 //        value           $internalField;
     }
-
+    frontAndBack
+    {
+        type            empty;
+    }
     overset
     {
         type            overset;

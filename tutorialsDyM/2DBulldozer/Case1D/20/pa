@@ -1,46 +1,28 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v1906                                 |
-|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|  \\    /   O peration     | Version:  2206                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
     version     2.0;
-    format      ascii;
+    format      binary;
+    arch        "LSB;label=32;scalar=64";
     class       volScalarField;
-    location    "0";
-    object      delta;
+    location    "20";
+    object      pa;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-dimensions      [0 2 -2 0 0 0 0];
-internalField   uniform 1e-6;
+
+dimensions      [1 -1 -2 0 0 0 0];
+
+internalField   uniform 0;
 
 boundaryField
 {
-    hole
-    {
-        type            zeroGradient;
-    }
-    "overset.*"
-    {
-       type            overset;
-    }
-    inandouthalf21
-    {
-	type		zeroGradient;
-    }
-    inandouthalf22
-    {
-	type		zeroGradient;
-    }
-    top
-    {
-        type            zeroGradient;
-
-    }
-    bottom
+    outlet
     {
         type            zeroGradient;
     }
@@ -48,15 +30,15 @@ boundaryField
     {
         type            zeroGradient;
     }
-    outlet
+    top
     {
         type            zeroGradient;
     }
-    walls
+    bottom
     {
         type            zeroGradient;
     }
-    frontAndBackPlanes
+    frontAndBack
     {
         type            empty;
     }

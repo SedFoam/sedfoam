@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2006                                 |
+|  \\    /   O peration     | Version:  v2206                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -20,11 +20,11 @@ solvers
     {
         solver          PCG;
         preconditioner  DIC;
-
-        tolerance       1e-08;
+        tolerance       1e-06;
         relTol          0;
-        maxIter         500;
+        maxIter         1000;
     }
+
 
     p_rbgh
     {
@@ -41,7 +41,6 @@ solvers
         relTol          0;
     }
 
-
     pcorr
     {
         $p;
@@ -55,57 +54,30 @@ solvers
         relTol          0;
     }
 
-    "(U.a|U.b|k|epsilon|pa_new_value|alphaPlastic|pa)"
+    "(alpha.a|U|k|epsilon|pa)"
     {
         solver          smoothSolver;
         smoother        symGaussSeidel;
-        tolerance       1e-7;
-        relTol          0;
+        tolerance       1e-6;
+        relTol          0.0;
+        maxIter         500;
+        minIter         1;
     }
 
-    "(U.a|U.b|k|epsilon|pa_new_value|alphaPlastic|pa)Final"
+    "(U|alpha.a|k|epsilon|pa)Final"
     {
-        $k;
-        tolerance       1e-7;
+        $U;
         relTol          0;
     }
-    alpha.a
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-7;
-        relTol          0;
-    }
-    alpha.aFinal
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-7;
-        relTol          0;
-    }
-    Theta
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-6;
-        relTol          0;
-    }
-    ThetaFinal
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-6;
-        relTol          0;
-    }
-
 }
+
 
 PIMPLE
 {
     massFluxInterpolation no;
     momentumPredictor   no; //recommended on for high Reynolds
     correctPhi          no; //off if we use Overset
-    nOuterCorrectors    3; //recommended at least 2 for moving bodies
+    nOuterCorrectors    2; //recommended at least 2 for moving bodies
     nCorrectors         3;
     nNonOrthogonalCorrectors 1;
 
@@ -115,6 +87,7 @@ PIMPLE
     pRefValue           0.0;
     correctAlpha    0;
     nAlphaCorr      1;
+
 }
 
 relaxationFactors
@@ -127,5 +100,6 @@ relaxationFactors
        ".*"             1;
    }
 }
+
 
 // ************************************************************************* //

@@ -88,8 +88,8 @@ oversetInterpolation
 {
     method         cellVolumeWeight;
 
-    //method              trackingInverseDistance;
-    //searchBoxDivisions  2{(100 100 1)};
+//    method              trackingInverseDistance;
+//    searchBoxDivisions  2{(100 100 1)};
 }
 
 fluxRequired
@@ -97,12 +97,14 @@ fluxRequired
     default         no;
     pcorr           ;
     p_rbgh               ;
-    alpha_a               ;
+    alpha.a               ;
 }
 oversetInterpolationSuppressed
 {
     grad(p_rbgh);
     surfaceIntegrate(phiHbyA);
+    surfaceIntegrate(phiaHbyA);
+    surfaceIntegrate(phibHbyA);
 }
 
 // ************************************************************************* //

@@ -18,47 +18,44 @@ FoamFile
 dimensions      [0 0 0 0 0 0 0];
 
 
-internalField   uniform 0.575;
+internalField   uniform 0.55;
 
 boundaryField
 {
-    inlet
-    {
-        type            zeroGradient;
-    }
-    outlet
-    {
-        type            zeroGradient;
-    }
-    inandouthalf12
-    {
-       type            zeroGradient;
-    }
-    hole
-    {
-	type		zeroGradient;
-    }
-    "overset.*"
-    {
-	type		overset;
-    }
-    top
-    {
-        type            zeroGradient;
+  inlet
+  {
+      type            zeroGradient;
+  }
+  outlet
+  {
+      type            zeroGradient;
+  }
 
-    }
-    bottom
-    {
-        type            zeroGradient;
-    }
-    walls
-    {
-        type            zeroGradient;
-    }
-    frontAndBackPlanes
-    {
-        type            empty;
-    }
+  hole
+  {
+type		zeroGradient;
+  }
+  "overset.*"
+  {
+type		overset;
+  }
+  top
+  {
+      type            zeroGradient;
+
+  }
+  bottom
+  {
+      type            zeroGradient;
+  }
+  walls
+  {
+      type            zeroGradient;
+  }
+  frontAndBack
+  {
+      type            empty;
+  }
 }
 
 

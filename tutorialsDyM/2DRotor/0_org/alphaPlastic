@@ -26,10 +26,7 @@ boundaryField
     {
         type            zeroGradient;
     }
-    inandouthalf12
-    {
-       type            zeroGradient;
-    }
+
     hole
     {
 	type		zeroGradient;
@@ -38,18 +35,11 @@ boundaryField
     {
 	type		overset;
     }
-    top
-    {
-//        type            fixedValue;
-//	value 		uniform 0.;
-//        type            symmetryPlane;
-        type            zeroGradient;
-    }
     walls
     {
         type            zeroGradient;
     }
-    frontAndBackPlanes
+    frontAndBack
     {
         type            empty;
     }

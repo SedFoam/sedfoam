@@ -14,13 +14,13 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-numberOfSubdomains  4;
+numberOfSubdomains  3;
 
 method          hierarchical;
 
 coeffs
 {
-    n           (2 2 1);
+    n           (1 3 1);
 }
 
 // ************************************************************************* //
