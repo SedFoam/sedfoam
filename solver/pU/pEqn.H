@@ -198,8 +198,8 @@ License
             p_rbgh.boundaryFieldRef(),
             (
                 phiHbyA.boundaryField()
-              - alphaf.boundaryField()
-               *((mesh.Sf().boundaryField() & Ua.boundaryField())
+              - (alphaf.boundaryField()
+               *(mesh.Sf().boundaryField() & Ua.boundaryField())
               + betaf.boundaryField()
                *(mesh.Sf().boundaryField() & Ub.boundaryField()))
              )

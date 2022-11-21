@@ -221,8 +221,6 @@ License
           + betaf*(phibHbyA + rAUKdb*phia)
         );
 
-        // adjustPhi(phiHbyA, U, p_rbgh);
-
         // Assemble Poisson operator for the pressure
         surfaceScalarField Dp
         (
