@@ -207,7 +207,7 @@ else if (granularRheology.on())
     }
 // the actual expression for nuFra depends on the way this term is discretized
 // in UaEqn
-    nuFra = granularRheology.mua()/ rhoa;
+    nuFra = granularRheology.mua()/rhoa;
 
     nuEffa = sqr(Ct)*turbulenceb->nut() + nua + turbulencea->nut();
    // lambdaUa = nua*rhoa*scalar(0.0);
@@ -217,6 +217,7 @@ else if (granularRheology.on())
 
 // Compute nuEffb the total fluid phase viscosity
     nuEffb = turbulenceb->nut() + granularRheology.nuvb();
+    
 }
 //
 //

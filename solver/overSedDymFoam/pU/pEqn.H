@@ -29,7 +29,7 @@ License
 
     surfaceScalarField alphaf(fvc::interpolate(alpha));
     surfaceScalarField betaf(scalar(1.0) - alphaf);
-
+	
     // Compute inverse matrix for momentum balance of phase a and b
     //     at cell centers
     volScalarField rUaA(1.0/UaEqn.A());

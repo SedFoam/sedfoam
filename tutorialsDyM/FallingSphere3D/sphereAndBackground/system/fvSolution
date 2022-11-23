@@ -79,12 +79,12 @@ PIMPLE
 {
     momentumPredictor   no;
     correctPhi          true;
-    nOuterCorrectors    1;
-    nCorrectors         1;
+    nOuterCorrectors    2;
+    nCorrectors         2;
     nAlphaCorr      1;
 
-    nNonOrthogonalCorrectors 0;
-    massFluxInterpolation true;
+    nNonOrthogonalCorrectors 1;
+    massFluxInterpolation false;
     ddtCorr             false;
     turbOnFinalIterOnly false;
     moveMeshOuterCorrectors yes;
