@@ -159,7 +159,7 @@ PIMPLE
     massFluxInterpolation no;
     momentumPredictor   no; //recommended on for high Reynolds
     correctPhi          no; //off if we use Overset
-    nOuterCorrectors    3; //recommended at least 2 for moving bodies
+    nOuterCorrectors    true; //recommended at least 2 for moving bodies
     nCorrectors    3;
     nNonOrthogonalCorrectors 1;
     nAlphaCorr      1;

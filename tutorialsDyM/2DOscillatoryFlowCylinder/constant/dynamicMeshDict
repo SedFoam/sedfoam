@@ -49,8 +49,8 @@ sixDoFRigidBodyMotionCoeffs
     innerDistance   0;
     outerDistance   0.1;
         
-    accelerationRelaxation 1e-1;
-    accelerationDamping 1e-1;
+    accelerationRelaxation 4e-1;
+    accelerationDamping 4e-1;
     
     //  mass reduced by Buoyancy: (rhosolid - rhofluid ) * VolumeSphere
     mass	0.00104137182;
