@@ -384,7 +384,7 @@ Foam::functionObjects::forcesSed::devRhoReff() const
         //return -rho()*nu*dev(twoSymm(fvc::grad(U)));
         
         const volScalarField& muEff = lookupObject<volScalarField>(muEffName_);
-        return -muEff*dev(twoSymm(fvc::grad(U)));
+        return muEff*dev(twoSymm(fvc::grad(U)));
     }
     else
     {
