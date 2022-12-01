@@ -27,8 +27,8 @@ if (runTime.outputTime())
 {
     if (writeTau == 1)
     {
-        Taua = rhoa*(alpha*nuEffa+nuFra)*dev(fvc::grad(Ua));
-        Taub = rhob*(scalar(1.0)-alpha)*nuEffb*dev(fvc::grad(Ub));
+        Taua = rhoa*(alpha*nuEffa+nuFra)*dev(twoSymm(fvc::grad(Ua)));
+        Taub = rhob*(scalar(1.0)-alpha)*nuEffb*dev(twoSymm(fvc::grad(Ub)));
         Taua.write();
         Taub.write();
     }

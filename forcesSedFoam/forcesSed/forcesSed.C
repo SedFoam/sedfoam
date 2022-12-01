@@ -28,7 +28,6 @@ License
 
 #include "forcesSed.H"
 #include "fvcGrad.H"
-#include "porosityModel.H"
 #include "turbulentTransportModel.H"
 #include "turbulentFluidThermoModel.H"
 #include "addToRunTimeSelectionTable.H"
@@ -85,10 +84,6 @@ void Foam::functionObjects::forcesSed::writeIntegratedHeader
     writeTabbed(os, "(pressureParticle_x pressureParticle_y pressureParticle_z)");
     writeTabbed(os, "(viscous_x viscous_y viscous_z)");
 
-    if (porosity_)
-    {
-        writeTabbed(os, "(porous_x porous_y porous_z)");
-    }
 
     os  << endl;
 }
@@ -141,10 +136,6 @@ void Foam::functionObjects::forcesSed::writeBinHeader
             << tab << jn << "(pressureParticle_x pressureFluid_y pressureFluid_z)"
             << tab << jn << "(viscous_x viscous_y viscous_z)";
 
-        if (porosity_)
-        {
-            os  << tab << jn << "(porous_x porous_y porous_z)";
-        }
     }
 
     os << endl;
@@ -215,13 +206,13 @@ void Foam::functionObjects::forcesSed::initialise()
     {
         if
         (
-            !foundObject<volVectorField>(UName_)
+            !foundObject<volVectorField>(UaName_)
          || !foundObject<volScalarField>(pName_)
 
         )
         {
             FatalErrorInFunction
-                << "Could not find U: " << UName_ << " or p:" << pName_
+                << "Could not find Ua: " << UaName_ << " or p:" << pName_
                 << " in database"
                 << exit(FatalError);
         }
@@ -257,28 +248,7 @@ void Foam::functionObjects::forcesSed::initialiseBins()
             geomMax = max(max(d), geomMax);
         }
 
-        // Include porosity
-        if (porosity_)
-        {
-            const HashTable<const porosityModel*> models =
-                obr_.lookupClass<porosityModel>();
 
-            const scalarField dd(mesh_.C() & binDir_);
-
-            forAllConstIters(models, iter)
-            {
-                const porosityModel& pm = *iter();
-                const labelList& cellZoneIDs = pm.cellZoneIDs();
-
-                for (const label zonei : cellZoneIDs)
-                {
-                    const cellZone& cZone = mesh_.cellZones()[zonei];
-                    const scalarField d(dd, cZone);
-                    geomMin = min(min(d), geomMin);
-                    geomMax = max(max(d), geomMax);
-                }
-            }
-        }
 
         reduce(geomMin, minOp<scalar>());
         reduce(geomMax, maxOp<scalar>());
@@ -348,43 +318,21 @@ Foam::functionObjects::forcesSed::devRhoReff() const
     typedef compressible::turbulenceModel cmpTurbModel;
     typedef incompressible::turbulenceModel icoTurbModel;
 
-    const auto& U = lookupObject<volVectorField>(UName_);
+    const auto& Ua = lookupObject<volVectorField>(UaName_);
+    const auto& Ub = lookupObject<volVectorField>(UbName_);
 
-    if (foundObject<cmpTurbModel>(cmpTurbModel::propertiesName))
-    {
-        const cmpTurbModel& turb =
-            lookupObject<cmpTurbModel>(cmpTurbModel::propertiesName);
 
-        return turb.devRhoReff(U);
-    }
-    else if (foundObject<icoTurbModel>(icoTurbModel::propertiesName))
-    {
-        const incompressible::turbulenceModel& turb =
-            lookupObject<icoTurbModel>(icoTurbModel::propertiesName);
-
-        return rho()*turb.devReff(U);
-    }
-    else if (foundObject<fluidThermo>(fluidThermo::dictName))
-    {
-        const fluidThermo& thermo =
-            lookupObject<fluidThermo>(fluidThermo::dictName);
-
-        return -thermo.mu()*dev(twoSymm(fvc::grad(U)));
-    }
-    //else if (foundObject<transportModel>("transportProperties"))
-    //{
-        //const transportModel& laminarT =
-            //lookupObject<transportModel>("transportProperties");
-
-        //return -rho()*laminarT.nu()*dev(twoSymm(fvc::grad(U)));
-    //}
-    else if (foundObject<dictionary>("transportProperties"))
+    if (foundObject<dictionary>("transportProperties"))
     {
         //dimensionedScalar nu("nu", dimViscosity, transportProperties);
         //return -rho()*nu*dev(twoSymm(fvc::grad(U)));
         
+        const volScalarField& alpha = lookupObject<volScalarField>(alphaName_);
         const volScalarField& muEff = lookupObject<volScalarField>(muEffName_);
-        return muEff*dev(twoSymm(fvc::grad(U)));
+        const volScalarField& muFra = lookupObject<volScalarField>(muFraName_);
+        return -muEff*dev(twoSymm(fvc::grad(Ub)))-muFra*dev(twoSymm(fvc::grad(Ua)));
+        //return -(muEff+muFra)*dev(twoSymm(fvc::grad(Ub*(1-alpha)+Ua*alpha)));
+       // return -muEff*dev(twoSymm(fvc::grad(Ub)));
     }
     else
     {
@@ -399,32 +347,11 @@ Foam::functionObjects::forcesSed::devRhoReff() const
 
 Foam::tmp<Foam::volScalarField> Foam::functionObjects::forcesSed::mu() const
 {
-    if (foundObject<fluidThermo>(basicThermo::dictName))
+
+    if (foundObject<dictionary>("transportProperties"))
     {
-        const fluidThermo& thermo =
-             lookupObject<fluidThermo>(basicThermo::dictName);
-
-        return thermo.mu();
-    }
-    //else if (foundObject<transportModel>("transportProperties"))
-    //{
-        //const transportModel& laminarT =
-            //lookupObject<transportModel>("transportProperties");
-
-        //return rho()*laminarT.nu();
-    //}
-    else if (foundObject<dictionary>("transportProperties"))
-    {
-		
-		
-        //const dictionary& transportProperties =
-             //lookupObject<dictionary>("transportProperties");
-
-       // dimensionedScalar nu("nu", dimViscosity, transportProperties);
-		//return rho()*nu;
 		
         const volScalarField& muEff = lookupObject<volScalarField>(muEffName_);
-
         return muEff;
     }
     else
@@ -594,10 +521,6 @@ void Foam::functionObjects::forcesSed::writeIntegratedForceMoment
         << "        pressureParticle : " << pressureParticle << nl
         << "        Viscous  : " << viscous << nl;
 
-    if (porosity_)
-    {
-        Log << "        Porous   : " << porous << nl;
-    }
 
     if (writeToFile())
     {
@@ -610,10 +533,7 @@ void Foam::functionObjects::forcesSed::writeIntegratedForceMoment
             << tab << pressureParticle
             << tab << viscous;
 
-        if (porosity_)
-        {
-            os  << tab << porous;
-        }
+
 
         os  << endl;
     }
@@ -688,10 +608,6 @@ void Foam::functionObjects::forcesSed::writeBinnedForceMoment
             << tab << f[1][i]
             << tab << f[2][i];
 
-        if (porosity_)
-        {
-            os  << tab << f[3][i];
-        }
     }
 
     os  << nl;
@@ -739,20 +655,19 @@ Foam::functionObjects::forcesSed::forcesSed
     momentBinFilePtr_(),
     patchSet_(),
     pName_("p"),
-    pHydName_("p_hyd"),
-   // prghName_("p_rbgh"),
     prbghName_("p_rbgh"),
     pSedName_("pS"),
     alphaName_("alpha.a"),
     muEffName_("muEff"),
-    UName_("U"),
+    muFraName_("muFra"),
+    UaName_("U.a"),
+    UbName_("U.b"),
     rhoName_("rho"),
     directForceDensity_(false),
     fDName_("fD"),
     rhoRef_(VGREAT),
     pRef_(0),
     coordSysPtr_(nullptr),
-    porosity_(false),
     nBin_(1),
     binDir_(Zero),
     binDx_(0),
@@ -790,20 +705,19 @@ Foam::functionObjects::forcesSed::forcesSed
     momentBinFilePtr_(),
     patchSet_(),
     pName_("p"),
-    pHydName_("p_hyd"),
-    //prghName_("p_rbgh"),
     prbghName_("p_rbgh"),
     pSedName_("pS"),
     alphaName_("alpha.a"),
     muEffName_("muEff"),
-    UName_("U"),
+    muFraName_("muFra"),
+    UaName_("U.a"),
+    UbName_("U.b"),
     rhoName_("rho"),
     directForceDensity_(false),
     fDName_("fD"),
     rhoRef_(VGREAT),
     pRef_(0),
     coordSysPtr_(nullptr),
-    porosity_(false),
     nBin_(1),
     binDir_(Zero),
     binDx_(0),
@@ -868,14 +782,6 @@ bool Foam::functionObjects::forcesSed::read(const dictionary& dict)
         {
             Info<< "    p: " << pName_ << endl;
         }
-        if (dict.readIfPresent<word>("p_hyd", pHydName_))
-        {
-            Info<< "    p_hyd: " << pHydName_ << endl;
-        }
-        //if (dict.readIfPresent<word>("p_rbgh", prghName_))
-        //{
-            //Info<< "    p_rbgh: " << prghName_ << endl;
-        //}
         if (dict.readIfPresent<word>("p_rbgh", prbghName_))
         {
             Info<< "    p_rbgh: " << prbghName_ << endl;
@@ -892,9 +798,17 @@ bool Foam::functionObjects::forcesSed::read(const dictionary& dict)
         {
             Info<< "    muEff: " << muEffName_ << endl;
         }
-        if (dict.readIfPresent<word>("U", UName_))
+        if (dict.readIfPresent<word>("muFra", muFraName_))
         {
-            Info<< "    U: " << UName_ << endl;
+            Info<< "    muFra: " << muFraName_ << endl;
+        }
+        if (dict.readIfPresent<word>("U.a", UaName_))
+        {
+            Info<< "    Ua: " << UaName_ << endl;
+        }
+        if (dict.readIfPresent<word>("U.b", UbName_))
+        {
+            Info<< "    Ub: " << UbName_ << endl;
         }
         if (dict.readIfPresent<word>("rho", rhoName_))
         {
@@ -915,15 +829,6 @@ bool Foam::functionObjects::forcesSed::read(const dictionary& dict)
         }
     }
 
-    dict.readIfPresent("porosity", porosity_);
-    if (porosity_)
-    {
-        Info<< "    Including porosity effects" << endl;
-    }
-    else
-    {
-        Info<< "    Not including porosity effects" << endl;
-    }
 
     if (dict.found("binData"))
     {
@@ -1061,7 +966,6 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
     else
     {
         const volScalarField& p = lookupObject<volScalarField>(pName_);
-        const volScalarField& p_hyd = lookupObject<volScalarField>(pHydName_);
         const volScalarField& p_rbgh = lookupObject<volScalarField>(prbghName_);
         const volScalarField& pS = lookupObject<volScalarField>(pSedName_);
         const volScalarField& alpha = lookupObject<volScalarField>(alphaName_);
@@ -1105,48 +1009,7 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
         }
     }
 
-    if (porosity_)
-    {
-        const volVectorField& U = lookupObject<volVectorField>(UName_);
-        const volScalarField rho(this->rho());
-        const volScalarField mu(this->mu());
-
-        const HashTable<const porosityModel*> models =
-            obr_.lookupClass<porosityModel>();
-
-        if (models.empty())
-        {
-            WarningInFunction
-                << "Porosity effects requested, but no porosity models found "
-                << "in the database"
-                << endl;
-        }
-
-        forAllConstIters(models, iter)
-        {
-            // Non-const access required if mesh is changing
-            porosityModel& pm = const_cast<porosityModel&>(*iter());
-
-            vectorField fPTot(pm.force(U, rho, mu));
-
-            const labelList& cellZoneIDs = pm.cellZoneIDs();
-
-            for (const label zonei : cellZoneIDs)
-            {
-                const cellZone& cZone = mesh_.cellZones()[zonei];
-
-                const vectorField d(mesh_.C(), cZone);
-                const vectorField fP(fPTot, cZone);
-                const vectorField Md(d - origin);
-
-                const vectorField fDummy(Md.size(), Zero);
-
-                addToFields(cZone, Md, fDummy, fDummy,fDummy, fP);
-
-                applyBins(Md, fDummy,fDummy, fDummy, fP, d);
-            }
-        }
-    }
+   
 
     Pstream::listCombineGather(forceSed_, plusEqOp<vectorField>());
     Pstream::listCombineGather(moment_, plusEqOp<vectorField>());

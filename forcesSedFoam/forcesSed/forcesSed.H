@@ -197,9 +197,6 @@ protected:
 
             //- Name of pressure field
             word pName_;
-
-            //- Name of hydrostatic pressure field
-            word pHydName_;
             //- Name of excess of pore pressure field
             word prbghName_;
             //- Name of excess of pore pressure field
@@ -213,9 +210,15 @@ protected:
             //- Name of the effective dynamic viscosity field
             word muEffName_;
             
-            //- Name of velocity field
-            word UName_;
-
+            //- Name of the frictional dynamic viscosity field
+            word muFraName_;
+            
+            //- Name of particle velocity field
+            word UaName_;
+            
+            //- Name of fluid velocity field
+            word UbName_;
+            
             //- Name of density field (optional)
             word rhoName_;
 
@@ -234,8 +237,6 @@ protected:
             //- Coordinate system used when evaluating forces/moments
             autoPtr<coordinateSystem> coordSysPtr_;
 
-            //- Flag to include porosity effects
-            bool porosity_;
 
 
             // Bin information

@@ -164,10 +164,7 @@ void Foam::functionObjects::forceCoeffsSed::writeBinHeader
         writeTabbed(os, jn + "pressure");
         writeTabbed(os, jn + "viscous");
 
-        if (porosity_)
-        {
-            writeTabbed(os, jn + "porous");
-        }
+
     }
 
     os  << endl;
@@ -187,18 +184,13 @@ void Foam::functionObjects::forceCoeffsSed::writeIntegratedData
 
     const scalar pressure = sum(coeff[0]);
     const scalar viscous = sum(coeff[1]);
-    const scalar porous = sum(coeff[2]);
-    const scalar total = pressure + viscous + porous;
+    const scalar total = pressure + viscous;
 
     Info<< "        " << title << "       : " << total << token::TAB
         << '('
         << "pressure: " << pressure << token::TAB
         << "viscous: " << viscous;
 
-    if (porosity_)
-    {
-        Info<< token::TAB << "porous: " << porous;
-    }
 
     Info<< ')' << endl;
 }
@@ -218,10 +210,7 @@ void Foam::functionObjects::forceCoeffsSed::writeBinData
 
         os  << tab << total << tab << coeffs[0][bini] << tab << coeffs[1][bini];
 
-        if (porosity_)
-        {
-            os  << tab << coeffs[2][bini];
-        }
+
     }
 
     os  << endl;
@@ -331,13 +320,13 @@ bool Foam::functionObjects::forceCoeffsSed::execute()
 
     createFiles();
 
-    // Storage for pressure, viscous and porous contributions to coeffs
-    List<Field<scalar>> dragCoeffs(3);
-    List<Field<scalar>> sideCoeffs(3);
-    List<Field<scalar>> liftCoeffs(3);
-    List<Field<scalar>> rollMomentCoeffs(3);
-    List<Field<scalar>> pitchMomentCoeffs(3);
-    List<Field<scalar>> yawMomentCoeffs(3);
+    // Storage for pressure and viscous contributions to coeffs
+    List<Field<scalar>> dragCoeffs(2);
+    List<Field<scalar>> sideCoeffs(2);
+    List<Field<scalar>> liftCoeffs(2);
+    List<Field<scalar>> rollMomentCoeffs(2);
+    List<Field<scalar>> pitchMomentCoeffs(2);
+    List<Field<scalar>> yawMomentCoeffs(2);
 
     forAll(liftCoeffs, i)
     {

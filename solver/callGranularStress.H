@@ -56,57 +56,6 @@ else
 
 pff = pp->pff(alpha, alphaPlastic, alphaMax, Fr_, eta0_, eta1_);
 
-//pff=(1-0.01)*pff_new+pff*0.01;
-
-
-//forAll(pff, cell)
-//{
-//// initially, we need to fix the bed level, and let the flow develop
-//// only cell centers are considered
-//// 0-->x, 1-->y, 2-->z
-   //if (mesh.cellCentres()[cell][1] >-0.053 and  pff[cell] >120)
-   //{
-//// only exclude the streamwise conponents
-	   //pff[cell] =120;
-   //}
-//}
-
-//pff.min(575);
-
-
-
-////Info << "abans pff" << pff <<endl;
-
-
-////volScalarField SecondInvariant(sqrt(mag(0.5*(sqr(tr(gradUaT)) - tr(((gradUaT) & (gradUaT)))))));
-//////Info << "pff" << pff <<endl;
-
-////Info << "max(SecondInvariant)" << max(SecondInvariant) <<endl;
-////Info << "min(SecondInvariant)" << min(SecondInvariant) <<endl;
-
-////volScalarField kLee(alpha*2*0.001*SecondInvariant);
-    //dimensionedScalar kLee
-    //(
-        //"kLee",
-        //dimensionSet(0, -0, -1, 0, 0, 0, 0),
-        //0.01
-    //);
-//fvScalarMatrix pff_pl_Eqn
-//(
- //fvm::ddt(pff_new)
- //+ fvm::div(phia, pff_new, "div(phia,pff)")
- //- fvm::Sp(fvc::div(phia), pff_new)
- //==
-	//kLee*(pff)
-	//-fvm::Sp(kLee, pff_new)
-	 //);
-//pff_pl_Eqn.relax();
-//pff_pl_Eqn.solve();
-
-//pff_new.correctBoundaryConditions();
-//pff=pff_new;
-//pff.max(0.);
-
 ////
 //
 //  Kinetic THEORY PART
@@ -139,6 +88,7 @@ if (kineticTheory.on())
     // the actual expression for nuFra depends on the way this term is
     // discretized in UaEqn
     nuFra = muEff_f/rhoa;
+    muFra= muEff_f;
 
     // Compute nuEffb the total fluid phase viscosity
     nuEffb = nub + turbulenceb->nut();
@@ -174,27 +124,6 @@ else if (granularRheology.on())
     pa = granularRheology.pa();
     pS=pa+pff;
 
-
-
-	//const labelListList & cellCells = pS.mesh().cellCells();
-
-	//forAll( cellCells, celli )
-	//{
-		//const labelList& neighbour = pff.mesh().cellCells()[celli];
-		//scalar sum = pff[celli];
-
-		//forAll(neighbour,celli)
-		//{
-
-		//sum += pff[neighbour[celli]];
-
-		//}
-
-		//sum /= (neighbour.size()+1);
-		//pS[celli]=sum;
-	
-	//}
-	
 	
     delta=granularRheology.delta();
 
@@ -213,7 +142,8 @@ else if (granularRheology.on())
    // lambdaUa = nua*rhoa*scalar(0.0);
     lambdaUa = granularRheology.lambda();
 
-     muEff =    granularRheology.mua()+granularRheology.nuvb()*rhob*(1-alpha)+rho*turbulenceb->nut();
+     muEff =   granularRheology.nuvb()*rhob*(1-alpha)+rho*turbulenceb->nut();
+     muFra =    granularRheology.mua();
 
 // Compute nuEffb the total fluid phase viscosity
     nuEffb = turbulenceb->nut() + granularRheology.nuvb();
@@ -232,6 +162,7 @@ else
     // set pa and nuFra to zero if kineticTheory and granularRheology are off
     pa = pa*scalar(0.0);
     nuFra = nua*scalar(0.0);
+    muFra = nua*scalar(0.0)/rhoa;
     nuEffa = nua + turbulencea->nut();
     lambdaUa = nua*rhoa*scalar(0.0);
     
@@ -255,6 +186,7 @@ if (spongeLayer)
 // Limit viscosities for numerical stability
 nuFra.min(nuMax);
 muEff.min(nuMax/rhoa);
+muFra.min(nuMax/rhoa);
 
 nuEffa.min(nuMax);
 nuEffb.min(nuMax);
