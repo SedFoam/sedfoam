@@ -330,6 +330,14 @@ Foam::functionObjects::forcesSed::devRhoReff() const
         const volScalarField& alpha = lookupObject<volScalarField>(alphaName_);
         const volScalarField& muEff = lookupObject<volScalarField>(muEffName_);
         const volScalarField& muFra = lookupObject<volScalarField>(muFraName_);
+        //Info << "a" <<endl;
+
+        //volSymmTensorField aaa( -muEff*dev(twoSymm(fvc::grad(Ub)))-muFra*dev(twoSymm(fvc::grad(Ua))));
+
+        //Info << "b"<< aaa <<endl;
+        //Info << "min(aaa)"<< min(aaa) <<endl;
+        //Info << "max(aaa)"<< max(aaa) <<endl;
+
         return -muEff*dev(twoSymm(fvc::grad(Ub)))-muFra*dev(twoSymm(fvc::grad(Ua)));
         //return -(muEff+muFra)*dev(twoSymm(fvc::grad(Ub*(1-alpha)+Ua*alpha)));
        // return -muEff*dev(twoSymm(fvc::grad(Ub)));
