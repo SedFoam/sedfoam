@@ -1,0 +1,162 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type": "SoftwareSourceCode",
+    "license": "https://spdx.org/licenses/GPL-3.0-or-later",
+    "codeRepository": "https://github.com/sedfoam/sedfoam",
+    "contIntegration": "https://circleci.com/gh/SedFoam/sedfoam",
+    "dateModified": "2022-07-08",
+    "issueTracker": "https://github.com/sedfoam/sedfoam/issues",
+    "name": "sedFoam",
+    "version": "3.3",
+    "identifier": "https://doi.org/10.5281/zenodo.836642",
+    "description": "A three-dimensional two-phase flow solver, SedFoam, has been developed for sediment transport applications. The solver is extended from twoPhaseEulerFoam available in the 2.1.0 release of the open-source CFD (computational fluid dynamics) toolbox OpenFOAM. In this approach the sediment phase is modeled as a continuum, and constitutive laws have to be prescribed for the sediment stresses. In the proposed solver, two different intergranular stress models are implemented: the kinetic theory of granular flows and the dense granular flow rheology μ(I). For the fluid stress, laminar or turbulent flow regimes can be simulated and three different turbulence models are available for sediment transport: a simple mixing length model (one-dimensional configuration only), a k − ε, a classical k − ω and a k − ω from Wilcox (2006).",
+    "applicationCategory": "Fluid Mechanics",
+    "developmentStatus": "active",
+    "referencePublication": "https://doi.org/10.5194/gmd-10-4367-2017",
+    "keywords": [
+        "scour",
+        "diphasic",
+        "sediment",
+        "Fluid Mechanics"
+    ],
+    "programmingLanguage": [
+        "C++",
+        "OpenFoam"
+    ],
+    "operatingSystem": [
+        "Linux",
+        "Windows"
+    ],
+    "softwareRequirements": [
+        "OpenFoam (ESI version)"
+    ],
+    "relatedLink": [
+        "https://sedfoam.github.io/",
+        "https://www.openfoam.com/"
+    ],
+    "author": [
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0000-0003-3868-7090",
+            "givenName": "Cyrille",
+            "familyName": "Bonamy",
+            "email": "cyrille.bonamy@cnrs.fr",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "LEGI - CNRS - UGA"
+            }
+        },
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0000-0002-5979-0620",
+            "givenName": "Julien",
+            "familyName": "Chauchat",
+            "email": "julien.chauchat@univ-grenoble-alpes.fr",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "LEGI - CNRS - UGA"
+            }
+        },
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0000-0003-1607-4787",
+            "givenName": "Antoine",
+            "familyName": "Mathieu",
+            "email": "amathieu@udel.edu",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "LEGI - CNRS - UGA - University of Delaware"
+            }
+        },
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0000-0001-7184-0945",
+            "givenName": "Eduard",
+            "familyName": "Puig Montella",
+            "email": "Eduard.Puig-Montella@univ-grenoble-alpes.fr",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "LEGI - CNRS - UGA"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Rémi",
+            "familyName": "Chassagne",
+            "email": "remi.chassagne@univ-grenoble-alpes.fr",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "LEGI - CNRS - UGA"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Zhen",
+            "familyName": "Cheng",
+            "email": "zcheng@udel.edu",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "University of Delaware, Civil & Environmental Engineering, Center for Applied Coastal Research Now at Convergence CFD"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Tim",
+            "familyName": "Nagel",
+            "email": "tim.nagel@meteo.fr",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Météo France"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Benjamin",
+            "familyName": "Tsai",
+            "email": "btsai@udel.edu",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "University of Delaware, Civil & Environmental Engineering, Center for Applied Coastal Research Now at Convergence CFD"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Tian-Jian",
+            "familyName": "Hsu",
+            "email": "thsu@udel.edu",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "University of Delaware, Civil & Environmental Engineering, Center for Applied Coastal Research Now at Convergence CFD"
+            }
+        }
+    ],
+    "contributor": [
+        {
+            "@type": "Person",
+            "givenName": "Ali",
+            "familyName": "Salimi-Tarazouj",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "University of Delaware, Civil & Environmental Engineering, Center for Applied Coastal Research Now at Convergence CFD"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Hugo",
+            "familyName": "Divel",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "LEGI - CNRS - UGA"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Pablo",
+            "familyName": "Higuera",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "The University of Auckland"
+            }
+        }
+    ]
+}
