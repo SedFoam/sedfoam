@@ -167,6 +167,8 @@ if (spongeLayer)
        *Foam::exp(-(xSmax-XX)/max(XX-xSmin, 1e-10*(xSmax-xSmin)))
 );
 }
+pS = pa+pff;
+
 // Limit viscosities for numerical stability
 nuFra.min(nuMax);
 nuEffa.min(nuMax);

@@ -204,6 +204,38 @@ surfaceScalarField& phia = phasea->phi();
 const dimensionedScalar& rhoa = phasea->rho();
 const dimensionedScalar& nua = phasea->nu();
 
+
+
+const dimensionedScalar& d_l = phasea->d_l();
+const dimensionedScalar& d_s = phasea->d();
+Switch bidispersity(transportProperties.get<Switch>("bidispersity"));
+volScalarField ALPHA_l
+(
+    IOobject
+    (
+        "ALPHA_l",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimensionSet(0, -0, -0, 0, 0), 0.0)
+);
+volScalarField ALPHA_s
+(
+    IOobject
+    (
+        "ALPHA_s",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimensionSet(0, -0, -0, 0, 0), 0.0)
+);
+
 // Reading ForceProperties
 
 Info<< "\nReading forceProperties for gradP\n" <<endl;
@@ -559,7 +591,20 @@ volScalarField pa
     mesh,
     dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
 );
-
+Info<< "Reading field pS\n" << endl;
+volScalarField pS
+(
+    IOobject
+    (
+        "pS",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
+);
 volTensorField gradUaT
 (
     fvc::grad(Ua)().T()

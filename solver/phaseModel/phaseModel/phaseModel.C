@@ -51,6 +51,16 @@ Foam::phaseModel::phaseModel
             200e-6
         )
     ),
+    d_l_
+    (
+        dimensionedScalar::getOrDefault
+        (
+            "d_l",
+            dict_,
+            dimensionSet(0, 1, 0, 0, 0, 0, 0),
+            200e-6
+        )
+    ),
     sF_
     (
         dimensionedScalar::getOrDefault

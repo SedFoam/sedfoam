@@ -68,3 +68,83 @@ License
 }
 
 rho = alpha*rhoa + beta*rhob;
+
+if (bidispersity)
+{
+	
+	
+		//volScalarField ALPHA_s=alpha_s/(alpha_s+alpha_l+alphaSmall);
+		//volScalarField ALPHA_l=alpha_l/(alpha_s+alpha_l+alphaSmall);
+		volScalarField d_m=ALPHA_l*d_l+ALPHA_s*d_s;
+
+		gradUaT = fvc::grad(Ua)().T();
+		volScalarField magD_sl
+		(
+			::sqrt(2.0)*mag(symm(gradUaT))
+		);
+
+
+		dimensionedScalar Beta_sl
+		(
+		"Beta_sl",
+		dimensionSet(0, 0, 0, 0, 0, 0, 0),
+		0.3744
+		);
+
+		dimensionedScalar C_sl
+		(
+		"C_sl",
+		dimensionSet(0, 0, 0, 0, 0, 0, 0),
+		0.2712
+		);
+
+		dimensionedScalar E_sl
+		(
+		"E_sl",
+		dimensionSet(0, 0, 0, 0, 0, 0, 0),
+		2.0957
+		);
+
+		dimensionedScalar A_sl
+		(
+		"A_sl",
+		dimensionSet(0, 0, 0, 0, 0, 0, 0),
+		0.108
+		);
+		dimensionedScalar dsmall
+		(
+		"dsmall",
+		dimensionSet(0, 1, 0, 0, 0, 0, 0),
+		1e-8
+		);		
+		word scheme("div(phi,alpha)");
+	    surfaceScalarField phic("phic", phi);
+
+		dimensionedScalar R_sl=d_l/d_s;
+		volScalarField Lambda_sl=1-ALPHA_s;
+		volScalarField F=(R_sl-1)+E_sl*Lambda_sl*sqr(R_sl-1);
+	
+
+		volVectorField f_sl=(Beta_sl*rhoa*mag(gravity)*magD_sl*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*ALPHA_l*gravity/mag(gravity);
+		surfaceScalarField phiG =  linearInterpolate(f_sl) & mesh.Sf();
+
+		volScalarField D_sl=A_sl*magD_sl*sqr(d_m);
+
+        fvScalarMatrix alphaBiEqn
+        (
+             fvm::ddt(ALPHA_s)
+           + fvm::div(phic, ALPHA_s, scheme)
+           + fvm::div(phiG,ALPHA_s) //segregation term
+           - fvm::laplacian(D_sl, ALPHA_s)   // diffusion term 
+           
+        );
+
+        alphaBiEqn.relax();
+        alphaBiEqn.solve();
+        
+        ALPHA_s.min(1);
+        ALPHA_s.max(0);
+        
+        ALPHA_l=(1-ALPHA_s)*alpha/alphaMax;
+
+}	
