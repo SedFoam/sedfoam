@@ -125,7 +125,8 @@ if (bidispersity)
 		volScalarField F=(R_sl-1)+E_sl*Lambda_sl*sqr(R_sl-1);
 	
 
-		volVectorField f_sl=(Beta_sl*rhoa*mag(gravity)*magD_sl*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*ALPHA_l*gravity/mag(gravity);
+		f_sl=ALPHA_s*(Beta_sl*rhoa*mag(gravity)*magD_sl*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*ALPHA_l*gravity/mag(gravity);
+		//volVectorField f_sl=(Beta_sl*rhoa*mag(gravity)*magD_sl*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*ALPHA_l*gravity/mag(gravity);
 		surfaceScalarField phiG =  linearInterpolate(f_sl) & mesh.Sf();
 
 		volScalarField D_sl=A_sl*magD_sl*sqr(d_m);
@@ -133,9 +134,10 @@ if (bidispersity)
         fvScalarMatrix alphaBiEqn
         (
              fvm::ddt(ALPHA_s)
-           + fvm::div(phic, ALPHA_s, scheme)
-           + fvm::div(phiG,ALPHA_s) //segregation term
-           - fvm::laplacian(D_sl, ALPHA_s)   // diffusion term 
+       //    + fvm::div(phic, ALPHA_s, scheme)
+      //     + fvm::div(phiG,ALPHA_s) //segregation term
+           + fvc::div(phiG) //segregation term
+       //    - fvm::laplacian(D_sl, ALPHA_s)   // diffusion term 
            
         );
 
@@ -145,6 +147,6 @@ if (bidispersity)
         ALPHA_s.min(1);
         ALPHA_s.max(0);
         
-        ALPHA_l=(1-ALPHA_s)*alpha/alphaMax;
+        ALPHA_l=(1-ALPHA_s)*alpha/(alpha+alphaSmall);
 
 }	

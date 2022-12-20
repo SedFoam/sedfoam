@@ -236,6 +236,21 @@ volScalarField ALPHA_s
     dimensionedScalar("zero", dimensionSet(0, -0, -0, 0, 0), 0.0)
 );
 
+
+volVectorField f_sl
+(
+    IOobject
+    (
+        "f_sl",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedVector("zero", dimensionSet(0, 1, -1, 0, 0), vector(0, 0, 0))
+);
+
 // Reading ForceProperties
 
 Info<< "\nReading forceProperties for gradP\n" <<endl;
