@@ -209,6 +209,8 @@ const dimensionedScalar& nua = phasea->nu();
 const dimensionedScalar& d_l = phasea->d_l();
 const dimensionedScalar& d_s = phasea->d();
 Switch bidispersity(transportProperties.get<Switch>("bidispersity"));
+//surfaceScalarField& phiG = phasea->phi();
+
 volScalarField ALPHA_l
 (
     IOobject
