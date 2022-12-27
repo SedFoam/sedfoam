@@ -61,6 +61,26 @@ Foam::phaseModel::phaseModel
             200e-6
         )
     ),
+    aE_
+    (
+        dimensionedScalar::getOrDefault
+        (
+            "aE",
+            dict_,
+            dimless,
+            780
+        )
+    ),
+    bE_
+    (
+        dimensionedScalar::getOrDefault
+        (
+            "aE",
+            dict_,
+            dimless,
+            1.8
+        )
+    ),
     sF_
     (
         dimensionedScalar::getOrDefault
