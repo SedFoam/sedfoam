@@ -68,10 +68,19 @@ Foam::tmp<Foam::volScalarField> Foam::Engelund::K
 ) const
 {
     volScalarField beta(max(scalar(1) - alpha_, scalar(1.0e-6)));
+    volScalarField Cds
+    (
+      (phasea_.aE()*alpha_*alpha_/beta+ phasea_.bE()*Ur*phasea_.d()/(phaseb_.nu()*beta*beta))
+    );
 
-    return 150.0*alpha_*phaseb_.nu()*phaseb_.rho()
-    /sqr(beta*phasea_.d()*phasea_.sF())
-         + 1.75*phaseb_.rho()*Ur/(beta*phasea_.d()*phasea_.sF());
+
+    return max(Cds,1e-3)*phaseb_.nu()*phaseb_.rho()/sqr(phasea_.d());
 }
 
+
+
+
+
+
+    
 // ************************************************************************* //
