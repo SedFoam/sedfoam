@@ -132,20 +132,43 @@ if (bidispersity)
         dimensionSet(0, 0, -1, 0, 0, 0, 0),
         0.05
     );
-		f_sl=pos(alpha-0.588)*(Beta_sl*rhoa*mag(gravity)*dproves*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*gravity/mag(gravity);
+    
+    
+
+    dimensionedScalar MagDsmall
+    (
+        "MagDsmall",
+        dimensionSet(0, 0, -1, 0, 0, 0, 0),
+        0.001
+    );
+    
+    dimensionedScalar alphaCheck
+    (
+        "alphaCheck",
+        dimensionSet(0, 0, 0, 0, 0, 0, 0),
+        0.00001
+    );
+    dimensionedVector gravityVertical
+    (
+        "gravityVertical",
+        dimensionSet(0, 1, -2, 0, 0, 0, 0),
+        vector(0,-8.89,0)
+    );
+		f_sl=ALPHA_s*pos(alpha-alphaCheck)*ALPHA_l*(Beta_sl*rhoa*mag(gravity)*pos(magD_sl-MagDsmall)*magD_sl*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*gravity/mag(gravity);
 		//f_sl=pos(alpha-0.586)*(Beta_sl*rhoa*mag(gravity)*magD_sl*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*gravity/mag(gravity);
 
-		surfaceScalarField phiG =  linearInterpolate(f_sl) & mesh.Sf();
+	    phiG =  linearInterpolate(f_sl) & mesh.Sf();
+		//surfaceScalarField phiG =  linearInterpolate(f_sl) & mesh.Sf();
 
 		volScalarField D_sl=A_sl*magD_sl*sqr(d_m);
 
         fvScalarMatrix alphaBiEqn
         (
              fvm::ddt(ALPHA_s)
-           + fvm::div(phic, ALPHA_s, scheme)
-           + fvm::div(phiG,ALPHA_s) //segregation term
-         //  + fvc::div(phiG) //segregation term
-           - fvm::laplacian(D_sl, ALPHA_s)   // diffusion term 
+         //  + fvm::div(phic, ALPHA_s, scheme)
+         // + fvm::div(phiG,ALPHA_s) //segregation term
+           + fvc::div(phiG) //segregation term
+           //- fvm::laplacian(D_sl, ALPHA_s)   // diffusion term 
            
         );
 
@@ -155,7 +178,7 @@ if (bidispersity)
         ALPHA_s.min(1);
         ALPHA_s.max(0);
         
-        ALPHA_s=pos(alpha-0.586)*ALPHA_s;
-        ALPHA_l=pos(alpha-0.586)*(1-ALPHA_s);
+        ALPHA_s=pos(alpha-alphaCheck)*ALPHA_s;
+        ALPHA_l=pos(alpha-alphaCheck)*(1-ALPHA_s);
 
 }	

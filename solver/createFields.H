@@ -210,6 +210,19 @@ const dimensionedScalar& d_l = phasea->d_l();
 const dimensionedScalar& d_s = phasea->d();
 Switch bidispersity(transportProperties.get<Switch>("bidispersity"));
 //surfaceScalarField& phiG = phasea->phi();
+surfaceScalarField phiG
+(
+    IOobject
+    (
+        "phiG",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimensionSet(0, 3, -1, 0, 0), 0.0)
+);
 
 volScalarField ALPHA_l
 (
