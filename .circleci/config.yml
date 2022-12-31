@@ -40,7 +40,7 @@ jobs:
 
   docs-build:
     docker:
-      - image: opencfd/openfoam2106-dev
+      - image: opencfd/openfoam2112-dev
 
     environment:
       WM_NCOMPPROCS: 2
@@ -136,13 +136,13 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
-            docker build --cache-from=app -t cbonamy/sedfoam_2106_notebook:latest -f docker/Dockerfile_nb docker
+            docker build --cache-from=app -t cbonamy/sedfoam_2112_notebook:latest -f docker/Dockerfile_nb docker
           no_output_timeout: 4h
       - run:
           name: Save Docker image layer cache
           command: |
             mkdir -p /caches
-            docker save -o /caches/app.tar cbonamy/sedfoam_2106_notebook:latest
+            docker save -o /caches/app.tar cbonamy/sedfoam_2112_notebook:latest
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
@@ -173,7 +173,7 @@ jobs:
           name: Publish Docker image
           command: |
             echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
-            docker push cbonamy/sedfoam_2106_notebook:latest
+            docker push cbonamy/sedfoam_2112_notebook:latest
   builddock:
     working_directory: /app
     docker:
