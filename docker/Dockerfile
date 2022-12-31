@@ -2,7 +2,7 @@ FROM opencfd/openfoam-default:2112
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
-RUN update-ca-certificates && apt-get update \
+RUN DEBIAN_FRONTEND=noninteractive update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
   git python3 python3-pip unzip python-is-python3 ipython3 \
   mercurial libreadline-dev vim nano emacs neovim \
