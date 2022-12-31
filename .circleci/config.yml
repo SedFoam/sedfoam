@@ -40,7 +40,7 @@ jobs:
 
   docs-build:
     docker:
-      - image: opencfd/openfoam2112-dev
+      - image: opencfd/openfoam-dev:2112
 
     environment:
       WM_NCOMPPROCS: 2
@@ -53,8 +53,8 @@ jobs:
           name: Install docs packages
           command: >
             update-ca-certificates &&
-            apt-get update && apt-get -y install ca-certificates git python3-pip dvisvgm libclang-9-dev &&
-            apt-get -y install ack-grep libclang-cpp9 wget graphviz tex-gyre texlive-base &&
+            apt-get update && apt-get -y install ca-certificates git python3-pip dvisvgm libclang-14-dev &&
+            apt-get -y install ack-grep libclang-cpp14 wget graphviz tex-gyre texlive-base &&
             apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended
 
       - run:
@@ -235,7 +235,7 @@ jobs:
 
   build:
     docker:
-      - image: opencfd/openfoam2112-dev
+      - image: opencfd/openfoam-dev:2112
 
     environment:
       WM_NCOMPPROCS: 2
@@ -272,7 +272,7 @@ jobs:
 
   test:
     docker:
-      - image: opencfd/openfoam2112-dev
+      - image: opencfd/openfoam-dev:2112
     working_directory: /root/sedfoam
 
     steps:
@@ -312,7 +312,7 @@ jobs:
 
   advanced-test:
     docker:
-      - image: opencfd/openfoam2112-dev
+      - image: opencfd/openfoam-dev:2112
     working_directory: /root/sedfoam
 
     steps:
@@ -342,7 +342,7 @@ jobs:
 
   advanced-test1:
     docker:
-      - image: opencfd/openfoam2112-dev
+      - image: opencfd/openfoam-dev:2112
     working_directory: /root/sedfoam
 
     steps:
@@ -382,7 +382,7 @@ jobs:
 
   advanced-test2:
     docker:
-      - image: opencfd/openfoam2112-dev
+      - image: opencfd/openfoam-dev:2112
     working_directory: /root/sedfoam
 
     steps:
