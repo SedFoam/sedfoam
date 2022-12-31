@@ -1,4 +1,4 @@
-FROM opencfd/openfoam2106-default
+FROM opencfd/openfoam2112-default
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
@@ -15,7 +15,7 @@ WORKDIR /root/
 RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
 
 WORKDIR /root
-RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r vcompile/p2106 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
+RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -b feature/port/p2112 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
 
 WORKDIR /root/swak4Foam
 RUN /bin/bash -c "shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh"
