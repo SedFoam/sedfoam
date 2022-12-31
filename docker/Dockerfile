@@ -1,4 +1,4 @@
-FROM opencfd/openfoam2112-default
+FROM opencfd/openfoam-default:2112
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
