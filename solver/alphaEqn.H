@@ -155,7 +155,7 @@ if (bidispersity)
         vector(0,-8.89,0)
     );
 		//f_sl=pos(alpha-alphaCheck)*ALPHA_l*(Beta_sl*rhoa*mag(gravity)*pos(magD_sl-MagDsmall)*dproves*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*gravity/mag(gravity);
-		f_sl=pos(alpha-alphaCheck)*ALPHA_l*(Beta_sl*rhoa*mag(gravity)*pos(magD_sl-MagDsmall)*dproves*sqr(d_m)*1/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*gravity/mag(gravity);
+		f_sl=pos(alpha-alphaCheck)*ALPHA_l*(Beta_sl*rhoa*mag(gravity)*pos(magD_sl-MagDsmall)*dproves*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)))*gravity/mag(gravity);
 
 	    phiG =  linearInterpolate(f_sl) & mesh.Sf();
 		//surfaceScalarField phiG =  linearInterpolate(f_sl) & mesh.Sf();
