@@ -130,7 +130,7 @@ if (bidispersity)
     (
         "dproves",
         dimensionSet(0, 0, -1, 0, 0, 0, 0),
-        0.05
+        0.01
     );
     
     
@@ -139,7 +139,7 @@ if (bidispersity)
     (
         "MagDsmall",
         dimensionSet(0, 0, -1, 0, 0, 0, 0),
-        0.001
+        1e-19
     );
     
     dimensionedScalar alphaCheck
@@ -154,8 +154,8 @@ if (bidispersity)
         dimensionSet(0, 1, -2, 0, 0, 0, 0),
         vector(0,-8.89,0)
     );
-		f_sl=ALPHA_s*pos(alpha-alphaCheck)*ALPHA_l*(Beta_sl*rhoa*mag(gravity)*pos(magD_sl-MagDsmall)*magD_sl*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*gravity/mag(gravity);
-		//f_sl=pos(alpha-0.586)*(Beta_sl*rhoa*mag(gravity)*magD_sl*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*gravity/mag(gravity);
+		//f_sl=pos(alpha-alphaCheck)*ALPHA_l*(Beta_sl*rhoa*mag(gravity)*pos(magD_sl-MagDsmall)*dproves*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*gravity/mag(gravity);
+		f_sl=pos(alpha-alphaCheck)*ALPHA_l*(Beta_sl*rhoa*mag(gravity)*pos(magD_sl-MagDsmall)*dproves*sqr(d_m)*1/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*gravity/mag(gravity);
 
 	    phiG =  linearInterpolate(f_sl) & mesh.Sf();
 		//surfaceScalarField phiG =  linearInterpolate(f_sl) & mesh.Sf();
@@ -165,10 +165,10 @@ if (bidispersity)
         fvScalarMatrix alphaBiEqn
         (
              fvm::ddt(ALPHA_s)
-         //  + fvm::div(phic, ALPHA_s, scheme)
-         // + fvm::div(phiG,ALPHA_s) //segregation term
-           + fvc::div(phiG) //segregation term
-           //- fvm::laplacian(D_sl, ALPHA_s)   // diffusion term 
+           + fvm::div(phic, ALPHA_s, scheme)
+           + fvm::div(phiG,ALPHA_s) //segregation term
+         //  + fvc::div(phiG) //segregation term
+         //  - fvm::laplacian(D_sl, ALPHA_s)   // diffusion term 
            
         );
 
