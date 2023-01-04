@@ -130,7 +130,7 @@ if (bidispersity)
     (
         "dproves",
         dimensionSet(0, 0, -1, 0, 0, 0, 0),
-        0.01
+        0.1
     );
     
     
@@ -155,7 +155,7 @@ if (bidispersity)
         vector(0,-8.89,0)
     );
 		//f_sl=pos(alpha-alphaCheck)*ALPHA_l*(Beta_sl*rhoa*mag(gravity)*pos(magD_sl-MagDsmall)*dproves*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+pS))*gravity/mag(gravity);
-		f_sl=pos(alpha-alphaCheck)*ALPHA_l*(Beta_sl*rhoa*mag(gravity)*pos(magD_sl-MagDsmall)*dproves*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)))*gravity/mag(gravity);
+		f_sl=pos(alpha-alphaCheck)*ALPHA_l*(Beta_sl*rhoa*mag(gravity)*pos(magD_sl-MagDsmall)*dproves*sqr(d_m)*F/(C_sl*rhoa*mag(gravity)*max(d_m,dsmall)+0*pS))*gravity/mag(gravity);
 
 	    phiG =  linearInterpolate(f_sl) & mesh.Sf();
 		//surfaceScalarField phiG =  linearInterpolate(f_sl) & mesh.Sf();
@@ -180,5 +180,21 @@ if (bidispersity)
         
         ALPHA_s=pos(alpha-alphaCheck)*ALPHA_s;
         ALPHA_l=pos(alpha-alphaCheck)*(1-ALPHA_s);
+        
+        if (debugInfo)
+        {
+            Info<< "Large particle phase volume fraction = "
+            << ALPHA_l.weightedAverage(mesh.V()).value()
+            << "  Min(ALPHA_l) = " << gMin(ALPHA_l)
+            << "  Max(ALPHA_l) = " << gMax(ALPHA_l)
+            << endl;
+            
+            Info<< "Small particle phase volume fraction = "
+            << ALPHA_s.weightedAverage(mesh.V()).value()
+            << "  Min(ALPHA_s) = " << gMin(ALPHA_s)
+            << "  Max(ALPHA_s) = " << gMax(ALPHA_s)
+            << endl;
+            
+        }
 
 }	
