@@ -224,6 +224,19 @@ surfaceScalarField phiG
     dimensionedScalar("zero", dimensionSet(0, 3, -1, 0, 0), 0.0)
 );
 
+volScalarField F
+(
+    IOobject
+    (
+        "F",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimensionSet(0, -0, -0, 0, 0), 0.0)
+);
 volScalarField ALPHA_l
 (
     IOobject

@@ -122,6 +122,7 @@ if (bidispersity)
 
 		dimensionedScalar R_sl=d_l/d_s;
 		volScalarField Lambda_sl=1-ALPHA_s;
+		F=(R_sl-1)+E_sl*Lambda_sl*sqr(R_sl-1);
 		volScalarField F=(R_sl-1)+E_sl*Lambda_sl*sqr(R_sl-1);
 		//volScalarField F=Lambda_sl*scalar(0)+1;
 	
