@@ -19,7 +19,8 @@ cp -r 0_org 0
 runApplication setFields
 
 
-funkySetFields -time 0
+#funkySetFields -time 0
+mapFields  -sourceTime 100 Case1D
 
 decomposePar
 mpirun -np 3 overSedDymFoam_rbgh -parallel > log &
