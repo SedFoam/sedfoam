@@ -29,7 +29,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
-  git unzip mercurial libreadline-dev vim nano emacs neovim \
+  git unzip mercurial libreadline-dev vim nano emacs \
     texlive dvipng \
     wget bzip2 ca-certificates sudo locales fonts-liberation run-one \
     libsm6 \
