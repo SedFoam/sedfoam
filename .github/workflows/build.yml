@@ -1,0 +1,141 @@
+name: Sedfoam_CI
+on:
+  push:
+    branches: ['develop']
+defaults:
+  run:
+    shell: bash
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    container: opencfd/openfoam-dev:2206
+    steps:
+      - name: install git
+        run: |
+          sudo apt-get update && sudo apt-get install -y git
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Build sedfoam
+        run: |
+          shopt -s expand_aliases && source /openfoam/bash.rc && 
+          export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group
+      - uses: actions/upload-artifact@v2
+        with:
+          name: sedfoam-binary
+          path: /usr/lib/openfoam/openfoam2206/site
+
+  test:
+    runs-on: ubuntu-latest
+    container: 
+      image: opencfd/openfoam-dev:2206
+    needs: [build, checkstyle]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: install git and python3 packages
+        run: |
+          sudo apt-get update && sudo apt-get install -y git &&
+          sudo apt-get -y install python3 python3-pip &&
+          sudo pip3 install fluidfoam && mkdir -p /github/home/OpenFOAM/user-v2206/run
+      - name: Check out repository code
+        run: git clone --recurse-submodules https://github.com/sedfoam/sedfoam sedfoam
+        working-directory: /github/home/OpenFOAM/user-v2206/run
+      - uses: actions/download-artifact@v2
+        with:
+          name: sedfoam-binary
+          path: /usr/lib/openfoam/openfoam2206/site
+      - name: Display structure of downloaded files
+        run: sudo chmod u+x -R *
+        working-directory: /github/home/OpenFOAM/user-v2206/run
+      - name: sedfoam test1D sedim
+        run: |
+          shopt -s expand_aliases && source /openfoam/bash.rc && 
+          cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
+          cp -f system/controlDict.sedim system/controlDict  && 
+          source /openfoam/bash.rc && chmod -R a+rwX * &&
+          runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /github/home/OpenFOAM/user-v2206/run/sedfoam/test-ci/1DSedim && ./Allrun' &&
+          python3 test_Sedimentation.py
+        working-directory: /github/home/OpenFOAM/user-v2206/run/sedfoam
+#chmod -R a+rwX /__w/sedfoam/sedfoam && 
+#          runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /__w/sedfoam/sedfoam/test-ci/1DSedim && ./Allrun' &&
+      - name: sedfoam test1D bedload
+        run: |
+          shopt -s expand_aliases && source /openfoam/bash.rc &&
+          cd test-ci/1DSedim && cp -f constant/forceProperties.bedload constant/forceProperties &&
+          cp -f system/controlDict.bedload system/controlDict &&
+          runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /__w/sedfoam/sedfoam/test-ci/1DSedim && ./Allrun' &&
+          python3 test_Bedload.py
+
+  checkstyle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install vera++
+        run: |
+          sudo apt-get install vera++
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: pull submodule
+        run: |
+          git submodule init && git submodule update --remote
+      - name: Check style
+        run: |
+          shopt -s expand_aliases && ./foamStyleCheck/checkStyle
+
+  docker:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: sedfoam_2206_ubuntu
+    needs: [test]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: 'arm64,arm'
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: docker
+          push: true
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          tags: cbonamy/${{ env.IMAGE_NAME }}:latest
+
+  docker_nb:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: sedfoam_2206_notebook
+    needs: docker
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: 'arm64,arm'
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: docker
+          file: docker/Dockerfile_nb
+          push: true
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          tags: cbonamy/${{ env.IMAGE_NAME }}:latest
