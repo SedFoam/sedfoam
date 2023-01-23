@@ -136,7 +136,8 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
-            docker build --cache-from=app -t cbonamy/sedfoam_2206_notebook:latest -f docker/Dockerfile_nb docker
+            echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
+            docker buildx build --push --cache-from=app -t cbonamy/sedfoam_2206_notebook:latest --platform linux/amd64,linux/arm/v8,linux/arm64 -f docker/Dockerfile_nb docker
           no_output_timeout: 4h
       - run:
           name: Save Docker image layer cache
@@ -195,7 +196,8 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
-            docker build --cache-from=app -t cbonamy/$IMAGE_NAME:latest docker
+            echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
+            docker buildx build --push --cache-from=app -t cbonamy/$IMAGE_NAME:latest --platform linux/amd64,linux/arm/v8,linux/arm64 docker
           no_output_timeout: 4h
       - run:
           name: Save Docker image layer cache
@@ -482,15 +484,9 @@ workflows:
             - advanced-test
             - advanced-test1
             - advanced-test2
-      - publishdock:
-          requires:
-            - builddock
       - builddock_nb:
           requires:
-            - publishdock
-      - publishdock_nb:
-          requires:
-            - builddock_nb
+            - builddock
       - docs-build
       - docs-deploy:
           requires:
