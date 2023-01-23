@@ -437,15 +437,9 @@ workflows:
               only:
                 - master
                 - develop
-      - publishdock:
-          requires:
-            - builddock
       - builddock_nb:
           requires:
-            - publishdock
-      - publishdock_nb:
-          requires:
-            - builddock_nb
+            - builddock
       - docs-build
       - docs-deploy:
           requires:
