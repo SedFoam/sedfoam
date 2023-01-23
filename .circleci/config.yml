@@ -137,6 +137,7 @@ jobs:
           name: Build application Docker image
           command: |
             echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
+            docker buildx create --name multiarch --driver docker-container --use
             docker buildx build --push --cache-from=app -t cbonamy/sedfoam_2206_notebook:latest --platform linux/amd64,linux/arm/v8,linux/arm64 -f docker/Dockerfile_nb docker
           no_output_timeout: 4h
       - run:
@@ -197,6 +198,7 @@ jobs:
           name: Build application Docker image
           command: |
             echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
+            docker buildx create --name multiarch --driver docker-container --use
             docker buildx build --push --cache-from=app -t cbonamy/$IMAGE_NAME:latest --platform linux/amd64,linux/arm/v8,linux/arm64 docker
           no_output_timeout: 4h
       - run:
