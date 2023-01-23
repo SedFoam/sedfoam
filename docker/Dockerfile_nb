@@ -1,4 +1,4 @@
-FROM cbonamy/sedfoam_v2106_ubuntu
+FROM cbonamy/sedfoam_2206_ubuntu
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
@@ -37,7 +37,7 @@ RUN update-ca-certificates && apt-get update \
     libxrender1 \
     lmodern \
     netcat \
-    python-dev \
+    python3-dev \
     # ---- nbconvert dependencies ----
     texlive-xetex \
     texlive-fonts-recommended \
