@@ -2,6 +2,9 @@ name: Sedfoam_CI
 on:
   push:
     branches: ['develop']
+# Warning : schedule is only for default branch
+#  schedule:
+#    - cron: '0 3 * * 1'
 defaults:
   run:
     shell: bash
@@ -18,6 +21,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
+          ref: develop
       - name: Build sedfoam
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && 
@@ -42,7 +46,7 @@ jobs:
           sudo apt-get -y install python3 python3-pip &&
           sudo pip3 install fluidfoam && mkdir -p /github/home/OpenFOAM/user-v2206/run
       - name: Check out repository code
-        run: git clone --recurse-submodules https://github.com/sedfoam/sedfoam sedfoam
+        run: git clone -b develop --recurse-submodules https://github.com/sedfoam/sedfoam sedfoam
         working-directory: /github/home/OpenFOAM/user-v2206/run
       - uses: actions/download-artifact@v2
         with:
@@ -65,8 +69,111 @@ jobs:
           shopt -s expand_aliases && source /openfoam/bash.rc &&
           cd test-ci/1DSedim && cp -f constant/forceProperties.bedload constant/forceProperties &&
           cp -f system/controlDict.bedload system/controlDict &&
-          runuser -l sudofoam -c 'source /openfoam/bash.rc && pwd && cd /github/home/OpenFOAM/user-v2206/run/sedfoam/test-ci/1DSedim && ./Allrun' &&
+          runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /github/home/OpenFOAM/user-v2206/run/sedfoam/test-ci/1DSedim && ./Allrun' &&
           source /openfoam/bash.rc && python3 test_Bedload.py
+        working-directory: /github/home/OpenFOAM/user-v2206/run/sedfoam
+
+  advanced-test:
+    runs-on: ubuntu-latest
+    container: 
+      image: opencfd/openfoam-dev:2206
+    needs: [build, checkstyle, test]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: install git and python3 packages
+        run: |
+          sudo apt-get update && sudo apt-get install -y git &&
+          sudo apt-get -y install python3 python3-pip &&
+          sudo pip3 install fluidfoam && mkdir -p /github/home/OpenFOAM/user-v2206/run
+      - name: Check out repository code
+        run: git clone -b develop --recurse-submodules https://github.com/sedfoam/sedfoam sedfoam
+        working-directory: /github/home/OpenFOAM/user-v2206/run
+      - uses: actions/download-artifact@v2
+        with:
+          name: sedfoam-binary
+          path: /usr/lib/openfoam/openfoam2206/site
+      - name: chmod sedfoam binary
+        run: sudo chmod a+x -R *
+        working-directory: /usr/lib/openfoam/openfoam2206/site
+      - name: sedfoam test1D AvalancheMuI
+        run: |
+          shopt -s expand_aliases && source /openfoam/bash.rc && 
+          source /openfoam/bash.rc && chmod -R a+rwX /github/home/OpenFOAM/user-v2206/run &&
+          runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /github/home/OpenFOAM/user-v2206/run/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
+          cd test-ci/1DAvalancheMuI && python3 test_1DAvalancheMuI.py
+        working-directory: /github/home/OpenFOAM/user-v2206/run/sedfoam
+
+  advanced-test1:
+    runs-on: ubuntu-latest
+    container: 
+      image: opencfd/openfoam-dev:2206
+    needs: [build, checkstyle, test]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: install git and python3 packages
+        run: |
+          sudo apt-get update && sudo apt-get install -y git &&
+          sudo apt-get -y install python3 python3-pip &&
+          sudo pip3 install fluidfoam && mkdir -p /github/home/OpenFOAM/user-v2206/run
+      - name: Check out repository code
+        run: git clone -b develop --recurse-submodules https://github.com/sedfoam/sedfoam sedfoam
+        working-directory: /github/home/OpenFOAM/user-v2206/run
+      - uses: actions/download-artifact@v2
+        with:
+          name: sedfoam-binary
+          path: /usr/lib/openfoam/openfoam2206/site
+      - name: chmod sedfoam binary
+        run: sudo chmod a+x -R *
+        working-directory: /usr/lib/openfoam/openfoam2206/site
+      - name: sedfoam test 1DBedLoadTurb
+        run: |
+          shopt -s expand_aliases && source /openfoam/bash.rc && 
+          source /openfoam/bash.rc && chmod -R a+rwX /github/home/OpenFOAM/user-v2206/run &&
+          runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /github/home/OpenFOAM/user-v2206/run/sedfoam/test-ci/1DBedLoadTurb && ./Allrun' &&
+          cd test-ci/1DBedLoadTurb && python3 test_1DBedLoadTurb.py
+        working-directory: /github/home/OpenFOAM/user-v2206/run/sedfoam
+      - name: sedfoam test 1DBoundaryLayer
+        run: |
+          shopt -s expand_aliases && source /openfoam/bash.rc && 
+          source /openfoam/bash.rc && chmod -R a+rwX /github/home/OpenFOAM/user-v2206/run &&
+          runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /github/home/OpenFOAM/user-v2206/run/sedfoam/test-ci/1DBoundaryLayer && ./Allrun' &&
+          cd test-ci/1DBoundaryLayer && python3 test_1DBoundaryLayer.py
+        working-directory: /github/home/OpenFOAM/user-v2206/run/sedfoam
+
+  advanced-test2:
+    runs-on: ubuntu-latest
+    container: 
+      image: opencfd/openfoam-dev:2206
+    needs: [build, checkstyle, test]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: install git and python3 packages
+        run: |
+          sudo apt-get update && sudo apt-get install -y git &&
+          sudo apt-get -y install python3 python3-pip &&
+          sudo pip3 install fluidfoam && mkdir -p /github/home/OpenFOAM/user-v2206/run
+      - name: Check out repository code
+        run: git clone -b develop --recurse-submodules https://github.com/sedfoam/sedfoam sedfoam
+        working-directory: /github/home/OpenFOAM/user-v2206/run
+      - uses: actions/download-artifact@v2
+        with:
+          name: sedfoam-binary
+          path: /usr/lib/openfoam/openfoam2206/site
+      - name: chmod sedfoam binary
+        run: sudo chmod a+x -R *
+        working-directory: /usr/lib/openfoam/openfoam2206/site
+      - name: sedfoam test 1DWetAvalanche
+        run: |
+          shopt -s expand_aliases && source /openfoam/bash.rc && 
+          source /openfoam/bash.rc && chmod -R a+rwX /github/home/OpenFOAM/user-v2206/run &&
+          runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /github/home/OpenFOAM/user-v2206/run/sedfoam/test-ci/1DWetAvalanche && ./Allrun' &&
+          cd test-ci/1DWetAvalanche && python3 test_1DWetAvalanche.py
         working-directory: /github/home/OpenFOAM/user-v2206/run/sedfoam
 
   checkstyle:
@@ -77,6 +184,8 @@ jobs:
           sudo apt-get install vera++
       - name: Check out repository code
         uses: actions/checkout@v3
+        with:
+          ref: develop
       - name: pull submodule
         run: |
           git submodule init && git submodule update --remote
@@ -86,12 +195,15 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
+#    if: ${{ github.event_name == 'schedule' }}
     env:
       IMAGE_NAME: sedfoam_2206_ubuntu
     needs: [test]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: develop
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
@@ -113,12 +225,15 @@ jobs:
 
   docker_nb:
     runs-on: ubuntu-latest
+#    if: ${{ github.event_name == 'schedule' }}
     env:
       IMAGE_NAME: sedfoam_2206_notebook
     needs: docker
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: develop
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:

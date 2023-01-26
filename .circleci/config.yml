@@ -227,12 +227,12 @@ jobs:
           at: /usr/lib/openfoam/openfoam2206
 
       - run:
-          name: sedfoam 1D Avalanche
+          name: sedfoam 1D AvalancheMuI
           command: >
             shopt -s expand_aliases && chmod -R a+rwX /root &&
             source /openfoam/bash.rc &&
             runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
-            cd /root/sedfoam/test-ci/1DAvalancheMuI && python3 test_AvalancheMuI.py
+            cd /root/sedfoam/test-ci/1DAvalancheMuI && python3 test_1DAvalancheMuI.py
           no_output_timeout: 30m
 
   advanced-test1:
