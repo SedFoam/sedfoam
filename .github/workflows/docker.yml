@@ -15,7 +15,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
 #    if: ${{ github.event_name == 'schedule' }}
-    if: ${{ github.event.workflow_run.conclusion == 'success' }} && github.event_name == 'push'
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} && ${{ github.event_name == 'push' }}
     env:
       IMAGE_NAME: sedfoam_2206_ubuntu
     needs: [test]
