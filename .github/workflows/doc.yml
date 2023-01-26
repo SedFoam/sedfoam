@@ -43,7 +43,7 @@ jobs:
           source /openfoam/bash.rc &&
           python3 doxygen.py ../../conf.py &&
           cd ../.. && cp images/* mcssout/html/. && cd mcssout/html &&
-          grep -l "ource file" *html | xargs -0 -n 1 sed -i "s/\"\/github\/home\/sedfoam/\"https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
+          grep -Z -l "ource file" *html | xargs -0 -n 1 sed -i "s/\"\/github\/home\/sedfoam/\"https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
         working-directory: /github/home
       - uses: actions/upload-artifact@v2
         with:
