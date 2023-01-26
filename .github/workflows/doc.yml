@@ -1,4 +1,4 @@
-name: Sedfoam_CI
+name: Generate_Doc
 on:
   push:
     branches: ['develop']
