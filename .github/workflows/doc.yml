@@ -42,18 +42,22 @@ jobs:
           cd m.css/documentation && cp ../../doxygen.py . &&
           source /openfoam/bash.rc &&
           python3 doxygen.py ../../conf.py &&
-          cd ../.. && cp images/* mcssout/html/. #&&
-#          ack "ource file" -l --print0 | xargs -0 -n 1 sed -i "s/\"\/github\/home\/sedfoam/\"https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
+          cd ../.. && cp images/* mcssout/html/. && cd mcssout/html &&
+          grep -l "ource file" *html | xargs -0 -n 1 sed -i "s/\"\/github\/home\/sedfoam/\"https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
         working-directory: /github/home
       - uses: actions/upload-artifact@v2
         with:
           name: sedfoam-doc
-          path: /github/home/sedfoam/mcssout/html
+          path: /github/home/sedfoam/doc/mcssout/html
 
   docs-deploy:
     runs-on: ubuntu-latest
     container: opencfd/openfoam-dev:2206
+    needs: docs-build
     steps:
+      - name: install git
+        run: |
+          sudo apt-get update && sudo apt-get -y install git
       - name: Check out repository code
         uses: actions/checkout@v3
       - uses: actions/download-artifact@v2

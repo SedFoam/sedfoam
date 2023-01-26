@@ -320,15 +320,15 @@ workflows:
       - advanced-test2:
           requires:
             - build
-      - docs-build
-      - docs-deploy:
-          requires:
-            - docs-build
-          filters:
-            branches:
-              only:
-                - master
-                - develop
+#      - docs-build
+#      - docs-deploy:
+#          requires:
+#            - docs-build
+#          filters:
+#            branches:
+#              only:
+#                - master
+#                - develop
   weekly:
     triggers:
       - schedule:
@@ -352,8 +352,8 @@ workflows:
       - advanced-test2:
           requires:
             - build
-      - docs-build
-      - docs-deploy:
-          requires:
-            - docs-build
+#      - docs-build
+#      - docs-deploy:
+#          requires:
+#            - docs-build
 
