@@ -49,14 +49,14 @@ jobs:
           name: sedfoam-binary
           path: /usr/lib/openfoam/openfoam2206/site
       - name: Display structure of downloaded files
-        run: sudo chmod u+x -R *
+        run: sudo chmod a+x -R *
         working-directory: /github/home/OpenFOAM/user-v2206/run
       - name: sedfoam test1D sedim
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && 
           cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
           cp -f system/controlDict.sedim system/controlDict  && 
-          source /openfoam/bash.rc && chmod -R a+rwX * &&
+          source /openfoam/bash.rc && chmod -R a+rwX /github/home/OpenFOAM/user-v2206/run &&
           runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /github/home/OpenFOAM/user-v2206/run/sedfoam/test-ci/1DSedim && ./Allrun' &&
           python3 test_Sedimentation.py
         working-directory: /github/home/OpenFOAM/user-v2206/run/sedfoam
