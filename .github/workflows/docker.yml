@@ -1,7 +1,8 @@
 name: generate_docker
 on:
   workflow_run:
-    workflows: [build_and_test]
+    workflows: ["build_and_test"]
+    branches: [develop]
     types:
       - completed
 # Warning : schedule is only for default branch
