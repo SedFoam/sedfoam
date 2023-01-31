@@ -25,17 +25,18 @@ jobs:
             sudo DEBIAN_FRONTEND=noninteractive TZ='Europe/Paris' apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended &&
             sudo pip3 install -U jinja2 Pygments && mkdir -p /github/home
       - name: Check out repository code
-        run: git clone -b develop --recurse-submodules https://github.com/sedfoam/sedfoam sedfoam
-        working-directory: /github/home
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          path: sedfoam
       - name: Install doxygen
         run: |
           shopt -s expand_aliases &&
           wget https://sourceforge.net/projects/doxygen/files/rel-1.9.3/doxygen-1.9.3.linux.bin.tar.gz &&
           tar -xvf doxygen-1.9.3.linux.bin.tar.gz 
-        working-directory: /github/home
       - name: clone m.css and build doc
         run: |
-          shopt -s expand_aliases &&
+          shopt -s expand_aliases && export MYPATH=$PWD &&
           export PATH=$PWD/doxygen-1.9.3/bin:$PATH &&
           cd sedfoam/doc &&
           git clone https://github.com/mosra/m.css &&
@@ -43,12 +44,11 @@ jobs:
           source /openfoam/bash.rc &&
           python3 doxygen.py ../../conf.py &&
           cd ../.. && cp images/* mcssout/html/. && cd mcssout/html &&
-          grep -Z -l "ource file" *html | xargs -0 -n 1 sed -i "s/\"\/github\/home\/sedfoam/\"https:\/\/github.com\/sedfoam\/sedfoam\/blob\/master/g"
-        working-directory: /github/home
+          grep -Z -l "ource file" *html | xargs -0 -n 1 sed -i "s|$MYPATH/sedfoam/|https://github.com/sedfoam/sedfoam/blob/master/|g"
       - uses: actions/upload-artifact@v2
         with:
           name: sedfoam-doc
-          path: /github/home/sedfoam/doc/mcssout/html
+          path: sedfoam/doc/mcssout/html
 
   docs-deploy:
     runs-on: ubuntu-latest

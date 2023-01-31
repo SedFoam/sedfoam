@@ -1,10 +1,7 @@
 name: generate_docker
 on:
-  workflow_run:
-    workflows: ["build_and_test"]
-    branches: [develop]
-    types:
-      - completed
+  push:
+    branches: ['develop']
 # Warning : schedule is only for default branch
 #  schedule:
 #    - cron: '0 3 * * 1'
@@ -13,18 +10,30 @@ defaults:
     shell: bash
 jobs:
 
+  build:
+    runs-on: ubuntu-latest
+    container: opencfd/openfoam-dev:2206
+    steps:
+      - name: install git
+        run: |
+          apt-get update && apt-get install -y git
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Build sedfoam
+        run: |
+          shopt -s expand_aliases && source /openfoam/bash.rc &&
+          export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group
+
   docker:
     runs-on: ubuntu-latest
-#    if: ${{ github.event_name == 'schedule' }}
-    if: ${{ github.event.workflow_run.conclusion == 'success' }} && ${{ github.event_name == 'push' }}
     env:
       IMAGE_NAME: sedfoam_2206_ubuntu
-    needs: [test]
+    needs: build
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          ref: develop
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
@@ -46,15 +55,12 @@ jobs:
 
   docker_nb:
     runs-on: ubuntu-latest
-#    if: ${{ github.event_name == 'schedule' }}
     env:
       IMAGE_NAME: sedfoam_2206_notebook
     needs: docker
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          ref: develop
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
