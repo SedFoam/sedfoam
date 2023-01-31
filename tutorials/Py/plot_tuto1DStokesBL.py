@@ -34,7 +34,7 @@ x, y, z = fluidfoam.readmesh(sol)
 
 datalist = ["3.5", "4", "4.5", "5", "5.5"]
 
-#%%  graphs
+#       graphs
 
 #
 #

@@ -1,6 +1,7 @@
 import numpy as np
 import fluidfoam
 from pylab import plt, matplotlib
+from matplotlib.ticker import StrMethodFormatter
 
 plt.rcParams.update({"font.size": 16})
 plt.rc("font", family="serif")
@@ -127,7 +128,6 @@ for i in range(len(times)):
 # 				Plots
 #########################################
 
-from matplotlib.ticker import StrMethodFormatter
 
 # velocity profile
 plt.figure()

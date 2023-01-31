@@ -4,12 +4,12 @@ import numpy as np
 import fluidfoam
 import matplotlib.pyplot as plt
 
-plt.ion()
-
 #             Plot properties
 import matplotlib.ticker as mticker
 from matplotlib.ticker import StrMethodFormatter, NullFormatter
 from matplotlib import rc
+
+plt.ion()
 
 # rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
 rc("text", usetex=True)
@@ -40,16 +40,16 @@ try:
         ["foamListTimes", "-latestTime", "-case", sol],
         stdout=subprocess.PIPE,
     )
-except:
+except FileNotFoundError:
     print("foamListTimes : command not found")
     print("Do you have load OpenFoam environement?")
     sys.exit(0)
-output = (
-    proc.stdout.read()
-)  # to obtain the output of function foamListTimes from the subprocess
-timeStep = (
-    output.decode().rstrip().split("\n")[0]
-)  # Some management on the output to obtain a number
+
+# to obtain the output of function foamListTimes from the subprocess
+output = proc.stdout.read()
+
+# Some management on the output to obtain a number
+timeStep = output.decode().rstrip().split("\n")[0]
 
 # Read the data
 X, Y, Z = fluidfoam.readmesh(sol)
@@ -74,10 +74,10 @@ plt.ylim([-1.525, 32.025])
 plt.legend()
 
 plt.subplot(142)
-I = np.where(phiDEM > 0.001)[0]
-plt.plot(vxPDEM[I], zDEM[I] / d, "r--")
-I = np.where(phi > 0.001)[0]
-plt.plot(vxPart[I], z[I] / d, "r", label=r"$v_x^p$")
+IndPhi = np.where(phiDEM > 0.001)[0]
+plt.plot(vxPDEM[IndPhi], zDEM[IndPhi] / d, "r--")
+IndPhi = np.where(phi > 0.001)[0]
+plt.plot(vxPart[IndPhi], z[IndPhi] / d, "r", label=r"$v_x^p$")
 plt.plot(vxFDEM, zDEM / d, "b--")
 plt.plot(vxFluid, z / d, "b", label=r"$u_x^f$")
 plt.xlabel(r"$v_x^p$, $u_x^f$", fontsize=25)
@@ -99,10 +99,10 @@ ax.set_yticklabels([])
 
 plt.subplot(144)
 
-I = np.where(phiDEM > 0.001)[0]
-plt.plot(TDEM[I], zDEM[I] / d, "k--", label=r"DEM")
-I = np.where(phi > 0.001)[0]
-plt.plot(T[I], z[I] / d, label=r"SedFoam")
+IndPhi = np.where(phiDEM > 0.001)[0]
+plt.plot(TDEM[IndPhi], zDEM[IndPhi] / d, "k--", label=r"DEM")
+IndPhi = np.where(phi > 0.001)[0]
+plt.plot(T[IndPhi], z[IndPhi] / d, label=r"SedFoam")
 plt.xlabel(r"$T$", fontsize=25)
 plt.grid()
 plt.ylim([-1.525, 32.025])

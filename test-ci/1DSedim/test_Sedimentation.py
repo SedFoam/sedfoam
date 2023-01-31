@@ -33,7 +33,7 @@ eps_file = sol + case + ".eps"
 #
 try:
     proc = subprocess.Popen(["foamListTimes", "-case", sol], stdout=subprocess.PIPE)
-except:
+except FileNotFoundError:
     print("foamListTimes : command not found")
     print("Do you have load OpenFoam environement?")
     sys.exit(0)

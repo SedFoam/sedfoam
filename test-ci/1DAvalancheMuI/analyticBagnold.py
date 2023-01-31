@@ -26,12 +26,12 @@ def analyticBagnold(nx, H, g, d, rho_p, rho_f, phi0, I0, Bphi, mus, mu2, beta):
     # Compute the analytical solution
     alphaex = np.ones(nx) * phi0
 
-    I = I0 / ((mu2 - mus) / (np.tan(beta) - mus) - 1.0)
-    alphaex = phi0 / (1 + Bphi * I) * np.ones(nx)
+    Ine = I0 / ((mu2 - mus) / (np.tan(beta) - mus) - 1.0)
+    alphaex = phi0 / (1 + Bphi * Ine) * np.ones(nx)
     uex = (
         2.0
         / 3.0
-        * I
+        * Ine
         * np.sqrt(alphaex * np.cos(beta))
         * (H**1.5 - (H - xex) ** (1.5))
     )
@@ -45,7 +45,8 @@ def analyticBagnold(nx, H, g, d, rho_p, rho_f, phi0, I0, Bphi, mus, mu2, beta):
 
     pex = np.zeros(nx)
     pex = (rho_p - rho_f) * g * np.cos(beta) * alphaex * (H * d - xex)
-    muIex = (mus + (mu2 - mus) / (I0 / I + 1)) * np.ones(nx)
+
+    muIex = (mus + (mu2 - mus) / (I0 / Ine + 1)) * np.ones(nx)
     tauex = muIex * pex
 
     duexdz = np.zeros(nx)
@@ -53,9 +54,9 @@ def analyticBagnold(nx, H, g, d, rho_p, rho_f, phi0, I0, Bphi, mus, mu2, beta):
     for i in range(nx - 1):
         duexdz[i] = (uex[i + 1] - uex[i]) / (xex[i + 1] - xex[i])
         nuex[i] = (
-            (mus + (mu2 - mus) / (I0 / I + 1))
+            (mus + (mu2 - mus) / (I0 / Ine + 1))
             * pex[i]
             / (rho_p * (np.abs(duexdz[i]) + 1e-10))
         )
 
-    return xex, I, alphaex, uex, pex, muIex, tauex, duexdz, nuex
+    return xex, Ine, alphaex, uex, pex, muIex, tauex, duexdz, nuex

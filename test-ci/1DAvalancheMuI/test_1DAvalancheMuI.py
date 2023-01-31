@@ -44,7 +44,7 @@ try:
     proc = subprocess.Popen(
         ["foamListTimes", "-latestTime", "-case", sol], stdout=subprocess.PIPE
     )
-except:
+except FileNotFoundError:
     print("foamListTimes : command not found")
     print("Did you loaded OpenFoam environement?")
     sys.exit(0)
@@ -69,7 +69,7 @@ Tauf = fluidfoam.readtensor(sol, tread, "Taub")
 Taus = fluidfoam.readtensor(sol, tread, "Taua")
 try:
     gradUa = fluidfoam.readtensor(sol, tread, "grad(U.a)")
-except:
+except FileNotFoundError:
     print(
         "grad(Ua) was not found -> Introduce - postProcess -func 'grad(U.a)' - in the command line"
     )

@@ -29,7 +29,7 @@ try:
     proc = subprocess.Popen(
         ["foamListTimes", "-latestTime", "-case", sol], stdout=subprocess.PIPE
     )
-except:
+except FileNotFoundError:
     print("foamListTimes : command not found")
     print("Do you have load OpenFoam environement?")
     sys.exit(0)
@@ -52,8 +52,8 @@ rms_phi = rms(phi_interp - phiDATA)
 assert rms_phi <= 0.02
 
 vxPart_interp = np.interp(zDATA, z, vxPart)
-I = np.where(zDATA < 17.5 * 0.006)
-rms_vxP = rms(vxPart_interp[I] - vxPDATA[I])
+Ind = np.where(zDATA < 17.5 * 0.006)
+rms_vxP = rms(vxPart_interp[Ind] - vxPDATA[Ind])
 assert rms_vxP <= 0.1
 
 vxFluid_interp = np.interp(zDATA, z, vxFluid)
@@ -61,6 +61,6 @@ rms_vxF = rms(vxFluid_interp - vxFDATA)
 assert rms_vxF <= 0.15
 
 T_interp = np.interp(zDATA, z, T)
-I = np.where(zDATA < 17.5 * 0.006)
-rms_T = rms(T_interp[I] - TDATA[I])
+Ind = np.where(zDATA < 17.5 * 0.006)
+rms_T = rms(T_interp[Ind] - TDATA[Ind])
 assert rms_T <= 0.02

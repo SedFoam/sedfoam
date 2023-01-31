@@ -181,12 +181,17 @@ jobs:
   checkpep8:
     runs-on: ubuntu-latest
     steps:
+      - name: install pycodestyle
+        run: |
+          sudo pip3 install pycodestyle
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
           ref: develop
       - name: Python Style Checker
-        uses: andymckay/pycodestyle-action@0.1.3
+        run: |
+          pycodestyle test-ci  --max-line-length=120 &&
+          pycodestyle tutorials  --max-line-length=120
 
   checkstyle:
     runs-on: ubuntu-latest

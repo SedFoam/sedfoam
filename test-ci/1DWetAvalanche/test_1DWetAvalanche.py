@@ -31,7 +31,7 @@ try:
     proc = subprocess.Popen(
         ["foamListTimes", "-latestTime", "-case", sol], stdout=subprocess.PIPE
     )
-except:
+except FileNotFoundError:
     print("foamListTimes : command not found")
     print("Do you have load OpenFoam environement?")
     sys.exit(0)

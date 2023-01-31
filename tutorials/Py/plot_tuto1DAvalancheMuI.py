@@ -1,6 +1,7 @@
 import analyticBagnold
 import subprocess
-import os, sys
+import os
+import sys
 import numpy as np
 import fluidfoam
 from pylab import matplotlib, mpl, figure, subplot, savefig, show
@@ -61,7 +62,7 @@ try:
     proc = subprocess.Popen(
         ["foamListTimes", "-latestTime", "-case", sol], stdout=subprocess.PIPE
     )
-except:
+except FileNotFoundError:
     print("foamListTimes : command not found")
     print("Do you have load OpenFoam environement?")
     sys.exit(0)
@@ -86,7 +87,7 @@ Tauf = fluidfoam.readtensor(sol, tread, "Taub")
 Taus = fluidfoam.readtensor(sol, tread, "Taua")
 try:
     gradUa = fluidfoam.readtensor(sol, tread, "grad(U.a)")
-except:
+except FileNotFoundError:
     print("grad(U.a) was not found -> postProcess -func 'grad(U.a)'")
     os.system("postProcess -case " + sol + " -func 'grad(U.a)' -time " + tread)
     gradUa = fluidfoam.readtensor(sol, tread, "grad(U.a)")

@@ -5,7 +5,7 @@ import fluidfoam
 from pylab import *
 import matplotlib.gridspec as gridspec
 
-#
+
 def rms(x):
     return np.sqrt(x.dot(x) / x.size)
 
@@ -112,9 +112,6 @@ zpepsilonDNS = npzfiles["arr_7"]
 #
 # ---------------------Figures----------------------
 #
-
-
-#############fig3
 gs3 = gridspec.GridSpec(1, 3)
 fig = plt.figure(num=3, figsize=(18, 8), dpi=60, facecolor="w", edgecolor="w")
 ax = fig.add_subplot(gs3[0, 0])

@@ -6,16 +6,12 @@ import sys
 import numpy as np
 import fluidfoam
 
-sys.path.append("../../tutorials/Py/")
 from analytic_coulomb2D import analytic_coulomb2D
 
 
 def RMS(YM, UM, Yex, Uex):
-
     UexI = np.interp(YM, Yex, Uex, right=np.NAN)
-
     RMSU = np.nanstd(UM[:] - UexI[:])
-
     return RMSU
 
 

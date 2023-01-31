@@ -5,7 +5,10 @@ Created on Tue Jan  5 14:01:08 2021
 
 @author: chauchat
 """
-import os, sys, time, subprocess
+import os
+import sys
+import time
+import subprocess
 import numpy as np
 
 #
@@ -33,6 +36,6 @@ for case in caseList:
         elif action == "clean":
             proc = subprocess.Popen(["./Allclean"], stdout=subprocess.PIPE)
         time.sleep(3)
-    except:
+    except FileNotFoundError:
         print("There is a problem with this case")
         sys.exit(0)

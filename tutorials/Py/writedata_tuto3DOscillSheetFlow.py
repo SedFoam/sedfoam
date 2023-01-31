@@ -23,7 +23,7 @@ for directory in dir_list:
     try:
         float(directory)
         time_list.append(directory)
-    except:
+    except ValueError:
         pass
 time_list.sort(key=float)
 time_list = np.array(time_list)
