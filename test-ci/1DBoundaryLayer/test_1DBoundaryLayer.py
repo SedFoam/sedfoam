@@ -10,15 +10,6 @@ def rms(x):
 
 
 #
-# Change fontsize
-#
-matplotlib.rcParams.update({"font.size": 15})
-# Figure size
-#
-figwidth = 18
-figheight = 9
-#
-#
 #
 # ---------------Loading OpenFoam results--------------------
 #
