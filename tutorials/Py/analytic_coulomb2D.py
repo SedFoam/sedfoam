@@ -14,20 +14,22 @@
 
 def analytic_coulomb2D(nx, x, dpdx, hp, mus, phi0, eta_e):
     import numpy as np
-# --------------------------------------------------------------
-#
-#  Calculation of the depth of the flowing layer
-#
-# --------------------------------------------------------------
+
+    # --------------------------------------------------------------
+    #
+    #  Calculation of the depth of the flowing layer
+    #
+    # --------------------------------------------------------------
     ratio = 1e0 / eta_e
-    dum = - (1e0 - hp) / ratio * \
-        (1e0 - (1e0 - ratio * dpdx / (mus * phi0 + dpdx)) ** 0.5)
+    dum = (
+        -(1e0 - hp) / ratio * (1e0 - (1e0 - ratio * dpdx / (mus * phi0 + dpdx)) ** 0.5)
+    )
     hc = hp - dum
-# --------------------------------------------------------------
-#
-#  Calculation of the velocity profile
-#
-# --------------------------------------------------------------
+    # --------------------------------------------------------------
+    #
+    #  Calculation of the velocity profile
+    #
+    # --------------------------------------------------------------
     uex = np.zeros(nx)
 
     for i in range(nx):
@@ -39,11 +41,13 @@ def analytic_coulomb2D(nx, x, dpdx, hp, mus, phi0, eta_e):
             uex[i] = ratio * (dpdx + mus * phi0) * 0.5e0 * (x[i] - hc) ** 2
         elif x[i] > hp:
             #  ZONE I   : Pure fluid layer
-            uex[i] = -dpdx * 0.5e0 * (1e0 - x[i]) * (x[i] - hp) \
-                + 0.5e0 * ratio * (dpdx + mus * phi0) * (1e0 - x[i]) \
-                * (hp - hc) ** 2 / (1e0 - hp)
+            uex[i] = -dpdx * 0.5e0 * (1e0 - x[i]) * (x[i] - hp) + 0.5e0 * ratio * (
+                dpdx + mus * phi0
+            ) * (1e0 - x[i]) * (hp - hc) ** 2 / (1e0 - hp)
 
     return uex, hc
+
+
 # --------------------------------------------------------------
 #
 #            END OF THE FUNCTION

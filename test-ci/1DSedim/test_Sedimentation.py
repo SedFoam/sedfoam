@@ -10,7 +10,7 @@ import fluidfoam
 #
 # Loading experimental results
 #
-#execfile('DATA/exp_lmsgc.py')
+# execfile('DATA/exp_lmsgc.py')
 exec(open("../../tutorials/Py/DATA/exp_lmsgc.py").read())
 #########################################
 # Loading OpenFoam results
@@ -18,29 +18,28 @@ exec(open("../../tutorials/Py/DATA/exp_lmsgc.py").read())
 #
 #
 #
-case = '1DSedim'
-basepath = '../'
-sol = basepath + case + '/'
+case = "1DSedim"
+basepath = "../"
+sol = basepath + case + "/"
 
 Nx = 1
 Ny = 120
 Nz = 1
 
-eps_file = sol + case + '.eps'
+eps_file = sol + case + ".eps"
 
 #
 # Reading SedFoam results
 #
 try:
-    proc = subprocess.Popen(
-        ['foamListTimes', '-case', sol], stdout=subprocess.PIPE)
+    proc = subprocess.Popen(["foamListTimes", "-case", sol], stdout=subprocess.PIPE)
 except:
     print("foamListTimes : command not found")
     print("Do you have load OpenFoam environement?")
     sys.exit(0)
 output = proc.stdout.read()
-#tread = list(output.split('\n'))
-tread = output.decode().rstrip().split('\n')
+# tread = list(output.split('\n'))
+tread = output.decode().rstrip().split("\n")
 
 
 del tread[-1]
@@ -54,20 +53,20 @@ for t in tread:
     print("Reading time: %s s" % t)
     k = k + 1
 
-    alphat[:, k] = fluidfoam.readscalar(sol, t + '/', 'alpha.a')
+    alphat[:, k] = fluidfoam.readscalar(sol, t + "/", "alpha.a")
     time[k] = float(t)
 
 
 #
 # parameter
 #
-zmin = 0.
+zmin = 0.0
 zmax = np.max(Y)
 
-tmax = 1800.
-tadj = 172.
+tmax = 1800.0
+tadj = 172.0
 
-fontsize = 18.
+fontsize = 18.0
 #
 # calcul zint et zint2
 #
@@ -86,15 +85,14 @@ if Nt > 1:
             zint[i] = Y[Ny - 1]
         else:
             zint[i] = Y[toto[0][0]]
-    # zint2
+        # zint2
         toto2 = np.where(alphat[:, i] <= asint2)
         if np.size(toto2) == 0:
             zint2[i] = Y[0]
         else:
             zint2[i] = Y[toto2[0][0]]
- 
-    zint_pvb_interp = np.interp(t_pvb+tadj, time, zint);
-    zint2_pvb_interp = np.interp(t_pvb+tadj, time, zint2);
-    assert(np.allclose(zint_pvb +0.1, zint_pvb_interp, atol=1e-2))
-    assert(np.allclose(zint2_pvb +0.1, zint2_pvb_interp, atol=1e-2))
 
+    zint_pvb_interp = np.interp(t_pvb + tadj, time, zint)
+    zint2_pvb_interp = np.interp(t_pvb + tadj, time, zint2)
+    assert np.allclose(zint_pvb + 0.1, zint_pvb_interp, atol=1e-2)
+    assert np.allclose(zint2_pvb + 0.1, zint2_pvb_interp, atol=1e-2)

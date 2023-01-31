@@ -178,6 +178,16 @@ jobs:
           cd test-ci/1DWetAvalanche && python3 test_1DWetAvalanche.py
         working-directory: /github/home/OpenFOAM/user-v2206/run/sedfoam
 
+  checkpep8:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          ref: develop
+      - name: Python Style Checker
+        uses: andymckay/pycodestyle-action@0.1.3
+
   checkstyle:
     runs-on: ubuntu-latest
     steps:

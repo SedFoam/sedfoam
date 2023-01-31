@@ -19,7 +19,6 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }} && ${{ github.event_name == 'push' }}
     env:
       IMAGE_NAME: sedfoam_2206_ubuntu
-    needs: [test]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
