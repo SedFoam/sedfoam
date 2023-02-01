@@ -854,6 +854,20 @@ volScalarField lambdaUa
     mesh,
     dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
 );
+volScalarField SpongeTurbulence
+(
+    IOobject
+    (
+        "SpongeTurbulence",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("one", dimensionSet(0, -0, -0, 0, 0), 1)
+);
+
 
 volScalarField K
 (

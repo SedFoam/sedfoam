@@ -29,16 +29,21 @@ License
     surfaceScalarField phic("phic", phi);
     surfaceScalarField phir("phir", phia - phib);
 
+
+
+
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
     {
         alpha.correctBoundaryConditions();
+
         fvScalarMatrix alphaEqn
         (
              fvm::ddt(alpha)
            + fvm::div(phic, alpha, scheme)
            + fvm::div(-fvc::flux(-phir, (1.0-alpha), schemer), alpha, schemer)
-        );
-
+          // ==
+           //fvm::laplacian(turbulenceb->nut(),alpha)
+        );    
         alphaEqn.relax();
         alphaEqn.solve();
 

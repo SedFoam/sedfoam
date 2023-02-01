@@ -88,12 +88,58 @@ License
           // mean pressure gradient
           + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
         );
+
+
+		dimensionedScalar alphaSus
+		(
+			"alphaSus",
+			dimensionSet(0, 0, -0, 0, 0, 0, 0),
+			1e-1
+		);
+        volVectorField gradAlpha (fvc::grad(alpha)); //alpha gradient field
+		forAll(gradAlpha,celli)
+		{
+			
+			
+			if (gradAlpha[celli].component(vector::X) < -0.05){
+				gradAlpha[celli].component(vector::X) = -0.05;}
+			if (gradAlpha[celli].component(vector::X) > 0.05){
+				gradAlpha[celli].component(vector::X) = 0.05;}
+				
+			if (gradAlpha[celli].component(vector::Y) < -0.05){
+				gradAlpha[celli].component(vector::Y) = 0.05;}
+			if (gradAlpha[celli].component(vector::Y) > 0.05){
+				gradAlpha[celli].component(vector::Y) = 0.05;}
+		 
+			if (gradAlpha[celli].component(vector::Z) < -0.05){
+				gradAlpha[celli].component(vector::Z) = 0.05;}
+			if (gradAlpha[celli].component(vector::Z) > 0.05){
+				gradAlpha[celli].component(vector::Z) = 0.05;}
+						}
+		dimensionedScalar ySmin
+		(
+			"ySmin",
+			dimensionSet(0, 1, -0, 0, 0, 0, 0),
+			11.65
+		);
+						
+		volScalarField YY(mesh.C().component(vector::Y));
+		
+		SpongeTurbulence =
+		(
+			pos((ySmin-YY)/ySmin)
+		);
+
+        surfaceScalarField SurfaceGradAlpha (fvc::interpolate(gradAlpha)  & mesh.Sf()); //nromal flux for the alpha gradient field
+        
         if (not SUSaniso)
         {
             //turbulent suspension term
-            phiDraga += -0*(fvc::interpolate(SUS*(K/rhoa)*turbulenceb->nut()
-                                *(beta/(alpha + alphaSmall)))
-                                *fvc::snGrad(alpha))*rUaAf*mesh.magSf();
+            phiDraga += -(fvc::interpolate(SUS*(K/rhoa)*turbulenceb->nut()*SpongeTurbulence
+                                *(beta/(alpha + alphaSmall))))
+                                //*(beta/(alpha + alphaSmall)))
+                                //*fvc::snGrad(alpha))*rUaAf*mesh.magSf();
+                                *SurfaceGradAlpha*rUaAf  ;
         }
 
         // Momentum flux at the cell faces for phase b
@@ -107,10 +153,20 @@ License
         );
         if (not SUSaniso)
         {
+			
+			
+	     
+
+					
+			
+			
             // turbulent suspension term
-            phiDragb += 0*fvc::interpolate(SUS*(K/rhob)*
-                        turbulenceb->nut())*fvc::snGrad(alpha)
-                        *rUbAf*mesh.magSf();
+            phiDragb += (fvc::interpolate(SUS*(K/rhob)*SpongeTurbulence*
+                        turbulenceb->nut())) //*fvc::snGrad(alpha))
+                       // *rUbAf*mesh.magSf();
+                       // turbulenceb->nut()*pos(alphaSus.value()-alpha))
+                       *SurfaceGradAlpha*rUaAf  ;
+                        
         }
         //    fvOptions.makeRelative(phiHabyA);
         //    fvOptions.makeRelative(phiHbbyA);
