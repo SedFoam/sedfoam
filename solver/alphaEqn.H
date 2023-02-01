@@ -41,8 +41,10 @@ License
              fvm::ddt(alpha)
            + fvm::div(phic, alpha, scheme)
            + fvm::div(-fvc::flux(-phir, (1.0-alpha), schemer), alpha, schemer)
-          // ==
+           //==
            //fvm::laplacian(turbulenceb->nut(),alpha)
+           //fvm::laplacian(pos(alphaPlastic-alpha)*turbulenceb->nut(),alpha)
+
         );    
         alphaEqn.relax();
         alphaEqn.solve();
