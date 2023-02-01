@@ -208,6 +208,7 @@ jobs:
           sudo apt-get install vera++
       - name: Check out repository code
         uses: actions/checkout@v3
+          submodules: recursive
       - name: Check style
         run: |
           shopt -s expand_aliases && ./foamStyleCheck/checkStyle

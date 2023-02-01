@@ -92,13 +92,7 @@ protected:
 
     // Protected Member Functions
 
-        virtual void correctNut();
-
-        //- No copy construct
-        twophaseMixingLengthConst(const twophaseMixingLengthConst&) = delete;
-
-        //- No copy assignment
-        void operator=(const twophaseMixingLengthConst&) = delete;
+    virtual void correctNut();
 
 
 public:
