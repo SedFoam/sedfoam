@@ -1,5 +1,18 @@
 version: 2
-
+commands:
+  setup:
+    steps:
+      - checkout
+      - run:
+          name: setup Qemu
+          command: |
+            docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+      - run:
+          name: Create builder
+          command: |
+            export DOCKER_CLI_EXPERIMENTAL=enabled
+            docker context create multi-arch-build
+            docker buildx create --use multi-arch-build
 jobs:
   checkstyle:
     docker:
@@ -115,128 +128,6 @@ jobs:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
 
-  builddock_nb:
-    working_directory: /app
-    docker:
-      - image: docker:20.10-dind
-    steps:
-      - checkout
-      - setup_remote_docker
-      - restore_cache:
-          keys:
-            - v1-{{ .Branch }}
-          paths:
-            - /caches/app.tar
-      - run:
-          name: Load Docker image layer cache
-          command: |
-            set +o pipefail
-            docker load -i /caches/app.tar | true
-          no_output_timeout: 30m
-      - run:
-          name: Build application Docker image
-          command: |
-            echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
-            docker buildx create --name multiarch --driver docker-container --use
-            docker buildx build --push --cache-from=app -t cbonamy/sedfoam_2206_notebook:latest --platform linux/amd64,linux/arm/v8,linux/arm64 -f docker/Dockerfile_nb docker
-          no_output_timeout: 4h
-      - run:
-          name: Save Docker image layer cache
-          command: |
-            mkdir -p /caches
-            docker save -o /caches/app.tar cbonamy/sedfoam_2206_notebook:latest
-      - save_cache:
-          key: v1-{{ .Branch }}-{{ epoch }}
-          paths:
-            - /caches/app.tar
-      - persist_to_workspace:
-          root: /caches
-          paths:
-            - app.tar
-          no_output_timeout: 4h
-
-  publishdock_nb:
-    # Use docker-publisher from above as the Docker container to run this job in
-    docker:
-      - image: circleci/buildpack-deps:stretch
-    steps:
-      # Set up a separate Docker environment to run `docker` commands in
-      - setup_remote_docker
-
-      # Load and un-archive the Docker image
-      - attach_workspace:
-          at: /tmp/workspace
-      - run:
-          name: Load Docker image
-          command: docker load --input /tmp/workspace/app.tar
-
-      # Log in to Docker Hub and push the image
-      - run:
-          name: Publish Docker image
-          command: |
-            echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
-            docker push cbonamy/sedfoam_2206_notebook:latest
-  builddock:
-    working_directory: /app
-    docker:
-      - image: docker:20.10-dind
-    steps:
-      - checkout
-      - setup_remote_docker
-      - restore_cache:
-          keys:
-            - v1-{{ .Branch }}
-          paths:
-            - /caches/app.tar
-      - run:
-          name: Load Docker image layer cache
-          command: |
-            set +o pipefail
-            docker load -i /caches/app.tar | true
-          no_output_timeout: 30m
-      - run:
-          name: Build application Docker image
-          command: |
-            echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
-            docker buildx create --name multiarch --driver docker-container --use
-            docker buildx build --push --cache-from=app -t cbonamy/$IMAGE_NAME:latest --platform linux/amd64,linux/arm/v8,linux/arm64 docker
-          no_output_timeout: 4h
-      - run:
-          name: Save Docker image layer cache
-          command: |
-            mkdir -p /caches
-            docker save -o /caches/app.tar cbonamy/$IMAGE_NAME:latest
-      - save_cache:
-          key: v1-{{ .Branch }}-{{ epoch }}
-          paths:
-            - /caches/app.tar
-      - persist_to_workspace:
-          root: /caches
-          paths:
-            - app.tar
-
-  publishdock:
-    # Use docker-publisher from above as the Docker container to run this job in
-    docker:
-      - image: circleci/buildpack-deps:stretch
-    steps:
-      # Set up a separate Docker environment to run `docker` commands in
-      - setup_remote_docker
-
-      # Load and un-archive the Docker image
-      - attach_workspace:
-          at: /tmp/workspace
-      - run:
-          name: Load Docker image
-          command: docker load --input /tmp/workspace/app.tar
-
-      # Log in to Docker Hub and push the image
-      - run:
-          name: Publish Docker image
-          command: |
-            echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
-            docker push cbonamy/$IMAGE_NAME:latest
-
   build:
     docker:
       - image: opencfd/openfoam-dev:2206
@@ -336,12 +227,12 @@ jobs:
           at: /usr/lib/openfoam/openfoam2206
 
       - run:
-          name: sedfoam 1D Avalanche
+          name: sedfoam 1D AvalancheMuI
           command: >
             shopt -s expand_aliases && chmod -R a+rwX /root &&
             source /openfoam/bash.rc &&
             runuser -l sudofoam -c 'source /openfoam/bash.rc && cd /root/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
-            cd /root/sedfoam/test-ci/1DAvalancheMuI && python3 test_AvalancheMuI.py
+            cd /root/sedfoam/test-ci/1DAvalancheMuI && python3 test_1DAvalancheMuI.py
           no_output_timeout: 30m
 
   advanced-test1:
@@ -429,28 +320,15 @@ workflows:
       - advanced-test2:
           requires:
             - build
-      - builddock:
-          requires:
-            - test
-            - advanced-test1
-            - advanced-test2
-          filters:
-            branches:
-              only:
-                - master
-                - develop
-      - builddock_nb:
-          requires:
-            - builddock
-      - docs-build
-      - docs-deploy:
-          requires:
-            - docs-build
-          filters:
-            branches:
-              only:
-                - master
-                - develop
+#      - docs-build
+#      - docs-deploy:
+#          requires:
+#            - docs-build
+#          filters:
+#            branches:
+#              only:
+#                - master
+#                - develop
   weekly:
     triggers:
       - schedule:
@@ -474,17 +352,8 @@ workflows:
       - advanced-test2:
           requires:
             - build
-      - builddock:
-          requires:
-            - test
-            - advanced-test
-            - advanced-test1
-            - advanced-test2
-      - builddock_nb:
-          requires:
-            - builddock
-      - docs-build
-      - docs-deploy:
-          requires:
-            - docs-build
+#      - docs-build
+#      - docs-deploy:
+#          requires:
+#            - docs-build
 

@@ -100,41 +100,35 @@ protected:
 
     // Protected data
 
-        // Model coefficients
-            Switch writeTke_;
+    // Model coefficients
+    Switch writeTke_;
 
-            dimensionedScalar C3ep_;
-            dimensionedScalar C4ep_;
-            dimensionedScalar KE2_;
-            dimensionedScalar KE4_;
+    dimensionedScalar C3ep_;
+    dimensionedScalar C4ep_;
+    dimensionedScalar KE2_;
+    dimensionedScalar KE4_;
 
-            dimensionedScalar Cmu_;
-            dimensionedScalar C1_;
-            dimensionedScalar C2_;
-            dimensionedScalar nutMax_;
-            dimensionedScalar alphak_;
-            dimensionedScalar alphaEps_;
+    dimensionedScalar Cmu_;
+    dimensionedScalar C1_;
+    dimensionedScalar C2_;
+    dimensionedScalar nutMax_;
+    dimensionedScalar alphak_;
+    dimensionedScalar alphaEps_;
 
-         // two phase information
-            const volScalarField& tmfexp_;
-            const volScalarField& ESD3_;
-            const volScalarField& ESD4_;
-            const volScalarField& ESD5_;
-            const volScalarField& ESD_;
+    // two phase information
+    const volScalarField& tmfexp_;
+    const volScalarField& ESD3_;
+    const volScalarField& ESD4_;
+    const volScalarField& ESD5_;
+    const volScalarField& ESD_;
 
-        // Fields
-            volScalarField k_;
-            volScalarField epsilon_;
+    // Fields
+    volScalarField k_;
+    volScalarField epsilon_;
 
     // Protected Member Functions
 
-        virtual void correctNut();
-
-        //- No copy construct and assignment
-        twophasekEpsilon(const twophasekEpsilon&) = delete;
-
-        //- No copy assignment
-        void operator=(const twophasekEpsilon&) = delete;
+    virtual void correctNut();
 
 
 public:
