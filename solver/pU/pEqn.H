@@ -292,9 +292,22 @@ License
                 // Apply velocity limiters and correct boundary conditions
                 #include "UaUbLimiter.H"
                 Ua.correctBoundaryConditions();
+                
+				//forAll(Ua,celli)
+						//{
+						   //if (mesh.cellCentres()[celli][1] > 1.1)
+						   //{
+							//Ua[celli].component(vector::X) = -0.0;
+						   //}
+							
+						
+										//}
+                
                 // Update mixture velocity
                 U = alpha*Ua + beta*Ub;
                 U.correctBoundaryConditions();
+                
+
             }
         }
     }

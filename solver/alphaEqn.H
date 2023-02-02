@@ -25,6 +25,7 @@ License
 {
     word scheme("div(phi,alpha)");
     word schemer("div(phir,alpha)");
+    word schemeRey("laplacian(nut,alpha)");
 
     surfaceScalarField phic("phic", phi);
     surfaceScalarField phir("phir", phia - phib);
@@ -41,9 +42,9 @@ License
              fvm::ddt(alpha)
            + fvm::div(phic, alpha, scheme)
            + fvm::div(-fvc::flux(-phir, (1.0-alpha), schemer), alpha, schemer)
-           //==
+           ==
            //fvm::laplacian(turbulenceb->nut(),alpha)
-           //fvm::laplacian(pos(alphaPlastic-alpha)*turbulenceb->nut(),alpha)
+           pos(alphaPlastic-alpha)*fvm::laplacian(turbulenceb->nut(),alpha,schemeRey)
 
         );    
         alphaEqn.relax();
