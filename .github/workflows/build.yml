@@ -208,6 +208,7 @@ jobs:
           sudo apt-get install vera++
       - name: Check out repository code
         uses: actions/checkout@v3
+        with:
           submodules: recursive
       - name: Check style
         run: |
