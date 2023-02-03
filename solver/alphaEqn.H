@@ -42,8 +42,8 @@ License
              fvm::ddt(alpha)
            + fvm::div(phic, alpha, scheme)
            + fvm::div(-fvc::flux(-phir, (1.0-alpha), schemer), alpha, schemer)
-           ==
-           fvm::laplacian(turbulenceb->nut(),alpha)
+           //==
+           //fvm::laplacian(turbulenceb->nut(),alpha)
            ////pos(alphaPlastic-alpha)*fvm::laplacian(turbulenceb->nut(),alpha)
            //fvc::div(fvc::interpolate(turbulenceb->nut())*mesh.magSf()*fvc::snGrad(alpha))
            
