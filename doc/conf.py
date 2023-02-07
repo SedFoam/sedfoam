@@ -26,8 +26,8 @@ LINKS_NAVBAR1 = [
     ])
 ]
 LINKS_NAVBAR2 = [
-    ('Model', 'governing', [
-        ("Governing equations", 'governing'),
+    ('Model', 'governingEq', [
+        ("Governing equations", 'governingEq'),
         ("Algorithm", 'algoSedFoam')
     ]),
     (None, 'annotated', []),
