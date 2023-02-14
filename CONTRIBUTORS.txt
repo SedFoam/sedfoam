@@ -1,0 +1,6 @@
+CONTRIBUTORS
+
+ * Ali Salimi-Tarazouj (University of Delaware, University of Delaware, Civil & Environmental Engineering, Center for Applied Coastal Research)
+   alisalim (A) udel.edu
+ * Hugo Divel (LEGI - CNRS - UGA)
+ * Pablo Higuera (The University of Auckland)
