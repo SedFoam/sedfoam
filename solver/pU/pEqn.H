@@ -91,7 +91,7 @@ License
         if (not SUSaniso)
         {
             //turbulent suspension term
-            phiDraga += -0*(fvc::interpolate(SUS*(K/rhoa)*turbulenceb->nut()
+            phiDraga += -(fvc::interpolate(SUS*(K/rhoa)*turbulenceb->nut()
                                 *(beta/(alpha + alphaSmall)))
                                 *fvc::snGrad(alpha))*rUaAf*mesh.magSf();
         }
@@ -108,7 +108,7 @@ License
         if (not SUSaniso)
         {
             // turbulent suspension term
-            phiDragb += 0*fvc::interpolate(SUS*(K/rhob)*
+            phiDragb += fvc::interpolate(SUS*(K/rhob)*
                         turbulenceb->nut())*fvc::snGrad(alpha)
                         *rUbAf*mesh.magSf();
         }
@@ -292,22 +292,9 @@ License
                 // Apply velocity limiters and correct boundary conditions
                 #include "UaUbLimiter.H"
                 Ua.correctBoundaryConditions();
-                
-				//forAll(Ua,celli)
-						//{
-						   //if (mesh.cellCentres()[celli][1] > 1.1)
-						   //{
-							//Ua[celli].component(vector::X) = -0.0;
-						   //}
-							
-						
-										//}
-                
                 // Update mixture velocity
                 U = alpha*Ua + beta*Ub;
                 U.correctBoundaryConditions();
-                
-
             }
         }
     }
