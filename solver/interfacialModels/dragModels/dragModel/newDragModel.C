@@ -48,7 +48,7 @@ Foam::autoPtr<Foam::dragModel> Foam::dragModel::New
         dictionaryConstructorTablePtr_->find(dragModelType);
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())
-    {        
+    {
         FatalError
             << "dragModel::New(const dictionary&) : " << endl
             << "    unknown dragModelType type "
@@ -58,7 +58,6 @@ Foam::autoPtr<Foam::dragModel> Foam::dragModel::New
             <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
         Info << abort(FatalError) << endl;
     }
-
     return cstrIter()(interfaceDict, phasea, phaseb);
 }
 
