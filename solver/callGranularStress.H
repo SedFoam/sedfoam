@@ -36,14 +36,12 @@ if (granularRheology.dilatancy())
      + fvm::div(phia, alphaPlastic, "div(phia,alphaPlastic)")
      - fvm::Sp(fvc::div(phia), alphaPlastic)
      ==
-     -fvc::Sp(delta*magDtensor, alphaPlastic) // explicit term
-     //-fvm::SuSp(delta*magDtensor, alphaPlastic)
-    );
+     -fvm::SuSp(delta*magDtensor, alphaPlastic)    );
     phi_pl_Eqn.relax();
     phi_pl_Eqn.solve();
 
-    alphaPlastic.max(0.40);
-    alphaPlastic.min(0.61);
+    alphaPlastic.max(0.48);
+    alphaPlastic.min(0.585);
 }
 else
 {
@@ -168,8 +166,6 @@ if (spongeLayer)
        *Foam::exp(-(xSmax-XX)/max(XX-xSmin, 1e-10*(xSmax-xSmin)))
 );
 }
-pS = pa+pff;
-
 // Limit viscosities for numerical stability
 nuFra.min(nuMax);
 nuEffa.min(nuMax);

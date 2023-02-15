@@ -48,10 +48,10 @@ Foam::kineticTheoryModels::viscosityModel::New
             << "    unknown viscosityModelType type "
             << viscosityModelType
             << ", constructor not in hash table" << endl << endl
-            << "    Valid viscosityModelType types are :" << endl;
-        Info<< dictionaryConstructorTablePtr_->sortedToc() << abort(FatalError);
+            << "    Valid viscosityModel types are :"  << endl
+            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
+        Info << abort(FatalError) << endl;
     }
-
     return autoPtr<viscosityModel>(cstrIter()(dict));
 }
 

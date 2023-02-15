@@ -204,7 +204,6 @@ surfaceScalarField& phia = phasea->phi();
 const dimensionedScalar& rhoa = phasea->rho();
 const dimensionedScalar& nua = phasea->nu();
 
-
 // Reading ForceProperties
 
 Info<< "\nReading forceProperties for gradP\n" <<endl;
@@ -560,20 +559,7 @@ volScalarField pa
     mesh,
     dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
 );
-Info<< "Reading field pS\n" << endl;
-volScalarField pS
-(
-    IOobject
-    (
-        "pS",
-        runTime.timeName(),
-        mesh,
-        IOobject::READ_IF_PRESENT,
-        IOobject::NO_WRITE
-    ),
-    mesh,
-    dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
-);
+
 volTensorField gradUaT
 (
     fvc::grad(Ua)().T()
@@ -780,20 +766,6 @@ volScalarField lambdaUa
     mesh,
     dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
 );
-volScalarField SpongeTurbulence
-(
-    IOobject
-    (
-        "SpongeTurbulence",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    mesh,
-    dimensionedScalar("one", dimensionSet(0, -0, -0, 0, 0), 1)
-);
-
 
 volScalarField K
 (
