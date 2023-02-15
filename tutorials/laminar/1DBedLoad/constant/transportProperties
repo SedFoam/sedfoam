@@ -37,4 +37,3 @@ nuMax           nuMax [0 2 -1 0 0 0 0] 1e1;      // viscosity limiter for the Fr
 alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
 
 // ************************************************************************* //
-bidispersity off;

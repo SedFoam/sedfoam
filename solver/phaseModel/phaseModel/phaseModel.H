@@ -58,9 +58,6 @@ class phaseModel
         //- Characteristic diameter of the solid phase
         dimensionedScalar d_;
         
-        //- Characteristic diameter of large particles
-        dimensionedScalar d_l_;
-
         //- shape factor for non-sperical particles
         dimensionedScalar sF_;
         
@@ -126,10 +123,6 @@ public:
         const dimensionedScalar& d() const
         {
             return d_;
-        }
-        const dimensionedScalar& d_l() const
-        {
-            return d_l_;
         }
         const dimensionedScalar& sF() const
         {
