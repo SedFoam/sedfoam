@@ -29,11 +29,6 @@ boundaryField
         uniformValue    (0 0 0);
     }
 
-    hole
-    {
-        type            movingWallVelocity;
-        value           uniform (0 0 0);
-    }
 
     outlet
     {
@@ -48,6 +43,13 @@ boundaryField
     {
         type            overset;
     }
+    
+    hole
+    {
+        type            movingWallVelocity;
+        value           uniform (0 0 0);
+    }
+
 }
 
 // ************************************************************************* //
