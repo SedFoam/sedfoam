@@ -21,45 +21,72 @@ License
     You should have received a copy of the GNU General Public License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
+Class
+    Foam::Engelund
+
+Description
+    H, Enwald, E. Peirano, A-E Almstedt
+    'Eulerian Two-Phase Flow Theory Applied to Fluidization'
+    Int. J. Multiphase Flow, Vol. 22, Suppl, pp. 21-66 (1996)
+    Eq. 104, p. 42
+
+SourceFiles
+    Engelund.C
+
 \*---------------------------------------------------------------------------*/
+
+#ifndef Engelund_H
+#define Engelund_H
 
 #include "dragModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-Foam::autoPtr<Foam::dragModel> Foam::dragModel::New
-(
-    const dictionary& interfaceDict,
-    const phaseModel& phasea,
-    const phaseModel& phaseb
-)
+namespace Foam
 {
-    word dragModelType
-    (
-        interfaceDict.get<word>("dragModel" + phasea.name())
-    );
 
-    Info << "Selecting dragModel for phase "
-        << phasea.name()
-        << ": "
-        << dragModelType << endl;
+/*---------------------------------------------------------------------------*\
+                           Class Engelund Declaration
+\*---------------------------------------------------------------------------*/
 
-    auto cstrIter =
-        dictionaryConstructorTablePtr_->find(dragModelType);
+class Engelund
+:
+    public dragModel
+{
 
-    if (cstrIter == dictionaryConstructorTablePtr_->end())
-    {
-        FatalError
-            << "dragModel::New(const dictionary&) : " << endl
-            << "    unknown dragModelType type "
-            << dragModelType
-            << ", constructor not in hash table" << endl << endl
-            << "    Valid dragModel types are :"  << endl
-            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
-        Info << abort(FatalError) << endl;
-    }
-    return cstrIter()(interfaceDict, phasea, phaseb);
-}
+public:
 
+    //- Runtime type information
+    TypeName("Engelund");
+
+
+    // Constructors
+
+        //- Construct from components
+        Engelund
+        (
+            const dictionary& interfaceDict,
+            const phaseModel& phasea,
+            const phaseModel& phaseb
+        );
+
+
+    //- Destructor
+    virtual ~Engelund();
+
+
+    // Member Functions
+
+        tmp<volScalarField> K(const volScalarField& Ur) const;
+};
+
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+} // End namespace Foam
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#endif
 
 // ************************************************************************* //
