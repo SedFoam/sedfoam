@@ -47,9 +47,9 @@
           </ol>
           <ol class="m-col-t-6 m-col-m-none" start="3">
             <li>
-              <a href="governing.html" id="m-navbar-current">Governing equations</a>
+              <a href="governingEq.html" id="m-navbar-current">Governing equations</a>
               <ol>
-                <li><a href="governing.html" id="m-navbar-current">Governing equations</a></li>
+                <li><a href="governingEq.html" id="m-navbar-current">Governing equations</a></li>
                 <li><a href="algoSedFoam.html">Algorithm</a></li>
               </ol>
             </li>
@@ -571,7 +571,7 @@ $\tau^b_{ij}$
 <use x='5.083662' y='2.955515' xlink:href='#eq14-g0-105'/>
 <use x='7.966802' y='2.955515' xlink:href='#eq14-g0-106'/>
 </g>
-</svg> includes fluid grain-scale (viscous) stress and fluid Reynolds stresses (see section <a href="governing.html#fluidstress" class="m-doc">Fluid phase shear stress</a>) and   <svg class="m-math" style="width: 2.913em; height: 1.296em; vertical-align: -0.471em;" viewBox="0 -7.934555 27.966267 12.439816">
+</svg> includes fluid grain-scale (viscous) stress and fluid Reynolds stresses (see section <a href="governingEq.html#fluidstress" class="m-doc">Fluid phase shear stress</a>) and   <svg class="m-math" style="width: 2.913em; height: 1.296em; vertical-align: -0.471em;" viewBox="0 -7.934555 27.966267 12.439816">
 <title>
 $\tilde{p}^a, \tau^a_{ij}$
 </title>
@@ -594,7 +594,7 @@ $\tilde{p}^a, \tau^a_{ij}$
 <use x='21.199102' y='2.955515' xlink:href='#eq15-g0-105'/>
 <use x='24.082242' y='2.955515' xlink:href='#eq15-g0-106'/>
 </g>
-</svg> are the particle normal stress and shear stress (see section <a href="governing.html#particleStress" class="m-doc">Particle phase stress</a>). The last two terms on the right-hand-side (RHS) of  <a href="governing.html#eq3" class="m-doc">eq3</a>  and <a href="governing.html#eq4" class="m-doc">eq4</a> are the momentum coupling between the fluid phase and particle phase through the drag force, where <svg class="m-math" style="width: 1.127em; height: 0.851em; vertical-align: -0.000em;" viewBox="0 -8.169366 10.817691 8.169366">
+</svg> are the particle normal stress and shear stress (see section <a href="governingEq.html#particleStress" class="m-doc">Particle phase stress</a>). The last two terms on the right-hand-side (RHS) of  <a href="governingEq.html#eq3" class="m-doc">eq3</a>  and <a href="governingEq.html#eq4" class="m-doc">eq4</a> are the momentum coupling between the fluid phase and particle phase through the drag force, where <svg class="m-math" style="width: 1.127em; height: 0.851em; vertical-align: -0.000em;" viewBox="0 -8.169366 10.817691 8.169366">
 <title>
 $K$
 </title>
@@ -1391,7 +1391,7 @@ $R_{ij}^{bt}$
 <use x='378.584307' y='-4.505261' xlink:href='#eq43-g2-48'/>
 <use x='384.561891' y='-4.505261' xlink:href='#eq43-g2-41'/>
 </g>
-</svg></div><p>In SedFoam-3.3, several different viscosity or turbulence closures are implemented, and these models can be selected according to specific flow conditions ranging from laminar to turbulent flows. The mixture viscosity can be selected in combination with a granular rheology model for the granular stresses (see section <a href="governing.html#granularRheo" class="m-doc">Dense granular rheology</a>). For the turbulent eddy viscosity, modified turbulence closures are implemented for sediment transport applications.</p></section><section id="particleStress"><h3><a href="#particleStress">Particle phase stress</a></h3><p>In sediment transport applications, the particle stresses are important mechanisms to support the particle immersed weight in concentrated regions of sediment transport  (Hsu et al., 2004; Cheng et al., 2017). In these regions, the momentum exchanges due to particle collisions and/or enduring contacts exert dispersive stresses on a collection of particles. The particle phase stress tensor can be split into the normal and off-diagonal components that correspond to the particle pressure <svg class="m-math" style="width: 1.081em; height: 1.069em; vertical-align: -0.243em;" viewBox="0 -7.934555 10.373153 10.259162">
+</svg></div><p>In SedFoam-3.3, several different viscosity or turbulence closures are implemented, and these models can be selected according to specific flow conditions ranging from laminar to turbulent flows. The mixture viscosity can be selected in combination with a granular rheology model for the granular stresses (see section <a href="governingEq.html#granularRheo" class="m-doc">Dense granular rheology</a>). For the turbulent eddy viscosity, modified turbulence closures are implemented for sediment transport applications.</p></section><section id="particleStress"><h3><a href="#particleStress">Particle phase stress</a></h3><p>In sediment transport applications, the particle stresses are important mechanisms to support the particle immersed weight in concentrated regions of sediment transport  (Hsu et al., 2004; Cheng et al., 2017). In these regions, the momentum exchanges due to particle collisions and/or enduring contacts exert dispersive stresses on a collection of particles. The particle phase stress tensor can be split into the normal and off-diagonal components that correspond to the particle pressure <svg class="m-math" style="width: 1.081em; height: 1.069em; vertical-align: -0.243em;" viewBox="0 -7.934555 10.373153 10.259162">
 <title>
 $\tilde{p}^a$
 </title>
@@ -1718,7 +1718,7 @@ $\eta_1=5$
 <use x='13.828651' y='0' xlink:href='#eq55-g2-61'/>
 <use x='26.254132' y='0' xlink:href='#eq55-g2-53'/>
 </g>
-</svg>. Again, these coefficients can be reset in file <em>constant/kineticTheoryProperties</em> or  *constant/granularRheologyProperties* by specifying the keywords and values.</p><p>In modern sediment transport modeling framework, the two major threads of modeling approach for shear-induced/collisional particle normal stress and shear stress are the kinetic theory of granular flows and the dense granular flow rheology. They are implemented in this version of SedFoam-3.3 (see subsections <a href="governing.html#subkinetic" class="m-doc">Kinetic theory</a> and <a href="governing.html#granularRheo" class="m-doc">Dense granular rheology</a>), respectively. As a result of different closures for particle normal stresses <svg class="m-math" style="width: 1.081em; height: 1.052em; vertical-align: -0.243em;" viewBox="0 -7.770011 10.373153 10.094618">
+</svg>. Again, these coefficients can be reset in file <em>constant/kineticTheoryProperties</em> or  *constant/granularRheologyProperties* by specifying the keywords and values.</p><p>In modern sediment transport modeling framework, the two major threads of modeling approach for shear-induced/collisional particle normal stress and shear stress are the kinetic theory of granular flows and the dense granular flow rheology. They are implemented in this version of SedFoam-3.3 (see subsections <a href="governingEq.html#subkinetic" class="m-doc">Kinetic theory</a> and <a href="governingEq.html#granularRheo" class="m-doc">Dense granular rheology</a>), respectively. As a result of different closures for particle normal stresses <svg class="m-math" style="width: 1.081em; height: 1.052em; vertical-align: -0.243em;" viewBox="0 -7.770011 10.373153 10.094618">
 <title>
 $p^a$
 </title>
@@ -2195,7 +2195,7 @@ $\parallel\mathbf{\sf S^a}\parallel$
 <use x='15.801759' y='-4.338437' xlink:href='#eq71-g0-97'/>
 <use x='23.688854' y='0' xlink:href='#eq71-g2-107'/>
 </g>
-</svg> is the norm of the shear rate tensor (<a href="governing.html#eq16" class="m-doc">eq16</a> ). <svg class="m-math" style="width: 3.215em; height: 1.038em; vertical-align: -0.187em;" viewBox="0 -8.169366 30.868013 9.962629">
+</svg> is the norm of the shear rate tensor (<a href="governingEq.html#eq16" class="m-doc">eq16</a> ). <svg class="m-math" style="width: 3.215em; height: 1.038em; vertical-align: -0.187em;" viewBox="0 -8.169366 30.868013 9.962629">
 <title>
 $D_{small}$
 </title>
@@ -2248,7 +2248,7 @@ $D_{small}=10^{-6} s^{-1}$
 <use x='75.651263' y='-4.338437' xlink:href='#eq73-g0-0'/>
 <use x='82.23777' y='-4.338437' xlink:href='#eq73-g3-49'/>
 </g>
-</svg> for all the simulations of granular rheology presented herein except stated otherwise.</p><p>Additionally,   dilatancy effects and pore pressure feedback on the granular medium are taken into account (if the user turns on this feature) modifying the elastic pressure (<a href="governing.html#eq12" class="m-doc">eq12</a>) such as:</p><p><a name="eq18"></a></p><div class="m-math"><svg style="width: 29.248em; height: 3.736em;" viewBox="107.766484 -35.865862 280.77648 35.865869">
+</svg> for all the simulations of granular rheology presented herein except stated otherwise.</p><p>Additionally,   dilatancy effects and pore pressure feedback on the granular medium are taken into account (if the user turns on this feature) modifying the elastic pressure (<a href="governingEq.html#eq12" class="m-doc">eq12</a>) such as:</p><p><a name="eq18"></a></p><div class="m-math"><svg style="width: 29.248em; height: 3.736em;" viewBox="107.766484 -35.865862 280.77648 35.865869">
 <title>
 \[ p^{ff}=\left\{ \begin{array}{r} 0, \alpha &lt; \alpha_{pl} \\ Fr\frac{(\alpha-\alpha_{pl})^{\eta_0}}{(\alpha_{max}-\alpha)^{\eta_1}}, \alpha \geq \alpha_{pl}, \tag{18} \end{array} \right\} \]
 </title>
