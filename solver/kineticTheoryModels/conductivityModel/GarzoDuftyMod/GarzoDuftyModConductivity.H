@@ -33,7 +33,9 @@ Description
     \endverbatim
 
     This file is in the \dir kineticTheoryModels/conductivityModel/GarzouftyMod
-    directory
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/conductivityModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     GarzoDuftyModConductivity.C

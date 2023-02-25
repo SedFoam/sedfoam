@@ -33,7 +33,9 @@ Description
     \endverbatim
 
     This file is in the \dir kineticTheoryModels/viscosityModel/GarzoDuftyMod
-    directory
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/viscosityModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     GarzoDuftyModViscosity.C

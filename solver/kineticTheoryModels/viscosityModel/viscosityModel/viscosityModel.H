@@ -26,7 +26,9 @@ Class
 
 Description
     This file is in the \dir kineticTheoryModels/viscosityModel/viscosityModel
-    directory
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/viscosityModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     viscosityModel.C

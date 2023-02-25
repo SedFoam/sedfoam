@@ -44,7 +44,8 @@ jobs:
           source /openfoam/bash.rc &&
           python3 doxygen.py ../../conf.py &&
           cd ../.. && cp images/* mcssout/html/. && cd mcssout/html &&
-          grep -Z -l "ource file" *html | xargs -0 -n 1 sed -i "s|$MYPATH/sedfoam/|https://github.com/sedfoam/sedfoam/blob/master/|g"
+          sed -i "s|$MYPATH/sedfoam/|https://github.com/sedfoam/sedfoam/blob/master/|g" *.html
+#          grep -Z -l "ource file" *html | xargs -0 -n 1 sed -i "s|$MYPATH/sedfoam/|https://github.com/sedfoam/sedfoam/blob/master/|g"
       - uses: actions/upload-artifact@v2
         with:
           name: sedfoam-doc
