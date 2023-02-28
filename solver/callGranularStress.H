@@ -162,10 +162,9 @@ else
     // set pa and nuFra to zero if kineticTheory and granularRheology are off
     pa = pa*scalar(0.0);
     nuFra = nua*scalar(0.0);
-    muFra = nua*scalar(0.0)/rhoa;
+    muFra = nua*scalar(0.0)*rhoa;
     nuEffa = nua + turbulencea->nut();
     lambdaUa = nua*rhoa*scalar(0.0);
-    
     muEff =    nub*rhob;
 }
 // Add a numerical viscosity to damp the instabilities close to the outlet
