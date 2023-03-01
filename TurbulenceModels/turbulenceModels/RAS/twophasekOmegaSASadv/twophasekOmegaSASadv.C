@@ -20,7 +20,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "twophasekOmegaSAS.H"
+#include "twophasekOmegaSASadv.H"
 #include "fvOptions.H"
 #include "bound.H"
 
@@ -34,7 +34,7 @@ namespace RASModels
 // * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * * //
 
 template<class BasicTurbulenceModel>
-void twophasekOmegaSAS<BasicTurbulenceModel>::correctNut()
+void twophasekOmegaSASadv<BasicTurbulenceModel>::correctNut()
 {
     this->nut_ = k_/
     (
@@ -49,14 +49,14 @@ void twophasekOmegaSAS<BasicTurbulenceModel>::correctNut()
 }
 
 template<class BasicTurbulenceModel>
-tmp<fvScalarMatrix> twophasekOmegaSAS<BasicTurbulenceModel>::Qsas
+tmp<fvScalarMatrix> twophasekOmegaSASadv<BasicTurbulenceModel>::Qsas
 (
     const volScalarField::Internal& S2,
     const dimensionedScalar& alphaOmega,
     const dimensionedScalar& betaOmega
 ) const
 {
-        volScalarField::Internal L
+    volScalarField::Internal L
     (
         sqrt(this->k_())/(pow025(this->Cmu_)*this->omega_())
     );
@@ -75,7 +75,10 @@ tmp<fvScalarMatrix> twophasekOmegaSAS<BasicTurbulenceModel>::Qsas
                     ROOTVSMALL
                 )
             ),
-            Cs_*sqrt(kappa_*zeta2_/((betaOmega_
+            Cs_*sqrt(kappa_*zeta2_/(((betaOmega_
+            *(scalar(1.0)+scalar(85.0)*mag((-skew(fvc::grad(this->U_)()()) & -skew(fvc::grad(this->U_)()()) & symm(fvc::grad(this->U_)()()))/(pow((this->Cmu_*this->omega_()), 3))))
+                /(scalar(1.0)+scalar(100.0)*mag((-skew(fvc::grad(this->U_)()()) & -skew(fvc::grad(this->U_)()()) & symm(fvc::grad(this->U_)()()))/(pow((this->Cmu_*this->omega_()), 3))))
+            )
             /this->Cmu_) - alphaOmega_))*this->delta()()
 	)
     );
@@ -107,7 +110,7 @@ tmp<fvScalarMatrix> twophasekOmegaSAS<BasicTurbulenceModel>::Qsas
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class BasicTurbulenceModel>
-twophasekOmegaSAS<BasicTurbulenceModel>::twophasekOmegaSAS
+twophasekOmegaSASadv<BasicTurbulenceModel>::twophasekOmegaSASadv
 (
     const alphaField& beta,
     const rhoField& rho,
@@ -357,7 +360,7 @@ twophasekOmegaSAS<BasicTurbulenceModel>::twophasekOmegaSAS
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class BasicTurbulenceModel>
-bool twophasekOmegaSAS<BasicTurbulenceModel>::read()
+bool twophasekOmegaSASadv<BasicTurbulenceModel>::read()
 {
     if (eddyViscosity<RASModel<BasicTurbulenceModel>>::read())
     {
@@ -380,7 +383,7 @@ bool twophasekOmegaSAS<BasicTurbulenceModel>::read()
 
 
 template<class BasicTurbulenceModel>
-void twophasekOmegaSAS<BasicTurbulenceModel>::correct()
+void twophasekOmegaSASadv<BasicTurbulenceModel>::correct()
 {
     if (not this->turbulence_)
     {
@@ -471,7 +474,7 @@ void twophasekOmegaSAS<BasicTurbulenceModel>::correct()
     );
     if (writeTke_)
     {
-        #include "writeTKEBudget_kOmegaSAS.H"
+        #include "writeTKEBudget_kOmegaSASadv.H"
     }
     omegaEqn.ref().relax();
     fvOptions.constrain(omegaEqn.ref());
