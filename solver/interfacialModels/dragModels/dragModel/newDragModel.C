@@ -50,15 +50,14 @@ Foam::autoPtr<Foam::dragModel> Foam::dragModel::New
     if (cstrIter == dictionaryConstructorTablePtr_->end())
     {
         FatalError
-            << "dragModel::New : " << endl
-                << "    unknown dragModelType type "
-                << dragModelType
-                << ", constructor not in hash table" << endl << endl
-                << "    Valid dragModel types are : " << endl;
-        Info << dictionaryConstructorTablePtr_->sortedToc()
-             << abort(FatalError);
+            << "dragModel::New(const dictionary&) : " << endl
+            << "    unknown dragModelType type "
+            << dragModelType
+            << ", constructor not in hash table" << endl << endl
+            << "    Valid dragModel types are :"  << endl
+            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
+        Info << abort(FatalError) << endl;
     }
-
     return cstrIter()(interfaceDict, phasea, phaseb);
 }
 

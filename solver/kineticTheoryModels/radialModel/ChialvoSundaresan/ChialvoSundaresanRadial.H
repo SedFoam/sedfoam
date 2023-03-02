@@ -32,7 +32,9 @@ Description
     \endverbatim
 
     This file is in the \dir kineticTheoryModels/radialModel/ChialvoSundaresan
-    directory
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/radialModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     ChialvoSundaresanRadial.C

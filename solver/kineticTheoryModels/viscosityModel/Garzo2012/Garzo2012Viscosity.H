@@ -31,8 +31,15 @@ Description
     Journal of Fluid Mechanics 712, 129–168.
     \endverbatim
 
+<<<<<<< HEAD:solver/kineticTheoryModels/viscosityModel/Garzo2012/Garzo2012Viscosity.H
     This file is in the \dir kineticTheoryModels/viscosityModel/Garzo2012
     directory
+=======
+    This file is in the \dir kineticTheoryModels/viscosityModel/GarzoDuftyMod
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/viscosityModel inside the directory
+    \dir kineticTheoryModels
+>>>>>>> upstream/develop:solver/kineticTheoryModels/viscosityModel/GarzoDuftyMod/GarzoDuftyModViscosity.H
 
 SourceFiles
     Garzo2012Viscosity.C

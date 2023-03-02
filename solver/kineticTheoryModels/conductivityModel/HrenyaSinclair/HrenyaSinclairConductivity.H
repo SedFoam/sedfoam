@@ -26,7 +26,10 @@ Class
 
 Description
     This file is in the \dir
-    kineticTheoryModels/conductivityModel/HrenyaSinclair directory
+    kineticTheoryModels/conductivityModel/HrenyaSinclair subdirectory
+    inside the subdirectory \dir kineticTheoryModels/conductivityModel
+    inside the directory \dir kineticTheoryModels
+
 
 SourceFiles
     HrenyaSinclairConductivity.C

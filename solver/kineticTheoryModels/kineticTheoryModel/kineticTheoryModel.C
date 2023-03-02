@@ -413,7 +413,7 @@ void Foam::kineticTheoryModel::solve
     (
          "Tpsmall_",
          dimensionSet(1, -1, -3, 0, 0, 0, 0),
-         scalar(1e-30)
+         scalar(1e-10)
     );
     volTensorField dU(fvc::grad(Ua_));//gradUat.T(); //that is fvc::grad(Ua_);
     volSymmTensorField D(symm(dU));   //0.5*(dU + dU.T)

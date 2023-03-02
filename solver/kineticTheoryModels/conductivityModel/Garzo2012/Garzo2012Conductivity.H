@@ -31,8 +31,15 @@ Description
     Journal of Fluid Mechanics 712, 129–168.
     \endverbatim
 
+<<<<<<< HEAD:solver/kineticTheoryModels/conductivityModel/Garzo2012/Garzo2012Conductivity.H
     This file is in the \dir kineticTheoryModels/conductivityModel/Garzo2012
     directory
+=======
+    This file is in the \dir kineticTheoryModels/conductivityModel/GarzouftyMod
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/conductivityModel inside the directory
+    \dir kineticTheoryModels
+>>>>>>> upstream/develop:solver/kineticTheoryModels/conductivityModel/GarzoDuftyMod/GarzoDuftyModConductivity.H
 
 SourceFiles
     Garzo2012Conductivity.C

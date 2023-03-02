@@ -26,8 +26,9 @@ Class
 
 Description
     This file is in the \dir
-    kineticTheoryModels/conductivityModel/conductivityModel directory
-
+    kineticTheoryModels/conductivityModel/conductivityModel subdirectory
+    inside the subdirectory \dir kineticTheoryModels/conductivityModel
+    inside the directory \dir kineticTheoryModels
 SourceFiles
     conductivityModel.C
 

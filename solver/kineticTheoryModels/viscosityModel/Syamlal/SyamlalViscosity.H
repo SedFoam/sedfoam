@@ -32,7 +32,9 @@ Description
     \endverbatim
 
     This file is in the \dir kineticTheoryModels/viscosityModel/Syamlal
-    directory
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/viscosityModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     SyamlalViscosity.C
