@@ -78,7 +78,8 @@ Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanRadial::g0prime
     const dimensionedScalar& muPart
 ) const
 {
-    return 2./alphaMax*pow(mag(1.0 - alpha/alphaMax), -3.0);
+    const dimensionedScalar a = 0.58 + (3.70-0.58)*tanh(muPart/0.54);
+    return (5-2*alpha)/(2*pow(1-alpha,4)) + a*alpha*(4*alphaMax-alpha)/(2*pow(alphaMax-alpha,2.5));
 }
 
 

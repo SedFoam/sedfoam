@@ -126,6 +126,15 @@ dimensionedScalar KE3
         dimensionedScalar("KE3", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
     )
 );
+dimensionedScalar KE6
+(
+    twophaseRASProperties.getOrDefault
+    (
+        "KE6",
+        dimensionedScalar("KE6", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+    )
+);
+
 volScalarField tmfexp
 (
     IOobject
@@ -204,4 +213,29 @@ volScalarField ESD
         IOobject::NO_WRITE
     ),
     KE3*ESD3
+);
+
+volScalarField ESD6
+(
+    IOobject
+    (
+        "ESD6",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    KE6* (beta*alpha/rhob*K*Ub) & Ub
+);
+volScalarField ESD7
+(
+    IOobject
+    (
+        "ESD7",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    KE6* (4*beta*alpha/rhob*K)
 );

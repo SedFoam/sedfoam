@@ -22,83 +22,63 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::noneViscosity
+    Foam::Beetstra
 
 Description
-    This file is in the \dir kineticTheoryModels/viscosityModel/none directory
 
 SourceFiles
-    noneViscosity.C
+    Beetstra.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef noneViscosity_H
-#define noneViscosity_H
+#ifndef Beetstra_H
+#define Beetstra_H
 
-#include "viscosityModel.H"
+#include "dragModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
-namespace kineticTheoryModels
-{
 
 /*---------------------------------------------------------------------------*\
-                           Class noneViscosity Declaration
+                           Class Beetstra Declaration
 \*---------------------------------------------------------------------------*/
 
-class noneViscosity
+class Beetstra
 :
-    public viscosityModel
+    public dragModel
 {
 
 public:
 
     //- Runtime type information
-    TypeName("none");
+    TypeName("Beetstra");
 
 
     // Constructors
 
-    //- Construct from components
-    noneViscosity(const dictionary& dict);
+        //- Construct from components
+        Beetstra
+        (
+            const dictionary& interfaceDict,
+            const phaseModel& phasea,
+            const phaseModel& phaseb
+        );
 
 
     //- Destructor
-    virtual ~noneViscosity();
+    virtual ~Beetstra();
 
 
-    // Member functions
+    // Member Functions
 
-        tmp<volScalarField> mua
-        (
-            const volScalarField& alpha,
-            const volScalarField& Theta,
-            const volScalarField& g0,
-            const volScalarField& musalt,
-            const volScalarField& K,
-            const dimensionedScalar& rhoa,
-            const dimensionedScalar& da,
-            const dimensionedScalar& e
-        ) const;
-
-        tmp<volScalarField> lambda
-        (
-            const volScalarField& alpha,
-            const volScalarField& Theta,
-            const volScalarField& g0,
-            const dimensionedScalar& rhoa,
-            const dimensionedScalar& da,
-            const dimensionedScalar& e
-        ) const;
-
+        tmp<volScalarField> K(const volScalarField& Ur) const;
 };
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-} // End namespace kineticTheoryModels
 } // End namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

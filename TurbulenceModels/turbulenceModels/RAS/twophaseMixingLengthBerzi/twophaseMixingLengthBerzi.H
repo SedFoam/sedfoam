@@ -19,50 +19,51 @@ License
     along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::RASModels::twophaseMixingLengthConst
+    Foam::RASModels::twophaseMixingLengthBerzi
 
 Group
     grpRASTurbulence
 
 Description
-    Standard high Reynolds-number k-omega turbulence model for
-    incompressible flows.
+    Mixing length model for two-phase flow
+    (only valid for 1D case with Y the wall-normal direction)
 
     References:
     \verbatim
-        "Turbulence Modeling for CFD"
-        D. C. Wilcox,
-        DCW Industries, Inc., La Canada,
-        California, 1988.
+    "Turbulence Locality and Granularlike Fluid Shear Viscosity in Collisional
+    Suspensions."
+    Berzi, D. & Fraccarollo, L. (2015);
+    Physical Review Letters 115 (19), 194501.
 
-        See also:
-        http://www.cfd-online.com/Wiki/Wilcox's_k-omega_model
+    "Stresses and Drag in Turbulent Bed Load From Refractive Index-Matched
+    Experiments."
+    Ni, W-J & Capart, H. (2018).
+    Geophysical Research Letters 45 (14), 7000–7009.
     \endverbatim
 
     The default model coefficients correspond to the following:
     \verbatim
-        twophaseMixingLengthConstCoeffs
+        twophaseMixingLengthBerziCoeffs
         {
-            Cmu         0.09;  // Equivalent to betaStar
-            alpha       0.52;
-            betaOmega   0.072;
-            alphak      0.5;
-            alphaOmega  0.5;
+            Cmu         0.09;
+            expoLM      1.0;
+            alphaMaxLM  0.55;
+            kappaLM     0.225;
         }
     \endverbatim
 
-    This file is in the \dir turbulenceModels/RAS/twophaseMixingLengthConst
+    This file is in the \dir turbulenceModels/RAS/twophaseMixingLengthBerzi
     subdirectory
     inside the \dir turbulenceModels/RAS subdirectory
     inside the \dir turbulenceModels subdirectory
 
 SourceFiles
-    twophaseMixingLengthConst.C
+    twophaseMixingLengthBerzi.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef twophaseMixingLengthConst_H
-#define twophaseMixingLengthConst_H
+#ifndef twophaseMixingLengthBerzi_H
+#define twophaseMixingLengthBerzi_H
 
 #include "RASModel.H"
 #include "eddyViscosity.H"
@@ -75,15 +76,18 @@ namespace RASModels
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class twophaseMixingLengthConst Declaration
+                           Class twophaseMixingLengthBerzi Declaration
 \*---------------------------------------------------------------------------*/
 
 template<class BasicTurbulenceModel>
-class twophaseMixingLengthConst
+class twophaseMixingLengthBerzi
 :
     public eddyViscosity<RASModel<BasicTurbulenceModel>>
 {
 protected:
+
+    // Protected data
+
 
     // Model coefficients
     dimensionedScalar Cmu_;
@@ -92,20 +96,20 @@ protected:
     dimensionedScalar kappaLM_;
     dimensionedScalar d_;
 
+
     // Fields
     volScalarField k_;
     volScalarField epsilon_;
-
 
     // Protected Member Functions
 
         virtual void correctNut();
 
-        //- No copy construct
-        twophaseMixingLengthConst(const twophaseMixingLengthConst&) = delete;
+        //- No copy construct and assignment
+        twophaseMixingLengthBerzi(const twophaseMixingLengthBerzi&) = delete;
 
         //- No copy assignment
-        void operator=(const twophaseMixingLengthConst&) = delete;
+        void operator=(const twophaseMixingLengthBerzi&) = delete;
 
 
 public:
@@ -116,17 +120,17 @@ public:
 
 
     //- Runtime type information
-    TypeName("twophaseMixingLengthConst");
+    TypeName("twophaseMixingLengthBerzi");
 
     // Constructors
 
     //- Construct from components
-    twophaseMixingLengthConst
+    twophaseMixingLengthBerzi
     (
         const alphaField& beta,
         const rhoField& rho,
         const volVectorField& U,
-        const surfaceScalarField& betaRhoPhi,
+        const surfaceScalarField& betafRhoPhi,
         const surfaceScalarField& phi,
         const transportModel& transport,
         const word& propertiesName = turbulenceModel::propertiesName,
@@ -135,7 +139,7 @@ public:
 
 
     //- Destructor
-    virtual ~twophaseMixingLengthConst()
+    virtual ~twophaseMixingLengthBerzi()
     {}
 
 
@@ -144,39 +148,38 @@ public:
     //- Read RASProperties dictionary
     virtual bool read();
 
+    //- Return the turbulence kinetic energy
+    virtual tmp<volScalarField> k() const
+    {
+        return k_;
+    }
 
-        //- Return the turbulence kinetic energy
-        virtual tmp<volScalarField> k() const
-        {
-            return k_;
-        }
+    //- Return the turbulence specific dissipation rate
+    virtual tmp<volScalarField> epsilon() const
+    {
+        return epsilon_;
+    }
 
-        //- Return the turbulence specific dissipation rate
-        virtual tmp<volScalarField> epsilon() const
-        {
-            return epsilon_;
-        }
-
-        virtual tmp<volScalarField> omega() const
-        {
-            return tmp<volScalarField>
+    virtual tmp<volScalarField> omega() const
+    {
+        return tmp<volScalarField>
+        (
+            new volScalarField
             (
-                new volScalarField
+                IOobject
                 (
-                    IOobject
-                    (
-                        "omega",
-                        this->mesh_.time().timeName(),
-                        this->mesh_
-                    ),
-                    epsilon_/(k_),
-                    epsilon_.boundaryField().types()
-                )
-            );
-        }
+                    "omega",
+                    this->mesh_.time().timeName(),
+                    this->mesh_
+                ),
+                epsilon_/(k_),
+                epsilon_.boundaryField().types()
+            )
+        );
+    }
 
-        //- Solve the turbulence equations and correct the turbulence viscosity
-        virtual void correct();
+    //- Solve the turbulence equations and correct the turbulence viscosity
+    virtual void correct();
 };
 
 
@@ -184,11 +187,10 @@ public:
 
 } // End namespace RASModels
 } // End namespace Foam
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #ifdef NoRepository
-    #include "twophaseMixingLengthConst.C"
+    #include "twophaseMixingLengthBerzi.C"
 #endif
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

@@ -22,20 +22,20 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::noneViscosity
+    Foam::nonePseudoConductivity
 
 Description
-    This file is in the \dir kineticTheoryModels/viscosityModel/none directory
+    This file is in the \dir kineticTheoryModels/pseudoConductivityModel/none directory
 
 SourceFiles
-    noneViscosity.C
+    nonePseudoConductivity.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef noneViscosity_H
-#define noneViscosity_H
+#ifndef nonePseudoConductivity_H
+#define nonePseudoConductivity_H
 
-#include "viscosityModel.H"
+#include "pseudoConductivityModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -45,12 +45,12 @@ namespace kineticTheoryModels
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class noneViscosity Declaration
+                           Class nonePseudoConductivity Declaration
 \*---------------------------------------------------------------------------*/
 
-class noneViscosity
+class nonePseudoConductivity
 :
-    public viscosityModel
+    public pseudoConductivityModel
 {
 
 public:
@@ -62,32 +62,21 @@ public:
     // Constructors
 
     //- Construct from components
-    noneViscosity(const dictionary& dict);
+    nonePseudoConductivity(const dictionary& dict);
 
 
     //- Destructor
-    virtual ~noneViscosity();
+    virtual ~nonePseudoConductivity();
 
 
     // Member functions
 
-        tmp<volScalarField> mua
+        tmp<volScalarField> kappaAlpha
         (
             const volScalarField& alpha,
             const volScalarField& Theta,
             const volScalarField& g0,
-            const volScalarField& musalt,
-            const volScalarField& K,
-            const dimensionedScalar& rhoa,
-            const dimensionedScalar& da,
-            const dimensionedScalar& e
-        ) const;
-
-        tmp<volScalarField> lambda
-        (
-            const volScalarField& alpha,
-            const volScalarField& Theta,
-            const volScalarField& g0,
+            const volScalarField& g0prime,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
             const dimensionedScalar& e

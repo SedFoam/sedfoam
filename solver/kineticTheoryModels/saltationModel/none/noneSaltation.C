@@ -23,62 +23,71 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "SyamlalConductivity.H"
-#include "mathematicalConstants.H"
+#include "noneSaltation.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(SyamlalConductivity, 0);
-
-    addToRunTimeSelectionTable
-    (
-        conductivityModel,
-        SyamlalConductivity,
-        dictionary
-    );
-}
+namespace kineticTheoryModels
+{
+    defineTypeNameAndDebug(noneSaltation, 0);
+    addToRunTimeSelectionTable(saltationModel, noneSaltation, dictionary);
+} // End namespace kineticTheoryModels
+} // End namespace Foam
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::SyamlalConductivity::SyamlalConductivity(const dictionary& dict)
+Foam::kineticTheoryModels::noneSaltation::noneSaltation(const dictionary& dict)
 :
-    conductivityModel(dict)
+    saltationModel(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::SyamlalConductivity::~SyamlalConductivity()
+Foam::kineticTheoryModels::noneSaltation::~noneSaltation()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::SyamlalConductivity::kappa
+Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::noneSaltation::musalt
 (
-    const volScalarField& alpha,
-    const volScalarField& Theta,
-    const volScalarField& g0,
-    const volScalarField& kappasalt,
-    const volScalarField& K,
-    const dimensionedScalar& rhoa,
-    const dimensionedScalar& da,
-    const dimensionedScalar& e
+ 	const volScalarField& alpha,
+        const volScalarField& Theta,
+        const dimensionedScalar& rhoa,
+        const dimensionedScalar& da,
+        const volScalarField& K
 ) const
 {
-    const scalar sqrtPi = sqrt(constant::mathematical::pi);
 
-    return rhoa*da*sqrt(Theta)*
-    (
-        2.0*sqr(alpha)*g0*(1.0 + e)/sqrtPi
-      + (9.0/8.0)*sqrtPi*g0*0.25*sqr(1.0 + e)*(2.0*e - 1.0)*sqr(alpha)
-       /(49.0/16.0 - 33.0*e/16.0)
-      + (15.0/32.0)*sqrtPi*alpha/(49.0/16.0 - 33.0*e/16.0)
-    );
+        return dimensionedScalar
+        (
+            "1000000000000000",
+            dimensionSet(0, 0, 0, 0, 0, 0, 0),
+            1000000000000000
+        )*alpha/alpha;
+}
+
+Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::noneSaltation::kappasalt
+(
+ 	const volScalarField& alpha,
+        const volScalarField& Theta,
+        const dimensionedScalar& rhoa,
+        const dimensionedScalar& da,
+        const volScalarField& K
+) const
+{
+
+        return dimensionedScalar
+        (
+            "1000000000000000",
+            dimensionSet(0, 0, 0, 0, 0, 0, 0),
+            1000000000000000
+        )*alpha/alpha;
 }
 
 

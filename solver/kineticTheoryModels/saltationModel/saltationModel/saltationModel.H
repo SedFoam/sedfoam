@@ -22,83 +22,112 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::noneViscosity
+    Foam::saltationModel
 
 Description
-    This file is in the \dir kineticTheoryModels/viscosityModel/none directory
+    This file is in the \dir
+    kineticTheoryModels/saltationModel/saltationModel directory
 
 SourceFiles
-    noneViscosity.C
+    saltationModel.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef noneViscosity_H
-#define noneViscosity_H
+#ifndef saltationModel_H
+#define saltationModel_H
 
-#include "viscosityModel.H"
+#include "dictionary.H"
+#include "volFields.H"
+#include "dimensionedTypes.H"
+#include "runTimeSelectionTables.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
-namespace kineticTheoryModels
-{
 
 /*---------------------------------------------------------------------------*\
-                           Class noneViscosity Declaration
+                           Class saltationModel Declaration
 \*---------------------------------------------------------------------------*/
 
-class noneViscosity
-:
-    public viscosityModel
+class saltationModel
 {
+    // Private member functions
+
+        //- Disallow default bitwise copy construct
+        saltationModel(const saltationModel&);
+
+        //- Disallow default bitwise assignment
+        void operator=(const saltationModel&);
+
+
+protected:
+
+    // Protected data
+
+        const dictionary& dict_;
+
 
 public:
 
     //- Runtime type information
-    TypeName("none");
+    TypeName("saltationModel");
+
+    // Declare runtime constructor selection table
+    declareRunTimeSelectionTable
+    (
+        autoPtr,
+        saltationModel,
+        dictionary,
+        (
+            const dictionary& dict
+        ),
+        (dict)
+    );
 
 
     // Constructors
 
-    //- Construct from components
-    noneViscosity(const dictionary& dict);
+        //- Construct from components
+        saltationModel(const dictionary& dict);
+
+
+    // Selectors
+
+        static autoPtr<saltationModel> New
+        (
+            const dictionary& dict
+        );
 
 
     //- Destructor
-    virtual ~noneViscosity();
+    virtual ~saltationModel();
 
 
-    // Member functions
+    // Member Functions
 
-        tmp<volScalarField> mua
+        virtual tmp<volScalarField> musalt
         (
             const volScalarField& alpha,
             const volScalarField& Theta,
-            const volScalarField& g0,
-            const volScalarField& musalt,
-            const volScalarField& K,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
-            const dimensionedScalar& e
-        ) const;
+            const volScalarField& K
+        ) const = 0;
 
-        tmp<volScalarField> lambda
+	virtual tmp<volScalarField> kappasalt
         (
             const volScalarField& alpha,
             const volScalarField& Theta,
-            const volScalarField& g0,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
-            const dimensionedScalar& e
-        ) const;
-
+            const volScalarField& K
+        ) const = 0;
 };
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-} // End namespace kineticTheoryModels
 } // End namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

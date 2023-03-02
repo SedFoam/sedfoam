@@ -64,6 +64,7 @@ Foam::tmp<Foam::volScalarField> Foam::GidaspowConductivity::kappa
     const volScalarField& Theta,
     const volScalarField& g0,
     const volScalarField& kappasalt,
+    const volScalarField& K,
     const dimensionedScalar& rhoa,
     const dimensionedScalar& da,
     const dimensionedScalar& e

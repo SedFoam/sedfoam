@@ -23,7 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "GarzoDuftyViscosity.H"
+#include "JenkinsSaltation.H"
 #include "mathematicalConstants.H"
 #include "addToRunTimeSelectionTable.H"
 
@@ -33,79 +33,55 @@ namespace Foam
 {
 namespace kineticTheoryModels
 {
-    defineTypeNameAndDebug(GarzoDuftyViscosity, 0);
-    addToRunTimeSelectionTable(viscosityModel, GarzoDuftyViscosity, dictionary);
+    defineTypeNameAndDebug(JenkinsSaltation, 0);
+    addToRunTimeSelectionTable(saltationModel, JenkinsSaltation, dictionary);
 } // End namespace kineticTheoryModels
 } // End namespace Foam
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::kineticTheoryModels::GarzoDuftyViscosity::GarzoDuftyViscosity
+Foam::kineticTheoryModels::JenkinsSaltation::JenkinsSaltation
 (
     const dictionary& dict
 )
 :
-    viscosityModel(dict)
+    saltationModel(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::kineticTheoryModels::GarzoDuftyViscosity::~GarzoDuftyViscosity()
+Foam::kineticTheoryModels::JenkinsSaltation::~JenkinsSaltation()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 Foam::tmp<Foam::volScalarField>
-Foam::kineticTheoryModels::GarzoDuftyViscosity::mua
+Foam::kineticTheoryModels::JenkinsSaltation::musalt
 (
-    const volScalarField& alpha,
-    const volScalarField& Theta,
-    const volScalarField& g0,
-    const volScalarField& musalt,
-    const volScalarField& K,
-    const dimensionedScalar& rhoa,
-    const dimensionedScalar& da,
-    const dimensionedScalar& e
+ 	const volScalarField& alpha,
+        const volScalarField& Theta,
+        const dimensionedScalar& rhoa,
+        const dimensionedScalar& da,
+        const volScalarField& K
 ) const
 {
-    const scalar sqrtPi = sqrt(constant::mathematical::pi);
-    const scalar pi = constant::mathematical::pi;
-
-    //Kinetic viscosity
-    const volScalarField muk = 5*sqrtPi/96*(1-2./5*(1+e)*(1-3*e)*alpha*g0)/((1-0.25*pow((1-e), 2)-
-         5./24*(1-pow(e, 2)))*g0);
-    //Contact viscosity
-    const volScalarField muc = muk*(4./5*(1+e)*alpha*g0);
-    //Bulk viscosity
-    const volScalarField mub = 5*sqrtPi/96*384./(25*pi)*(1+e)*pow(alpha, 2)*g0;
-
-    //Total viscosity accounting for saltation
-    const volScalarField muTot = muk*musalt/(musalt+muk) + muc + mub;
-
-    return rhoa*da*sqrt(Theta)*muTot;
+    return rhoa*alpha*sqrt(Theta)/(3*da*K);
 }
 
 Foam::tmp<Foam::volScalarField>
-Foam::kineticTheoryModels::GarzoDuftyViscosity::lambda
+Foam::kineticTheoryModels::JenkinsSaltation::kappasalt
 (
-    const volScalarField& alpha,
-    const volScalarField& Theta,
-    const volScalarField& g0,
-    const dimensionedScalar& rhoa,
-    const dimensionedScalar& da,
-    const dimensionedScalar& e
+ 	const volScalarField& alpha,
+        const volScalarField& Theta,
+        const dimensionedScalar& rhoa,
+        const dimensionedScalar& da,
+        const volScalarField& K
 ) const
 {
-    const scalar sqrtPi = sqrt(constant::mathematical::pi);
-    const scalar pi = constant::mathematical::pi;
-
-    return rhoa*da*sqrt(Theta)*5*sqrtPi/96*
-    (
-     1152./(45*pi)*(1+e)*pow(alpha, 2)*g0
-    );
+    return 0.5*rhoa*alpha*sqrt(Theta)/(3*da*K);
 }
 
 // ************************************************************************* //

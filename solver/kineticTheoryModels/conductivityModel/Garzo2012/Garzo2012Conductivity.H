@@ -22,83 +22,76 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::noneViscosity
+    Foam::Garzo2012Conductivity
 
 Description
-    This file is in the \dir kineticTheoryModels/viscosityModel/none directory
+    \verbatim
+    "Enskog kinetic theory for monodisperse gas–solid flows."
+    Garzó, V., Tenneti, S., Subramaniam, S. & Hrenya, C. M. (2012).
+    Journal of Fluid Mechanics 712, 129–168.
+    \endverbatim
+
+    This file is in the \dir kineticTheoryModels/conductivityModel/Garzo2012
+    directory
 
 SourceFiles
-    noneViscosity.C
+    Garzo2012Conductivity.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef noneViscosity_H
-#define noneViscosity_H
+#ifndef Garzo2012Conductivity_H
+#define Garzo2012Conductivity_H
 
-#include "viscosityModel.H"
+#include "conductivityModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
-namespace kineticTheoryModels
-{
 
 /*---------------------------------------------------------------------------*\
-                           Class noneViscosity Declaration
+                           Class Garzo2012Conductivity Declaration
 \*---------------------------------------------------------------------------*/
 
-class noneViscosity
+class Garzo2012Conductivity
 :
-    public viscosityModel
+    public conductivityModel
 {
 
 public:
 
     //- Runtime type information
-    TypeName("none");
+    TypeName("Garzo2012");
 
 
     // Constructors
 
-    //- Construct from components
-    noneViscosity(const dictionary& dict);
+        //- Construct from components
+        Garzo2012Conductivity(const dictionary& dict);
 
 
     //- Destructor
-    virtual ~noneViscosity();
+    virtual ~Garzo2012Conductivity();
 
 
-    // Member functions
+    // Member Functions
 
-        tmp<volScalarField> mua
+        tmp<volScalarField> kappa
         (
             const volScalarField& alpha,
             const volScalarField& Theta,
             const volScalarField& g0,
-            const volScalarField& musalt,
+            const volScalarField& kappasalt,
             const volScalarField& K,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
             const dimensionedScalar& e
         ) const;
-
-        tmp<volScalarField> lambda
-        (
-            const volScalarField& alpha,
-            const volScalarField& Theta,
-            const volScalarField& g0,
-            const dimensionedScalar& rhoa,
-            const dimensionedScalar& da,
-            const dimensionedScalar& e
-        ) const;
-
 };
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-} // End namespace kineticTheoryModels
 } // End namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

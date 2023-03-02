@@ -22,76 +22,78 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::GarzoDuftyModConductivity
+    Foam::noneSaltation
 
 Description
-    \verbatim
-    "Dense fluid transport for inelastic hard spheres."
-    Garzó, V. and Dufty, J. W. (1999).
-    Physical Review. E, Statistical Physics, Plasmas, Fluids, and Related
-    Interdisciplinary Topics, 59(5 Pt B):5895–5911
-    \endverbatim
-
-    This file is in the \dir kineticTheoryModels/conductivityModel/GarzouftyMod
-    directory
+    This file is in the \dir kineticTheoryModels/saltationModel/none directory
 
 SourceFiles
-    GarzoDuftyModConductivity.C
+    noneSaltation.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef GarzoDuftyModConductivity_H
-#define GarzoDuftyModConductivity_H
+#ifndef noneSaltation_H
+#define noneSaltation_H
 
-#include "conductivityModel.H"
+#include "saltationModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
+namespace kineticTheoryModels
+{
 
 /*---------------------------------------------------------------------------*\
-                           Class GarzoDuftyModConductivity Declaration
+                           Class noneSaltation Declaration
 \*---------------------------------------------------------------------------*/
 
-class GarzoDuftyModConductivity
+class noneSaltation
 :
-    public conductivityModel
+    public saltationModel
 {
 
 public:
 
     //- Runtime type information
-    TypeName("GarzoDuftyMod");
+    TypeName("none");
 
 
     // Constructors
 
-        //- Construct from components
-        GarzoDuftyModConductivity(const dictionary& dict);
+    //- Construct from components
+    noneSaltation(const dictionary& dict);
 
 
     //- Destructor
-    virtual ~GarzoDuftyModConductivity();
+    virtual ~noneSaltation();
 
 
-    // Member Functions
+    // Member functions
 
-        tmp<volScalarField> kappa
+        tmp<volScalarField> musalt
         (
             const volScalarField& alpha,
             const volScalarField& Theta,
-            const volScalarField& g0,
-            const volScalarField& kappasalt,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
-            const dimensionedScalar& e
+            const volScalarField& K
+        ) const;
+
+        tmp<volScalarField> kappasalt
+        (
+            const volScalarField& alpha,
+            const volScalarField& Theta,
+            const dimensionedScalar& rhoa,
+            const dimensionedScalar& da,
+            const volScalarField& K
         ) const;
 };
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+} // End namespace kineticTheoryModels
 } // End namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

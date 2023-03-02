@@ -22,18 +22,25 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::noneViscosity
+    Foam::Garzo2012Viscosity
 
 Description
-    This file is in the \dir kineticTheoryModels/viscosityModel/none directory
+    \verbatim
+    "Enskog kinetic theory for monodisperse gas–solid flows."
+    Garzó, V., Tenneti, S., Subramaniam, S. & Hrenya, C. M. (2012).
+    Journal of Fluid Mechanics 712, 129–168.
+    \endverbatim
+
+    This file is in the \dir kineticTheoryModels/viscosityModel/Garzo2012
+    directory
 
 SourceFiles
-    noneViscosity.C
+    Garzo2012Viscosity.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef noneViscosity_H
-#define noneViscosity_H
+#ifndef Garzo2012Viscosity_H
+#define Garzo2012Viscosity_H
 
 #include "viscosityModel.H"
 
@@ -45,10 +52,10 @@ namespace kineticTheoryModels
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class noneViscosity Declaration
+                           Class Garzo2012Viscosity Declaration
 \*---------------------------------------------------------------------------*/
 
-class noneViscosity
+class Garzo2012Viscosity
 :
     public viscosityModel
 {
@@ -56,17 +63,17 @@ class noneViscosity
 public:
 
     //- Runtime type information
-    TypeName("none");
+    TypeName("Garzo2012");
 
 
     // Constructors
 
-    //- Construct from components
-    noneViscosity(const dictionary& dict);
+        //- Construct from components
+        Garzo2012Viscosity(const dictionary& dict);
 
 
     //- Destructor
-    virtual ~noneViscosity();
+    virtual ~Garzo2012Viscosity();
 
 
     // Member functions

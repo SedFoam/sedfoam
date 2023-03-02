@@ -23,8 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "GarzoDuftyViscosity.H"
-#include "mathematicalConstants.H"
+#include "nonePseudoConductivity.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
@@ -33,79 +32,46 @@ namespace Foam
 {
 namespace kineticTheoryModels
 {
-    defineTypeNameAndDebug(GarzoDuftyViscosity, 0);
-    addToRunTimeSelectionTable(viscosityModel, GarzoDuftyViscosity, dictionary);
+    defineTypeNameAndDebug(nonePseudoConductivity, 0);
+    addToRunTimeSelectionTable(pseudoConductivityModel, nonePseudoConductivity, dictionary);
 } // End namespace kineticTheoryModels
 } // End namespace Foam
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::kineticTheoryModels::GarzoDuftyViscosity::GarzoDuftyViscosity
-(
-    const dictionary& dict
-)
+Foam::kineticTheoryModels::nonePseudoConductivity::nonePseudoConductivity(const dictionary& dict)
 :
-    viscosityModel(dict)
+    pseudoConductivityModel(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::kineticTheoryModels::GarzoDuftyViscosity::~GarzoDuftyViscosity()
+Foam::kineticTheoryModels::nonePseudoConductivity::~nonePseudoConductivity()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField>
-Foam::kineticTheoryModels::GarzoDuftyViscosity::mua
+Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::nonePseudoConductivity::kappaAlpha
 (
     const volScalarField& alpha,
     const volScalarField& Theta,
     const volScalarField& g0,
-    const volScalarField& musalt,
-    const volScalarField& K,
+    const volScalarField& g0prime,
     const dimensionedScalar& rhoa,
     const dimensionedScalar& da,
     const dimensionedScalar& e
 ) const
 {
-    const scalar sqrtPi = sqrt(constant::mathematical::pi);
-    const scalar pi = constant::mathematical::pi;
-
-    //Kinetic viscosity
-    const volScalarField muk = 5*sqrtPi/96*(1-2./5*(1+e)*(1-3*e)*alpha*g0)/((1-0.25*pow((1-e), 2)-
-         5./24*(1-pow(e, 2)))*g0);
-    //Contact viscosity
-    const volScalarField muc = muk*(4./5*(1+e)*alpha*g0);
-    //Bulk viscosity
-    const volScalarField mub = 5*sqrtPi/96*384./(25*pi)*(1+e)*pow(alpha, 2)*g0;
-
-    //Total viscosity accounting for saltation
-    const volScalarField muTot = muk*musalt/(musalt+muk) + muc + mub;
-
-    return rhoa*da*sqrt(Theta)*muTot;
-}
-
-Foam::tmp<Foam::volScalarField>
-Foam::kineticTheoryModels::GarzoDuftyViscosity::lambda
-(
-    const volScalarField& alpha,
-    const volScalarField& Theta,
-    const volScalarField& g0,
-    const dimensionedScalar& rhoa,
-    const dimensionedScalar& da,
-    const dimensionedScalar& e
-) const
-{
-    const scalar sqrtPi = sqrt(constant::mathematical::pi);
-    const scalar pi = constant::mathematical::pi;
-
-    return rhoa*da*sqrt(Theta)*5*sqrtPi/96*
+    return dimensionedScalar
     (
-     1152./(45*pi)*(1+e)*pow(alpha, 2)*g0
-    );
+        "0",
+        dimensionSet(1, 1, -3, 0, 0, 0, 0),
+        0.0
+    )*alpha;
 }
+
 
 // ************************************************************************* //

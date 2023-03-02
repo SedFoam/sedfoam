@@ -69,10 +69,6 @@ Foam::kineticTheoryModel::kineticTheoryModel
     (
         kineticTheoryProperties_.getOrDefault<Switch>("extended", false)
     ),
-    saltation_
-    (
-        kineticTheoryProperties_.getOrDefault<Switch>("saltation", false)
-    ),
     limitProduction_
     (
         kineticTheoryProperties_.getOrDefault<Switch>("limitProduction", false)
@@ -91,6 +87,13 @@ Foam::kineticTheoryModel::kineticTheoryModel
             kineticTheoryProperties_
         )
     ),
+    pseudoConductivityModel_
+    (
+        pseudoConductivityModel::New
+        (
+            kineticTheoryProperties_
+        )
+    ),
     radialModel_
     (
         radialModel::New
@@ -101,6 +104,13 @@ Foam::kineticTheoryModel::kineticTheoryModel
     granularPressureModel_
     (
         granularPressureModel::New
+        (
+            kineticTheoryProperties_
+        )
+    ),
+    saltationModel_
+    (
+        saltationModel::New
         (
             kineticTheoryProperties_
         )
@@ -220,6 +230,19 @@ Foam::kineticTheoryModel::kineticTheoryModel
         Ua_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
     ),
+    muSaltCoef_
+    (
+        IOobject
+        (
+            "muSaltCoef",
+            Ua_.time().timeName(),
+            Ua_.mesh(),
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        Ua_.mesh(),
+        dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
+    ),
     lambda_
     (
         IOobject
@@ -284,6 +307,32 @@ Foam::kineticTheoryModel::kineticTheoryModel
         ),
         Ua_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
+    ),
+    kappaSaltCoef_
+    (
+        IOobject
+        (
+            "kappaSaltCoef",
+            Ua_.time().timeName(),
+            Ua_.mesh(),
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        Ua_.mesh(),
+        dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
+    ),
+    kappaAlpha_
+    (
+        IOobject
+        (
+            "kappaAlpha",
+            Ua_.time().timeName(),
+            Ua_.mesh(),
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        Ua_.mesh(),
+        dimensionedScalar("zero", dimensionSet(1, 1, -3, 0, 0), 0.0)
     ),
     gs0_
     (
@@ -379,6 +428,7 @@ void Foam::kineticTheoryModel::solve
     // Radial distribution function g0
     //////////////////////////////////
     gs0_ = radialModel_->g0(min(alpha_, alphaMax_ - alphaSmall), alphaMax_, muPart_);
+    gs0Prime_ = radialModel_->g0prime(min(alpha_, alphaMax_ - alphaSmall), alphaMax_, muPart_);
 
     //////////////////////////////////////////
     // collisional pressure  (Eq. 3.22, p. 45)
@@ -395,17 +445,19 @@ void Foam::kineticTheoryModel::solve
     );
 
     ///////////////////////////////////////
+    // Saltation Model
+    ///////////////////////////////////////
+    volScalarField K(draga_.K(mag(Ua_ - Ub_)));
+    muSaltCoef_ = saltationModel_->musalt(alpha_+alphaSmall, ThetaClip+Tsmall, rhoa_, da_, K+Ksmall);
+    kappaSaltCoef_ = saltationModel_->kappasalt(alpha_+alphaSmall, ThetaClip+Tsmall, rhoa_, da_, K+Ksmall);
+
+    ///////////////////////////////////////
     // Granular viscosity (Table 3.2, p.47)
     // and shear stress
     ///////////////////////////////////////
-    volScalarField musalt = pow(10,6)*(alpha_+alphaSmall)/(alpha_+alphaSmall);
-    volScalarField K(draga_.K(mag(Ua_ - Ub_)));
-    if (saltation_){
-        musalt = rhoa_*alpha_*ThetaSqrt/(3*da_*(K+Ksmall));}
-
-    mua_ = viscosityModel_->mua(alpha_, ThetaClip, gs0_, musalt, rhoa_, da_, e_);
+    mua_ = viscosityModel_->mua(alpha_+alphaSmall, ThetaClip+Tsmall, gs0_, muSaltCoef_, K, rhoa_, da_, e_);
     // bulk viscosity  p. 45.
-    lambda_ = viscosityModel_->lambda(alpha_, ThetaClip, gs0_, rhoa_, da_, e_);
+    lambda_ = viscosityModel_->lambda(alpha_+alphaSmall, ThetaClip+Tsmall, gs0_, rhoa_, da_, e_);
 
     // stress tensor, Definitions, Table 3.1, p. 43
     volSymmTensorField tau
@@ -416,8 +468,12 @@ void Foam::kineticTheoryModel::solve
     //////////////////////////////////////////////
     // Temperature conductivity (Table 3.3, p. 49)
     //////////////////////////////////////////////
-    volScalarField kappasalt = musalt/0.5;
-    kappa_ = conductivityModel_->kappa(alpha_, ThetaClip, gs0_, kappasalt, rhoa_, da_, e_);
+    kappa_ = conductivityModel_->kappa(alpha_, ThetaClip, gs0_, kappaSaltCoef_, K, rhoa_, da_, e_);
+
+    //////////////////////////////////////////////
+    // Temperature conductivity (Table 3.3, p. 49)
+    //////////////////////////////////////////////
+    kappaAlpha_ = pseudoConductivityModel_->kappaAlpha(alpha_, ThetaClip, gs0_, gs0Prime_, rhoa_, da_, e_);
 
     //////////////////////
     // Contact dissipation
@@ -505,6 +561,8 @@ void Foam::kineticTheoryModel::solve
        + (tau && dU)
        // granular temperature conduction.
        + fvm::laplacian(kappa_, Theta_, "laplacian(kappa,Theta)")
+       // granular temperature pseudo conduction.
+       + fvc::laplacian(kappaAlpha_, alpha_, "laplacian(kappaAlpha,alpha)")
        // energy disipation due to inelastic collision.
        + fvm::Sp(-gammaCoeff, Theta_)
        // dissipation through drag force
@@ -528,7 +586,7 @@ void Foam::kineticTheoryModel::solve
     PsCoeff = granularPressureModel_->granularPressureCoeff(
           alpha_, gs0_, rhoa_, e_);
     pa_ = PsCoeff*Theta_;
-    mua_ = viscosityModel_->mua(alpha_, Theta_, gs0_, musalt, rhoa_, da_, e_);
+    mua_ = viscosityModel_->mua(alpha_+alphaSmall, Theta_+Tsmall, gs0_, muSaltCoef_, K, rhoa_, da_, e_);
     lambda_ = viscosityModel_->lambda(alpha_, Theta_, gs0_, rhoa_, da_, e_);
 
     pa_.max(0.0);

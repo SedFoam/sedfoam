@@ -133,6 +133,8 @@ protected:
             const volScalarField& ESD3_;
             const volScalarField& ESD4_;
             const volScalarField& ESD5_;
+	    const volScalarField& ESD6_;
+            const volScalarField& ESD7_;
             const volScalarField& ESD_;
 
         // Fields

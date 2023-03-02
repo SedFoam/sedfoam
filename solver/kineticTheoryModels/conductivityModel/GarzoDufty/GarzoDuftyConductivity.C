@@ -64,23 +64,23 @@ Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyConductivity::kappa
     const volScalarField& Theta,
     const volScalarField& g0,
     const volScalarField& kappasalt,
+    const volScalarField& K,
     const dimensionedScalar& rhoa,
     const dimensionedScalar& da,
     const dimensionedScalar& e
 ) const
 {
     const scalar sqrtPi = sqrt(constant::mathematical::pi);
-    const scalar Pi = constant::mathematical::pi;
 
     //Kinetic conductivity
-    const volScalarField kappak = 225*sqrtPi/1152*32*(1+3./5*pow(1+e, 2)*(2*e-1)*alpha*g0)/((16-7*(1-e))*(1+e)*g0);
+    const volScalarField kappak = 25*sqrtPi/64*(1+3./5*pow(1+e, 2)*(2*e-1)*alpha*g0)/((1-7/16*(1-e))*(1+e)*g0);
     //Contact conductivity
     const volScalarField kappac = kappak*6./5*(1+e)*alpha*g0;
     //Bulk conductivity
-    const volScalarField kappab = 225*sqrtPi/1152*2304./(225*Pi)*(1+e)*pow(alpha, 2)*g0;
+    const volScalarField kappab = 2/sqrtPi*(1+e)*pow(alpha, 2)*g0;
 
     //Total conductivity accounting for saltation
-    const volScalarField kappaTot = kappasalt*kappak/(kappasalt+kappak) + kappac + kappab;
+    const volScalarField kappaTot = kappak * kappasalt/(kappak+kappasalt) + kappac + kappab;
 
     return rhoa*da*sqrt(Theta)*kappaTot;
 }

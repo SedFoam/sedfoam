@@ -205,6 +205,8 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ESD3_(U.db().lookupObject<volScalarField> ("ESD3")),
     ESD4_(U.db().lookupObject<volScalarField> ("ESD4")),
     ESD5_(U.db().lookupObject<volScalarField> ("ESD5")),
+    ESD6_(U.db().lookupObject<volScalarField> ("ESD6")),
+    ESD7_(U.db().lookupObject<volScalarField> ("ESD7")),
     ESD_(U.db().lookupObject<volScalarField> ("ESD")),
     k_
     (
@@ -372,6 +374,9 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
       + fvm::Sp(ESD_, k_)
       + fvm::Sp(KE4_*ESD4_*nut/k_, k_)
       + ESD2()*fvm::Sp(KE2_, k_)
+      + fvm::Sp(ESD6_/k_, k_) //turbulent production by vegetation drag force
+      - fvm::Sp(ESD7_, k_) //turbulent disspation by vegetation drag force
+
     );
 
     kEqn.ref().relax();

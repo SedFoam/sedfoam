@@ -22,20 +22,32 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::noneViscosity
+    Foam::JenkinsSaltation
 
 Description
-    This file is in the \dir kineticTheoryModels/viscosityModel/none directory
+    \verbatim
+    "Continuum model for steady, fully developed saltation above a horizontal
+    particle bed"
+    Jenkins, J. T., Cantat, I. & Valance, A. (2010).
+    Physical Review E 82 (2), 020301.
+
+    "Two-phase continuum theory for windblown sand."
+    Jenkins, James T. & Valance, Alexandre (2018).
+    Physical Review Fluids 3 (3), 034305.
+    \endverbatim
+
+    This file is in the \dir kineticTheoryModels/saltationModel/Jenkins
+    directory
 
 SourceFiles
-    noneViscosity.C
+    JenkinsSaltation.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef noneViscosity_H
-#define noneViscosity_H
+#ifndef JenkinsSaltation_H
+#define JenkinsSaltation_H
 
-#include "viscosityModel.H"
+#include "saltationModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -45,52 +57,48 @@ namespace kineticTheoryModels
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class noneViscosity Declaration
+                           Class JenkinsSaltation Declaration
 \*---------------------------------------------------------------------------*/
 
-class noneViscosity
+class JenkinsSaltation
 :
-    public viscosityModel
+    public saltationModel
 {
 
 public:
 
     //- Runtime type information
-    TypeName("none");
+    TypeName("Jenkins");
 
 
     // Constructors
 
-    //- Construct from components
-    noneViscosity(const dictionary& dict);
+        //- Construct from components
+        JenkinsSaltation(const dictionary& dict);
 
 
     //- Destructor
-    virtual ~noneViscosity();
+    virtual ~JenkinsSaltation();
 
 
     // Member functions
 
-        tmp<volScalarField> mua
+	tmp<volScalarField> musalt
         (
             const volScalarField& alpha,
             const volScalarField& Theta,
-            const volScalarField& g0,
-            const volScalarField& musalt,
-            const volScalarField& K,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
-            const dimensionedScalar& e
+            const volScalarField& K
         ) const;
 
-        tmp<volScalarField> lambda
+        tmp<volScalarField> kappasalt
         (
             const volScalarField& alpha,
             const volScalarField& Theta,
-            const volScalarField& g0,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
-            const dimensionedScalar& e
+            const volScalarField& K
         ) const;
 
 };

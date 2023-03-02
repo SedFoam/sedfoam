@@ -20,7 +20,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "twophaseMixingLengthConst.H"
+#include "twophaseMixingLengthBerzi.H"
 #include "fvOptions.H"
 #include "bound.H"
 
@@ -33,9 +33,9 @@ namespace RASModels
 // * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * * //
 
 template<class BasicTurbulenceModel>
-void twophaseMixingLengthConst<BasicTurbulenceModel>::correctNut()
+void twophaseMixingLengthBerzi<BasicTurbulenceModel>::correctNut()
 {
-    scalar cmu34 = 0.1643;
+    scalar cmu34 = pow(Cmu_.value(), 3.0/4.0);
     this->nut_ = 0.8*cmu34*k_*k_/epsilon_;
     this->nut_.correctBoundaryConditions();
     fv::options::New(this->mesh_).correct(this->nut_);
@@ -47,7 +47,7 @@ void twophaseMixingLengthConst<BasicTurbulenceModel>::correctNut()
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class BasicTurbulenceModel>
-twophaseMixingLengthConst<BasicTurbulenceModel>::twophaseMixingLengthConst
+twophaseMixingLengthBerzi<BasicTurbulenceModel>::twophaseMixingLengthBerzi
 (
     const alphaField& beta,
     const rhoField& rho,
@@ -151,7 +151,7 @@ twophaseMixingLengthConst<BasicTurbulenceModel>::twophaseMixingLengthConst
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class BasicTurbulenceModel>
-bool twophaseMixingLengthConst<BasicTurbulenceModel>::read()
+bool twophaseMixingLengthBerzi<BasicTurbulenceModel>::read()
 {
     if (eddyViscosity<RASModel<BasicTurbulenceModel>>::read())
     {
@@ -161,9 +161,8 @@ bool twophaseMixingLengthConst<BasicTurbulenceModel>::read()
     return false;
 }
 
-
 template<class BasicTurbulenceModel>
-void twophaseMixingLengthConst<BasicTurbulenceModel>::correct()
+void twophaseMixingLengthBerzi<BasicTurbulenceModel>::correct()
 {
     if (not this->turbulence_)
     {
@@ -202,28 +201,12 @@ void twophaseMixingLengthConst<BasicTurbulenceModel>::correct()
     scalar d(d_.value());
     scalar alphaMaxLMs(alphaMaxLM_.value());
     scalar LmPhi(0.);
-    scalar cmu34 = 0.1643;
-
+    scalar cmu34(pow(Cmu_.value(), 3.0/4.0));
 
     nut.storePrevIter();
     forAll(U, cellI)
     {
-	if (cellI==0)
-        {
-            dY = Y[cellI+1]-Y[cellI];
-        }
-        else
-        {
-            dY = Y[cellI]-Y[cellI-1];
-        }
-        LmPhi = LmPhi
-              + kappaLMs*max
-              (
-                  scalar(1.0)
-                - Foam::pow(min(alpha[cellI]/alphaMaxLMs, scalar(1.0)),
-                            expoLM), 0.
-              )*dY;
-        Lm = max(LmPhi, 0.2*d);
+	Lm = max(3*d*pow(alphaMaxLMs-alpha[cellI],expoLM), 0.2*d);
         nut[cellI] = pow(Lm, 2)*magD[cellI];
         // for kinetic theory k is required
         k_[cellI] = pow(nut[cellI]/(0.1*max(Lm, 1e-4)), 2);

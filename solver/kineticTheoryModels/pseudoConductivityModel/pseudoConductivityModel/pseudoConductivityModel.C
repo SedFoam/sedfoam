@@ -23,70 +23,33 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "GarzoDuftyModConductivity.H"
-#include "mathematicalConstants.H"
-#include "addToRunTimeSelectionTable.H"
+#include "pseudoConductivityModel.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(GarzoDuftyModConductivity, 0);
+    defineTypeNameAndDebug(pseudoConductivityModel, 0);
 
-    addToRunTimeSelectionTable
-    (
-        conductivityModel,
-        GarzoDuftyModConductivity,
-        dictionary
-    );
+    defineRunTimeSelectionTable(pseudoConductivityModel, dictionary);
 }
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::GarzoDuftyModConductivity::GarzoDuftyModConductivity
+Foam::pseudoConductivityModel::pseudoConductivityModel
 (
-const dictionary& dict
+    const dictionary& dict
 )
 :
-    conductivityModel(dict)
+    dict_(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::GarzoDuftyModConductivity::~GarzoDuftyModConductivity()
+Foam::pseudoConductivityModel::~pseudoConductivityModel()
 {}
-
-
-// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
-
-Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyModConductivity::kappa
-(
-    const volScalarField& alpha,
-    const volScalarField& Theta,
-    const volScalarField& g0,
-    const volScalarField& kappasalt,
-    const dimensionedScalar& rhoa,
-    const dimensionedScalar& da,
-    const dimensionedScalar& e
-) const
-{
-    const scalar sqrtPi = sqrt(constant::mathematical::pi);
-    const scalar Pi = constant::mathematical::pi;
-
-    return rhoa*da*sqrt(Theta)*225*sqrtPi/1152*
-    (
-     //Kinetic conductivity
-     32*(576./(225*sqrtPi)*alpha + 3./5*pow(1+e, 2)*(2*e-1)*alpha*g0)/
-     ((16-7*(1-e))*(1+e)*g0) +
-     //Contact conductivity
-     32*(576./(225*sqrtPi)*alpha + 3./5*pow(1+e, 2)*(2*e-1)*alpha*g0)/
-     ((16-7*(1-e))*(1+e)*g0)* 6./5*(1+e)*alpha*g0 +
-     //Bulk conductivity
-     2304./(225*Pi)*(1+e)*pow(alpha, 2)*g0
-    );
-}
 
 
 // ************************************************************************* //

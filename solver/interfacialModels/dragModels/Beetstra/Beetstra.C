@@ -23,20 +23,19 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "SyamlalConductivity.H"
-#include "mathematicalConstants.H"
+#include "Beetstra.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(SyamlalConductivity, 0);
+    defineTypeNameAndDebug(Beetstra, 0);
 
     addToRunTimeSelectionTable
     (
-        conductivityModel,
-        SyamlalConductivity,
+        dragModel,
+        Beetstra,
         dictionary
     );
 }
@@ -44,41 +43,46 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::SyamlalConductivity::SyamlalConductivity(const dictionary& dict)
+Foam::Beetstra::Beetstra
+(
+    const dictionary& interfaceDict,
+    const phaseModel& phasea,
+    const phaseModel& phaseb
+)
 :
-    conductivityModel(dict)
+    dragModel(interfaceDict, phasea, phaseb)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::SyamlalConductivity::~SyamlalConductivity()
+Foam::Beetstra::~Beetstra()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::SyamlalConductivity::kappa
+Foam::tmp<Foam::volScalarField> Foam::Beetstra::K
 (
-    const volScalarField& alpha,
-    const volScalarField& Theta,
-    const volScalarField& g0,
-    const volScalarField& kappasalt,
-    const volScalarField& K,
-    const dimensionedScalar& rhoa,
-    const dimensionedScalar& da,
-    const dimensionedScalar& e
+    const volScalarField& Ur
 ) const
 {
-    const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    volScalarField Re(max(Ur*phasea_.d()/phaseb_.nu(), scalar(1.0e-3)));
 
-    return rhoa*da*sqrt(Theta)*
+    volScalarField F
     (
-        2.0*sqr(alpha)*g0*(1.0 + e)/sqrtPi
-      + (9.0/8.0)*sqrtPi*g0*0.25*sqr(1.0 + e)*(2.0*e - 1.0)*sqr(alpha)
-       /(49.0/16.0 - 33.0*e/16.0)
-      + (15.0/32.0)*sqrtPi*alpha/(49.0/16.0 - 33.0*e/16.0)
+        10*alpha_/pow(1-alpha_,2) +
+	pow(1-alpha_,2)*(1 + 1.5*pow(alpha_,0.5)) +
+	0.413*Re/(24*pow(1-alpha_,2))*
+	(pow(1-alpha_,-1) + 3*alpha_*(1-alpha_) + 8.4*pow(Re,-0.343))/
+	(1+pow(10,3*alpha_)*pow(Re,-(1+4*alpha_)/2))
     );
+    volScalarField Cds
+    (
+        24/Re*pow(1-alpha_, -1)*F
+    );
+
+    return 0.75*Cds*phaseb_.rho()*Ur/phasea_.d();
 }
 
 

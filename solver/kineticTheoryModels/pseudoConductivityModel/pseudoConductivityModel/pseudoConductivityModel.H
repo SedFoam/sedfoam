@@ -22,7 +22,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::GarzoDuftyModViscosity
+    Foam::pseudoConductivityModel
 
 Description
     \verbatim
@@ -32,80 +32,99 @@ Description
     Interdisciplinary Topics, 59(5 Pt B):5895–5911
     \endverbatim
 
-    This file is in the \dir kineticTheoryModels/viscosityModel/GarzoDuftyMod
-    directory
-
 SourceFiles
-    GarzoDuftyModViscosity.C
+    pseudoConductivityModel.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef GarzoDuftyModViscosity_H
-#define GarzoDuftyModViscosity_H
+#ifndef pseudoConductivityModel_H
+#define pseudoConductivityModel_H
 
-#include "viscosityModel.H"
+#include "dictionary.H"
+#include "volFields.H"
+#include "dimensionedTypes.H"
+#include "runTimeSelectionTables.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
-namespace kineticTheoryModels
-{
 
 /*---------------------------------------------------------------------------*\
-                           Class GarzoDuftyModViscosity Declaration
+                           Class pseudoConductivityModel Declaration
 \*---------------------------------------------------------------------------*/
 
-class GarzoDuftyModViscosity
-:
-    public viscosityModel
+class pseudoConductivityModel
 {
+    // Private member functions
+
+        //- Disallow default bitwise copy construct
+        pseudoConductivityModel(const pseudoConductivityModel&);
+
+        //- Disallow default bitwise assignment
+        void operator=(const pseudoConductivityModel&);
+
+
+protected:
+
+    // Protected data
+
+        const dictionary& dict_;
+
 
 public:
 
     //- Runtime type information
-    TypeName("GarzoDuftyMod");
+    TypeName("pseudoConductivityModel");
+
+    // Declare runtime constructor selection table
+    declareRunTimeSelectionTable
+    (
+        autoPtr,
+        pseudoConductivityModel,
+        dictionary,
+        (
+            const dictionary& dict
+        ),
+        (dict)
+    );
 
 
     // Constructors
 
         //- Construct from components
-        GarzoDuftyModViscosity(const dictionary& dict);
+        pseudoConductivityModel(const dictionary& dict);
+
+
+    // Selectors
+
+        static autoPtr<pseudoConductivityModel> New
+        (
+            const dictionary& dict
+        );
 
 
     //- Destructor
-    virtual ~GarzoDuftyModViscosity();
+    virtual ~pseudoConductivityModel();
 
 
-    // Member functions
+    // Member Functions
 
-        tmp<volScalarField> mua
+        virtual tmp<volScalarField> kappaAlpha
         (
             const volScalarField& alpha,
             const volScalarField& Theta,
             const volScalarField& g0,
-            const volScalarField& musalt,
+            const volScalarField& g0prime,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
             const dimensionedScalar& e
-        ) const;
-
-        tmp<volScalarField> lambda
-        (
-            const volScalarField& alpha,
-            const volScalarField& Theta,
-            const volScalarField& g0,
-            const dimensionedScalar& rhoa,
-            const dimensionedScalar& da,
-            const dimensionedScalar& e
-        ) const;
-
+        ) const = 0;
 };
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-} // End namespace kineticTheoryModels
 } // End namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

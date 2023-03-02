@@ -23,63 +23,33 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "SyamlalConductivity.H"
-#include "mathematicalConstants.H"
-#include "addToRunTimeSelectionTable.H"
+#include "saltationModel.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(SyamlalConductivity, 0);
+    defineTypeNameAndDebug(saltationModel, 0);
 
-    addToRunTimeSelectionTable
-    (
-        conductivityModel,
-        SyamlalConductivity,
-        dictionary
-    );
+    defineRunTimeSelectionTable(saltationModel, dictionary);
 }
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::SyamlalConductivity::SyamlalConductivity(const dictionary& dict)
+Foam::saltationModel::saltationModel
+(
+    const dictionary& dict
+)
 :
-    conductivityModel(dict)
+    dict_(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::SyamlalConductivity::~SyamlalConductivity()
+Foam::saltationModel::~saltationModel()
 {}
-
-
-// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
-
-Foam::tmp<Foam::volScalarField> Foam::SyamlalConductivity::kappa
-(
-    const volScalarField& alpha,
-    const volScalarField& Theta,
-    const volScalarField& g0,
-    const volScalarField& kappasalt,
-    const volScalarField& K,
-    const dimensionedScalar& rhoa,
-    const dimensionedScalar& da,
-    const dimensionedScalar& e
-) const
-{
-    const scalar sqrtPi = sqrt(constant::mathematical::pi);
-
-    return rhoa*da*sqrt(Theta)*
-    (
-        2.0*sqr(alpha)*g0*(1.0 + e)/sqrtPi
-      + (9.0/8.0)*sqrtPi*g0*0.25*sqr(1.0 + e)*(2.0*e - 1.0)*sqr(alpha)
-       /(49.0/16.0 - 33.0*e/16.0)
-      + (15.0/32.0)*sqrtPi*alpha/(49.0/16.0 - 33.0*e/16.0)
-    );
-}
 
 
 // ************************************************************************* //

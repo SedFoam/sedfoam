@@ -8,5 +8,6 @@ dragModels/Gibilaro/Gibilaro.C
 dragModels/WenYu/WenYu.C
 dragModels/SyamlalOBrien/SyamlalOBrien.C
 dragModels/DallaValle/DallaValle.C
+dragModels/Beetstra/Beetstra.C
 
 LIB = $(FOAM_MODULE_LIBBIN)/libEulerianInterfacialSedModels

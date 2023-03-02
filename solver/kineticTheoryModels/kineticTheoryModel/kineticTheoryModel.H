@@ -48,8 +48,10 @@ SourceFiles
 #include "autoPtr.H"
 #include "viscosityModel.H"
 #include "conductivityModel.H"
+#include "pseudoConductivityModel.H"
 #include "radialModel.H"
 #include "granularPressureModel.H"
+#include "saltationModel.H"
 #include "fvCFD.H"
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -100,11 +102,17 @@ class kineticTheoryModel
         //- Conductivity model for the kinetic theory
         autoPtr<conductivityModel> conductivityModel_;
 
-        //- Raidial distribution function for the kinetic theory
+	//- Pseudo conductivity model for the kinetic theory
+        autoPtr<pseudoConductivityModel> pseudoConductivityModel_;
+
+        //- Radial distribution function for the kinetic theory
         autoPtr<radialModel> radialModel_;
 
         //- Pressure model for the kinetic theory
         autoPtr<granularPressureModel> granularPressureModel_;
+
+	//- Saltation model for the kinetic theory
+        autoPtr<saltationModel> saltationModel_;
 
         //- coefficient of restitution
         const dimensionedScalar e_;
@@ -136,6 +144,9 @@ class kineticTheoryModel
         //- The frictional granular viscosity
         volScalarField muf_;
 
+	//- The saltation granular viscosity
+        volScalarField muSaltCoef_;
+
         //- The granular bulk viscosity
         volScalarField lambda_;
 
@@ -150,6 +161,12 @@ class kineticTheoryModel
 
         //- The granular temperature conductivity
         volScalarField kappa_;
+
+	//- The granular temperature pseudo conductivity
+        volScalarField kappaAlpha_;
+
+	//- The granular temperaure conductivity due to saltation
+        volScalarField kappaSaltCoef_;
 
         //- The radial distribution function
         volScalarField gs0_;
@@ -239,6 +256,11 @@ public:
         const volScalarField& kappa() const
         {
             return kappa_;
+        }
+
+	const volScalarField& kappaAlpha() const
+        {
+            return kappaAlpha_;
         }
 
         const dimensionedScalar& phi() const
