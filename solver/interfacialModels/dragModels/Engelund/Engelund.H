@@ -22,24 +22,23 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::HrenyaSinclairConductivity
+    Foam::Engelund
 
 Description
-    This file is in the \dir
-    kineticTheoryModels/conductivityModel/HrenyaSinclair subdirectory
-    inside the subdirectory \dir kineticTheoryModels/conductivityModel
-    inside the directory \dir kineticTheoryModels
-
+    H, Enwald, E. Peirano, A-E Almstedt
+    'Eulerian Two-Phase Flow Theory Applied to Fluidization'
+    Int. J. Multiphase Flow, Vol. 22, Suppl, pp. 21-66 (1996)
+    Eq. 104, p. 42
 
 SourceFiles
-    HrenyaSinclairConductivity.C
+    Engelund.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef HrenyaSinclairConductivity_H
-#define HrenyaSinclairConductivity_H
+#ifndef Engelund_H
+#define Engelund_H
 
-#include "conductivityModel.H"
+#include "dragModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -47,46 +46,38 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class HrenyaSinclairConductivity Declaration
+                           Class Engelund Declaration
 \*---------------------------------------------------------------------------*/
 
-class HrenyaSinclairConductivity
+class Engelund
 :
-    public conductivityModel
+    public dragModel
 {
-
-        dictionary coeffsDict_;
-
-        //- characteristic length of geometry
-        dimensionedScalar L_;
 
 public:
 
-        //- Runtime type information
-        TypeName("HrenyaSinclair");
+    //- Runtime type information
+    TypeName("Engelund");
 
 
     // Constructors
 
         //- Construct from components
-        HrenyaSinclairConductivity(const dictionary& dict);
+        Engelund
+        (
+            const dictionary& interfaceDict,
+            const phaseModel& phasea,
+            const phaseModel& phaseb
+        );
 
 
     //- Destructor
-    virtual ~HrenyaSinclairConductivity();
+    virtual ~Engelund();
 
 
     // Member Functions
 
-        tmp<volScalarField> kappa
-        (
-            const volScalarField& alpha,
-            const volScalarField& Theta,
-            const volScalarField& g0,
-            const dimensionedScalar& rhoa,
-            const dimensionedScalar& da,
-            const dimensionedScalar& e
-        ) const;
+        tmp<volScalarField> K(const volScalarField& Ur) const;
 };
 
 

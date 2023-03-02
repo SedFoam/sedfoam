@@ -31,7 +31,9 @@ Description
     Journal of Fluid Mechanics, 140:223–256.
 
     This file is in the \dir kineticTheoryModels/granularPressureModel/Lun
-    directory
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/granularPressureModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     LunPressure.C

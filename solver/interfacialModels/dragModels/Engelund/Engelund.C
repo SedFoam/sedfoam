@@ -23,36 +23,58 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "radialModel.H"
+#include "Engelund.H"
+#include "addToRunTimeSelectionTable.H"
 
-// * * * * * * * * * * * * * * * * Selectors * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
-Foam::autoPtr<Foam::radialModel> Foam::radialModel::New
-(
-    const dictionary& dict
-)
+namespace Foam
 {
-    word radialModelType(dict.get<word>("radialModel"));
+    defineTypeNameAndDebug(Engelund, 0);
 
-    Info<< "Selecting radialModel "
-        << radialModelType << endl;
-
-    auto cstrIter =
-        dictionaryConstructorTablePtr_->find(radialModelType);
-
-    if (cstrIter == dictionaryConstructorTablePtr_->end())
-    {
-        FatalError
-            << "radialModel::New(const dictionary&) : " << endl
-            << "    unknown radialModelType type "
-            << radialModelType
-            << ", constructor not in hash table" << endl << endl
-            << "    Valid radialModel types are :"  << endl
-            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
-        Info << abort(FatalError) << endl;
-    }
-    return autoPtr<radialModel>(cstrIter()(dict));
+    addToRunTimeSelectionTable
+    (
+        dragModel,
+        Engelund,
+        dictionary
+    );
 }
 
+
+// * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
+Foam::Engelund::Engelund
+(
+    const dictionary& interfaceDict,
+    const phaseModel& phasea,
+    const phaseModel& phaseb
+)
+:
+    dragModel(interfaceDict, phasea, phaseb)
+{}
+
+
+// * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
+
+Foam::Engelund::~Engelund()
+{}
+
+
+// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
+Foam::tmp<Foam::volScalarField> Foam::Engelund::K
+(
+    const volScalarField& Ur
+) const
+{
+    volScalarField beta(max(scalar(1) - alpha_, scalar(1.0e-6)));
+    volScalarField Cds
+    (
+      (phasea_.aE()*alpha_*alpha_/beta+ phasea_.bE()*Ur*phasea_.d()
+      /(phaseb_.nu()*beta*beta))
+    );
+
+    return max(Cds, 1e-3)*phaseb_.nu()*phaseb_.rho()/sqr(phasea_.d());
+}
 
 // ************************************************************************* //

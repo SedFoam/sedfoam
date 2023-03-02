@@ -45,13 +45,13 @@ Foam::autoPtr<Foam::ppModel> Foam::ppModel::New
     if (cstrIter == dictionaryConstructorTablePtr_->end())
     {
         FatalError
-            << "ppModel::New : " << endl
-                << "    unknown ppModelType type "
-                << ppModelType
-                << ", constructor not in hash table" << endl << endl
-                << "    Valid ppModel types are : " << endl;
-        Info << dictionaryConstructorTablePtr_->sortedToc()
-             << abort(FatalError);
+            << "ppModel::New(const dictionary&) : " << endl
+            << "    unknown ppModelType type "
+            << ppModelType
+            << ", constructor not in hash table" << endl << endl
+            << "    Valid ppModel types are :"  << endl
+            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
+        Info << abort(FatalError) << endl;
     }
 
     return cstrIter()(ppDict, phasea, phaseb);
