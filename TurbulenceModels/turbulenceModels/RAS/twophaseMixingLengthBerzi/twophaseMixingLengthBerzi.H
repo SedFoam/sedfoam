@@ -103,13 +103,7 @@ protected:
 
     // Protected Member Functions
 
-        virtual void correctNut();
-
-        //- No copy construct and assignment
-        twophaseMixingLengthBerzi(const twophaseMixingLengthBerzi&) = delete;
-
-        //- No copy assignment
-        void operator=(const twophaseMixingLengthBerzi&) = delete;
+    virtual void correctNut();
 
 
 public:

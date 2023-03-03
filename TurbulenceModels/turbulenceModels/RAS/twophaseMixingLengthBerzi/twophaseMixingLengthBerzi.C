@@ -206,7 +206,7 @@ void twophaseMixingLengthBerzi<BasicTurbulenceModel>::correct()
     nut.storePrevIter();
     forAll(U, cellI)
     {
-	Lm = max(3*d*pow(alphaMaxLMs-alpha[cellI],expoLM), 0.2*d);
+        Lm = max(3*d*pow(alphaMaxLMs-alpha[cellI], expoLM), 0.2*d);
         nut[cellI] = pow(Lm, 2)*magD[cellI];
         // for kinetic theory k is required
         k_[cellI] = pow(nut[cellI]/(0.1*max(Lm, 1e-4)), 2);

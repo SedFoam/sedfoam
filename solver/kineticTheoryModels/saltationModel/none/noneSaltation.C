@@ -56,7 +56,7 @@ Foam::kineticTheoryModels::noneSaltation::~noneSaltation()
 
 Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::noneSaltation::musalt
 (
- 	const volScalarField& alpha,
+        const volScalarField& alpha,
         const volScalarField& Theta,
         const dimensionedScalar& rhoa,
         const dimensionedScalar& da,
@@ -72,9 +72,10 @@ Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::noneSaltation::musalt
         )*alpha/alpha;
 }
 
-Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::noneSaltation::kappasalt
+Foam::tmp<Foam::volScalarField>
+Foam::kineticTheoryModels::noneSaltation::kappasalt
 (
- 	const volScalarField& alpha,
+        const volScalarField& alpha,
         const volScalarField& Theta,
         const dimensionedScalar& rhoa,
         const dimensionedScalar& da,

@@ -75,10 +75,10 @@ Foam::tmp<Foam::volScalarField> Foam::Garzo2012Conductivity::kappa
 
     //Impact of the deviation of the velocity distribution function
     //to the Maxwellian form (probably negligible)
-    const volScalarField mu2_0 = pow(2*Pi, 0.5)*(1-pow(e,2))*g0;
+    const volScalarField mu2_0 = pow(2*Pi, 0.5)*(1-pow(e, 2))*g0;
     const volScalarField mu2_1 = 3./16*mu2_0;
-    const volScalarField mu4_0 = (7./2+pow(e,2))*mu2_0;
-    const volScalarField mu4_1 = (3./32*(69+10*pow(e,2))+2./(1-e))*mu2_0;
+    const volScalarField mu4_0 = (7./2+pow(e, 2))*mu2_0;
+    const volScalarField mu4_1 = (3./32*(69+10*pow(e, 2))+2./(1-e))*mu2_0;
     const volScalarField a2 = - (mu4_0-5*mu2_0)/(mu4_1-5*19./16*mu2_0);
 
     //Impact of fluid on the kinetic contribution
@@ -86,10 +86,9 @@ Foam::tmp<Foam::volScalarField> Foam::Garzo2012Conductivity::kappa
 
 
     //Kinetic conductivity
-    //const volScalarField kappak = 5./2*alpha*pow(Theta, 0.5)*(1+2*a2 + 3./5*pow(1+e,2)*(2*e-1+a2*(1+e)))/
-    //	    (32./(5*sqrtPi)*(1-7./16*(1-e)+(827-459*e)/256*a2)*(1+e)*g0*alpha*pow(Theta, 0.5) + 2*da*gamma);
-    const volScalarField kappak = 25./64*sqrtPi*(1+2*a2 + 3./5*pow(1+e,2)*(2*e-1+a2*(1+e)))/
-	    ((1-7./16*(1-e)+(827-459*e)/256*a2)*(1+e)*g0);
+    const volScalarField kappak = 25./64*sqrtPi*
+            (1+2*a2 + 3./5*pow(1+e, 2)*(2*e-1+a2*(1+e)))/
+            ((1-7./16*(1-e)+(827-459*e)/256*a2)*(1+e)*g0);
     //Contact conductivity
     const volScalarField kappac = kappak*6./5*(1+e)*alpha*g0;
     //Bulk conductivity

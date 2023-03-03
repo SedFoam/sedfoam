@@ -214,28 +214,3 @@ volScalarField ESD
     ),
     KE3*ESD3
 );
-
-volScalarField ESD6
-(
-    IOobject
-    (
-        "ESD6",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    KE6* (beta*alpha/rhob*K*Ub) & Ub
-);
-volScalarField ESD7
-(
-    IOobject
-    (
-        "ESD7",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    KE6* (4*beta*alpha/rhob*K)
-);

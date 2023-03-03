@@ -69,7 +69,7 @@ laplacianSchemes
     laplacian(DomegaEff,omega.b) Gauss linear corrected;
 //ThetaEqn
     laplacian(kappa,Theta) Gauss linear corrected;
-    laplacian(kappa2,alpha) Gauss linear corrected;
+    laplacian(kappaAlpha,alpha) Gauss linear corrected;
 }
 
 interpolationSchemes

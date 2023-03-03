@@ -30,7 +30,6 @@ radialModel/Gidaspow/GidaspowRadial.C
 radialModel/LunSavage/LunSavageRadial.C
 radialModel/SinclairJackson/SinclairJacksonRadial.C
 radialModel/ChialvoSundaresan/ChialvoSundaresanRadial.C
-radialModel/ChialvoSundaresanFric/ChialvoSundaresanFricRadial.C
 
 granularPressureModel/granularPressureModel/granularPressureModel.C
 granularPressureModel/granularPressureModel/newGranularPressureModel.C

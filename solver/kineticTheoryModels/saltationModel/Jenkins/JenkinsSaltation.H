@@ -83,7 +83,7 @@ public:
 
     // Member functions
 
-	tmp<volScalarField> musalt
+        tmp<volScalarField> musalt
         (
             const volScalarField& alpha,
             const volScalarField& Theta,

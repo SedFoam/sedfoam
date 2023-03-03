@@ -33,14 +33,22 @@ namespace Foam
 namespace kineticTheoryModels
 {
     defineTypeNameAndDebug(nonePseudoConductivity, 0);
-    addToRunTimeSelectionTable(pseudoConductivityModel, nonePseudoConductivity, dictionary);
+    addToRunTimeSelectionTable
+    (
+     pseudoConductivityModel,
+     nonePseudoConductivity,
+     dictionary
+    );
 } // End namespace kineticTheoryModels
 } // End namespace Foam
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::kineticTheoryModels::nonePseudoConductivity::nonePseudoConductivity(const dictionary& dict)
+Foam::kineticTheoryModels::nonePseudoConductivity::nonePseudoConductivity
+(
+const dictionary& dict
+)
 :
     pseudoConductivityModel(dict)
 {}
@@ -54,7 +62,8 @@ Foam::kineticTheoryModels::nonePseudoConductivity::~nonePseudoConductivity()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::kineticTheoryModels::nonePseudoConductivity::kappaAlpha
+Foam::tmp<Foam::volScalarField>
+Foam::kineticTheoryModels::nonePseudoConductivity::kappaAlpha
 (
     const volScalarField& alpha,
     const volScalarField& Theta,

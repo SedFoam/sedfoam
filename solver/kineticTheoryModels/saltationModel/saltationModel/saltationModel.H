@@ -115,7 +115,7 @@ public:
             const volScalarField& K
         ) const = 0;
 
-	virtual tmp<volScalarField> kappasalt
+        virtual tmp<volScalarField> kappasalt
         (
             const volScalarField& alpha,
             const volScalarField& Theta,

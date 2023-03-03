@@ -90,7 +90,7 @@ class kineticTheoryModel
         //- use extended kinetic theory or not
         Switch extended_;
 
-	//- use extended kinetic theory or not
+        //- use extended kinetic theory or not
         Switch saltation_;
 
         //- use production limiter for Theta (to 2/3kb)
@@ -102,7 +102,7 @@ class kineticTheoryModel
         //- Conductivity model for the kinetic theory
         autoPtr<conductivityModel> conductivityModel_;
 
-	//- Pseudo conductivity model for the kinetic theory
+        //- Pseudo conductivity model for the kinetic theory
         autoPtr<pseudoConductivityModel> pseudoConductivityModel_;
 
         //- Radial distribution function for the kinetic theory
@@ -111,7 +111,7 @@ class kineticTheoryModel
         //- Pressure model for the kinetic theory
         autoPtr<granularPressureModel> granularPressureModel_;
 
-	//- Saltation model for the kinetic theory
+        //- Saltation model for the kinetic theory
         autoPtr<saltationModel> saltationModel_;
 
         //- coefficient of restitution
@@ -144,7 +144,7 @@ class kineticTheoryModel
         //- The frictional granular viscosity
         volScalarField muf_;
 
-	//- The saltation granular viscosity
+        //- The saltation granular viscosity
         volScalarField muSaltCoef_;
 
         //- The granular bulk viscosity
@@ -162,10 +162,10 @@ class kineticTheoryModel
         //- The granular temperature conductivity
         volScalarField kappa_;
 
-	//- The granular temperature pseudo conductivity
+        //- The granular temperature pseudo conductivity
         volScalarField kappaAlpha_;
 
-	//- The granular temperaure conductivity due to saltation
+        //- The granular temperaure conductivity due to saltation
         volScalarField kappaSaltCoef_;
 
         //- The radial distribution function
@@ -258,7 +258,7 @@ public:
             return kappa_;
         }
 
-	const volScalarField& kappaAlpha() const
+        const volScalarField& kappaAlpha() const
         {
             return kappaAlpha_;
         }

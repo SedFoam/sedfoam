@@ -71,11 +71,11 @@ Foam::tmp<Foam::volScalarField> Foam::Beetstra::K
 
     volScalarField F
     (
-        10*alpha_/pow(1-alpha_,2) +
-	pow(1-alpha_,2)*(1 + 1.5*pow(alpha_,0.5)) +
-	0.413*Re/(24*pow(1-alpha_,2))*
-	(pow(1-alpha_,-1) + 3*alpha_*(1-alpha_) + 8.4*pow(Re,-0.343))/
-	(1+pow(10,3*alpha_)*pow(Re,-(1+4*alpha_)/2))
+        10*alpha_/pow(1-alpha_, 2) +
+        pow(1-alpha_, 2)*(1 + 1.5*pow(alpha_, 0.5)) +
+        0.413*Re/(24*pow(1-alpha_, 2))*
+        (pow(1-alpha_, -1) + 3*alpha_*(1-alpha_) + 8.4*pow(Re, -0.343))/
+        (1+pow(10, 3*alpha_)*pow(Re, -(1+4*alpha_)/2))
     );
     volScalarField Cds
     (

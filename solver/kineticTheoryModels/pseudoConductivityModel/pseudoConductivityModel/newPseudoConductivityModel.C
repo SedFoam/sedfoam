@@ -32,7 +32,8 @@ Foam::autoPtr<Foam::pseudoConductivityModel> Foam::pseudoConductivityModel::New
     const dictionary& dict
 )
 {
-    word pseudoConductivityModelType(dict.getOrDefault<word>("pseudoConductivityModel", "none"));
+    word pseudoConductivityModelType
+            (dict.getOrDefault<word>("pseudoConductivityModel", "none"));
 
     Info<< "Selecting pseudoConductivityModel "
         << pseudoConductivityModelType << endl;

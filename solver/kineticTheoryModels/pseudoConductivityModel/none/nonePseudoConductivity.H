@@ -25,7 +25,8 @@ Class
     Foam::nonePseudoConductivity
 
 Description
-    This file is in the \dir kineticTheoryModels/pseudoConductivityModel/none directory
+    This file is in the
+    \dir kineticTheoryModels/pseudoConductivityModel/none directory
 
 SourceFiles
     nonePseudoConductivity.C
