@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Foam::radialModel class | SedFOAM</title>
+  <title>Foam::RASModels::twophaseMixingLengthBerzi class | SedFOAM</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600&amp;subset=latin-ext" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="sedFoam_favicon.png" type="image/png" />
@@ -69,41 +69,28 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceFoam.html">Foam</a>::<wbr/></span>radialModel <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="radialModel_8H.html">&lt;https://github.com/sedfoam/sedfoam/blob/master/solver/kineticTheoryModels/radialModel/radialModel/radialModel.H&gt;</a></div>
+          <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="twophaseMixingLengthBerzi_8H.html">&lt;https://github.com/sedfoam/sedfoam/blob/master/TurbulenceModels/turbulenceModels/RAS/twophaseMixingLengthBerzi/twophaseMixingLengthBerzi.H&gt;</a></div>
+          <div class="m-doc-template">template&lt;class BasicTurbulenceModel&gt;</div>
+          <span class="m-breadcrumb"><a href="namespaceFoam.html">Foam</a>::<wbr/></span><span class="m-breadcrumb"><a href="namespaceFoam_1_1RASModels.html">RASModels</a>::<wbr/></span>twophaseMixingLengthBerzi <span class="m-thin">class</span>
         </h1>
-        <p>This file is in the.</p>
-<p><a name="Description"></a></p>
-        <section id="derived-classes">
-          <h2><a href="#derived-classes">Derived classes</a></h2>
-          <dl class="m-doc">
-            <dt>
-              class <a href="classFoam_1_1CarnahanStarlingRadial.html" class="m-doc">CarnahanStarlingRadial</a>
-            </dt>
-            <dd></dd>
-            <dt>
-              class <a href="classFoam_1_1ChialvoSundaresanRadial.html" class="m-doc">ChialvoSundaresanRadial</a>
-            </dt>
-            <dd></dd>
-            <dt>
-              class <a href="classFoam_1_1GidaspowRadial.html" class="m-doc">GidaspowRadial</a>
-            </dt>
-            <dd></dd>
-            <dt>
-              class <a href="classFoam_1_1LunSavageRadial.html" class="m-doc">LunSavageRadial</a>
-            </dt>
-            <dd>&quot;The effects of an impact velocity dependent coefficient of restitution
-on stresses developed by sheared granular materials.&quot; Lun, C. K. K. and Savage, S. B. 1986. Acta Mech., 63, 15–44.</dd>
-            <dt>
-              class <a href="classFoam_1_1SinclairJacksonRadial.html" class="m-doc">SinclairJacksonRadial</a>
-            </dt>
-            <dd>This file is in the.</dd>
-            <dt>
-              class <a href="classFoam_1_1TorquatoRadial.html" class="m-doc">TorquatoRadial</a>
-            </dt>
-            <dd>&quot;Nearest-neighbor statistics for packings of hard spheres and disks.&quot; Torquato, S. (1995). Physical Review E, 51(4):3170–3182.</dd>
-          </dl>
-        </section>
+        <p>Mixing length model for two-phase flow (only valid for 1D case with Y the wall-normal direction)</p>
+<p><a name="Description"></a></p><p>References:</p><pre>&quot;Turbulence Locality and Granularlike Fluid Shear Viscosity in Collisional
+Suspensions.&quot;
+Berzi, D. &amp; Fraccarollo, L. (2015);
+Physical Review Letters 115 (19), 194501.
+
+&quot;Stresses and Drag in Turbulent Bed Load From Refractive Index-Matched
+Experiments.&quot;
+Ni, W-J &amp; Capart, H. (2018).
+Geophysical Research Letters 45 (14), 7000–7009.
+</pre><p>The default model coefficients correspond to the following:</p><pre>    twophaseMixingLengthBerziCoeffs
+    {
+        Cmu         0.09;
+        expoLM      1.0;
+        alphaMaxLM  0.55;
+        kappaLM     0.225;
+    }
+</pre><p>This file is in the</p>
       </div>
     </div>
   </div>
