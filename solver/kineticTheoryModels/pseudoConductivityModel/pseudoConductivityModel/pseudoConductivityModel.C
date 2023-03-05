@@ -23,62 +23,33 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "ChialvoSundaresanFricRadial.H"
-#include "addToRunTimeSelectionTable.H"
+#include "pseudoConductivityModel.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(ChialvoSundaresanFricRadial, 0);
+    defineTypeNameAndDebug(pseudoConductivityModel, 0);
 
-    addToRunTimeSelectionTable
-    (
-        radialModel,
-        ChialvoSundaresanFricRadial,
-        dictionary
-    );
+    defineRunTimeSelectionTable(pseudoConductivityModel, dictionary);
 }
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::ChialvoSundaresanFricRadial::ChialvoSundaresanFricRadial
+Foam::pseudoConductivityModel::pseudoConductivityModel
 (
- const dictionary& dict
+    const dictionary& dict
 )
 :
-    radialModel(dict)
+    dict_(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::ChialvoSundaresanFricRadial::~ChialvoSundaresanFricRadial()
+Foam::pseudoConductivityModel::~pseudoConductivityModel()
 {}
-
-
-// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
-
-Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanFricRadial::g0
-(
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
-) const
-{
-    return (2-alpha)/(2*pow((1-alpha), 3)) +
-     2.71*pow(alpha, 2)/pow(alphaMax-alpha, 1.5);
-}
-
-
-Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanFricRadial::g0prime
-(
-    const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
-) const
-{
-    return 3*1.7/(2*alphaMax)*pow(mag(1.0 - alpha/alphaMax), -2.7);
-}
 
 
 // ************************************************************************* //

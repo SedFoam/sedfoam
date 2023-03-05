@@ -22,7 +22,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::GarzoDuftyModViscosity
+    Foam::GarzoDuftyPseudoConductivity
 
 Description
     \verbatim
@@ -32,70 +32,58 @@ Description
     Interdisciplinary Topics, 59(5 Pt B):5895–5911
     \endverbatim
 
-    This file is in the \dir kineticTheoryModels/viscosityModel/GarzoDuftyMod
-    subdirectory inside the subdirectory
-    \dir kineticTheoryModels/viscosityModel inside the directory
-    \dir kineticTheoryModels
+    This file is in the
+    \dir kineticTheoryModels/pseudoConductivityModel/GarzoDufty
+    directory
 
 SourceFiles
-    GarzoDuftyModViscosity.C
+    GarzoDuftyPseudoConductivity.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef GarzoDuftyModViscosity_H
-#define GarzoDuftyModViscosity_H
+#ifndef GarzoDuftyPseudoConductivity_H
+#define GarzoDuftyPseudoConductivity_H
 
-#include "viscosityModel.H"
+#include "pseudoConductivityModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
-namespace kineticTheoryModels
-{
 
 /*---------------------------------------------------------------------------*\
-                           Class GarzoDuftyModViscosity Declaration
+                           Class GarzoDuftyPseudoConductivity Declaration
 \*---------------------------------------------------------------------------*/
 
-class GarzoDuftyModViscosity
+class GarzoDuftyPseudoConductivity
 :
-    public viscosityModel
+    public pseudoConductivityModel
 {
 
 public:
 
     //- Runtime type information
-    TypeName("GarzoDuftyMod");
+    TypeName("GarzoDufty");
 
 
     // Constructors
 
         //- Construct from components
-        GarzoDuftyModViscosity(const dictionary& dict);
+        GarzoDuftyPseudoConductivity(const dictionary& dict);
 
 
     //- Destructor
-    virtual ~GarzoDuftyModViscosity();
+    virtual ~GarzoDuftyPseudoConductivity();
 
 
-    // Member functions
+    // Member Functions
 
-        tmp<volScalarField> mua
+        tmp<volScalarField> kappaAlpha
         (
             const volScalarField& alpha,
             const volScalarField& Theta,
             const volScalarField& g0,
-            const dimensionedScalar& rhoa,
-            const dimensionedScalar& da,
-            const dimensionedScalar& e
-        ) const;
-
-        tmp<volScalarField> lambda
-        (
-            const volScalarField& alpha,
-            const volScalarField& Theta,
-            const volScalarField& g0,
+            const volScalarField& g0prime,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
             const dimensionedScalar& e
@@ -105,7 +93,6 @@ public:
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-} // End namespace kineticTheoryModels
 } // End namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

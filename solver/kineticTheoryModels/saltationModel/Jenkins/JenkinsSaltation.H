@@ -22,76 +22,91 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::ChialvoSundaresanFricRadial
+    Foam::JenkinsSaltation
 
 Description
     \verbatim
-    "A modified kinetic theory for frictional granular flows in dense and
-    dilute regimes."
-    Chialvo, S. and Sundaresan, S. (2013). Physics of Fluids, 25(7):070603.
+    "Continuum model for steady, fully developed saltation above a horizontal
+    particle bed"
+    Jenkins, J. T., Cantat, I. & Valance, A. (2010).
+    Physical Review E 82 (2), 020301.
+
+    "Two-phase continuum theory for windblown sand."
+    Jenkins, James T. & Valance, Alexandre (2018).
+    Physical Review Fluids 3 (3), 034305.
     \endverbatim
 
-    This file is in the \dir kinetic/heoryModels/radialModel/ChialvoSundaresan
+    This file is in the \dir kineticTheoryModels/saltationModel/Jenkins
     directory
 
 SourceFiles
-    ChialvoSundaresanFricRadial.C
+    JenkinsSaltation.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef ChialvoSundaresanFricRadial_H
-#define ChialvoSundaresanFricRadial_H
+#ifndef JenkinsSaltation_H
+#define JenkinsSaltation_H
 
-#include "radialModel.H"
+#include "saltationModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
+namespace kineticTheoryModels
+{
 
 /*---------------------------------------------------------------------------*\
-                           Class ChialvoSundaresanFricradial Declaration
+                           Class JenkinsSaltation Declaration
 \*---------------------------------------------------------------------------*/
 
-class ChialvoSundaresanFricRadial
+class JenkinsSaltation
 :
-    public radialModel
+    public saltationModel
 {
 
 public:
 
     //- Runtime type information
-    TypeName("ChialvoSundaresanFric");
+    TypeName("Jenkins");
 
 
     // Constructors
 
         //- Construct from components
-        ChialvoSundaresanFricRadial(const dictionary& dict);
+        JenkinsSaltation(const dictionary& dict);
 
 
     //- Destructor
-    virtual ~ChialvoSundaresanFricRadial();
+    virtual ~JenkinsSaltation();
 
 
-    // Member Functions
+    // Member functions
 
-        tmp<volScalarField> g0
+        tmp<volScalarField> musalt
         (
             const volScalarField& alpha,
-            const dimensionedScalar& alphaMax
+            const volScalarField& Theta,
+            const dimensionedScalar& rhoa,
+            const dimensionedScalar& da,
+            const volScalarField& K
         ) const;
 
-        tmp<volScalarField> g0prime
+        tmp<volScalarField> kappasalt
         (
             const volScalarField& alpha,
-            const dimensionedScalar& alphaMax
+            const volScalarField& Theta,
+            const dimensionedScalar& rhoa,
+            const dimensionedScalar& da,
+            const volScalarField& K
         ) const;
+
 };
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+} // End namespace kineticTheoryModels
 } // End namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
