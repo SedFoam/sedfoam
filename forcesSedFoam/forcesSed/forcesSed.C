@@ -338,7 +338,7 @@ Foam::functionObjects::forcesSed::devRhoReff() const
         //Info << "min(aaa)"<< min(aaa) <<endl;
         //Info << "max(aaa)"<< max(aaa) <<endl;
 
-        return muEff*dev(twoSymm(fvc::grad(Ub)))+muFra*dev(twoSymm(fvc::grad(Ua)));
+        return -muEff*dev(twoSymm(fvc::grad(Ub)))-muFra*dev(twoSymm(fvc::grad(Ua)));
         //return -(muEff+muFra)*dev(twoSymm(fvc::grad(Ub*(1-alpha)+Ua*alpha)));
        // return -muEff*dev(twoSymm(fvc::grad(Ub)));
     }
