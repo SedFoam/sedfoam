@@ -97,7 +97,7 @@ for i in range(len(time_dense)):
     PorePressure_dense_2cm.append(PorePressure_dense[i, 0][0])
     PorePressure_dense_3cm.append(PorePressure_dense[i, 1][0])
 
-alpha_dense=[]
+alpha_dense = []
 for i in range(len(TimeList)):
     alpha_dense.append(readscalar(sol_dense, TimeList[i], 'alpha.a', structured=True))
 
@@ -178,8 +178,8 @@ plt.savefig('Figures/tuto2DCollapse_Morphology.png')
 # PorePressure plot
 
 plt.figure(figsize=(8, 3.5))
-ExpDense, = plt.plot(time_exp_pressureDense, pressure_expDense, marker='o', fillstyle='full', linewidth = 0, color='k')
-ExpLoose, = plt.plot(time_exp_pressureLoose, pressure_expLoose, marker='o', fillstyle='none', linewidth = 0, color='k')
+ExpDense, = plt.plot(time_exp_pressureDense, pressure_expDense, marker='o', fillstyle='full', linewidth=0, color='k')
+ExpLoose, = plt.plot(time_exp_pressureLoose, pressure_expLoose, marker='o', fillstyle='none', linewidth=0, color='k')
 
 plt.plot(time_loose, PorePressure_loose[:, 0], linestyle='-', color='r')
 plt.plot(time_loose, PorePressure_loose[:, 1], linestyle='--', color='r')
