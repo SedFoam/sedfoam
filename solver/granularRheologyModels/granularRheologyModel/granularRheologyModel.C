@@ -395,8 +395,6 @@ void Foam::granularRheologyModel::solve
     // Dilatancy model
     if (granularDilatancy_)
     {
-    //delta_ = DilatancyModel_->delta(K_dila_, alpha_c_, alpha_, magD,
-    // da_, rhob_, nub_, p_p_total_, PaMin);
         volScalarField alphaEq_
         (
             PPressureModel_->alphaEq
