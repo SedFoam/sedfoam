@@ -17,13 +17,13 @@ plt.rc('font', family='serif')
 
 # Deposit morphology
 
-data_3_RondonDense = np.genfromtxt("DATA/Rondon2012/RondonDenseL6H4.2_T3s.csv", delimiter="\t", names=["X", "Y"])
-data_6_RondonDense = np.genfromtxt("DATA/Rondon2012/RondonDenseL6H4.2_T6s.csv", delimiter="\t", names=["X", "Y"])
-data_12_RondonDense = np.genfromtxt("DATA/Rondon2012/RondonDenseL6H4.2_T12s.csv", delimiter="\t", names=["X", "Y"])
+Rondon3D = np.genfromtxt("DATA/Rondon2012/RondonDenseL6H4.2_T3s.csv", delimiter="\t", names=["X", "Y"])
+Rondon6D = np.genfromtxt("DATA/Rondon2012/RondonDenseL6H4.2_T6s.csv", delimiter="\t", names=["X", "Y"])
+Rondon12D = np.genfromtxt("DATA/Rondon2012/RondonDenseL6H4.2_T12s.csv", delimiter="\t", names=["X", "Y"])
 
-data_A_RondonLoose = np.genfromtxt("DATA/Rondon2012/RondonLooseL6H4.8_T0.66s.csv", delimiter="\t", names=["X", "Y"])
-data_B_RondonLoose = np.genfromtxt("DATA/Rondon2012/RondonLooseL6H4.8_T1.32s.csv", delimiter="\t", names=["X", "Y"])
-data_C_RondonLoose = np.genfromtxt("DATA/Rondon2012/RondonLooseL6H4.8_T4s.csv", delimiter="\t", names=["X", "Y"])
+RondonAL = np.genfromtxt("DATA/Rondon2012/RondonLooseL6H4.8_T0.66s.csv", delimiter="\t", names=["X", "Y"])
+RondonBL = np.genfromtxt("DATA/Rondon2012/RondonLooseL6H4.8_T1.32s.csv", delimiter="\t", names=["X", "Y"])
+RondonCL = np.genfromtxt("DATA/Rondon2012/RondonLooseL6H4.8_T4s.csv", delimiter="\t", names=["X", "Y"])
 
 # Evolution of  pore pressure with time
 
@@ -112,12 +112,9 @@ ax[0, 0].contour(x_d[:, :, nz_d//2], y_d[:, :, nz_d//2], alpha_dense[0][:, :, nz
 ax[1, 0].contour(x_d[:, :, nz_d//2], y_d[:, :, nz_d//2], alpha_dense[1][:, :, nz_d//2], colors='b', levels=levels)
 ax[2, 0].contour(x_d[:, :, nz_d//2], y_d[:, :, nz_d//2], alpha_dense[2][:, :, nz_d//2], colors='b', levels=levels)
 
-ax[0, 0].plot(data_3_RondonDense['X'], data_3_RondonDense['Y'], linestyle='none', marker='o' \
-, color="k", fillstyle="none")
-ax[1, 0].plot(data_6_RondonDense['X'], data_6_RondonDense['Y'], linestyle='none', marker='o' \
-, color="k", fillstyle="none")
-ax[2, 0].plot(data_12_RondonDense['X'], data_12_RondonDense['Y'], linestyle='none', marker='o' \
-, color="k", fillstyle="none", label="Rondon (2012)")
+ax[0, 0].plot(Rondon3D['X'], Rondon3D['Y'], linestyle='none', marker='o', c='k', fillstyle="none")
+ax[1, 0].plot(Rondon6D['X'], Rondon6D['Y'], linestyle='none', marker='o', c='k', fillstyle="none")
+ax[2, 0].plot(Rondon12D['X'], Rondon12D['Y'], linestyle='none', marker='o', c='k', fillstyle="none", label="Rondon (2012)")
 
 lim_x=0.20
 lim_y=0.055
@@ -148,12 +145,9 @@ ax[0, 1].contour(x_l[:, :, nz_l//2], y_l[:, :, nz_l//2], alpha_loose[0][ :, :, n
 ax[1, 1].contour(x_l[:, :, nz_l//2], y_l[:, :, nz_l//2], alpha_loose[1][ :, :, nz_l//2], colors='r', levels=levels)
 ax[2, 1].contour(x_l[:, :, nz_l//2], y_l[:, :, nz_l//2], alpha_loose[2][ :, :, nz_l//2], colors='r', levels=levels)
 
-ax[0, 1].plot(data_A_RondonLoose['X'], data_A_RondonLoose['Y'], linestyle='none', marker='o' \
-, color="k", fillstyle="none")
-ax[1, 1].plot(data_B_RondonLoose['X'], data_B_RondonLoose['Y'], linestyle='none', marker='o' \
-, color="k", fillstyle="none")
-ax[2, 1].plot(data_C_RondonLoose['X'], data_C_RondonLoose['Y'], linestyle='none', marker='o' \
-, color="k", fillstyle="none", label="Rondon (2012)")
+ax[0, 1].plot(RondonAL['X'], RondonAL['Y'], linestyle='none', marker='o', c='k', fillstyle="none")
+ax[1, 1].plot(RondonBL['X'], RondonBL['Y'], linestyle='none', marker='o', c='k', fillstyle="none")
+ax[2, 1].plot(RondonCL['X'], RondonCL['Y'], linestyle='none', marker='o', c='k', fillstyle="none", label="Rondon (2012)")
 
 ax[0,1].set_title('t = 0.66s', x=0.15, y=1, pad=-14, fontsize=12)
 ax[0,1].set_xlim([0, lim_x])
@@ -184,27 +178,18 @@ plt.savefig('Figures/tuto2DCollapse_Morphology.png')
 # PorePressure plot
 
 plt.figure(figsize=(8, 3.5))
-ExpDense, =plt.plot(time_exp_pressureDense, pressure_expDense, marker='o', fillstyle='full' \
-, markersize=5, linestyle='-', linewidth=0, color='k', label='Exp. - Dense')
-ExpLoose, =plt.plot(time_exp_pressureLoose, pressure_expLoose, marker='o', fillstyle='none' \
-, markersize=5, linestyle='-', linewidth=0, color='k', label='Exp. - Loose')
+ExpDense, =plt.plot(time_exp_pressureDense, pressure_expDense, marker='o', fillstyle='full', linewidth=0, color='k')
+ExpLoose, =plt.plot(time_exp_pressureLoose, pressure_expLoose, marker='o', fillstyle='none', linewidth=0, color='k')
 
-plt.plot(time_loose, PorePressure_loose[:,0], marker='v', markersize=0,linestyle='-' \
-, linewidth=1.5, color='r', label='Loose - 2cm')
-plt.plot(time_loose, PorePressure_loose[:,1], marker='v', markersize=0,linestyle='--' \
-, linewidth=1.5, color='r', label='Loose - 3cm')
-shade_loose=plt.fill_between(time_loose, PorePressure_loose_2cm,PorePressure_loose_3cm \
-,  facecolor='r', interpolate=True, alpha=0.5)
+plt.plot(time_loose, PorePressure_loose[:,0],linestyle='-', color='r')
+plt.plot(time_loose, PorePressure_loose[:,1],linestyle='--', color='r')
+shade_loose=plt.fill_between(time_loose, PorePressure_loose_2cm,PorePressure_loose_3cm,  facecolor='r', alpha=0.5)
 
-plt.plot(time_dense, PorePressure_dense[:,0], marker='v', markersize=0, linestyle='-' \
-, linewidth=1.5, color='b', label='Dense - 2cm')
-plt.plot(time_dense, PorePressure_dense[:,1], marker='v', markersize=0, linestyle='--' \
-, linewidth=1.5, color='b', label='Dense- 3cm')
-shade_dense=plt.fill_between(time_dense, PorePressure_dense_2cm, PorePressure_dense_3cm \
-,  facecolor='b', interpolate=True, alpha=0.5)
+plt.plot(time_dense, PorePressure_dense[:,0], linestyle='-', color='b', label='Dense - 2cm')
+plt.plot(time_dense, PorePressure_dense[:,1], linestyle='--', color='b', label='Dense- 3cm')
+shade_dense=plt.fill_between(time_dense, PorePressure_dense_2cm, PorePressure_dense_3cm,  facecolor='b', alpha=0.5)
 
-plt.legend([ExpLoose, ExpDense, shade_loose, shade_dense] \
-, ["Exp. - Loose", "Exp. - Dense", "Loose", "Dense"], loc="upper right", fontsize=11)
+plt.legend([ExpLoose, ExpDense, shade_loose, shade_dense], ["Exp. - Loose", "Exp. - Dense", "Loose", "Dense"], loc=0)
 
 plt.xlabel('Time [$s$]', fontsize=15)
 plt.ylabel('Excess of pore pressure [$Pa$]', fontsize=15)
