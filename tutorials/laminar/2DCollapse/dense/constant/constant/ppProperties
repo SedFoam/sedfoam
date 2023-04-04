@@ -1,0 +1,38 @@
+/*--------------------------------*- C++ -*----------------------------------*	\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      ppProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+
+ppModel          JohnsonJackson;
+
+alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.625;
+
+alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.595;
+
+
+Fr               Fr [ 1 -1 -2 0 0 0 0 ] 1;
+
+eta0              eta0 [ 0 0 0 0 0 0 0 ] 3;
+
+eta1              eta1 [ 0 0 0 0 0 0 0 ] 5;
+packingLimiter  no;
+
+
+
+
+
+// ************************************************************************* //
