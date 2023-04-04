@@ -172,61 +172,19 @@ int main(int argc, char *argv[])
             Info << "MESH CHANGED" << endl;
             #include "setCellMask.H"
             #include "setInterpolatedCells.H"
+            #include "correctPhiFaceMask.H"
 
-            surfaceScalarField faceMaskOld
-            (
-                localMin<scalar>(mesh).interpolate(cellMask.oldTime())
-            );
+            fvc::makeRelative(phi, U);
+            fvc::makeRelative(phia, Ua);
+            fvc::makeRelative(phib, Ub);
 
-            // Zero Uf on old faceMask (H-I)
-            Ufa *= faceMaskOld;
-            Ufb *= faceMaskOld;
-            // Update Uf and phi on new C-I faces
-
-            const surfaceVectorField Uinta(fvc::interpolate(Ua));
-            const surfaceVectorField Uintb(fvc::interpolate(Ub));
-            // Update Uf and phi on new C-I faces
-            Ufa += (1-faceMaskOld)*Uinta;
-            Ufb += (1-faceMaskOld)*Uintb;
-
-            // Update Uf boundary
-            forAll(Ufa.boundaryField(), patchI)
-            {
-                Ufa.boundaryFieldRef()[patchI] =
-                    Uinta.boundaryField()[patchI];
-            }
-            forAll(Ufb.boundaryField(), patchI)
-            {
-                Ufb.boundaryFieldRef()[patchI] =
-                    Uintb.boundaryField()[patchI];
-            }
-            
-            phia = mesh.Sf() & Ufa;
-            phib = mesh.Sf() & Ufb;
-            //phi = mesh.Sf() & Uf;
-
-
-            // Zero phi on current H-I
-            surfaceScalarField faceMask
-            (
-                localMin<scalar>(mesh).interpolate(cellMask)
-            );
-
-            phia *= faceMask;
-            phib *= faceMask;
-
-            Ua *= cellMask;
-            Ub *= cellMask;
-            
-			// Make the flux relative to the mesh motion
-			fvc::makeRelative(phia, Ua);
-			fvc::makeRelative(phib, Ub);
+			
 			surfaceScalarField alphaf = fvc::interpolate(alpha);
 			surfaceScalarField betaf = scalar(1.0) - alphaf;
-			phi = alphaf*phia + betaf*phib;
-                    phi *= faceMask;
-                    U   *= cellMask;
-                    alpha   *= cellMask;
+			//phi = alphaf*phia + betaf*phib;
+                    //phi *= faceMask;
+                    //U   *= cellMask;
+                    //alpha   *= cellMask;
                     // Make the flux relative to the mesh motion
                   //  fvc::makeRelative(phi, U);
         }
@@ -248,7 +206,12 @@ int main(int argc, char *argv[])
 //             from Kinetic Theory of granular flows or mu(I) rheology
             #include "callGranularStress.H"
 			MRF.makeRelative(phia);
-
+			//fvc::makeAbsolute(phia, Ua);
+			//#include "callGranularStressDyM.H"
+////          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
+////             from Kinetic Theory of granular flows or mu(I) rheology
+           
+			//fvc::makeRelative(phia, Ua);
 //          Assemble the momentum balance equations for both phases a and b
 //          And assemble and solve the pressure poisson equation
 //             and apply the velocity correction step for both phases a and b
