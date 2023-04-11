@@ -73,7 +73,7 @@ Date
 #include "transform.H"
 #include "fvMeshSubset.H"
 #include "oversetAdjustPhi.H"
-
+#include "oversetPatchPhiErr.H"
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
@@ -101,14 +101,19 @@ int main(int argc, char *argv[])
 
 
 
-    #include "createUf.H"
+    #include "createUfSed.H"
     #include "createMRF.H"
     #include "createFvOptions.H"
     #include "createControls.H"
-    if (correctPhi)
-    {
-        #include "correctPhi.H"
-    }
+    //if (correctPhi)
+    //{
+        //#include "correctPhi.H"
+    //}
+
+    #include "setCellMask.H"
+    #include "setInterpolatedCells.H"
+
+    
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
     #include "createFavreAveraging.H"
@@ -172,27 +177,27 @@ int main(int argc, char *argv[])
             Info << "MESH CHANGED" << endl;
             #include "setCellMask.H"
             #include "setInterpolatedCells.H"
-            #include "correctPhiFaceMask.H"
+            #include "correctPhiSedFaceMask.H"
 
-            fvc::makeRelative(phi, U);
+            //fvc::makeRelative(phi, U);
             fvc::makeRelative(phia, Ua);
             fvc::makeRelative(phib, Ub);
 
 			
 			surfaceScalarField alphaf = fvc::interpolate(alpha);
 			surfaceScalarField betaf = scalar(1.0) - alphaf;
-			//phi = alphaf*phia + betaf*phib;
+			phi = alphaf*phia + betaf*phib;
                     //phi *= faceMask;
                     //U   *= cellMask;
                     //alpha   *= cellMask;
                     // Make the flux relative to the mesh motion
                   //  fvc::makeRelative(phi, U);
         }
-			// Correct phi on individual regions
-			if (correctPhi)
-			{
-				 #include "correctPhi.H"
-			}
+			//// Correct phi on individual regions
+			//if (correctPhi)
+			//{
+				 //#include "correctPhi.H"
+			//}
 
 //      Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
@@ -227,7 +232,7 @@ int main(int argc, char *argv[])
             }
 
 
-            #include "DDtU.H"
+     //       #include "DDtU.H"
 
             if (pimple.turbCorr())
             {

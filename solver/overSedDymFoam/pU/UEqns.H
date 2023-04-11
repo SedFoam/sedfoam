@@ -26,7 +26,7 @@ scalar pi(constant::mathematical::pi);
 
 MRF.correctBoundaryVelocity(Ua);
 MRF.correctBoundaryVelocity(Ub);
-//MRF.correctBoundaryVelocity(U);
+MRF.correctBoundaryVelocity(U);
 
 // following is general form of mean flow + sine wave and 2nd order stokes waves
 // Add oscilitary pressure gradient

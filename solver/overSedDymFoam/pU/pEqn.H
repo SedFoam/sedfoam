@@ -35,10 +35,14 @@ License
     volScalarField rUaA(1.0/UaEqn.A());
     volScalarField rUbA(1.0/UbEqn.A());
     
+
+    
     // Interpolate inverse matrix for momentum balance of phase a and b
     //     at cell faces
     surfaceScalarField rUaAf(fvc::interpolate(rUaA));
     surfaceScalarField rUbAf(fvc::interpolate(rUbA));
+
+
 
     // limiter for the explicit stress terms to avoid numerical instability and
     // too strong limitation on the time step
@@ -73,11 +77,22 @@ License
     // PIMPLE algorithm loop
     while (pimple.correct())
     {
-        // Compute predicted velocity of phase a and b at cell centers
+        //// Compute predicted velocity of phase a and b at cell centers
         volVectorField HabyA(Ua);
-        HabyA = rUaA*UaEqn.H();
+        //HabyA = rUaA*UaEqn.H();
         volVectorField HbbyA(Ub);
-        HbbyA = rUbA*UbEqn.H();
+        //HbbyA = rUbA*UbEqn.H();
+
+
+
+		HabyA = constrainHbyA(rUaA*UaEqn.H(), Ua, p_rbgh);
+		HbbyA = constrainHbyA(rUbA*UbEqn.H(), Ub, p_rbgh);
+		
+		surfaceScalarField phiHabyA("phiHabyA", fvc::flux(HabyA));
+		surfaceScalarField phiHbbyA("phiHbbyA", fvc::flux(HbbyA));
+		
+		MRF.makeRelative(phiHabyA);
+		MRF.makeRelative(phiHbbyA);
 
 
 
@@ -86,6 +101,9 @@ License
 	{
 		#include "interpolatedFaces.H"
 	}
+	
+	
+	
         surfaceScalarField phiDraga
         ( faceMask*(
           // grad(pa)
@@ -137,17 +155,6 @@ License
 
 
 
-        surfaceScalarField phiUa
-        (
-            (fvc::interpolate(HabyA) & mesh.Sf())
-           +rUaAf*fvc::ddtCorr(Ua, Ufa)
-        );
-
-        surfaceScalarField phiUb
-        (
-           (fvc::interpolate(HbbyA) & mesh.Sf())
-          + rUbAf*fvc::ddtCorr(Ub, Ufb)
-        );
 
 
 		//MRF.makeRelative(phiUa);
@@ -155,8 +162,8 @@ License
 
 
 
-        surfaceScalarField phiaHbyA(phiUa + phiDraga);
-        surfaceScalarField phibHbyA(phiUb + phiDragb);
+        surfaceScalarField phiaHbyA(phiHabyA + phiDraga);
+        surfaceScalarField phibHbyA(phiHbbyA + phiDragb);
 
         // Face-drag coefficients
         surfaceScalarField rAUKda(fvc::interpolate(beta/rhoa*K*rUaA));
@@ -164,8 +171,8 @@ License
         
         // Compute predicted velocity fluxes at cell faces including
         //       including semi-implicit drag contribution
-        MRF.makeRelative(phiaHbyA);
-        MRF.makeRelative(phibHbyA);
+        //MRF.makeRelative(phiaHbyA);
+        //MRF.makeRelative(phibHbyA);
         
 
 		//MRF.makeRelative(phiHbyA);
@@ -183,8 +190,8 @@ License
         );
 
 
-		constrainPressure(p_rbgh, Ua, phiaHbyA, Dp, MRF);
-		constrainPressure(p_rbgh, Ub, phibHbyA, Dp, MRF);
+		//constrainPressure(p_rbgh, Ua, phiaHbyA, Dp, MRF);
+		//constrainPressure(p_rbgh, Ub, phibHbyA, Dp, MRF);
         
         surfaceScalarField phiHbyA
         (
@@ -272,16 +279,16 @@ License
                 surfaceScalarField SfGradp(pEqn.flux()/Dp);
                 // Compute corrected velocity fluxes at cell faces
                 //       due to pressure gradient
-                surfaceScalarField phias(phiaHbyA - rUaAf*SfGradp/rhoa);
-                surfaceScalarField phibs(phibHbyA - rUbAf*SfGradp/rhob);
+                surfaceScalarField phias(phiaHbyA - faceMask*rUaAf*SfGradp/rhoa);
+                surfaceScalarField phibs(phibHbyA - faceMask*rUbAf*SfGradp/rhob);
                 // Compute mixture velocity flux at cell faces
                 phi = phiHbyA - pEqn.flux();
                 // Compute corrected relative velocity fluxes due to drag force
                 //       at cell faces
                 surfaceScalarField phir
                 (
-                    ((phias + rAUKda*phibs) - (phibs + rAUKdb*phias))
-                   /(1 - rAUKda*rAUKdb)
+                    ((phias + faceMask*rAUKda*phibs) - (phibs + faceMask*rAUKdb*phias))
+                   /(1 - faceMask*rAUKda*rAUKdb)
                 );
                 // Compute corrected phase velocity fluxes at cell faces
                 //       using updated semi-implicit drag
