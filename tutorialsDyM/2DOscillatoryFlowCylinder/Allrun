@@ -1,0 +1,17 @@
+#!/bin/bash
+
+blockMesh
+cp -r 0_org 0
+snappyHexMesh -overwrite 
+extrudeMesh
+createPatch -overwrite
+funkySetFields -time 0
+
+# Select cellSets
+topoSet
+setFields
+#decomposePar
+
+#mpirun -np 6 overSedDymFoam_rbgh -parallel > log&
+overSedDymFoam_rbgh  > log&
+

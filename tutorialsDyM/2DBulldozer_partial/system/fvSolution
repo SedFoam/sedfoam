@@ -1,0 +1,105 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    cellDisplacement
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-06;
+        relTol          0;
+        maxIter         1000;
+    }
+
+
+    p_rbgh
+    {
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-8;
+        relTol          0.0;
+        maxIter         500;
+    }
+
+    p_rbghFinal
+    {
+        $p_rbgh;
+        relTol          0;
+    }
+
+    pcorr
+    {
+        $p;
+        solver          PCG;
+        preconditioner  DIC;
+    }
+
+    pcorrFinal
+    {
+        $pcorr;
+        relTol          0;
+    }
+
+    "(alpha.a|U|k|epsilon|pa)"
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-6;
+        relTol          0.0;
+        maxIter         500;
+        minIter         1;
+    }
+
+    "(U|alpha.a|k|epsilon|pa)Final"
+    {
+        $U;
+        relTol          0;
+    }
+}
+
+
+PIMPLE
+{
+    massFluxInterpolation no;
+    momentumPredictor   no; //recommended on for high Reynolds
+    correctPhi          no; //off if we use Overset
+    nOuterCorrectors    2; //recommended at least 2 for moving bodies
+    nCorrectors         3;
+    nNonOrthogonalCorrectors 1;
+
+    ddtCorr             true;
+
+    pRefPoint           (0.0001 0.0001 0.001);
+    pRefValue           0.0;
+    correctAlpha    0;
+    nAlphaCorr      1;
+
+}
+
+relaxationFactors
+{
+   fields
+   {
+   }
+   equations
+   {
+       ".*"             1;
+   }
+}
+
+
+// ************************************************************************* //
