@@ -1,3 +1,0 @@
-forcesSed/forcesSed.C
-forceCoeffsSed/forceCoeffsSed.C
-LIB = $(FOAM_MODULE_LIBBIN)/libforcesSedFoam
