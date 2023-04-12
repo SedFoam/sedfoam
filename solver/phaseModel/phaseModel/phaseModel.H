@@ -24,6 +24,11 @@ License
 Class
     Foam::phaseModel
 
+Description
+
+    This file is in the \dir phaseModel/phaseModel subdirectory
+    inside the \dir phaseModel subdirectory
+
 SourceFiles
     phaseModel.C
 

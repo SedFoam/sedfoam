@@ -93,8 +93,7 @@ Wilcox, D. C. (2008). Formulation of the k-w turbulence model revisited. AIAA Jo
 
 \section BedLoadTurb 1DBedloadTurb: Turbulent bedload transport
 
-The aim of this tutorial is to reproduce, with SedFoam, coupled fluid-discrete element method (DEM) simulations of turbulent bedload transport. In DEM simulations, the motion of each particles is solved individually. The source code is YADE (Smilauer et al. 2015) and the coupling with the fluid phase presented in Maurin et al. (2015). Averaged quantities are computed in the DEM (packing fraction, particle velocity, …) which will be considered as a basis to compare with the sedFoam code.
-First the \f$\mu(Iv)\f$ rheology for bedload transport of Maurin et al. (2016) will be used. Another possibility is to use the Kinetic Theory of granular gas to close the particle stresses. We will show how this can be done in SedFoam.
+The aim of this tutorial is to explain how to use the kinetic theory to model the sediment phase in turbulent bedload transport. It is based on a comparison coupled fluid-DEM (discrete element method) simulations.  In DEM simulations, the motion of each particles is solved individually. The source code is YADE (Smilauer et al. 2015) and the coupling with the fluid phase presented in Maurin et al. (2015). The exact same fluid model is considered in both the fluid-DEM simulations and in the sedfoam simulation (mixing length) in order to focus on the granular flow modelling. Averaged quantities are computed in the DEM (volume fraction, particle velocity, granular temperature, etc.) which will be considered as a basis to compare with the sedFoam simulation. A complete description and analyses of the granular flow modeling with the kinetic theory can be found Chassagne et al. (2023).
 
 @image html "DEM_setup.png" "Figure 3: Turbulent bedload simulation with coupled fluid-DEM simulation.  " width=600px
 @image latex "DEM_setup.png" "Figure 3: Turbulent bedload simulation with coupled fluid-DEM simulation."
@@ -115,7 +114,7 @@ blockMesh
 
 \paragraph BC_initiBLTurb Boundary and initial conditions
 
-The case is set up to start at time \f$t = 0\f$ s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha.a, alphaMinFriction, alphaPlastic, U.a, U.b, p_rbgh, muI, pa, pa_new, Theta, one for each of the solid phase volume fraction (alpha.a), velocities of solid and fluid phases (U.a and U.b), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. The initial profile of concentration (in alpha.a) is a hyperbolic tangent whose parameters have been compute so that the exact same amount of granular mass as in the DEM simulation is set in the sedFoam simulation. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.
+The case is set up to start at time \f$t = 0\f$ s, again the initial field data are stored in a 0_org sub-directory of the case directory. The 0_org sub-directory contains several files: alpha.a, alphaMinFriction, alphaPlastic, U.a, U.b, p_rbgh, pa, Theta, one for each of the solid phase volume fraction (alpha.a), velocities of solid and fluid phases (U.a and U.b), the reduced pressure (p_rbgh) fields whose initial values and boundary conditions must be set. The initial profile of concentration (in alpha.a) is a hyperbolic tangent whose parameters have been compute so that the exact same amount of granular mass as in the DEM simulation is set in the sedFoam simulation. Compared with the sedimentation test case, no-slip boundary conditions are imposed for both phase velocity at the top and bottom boundaries.
 
 \verbatim
 forAll(mesh.C(), i)
@@ -127,7 +126,7 @@ forAll(mesh.C(), i)
 
 \paragraph PhysPropBLTurb Physical properties
 
-The transportProperties file for the 1DBedloadTurb case is shown below.
+The transportProperties file for the 1DBedloadTurb case is shown below. The same particle properties as in the DEM are.
 
 \verbatim
 // * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
@@ -160,9 +159,7 @@ alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-5;  // minimum volume fraction (
 // ************************************************************************* //
 \endverbatim
 
-The physical property of the particles (diameter and density) and of the fluid (density and kinematic viscosity) have been set to the DEM values.
-
-The fluid and particles are submitted to gravity. This is accounted as a pressure gradient source term in the momentum conservation equations. It corresponds to gradPMEAN in file *forceProperties* with \f$gradPMEAN = \rho^f g S_0 \f$, with \f$\rho^f=1000\f$ (kg/s), \f$g=9.81\f$ (m/s^2) and \f$S_0 = 0.05\f$. The tilt parameter is set to 1, so that the source term in the granular momentum equation is automatically set to \f$gradPMEAN = \rho^p g S_0 \f$.
+The fluid and particles are submitted to gravity. This is accounted for as a pressure gradient source term in the momentum conservation equations. It corresponds to gradPMEAN in file *forceProperties* with \f$gradPMEAN = \rho^f g S_0 \f$, with \f$\rho^f=1000\f$ (kg/s), \f$g=9.81\f$ (m/s^2) and \f$S_0 = 0.05\f$. The tilt parameter is set to 1, so that the source term in the granular momentum equation is automatically set to \f$gradPMEAN = \rho^p g S_0 \f$.
 \verbatim
 // * * * * * * * * * * * * * following are for presure * * * * * * * * * * * * * * * //
 gradPMEAN        gradPMEAN        [ 1 -2 -2 0 0 0 0 ] (490.5 0 0 ); // mean pressure
@@ -208,7 +205,7 @@ kappaLM 0.41;
 
 In the dictionary *interfacialProperties* file the drag model from DallaValle is used (as in the DEM).
 
-Kinetic theory will be used to compute the kinetic contributions of granular stresses. Be sure to set granularRheology to off in *granularRheologyProperties*. The *kineticTheoryProperties* file is described just below:
+Kinetic theory will be used to compute the kinetic contributions of granular stresses. Be sure to set granularRheology to off in *granularRheologyProperties*. The *kineticTheoryProperties* file contains all information to set up thze kinetic theory model. First, particle properties have to be given, restitution coefficient \f$e=0.7\f$ and interparticle friction \f$\mu = 0.4\f$. alphaMax is the maximum packing fraction and phi is the angle of repose, below which the granular flow stops moving. This angle depends on the interparticle friction and an empirical formula to compute phi is given in Chassagne et al. (2023) (Appendix). killJ2_, allows to account for (0) or neglect (1) any transfer of fluctuating energy from the fluid to the particles. quadraticCorrectionJ1_ allows you to account for (1) or neglect (0) additional dissipation of granular temperature by the drag force, due to the quadratic nature of drag force in turbulent flows. Then you have to choose which model to use for each of the coefficient of the kinetic theory. The models used in this tutorial correspond to the model developed in Chassagne et al. (2023). The Garzo and Dufty (1999) coefficients are used for the viscosity, conductivity and pressure coefficient. The pressure coefficient of Lun et al. (1984) is the same as the one of Garzo and Dufty (1999). A saltation model can be specified (none by default). This modifies the viscosity and conductivity coefficients in the dilute part of the granular flow to account for saltation motions. In the current version of the code, only the GarzoDufty models can be coupled with a saltation model. The Chialvo & Sundaresan (2013) radial distribution function is used, and it is the only one that accounts for the effect of the interparticle friction coefficient (Chassagne et al. (2013)).
 
 \verbatim
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -235,18 +232,18 @@ killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 1;
 
 quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
 
-viscosityModel  GarzoDuftyMod;
+viscosityModel  GarzoDufty;
 
-conductivityModel GarzoDuftyMod;
+conductivityModel GarzoDufty;
 
 granularPressureModel Lun;
 
-radialModel     ChialvoSundaresanFric;
+saltationModel  Jenkins;
+
+radialModel     ChialvoSundaresan;
 
 // ************************************************************************* //
 \endverbatim
-
-As in the DEM, particles with interparticle friction \f$\mu = 0.4\f$ and restitution coefficient \f$e=0.7\f$ are considered. The Garzo & Dufty (1999) model for the kinetic theory coefficients is used, slightly modified to correct discrepancies observed in the dilute part of the flow. The pressure model of Lun et al. (1984) is the same as the one of Garzo & Dufty (1999). The radial distribution function used is the one of Chialvo & Sundaresan (2013), modified to account for interparticular friction.
 
 \paragraph Disc_solvBLTurb Discretisation and linear-solver settings
 

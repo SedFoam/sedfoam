@@ -1,0 +1,66 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+actions
+(
+    {
+        name    c0;
+        type    cellSet;
+        action  new;
+        source  regionToCell;
+        insidePoints ((0.001 0.001 0.001));
+    }
+
+    {
+        name    c1;
+        type    cellSet;
+        action  new;
+        source  cellToCell;
+        set     c0;
+    }
+
+    {
+        name    c1;
+        type    cellSet;
+        action  invert;
+    }
+
+    // Select box to remove from region 1
+
+    {
+        name    box;
+        type    cellSet;
+        action  new;
+        source  cellToCell;
+        set     c1;
+    }
+
+    {
+        name    box;
+        type    cellSet;
+        action  subset;
+        source  boxToCell;
+        box     (0.08 0.002 -100)(0.09 0.035 100);
+        //        box     (0.105 0.0001 -100)(0.115 0.035 100);
+    }
+    {
+        name    box;
+        type    cellSet;
+        action  invert;
+    }
+);
+
+
+// ************************************************************************* //

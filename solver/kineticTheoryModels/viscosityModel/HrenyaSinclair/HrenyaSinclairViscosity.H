@@ -26,7 +26,9 @@ Class
 
 Description
     This file is in the \dir kineticTheoryModels/viscosityModel/HrenyaSinclair
-    directory
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/viscosityModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     HrenyaSinclairViscosity.C
@@ -84,6 +86,8 @@ public:
             const volScalarField& alpha,
             const volScalarField& Theta,
             const volScalarField& g0,
+            const volScalarField& musalt,
+            const volScalarField& K,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
             const dimensionedScalar& e

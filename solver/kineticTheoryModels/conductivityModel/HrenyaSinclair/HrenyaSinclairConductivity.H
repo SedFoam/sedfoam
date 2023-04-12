@@ -26,7 +26,10 @@ Class
 
 Description
     This file is in the \dir
-    kineticTheoryModels/conductivityModel/HrenyaSinclair directory
+    kineticTheoryModels/conductivityModel/HrenyaSinclair subdirectory
+    inside the subdirectory \dir kineticTheoryModels/conductivityModel
+    inside the directory \dir kineticTheoryModels
+
 
 SourceFiles
     HrenyaSinclairConductivity.C
@@ -80,6 +83,8 @@ public:
             const volScalarField& alpha,
             const volScalarField& Theta,
             const volScalarField& g0,
+            const volScalarField& kappasalt,
+            const volScalarField& K,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
             const dimensionedScalar& e
