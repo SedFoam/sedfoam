@@ -5,5 +5,5 @@ rm -r 0
 blockMesh
 
 # Run sedFoam
-sedFoam_rbgh
+sedFoam_rbghMULES
 

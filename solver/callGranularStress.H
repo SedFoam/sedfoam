@@ -29,7 +29,7 @@ volScalarField magDtensor
 if (granularRheology.dilatancy())
 {
     //// Solving the evolution of plastic volume fraction
-
+	delta=delta*pos(alpha-alphaPlastic);
     fvScalarMatrix phi_pl_Eqn
     (
      fvm::ddt(alphaPlastic)
