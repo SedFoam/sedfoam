@@ -205,12 +205,12 @@ int main(int argc, char *argv[])
             #include "alphaEqn.H"
             #include "liftDragCoeffs.H"
             
-			MRF.makeAbsolute(phia);
+			//MRF.makeAbsolute(phia);
 
 //          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
 //             from Kinetic Theory of granular flows or mu(I) rheology
             #include "callGranularStress.H"
-			MRF.makeRelative(phia);
+			//MRF.makeRelative(phia);
 			//fvc::makeAbsolute(phia, Ua);
 			//#include "callGranularStressDyM.H"
 ////          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
@@ -230,6 +230,7 @@ int main(int argc, char *argv[])
                 #include "pU/UEqns.H"
                 #include "pU/pEqn.H"
             }
+            #include "UaUbLimiter.H"
 
 
      //       #include "DDtU.H"

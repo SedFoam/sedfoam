@@ -27,10 +27,11 @@ License
     word schemer("div(phir,alpha)");
 
 
-    surfaceScalarField phic("phic", MRF.absolute(phi));
-    surfaceScalarField phir("phir", MRF.absolute(phia - phib));
+    //surfaceScalarField phic("phic", MRF.absolute(phi));
+    //surfaceScalarField phir("phir", MRF.absolute(phia - phib));
 
-
+    surfaceScalarField phic("phic", MRF.relative(phi));
+    surfaceScalarField phir("phir", MRF.relative(phia - phib));
 
 
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
@@ -63,7 +64,7 @@ License
 
       //  beta = cellMask*(scalar(1.0) - alpha);
         beta = (scalar(1.0) - alpha);
-        //beta.correctBoundaryConditions();
+        beta.correctBoundaryConditions();
 
         if (debugInfo)
         {
