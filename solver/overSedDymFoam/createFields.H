@@ -653,12 +653,31 @@ volVectorField DDtUb
 
 
 Info<< "Calculating field g.h\n" << endl;
-volScalarField gh("gh", gravity & mesh.C());
-surfaceScalarField ghf("ghf", gravity & mesh.Cf());
 
-//#include "readGravitationalAcceleration.H"
-//#include "readhRef.H"
-//#include "gh.H"
+Info<< "\nReading hRef" << endl;
+uniformDimensionedScalarField hRef
+(
+	IOobject
+	(
+		"hRef",
+		runTime.constant(),
+		mesh,
+		IOobject::READ_IF_PRESENT,
+		IOobject::NO_WRITE
+	),
+	dimensionedScalar(dimLength, Zero)
+);
+dimensionedScalar ghRef
+(
+	mag(gravity.value()) > SMALL
+  ? gravity & (cmptMag(gravity.value())/mag(gravity.value()))*hRef
+  : dimensionedScalar("ghRef", gravity.dimensions()*dimLength, 0)
+);
+
+volScalarField gh("gh", (g & mesh.C()) - ghRef);
+surfaceScalarField ghf("ghf", (g & mesh.Cf()) - ghRef);
+
+
 
 // Read interfacial properties
 

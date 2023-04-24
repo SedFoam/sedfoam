@@ -49,6 +49,7 @@ Date
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"
+#include "CMULES.H"
 #include "dynamicFvMesh.H"
 #include "singlePhaseTransportModel.H"
 #include "sedIncompressibleTurbulenceModel.H"
@@ -178,6 +179,9 @@ int main(int argc, char *argv[])
             #include "setCellMask.H"
             #include "setInterpolatedCells.H"
             #include "correctPhiSedFaceMask.H"
+			gh = (g & mesh.C()) - ghRef;
+			ghf = (g & mesh.Cf()) - ghRef;
+
 
             //fvc::makeRelative(phi, U);
             fvc::makeRelative(phia, Ua);
@@ -191,7 +195,6 @@ int main(int argc, char *argv[])
                     //U   *= cellMask;
                     //alpha   *= cellMask;
                     // Make the flux relative to the mesh motion
-                  //  fvc::makeRelative(phi, U);
         }
 			//// Correct phi on individual regions
 			//if (correctPhi)

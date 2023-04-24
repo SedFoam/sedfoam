@@ -29,44 +29,78 @@ License
 
 
 
-	  surfaceScalarField phic("phic",phi);
-		fvc::makeAbsolute(phia, Ua);
-		fvc::makeAbsolute(phib, Ub);
-		surfaceScalarField phir("phir",phia - phib);
-
-
+  surfaceScalarField phic("phic",phi);
+  // surfaceScalarField phir("phir",phia - phib);
+    fvc::makeAbsolute(phia, Ua);
+    fvc::makeAbsolute(phib, Ub);
+    surfaceScalarField phir("phir",phia - phib);
+  //  surfaceScalarField phir("phir", MRF.absolute(phia) - MRF.absolute(phib));
+ //  surfaceScalarField phic("phic",phi);
 
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
     {
-        fvScalarMatrix alphaEqn
+        surfaceScalarField phiAlpha
         (
-             fvm::ddt(alpha)
-           + fvm::div(phic, alpha, scheme)
-           + fvm::div(-fvc::flux(-phir, (1.0-alpha), schemer), alpha, schemer)
+            fvc::flux
+            (
+                phic,
+                alpha,
+                scheme
+            )
+          + fvc::flux
+            (
+                -fvc::flux(-phir, beta, schemer),
+                alpha,
+                schemer
+            )
         );
 
-        alphaEqn.relax();
-        alphaEqn.solve();
-        if (packingLimiter)
+        // Limit to 0.99*alphaMax to avoid extremely small time steps
+
+#if (defined(OPENFOAM) && (OPENFOAM >= 1906)) || \
+    (defined(OFVERSION) && (OFVERSION >= 600))
+    /* >= OpenFOAM-v1906 or >= OpenFOAM-6 */
+
+            MULES::explicitSolve
+            (
+                geometricOneField(),
+                alpha,
+                phi,
+                phiAlpha,
+                zeroField(),
+                zeroField(),
+                UniformField<scalar>(0.99*alphaMax.value()),
+                zeroField()
+            );
+#else
+            MULES::explicitSolve
+            (
+                geometricOneField(),
+                alpha,
+                phi,
+                phiAlpha,
+                zeroField(),
+                zeroField(),
+                0.99*alphaMax.value(),
+                0
+            );
+#endif
+
+        /*if (packingLimiter)
         {
             int i=0;
-            while (i<100 && max(alpha).value()>=alphaMax.value())
+            while (i<100 && max(alpha).value()>=alphaMax)
             {
                 #include "packingLimiter.H"
                 i++;
             }
-        }
+        }*/
 
-        alpha.min(alphaMax);
+        alpha.min(0.99*alphaMax);
         alpha.max(0);
-
         alpha *= cellMask;
-        alpha.correctBoundaryConditions();
-
-
-      //  beta = cellMask*(scalar(1.0) - alpha);
-        beta = (scalar(1.0) - alpha);
-        //beta.correctBoundaryConditions();
+        
+        beta = scalar(1.0) - alpha;
 
         if (debugInfo)
         {
