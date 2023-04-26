@@ -5,8 +5,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
-  git python3 python3-pip unzip python-is-python3 ipython3 \
-  mercurial libreadline-dev vim nano emacs \
+  python3-pip python3-venv python-is-python3 ipython3 \
+  unzip git mercurial meld libreadline-dev vim nano emacs \
   texlive dvipng python3-tk cm-super texlive-latex-extra \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
