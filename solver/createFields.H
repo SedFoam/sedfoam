@@ -570,7 +570,7 @@ volTensorField gradUbT
     fvc::grad(Ub)().T()
 );
 
-volTensorField Taub
+volSymmTensorField Taub
 (
     IOobject
     (
@@ -580,10 +580,10 @@ volTensorField Taub
         IOobject::NO_READ,
         IOobject::NO_WRITE
     ),
-    rhob*(scalar(1.0)-alpha)*nub*dev(fvc::grad(Ub))
+    rhob*(scalar(1.0)-alpha)*nub*dev(twoSymm(fvc::grad(Ub)))
 );
 
-volTensorField Taua
+volSymmTensorField Taua
 (
     IOobject
     (
@@ -593,8 +593,9 @@ volTensorField Taua
          IOobject::NO_READ,
          IOobject::NO_WRITE
     ),
-    rhoa*alpha*nua*dev(fvc::grad(Ua))
+    rhoa*alpha*nua*dev(twoSymm(fvc::grad(Ua)))
 );
+
 //creating alphaPlastic field
 Info<< "Computing field alphaPlastic\n" << endl;
 volScalarField alphaPlastic

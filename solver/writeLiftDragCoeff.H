@@ -110,7 +110,7 @@ if (!file)
 		
 		
 		//volTensorField TauaMod = Taua;
-		tensorField TauaMod = Taua.boundaryField()[Patchid].T();
+	//	tensorField TauaMod = Taua.boundaryField()[Patchid].T();
 
 		//forAll(TauaMod,cellI)
 		//{
@@ -128,7 +128,9 @@ if (!file)
 
 
 
-		const vectorField fT_shear(Sfb[Patchid] & TauaMod);
+	//	const vectorField fT_shear(Sfb[Patchid] & TauaMod);
+		const vectorField fT_shear(Sfb[Patchid] & Taua.boundaryField()[Patchid]);
+		
 
 
        //     Info << "Taua: " << TauaMod.boundaryField()[Patchid]<< endl;
@@ -205,4 +207,3 @@ if (!file)
    
 	
 }
-
