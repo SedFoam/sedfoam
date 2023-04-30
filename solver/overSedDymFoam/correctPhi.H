@@ -1,27 +1,55 @@
 {
     if (mesh.changing())
     {
-        volVectorField::Boundary& bfld = U.boundaryFieldRef();
-        forAll(bfld, patchi)
+		
+		
+		surfaceScalarField alphaf(fvc::interpolate(alpha));
+		surfaceScalarField betaf(scalar(1.0) - alphaf);
+			
+		
+		
+        volVectorField::Boundary& bafld = Ua.boundaryFieldRef();
+        forAll(bafld, patchi)
         {
-            if (bfld[patchi].fixesValue())
+            if (bafld[patchi].fixesValue())
             {
-                bfld[patchi].initEvaluate();
+                bafld[patchi].initEvaluate();
             }
         }
-
-        surfaceScalarField::Boundary& phiBfld = phi.boundaryFieldRef();
-        forAll(bfld, patchi)
+        volVectorField::Boundary& bbfld = Ub.boundaryFieldRef();
+        forAll(bbfld, patchi)
         {
-            if (bfld[patchi].fixesValue())
+            if (bbfld[patchi].fixesValue())
             {
-                bfld[patchi].evaluate();
+                bbfld[patchi].initEvaluate();
+            }
+        }
+        
+        surfaceScalarField::Boundary& phiaBfld = phia.boundaryFieldRef();
+        forAll(bafld, patchi)
+        {
+            if (bafld[patchi].fixesValue())
+            {
+                bafld[patchi].evaluate();
 
-                phiBfld[patchi] =
-                    bfld[patchi]
+                phiaBfld[patchi] =
+                    bafld[patchi]
                   & mesh.Sf().boundaryField()[patchi];
             }
         }
+        surfaceScalarField::Boundary& phibBfld = phib.boundaryFieldRef();
+        forAll(bbfld, patchi)
+        {
+            if (bbfld[patchi].fixesValue())
+            {
+                bbfld[patchi].evaluate();
+
+                phibBfld[patchi] =
+                    bbfld[patchi]
+                  & mesh.Sf().boundaryField()[patchi];
+            }
+        }
+        
     }
 
     wordList pcorrTypes
@@ -55,14 +83,19 @@
 
     if (pcorr.needReference())
     {
-        fvc::makeRelative(phi, U);
-        adjustPhi(phi, U, pcorr);
-        fvc::makeAbsolute(phi, U);
+        fvc::makeRelative(phia, Ua);
+        adjustPhi(phia, Ua, pcorr);
+        fvc::makeAbsolute(phia, Ua);
+        
+        fvc::makeRelative(phib, Ub);
+        adjustPhi(phib, Ub, pcorr);
+        fvc::makeAbsolute(phib, Ub);
     }
 
     mesh.setFluxRequired(pcorr.name());
 
-    dimensionedScalar rAUf("rAUf", dimTime/rho.dimensions(), 1.0);
+    dimensionedScalar rUaAf("rUaAf", dimTime/rho.dimensions(), 1.0);
+    dimensionedScalar rUbAf("rUbAf", dimTime/rho.dimensions(), 1.0);
 
     const cellCellStencilObject& overlap = Stencil::New(mesh);
     const labelList& cellTypes = overlap.cellTypes();
@@ -91,9 +124,17 @@
             }
         }
 
-        fvScalarMatrix pcorrEqn
+        // Poisson equation for the pressure
+        surfaceScalarField Dp
         (
-            fvm::laplacian(rAUf, pcorr) == fvc::div(phi)
+            "(rho*(1|A(U)))",
+            alphaf*rUaAf/rhoa + betaf*rUbAf/rhob
+        );
+        phi = alphaf*phia + betaf*phib;
+
+        fvScalarMatrix pcorrEqn
+        (        
+            fvm::laplacian(Dp, pcorr) == fvc::div(phi)
         );
 
         // Only set reference for cells that are CALCULATED

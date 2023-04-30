@@ -194,10 +194,10 @@ int main(int argc, char *argv[])
                   //  fvc::makeRelative(phi, U);
         }
 			//// Correct phi on individual regions
-			//if (correctPhi)
-			//{
-				 //#include "correctPhi.H"
-			//}
+			if (correctPhi)
+			{
+				 #include "correctPhi.H"
+			}
 
 //      Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
