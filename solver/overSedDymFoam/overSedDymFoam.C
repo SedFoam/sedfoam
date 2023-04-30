@@ -183,7 +183,6 @@ int main(int argc, char *argv[])
 			ghf = (g & mesh.Cf()) - ghRef;
 
 
-            //fvc::makeRelative(phi, U);
             fvc::makeRelative(phia, Ua);
             fvc::makeRelative(phib, Ub);
 
@@ -191,16 +190,14 @@ int main(int argc, char *argv[])
 			surfaceScalarField alphaf = fvc::interpolate(alpha);
 			surfaceScalarField betaf = scalar(1.0) - alphaf;
 			phi = alphaf*phia + betaf*phib;
-                    //phi *= faceMask;
-                    //U   *= cellMask;
-                    //alpha   *= cellMask;
-                    // Make the flux relative to the mesh motion
+			
+			// Calculate absolute flux from the mapped surface velocity
+			if (correctPhi)
+			{
+				 #include "correctPhi.H"
+			}
         }
-			//// Correct phi on individual regions
-			//if (correctPhi)
-			//{
-				 //#include "correctPhi.H"
-			//}
+
 
 //      Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
