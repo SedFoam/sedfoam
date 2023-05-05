@@ -21,6 +21,9 @@ License
     You should have received a copy of the GNU General Public License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
+Description
+    This file is in the \dir pU directory
+
 \*---------------------------------------------------------------------------*/
 {
     word schemeA("div(alpha,nu)");
@@ -198,8 +201,8 @@ License
             p_rbgh.boundaryFieldRef(),
             (
                 phiHbyA.boundaryField()
-              - alphaf.boundaryField()
-               *((mesh.Sf().boundaryField() & Ua.boundaryField())
+              - (alphaf.boundaryField()
+               *(mesh.Sf().boundaryField() & Ua.boundaryField())
               + betaf.boundaryField()
                *(mesh.Sf().boundaryField() & Ub.boundaryField()))
              )

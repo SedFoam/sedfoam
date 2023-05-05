@@ -23,7 +23,10 @@
             }
         }
     }
-
+    
+    surfaceScalarField alphaf(fvc::interpolate(alpha));
+    surfaceScalarField betaf(scalar(1.0) - alphaf);
+	
     wordList pcorrTypes
     (
         p_rbgh.boundaryField().size(),
@@ -58,6 +61,14 @@
         fvc::makeRelative(phi, U);
         adjustPhi(phi, U, pcorr);
         fvc::makeAbsolute(phi, U);
+        
+        fvc::makeRelative(phia, Ua);
+        adjustPhi(phia, Ua, pcorr);
+        fvc::makeAbsolute(phia, Ua);
+        
+        fvc::makeRelative(phib, Ub);
+        adjustPhi(phib, Ub, pcorr);
+        fvc::makeAbsolute(phib, Ub);    
     }
 
     mesh.setFluxRequired(pcorr.name());
@@ -70,6 +81,9 @@
 
     while (pimple.correctNonOrthogonal())
     {
+	surfaceScalarField phir("phir",phia - phib);
+
+		
         label nZones = gMax(zoneIDs)+1;
         //label refCellI2 = -1;
 
@@ -130,6 +144,20 @@
         if (pimple.finalNonOrthogonalIter())
         {
             phi -= pcorrEqn.flux();
+            
+			// Compute pressure gradient at cell faces
+			surfaceScalarField SfGradp(pcorrEqn.flux()/rAUf);
+			// Compute corrected velocity fluxes at cell faces
+			//       due to pressure gradient
+			surfaceScalarField phias(phia - rAUf*SfGradp);
+			surfaceScalarField phibs(phib - rAUf*SfGradp);
+            
+			// Compute corrected relative velocity fluxes 
+			surfaceScalarField phir(phias - phibs );
+            
+            phia = phi + betaf*(phir);
+            phib = phi - alphaf*(phir);
+            
         }
     }
 }

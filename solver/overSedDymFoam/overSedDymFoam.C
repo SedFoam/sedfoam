@@ -193,8 +193,9 @@ int main(int argc, char *argv[])
 			
 			// Calculate absolute flux from the mapped surface velocity
 			if (correctPhi)
-			{
-				 #include "correctPhi.H"
+			{ 
+				Info<< "correctPhi is on" << endl;
+				 #include "correctPhiSed.H"
 			}
         }
 
