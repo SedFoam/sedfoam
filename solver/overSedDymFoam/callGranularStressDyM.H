@@ -26,8 +26,15 @@ volScalarField magDtensor
     ::sqrt(2.0)*mag(symm(gradUaT))
 );
 
-surfaceScalarField phic("phic", MRF.relative(phi));
-surfaceScalarField phir("phir", MRF.relative(phia - phib));
+
+fvc::makeRelative(phi, U);
+//fvc::makeAbsolute(phib, Ub);
+//fvc::makeAbsolute(phib, Ub);
+surfaceScalarField phic("phic", phi);
+
+fvc::makeAbsolute(phi, U);
+
+surfaceScalarField phicc("phicc", phi);
 
 
 if (granularRheology.dilatancy())
@@ -37,10 +44,10 @@ if (granularRheology.dilatancy())
     fvScalarMatrix phi_pl_Eqn
     (
      fvm::ddt(alphaPlastic)
-     //+ fvm::div(phic, alphaPlastic, "div(phia,alphaPlastic)")
-     //- fvm::Sp(fvc::div(phic), alphaPlastic)
-	   + fvm::div(phic, alphaPlastic)
-	   + fvm::div(-fvc::flux(-phir, (1.0-alpha)), alphaPlastic)
+     + fvm::div(phic, alphaPlastic, "div(phia,alphaPlastic)")
+     - fvm::Sp(fvc::div(phicc), alphaPlastic)
+	   //+ fvm::div(phic, alphaPlastic)
+	   //+ fvm::div(-fvc::flux(-phir, (1.0-alpha)), alphaPlastic)
      ==
      -fvc::Sp(delta*magDtensor, alphaPlastic) // explicit term
     );
