@@ -1,7 +1,7 @@
 ﻿/**
  * \file        governingEq.doc
- * \author      Cyrille Bonamy and Julien Chauchat
- * \date        June 06, 2021
+ * \author      Cyrille Bonamy, Eduard Puig Montellà and Julien Chauchat
+ * \date        May 11, 2023
  * \brief       SedFOAM governing equations (doc)
  */
 /*! \page governingEq Governing equations 

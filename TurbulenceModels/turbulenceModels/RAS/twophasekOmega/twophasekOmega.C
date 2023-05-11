@@ -153,7 +153,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
         (
             "nutMax",
             this->coeffDict_,
-            0
+            1e-1
         )
     ),
     Clim_
