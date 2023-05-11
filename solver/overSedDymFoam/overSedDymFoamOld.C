@@ -179,10 +179,8 @@ int main(int argc, char *argv[])
             #include "setCellMask.H"
             #include "setInterpolatedCells.H"
             #include "correctPhiSedFaceMask.H"
-			gh = (g & mesh.C()) - ghRef;
-			ghf = (g & mesh.Cf()) - ghRef;
 
-
+            //fvc::makeRelative(phi, U);
             fvc::makeRelative(phia, Ua);
             fvc::makeRelative(phib, Ub);
 
@@ -190,15 +188,16 @@ int main(int argc, char *argv[])
 			surfaceScalarField alphaf = fvc::interpolate(alpha);
 			surfaceScalarField betaf = scalar(1.0) - alphaf;
 			phi = alphaf*phia + betaf*phib;
-			
-			// Calculate absolute flux from the mapped surface velocity
-			if (correctPhi)
-			{ 
-				Info<< "correctPhi is on" << endl;
-				 #include "correctPhiSed.H"
-			}
+                    //phi *= faceMask;
+                    //U   *= cellMask;
+                    //alpha   *= cellMask;
+                    // Make the flux relative to the mesh motion
         }
-
+			//// Correct phi on individual regions
+			//if (correctPhi)
+			//{
+				 //#include "correctPhi.H"
+			//}
 
 //      Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
@@ -206,17 +205,13 @@ int main(int argc, char *argv[])
             #include "alphaEqn.H"
             #include "liftDragCoeffs.H"
             
-			fvc::makeAbsolute(phia, Ua);
-			fvc::makeAbsolute(phib, Ub);
+			//MRF.makeAbsolute(phia);
 
 //          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
 //             from Kinetic Theory of granular flows or mu(I) rheology
-            #include "callGranularStressDyM.H"
-            
-			fvc::makeRelative(phia, Ua);
-			fvc::makeRelative(phib, Ub);
-			fvc::makeRelative(phi, U);
+            #include "callGranularStress.H"
 			//MRF.makeRelative(phia);
+			//fvc::makeAbsolute(phia, Ua);
 			//#include "callGranularStressDyM.H"
 ////          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
 ////             from Kinetic Theory of granular flows or mu(I) rheology
