@@ -12,7 +12,7 @@
 
 \section install_src_unix Compiling from source with supported OpenFOAM (last ESI version)
 
-You need OpenFOAM-v2106 to build the executable.
+You need OpenFOAM-v2212 to build the executable.
 <ul>
 <li>First go to the <a href="https://www.openfoam.com/download">download</a> page of the software
 <li><a href="https://www.openfoam.com/download/installation.php">Install OpenFOAM</a>.
