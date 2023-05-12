@@ -1,2 +1,0 @@
-overSedDymFoam.C
-EXE = $(FOAM_USER_APPBIN)/overSedDymFoam_rbgh
