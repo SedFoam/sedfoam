@@ -12,7 +12,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    container: opencfd/openfoam-dev:2206
+    container: opencfd/openfoam-dev:2212
     steps:
       - name: install git
         run: |
@@ -29,7 +29,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: sedfoam_2206_ubuntu
+      IMAGE_NAME: sedfoam_2212_ubuntu
     needs: build
     steps:
       - name: Checkout repository
@@ -56,7 +56,7 @@ jobs:
   docker_nb:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: sedfoam_2206_notebook
+      IMAGE_NAME: sedfoam_2212_notebook
     needs: docker
     steps:
       - name: Checkout repository

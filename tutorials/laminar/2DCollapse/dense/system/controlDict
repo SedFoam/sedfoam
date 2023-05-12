@@ -45,9 +45,9 @@ runTimeModifiable on;
 
 adjustTimeStep  on;
 
-maxCo           0.02;
+maxCo           0.1;
 
-maxAlphaCo      0.02;
+maxAlphaCo      0.1;
 
 maxDeltaT       1e-3;
 #include "probe"

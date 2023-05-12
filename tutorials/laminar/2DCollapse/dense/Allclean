@@ -1,5 +1,5 @@
 #!/bin/sh
-rm -r 50 600 proc*
+rm -r proc*
 # Remove the mesh
 foamCleanPolyMesh
 
