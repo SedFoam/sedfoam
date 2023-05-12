@@ -29,9 +29,6 @@ License
     surfaceScalarField phic("phic", phi);
     surfaceScalarField phir("phir", phia - phib);
 
-
-
-
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
     {
         // Create the limiter to be used for all phase-fractions
@@ -57,7 +54,8 @@ License
 
 
         // Create the complete convection flux for alpha
-        surfaceScalarField alphaPhi1 //this is the high order solution + the compression (relative velocity) fluxes
+        //high order solution + relative velocity fluxes
+        surfaceScalarField alphaPhi1
         (
             fvc::flux
             (
@@ -74,7 +72,8 @@ License
         );
 
         // Create the bounded (upwind) flux for alpha
-        surfaceScalarField alphaPhi1BD //this is the low order solution  without the compression (relative velocity) flux
+        //ow order solution  without the compression (relative velocity) flux
+        surfaceScalarField alphaPhi1BD 
         (
             upwind<scalar>(mesh, phic).flux(alpha)
         );
@@ -82,30 +81,8 @@ License
         // Calculate the flux correction for alpha
         alphaPhi1 -= alphaPhi1BD;
 
-        // Calculate the limiter for alpha1
-        //if (LTS)
-        //{
-            //const volScalarField& rDeltaT =
-                //fv::localEulerDdt::localRDeltaT(mesh);
-
-            //MULES::limiter
-            //(
-                //allLambda,
-                //rDeltaT,
-                //geometricOneField(),
-                //alpha,
-                //alphaPhi1BD,
-                //alphaPhi1,
-                //zeroField(),
-                //zeroField(),
-                //oneField(),
-                //zeroField()
-            //);
-        //}
-        //else
-        //{
-            MULES::limiter
-            (
+        MULES::limiter
+                (
                 allLambda,
                 1.0/runTime.deltaT().value(),
                 geometricOneField(),
@@ -116,84 +93,28 @@ License
                 zeroField(),
                 UniformField<scalar>(0.99*alphaMax.value()),
                 zeroField()
-            );
-        //}
+                );
 
         alphaPhi1 = alphaPhi1BD + lambda*alphaPhi1;
 
         // Reset allLambda to 1.0
         allLambda = 1.0;
 
-       
-
         // Solve for alpha1
         solve(fvm::ddt(alpha) + fvc::div(alphaPhi1));
 
-
         beta = 1.0 - alpha;
 
- 
-
-
-
-
-        //// Limit to 0.99*alphaMax to avoid extremely small time steps
-
-//#if (defined(OPENFOAM) && (OPENFOAM >= 1906)) || \
-    //(defined(OFVERSION) && (OFVERSION >= 600))
-    ///* >= OpenFOAM-v1906 or >= OpenFOAM-6 */
-
-            //MULES::explicitSolve
-            //(
-                //geometricOneField(),
-                //alpha,
-                //phi,
-                //phiAlpha,
-                //zeroField(),
-                //zeroField(),
-                //UniformField<scalar>(0.99*alphaMax.value()),
-                //zeroField()
-            //);
-//#else
-            //MULES::explicitSolve
-            //(
-                //geometricOneField(),
-                //alpha,
-                //phi,
-                //phiAlpha,
-                //zeroField(),
-                //zeroField(),
-                //0.99*alphaMax.value(),
-                //0
-            //);
-//#endif
-
-        ///*if (packingLimiter)
-        //{
-            //int i=0;
-            //while (i<100 && max(alpha).value()>=alphaMax)
-            //{
-                //#include "packingLimiter.H"
-                //i++;
-            //}
-        //}*/
-
-        //alpha.min(0.99*alphaMax);
-        //alpha.max(0);
-        //beta = scalar(1.0) - alpha;
-
-
-
-   }
+    }
 }
     
 if (debugInfo)
 {
-	Info<< "Dispersed phase volume fraction = "
-	<< alpha.weightedAverage(mesh.V()).value()
-	<< "  Min(alpha) = " << gMin(alpha)
-	<< "  Max(alpha) = " << gMax(alpha)
-	<< endl;
+    Info<< "Dispersed phase volume fraction = "
+    << alpha.weightedAverage(mesh.V()).value()
+    << "  Min(alpha) = " << gMin(alpha)
+    << "  Max(alpha) = " << gMax(alpha)
+    << endl;
 }
 
 rho = alpha*rhoa + beta*rhob;
