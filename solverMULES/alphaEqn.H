@@ -73,7 +73,7 @@ License
 
         // Create the bounded (upwind) flux for alpha
         //ow order solution  without the compression (relative velocity) flux
-        surfaceScalarField alphaPhi1BD 
+        surfaceScalarField alphaPhi1BD
         (
             upwind<scalar>(mesh, phic).flux(alpha)
         );
@@ -107,7 +107,7 @@ License
 
     }
 }
-    
+
 if (debugInfo)
 {
     Info<< "Dispersed phase volume fraction = "
