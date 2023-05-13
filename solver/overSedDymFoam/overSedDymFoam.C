@@ -197,6 +197,9 @@ int main(int argc, char *argv[])
 				Info<< "correctPhi is on" << endl;
 				 #include "correctPhiSed.H"
 			}
+
+            fvc::makeRelative(phi, U);
+			
         }
 
 
