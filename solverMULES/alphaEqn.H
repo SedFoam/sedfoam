@@ -31,7 +31,31 @@ License
 
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
     {
-        surfaceScalarField phiAlpha
+        // Create the limiter to be used for all phase-fractions
+        scalarField allLambda(mesh.nFaces(), 1.0);
+
+        // Split the limiter into a surfaceScalarField
+        slicedSurfaceScalarField lambda
+        (
+            IOobject
+            (
+                "lambda",
+                mesh.time().timeName(),
+                mesh,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE,
+                false
+            ),
+            mesh,
+            dimless,
+            allLambda,
+            false   // Use slices for the couples
+        );
+
+
+        // Create the complete convection flux for alpha
+        //high order solution + relative velocity fluxes
+        surfaceScalarField alphaPhi1
         (
             fvc::flux
             (
@@ -47,60 +71,50 @@ License
             )
         );
 
-        // Limit to 0.99*alphaMax to avoid extremely small time steps
+        // Create the bounded (upwind) flux for alpha
+        //ow order solution  without the compression (relative velocity) flux
+        surfaceScalarField alphaPhi1BD
+        (
+            upwind<scalar>(mesh, phic).flux(alpha)
+        );
 
-#if (defined(OPENFOAM) && (OPENFOAM >= 1906)) || \
-    (defined(OFVERSION) && (OFVERSION >= 600))
-    /* >= OpenFOAM-v1906 or >= OpenFOAM-6 */
+        // Calculate the flux correction for alpha
+        alphaPhi1 -= alphaPhi1BD;
 
-            MULES::explicitSolve
-            (
+        MULES::limiter
+                (
+                allLambda,
+                1.0/runTime.deltaT().value(),
                 geometricOneField(),
                 alpha,
-                phi,
-                phiAlpha,
+                alphaPhi1BD,
+                alphaPhi1,
                 zeroField(),
                 zeroField(),
                 UniformField<scalar>(0.99*alphaMax.value()),
                 zeroField()
-            );
-#else
-            MULES::explicitSolve
-            (
-                geometricOneField(),
-                alpha,
-                phi,
-                phiAlpha,
-                zeroField(),
-                zeroField(),
-                0.99*alphaMax.value(),
-                0
-            );
-#endif
+                );
 
-        /*if (packingLimiter)
-        {
-            int i=0;
-            while (i<100 && max(alpha).value()>=alphaMax)
-            {
-                #include "packingLimiter.H"
-                i++;
-            }
-        }*/
+        alphaPhi1 = alphaPhi1BD + lambda*alphaPhi1;
 
-        alpha.min(0.99*alphaMax);
-        alpha.max(0);
-        beta = scalar(1.0) - alpha;
+        // Reset allLambda to 1.0
+        allLambda = 1.0;
 
-        if (debugInfo)
-        {
-            Info<< "Dispersed phase volume fraction = "
-            << alpha.weightedAverage(mesh.V()).value()
-            << "  Min(alpha) = " << gMin(alpha)
-            << "  Max(alpha) = " << gMax(alpha)
-            << endl;
-        }
+        // Solve for alpha1
+        solve(fvm::ddt(alpha) + fvc::div(alphaPhi1));
+
+        beta = 1.0 - alpha;
+
     }
+}
+
+if (debugInfo)
+{
+    Info<< "Dispersed phase volume fraction = "
+    << alpha.weightedAverage(mesh.V()).value()
+    << "  Min(alpha) = " << gMin(alpha)
+    << "  Max(alpha) = " << gMax(alpha)
+    << endl;
 }
 
 rho = alpha*rhoa + beta*rhob;
