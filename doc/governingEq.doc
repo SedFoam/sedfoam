@@ -52,7 +52,7 @@ C_d=\left\{
 \right. \tag{6}
 \f]
 
-in which, the particulate Reynolds number \f$Re_p\f$ is defined as: \f$Re_p=\beta\parallel\mathbf{u^b-u^a}\parallel d_{eff}/\nu^b\f$, where \f$\nu^b\f$ stands for the fluid kinematic viscosity. This drag model can be chosen by the keyword ``GidaspowSchillerNaumann'' in the file *constant/interfacialProperties* and it is especially well adapted for dealing with suspended particles. For situations in which the fluid flow inside the porous sediment bed has to be accurately solved, other drag models are available in SedFoam-22123. The major issue in developing an Eulerian two-phase flow model is to provide closure laws for turbulence closures and granular stress models. This will be extensively discussed in the following subsections, particularly different modeling options available in SedFoam-2212  are presented.
+in which, the particulate Reynolds number \f$Re_p\f$ is defined as: \f$Re_p=\beta\parallel\mathbf{u^b-u^a}\parallel d_{eff}/\nu^b\f$, where \f$\nu^b\f$ stands for the fluid kinematic viscosity. This drag model can be chosen by the keyword ``GidaspowSchillerNaumann'' in the file *constant/interfacialProperties* and it is especially well adapted for dealing with suspended particles. For situations in which the fluid flow inside the porous sediment bed has to be accurately solved, other drag models are available in SedFoam-2212. The major issue in developing an Eulerian two-phase flow model is to provide closure laws for turbulence closures and granular stress models. This will be extensively discussed in the following subsections, particularly different modeling options available in SedFoam-2212  are presented.
 
 
 \subsection fluidstress Fluid phase shear stress 
