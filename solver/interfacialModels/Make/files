@@ -1,6 +1,7 @@
 dragModels/dragModel/dragModel.C
 dragModels/dragModel/newDragModel.C
 dragModels/Ergun/Ergun.C
+dragModels/Engelund/Engelund.C
 dragModels/GidaspowErgunWenYu/GidaspowErgunWenYu.C
 dragModels/GidaspowSchillerNaumann/GidaspowSchillerNaumann.C
 dragModels/SchillerNaumann/SchillerNaumann.C
@@ -8,5 +9,6 @@ dragModels/Gibilaro/Gibilaro.C
 dragModels/WenYu/WenYu.C
 dragModels/SyamlalOBrien/SyamlalOBrien.C
 dragModels/DallaValle/DallaValle.C
+dragModels/Beetstra/Beetstra.C
 
 LIB = $(FOAM_MODULE_LIBBIN)/libEulerianInterfacialSedModels

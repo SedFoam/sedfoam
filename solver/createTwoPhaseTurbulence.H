@@ -126,6 +126,15 @@ dimensionedScalar KE3
         dimensionedScalar("KE3", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
     )
 );
+dimensionedScalar KE6
+(
+    twophaseRASProperties.getOrDefault
+    (
+        "KE6",
+        dimensionedScalar("KE6", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
+    )
+);
+
 volScalarField tmfexp
 (
     IOobject

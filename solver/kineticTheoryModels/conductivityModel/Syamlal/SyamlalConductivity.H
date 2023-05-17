@@ -32,7 +32,9 @@ Description
     \endverbatim
 
     This file is in the \dir kineticTheoryModels/conductivityModel/Syamlal
-    directory
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/conductivityModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     SyamlalConductivity.C
@@ -81,6 +83,8 @@ public:
             const volScalarField& alpha,
             const volScalarField& Theta,
             const volScalarField& g0,
+            const volScalarField& kappasalt,
+            const volScalarField& K,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
             const dimensionedScalar& e

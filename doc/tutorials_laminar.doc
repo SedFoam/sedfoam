@@ -782,7 +782,7 @@ Numerical results are contrasted with the analytical solution (Bagnold's solutio
 \subsection preprocAva Pre-processing
 
 
-This tutorial is distributed with sedFoam3.2 under the folder *sedFoamDirectory/tutorials/laminar/1DAvalancheMuI*.
+This tutorial is distributed with sedFoam3.3 under the folder *sedFoamDirectory/tutorials/laminar/1DAvalancheMuI*.
 
 \paragraph meshgenAva Mesh generation
 
@@ -967,7 +967,7 @@ of the granular medium that modifies the pore space.  Consequently,  negative (d
 \subsection preprocWetAva Pre-processing
 
 
-This tutorial is distributed with sedFoam3.2 under the folder *sedFoamDirectory/tutorials/laminar/1DWetAvalanche*.
+This tutorial is distributed with sedFoam3.3 under the folder *sedFoamDirectory/tutorials/laminar/1DWetAvalanche*.
 
 
 \paragraph PhysPropWetAva Physical properties

@@ -1,12 +1,12 @@
 sedfoam
 =======
 
-[![Release](https://img.shields.io/badge/release-3.2-blue.svg)](http://github.com/SedFoam/sedfoam)
+[![Release](https://img.shields.io/badge/release-2212-blue.svg)](http://github.com/SedFoam/sedfoam)
 [![sedFoam](https://circleci.com/gh/SedFoam/sedfoam.svg?style=shield)](https://circleci.com/gh/SedFoam/sedfoam)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b9ad60ec6171496290c336697426cd48)](https://www.codacy.com/gh/SedFoam/sedfoam/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SedFoam/sedfoam&amp;utm_campaign=Badge_Grade)
+[![OpenFOAM v22xx](https://img.shields.io/badge/OpenFOAM-v22xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v21xx](https://img.shields.io/badge/OpenFOAM-v21xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v20xx](https://img.shields.io/badge/OpenFOAM-v20xx-brightgreen.svg)](https://openfoam.com/)
-[![OpenFOAM v19xx](https://img.shields.io/badge/OpenFOAM-v19xx-brightgreen.svg)](https://openfoam.com/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.836642.svg)](https://doi.org/10.5281/zenodo.836642)
 
 This repository provides the SedFoam solver.
@@ -66,14 +66,20 @@ Developers
 
 *   Cyrille Bonamy
 *   Julien Chauchat
-*   Zhen Cheng
-*   Tian-Jian Hsu
-*   Tim Nagel
 *   Antoine Mathieu
 *   Eduard Puig Montella
 *   Rémi Chassagne
-*   Ali Salimi-Tarazouj
+*   Zhen Cheng
+*   Tim Nagel
 *   Benjamin Tsai
+*   Tian-Jian Hsu
+
+Contributors
+------------
+
+*   Ali Salimi-Tarazouj
+*   Hugo Divel
+*   Pablo Higuera
 
 Acknowledgements
 ----------------

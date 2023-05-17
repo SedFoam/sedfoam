@@ -395,8 +395,6 @@ void Foam::granularRheologyModel::solve
     // Dilatancy model
     if (granularDilatancy_)
     {
-    //delta_ = DilatancyModel_->delta(K_dila_, alpha_c_, alpha_, magD,
-    // da_, rhob_, nub_, p_p_total_, PaMin);
         volScalarField alphaEq_
         (
             PPressureModel_->alphaEq
@@ -413,8 +411,8 @@ void Foam::granularRheologyModel::solve
         );
         delta_ = K_dila_*(alpha_ - alphaEq_);
 
-        delta_.min( 0.5);
-        delta_.max(-0.5);
+        delta_.min( 0.4);
+        delta_.max(-0.4);
     }
     //  Compute the regularized particulate viscosity
     mua_ = muI_* p_p_total_ / pow(magD2 + Dsmall2, 0.5);

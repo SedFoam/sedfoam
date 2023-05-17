@@ -29,20 +29,19 @@ volScalarField magDtensor
 if (granularRheology.dilatancy())
 {
     //// Solving the evolution of plastic volume fraction
-
+    delta=delta*pos(alpha-alphaPlastic);
     fvScalarMatrix phi_pl_Eqn
     (
      fvm::ddt(alphaPlastic)
      + fvm::div(phia, alphaPlastic, "div(phia,alphaPlastic)")
      - fvm::Sp(fvc::div(phia), alphaPlastic)
      ==
-     -fvc::Sp(delta*magDtensor, alphaPlastic) // explicit term
-    );
+     -fvm::SuSp(delta*magDtensor, alphaPlastic)    );
     phi_pl_Eqn.relax();
     phi_pl_Eqn.solve();
 
-    alphaPlastic.max(0.48);
-    alphaPlastic.min(0.585);
+    alphaPlastic.max(0.4);
+    alphaPlastic.min(0.61);
 }
 else
 {

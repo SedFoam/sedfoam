@@ -85,6 +85,13 @@ class twophaseMixingLengthConst
 {
 protected:
 
+    // Model coefficients
+    dimensionedScalar Cmu_;
+    dimensionedScalar expoLM_;
+    dimensionedScalar alphaMaxLM_;
+    dimensionedScalar kappaLM_;
+    dimensionedScalar d_;
+
     // Fields
     volScalarField k_;
     volScalarField epsilon_;
@@ -92,13 +99,7 @@ protected:
 
     // Protected Member Functions
 
-        virtual void correctNut();
-
-        //- No copy construct
-        twophaseMixingLengthConst(const twophaseMixingLengthConst&) = delete;
-
-        //- No copy assignment
-        void operator=(const twophaseMixingLengthConst&) = delete;
+    virtual void correctNut();
 
 
 public:

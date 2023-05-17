@@ -1,27 +1,28 @@
-FROM opencfd/openfoam2106-default
+FROM opencfd/openfoam-default:2212
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
-  git python3 python3-pip unzip python ipython3 \
-  mercurial libreadline-dev vim nano emacs neovim \
-  texlive dvipng python3-tk \
+  python3-pip python3-venv python-is-python3 ipython3 \
+  unzip git mercurial meld libreadline-dev vim nano emacs \
+  texlive dvipng python3-tk cm-super texlive-latex-extra \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
-RUN pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy
+RUN pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy black
 
 WORKDIR /root/
 RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
 
 WORKDIR /root
-RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r vcompile/p2106 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
+RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -b feature/port/p2212 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
 
 WORKDIR /root/swak4Foam
 RUN /bin/bash -c "shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh"
 
 WORKDIR /root/swak4Foam
-RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && export FOAM_USER_APPBIN=$FOAM_SITE_APPBIN && ./Allwmake'
+RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && export FOAM_USER_APPBIN=$FOAM_SITE_APPBIN && export WM_NCOMPPROCS=1 && ./Allwmake'
 
 WORKDIR /root/sedfoam
 RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group'
