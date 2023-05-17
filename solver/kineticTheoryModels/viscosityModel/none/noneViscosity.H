@@ -25,7 +25,10 @@ Class
     Foam::noneViscosity
 
 Description
-    This file is in the \dir kineticTheoryModels/viscosityModel/none directory
+    This file is in the \dir kineticTheoryModels/viscosityModel/none
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/viscosityModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     noneViscosity.C
@@ -76,6 +79,8 @@ public:
             const volScalarField& alpha,
             const volScalarField& Theta,
             const volScalarField& g0,
+            const volScalarField& musalt,
+            const volScalarField& K,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
             const dimensionedScalar& e

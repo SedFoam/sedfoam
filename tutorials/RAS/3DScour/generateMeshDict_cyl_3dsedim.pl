@@ -101,7 +101,7 @@ sub printHeader
 
 sub printConvertToMeters
 {
-    print "convertToMeters\t $_[0];\n\n";
+    print "scale\t $_[0];\n\n";
 }
 
 sub printVertices

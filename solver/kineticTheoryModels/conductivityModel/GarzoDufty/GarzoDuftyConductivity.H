@@ -32,8 +32,10 @@ Description
     Interdisciplinary Topics, 59(5 Pt B):5895–5911
     \endverbatim
 
-    This file is in the \dir kineticTheoryModels/conductivityModel/GarzoDufty
-    directory
+    This file is in the \dir
+    kineticTheoryModels/conductivityModel/GarzoDufty subdirectory
+    inside the subdirectory \dir kineticTheoryModels/conductivityModel
+    inside the directory \dir kineticTheoryModels
 
 SourceFiles
     GarzoDuftyConductivity.C
@@ -82,6 +84,8 @@ public:
             const volScalarField& alpha,
             const volScalarField& Theta,
             const volScalarField& g0,
+            const volScalarField& kappasalt,
+            const volScalarField& K,
             const dimensionedScalar& rhoa,
             const dimensionedScalar& da,
             const dimensionedScalar& e

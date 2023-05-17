@@ -36,6 +36,8 @@ Description
         http://dx.doi.org/10.5194/gmd-2017-101
     \endverbatim
 
+    This file is inside the \dir solverMULES directory
+
 Version
     3.2
 

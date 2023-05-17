@@ -26,7 +26,10 @@ Class
 
 Description
     This file is in the \dir
-    kineticTheoryModels/granularPressureModel/SyamlalRogersOBrien directory
+    kineticTheoryModels/granularPressureModel/SyamlalRogersOBrien
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/granularPressureModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     SyamlalRogersOBrienPressure.C
