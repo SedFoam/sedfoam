@@ -300,6 +300,7 @@ protected:
 
         //- Return the effective viscous stress (laminar + turbulent).
         tmp<volSymmTensorField> devRhoReff() const;
+       // tmp<volTensorField> devRhoReff() const;
 
         //- Dynamic viscosity field
         tmp<volScalarField> mu() const;
