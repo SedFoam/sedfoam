@@ -58,7 +58,7 @@ assert rms_vxP <= 0.1
 
 vxFluid_interp = np.interp(zDATA, z, vxFluid)
 rms_vxF = rms(vxFluid_interp - vxFDATA)
-assert rms_vxF <= 0.15
+assert rms_vxF <= 0.1
 
 T_interp = np.interp(zDATA, z, T)
 Ind = np.where(zDATA < 17.5 * 0.006)

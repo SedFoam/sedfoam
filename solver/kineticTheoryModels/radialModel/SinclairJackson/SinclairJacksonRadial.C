@@ -60,7 +60,8 @@ Foam::SinclairJacksonRadial::~SinclairJacksonRadial()
 Foam::tmp<Foam::volScalarField> Foam::SinclairJacksonRadial::g0
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& muPart
 ) const
 {
     return 1.0/mag(1.0 - pow(alpha/alphaMax, 1.0/3.0));
@@ -70,7 +71,8 @@ Foam::tmp<Foam::volScalarField> Foam::SinclairJacksonRadial::g0
 Foam::tmp<Foam::volScalarField> Foam::SinclairJacksonRadial::g0prime
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& muPart
 ) const
 {
     return (1.0/3.0)*pow(max(alpha, scalar(1e-9))/alphaMax, -2.0/3.0)

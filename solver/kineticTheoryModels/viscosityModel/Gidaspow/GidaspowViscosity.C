@@ -64,6 +64,8 @@ Foam::kineticTheoryModels::GidaspowViscosity::mua
     const volScalarField& alpha,
     const volScalarField& Theta,
     const volScalarField& g0,
+    const volScalarField& musalt,
+    const volScalarField& K,
     const dimensionedScalar& rhoa,
     const dimensionedScalar& da,
     const dimensionedScalar& e

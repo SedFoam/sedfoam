@@ -120,8 +120,8 @@ for i in range(200, int(final_tread)):
     if i % 10 == 0:
         time_sim_dila_0.append((i - 200) / timeAdim)
         tread = str(i) + "/"
-        alpha_0 = fluidfoam.readscalar(sol, tread, "alpha_a")
-        Ua_0 = fluidfoam.readvector(sol, tread, "Ua")
+        alpha_0 = fluidfoam.readscalar(sol, tread, "alpha.a")
+        Ua_0 = fluidfoam.readvector(sol, tread, "U.a")
         p_rbgh_0 = fluidfoam.readscalar(sol, tread, "p_rbgh")
         velCol = 0
         P1Col = 0
