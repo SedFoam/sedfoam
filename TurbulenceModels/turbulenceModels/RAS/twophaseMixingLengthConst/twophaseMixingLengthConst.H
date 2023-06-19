@@ -85,6 +85,13 @@ class twophaseMixingLengthConst
 {
 protected:
 
+    // Model coefficients
+    dimensionedScalar Cmu_;
+    dimensionedScalar expoLM_;
+    dimensionedScalar alphaMaxLM_;
+    dimensionedScalar kappaLM_;
+    dimensionedScalar d_;
+
     // Fields
     volScalarField k_;
     volScalarField epsilon_;

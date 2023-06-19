@@ -1,4 +1,4 @@
-FROM cbonamy/sedfoam_2206_ubuntu
+FROM cbonamy/sedfoam_2212_ubuntu
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
@@ -65,7 +65,7 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
 WORKDIR /root/
 
 # Copy a script that we will use to correct permissions after running certain commands
-RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions"
+RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/docker-stacks-foundation/fix-permissions /usr/local/bin/fix-permissions"
 RUN chmod a+rx /usr/local/bin/fix-permissions
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
@@ -85,51 +85,97 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     fix-permissions $HOME && \
     fix-permissions $CONDA_DIR
 
-WORKDIR /home/sudofoam
-RUN rm -rf .cache
+# WORKDIR /home/sudofoam
+# RUN rm -rf .cache
 
 USER 1000
 ARG PYTHON_VERSION=default
 
-# Install conda as jovyan and check the md5 sum provided on the download site
-ENV MINICONDA_VERSION="${miniconda_version}" \
-    CONDA_VERSION="${conda_version}"
 
+# Setup work directory for backward-compatibility
+# RUN mkdir "/home/${NB_USER}/work" && \
+#    fix-permissions "/home/${NB_USER}"
+
+# Download and install Micromamba, and initialize Conda prefix.
+#   <https://github.com/mamba-org/mamba#micromamba>
+#   Similar projects using Micromamba:
+#     - Micromamba-Docker: <https://github.com/mamba-org/micromamba-docker>
+#     - repo2docker: <https://github.com/jupyterhub/repo2docker>
+# Install Python, Mamba and jupyter_core
+# Cleanup temporary files and remove Micromamba
+# Correct permissions
+# Do all this in a single RUN command to avoid duplicating all of the
+# files across image layers when the permissions change
+
+# COPY --chown="${NB_UID}:${NB_GID}" /root/sedfoam/docker/docker-stacks/docker-stacks-foundation/initial-condarc "${CONDA_DIR}/.condarc"
+RUN /bin/bash -c "sudo cp /root/sedfoam/docker/docker-stacks/docker-stacks-foundation/initial-condarc /opt/conda/.condarc"
+RUN /bin/bash -c "sudo chown  1000:100 /opt/conda/.condarc"
 WORKDIR /tmp
-RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-py38_${MINICONDA_VERSION}-Linux-x86_64.sh && \
-    echo "${miniconda_checksum} *Miniconda3-py38_${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
-    /bin/bash Miniconda3-py38_${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
-    rm Miniconda3-py38_${MINICONDA_VERSION}-Linux-x86_64.sh && \
-    # Conda configuration see https://conda.io/projects/conda/en/latest/configuration.html
-    echo "conda ${CONDA_VERSION}" >> $CONDA_DIR/conda-meta/pinned && \
-    # FIDLE : Dont' use conda-forge
-    # conda config --system --prepend channels conda-forge && \
-    conda config --system --set auto_update_conda false && \
-    conda config --system --set show_channel_urls true && \
-    conda install --quiet --yes \
-    "conda=${CONDA_VERSION}" \
-    'pip' \
-    'tini=0.18.0' && \
-    conda update --all --quiet --yes && \
-    conda list tini | grep tini | tr -s ' ' | cut -d ' ' -f 1,2 >> $CONDA_DIR/conda-meta/pinned && \
-    conda clean --all -f -y && \
-    rm -rf /home/$NB_USER/.cache/yarn && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+RUN set -x && \
+    arch=$(uname -m) && \
+    if [ "${arch}" = "x86_64" ]; then \
+        # Should be simpler, see <https://github.com/mamba-org/mamba/issues/1437>
+        arch="64"; \
+    fi && \
+    wget -qO /tmp/micromamba.tar.bz2 \
+        "https://micromamba.snakepit.net/api/micromamba/linux-${arch}/latest" && \
+    tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
+    rm /tmp/micromamba.tar.bz2 && \
+    PYTHON_SPECIFIER="python=${PYTHON_VERSION}" && \
+    if [[ "${PYTHON_VERSION}" == "default" ]]; then PYTHON_SPECIFIER="python"; fi && \
+    # Install the packages
+    ./micromamba install \
+        --root-prefix="${CONDA_DIR}" \
+        --prefix="${CONDA_DIR}" \
+        --yes \
+        "${PYTHON_SPECIFIER}" \
+        'mamba' \
+        'jupyter_core' && \
+    rm micromamba && \
+    # Pin major.minor version of python
+    mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
-RUN conda install --quiet --yes -n base jupyter pandas  matplotlib && \
-    conda clean --all -f -y && \
+RUN mamba install --quiet --yes \
+    'pandas' \
+    'matplotlib' \
+    'notebook' \
+    'jupyterhub' \
+    'jupyterlab' && \
+    jupyter notebook --generate-config && \
+    mamba clean --all -f -y && \
+    npm cache clean --force && \
+    jupyter lab clean && \
+    rm -rf "/home/${NB_USER}/.cache/yarn" && \
+#    fix-permissions "${CONDA_DIR}" && \
+#    fix-permissions "/home/${NB_USER}" && \
     pip install fluidfoam odfpy
 
-EXPOSE 8888
+ENV JUPYTER_PORT=8888
+EXPOSE $JUPYTER_PORT
+
+# Configure container startup
+# CMD ["start-notebook.sh"]
 
 WORKDIR /root/sedfoam/docker/
-RUN /bin/bash -c "sudo cp ./docker-stacks/base-notebook/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/"
-RUN /bin/bash -c "sudo mkdir /etc/jupyter && sudo cp /root/sedfoam/docker/docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/"
+RUN /bin/bash -c "sudo cp ./docker-stacks/docker-stacks-foundation/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/"
+RUN /bin/bash -c "sudo mkdir /etc/jupyter && sudo cp /root/sedfoam/docker/docker-stacks/base-notebook/jupyter_server_config.py /root/sedfoam/docker/docker-stacks/base-notebook/docker_healthcheck.py /etc/jupyter/"
 
 # Fix permissions on /etc/jupyter as root
 USER root
-RUN fix-permissions /etc/jupyter/
+
+# Legacy for Jupyter Notebook Server, see: [#1205](https://github.com/jupyter/docker-stacks/issues/1205)
+RUN sed -re "s/c.ServerApp/c.NotebookApp/g" \
+    /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
+    fix-permissions /etc/jupyter/
+
+# HEALTHCHECK documentation: https://docs.docker.com/engine/reference/builder/#healthcheck
+# This healtcheck works well for `lab`, `notebook`, `nbclassic`, `server` and `retro` jupyter commands
+# https://github.com/jupyter/docker-stacks/issues/915#issuecomment-1068528799
+HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
+    CMD /etc/jupyter/docker_healthcheck.py || exit 1
 
 USER $NB_UID
 WORKDIR /home/sudofoam

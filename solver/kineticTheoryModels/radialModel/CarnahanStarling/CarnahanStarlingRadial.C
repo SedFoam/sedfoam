@@ -60,7 +60,8 @@ Foam::CarnahanStarlingRadial::~CarnahanStarlingRadial()
 Foam::tmp<Foam::volScalarField> Foam::CarnahanStarlingRadial::g0
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& muPart
 ) const
 {
     return 1.0/(1.0 - alpha)
@@ -72,7 +73,8 @@ Foam::tmp<Foam::volScalarField> Foam::CarnahanStarlingRadial::g0
 Foam::tmp<Foam::volScalarField> Foam::CarnahanStarlingRadial::g0prime
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& muPart
 ) const
 {
     // modified by C.Z.

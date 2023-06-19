@@ -595,6 +595,7 @@ volTensorField Taua
     ),
     rhoa*alpha*nua*dev(fvc::grad(Ua))
 );
+
 //creating alphaPlastic field
 Info<< "Computing field alphaPlastic\n" << endl;
 volScalarField alphaPlastic
