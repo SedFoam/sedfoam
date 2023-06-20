@@ -30,6 +30,11 @@ Switch TKEBudgetLES
     runTime.controlDict().lookupOrDefault("TKEBudgetLES", false)
 );
 
+if (favreAveraging)
+{
+    Info<<"Favre-averaging are implemented for constant time-step only"<<endl;
+}
+
 scalar avCount = 0;
 
 volVectorField UbPrimeF
@@ -391,11 +396,11 @@ volScalarField TKEMeanProd
     )
 );
 
-volSymmTensorField SGSstrainTensor
+volSymmTensorField fluctstrainTensor
 (
     IOobject
     (
-        "SGSstrainTensor",
+        "fluctstrainTensor",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
@@ -404,16 +409,16 @@ volSymmTensorField SGSstrainTensor
     mesh,
     dimensionedSymmTensor
     (
-        "SGSstrainTensor",
+        "fluctstrainTensor",
         dimVelocity/dimLength,
         symmTensor::zero
     )
 );
-volSymmTensorField BB
+volSymmTensorField strainTensor
 (
     IOobject
     (
-        "BB",
+        "strainTensor",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
@@ -422,7 +427,7 @@ volSymmTensorField BB
     mesh,
     dimensionedSymmTensor
     (
-        "BB",
+        "strainTensor",
         dimVelocity/dimLength,
         symmTensor::zero
     )
@@ -481,26 +486,24 @@ volScalarField pressDiffusionMean
         0.0
     )
 );
-
-volSymmTensorField strainTensor
+volVectorField pressDiffMean
 (
     IOobject
     (
-        "strainTensor",
+        "pressDiffMean",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
         IOobject::NO_WRITE
     ),
     mesh,
-    dimensionedSymmTensor
+    dimensionedVector
     (
-        "strainTensor",
-        dimVelocity/dimLength,
-        symmTensor::zero
+        "pressDiffMean",
+        dimVelocity*dimVelocity*dimVelocity,
+        vector::zero
     )
 );
-
 volScalarField viscDissMean
 (
     IOobject
@@ -519,11 +522,11 @@ volScalarField viscDissMean
         0.0
     )
 );
-volScalarField viscDiffMean
+volScalarField viscDiffusionMean
 (
     IOobject
     (
-        "viscDiffMean",
+        "viscDiffusionMean",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
@@ -532,30 +535,11 @@ volScalarField viscDiffMean
     mesh,
     dimensionedScalar
     (
-        "viscDiffMean",
+        "viscDiffusionMean",
         dimVelocity*dimVelocity*dimVelocity/dimLength,
         0.0
     )
 );
-volSymmTensorField SGSStrainTensor
-(
-    IOobject
-    (
-        "SGSstrainTensor",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    mesh,
-    dimensionedSymmTensor
-    (
-        "SGSStrainTensor",
-        dimVelocity/dimLength,
-        symmTensor::zero
-    )
-);
-
 volScalarField SGSDissMean
 (
     IOobject
