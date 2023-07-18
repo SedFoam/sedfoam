@@ -81,35 +81,35 @@ if (TKEBudgetLES)
     strainTensor = twoSymm(fvc::grad(Ub))
                       -((2.0/3.0)*I)*tr(fvc::grad(Ub));
 
-// For the next three terms only the fluxes are time-averaged, 
+// For the next three terms only the fluxes are time-averaged,
 //   the divergence is taken after averaging
 //    Info<<"Turbulent Transport Term"<<endl;
-    turbDiffMean = (avCount*turbDiffMean 
+    turbDiffMean = (avCount*turbDiffMean
                          -0.5*beta*UbPrimeF*magSqr(UbPrimeF)
                         )/(avCount+1);
 //    Info<<"Pressure Trasnport Term"<<endl;
-    pressDiffMean = (avCount*pressDiffMean 
+    pressDiffMean = (avCount*pressDiffMean
                           - beta/phaseb->rho()*(UbPrimeF * pPrimeF)
                          )/(avCount+1);
 //    Info<<"Subgrid Diffusion Term"<<endl;
-    SGSDiffMean = (avCount*SGSDiffMean 
+    SGSDiffMean = (avCount*SGSDiffMean
                    - beta * turbulenceb->nut() * (Ub & strainTensor)
                   )/(avCount+1);
-//    Info<<"Viscous Diffusion"<<endl; 
+//    Info<<"Viscous Diffusion"<<endl;
     viscDiffusionMean = beta * phaseb->nu()*fvc::laplacian(TKEMean);
-//    Info<<"Viscous Dissipation of Resolved Fluctuations"<<endl; 
-    viscDissMean = (avCount*viscDissMean 
-                    - 0.5 * beta * phaseb->nu()
+//    Info<<"Viscous Dissipation of Resolved Fluctuations"<<endl;
+    viscDissMean = (avCount*viscDissMean
+                    - 0.5 * ::sqrt(2) * beta * phaseb->nu()
                           * (fluctstrainTensor && fluctstrainTensor)
                    )/(avCount+1);
-//    Info<<"Subgrid Dissipation of Resolved Fluctuations"<<endl; 
-    SGSDissMean = (avCount*SGSDissMean 
-                   - 0.5*beta * turbulenceb->nut()
-                          *(flucstrainTensor && fluctstrainTensor)
+//    Info<<"Subgrid Dissipation of Resolved Fluctuations"<<endl;
+    SGSDissMean = (avCount*SGSDissMean
+                   - 0.5 * ::sqrt(2) * beta * turbulenceb->nut()
+                          *(fluctstrainTensor && fluctstrainTensor)
                   )/(avCount+1);
-//    Info<<"Turbulent Drag Dissipation/Transfer term"<<endl; 
+//    Info<<"Turbulent Drag Dissipation/Transfer term"<<endl;
     dragContbMean = (avCount*dragContbMean
-                     - (UbPrimeF & 
+                     - (UbPrimeF &
                          (alpha*beta*draga->K(mag(Ub-Ua))*(Ub-Ua))/rhob)
                     )/(avCount+1);
 //    dragContbMean = ((-UbPrimeF & (alpha*beta*(Ub-Ua))/rhob)
@@ -117,7 +117,6 @@ if (TKEBudgetLES)
 
     if (runTime.outputTime())
     {
-        
         TKEMeanProd.write();
         turbDiffMean.write();
         pressDiffMean.write();
