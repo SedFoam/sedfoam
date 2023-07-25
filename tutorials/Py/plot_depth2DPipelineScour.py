@@ -2,7 +2,7 @@ import numpy as np
 from pylab import mlab
 import matplotlib.pyplot as plt
 import fluidfoam
-
+from scipy.interpolate import griddata
 
 # Function reading the mesh dimensions
 def readxy(case):
@@ -12,7 +12,7 @@ def readxy(case):
 
 # Function returning the bed profile
 def max_depth(case, t0, tfinal, dt, xi, yi):
-    ybed = np.zeros(len(xi))
+    ybed = np.zeros(ngridx)
     arr_size = int((tfinal - t0) / dt + 0.01)
     yscour = np.zeros(arr_size)
     time = np.zeros(arr_size)
@@ -26,10 +26,10 @@ def max_depth(case, t0, tfinal, dt, xi, yi):
             timename = str(int(t)) + "/"
         else:
             timename = str(t) + "/"
-        a = fluidfoam.readscalar(case, timename, "alpha_a")
-        ai = mlab.griddata(x, y, a, xi, yi, interp="linear")
+        a = fluidfoam.readscalar(case, timename, "alpha.a")
+        ai = griddata((x, y), a, (xi, yi), method="linear")
         for j in range(ngridx):
-            ybed[j] = yi[np.max((np.where(ai[:, j] > 0.5)))]
+            ybed[j] = np.max(yi[(np.where(ai[:, j] > 0.5))])
         yscour[i] = np.min(ybed[:])
         time[i] = t
     return yscour, time
@@ -51,13 +51,14 @@ yinterpmax = 0.015
 # Interpolation grid
 xi = np.linspace(xinterpmin, xinterpmax, ngridx)
 yi = np.linspace(yinterpmin, yinterpmax, ngridy)
+xinterp, yinterp = np.meshgrid(xi, yi)
 
 # Maximum depth calculation
 x, y = readxy(case)
 t0 = 0
 tfinal = 30
 dt = 0.5
-max_depth, time = max_depth(case, t0, tfinal, dt, xi, yi)
+max_depth, time = max_depth(case, t0, tfinal, dt, xinterp, yinterp)
 
 # Experimental data collection
 expe = "DATA/Mao_depth_expe.txt"
