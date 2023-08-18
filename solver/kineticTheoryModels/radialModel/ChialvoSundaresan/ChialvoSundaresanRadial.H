@@ -32,7 +32,9 @@ Description
     \endverbatim
 
     This file is in the \dir kineticTheoryModels/radialModel/ChialvoSundaresan
-    directory
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/radialModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     ChialvoSundaresanRadial.C
@@ -79,13 +81,15 @@ public:
         tmp<volScalarField> g0
         (
             const volScalarField& alpha,
-            const dimensionedScalar& alphaMax
+            const dimensionedScalar& alphaMax,
+            const dimensionedScalar& muPart
         ) const;
 
         tmp<volScalarField> g0prime
         (
             const volScalarField& alpha,
-            const dimensionedScalar& alphaMax
+            const dimensionedScalar& alphaMax,
+            const dimensionedScalar& muPart
         ) const;
 };
 

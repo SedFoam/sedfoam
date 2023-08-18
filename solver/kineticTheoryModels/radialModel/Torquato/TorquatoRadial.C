@@ -60,7 +60,8 @@ Foam::TorquatoRadial::~TorquatoRadial()
 Foam::tmp<Foam::volScalarField> Foam::TorquatoRadial::g0
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& muPart
 ) const
 {
     return (neg(alpha-0.49)*(2-alpha)/(2*pow(1-alpha, 3)) +
@@ -72,7 +73,8 @@ Foam::tmp<Foam::volScalarField> Foam::TorquatoRadial::g0
 Foam::tmp<Foam::volScalarField> Foam::TorquatoRadial::g0prime
 (
     const volScalarField& alpha,
-    const dimensionedScalar& alphaMax
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& muPart
 ) const
 {
     // need to be updated: actual version is CarnahanStarling

@@ -31,14 +31,12 @@ scalar pi(constant::mathematical::pi);
 // Add oscilitary pressure gradient
 gradPOSC =
 (
-    gradPMEAN
-   // gradPMEAN*Foam::cos(9.426-12.5664*runTime.value())
-  + gradPAMP1*Foam::cos(9.426-2.0*pi*runTime.value()/oscpT)
-//  + gradPAMP1*Foam::cos(initTheta1*pi/180.0 + 1.0*2.0*pi*runTime.value()/oscpT)
-  + gradPAMP2*Foam::cos(initTheta2*pi/180.0 + 2.0*2.0*pi*runTime.value()/oscpT)
-  + gradPAMP3*Foam::cos(initTheta3*pi/180.0 + 3.0*2.0*pi*runTime.value()/oscpT)
-  + gradPAMP4*Foam::cos(initTheta4*pi/180.0 + 4.0*2.0*pi*runTime.value()/oscpT)
-  + gradPAMP5*Foam::cos(initTheta5*pi/180.0 + 5.0*2.0*pi*runTime.value()/oscpT)
+gradPMEAN
++ gradPAMP1*Foam::cos(initTheta1*pi/180.0 + 1.0*2.0*pi*runTime.value()/oscpT)
++ gradPAMP2*Foam::cos(initTheta2*pi/180.0 + 2.0*2.0*pi*runTime.value()/oscpT)
++ gradPAMP3*Foam::cos(initTheta3*pi/180.0 + 3.0*2.0*pi*runTime.value()/oscpT)
++ gradPAMP4*Foam::cos(initTheta4*pi/180.0 + 4.0*2.0*pi*runTime.value()/oscpT)
++ gradPAMP5*Foam::cos(initTheta5*pi/180.0 + 5.0*2.0*pi*runTime.value()/oscpT)
 );
 
 // Compute mixture density

@@ -67,7 +67,8 @@ Foam::tmp<Foam::volScalarField> Foam::SchillerNaumann::K
     const volScalarField& Ur
 ) const
 {
-    volScalarField Re(max(Ur*phasea_.d()*phasea_.sF()/phaseb_.nu(), scalar(1.0e-3)));
+    volScalarField Re(max(Ur*phasea_.d()*phasea_.sF()/
+    phaseb_.nu(), scalar(1.0e-3)));
 
     volScalarField Cds
     (

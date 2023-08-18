@@ -26,7 +26,10 @@ Class
 
 Description
     This file is in the \dir
-    kineticTheoryModels/granularPressureModel/granularPressureModel directory
+    kineticTheoryModels/granularPressureModel/granularPressureModel
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/granularPressureModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     granularPressureModel.C

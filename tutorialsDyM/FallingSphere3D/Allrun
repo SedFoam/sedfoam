@@ -1,7 +1,0 @@
-#!/bin/sh
-
-# create the intial time folder
-cp -r 0_org 0
-
-# Run sedFoam
-sedFoam_DriftDyM > log&
