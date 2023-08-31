@@ -321,12 +321,12 @@ bool Foam::functionObjects::forceCoeffsSed::execute()
     createFiles();
 
     // Storage for pressure and viscous contributions to coeffs
-    List<Field<scalar>> dragCoeffs(2);
-    List<Field<scalar>> sideCoeffs(2);
-    List<Field<scalar>> liftCoeffs(2);
-    List<Field<scalar>> rollMomentCoeffs(2);
-    List<Field<scalar>> pitchMomentCoeffs(2);
-    List<Field<scalar>> yawMomentCoeffs(2);
+    List<Field<scalar>> dragCoeffs(3);
+    List<Field<scalar>> sideCoeffs(3);
+    List<Field<scalar>> liftCoeffs(3);
+    List<Field<scalar>> rollMomentCoeffs(3);
+    List<Field<scalar>> pitchMomentCoeffs(3);
+    List<Field<scalar>> yawMomentCoeffs(3);
 
     forAll(liftCoeffs, i)
     {

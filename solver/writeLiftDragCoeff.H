@@ -25,20 +25,20 @@ License
 //using namespace std;
 
 
-//string path = "ForceFiles/ForceTotFile.txt";
+string path = "ForceFiles/ForceTotFile.txt";
 
 
-//std::ifstream fin(path);
+std::ifstream fin(path);
 
-//std::ofstream inFileTot;
+std::ofstream inFileTot;
 
-//if(fin.fail()){
-	//Info<< "creating ForceTotFile.txt "  << endl;
+if(fin.fail()){
+	Info<< "creating ForceTotFile.txt "  << endl;
 	
-	//inFileTot.open("ForceFiles/ForceTotFile.txt", std::ios_base::app);
-	//inFileTot <<  "Time" << tab << "FCont_x" << tab << "FCont_y" << tab << "FCont_z" << tab << "FCol_x" << tab << "FCol_y" << tab << "FCol_z" << tab  << "FShear_x" << tab << "FShear_y" << tab << "FShear_z"<< "\n";
-	//inFileTot.close ();
-//} 
+	inFileTot.open("ForceFiles/ForceTotFile.txt", std::ios_base::app);
+	inFileTot <<  "Time" << tab << "FCont_x" << tab << "FCont_y" << tab << "FCont_z" << tab << "FCol_x" << tab << "FCol_y" << tab << "FCol_z" << tab  << "FShear_x" << tab << "FShear_y" << tab << "FShear_z"<< "\n";
+	inFileTot.close ();
+} 
 
 label Patchid=mesh.boundaryMesh().findPatchID("cylinder");
 

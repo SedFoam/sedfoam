@@ -1,11 +1,10 @@
 #!/bin/sh
-# Remove the mesh
-foamCleanPolyMesh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/CleanFunctions      # Tutorial clean functions
+#------------------------------------------------------------------------------
 
-# Remove time folders
-foamListTimes -rm -time 0: -withZero
+cleanCase0
 
-# Remove logs
-rm -rf  gradPOSC.txt log
-
-
+rm -f constant/polyMesh/boundary
+rm -f constant/polyMesh/zoneID
+rm -f constant/cellInterpolationWeight

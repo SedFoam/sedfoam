@@ -11,7 +11,7 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      p_rgh;
+    object      p_rbgh;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -38,32 +38,12 @@ boundaryField
     {
   type fixedValue;
 value uniform 0;    
-//  type            fixedFluxPressure;
-    //    gradient        $internalField;
     }
     bottom
     {
 	type 		fixedFluxPressure;
 	gradient	$internalField;
     }
-    
-    
-    //top
-    //{
-////		type            symmetryPlane;
-     //type            fixedValue;
-  //value           uniform 0;
-    ////                 type            zeroGradient;
-
-
-    //}
-    //bottom
-    //{
-		////     type            zeroGradient;
-        //type            fixedFluxPressure;
-        //gradient        $internalField;
-   
- //}
     frontAndBack
     {
         type            empty;

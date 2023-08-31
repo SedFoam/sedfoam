@@ -491,6 +491,10 @@ Switch writeTau
 (
     forceProperties.getOrDefault<Switch>("writeTau", false)
 );
+Switch writeMomentumBudget
+(
+    forceProperties.getOrDefault<Switch>("writeMomentumBudget", false)
+);
 
 
 Info<< "Initializing with specified pressure gradient:"
@@ -848,7 +852,102 @@ volScalarField pff
     mesh,
     dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
 );
-
+volVectorField SolidPressureContr
+(
+    IOobject
+    (
+        "SolidPressureContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(p_rbgh)
+);
+volVectorField FluidPressureContr
+(
+    IOobject
+    (
+        "FluidPressureContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField ViscStressContr
+(
+    IOobject
+    (
+        "ViscStressContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField FrictContr
+(
+    IOobject
+    (
+        "FrictContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField gravityContr
+(
+    IOobject
+    (
+        "gravityContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField DragContr
+(
+    IOobject
+    (
+        "DragContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField SuspContr
+(
+    IOobject
+    (
+        "SuspContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField ExtContr
+(
+    IOobject
+    (
+        "ExtContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
 volScalarField SUStilde
 (
     IOobject

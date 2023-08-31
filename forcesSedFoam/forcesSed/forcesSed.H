@@ -209,7 +209,7 @@ protected:
             
             //- Name of the effective dynamic viscosity field
             word muEffName_;
-            
+                      
             //- Name of the frictional dynamic viscosity field
             word muFraName_;
             

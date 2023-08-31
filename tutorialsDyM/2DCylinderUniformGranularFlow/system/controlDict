@@ -18,11 +18,11 @@ application     sedFoam;
 
 startFrom       latestTime;
 
-startTime       3;
+startTime       0;
 
 stopAt          endTime;
 
-endTime         20.501;
+endTime         20.0;
 
 deltaT          1e-7;
 
@@ -70,7 +70,7 @@ forcesSed
     patches       ("cylinder");
     rho           rhoInf;     // Indicates incompressible
     log           true;
-    rhoInf        1513.91; // Redundant for incompressible
+    rhoInf        2500; // Redundant for incompressible
     origin (0 0 0); 
     coordinateRotation
         {

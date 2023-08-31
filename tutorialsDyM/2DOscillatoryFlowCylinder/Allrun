@@ -10,8 +10,8 @@ funkySetFields -time 0
 # Select cellSets
 topoSet
 setFields
-#decomposePar
+decomposePar
 
 #mpirun -np 6 overSedDymFoam_rbgh -parallel > log&
-overSedDymFoam_rbgh  > log&
+#overSedDymFoam_rbgh  > log&
 

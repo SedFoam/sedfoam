@@ -11,21 +11,16 @@ FoamFile
     format      ascii;
     class       volVectorField;
     location    "0";
-    object      Ua;
+    object      Ub;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 dimensions      [0 1 -1 0 0 0 0];
 
-internalField   uniform (1.e-2 0 0);
+internalField   uniform (0 0 0);
 
 boundaryField
 {
-    cylinder
-    {
-   type            movingWallVelocity;
-   value           uniform (0 0 0);
-    }
     inlet
     {
         type            cyclic;
@@ -33,18 +28,17 @@ boundaryField
     outlet
     {
         type            cyclic;
-
     }
     top
     {
-	type zeroGradient;
+        type            zeroGradient;
     }
     bottom
     {
         type            fixedValue;
-        value           uniform (0.01 0 0);
+        value           uniform (0 0 0);
     }
-    frontAndBack
+    frontAndBackPlanes
     {
         type            empty;
     }

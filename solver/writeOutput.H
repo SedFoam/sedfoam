@@ -32,6 +32,29 @@ if (runTime.outputTime())
         Taua.write();
         Taub.write();
     }
+    if (writeMomentumBudget == 1)
+    {
+        SolidPressureContr=-fvc::grad(pa+pff);
+        FluidPressureContr=-fvc::grad(p_rbgh);
+        ViscStressContr=rhob*fvc::laplacian(nuEffb, Ub);
+        FrictContr=rhoa*fvc::laplacian(nuFra, Ua);
+        gravityContr=alpha/(alpha+alphaSmall)*(rhoa-rhob)*g;
+        DragContr=alpha*beta*K*(Ub-Ua);
+        ExtContr=gradPOSC*rhoa/(tilt*rhob +(1.0-tilt)*rhoa);
+        SuspContr=-SUS*K*beta*turbulenceb->nut()
+                   *((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha));;
+        
+        SolidPressureContr.write();
+        FluidPressureContr.write();
+        ViscStressContr.write();
+        FrictContr.write();
+        gravityContr.write();
+        DragContr.write();
+        ExtContr.write();
+        SuspContr.write();
+    }
+    
+    
     if (granularRheology.on())
     {
         pa.write();

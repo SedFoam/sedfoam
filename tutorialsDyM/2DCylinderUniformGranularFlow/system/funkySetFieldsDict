@@ -27,7 +27,7 @@ expressions
         {
         name inletprofilealpha;
         outOfBounds clamp;
-        file "$FOAM_CASE/1d_profil/alpha.aNew.xy";
+        file "$FOAM_CASE/profile_1d_profil/alpha.aNew.xy";
         }
         );
         expression "inletprofilealpha(pos().y+0.0443)";

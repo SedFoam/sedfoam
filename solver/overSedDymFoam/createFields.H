@@ -473,6 +473,12 @@ Switch writeTau
     forceProperties.lookupOrDefault<Switch>("writeTau", false)
 );
 
+Switch writeMomentumBudget
+(
+    forceProperties.getOrDefault<Switch>("writeMomentumBudget", false)
+);
+
+
 
 Info<< "Initializing with specified pressure gradient:"
 << gradPOSC.value() << endl << endl;
@@ -880,18 +886,101 @@ volScalarField pS
     ),
     pff + pa
 );
-
-volScalarField p_hyd
+volVectorField SolidPressureContr
 (
     IOobject
     (
-        "p_hyd",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::AUTO_WRITE
+        "SolidPressureContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
     ),
-   rhob*gh
+    fvc::grad(p_rbgh)
+);
+volVectorField FluidPressureContr
+(
+    IOobject
+    (
+        "FluidPressureContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField ViscStressContr
+(
+    IOobject
+    (
+        "ViscStressContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField FrictContr
+(
+    IOobject
+    (
+        "FrictContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField gravityContr
+(
+    IOobject
+    (
+        "gravityContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField DragContr
+(
+    IOobject
+    (
+        "DragContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField SuspContr
+(
+    IOobject
+    (
+        "SuspContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField ExtContr
+(
+    IOobject
+    (
+        "ExtContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
 );
 Info<< "Calculating field muEff\n" << endl;
 volScalarField muEff
@@ -907,7 +996,6 @@ volScalarField muEff
     mesh,
     dimensionedScalar("zero", dimensionSet(1 , -1 ,-1 ,0 , 0), 0.0)
 );
-
 Info<< "Calculating field muFra\n" << endl;
 volScalarField muFra
 (
@@ -977,14 +1065,7 @@ Info<<"end of createFields"<<endl;
 // Add solver-specific interpolations
 {
     wordHashSet& nonInt =
-        const_cast<wordHashSet&>(Stencil::New(mesh).nonInterpolatedFields());
-
-/*    nonInt.insert("HbbyA");
-    nonInt.insert("grad(p_rbgh)");
-    nonInt.insert("surfaceIntegrate(phibHbyA)");
-    nonInt.insert("HabyA");
-    nonInt.insert("surfaceIntegrate(phiaHbyA)");
-*/
+    const_cast<wordHashSet&>(Stencil::New(mesh).nonInterpolatedFields());
     nonInt.insert("surfaceIntegrate(phia)");
     nonInt.insert("surfaceIntegrate(phib)");
     nonInt.insert("cellMask");
@@ -998,7 +1079,3 @@ Info<<"end of createFields"<<endl;
 
 // Create bool field with interpolated cells
 #include "createInterpolatedCells.H"
-
-
-//volScalarField gh("gh", g & (mesh.C() - referencePoint));
-//surfaceScalarField ghf("ghf", g & (mesh.Cf() - referencePoint));

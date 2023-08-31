@@ -38,14 +38,14 @@ solvers
         tolerance       1e-9;
         relTol          0;
     }
-    "(alpha_a|Ua|Ub)"
+    "(alpha.a|U.a|U.b|pa)"
     {
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-9;
         relTol          0;
     }
-    "(alpha_aFinal|UaFinal|UbFinal)"
+    "(alpha.aFinal|U.aFinal|U.bFinal|paFinal)"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -74,12 +74,6 @@ relaxationFactors
         p_rbgh               1.;
         p_rbghFinal          1;
     }
-    equations
-    {
-        "Ua|Ub|k|omega"             1.;
-        "(Ua|Ub|k|omega)Final"      1;
-    }
-
 }
 
 // ************************************************************************* //

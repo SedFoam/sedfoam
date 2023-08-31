@@ -14,33 +14,13 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-//dynamicFvMesh       dynamicOversetFvMesh;
-
-//solver          multiSolidBodyMotionSolver;
-
-//multiSolidBodyMotionSolverCoeffs
-//{
-    //channel
-    //{
-        //solidBodyMotionFunction linearMotion;
-        //linearMotionCoeffs
-        //{
-            //velocity        (0 0 -0.03);
-        //}
-    //}
-//}
-
 // ************************************************************************* //
-// ************************************************************************* //
+
 dynamicFvMesh       dynamicMotionSolverFvMesh;
 
 motionSolverLibs    (sixDoFRigidBodyMotionSedFoam);
 
 motionSolver        sixDoFRigidBodyMotion;
-
-
-
-//solver          displacementLaplacian;
 
 sixDoFRigidBodyMotionCoeffs
 {
@@ -58,7 +38,7 @@ sixDoFRigidBodyMotionCoeffs
     centreOfMass    ( 0 0.0 0.0005 );     
     momentOfInertia ( 1717 591 1717);
     rho             rhoInf;
-    rhoInf          1513.91;
+    rhoInf          2500;
     g               (0 -9.81 0);
     report          on;
     reportToFile    on;

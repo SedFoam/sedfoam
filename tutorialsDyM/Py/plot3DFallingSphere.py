@@ -30,10 +30,7 @@ data_TenCate_vel = np.genfromtxt("DATA/tenCate2002velocityRe1.5.csv", delimiter=
 
 
 #version=input("choose version:")
-version="../FallingSphere3D/sphereAndBackground/"
-	
-
-#sol_Mixt_RefSedim = 'caseB_fixedVerticalLine/background/'
+version="../3DRestingSphereOverset/sphereAndBackground/"
 sol_Mixt_RefSedim_A = version
 
 time_t=0
@@ -52,7 +49,7 @@ for i in range(10,len(dataVz_Mixt)-10):
 	if i%1==0:
 		mixtUz_RefSedim_A.append(dataVz_Mixt[i][0])
 		mixtT_RefSedim_A.append(datatime_Mixt[i][0]-time_t)
-		mixtPosz_RefSedim_A.append(8+ dataPosz_Mixt[i][0]/H)
+		mixtPosz_RefSedim_A.append(dataPosz_Mixt[i][0]/H)
 
 
 
@@ -77,34 +74,23 @@ fig, axs = plt.subplots(2)
 axs[0].set_title('Sphere position')
 axs[0].plot(mixtT_RefSedim_A, mixtPosz_RefSedim_A,color='orange',alpha=alhpaV,label="SedFoam")
 axs[0].plot(data_TenCate_displacement['X'], data_TenCate_displacement['Y'], linestyle='none', marker='o',color="k",fillstyle="none",label="ten Cate (2002)")
-
 axs[0].set_xlim([-0, limX])
-axs[0].set_ylim([ 5.1,8.3])
-
+axs[0].set_ylim([ -1.51,0])
 axs[0].set_xlabel('t [s]')
 axs[0].set_ylabel('z/D [-]')
-#axs[0].legend(loc="upper right")
 axs[0].grid()
-
-
 
 axs[1].set_title('Sphere velocity')
 axs[1].plot(mixtT_RefSedim_A, mixtUz_RefSedim_A,color='orange',alpha=alhpaV,label="SedFoam")
 axs[1].plot(data_TenCate_vel['X'], data_TenCate_vel['Y'], linestyle='none', marker='o',color="k",fillstyle="none",label="ten Cate (2002)")
-
 axs[1].set_xlabel('t [s]')
 axs[1].set_ylabel('Vertical velocity [m/s]')
 axs[1].set_xlim([-0, limX])
-axs[1].set_ylim([ -0.04,0.0001])
-
+axs[1].set_ylim([ -0.0401,0.0001])
 axs[1].grid()
 axs[1].legend(loc="upper right",fontsize="7")
 fig.tight_layout()
 fig.savefig('Figures/FallingSphere.png')
-
-
-
-
 		
 plt.show()
 

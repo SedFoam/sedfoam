@@ -84,9 +84,6 @@ int main(int argc, char *argv[])
         "Transient solver for incompressible, turbulent flow"
         " on a moving mesh."
     );
-
-//    #include "postProcess.H"
-
     #include "setRootCaseLists.H"
     #include "createTime.H"
     #include "createDynamicFvMesh.H"
@@ -97,28 +94,15 @@ int main(int argc, char *argv[])
     #include "readGravity.H"
     #include "createFields.H"
     #include "createTurbulence.H"
-    
-
-
-
-
     #include "createUfSed.H"
     #include "createMRF.H"
     #include "createFvOptions.H"
     #include "createControls.H"
-    //if (correctPhi)
-    //{
-        //#include "correctPhi.H"
-    //}
-
     #include "setCellMask.H"
     #include "setInterpolatedCells.H"
-
-    
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
     #include "createFavreAveraging.H"
-
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     if (SUSlocal)
@@ -169,8 +153,6 @@ int main(int argc, char *argv[])
 
         #include "gravityRamp.H"
 
-
-
 		bool changed = mesh.update();
 
         if (changed)
@@ -182,11 +164,8 @@ int main(int argc, char *argv[])
 			gh = (g & mesh.C()) - ghRef;
 			ghf = (g & mesh.Cf()) - ghRef;
 
-
             fvc::makeRelative(phia, Ua);
             fvc::makeRelative(phib, Ub);
-
-			
 			surfaceScalarField alphaf = fvc::interpolate(alpha);
 			surfaceScalarField betaf = scalar(1.0) - alphaf;
 			phi = alphaf*phia + betaf*phib;
@@ -197,11 +176,8 @@ int main(int argc, char *argv[])
 				Info<< "correctPhi is on" << endl;
 				 #include "correctPhiSed.H"
 			}
-
             fvc::makeRelative(phi, U);
-			
         }
-
 
 //      Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
@@ -219,13 +195,7 @@ int main(int argc, char *argv[])
 			fvc::makeRelative(phia, Ua);
 			fvc::makeRelative(phib, Ub);
 			fvc::makeRelative(phi, U);
-			//MRF.makeRelative(phia);
-			//#include "callGranularStressDyM.H"
-////          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
-////             from Kinetic Theory of granular flows or mu(I) rheology
-           
-			//fvc::makeRelative(phia, Ua);
-//          Assemble the momentum balance equations for both phases a and b
+
 //          And assemble and solve the pressure poisson equation
 //             and apply the velocity correction step for both phases a and b
             if (faceMomentum)
@@ -239,9 +209,6 @@ int main(int argc, char *argv[])
                 #include "pU/pEqn.H"
             }
             #include "UaUbLimiter.H"
-
-
-     //       #include "DDtU.H"
 
             if (pimple.turbCorr())
             {
@@ -263,7 +230,6 @@ int main(int argc, char *argv[])
         }
         #include "OutputGradPOSC.H"
         #include "writeOutput.H"
-     //   #include "writeLiftDragCoeff.H"
 
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
