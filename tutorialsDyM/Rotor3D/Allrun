@@ -3,6 +3,7 @@ cd "${0%/*}" || exit                                # Run from this directory
 . ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
 #------------------------------------------------------------------------------
 
+
 runApplication blockMesh
 
 # Select cellSets
@@ -18,5 +19,5 @@ runApplication setFields
 
 #funkySetFields -time 0
 decomposePar
-mpirun -np 3 overSedDymFoam_rbgh -parallel > log &
+#mpirun -np 3 overSedDymFoam_rbgh -parallel > log &
 #overSedDymFoam_rbgh > log &

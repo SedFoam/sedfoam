@@ -42,7 +42,7 @@ for i in range(10,len(time_noSediment_morph_d)-10):
 	z_noSediment_morph.append(z_noSediment_morph_d[i][0]/D)
 
 ############## loading overSedDymFoam results ###########
-sol="../3DFallingSphereSuspension"+DynamycMeshV+'/'
+sol="../FallingSphereSuspension3D"+DynamycMeshV+'/'
 datatime = np.genfromtxt(sol+'time',delimiter='\t', names=True)
 dataVz= np.genfromtxt(sol+'vz',delimiter='\t', names=True)
 dataPosz = np.genfromtxt(sol+'zcenter',delimiter='\t', names=True)

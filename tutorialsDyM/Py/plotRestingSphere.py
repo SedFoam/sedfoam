@@ -17,7 +17,7 @@ print ("submerged weight: ",(weigth -weigthBouyancy))
 print ("reduced mass: ",(weigth -weigthBouyancy)/9.81)
 
 ############## loading overSedDymFoam results ###########
-sol="../3DRestingSphereMorphing/"
+sol="../RestingSphereMorphing3D/"
 datatime_Mixt_A = np.genfromtxt(sol+'time',delimiter='\t', names=True)
 dataVz_Mixt_A = np.genfromtxt(sol+'vz',delimiter='\t', names=True)
 dataPosz_Mixt_A = np.genfromtxt(sol+'zcenter',delimiter='\t', names=True)

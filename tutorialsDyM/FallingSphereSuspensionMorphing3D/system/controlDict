@@ -1,0 +1,91 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  plus                                  |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+libs            ("liboverset.so");
+
+application     sedFoam;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         0.7;
+
+deltaT          1e-6;
+
+//writeControl    timeStep;
+//writeInterval   10;
+
+writeControl    adjustableRunTime;
+writeInterval   2e-2;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  9;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+adjustTimeStep  yes;
+
+maxCo           0.01;
+maxAlphaCo           0.01;
+maxDeltaT       5.0e-5;
+
+//#include "maxCo"
+
+functions
+{
+
+forces1
+{
+    type          forcesSed;
+
+    libs          (forcesSed);
+
+    writeControl  timeStep;
+    timeInterval  1;
+
+    log           yes;
+
+    patches       ("sphere");
+    rho           rhoInf;     // Indicates incompressible
+    log           true;
+    rhoInf        970; // Redundant for incompressible
+    origin (0 0 0); 
+    coordinateRotation
+        {
+            type            axesRotation;
+            e3              (0 0 1);
+            e1              (1 0 0);
+        }
+}
+
+
+    
+}
+
+
+// ************************************************************************* //
