@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# create the mesh
+blockMesh
+
+# create the intial time folder
+cp -r 0_org 0
+
+# Initialize the alpha field
+funkySetFields -time 0
+
+# Decompose the case in order to run in parallel (on 4 cores)
+decomposePar
+
+# Run sedFoam in parallel
+# mpirun -np 20 overSedDymFoam_rbgh -parallel > log&

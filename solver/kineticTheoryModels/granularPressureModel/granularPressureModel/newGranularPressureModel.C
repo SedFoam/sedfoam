@@ -47,9 +47,9 @@ Foam::autoPtr<Foam::granularPressureModel> Foam::granularPressureModel::New
             << "    unknown granularPressureModelType type "
             << granularPressureModelType
             << ", constructor not in hash table" << endl << endl
-            << "    Valid granularPressureModelType types are :" << endl;
-        Info<< dictionaryConstructorTablePtr_->sortedToc()
-            << abort(FatalError);
+            << "    Valid granularPressureModel types are :"  << endl
+            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
+        Info << abort(FatalError) << endl;
     }
 
     return autoPtr<granularPressureModel>(cstrIter()(dict));

@@ -26,7 +26,9 @@ Class
 
 Description
     This file is in the \dir kineticTheoryModels/radialModel/radialModel
-    directory
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/radialModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     radialModel.C
@@ -110,14 +112,16 @@ public:
         virtual tmp<volScalarField> g0
         (
             const volScalarField& alpha,
-            const dimensionedScalar& alphaMax
+            const dimensionedScalar& alphaMax,
+            const dimensionedScalar& muPart
         ) const = 0;
 
         //- Derivative of the radial distribution function
         virtual tmp<volScalarField> g0prime
         (
             const volScalarField& alpha,
-            const dimensionedScalar& alphaMax
+            const dimensionedScalar& alphaMax,
+            const dimensionedScalar& muPart
         ) const = 0;
 };
 

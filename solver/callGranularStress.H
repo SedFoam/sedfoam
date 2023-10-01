@@ -29,34 +29,30 @@ volScalarField magDtensor
 if (granularRheology.dilatancy())
 {
     //// Solving the evolution of plastic volume fraction
-
+    delta=delta*pos(alpha-alphaPlastic);
     fvScalarMatrix phi_pl_Eqn
     (
      fvm::ddt(alphaPlastic)
      + fvm::div(phia, alphaPlastic, "div(phia,alphaPlastic)")
      - fvm::Sp(fvc::div(phia), alphaPlastic)
      ==
-     -fvc::Sp(delta*magDtensor, alphaPlastic) // explicit term
-    );
-  //  phi_pl_Eqn.relax();
+     -fvm::SuSp(delta*magDtensor, alphaPlastic)    );
+    phi_pl_Eqn.relax();
     phi_pl_Eqn.solve();
 
-    alphaPlastic.max(0.40);
-    alphaPlastic.min(0.585);
+    alphaPlastic.max(0.4);
+    alphaPlastic.min(0.61);
 }
 else
 {
     alphaPlastic=alphaMinFriction*Unity;
 }
 
-//volScalarField pffNew=pff;
 // Pff corresponds to "contact" pressure which prevent the granular phase from
 // exceeding the maximum volume fraction.
-//pff_new=pff;
-
 pff = pp->pff(alpha, alphaPlastic, alphaMax, Fr_, eta0_, eta1_);
 
-////
+//
 //
 //  Kinetic THEORY PART
 //
@@ -88,7 +84,6 @@ if (kineticTheory.on())
     // the actual expression for nuFra depends on the way this term is
     // discretized in UaEqn
     nuFra = muEff_f/rhoa;
-    muFra= muEff_f;
 
     // Compute nuEffb the total fluid phase viscosity
     nuEffb = nub + turbulenceb->nut();
@@ -98,8 +93,6 @@ if (kineticTheory.on())
              + turbulencea->nut();
     lambdaUa = kineticTheory.lambda();
     pa = kineticTheory.pa();
-    
-    pS=pa+pff;
 
     if (debugInfo)
     {
@@ -122,9 +115,7 @@ else if (granularRheology.on())
 
 // Particulate pressure and viscosity
     pa = granularRheology.pa();
-    pS=pa+pff;
 
-	
     delta=granularRheology.delta();
 
     if (debugInfo)
@@ -136,18 +127,13 @@ else if (granularRheology.on())
     }
 // the actual expression for nuFra depends on the way this term is discretized
 // in UaEqn
-    nuFra = granularRheology.mua()/rhoa;
+    nuFra = granularRheology.mua()/ rhoa;
 
     nuEffa = sqr(Ct)*turbulenceb->nut() + nua + turbulencea->nut();
-   // lambdaUa = nua*rhoa*scalar(0.0);
-    lambdaUa = granularRheology.lambda();
-
-     muEff =   granularRheology.nuvb()*rhob*(1-alpha)+rho*turbulenceb->nut();
-     muFra =    granularRheology.mua();
+    lambdaUa = nua*rhoa*scalar(0.0);
 
 // Compute nuEffb the total fluid phase viscosity
     nuEffb = turbulenceb->nut() + granularRheology.nuvb();
-    
 }
 //
 //
@@ -162,10 +148,8 @@ else
     // set pa and nuFra to zero if kineticTheory and granularRheology are off
     pa = pa*scalar(0.0);
     nuFra = nua*scalar(0.0);
-    muFra = nua*scalar(0.0)*rhoa;
     nuEffa = nua + turbulencea->nut();
     lambdaUa = nua*rhoa*scalar(0.0);
-    muEff =    nub*rhob;
 }
 // Add a numerical viscosity to damp the instabilities close to the outlet
 if (spongeLayer)
@@ -184,8 +168,5 @@ if (spongeLayer)
 }
 // Limit viscosities for numerical stability
 nuFra.min(nuMax);
-muEff.min(nuMax*rhoa);
-muFra.min(nuMax*rhoa);
-
 nuEffa.min(nuMax);
 nuEffb.min(nuMax);

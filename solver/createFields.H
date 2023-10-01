@@ -318,18 +318,6 @@ dimensionedVector gradConvAcc
         vector(0, 0, 0)
     )
 );
-
-dimensionedVector gradPhasea
-(
-    dimensionedVector::getOrDefault
-    (
-        "gradPhasea",
-        forceProperties,
-        dimensionSet(1, -2, -2, 0, 0, 0, 0),
-        vector(0, 0, 0)
-    )
-);
-
 dimensionedScalar gradPOSCMin ("gradPOSCMin", gradPOSC.dimensions(), 1e-6);
 
 dimensionedScalar oscpT
@@ -503,6 +491,10 @@ Switch writeTau
 (
     forceProperties.getOrDefault<Switch>("writeTau", false)
 );
+Switch writeMomentumBudget
+(
+    forceProperties.getOrDefault<Switch>("writeMomentumBudget", false)
+);
 
 
 Info<< "Initializing with specified pressure gradient:"
@@ -572,8 +564,6 @@ volScalarField pa
     dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
 );
 
-
-
 volTensorField gradUaT
 (
     fvc::grad(Ua)().T()
@@ -584,7 +574,7 @@ volTensorField gradUbT
     fvc::grad(Ub)().T()
 );
 
-volSymmTensorField Taub
+volTensorField Taub
 (
     IOobject
     (
@@ -594,10 +584,10 @@ volSymmTensorField Taub
         IOobject::NO_READ,
         IOobject::NO_WRITE
     ),
-    rhob*(scalar(1.0)-alpha)*nub*dev(twoSymm(fvc::grad(Ub)))
+    rhob*(scalar(1.0)-alpha)*nub*dev(fvc::grad(Ub))
 );
 
-volSymmTensorField Taua
+volTensorField Taua
 (
     IOobject
     (
@@ -607,8 +597,9 @@ volSymmTensorField Taua
          IOobject::NO_READ,
          IOobject::NO_WRITE
     ),
-    rhoa*alpha*nua*dev(twoSymm(fvc::grad(Ua)))
+    rhoa*alpha*nua*dev(fvc::grad(Ua))
 );
+
 //creating alphaPlastic field
 Info<< "Computing field alphaPlastic\n" << endl;
 volScalarField alphaPlastic
@@ -855,54 +846,107 @@ volScalarField pff
         "pff",
         runTime.timeName(),
         mesh,
-        IOobject::READ_IF_PRESENT,
-        IOobject::AUTO_WRITE
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
     ),
     mesh,
     dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
 );
-volScalarField pS
+volVectorField SolidPressureContr
 (
     IOobject
     (
-        "pS",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::AUTO_WRITE
+        "SolidPressureContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
     ),
-    pff + pa
+    fvc::grad(p_rbgh)
 );
-
-
-Info<< "Calculating field muEff\n" << endl;
-volScalarField muEff
+volVectorField FluidPressureContr
 (
     IOobject
     (
-        "muEff",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::AUTO_WRITE
+        "FluidPressureContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
     ),
-    mesh,
-    dimensionedScalar("zero", dimensionSet(1 , -1 ,-1 ,0 , 0), 0.0)
+    fvc::grad(pff)
 );
-
-Info<< "Calculating field muFra\n" << endl;
-volScalarField muFra
+volVectorField ViscStressContr
 (
     IOobject
     (
-        "muFra",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::AUTO_WRITE
+        "ViscStressContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
     ),
-    mesh,
-    dimensionedScalar("zero", dimensionSet(1 , -1 ,-1 ,0 , 0), 0.0)
+    fvc::grad(pff)
+);
+volVectorField FrictContr
+(
+    IOobject
+    (
+        "FrictContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField gravityContr
+(
+    IOobject
+    (
+        "gravityContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField DragContr
+(
+    IOobject
+    (
+        "DragContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField SuspContr
+(
+    IOobject
+    (
+        "SuspContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+volVectorField ExtContr
+(
+    IOobject
+    (
+        "ExtContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
 );
 volScalarField SUStilde
 (

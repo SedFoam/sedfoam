@@ -28,7 +28,10 @@ Description
     "Nearest-neighbor statistics for packings of hard spheres and disks."
     Torquato, S. (1995). Physical Review E, 51(4):3170–3182.
 
-    This file is in the \dir kineticTheoryModels/radialModel/Torquato directory
+    This file is in the \dir kineticTheoryModels/radialModel/Torquato
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/radialModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     TorquatoRadial.C
@@ -76,13 +79,15 @@ public:
         tmp<volScalarField> g0
         (
             const volScalarField& alpha,
-            const dimensionedScalar& alphaMax
+            const dimensionedScalar& alphaMax,
+            const dimensionedScalar& muPart
         ) const;
 
         tmp<volScalarField> g0prime
         (
             const volScalarField& alpha,
-            const dimensionedScalar& alphaMax
+            const dimensionedScalar& alphaMax,
+            const dimensionedScalar& muPart
         ) const;
 };
 

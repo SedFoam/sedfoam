@@ -312,52 +312,6 @@ void Foam::functionObjects::forcesSed::resetFields()
 }
 
 
-//Foam::tmp<Foam::volTensorField>
-//Foam::functionObjects::forcesSed::devRhoReff() const
-//{
-    //typedef compressible::turbulenceModel cmpTurbModel;
-    //typedef incompressible::turbulenceModel icoTurbModel;
-
-    //const auto& Ua = lookupObject<volVectorField>(UaName_);
-    //const auto& Ub = lookupObject<volVectorField>(UbName_);
-
-
-    //if (foundObject<dictionary>("transportProperties"))
-    //{
-        ////dimensionedScalar nu("nu", dimViscosity, transportProperties);
-        ////return -rho()*nu*dev(twoSymm(fvc::grad(U)));
-        
-        //const volScalarField& alpha = lookupObject<volScalarField>(alphaName_);
-        //const volScalarField& muEff = lookupObject<volScalarField>(muEffName_);
-        //const volScalarField& muFra = lookupObject<volScalarField>(muFraName_);
-        ////Info << "a" <<endl;
-
-        ////volSymmTensorField aaa( -muEff*dev(twoSymm(fvc::grad(Ub)))-muFra*dev(twoSymm(fvc::grad(Ua))));
-
-        ////Info << "b"<< aaa <<endl;
-        ////Info << "min(aaa)"<< min(aaa) <<endl;
-        ////Info << "max(aaa)"<< max(aaa) <<endl;
-        //volTensorField gradUa( fvc::grad(Ua));
-        //volTensorField gradUb( fvc::grad(Ub));
-
-
-        //return -muEff*dev(gradUb-gradUb.T())-alpha/0.625*muFra*dev(gradUa-gradUa.T());
-        ////return -(muEff+muFra)*dev(twoSymm(fvc::grad(Ub*(1-alpha)+Ua*alpha)));
-       //// return -muEff*dev(twoSymm(fvc::grad(Ub)));
-    //}
-    //else
-    //{
-        //FatalErrorInFunction
-            //<< "No valid model for viscous stress calculation"
-            //<< exit(FatalError);
-
-        //return volTensorField::null();
-    //}
-//}
-
-
-
-
 Foam::tmp<Foam::volSymmTensorField>
 Foam::functionObjects::forcesSed::devRhoReff() const
 {
@@ -370,23 +324,13 @@ Foam::functionObjects::forcesSed::devRhoReff() const
 
     if (foundObject<dictionary>("transportProperties"))
     {
-        //dimensionedScalar nu("nu", dimViscosity, transportProperties);
-        //return -rho()*nu*dev(twoSymm(fvc::grad(U)));
-        
         const volScalarField& alpha = lookupObject<volScalarField>(alphaName_);
         const volScalarField& muEff = lookupObject<volScalarField>(muEffName_);
         const volScalarField& muFra = lookupObject<volScalarField>(muFraName_);
-        //Info << "a" <<endl;
 
-        //volSymmTensorField aaa( -muEff*dev(twoSymm(fvc::grad(Ub)))-muFra*dev(twoSymm(fvc::grad(Ua))));
+        return -muEff*dev(twoSymm(fvc::grad(Ub)))-muFra*dev(twoSymm(fvc::grad(Ua)));
+       // return -muEff*dev(twoSymm(fvc::grad(Ub)))-alpha/0.625*muFra*dev(twoSymm(fvc::grad(Ua)));
 
-        //Info << "b"<< aaa <<endl;
-        //Info << "min(aaa)"<< min(aaa) <<endl;
-        //Info << "max(aaa)"<< max(aaa) <<endl;
-
-        return -muEff*dev(twoSymm(fvc::grad(Ub)))-alpha/0.625*muFra*dev(twoSymm(fvc::grad(Ua)));
-        //return -(muEff+muFra)*dev(twoSymm(fvc::grad(Ub*(1-alpha)+Ua*alpha)));
-       // return -muEff*dev(twoSymm(fvc::grad(Ub)));
     }
     else
     {
@@ -1024,16 +968,11 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
         const volScalarField& pS = lookupObject<volScalarField>(pSedName_);
         const volScalarField& alpha = lookupObject<volScalarField>(alphaName_);
 
-
         const surfaceVectorField::Boundary& Sfb = mesh_.Sf().boundaryField();
 
         tmp<volSymmTensorField> tdevRhoReff = devRhoReff();
         const volSymmTensorField::Boundary& devRhoReffb
             = tdevRhoReff().boundaryField();
-
-        //tmp<volTensorField> tdevRhoReff = devRhoReff();
-        //const volTensorField::Boundary& devRhoReffb
-            //= tdevRhoReff().boundaryField();
 
         // Scale pRef by density for incompressible simulations
         scalar pRef = pRef_/rho(p);
@@ -1062,35 +1001,12 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
             );
             
             		
-        //for (int i = 0; i < tensorShear.size(); i++) {
-			 
-			 ////tensorShear[i][0]=(tensorShear[i][0]+tensorShear[i][3]+tensorShear[i][5])/2.;
-			 ////tensorShear[i][3]=0;
-			 ////tensorShear[i][5]=-tensorShear[i][0];
-			 
-			 //tensorShear[i][0]=pos((tensorShear[i][0]*tensorShear[i][0])-(tensorShear[i][5]*tensorShear[i][5]))*(tensorShear[i][0])+pos((tensorShear[i][5]*tensorShear[i][5])-(tensorShear[i][0]*tensorShear[i][0]))*(tensorShear[i][0]+tensorShear[i][3]);
-			 
-			 //tensorShear[i][5]=-tensorShear[i][0];
-			 //tensorShear[i][3]=0;
-			////Info << "tensorShear" << tensorShear[i] << endl;
-
-		  //}
-
-
-            
-           // vectorField fT(Sfb[patchi] & devRhoReffb[patchi]);
             vectorField fT(Sfb[patchi] & tensorShear);
-		const vectorField Coordinates
-		(
-		   mesh_.C().boundaryField()[patchi]
-		);
+            const vectorField Coordinates
+            (
+             mesh_.C().boundaryField()[patchi]
+            );
 		
-
-		
-        //for (int i = 0; i < fT.size(); i++) {
-			//Info <<  "Coordinates[i]" << Coordinates[i]<<  "Sfb[patchi]" << Sfb[patchi][i] <<   "tau" << tensorShear[i]<<   "fT" << fT[i] << endl;
-
-		  //}
 	
             vectorField fP(Md.size(), Zero);
 

@@ -14,23 +14,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-//dynamicFvMesh       dynamicOversetFvMesh;
-
-//solver          multiSolidBodyMotionSolver;
-
-//multiSolidBodyMotionSolverCoeffs
-//{
-    //channel
-    //{
-        //solidBodyMotionFunction linearMotion;
-        //linearMotionCoeffs
-        //{
-            //velocity        (0 0 -0.03);
-        //}
-    //}
-//}
-
-// ************************************************************************* //
 // ************************************************************************* //
 dynamicFvMesh       dynamicMotionSolverFvMesh;
 
@@ -54,7 +37,6 @@ sixDoFRigidBodyMotionCoeffs
     
     //  mass reduced by Buoyancy: (rhosolid - rhofluid ) * VolumeSphere
     mass	0.00104137182;
-//mass            0.00018551104619447744;
     velocity        ( 0 -0. -0. );
     centreOfMass    ( 0 0.0 0.0005 );     
     momentOfInertia ( 1717 591 1717);

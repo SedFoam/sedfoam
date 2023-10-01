@@ -47,11 +47,10 @@ Foam::autoPtr<Foam::radialModel> Foam::radialModel::New
             << "    unknown radialModelType type "
             << radialModelType
             << ", constructor not in hash table" << endl << endl
-            << "    Valid radialModelType types are :" << endl;
-        Info<< dictionaryConstructorTablePtr_->sortedToc()
-            << abort(FatalError);
+            << "    Valid radialModel types are :"  << endl
+            <<    dictionaryConstructorTablePtr_->sortedToc() << endl;
+        Info << abort(FatalError) << endl;
     }
-
     return autoPtr<radialModel>(cstrIter()(dict));
 }
 

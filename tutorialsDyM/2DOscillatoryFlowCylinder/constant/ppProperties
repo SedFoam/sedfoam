@@ -25,19 +25,11 @@ alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.45;
 
 Fr               Fr [ 1 -1 -2 0 0 0 0 ] 0.05;
 
-eta              eta [ 0 0 0 0 0 0 0 ] 3;
+eta0             eta0 [ 0 0 0 0 0 0 0 ] 3;
 
-p                p [ 0 0 0 0 0 0 0 ] 5;
-
-// parameters for ppMagf (if g0<0 is not used)
-
-preAlphaExp     500;
-
-expMax          10000;
-
-g0              g0 [ 1 -1 -2 0 0 0 0 ] -1e+3;
-
+eta1             eta1 [ 0 0 0 0 0 0 0 ] 5;
 packingLimiter  no;
+
 
 
 // ************************************************************************* //

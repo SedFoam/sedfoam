@@ -30,7 +30,10 @@ Description
     Ding, J., Gidaspow, D., AIChE Journal, 36(4):523–538
     \endverbatim
 
-    This file is in the \dir kineticTheoryModels/radialModel/Gidaspow directory
+    This file is in the \dir kineticTheoryModels/radialModel/Gidaspow
+    subdirectory inside the subdirectory
+    \dir kineticTheoryModels/radialModel inside the directory
+    \dir kineticTheoryModels
 
 SourceFiles
     GidaspowRadial.C
@@ -77,13 +80,15 @@ public:
         tmp<volScalarField> g0
         (
             const volScalarField& alpha,
-            const dimensionedScalar& alphaMax
+            const dimensionedScalar& alphaMax,
+            const dimensionedScalar& muPart
         ) const;
 
         tmp<volScalarField> g0prime
         (
             const volScalarField& alpha,
-            const dimensionedScalar& alphaMax
+            const dimensionedScalar& alphaMax,
+            const dimensionedScalar& muPart
         ) const;
 };
 

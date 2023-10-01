@@ -1,0 +1,60 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  plus                                  |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      motionProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+dynamicFvMesh       dynamicMotionSolverFvMesh;
+
+motionSolverLibs    (sixDoFRigidBodyMotionSedFoam);
+
+motionSolver        sixDoFRigidBodyMotion;
+
+
+sixDoFRigidBodyMotionCoeffs
+{
+
+    patches         (sphere);
+    innerDistance   0.005;
+    outerDistance   0.045;
+        
+    accelerationRelaxation 0.1;
+    accelerationDamping 0.1;
+    
+    //  mass reduced by Buoyancy: (rhosolid - rhofluid ) * VolumeSphere
+    mass            2.6507E-04; //volumeSphere = 1.76714e-6
+    centreOfMass    ( 0 0 0 );     
+    momentOfInertia ( 4.45E-08 4.45E-08 4.45E-08);
+    rho             rhoInf;
+    rhoInf          970;
+    g               (0 0 -9.81);
+    report          on;
+    reportToFile    on;
+    
+    solver
+    {
+        type Newmark;
+    }
+    
+    constraints
+    {
+
+        fixedLine
+        {
+            sixDoFRigidBodyMotionConstraint line;
+            direction (0 0 1);
+       }
+    }
+}
+// ************************************************************************* //

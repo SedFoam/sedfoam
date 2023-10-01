@@ -1,0 +1,13 @@
+
+
+cat log | grep -w 'Time =' | cut -d' ' -f3 | tr -d '(' > time
+cat log | grep 'of mass' | cut -d' ' -f8 | tr -d '('  > xcenter
+cat log | grep 'of mass' | cut -d' ' -f9 | tr -d '('  > ycenter
+cat log | grep 'of mass' | cut -d' ' -f10 | tr -d ')'  > zcenter
+cat log | grep 'Linear' | cut -d' ' -f7 | tr -d '(' > vx
+cat log | grep 'Linear' | cut -d' ' -f8 | tr -d ' ' > vy
+cat log | grep 'Linear' | cut -d' ' -f9 | tr -d ')' > vz
+cat log | grep 'pressureFluid' | cut -d' ' -f13 | tr -d ')'  > pressureFluid_z
+cat log | grep 'pressureParticle' | cut -d' ' -f13 | tr -d ')'  > pressureParticle_z
+cat log | grep 'Viscous' | cut -d' ' -f14 | tr -d ')'  > pressureVisc_z
+
