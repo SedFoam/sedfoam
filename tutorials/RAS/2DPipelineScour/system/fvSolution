@@ -143,9 +143,10 @@ PIMPLE
     nNonOrthogonalCorrectors 1;
     nAlphaCorr      1;
     correctAlpha    yes;
-    pRefPoint       (0.9999 0.2049 0.0);
-    //pRefCell       0;
-    pRefValue       0;
+    //pRefPoint       (0.9999 0.2049 0.0);
+    ////pRefCell       0;
+    //pRefValue       0;
+    faceMomentum    false;
 }
 
 // ************************************************************************* //

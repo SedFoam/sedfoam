@@ -83,14 +83,19 @@ Description
           // diagonal part of stress --> move to Rca in UEqns.H ?
           + (oneOverAlpha/rhoa*fvc::snGrad(lambdaUa*tr(gradUaT)))
            *rUaAf*mesh.magSf()
-          // gravity
-          + rUaAf
-           *(
-               (1.0-rhob/rhoa)*(gravity & mesh.Sf())
-            )
           // mean pressure gradient
           + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
         );
+        if (TOTALpressure)
+        {
+            // gravity
+            phiDraga += rUaAf*(gravity & mesh.Sf());
+        }
+	else
+	{
+	    // gravity
+            phiDraga += rUaAf*((1.0-rhob/rhoa)*(gravity & mesh.Sf()));
+	}
         if (not SUSaniso)
         {
             //turbulent suspension term
@@ -108,6 +113,11 @@ Description
           - rUbAf*fvc::interpolate(neg(alpha-0.3))*((gradConvAcc/rhob)
             & mesh.Sf())
         );
+        if (TOTALpressure)
+        {
+            // gravity
+            phiDragb += rUbAf*(gravity & mesh.Sf());
+        }
         if (not SUSaniso)
         {
             // turbulent suspension term

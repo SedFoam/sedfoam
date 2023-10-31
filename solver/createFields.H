@@ -461,6 +461,12 @@ Switch debugInfo
 (
     forceProperties.getOrDefault<Switch>("debugInfo", false)
 );
+// TOTAL pressure
+Switch TOTALpressure
+(
+    forceProperties.getOrDefault<Switch>("TOTALpressure", false)
+);
+Info<<"Solve for the total pressure: "<<TOTALpressure<<endl;
 // Sponge Layer
 Switch spongeLayer
 (
