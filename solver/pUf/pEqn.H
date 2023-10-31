@@ -128,7 +128,7 @@ Description
             phiDraga += -(fvc::interpolate(SUS*(K/rhoa)*turbulenceb->nut()
                    *(beta/(alpha + alphaSmall)))
                    *fvc::snGrad(alpha))*rUaAf*mesh.magSf();
-        }
+    }
 
         // Momentum flux at the cell faces for phase b
         surfaceScalarField phiDragb
@@ -162,7 +162,7 @@ Description
             phiDragb += fvc::interpolate(SUS*(K/rhob)
                         *turbulenceb->nut())*fvc::snGrad(alpha)
                         *rUbAf*mesh.magSf();
-        }
+    }
         //    fvOptions.makeRelative(phiHabyA);
         //    fvOptions.makeRelative(phiHbbyA);
 

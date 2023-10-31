@@ -105,7 +105,7 @@ if (TKEBudgetLES)
 //    Info<<"Subgrid Dissipation of Resolved Fluctuations"<<endl; 
     SGSDissMean = (avCount*SGSDissMean 
                    - 0.5*beta * turbulenceb->nut()
-                          *(flucstrainTensor && fluctstrainTensor)
+                          *(fluctstrainTensor && fluctstrainTensor)
                   )/(avCount+1);
 //    Info<<"Turbulent Drag Dissipation/Transfer term"<<endl; 
     dragContbMean = (avCount*dragContbMean

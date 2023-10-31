@@ -1,5 +1,5 @@
 import numpy as np
-from pylab import mlab
+from scipy.interpolate import griddata
 import matplotlib.pyplot as plt
 import fluidfoam
 
@@ -16,6 +16,7 @@ def max_depth(case, t0, tfinal, dt, xi, yi):
     arr_size = int((tfinal - t0) / dt + 0.01)
     yscour = np.zeros(arr_size)
     time = np.zeros(arr_size)
+    grid_x, grid_y = np.meshgrid(xi, yi)
     i = -1
     j = 10
     t = t0
@@ -26,8 +27,8 @@ def max_depth(case, t0, tfinal, dt, xi, yi):
             timename = str(int(t)) + "/"
         else:
             timename = str(t) + "/"
-        a = fluidfoam.readscalar(case, timename, "alpha_a")
-        ai = mlab.griddata(x, y, a, xi, yi, interp="linear")
+        a = fluidfoam.readscalar(case, timename, "alpha.a")
+        ai = griddata((x, y), a, (grid_x, grid_y), method='linear')
         for j in range(ngridx):
             ybed[j] = yi[np.max((np.where(ai[:, j] > 0.5)))]
         yscour[i] = np.min(ybed[:])
