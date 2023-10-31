@@ -1,0 +1,157 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+verbose yes;
+
+innerRadius 0.0075;
+outerRadius 0.10;
+
+geometry {
+    sphere1 {
+        type searchableSphere;
+        centre (1e-6 1e-6 1e-6);
+        radius $innerRadius;
+    }
+    sphere2 {
+        type searchableSphere;
+        centre (1e-6 1e-6 1e-6);
+        radius $outerRadius;
+    }
+}
+
+scale 1;
+
+n1 34; //50
+n2 40; //60
+
+v #eval{ $outerRadius*0.5773502 };
+mv #eval{ -$outerRadius*0.5773502 };
+vh #eval{ $innerRadius*0.5773502 };
+mvh #eval{ -$innerRadius*0.5773502 };
+a #eval{ $outerRadius*0.7071067 };
+ma #eval{ -$outerRadius*0.7071067 };
+ah #eval{ $innerRadius*0.7071067 };
+mah #eval{ -$innerRadius*0.7071067 };
+
+
+
+vertices (
+    ($mvh $mvh $mvh) //0
+    ( $vh $mvh $mvh) //1
+    ( $vh  $vh $mvh) //2
+    ($mvh  $vh $mvh) //3
+    ($mvh $mvh  $vh) //4
+    ( $vh $mvh  $vh) //5
+    ( $vh  $vh  $vh) //6
+    ($mvh  $vh  $vh) //7
+
+    ($mv $mv $mv) //8
+    ( $v $mv $mv) //9
+    ( $v  $v $mv) //10
+    ($mv  $v $mv) //11 
+    ($mv $mv  $v) //12 
+    ( $v $mv  $v) //13
+    ( $v  $v  $v) //14
+    ($mv  $v  $v) //15
+);
+
+blocks (
+    hex ( 9  8 12 13  1  0  4  5) ($n1 $n1 $n2) simpleGrading (1 1 0.02)
+    hex (10  9 13 14  2  1  5  6) ($n1 $n1 $n2) simpleGrading (1 1 0.02)
+    hex (11 10 14 15  3  2  6  7) ($n1 $n1 $n2) simpleGrading (1 1 0.02)
+    hex ( 8 11 15 12  0  3  7  4) ($n1 $n1 $n2) simpleGrading (1 1 0.02)
+    hex ( 8  9 10 11  0  1  2  3) ($n1 $n1 $n2) simpleGrading (1 1 0.02)
+    hex (13 12 15 14  5  4  7  6) ($n1 $n1 $n2) simpleGrading (1 1 0.02)
+);
+
+edges (
+    arc  8  9 (0 $ma $ma)
+    arc 10 11 (0 $a $ma)
+    arc 14 15 (0 $a $a)
+    arc 12 13 (0 $ma $a)
+
+    arc  8 11 ($ma 0 $ma)
+    arc  9 10 ($a 0 $ma)
+    arc 13 14 ($a 0 $a)
+    arc 12 15 ($ma 0 $a)
+
+    arc  8 12 ($ma $ma 0)
+    arc  9 13 ($a $ma 0)
+    arc 10 14 ($a $a 0)
+    arc 11 15 ($ma $a 0)
+
+
+    arc  0  1 (0 $mah $mah)
+    arc  2  3 (0 $ah $mah)
+    arc  6  7 (0 $ah $ah)
+    arc  4  5 (0 $mah $ah)
+
+    arc  0  3 ($mah 0 $mah)
+    arc  1  2 ($ah 0 $mah)
+    arc  5  6 ($ah 0 $ah)
+    arc  4  7 ($mah 0 $ah)
+
+    arc  0  4 ($mah $mah 0)
+    arc  1  5 ($ah $mah 0)
+    arc  2  6 ($ah $ah 0)
+    arc  3  7 ($mah $ah 0)
+);
+
+faces (
+    project ( 0 4 7 3) sphere1
+    project (2 6 5 1) sphere1
+    project ( 1 5 4  0) sphere1
+    project (3 7 6 2) sphere1
+    project ( 0 3 2 1) sphere1
+    project (4 5 6 7) sphere1
+
+    project (8 12 15 11) sphere2
+    project (10 14 13 9) sphere2
+    project (9 13 12 8) sphere2
+    project (11 15 14 10) sphere2
+    project (8 11 10 9) sphere2
+    project (12 13 14 15) sphere2
+);
+
+boundary (
+    atmosphere {
+        type patch;
+        faces
+        (
+            ( 8 12 15 11)
+            (10 14 13  9)
+            ( 9 13 12  8)
+            (11 15 14 10)
+            ( 8 11 10  9)
+            (12 13 14 15)
+        );
+    }
+    sphere {
+        type patch;
+        faces
+        (
+            ( 0 4 7 3)
+            (2 6 5 1)
+            (1 5 4 0)
+            (3 7 6 2)
+            (0 3 2 1)
+            (4 5 6 7)
+        );
+    }
+);
+
+// ************************************************************************* //

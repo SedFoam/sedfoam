@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# create the intial time folder
+blockMesh
+cp -r 0_org 0
+
+topoSet -dict system/topoSetDictR2 
+
+funkySetFields -time 0
+
+# Select cellSets for the different zones
+topoSet
+setFields
+
+# Decompose the case in order to run in parallel 
+decomposePar
+
+# Run sedFoam
+#mpirun -np 20  overSedDymFoam_rbgh  -parallel > log&
+

@@ -1,0 +1,95 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| ========= | | \\ / F ield | OpenFOAM: The Open Source CFD Toolbox |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     sedFoam;
+
+startFrom       latestTime;
+
+startTime       3;
+
+stopAt          endTime;
+
+endTime         20.501;
+
+deltaT          1e-7;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.1;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression uncompressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable on;
+
+adjustTimeStep  yes;
+
+maxCo           0.01;
+
+maxAlphaCo      0.01;
+
+maxDeltaT       1e-5;
+
+
+
+functions
+{
+    
+
+
+forcesSed
+{
+    type          forcesSed;
+
+    libs          (forcesSed);
+
+    writeControl  timeStep;
+    timeInterval  1;
+    patches       ("cylinder");
+    rho           rhoInf;     // Indicates incompressible
+    log           true;
+    rhoInf        1513.91; // Redundant for incompressible
+    origin (0 0 0); 
+    coordinateRotation
+        {
+            type            axesRotation;
+            e3              (0 0 1);
+            e1              (1 0 0);
+        }
+}
+
+
+    
+    
+}
+libs (
+"libOpenFOAM.so"
+"libsimpleSwakFunctionObjects.so"
+"libswakFunctionObjects.so"
+"libgroovyBC.so"
+);
+
+ 
+// ************************************************************************* //

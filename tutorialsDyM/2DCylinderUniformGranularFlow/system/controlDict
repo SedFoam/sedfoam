@@ -1,6 +1,6 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | ========= | | \\ / F ield | OpenFOAM: The Open Source CFD Toolbox |
-|  \\    /   O peration     | Version:  1.7.1                                 |
+|  \\    /   O peration     | Version:  v2306                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     sedFoam;
+application     overSedDymFoam_rbgh;
 
 startFrom       latestTime;
 
@@ -22,7 +22,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         20.0;
+endTime         8;
 
 deltaT          1e-7;
 

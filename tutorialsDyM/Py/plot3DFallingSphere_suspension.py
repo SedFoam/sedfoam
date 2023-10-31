@@ -1,8 +1,10 @@
 import numpy as np
 from pylab import matplotlib, plt, show
+import os
+import sys
 
-#DynamycMesh="Morphing"
-DynamycMesh="Overset"
+DynamycMesh="Morphing"
+#DynamycMesh="Overset"
 if DynamycMesh=="Overset":
 	DynamycMeshV=DynamycMesh+"/sphereAndBackground"
 else:
@@ -42,7 +44,10 @@ for i in range(10,len(time_noSediment_morph_d)-10):
 	z_noSediment_morph.append(z_noSediment_morph_d[i][0]/D)
 
 ############## loading overSedDymFoam results ###########
-sol="../FallingSphereSuspension3D"+DynamycMeshV+'/'
+sol="../FallingSphereSuspension"+DynamycMeshV+'/'
+if os.path.exists(sol+'time')==False:
+        print ("To generate the postprocessing files you need to execute makeFiles in the case first")   
+        sys.exit()
 datatime = np.genfromtxt(sol+'time',delimiter='\t', names=True)
 dataVz= np.genfromtxt(sol+'vz',delimiter='\t', names=True)
 dataPosz = np.genfromtxt(sol+'zcenter',delimiter='\t', names=True)
@@ -96,7 +101,7 @@ axs[1].set_ylim([ -0.0401,0.0001])
 axs[1].grid()
 axs[1].legend(loc="upper right",fontsize="25")
 fig.tight_layout()
-fig.savefig('Figures/FallingSphereSimple.png')
+fig.savefig('Figures/FallingSphereSuspension.png')
 plt.show()
 
 
