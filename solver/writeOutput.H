@@ -72,9 +72,9 @@ if (runTime.outputTime())
         divRcaContr = -rhoa*alpha*fvc::div(Rca);
         RcaContr = -rhoa*alpha/(alpha+alphaSmall)*(fvc::grad(alpha) & Rca);
         BulkContr = fvc::grad(lambdaUa*tr(gradUaT));
-        divTauaContr = ViscStressContr + FrictContr + phiRaContr + 
+        divTauaContr = ViscStressContr + FrictContr + phiRaContr +
                        phiRa2Contr + divRcaContr + RcaContr + BulkContr;
-        
+
         gravityContr=alpha/(alpha+alphaSmall)*(rhoa-rhob)*g;
         DragContr=alpha*beta*K*(Ub-Ua);
         ExtContr=rhoa*alpha*gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa);
