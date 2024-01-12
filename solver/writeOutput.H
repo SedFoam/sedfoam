@@ -26,7 +26,6 @@ if (favreAveraging)
 if (runTime.outputTime())
 {
     if (writeTau == 1){
-        K.write();
         Taua = fvc::reconstruct(fvc::interpolate(rhoa*(alpha*nuEffa+nuFra))*mesh.magSf()*fvc::snGrad(Ua)) +
             rhoa*(alpha*nuEffa+nuFra)*dev(gradUaT);
         Taub = fvc::reconstruct(fvc::interpolate(rhob*(scalar(1.0)-alpha)*nuEffb)*mesh.magSf()*fvc::snGrad(Ub)) +
