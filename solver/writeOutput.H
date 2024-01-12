@@ -25,15 +25,21 @@ if (favreAveraging)
 }
 if (runTime.outputTime())
 {
-    if (writeTau == 1){
-        Taua = fvc::reconstruct(fvc::interpolate(rhoa*(alpha*nuEffa+nuFra))*mesh.magSf()*fvc::snGrad(Ua)) +
-            rhoa*(alpha*nuEffa+nuFra)*dev(gradUaT);
-        Taub = fvc::reconstruct(fvc::interpolate(rhob*(scalar(1.0)-alpha)*nuEffb)*mesh.magSf()*fvc::snGrad(Ub)) +
-            rhob*(scalar(1.0)-alpha)*nuEffb*dev(gradUbT);
+    if (writeTau == 1)
+    {
+        Taua = fvc::reconstruct(
+                    fvc::interpolate(rhoa*(alpha*nuEffa+nuFra)) *
+                    mesh.magSf()*fvc::snGrad(Ua)) +
+               rhoa*(alpha*nuEffa+nuFra)*dev(gradUaT);
+        Taub = fvc::reconstruct(
+                    fvc::interpolate(rhob*(scalar(1.0)-alpha)*nuEffb) *
+                    mesh.magSf()*fvc::snGrad(Ub)) +
+               rhob*(scalar(1.0)-alpha)*nuEffb*dev(gradUbT);
         Taua.write();
         Taub.write();
     }
-    if (writeMomentumBudget == 1){
+    if (writeMomentumBudget == 1)
+    {
 
         volTensorField Rca(
             "Rca",
@@ -57,16 +63,17 @@ if (runTime.outputTime())
             -fvc::interpolate(nuEffa)*mesh.magSf()*(fvc::snGrad(alpha))
             /fvc::interpolate(alpha+ alphaSmall)
         );
-   
-        SolidPressureContr=-fvc::grad(pa+pff);
-        ViscStressContr=rhoa*alpha*fvc::laplacian(nuEffa, Ua);
-        FrictContr=rhoa*fvc::laplacian(nuFra, Ua);
-        phiRaContr=-rhoa*alpha*fvc::div(phiRa, Ua, "div(phiRa,Ua)");
-        phiRa2Contr=rhoa*alpha*fvc::Sp(fvc::div(phiRa), Ua);
-        divRcaContr=-rhoa*alpha*fvc::div(Rca);
-        RcaContr=-rhoa*alpha/(alpha+alphaSmall)*(fvc::grad(alpha) & Rca);
-        BulkContr=fvc::grad(lambdaUa*tr(gradUaT));
-        divTauaContr=ViscStressContr+FrictContr+phiRaContr+phiRa2Contr+divRcaContr+RcaContr+BulkContr;
+
+        SolidPressureContr = -fvc::grad(pa+pff);
+        ViscStressContr = rhoa*alpha*fvc::laplacian(nuEffa, Ua);
+        FrictContr = rhoa*fvc::laplacian(nuFra, Ua);
+        phiRaContr = -rhoa*alpha*fvc::div(phiRa, Ua, "div(phiRa,Ua)");
+        phiRa2Contr = rhoa*alpha*fvc::Sp(fvc::div(phiRa), Ua);
+        divRcaContr = -rhoa*alpha*fvc::div(Rca);
+        RcaContr = -rhoa*alpha/(alpha+alphaSmall)*(fvc::grad(alpha) & Rca);
+        BulkContr = fvc::grad(lambdaUa*tr(gradUaT));
+        divTauaContr = ViscStressContr + FrictContr + phiRaContr + 
+                       phiRa2Contr + divRcaContr + RcaContr + BulkContr;
         
         gravityContr=alpha/(alpha+alphaSmall)*(rhoa-rhob)*g;
         DragContr=alpha*beta*K*(Ub-Ua);
