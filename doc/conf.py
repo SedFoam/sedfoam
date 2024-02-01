@@ -10,7 +10,6 @@ STYLESHEETS = [
 #MAIN_PROJECT_URL = 'https://github.com/SedFoam/sedfoam'
 MAIN_PROJECT_URL = 'https://github.com/puigmontella/sedfoam'
 
-puigmontella/sedfoam
 LINKS_NAVBAR1 = [
     (None, 'pages', [
         ("<a href=\"index.html\">About sedFoam</a>",),
