@@ -131,6 +131,9 @@ class granularRheologyModel
     //- Minimum relaxation timescale
     const dimensionedScalar tau_inv_min_;
 
+    //- Cohesion value
+    const dimensionedScalar cohesion_;
+
     //- The friction coefficient
     volScalarField muI_;
 
@@ -145,6 +148,10 @@ class granularRheologyModel
 
     //- Total particle  pressure
     volScalarField p_p_total_;
+
+    //- Cohesion distribution
+    volScalarField CohesionDistrb_;
+
 
     ////- The  dilatancy angle
     volScalarField delta_;
@@ -239,6 +246,10 @@ public:
     const volScalarField& lambda() const
     {
         return lambda_;
+    }
+    const volScalarField& CohesionDistrb() const
+    {
+        return CohesionDistrb_;
     }
     const volScalarField& nuvb() const
     {

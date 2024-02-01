@@ -627,9 +627,22 @@ volScalarField delta
         IOobject::NO_WRITE
     ),
     mesh,
-    dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
+    dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
 );
 
+volScalarField CohesionDistrb
+(
+    IOobject
+    (
+        "CohesionDistrb",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 1.0)
+);
 
 Info<< "Calculating field U\n" << endl;
 volVectorField U
