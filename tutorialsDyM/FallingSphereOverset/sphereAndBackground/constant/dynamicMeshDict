@@ -16,12 +16,10 @@ FoamFile
 
 motionSolverLibs ( sixDoFRigidBodyMotionSedFoam );
 
-
 dynamicFvMesh       dynamicOversetFvMesh;
 
 dynamicOversetFvMeshCoeffs
 {
-//    layerRelax 0.3;
 }
 
 motionSolver          sixDoFRigidBodyMotion;
@@ -33,32 +31,29 @@ sixDoFRigidBodyMotionCoeffs
     patches         (sphere);
     innerDistance   100.;
     outerDistance   101.;
-        
+
     accelerationRelaxation 0.4;
     accelerationDamping 0.4;
-    
+
     //  mass reduced by Buoyancy: (rhosolid - rhofluid ) * VolumeSphere
     mass            2.65E-04;
-    centreOfMass    ( 0 0 0 );     
+    centreOfMass    ( 0 0 0 );
     momentOfInertia ( 4.45E-08 4.45E-08 4.45E-08);
     rho             rhoInf;
     rhoInf          970;
     g               (0 0 -9.81);
     report          on;
     reportToFile    on;
-    
+
     solver
     {
         type Newmark;
     }
-    
+
     constraints
     {
 
     }
-
-
-
 
 
 }
