@@ -6,20 +6,16 @@
  */
 /*! \page tutorials_DyM Dynamic mesh tutorials
 
-In this chapter we shall describe in detail the process of setup, simulation and post-processing for SedFoam test cases in the laminar flow regime.
-All the tutorial cases are in the *tutorialsDyM* directory. The text herein is highly inspired from the OpenFOAM user-guide for the cavity tutorial available at http://cfd.direct/openfoam/user-guide/cavity/ but is adapted to the specificity of SedFoam.
+In this chapter we shall describe in detail the process of setup, simulation and post-processing for SedFoam test cases using dynamic meshes. All the tutorial cases are in the *tutorialsDyM* directory.
 
-The test cases provided with SedFoam are aimed to facilitate the learning as well as the development of new configurations. If you develop new feature do not hesitate to share your development with us so that we can incorporate them in the github repository and others will benefit from your work the way you benefited from the original SedFoam version!
 
 \tableofcontents{xml:1}
 
-A number of one-dimensional test cases are provided with reference solutions, analytical, experimental or numerical, to validate SedFoam implementation and developments. Most of these test cases are used in the contiunous integration procedure to verify new developments in SedFoam.
 
-\section  FallingSphere_testcase FallingSphereMorphing: Falling sphere in pure fluid using a morphing mesh
 
-This tutorial will describe how to pre-process, run and post-process a case corresponding to a pure sedimentation problem in a one-dimensional configuration using the two-phase flow equations. The geometry is shown in Figure 1 in which bottom boundary is a wall and the top boundary is an open boundary.  Initially, the flow is at rest and will be solved on a uniform mesh using the SedFoam solver for laminar, isothermal, incompressible two-phase flow. The numerical results are compared with experiments to validate the model in terms of settling curves, time evolution of concentration interface, and concentration profiles.
+\section  FallingSphereOverset_testcase FallingSphereOverset: Falling sphere in pure fluid using an overset  approach
 
-This tutorial we  study the free fall of a sphere with a diameter \f$D=15mm\f$ settling in silicon oil using the overset approach. The experimental setting consists in a rectangular box of \f$100 \times 100 \times 160mm\f$. The input parameters have been chosen to reproduce  the experiments of a settling sphere at Reynolds number equal to \f$Re=W^{obj}D/\nu^f=1.5\f$ CITE, where \f$W^{obj}\f$ is the terminal velocity of the sphere.   This benchmark is inspired by the
+This tutorial we  study the free fall of a sphere with a diameter \f$D=15mm\f$ settling in silicon oil using the overset approach. The experimental setting consists in a rectangular box of \f$100 \times 100 \times 160mm\f$. The input parameters have been chosen to reproduce  the experiments of a settling sphere at Reynolds number equal to \f$Re=W^{obj}D/\nu^f=1.5\f$ CITE, where \f$W^{obj}\f$ is the terminal velocity of the sphere.   The  numerical case can be found under the folder *sedFoamDirectory/tutorialsDyM/FallingSphereOverset*. This benchmark is inspired by the
 <a href="https://wiki.openfoam.com/Settling_Sphere_by_Michael_Alletto">online tutorial of a settling sphere of OpenFOAM</a>. The  physical parameters are summarized in  the following table:
 
 
@@ -33,9 +29,7 @@ This tutorial we  study the free fall of a sphere with a diameter \f$D=15mm\f$ s
 </table>
 
 
-\subsection preprocSphereOverset Pre-processing
 
-Like in OpenFOAM, cases are setup by editing case files using a text editor such as atome, vscode/vscodium, emacs, vi, gedit, nedit, etc. The I/O uses a dictionary format with keywords. A case involves data for mesh, fields, properties, control parameters, etc  that are stored in a set of files within a case directory rather than in a single case file. The case directory is given a suitably descriptive name. This tutorial consists of a set of cases located in the SedFoam distribution under the folder *sedFoamDirectory/tutorialsDyM/FallingSphereOverset*.
 
 \subsection MeshFallingSphereOverset Mesh generation and set-up
 The numerical domain consists of two disconnected meshes. The background mesh, which remains static throughout the simulation, is an hexaedron of side  \f$6.66 D\f$ while the overset mesh that moves relative to the background mesh is an hexaedron of side  \f$2.5 D\f$. These meshes are illustrated in Figure 1.
@@ -67,7 +61,7 @@ mergeMeshes . ../sphereMesh -overwrite
 topoSet
 \endverbatim
 
-The cylinder is added into our set-up and *topoSet* is executed to select cellSets for the different zones COMPLETE.
+The sphere is added into our set-up and *topoSet* is executed to select cellSets for the different zones COMPLETE.
 
 In the last part of *Allrun.pre* script we  create the intial time folder, use cellSets to write zoneID and decompose the case to run it in parallel:
 \verbatim
@@ -138,7 +132,7 @@ sixDoFRigidBodyMotionCoeffs
 
 \subsection  lauch_SphereFallOverset Computation launching
 
-The simulations will run in parallel on 4 cores by executing:
+The simulations will run in parallel on 4 cores by executing the following command at *tutorialsDyM/FallingSphereOverset/sphereAndBackground* folder:
 
 \verbatim
 mpirun -np 4 overSedDymFoam_rbgh -parallel > log.out&
@@ -147,6 +141,255 @@ mpirun -np 4 overSedDymFoam_rbgh -parallel > log.out&
 One can skip all the previous steps and simply run the command *./Allrun* in the *tutorialsDyM/FallingSphereOverset* folder. It is worth mentioning that the output data will be stored in the *tutorialsDyM/FallingSphereOverset/sphereAndBackground* folder.
 
 
+
+\subsection postFallingSphereOverset Post-processing using python
+
+
+You just have to run the python script *plot3DFallingSphere.py* located in the folder *tutorialsDyM/Py*. Make sure that the chosen mesh in the script is set to DynamycMesh="Overset".
+
+\verbatim
+python plot3DFallingSphere.py
+\endverbatim
+
+and you should see the following figures:
+
+
+
+
+
+
+
+
+\section  FallingSphereMorph_testcase FallingSphereMorphing: Falling sphere in pure fluid using a morphing mesh
+
+This numerical test investigates the same falling sphere presented in the previous case using a morphing mesh instead of the overset technique. The numerical case is located at *tutorialsDyM/FallingSphereMorphing*.
+
+\subsection MeshFallingSphereMorph Mesh generation and set-up
+
+
+The numerical domain consists of a spherical mesh  with a diameter of \f$13.3D\f$. This type of mesh can deform but the connectivity between the cells remains unchanged. The mesh is illustrated in Figure ?.
+The spherical mesh is generated by running the command *blockMesh* in the *tutorialsDyM/FallingSphereMorphing* folder. Then *topoSet* needs to be executed to add the moving cells CHECK.
+
+*topoSet* and *setFields* are executed to select cellSets for the different zones COMPLETE.
+
+
+\subsection  DyMesh_SphereFallMorph Dynamic mesh
+
+
+Several mesh options and controls can be adjusted in the *dynamicMeshDict* dictionary located at *constant* folder.  For morphing meshes *dynamicMotionSolverFvMesh* solver is employed to modify the mesh topology around a rigid object.  The mesh region around the rigid body is divided into three parts: the region where the mesh moves with the rigid body, the mesh morphing region and the outer region that remains static. The part inside the *innerDistance* is completely body motion and the region between the *innerDistance* and *outerDistance*  corresponds to the mesh morphing region.
+
+\verbatim
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      motionProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+dynamicFvMesh       dynamicMotionSolverFvMesh;
+
+motionSolverLibs    (sixDoFRigidBodyMotionSedFoam);
+
+motionSolver        sixDoFRigidBodyMotion;
+
+
+sixDoFRigidBodyMotionCoeffs
+{
+
+    patches         (sphere);
+    innerDistance   0.005;
+    outerDistance   0.049;
+
+    accelerationRelaxation 0.4;
+    accelerationDamping 0.4;
+
+    //  mass reduced by Buoyancy: (rhosolid - rhofluid ) * VolumeSphere
+    mass            2.6507E-04; //volumeSphere = 1.76714e-6
+    centreOfMass    ( 0 0 0 );
+    momentOfInertia ( 4.45E-08 4.45E-08 4.45E-08);
+    rho             rhoInf;
+    rhoInf          970;
+    g               (0 0 -9.81);
+    report          on;
+    reportToFile    on;
+
+    solver
+    {
+        type Newmark;
+    }
+
+    constraints
+    {
+
+    }
+
+}
+// ************************************************************************* //
+\endverbatim
+
+\subsection  lauch_SphereFallMorph Computation launching
+
+
+\endverbatim
+
+The simulations will run in parallel on 10 cores by executing the following commands at *tutorialsDyM/FallingSphereMorphing* folder:
+
+\verbatim
+decomposePar
+mpirun -np 10 overSedDymFoam_rbgh -parallel > log.out&
+\endverbatim
+
+One can skip all the previous steps and simply run the command *./Allrun* in the *tutorialsDyM/FallingSphereMorphing* folder to launch the numerical case.
+
+
+\subsection postFallingSphereMorph Post-processing using python
+
+
+You just have to run the python script *plot3DFallingSphere.py* located in the folder *tutorialsDyM/Py*. Make sure that the chosen mesh in the script is set to DynamycMesh="Morphing".
+
+\verbatim
+python plot3DFallingSphere.py
+\endverbatim
+
+and you should see the following figures:
+
+
+
+
+
+\section  FallingSphere_Susptestcase Falling sphere in a sediment suspension
+
+
+In this scenario we want to extend the results by reproducing, numerically, the falling sphere in a fluid with the presence of sediments in suspension. For this numerical set-up, the content of sediments is set to 5\f$\%\f$, the particles are neutrally buoyant (i.e. same density as the fluid) with a mean diameter of \f$d=0.29 mm\f$. The numerical cases are located at *tutorialsDyM/FallingSphereSuspensionMorphing* and *tutorialsDyM/FallingSphereSuspensionOverset*.  These two cases are just an extension of previous cases, therefore, a few modifications are required to handle the particulate phase.
+
+\subsection  FallingSphere_Susp_physical Physical properties
+
+In the *constant/transportProperties* file, the physical properties of the solid and fluid phases are set, such as density, kinematic viscosity and particle diameter:
+
+
+\verbatim
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      transportProperties;
+}
+// * * * * * * * * * * * * sediment properties * * * * * * * * * * * * //
+phasea
+{
+    rho             rho [ 1 -3 0 0 0 ] 970.01;
+    nu              nu [ 0 2 -1 0 0 ] 1e-6;
+    d               d [ 0 1 0 0 0 0 0 ] 290e-6;
+    hExp            hExp [ 0 0  0 0 0 0 0 ] 3.15;  // hindrance exponent for drag: beta^(-hExp) (2.65 by default)
+}
+// * * * * * * * * * * * * fluid properties * * * * * * * * * * * * //
+phaseb
+{
+    rho             rho [ 1 -3 0 0 0 ] 970;
+    nu              nu [ 0 2 -1 0 0 0 0 ] 3.845e-4;
+    d               d [ 0 1 0 0 0 0 0] 290e-6;
+}
+//*********************************************************************** //
+transportModel  Newtonian;
+
+nu              nu [ 0 2 -1 0 0 0 0 ] 3.845e-4 ;
+
+nuMax           nuMax [0 2 -1 0 0 0 0] 1e3;      // viscosity limiter for the Frictional model (required for stability)
+
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
+
+// ************************************************************************* //
+\endverbatim
+
+
+The Gidaspow-Schiller-Naumann drag model, frequenlt employed for sediment suspension is considered and set in *constant/interfacialProperties*.
+
+\verbatim
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      interfacialProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dragModela      GidaspowSchillerNaumann;
+
+dragModelb      GidaspowSchillerNaumann;
+
+dragPhase       a;
+
+
+// ************************************************************************* //
+\endverbatim
+
+
+Finally, the concentration of sediments can be adjusted in *0_org/alpha.a* simply setting the desired volume fraction as a uniform internal field:
+
+\verbatim
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      alpha.a;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   uniform 0.05;
+
+\endverbatim
+
+
+
+\subsection postFallingSphereSusp Post-processing using python
+
+
+You just have to run the python script *plot3DFallingSphere_suspension.py* located in the folder *tutorialsDyM/Py*. Make sure that you select the desired mesh in the first lines of the script (DynamycMesh="Morphing" or DynamycMesh="Overset").
+
+\verbatim
+python plot3DFallingSphere_suspension.py
+\endverbatim
+
+and you should see the following figures:
 
 
 */

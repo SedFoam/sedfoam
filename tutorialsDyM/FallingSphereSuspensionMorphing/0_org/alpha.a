@@ -32,19 +32,14 @@ boundaryField
     sphere
     {
        type            zeroGradient;
-      //  type            fixedValue;
-        //value uniform 0.05;
-
     }
     atmosphere
     {
         type            zeroGradient;
-
     }
     inlet
     {
         type            zeroGradient;
-
     }
 
     outlet
