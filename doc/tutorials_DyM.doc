@@ -665,36 +665,6 @@ alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-5;  // minimum volume fraction (
 \endverbatim
 
 
-Because we are dealing with a dense granular material, the Ergun drag formulation is adopted to model the permeability. The drag model is set in *constant/interfacialProperties* as:
-
-\verbatim
-/*--------------------------------*- C++ -*----------------------------------*\
-| =========                 |                                                 |
-| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2306                                 |
-|   \\  /    A nd           | Website:  www.openfoam.com                      |
-|    \\/     M anipulation  |                                                 |
-\*---------------------------------------------------------------------------*/
-FoamFile
-{
-    version     2.0;
-    format      ascii;
-    class       dictionary;
-    location    "constant";
-    object      interfacialProperties;
-}
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-dragModela      Ergun;
-
-dragModelb      Ergun;
-
-dragPhase       a;
-
-
-// ************************************************************************* //
-\endverbatim
-
 
 
 */
