@@ -588,20 +588,6 @@ and you should see the following figure that show the trajectory and velocity of
 In this subsection we analyze the stresses and the trajectory of an intruder immersed in a uniform granular flow. To reduce the computational cost, we use a cylinder (a 2D object in OpenFOAM)  instead of the spherical intruder employed in previous numerical cases. Our approach is inspired by the work of  <a href="https://hal.science/hal-00997840/document">Guillard</a> , where lift and drag forces on a cylinder were measured under a granular flow. We adopt a similar set-up, as depicted in Figure 8. More specifically, a granular packing is considered, then, the bottom plate is set to a prescribed constant velocity that induces a uniform granular flow above the bottom plate. Placing a cylinder in the granular medium distorts the flow patterns. As illustrated in Figure 8, a constant horizontal velocity of \f$u_o=0.01m/s\f$ is prescribed at the bottom to generate the uniform granular flow. The initial velocity field is set to \f$u_o=0.01m/s\f$ as well. DEM simulations performed using the open-source code YADE are also presented to test the accuracy of sedFoam. The employed parameters are summarized in the following table:
 
 
-<table>
-<caption id="multi_row">Main physical parameters.</caption>
-<tr><th>Properties   <th>Value
-<tr><td>Intruder density   <td>\f$\rho^{obj}= 2500 \frac{kg}{m^3}\f$
-<tr><td>Fluid density    <td>\f$\rho^f=50 \frac{kg}{m^3}\f$
-<tr><td>Fluid viscosity     <td>\f$\nu^f=1.5  \cdot 10^{-5} \frac{m^2}{s}\f$
-<tr><td>Sediment density    <td>\f$\rho^f= 2500 \frac{kg}{m^3}\f$
-<tr><td>Sediment diameter    <td>\f$d=0.0015\f$ m
-<tr><td>Intruder diameter   <td>\f$D=3.3d\f$ m
-<tr><td>Domain  length   <td>\f$L=85d\f$ m
-<tr><td>Domain  depth     <td>\f$H=39d\f$ m
-<tr><td>Intruder depth     <td>\f$h=5.8D\f$ m
-</table>
-
 
 
 
