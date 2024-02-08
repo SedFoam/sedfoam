@@ -8,7 +8,7 @@
 
 \tableofcontents{xml:1}
 
-In this chapter multi-dimensional test cases are presented to illustrate the full SedFoam capabilities to deal with complex geometries as well as to provide configuration files to allow for the development of new configurations. 
+In this chapter multi-dimensional test cases are presented to illustrate the full SedFoam capabilities to deal with complex geometries as well as to provide configuration files to allow for the development of new configurations.
 
 
 \section BoundaryLayer 1DBoundaryLayer: Single-phase turbulent boundary layer flow
@@ -582,7 +582,7 @@ This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tut
 
 \subsection meshgen_SP Mesh generation
 
-The numerical domain dimensions are presented in figure 7. A cylinder of diameter \f$ D=5cm \f$ is placed 15 diameters away from the inlet. The overall domain dimensions were 35 diameters long and 6.1 diameters high. The mesh is generated using the OpenFOAM utilities blockMesh and snappyHexMesh. The mesh generated with blockMesh is a simple rectangle with regular grid spacing excepted in the vertical direction where cells are expanding toward the top boundary. The snappyHexMesh utility uses the file Cyl.stl located in the constant/triSurface directory containing the cylinder geometry to remove mesh cells inside it, add layers of cells around the cylinder and refine cells in regions of high concentration gradient at the bed. 
+The numerical domain dimensions are presented in figure 7. A cylinder of diameter \f$ D=5cm \f$ is placed 15 diameters away from the inlet. The overall domain dimensions were 35 diameters long and 6.1 diameters high. The mesh is generated using the OpenFOAM utilities blockMesh and snappyHexMesh. The mesh generated with blockMesh is a simple rectangle with regular grid spacing excepted in the vertical direction where cells are expanding toward the top boundary. The snappyHexMesh utility uses the file Cyl.stl located in the constant/triSurface directory containing the cylinder geometry to remove mesh cells inside it, add layers of cells around the cylinder and refine cells in regions of high concentration gradient at the bed.
 
 @image html "sketch_2DPipelineScour.png" "Figure 7: Sketch of the scour under a submarine pipeline." width=600px
 @image latex "sketch_2DPipelineScour.png" "Figure 7: Sketch of the scour under a submarine pipeline."
@@ -624,7 +624,7 @@ phaseb
 }
 //*********************************************************************** //
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-4;  // minimum volume fraction (phase a) for division by alpha 
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-4;  // minimum volume fraction (phase a) for division by alpha
 
 alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
 
@@ -706,13 +706,13 @@ The script plot_depth2DPipelineScour.py plots the maximum scour depth compared w
 
 \section Scour3DCylinder 3DScourCylinder: Scour around a vertical cylinder
 
-In this tutorial, the experimental configuration from Roulund et al (2005) is reproduced numerically. 
+In this tutorial, the experimental configuration from Roulund et al (2005) is reproduced numerically.
 
 \subsection preprocS3D Pre-processing
 
 This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/RAS/3DScour*.
 
-A 1D boundary layer simulation needs to be run (see folder 1D and Allrun.pre) for fore information. The result of this simulations is then used to intialize the 3D configuation and to impose the inlet boundary condition. 
+A 1D boundary layer simulation needs to be run (see folder 1D and Allrun.pre) for fore information. The result of this simulations is then used to intialize the 3D configuation and to impose the inlet boundary condition.
 
 \subsection meshgen_S3D Mesh generation
 
@@ -775,7 +775,7 @@ phaseb
     sF              sF   [ 0 0  0 0 0 0 0 ] 1.;
     hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;
 }
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
 
 alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
 
