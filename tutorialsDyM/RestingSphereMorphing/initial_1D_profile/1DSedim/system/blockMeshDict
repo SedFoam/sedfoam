@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2306                                 |
-|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -14,23 +14,23 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-convertToMeters 1;
+scale 0.1;
 
 vertices        
 (
-    ( -0.00018 -0.03  -0.00018 ) //0
-    (  0.00018 -0.03  -0.00018 ) //1
-    (  0.00018  -0.007 -0.00018 ) //2
-    ( -0.00018  -0.007 -0.00018 ) //3
-    ( -0.00018 -0.03   0.00018 ) //4
-    (  0.00018 -0.03   0.00018 ) //5
-    (  0.00018  -0.007  0.00018 ) //6
-    ( -0.00018  -0.007  0.00018 ) //7
+    (-10.005 -1   10.005) //0
+    ( 10.005 -1   10.005) //1
+    ( 10.005 0.  10.005) //2
+    (-10.005 0.  10.005) //3
+    (-10.005 -1  -10.005) //4
+    ( 10.005 -1  -10.005) //5
+    ( 10.005 0. -10.005) //6
+    (-10.005 0. -10.005) //7
 );
 
 blocks          
 (
-    hex (0 1 2 3 4 5 6 7) (1 160 1) simpleGrading (1 1 1)
+    hex (0 1 5 4 3 2 6 7) (1 1 120) simpleGrading (1 1 1)
 );
 
 edges           
@@ -41,43 +41,34 @@ boundary
 (
     inlet 
     {
-     type   patch;
-     //neighbourPatch outlet;
-     faces ((0 4 7 3));
+     type   cyclic;
+     neighbourPatch outlet;
+     faces ((0 3 7 4));
     }
     outlet
     {
-     type   patch;
-     //neighbourPatch  inlet;
-     faces  ((1 2 6 5));
+     type   cyclic;
+     neighbourPatch  inlet;
+     faces  ((1 5 6 2));
     }
     top
     { 
      type wall;
-        faces ((2 3 6 7));
+        faces ((7 6 2 3));
     }
     bottom 
     {
      type wall;
-     faces ((0 1 5 4)); 
+     faces ((0 4 5 1)); 
     }
-    backPlane
+    frontAndBackPlanes
     {
     type empty;
     faces (
            (0 1 2 3)
+           (4 7 6 5)
           );
     }
-
-    frontPlane
-    {
-    type empty;
-    faces (
-
-           (4 5 6 7)
-          );
-    }
-
 );
 
 mergePatchPairs

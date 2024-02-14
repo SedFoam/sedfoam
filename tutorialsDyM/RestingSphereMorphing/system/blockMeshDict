@@ -17,7 +17,7 @@ FoamFile
 verbose yes;
 
 innerRadius 0.0075;
-outerRadius 0.06;
+outerRadius 0.10;
 
 geometry {
     sphere1 {
@@ -34,8 +34,8 @@ geometry {
 
 scale 1;
 
-n1 40; //80
-n2 72; //95
+n1 30; //80
+n2 54; //95
 
 v #eval{ $outerRadius*0.5773502 };
 mv #eval{ -$outerRadius*0.5773502 };
@@ -131,7 +131,7 @@ boundary (
         type patch;
         faces
         (
-            (12 13 14 15)
+           (11 15 14 10)
         );
     }
     earth {
@@ -139,9 +139,10 @@ boundary (
         faces
         (
             ( 8 12 15 11)
-            (10 14 13  9)
+            (12 13 14 15)
             ( 9 13 12  8)
-            (11 15 14 10)
+ 
+            (10 14 13  9)
             ( 8 11 10  9)
         );
     }

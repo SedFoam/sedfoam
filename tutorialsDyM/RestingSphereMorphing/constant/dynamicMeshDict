@@ -27,7 +27,7 @@ sixDoFRigidBodyMotionCoeffs
 
     patches         (sphere);
     innerDistance   0.005;
-    outerDistance   0.045;
+    outerDistance   0.095;
         
     accelerationRelaxation 0.1;
     accelerationDamping 0.1;
@@ -38,7 +38,7 @@ sixDoFRigidBodyMotionCoeffs
     momentOfInertia ( 4.45E-08 4.45E-08 4.45E-08);
     rho             rhoInf;
     rhoInf          970;
-    g               (0 0 -9.81);
+    g               (0 -9.81 0);
     report          on;
     reportToFile    on;
     
@@ -47,15 +47,15 @@ sixDoFRigidBodyMotionCoeffs
         type Newmark;
     }
     
-    constraints
-    {
+    //constraints
+    //{
 
-        fixedLine
-        {
-            sixDoFRigidBodyMotionConstraint line;
-          //centreOfRotation (0.5 0.45 0.1);
-            direction (0 0 1);
-       }
+        //fixedLine
+        //{
+            //sixDoFRigidBodyMotionConstraint line;
+          ////centreOfRotation (0.5 0.45 0.1);
+            //direction (0 1 0);
+       //}
 
         
 
@@ -63,7 +63,7 @@ sixDoFRigidBodyMotionCoeffs
 
 
 
-    }
+    //}
 
 
 

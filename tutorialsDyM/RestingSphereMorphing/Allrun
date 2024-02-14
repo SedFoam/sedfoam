@@ -4,9 +4,10 @@
 blockMesh
 cp -r 0_org 0
 
-topoSet -dict system/topoSetDictR2 
 
-funkySetFields -time 0
+#map the fields
+mapFields -sourceTime 10 initial_1D_profile/1DSedim/
+mv 0/pointDisplacement.unmapped 0/pointDisplacement
 
 # Select cellSets for the different zones
 topoSet
@@ -16,5 +17,5 @@ setFields
 decomposePar
 
 # Run sedFoam
-#mpirun -np 20  overSedDymFoam_rbgh  -parallel > log&
+mpirun -np 10  overSedDymFoam_rbgh  -parallel > log.out&
 

@@ -35,8 +35,8 @@ geometry {
 
 scale 1;
 
-n1 34; //50
-n2 40; //60
+n1 17; //50
+n2 20; //60
 
 v #eval{ $outerRadius*0.5773502 };
 mv #eval{ -$outerRadius*0.5773502 };

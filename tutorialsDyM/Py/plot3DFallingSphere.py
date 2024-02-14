@@ -16,12 +16,12 @@ data_TenCate_vel = np.genfromtxt("DATA/tenCate2002velocityRe1.5.csv", delimiter=
 
 ############## loading overSedDymFoam results ###########
 sol="../FallingSphere"+DynamycMeshV+"/"
-if os.path.exists(sol+'time')==False:
+if os.path.exists(sol+'time.txt')==False:
 	print ("To generate the postprocessing files you need to execute makeFiles in the case first")	
 	sys.exit()
-datatime = np.genfromtxt(sol+'time',delimiter='\t', names=True)
-dataVz= np.genfromtxt(sol+'vz',delimiter='\t', names=True)
-dataPosz = np.genfromtxt(sol+'zcenter',delimiter='\t', names=True)
+datatime = np.genfromtxt(sol+'time.txt',delimiter='\t', names=True)
+dataVz= np.genfromtxt(sol+'vz.txt',delimiter='\t', names=True)
+dataPosz = np.genfromtxt(sol+'zcenter.txt',delimiter='\t', names=True)
 
 
 time_Sim=[]
@@ -43,7 +43,6 @@ plt.rc('text',usetex=True)
 font = {'family':'serif','size':30, 'serif': ['computer modern roman']}
 plt.rc('font',**font)
 plt.rc('legend',**{'fontsize':30})
-matplotlib.rcParams['text.latex.preamble']=[r'\usepackage{amsmath}']
 matplotlib.rcParams["legend.framealpha"] = None
 
 limX=0.7

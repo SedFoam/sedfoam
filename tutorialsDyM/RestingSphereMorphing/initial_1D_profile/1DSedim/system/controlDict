@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2306                                 |
-|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     sedFoam_rbgh;
+application     sedFoam;
 
 startFrom       latestTime;
 
@@ -23,13 +23,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         200;
+endTime         10;
 
-deltaT          1e-7;
+deltaT          1e-5;
 
 writeControl    adjustableRunTime;
 
-writeInterval   10;
+writeInterval   1;
 
 purgeWrite      0;
 
@@ -45,11 +45,10 @@ runTimeModifiable on;
 
 adjustTimeStep  on;
 
-maxCo           0.05;
+maxCo           0.01;
 
-maxAlphaCo      0.05;
+maxAlphaCo      0.01;
 
 maxDeltaT       1e-5;
-
 
 // ************************************************************************* //

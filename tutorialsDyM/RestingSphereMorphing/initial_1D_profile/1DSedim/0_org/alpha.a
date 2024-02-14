@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2306                                 |
-|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|  \\    /   O peration     | Version:  2.4.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -17,33 +17,68 @@ FoamFile
 
 dimensions      [0 0 0 0 0 0 0];
 
-internalField   uniform 0.;
+internalField   #codeStream
+{
+    codeInclude
+    #{
+        #include "fvCFD.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+    codeLibs
+    #{
+        -lfiniteVolume \
+        -lmeshTools
+    #};
+    code
+    #{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+	    const fvMesh& mesh = refCast<const fvMesh>(d.db());
+        scalarField alpha_a(mesh.nCells(), 0);
+
+        forAll(mesh.C(), i)
+        {
+            scalar y = mesh.C()[i].y();
+            if (y < -0.0125)
+            {
+                alpha_a[i] = 0.55;
+            }
+            else
+            {
+                alpha_a[i] = 0.;
+            }
+        }
+// OpenFoam.com version and Old OpenFoam.org (<= 6)
+        alpha_a.writeEntry("", os);
+// New OpenFoam.org version (>=7)
+//        writeEntry(os, "", alpha_a);
+    #};
+
+};
 
 boundaryField
 {
     inlet
     {
-        type            zeroGradient;
+        type            cyclic;
     }
     outlet
     {
-        type            zeroGradient;
+        type            cyclic;
     }
     top
     {
-//        type            zeroGradient;
-type fixedValue;
-value uniform 0;
- }
+        type            zeroGradient;
+    }
     bottom
     {
         type            zeroGradient;
     }
-    backPlane
-    {
-        type            empty;
-    }
-    frontPlane
+    frontAndBackPlanes
     {
         type            empty;
     }

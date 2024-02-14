@@ -2,8 +2,6 @@ import numpy as np
 from fluidfoam import readmesh, readvector, readscalar, readtensor
 from pylab import matplotlib, plt, show
 import csv
-import os
-import sys
 
 #Particles
 diameterPart = 1.5e-3 #Diameter of the particles composing the bed, in m
@@ -19,9 +17,7 @@ runD = np.genfromtxt("DATA/Yade_D.csv", delimiter=",", names=["time", "posZ"])
 #################### loading overSedDymFoam results  ##############
 
 sol = '../2DCylinderUniformGranularFlow/'
-if os.path.exists(sol+'time')==False:
-        print ("To generate the postprocessing files you need to execute makeFiles in the case first")   
-        sys.exit()
+
 datatime= np.genfromtxt(sol+'time',delimiter='\t', names=True)
 dataPosz = np.genfromtxt(sol+'zcenter',delimiter='\t', names=True)
 
@@ -39,7 +35,6 @@ plt.rc('text',usetex=True)
 font = {'family':'serif','size':16, 'serif': ['computer modern roman']}
 plt.rc('font',**font)
 plt.rc('legend',**{'fontsize':16})
-matplotlib.rcParams['text.latex.preamble']=[r'\usepackage{amsmath}']
 matplotlib.rcParams["legend.framealpha"] = None
 
 plt.rcParams["figure.figsize"] = (4,6)

@@ -1,69 +1,12 @@
-
-
-cat log.out | grep -w 'Time =' | cut -d' ' -f3 | tr -d '(' > time
-cat log.out | grep 'of mass' | cut -d' ' -f8 | tr -d '('  > xcenter
-cat log.out | grep 'of mass' | cut -d' ' -f9 | tr -d '('  > ycenter
-cat log.out | grep 'of mass' | cut -d' ' -f10 | tr -d ')'  > zcenter
-cat log.out | grep 'Linear' | cut -d' ' -f7 | tr -d '(' > vx
-cat log.out | grep 'Linear' | cut -d' ' -f8 | tr -d ' ' > vy
-cat log.out | grep 'Linear' | cut -d' ' -f9 | tr -d ')' > vz
-cat log.out | grep 'pressureFluid' | cut -d' ' -f13 | tr -d ')'  > pressureFluid_z
-cat log.out | grep 'pressureParticle' | cut -d' ' -f13 | tr -d ')'  > pressureParticle_z
-cat log.out | grep 'Viscous' | cut -d' ' -f14 | tr -d ')'  > pressureVisc_z
-
-cat log.outB | grep -w 'Time =' | cut -d' ' -f3 | tr -d '(' > timeB
-cat log.outB | grep 'of mass' | cut -d' ' -f8 | tr -d '('  > xcenterB
-cat log.outB | grep 'of mass' | cut -d' ' -f9 | tr -d '('  > ycenterB
-cat log.outB | grep 'of mass' | cut -d' ' -f10 | tr -d ')'  > zcenterB
-cat log.outB | grep 'Linear' | cut -d' ' -f7 | tr -d '(' > vxB
-cat log.outB | grep 'Linear' | cut -d' ' -f8 | tr -d ' ' > vyB
-cat log.outB | grep 'Linear' | cut -d' ' -f9 | tr -d ')' > vzB
-cat log.outB | grep 'pressureFluid' | cut -d' ' -f13 | tr -d ')'  > pressureFluid_zB
-cat log.outB | grep 'pressureParticle' | cut -d' ' -f13 | tr -d ')'  > pressureParticle_zB
-cat log.outB | grep 'Viscous' | cut -d' ' -f14 | tr -d ')'  > pressureVisc_zB
-
-
-
-
-cat log.outC | grep -w 'Time =' | cut -d' ' -f3 | tr -d '(' > timeC
-cat log.outC | grep 'of mass' | cut -d' ' -f8 | tr -d '('  > xcenterC
-cat log.outC | grep 'of mass' | cut -d' ' -f9 | tr -d '('  > ycenterC
-cat log.outC | grep 'of mass' | cut -d' ' -f10 | tr -d ')'  > zcenterC
-cat log.outC | grep 'Linear' | cut -d' ' -f7 | tr -d '(' > vxC
-cat log.outC | grep 'Linear' | cut -d' ' -f8 | tr -d ' ' > vyC
-cat log.outC | grep 'Linear' | cut -d' ' -f9 | tr -d ')' > vzC
-cat log.outC | grep 'pressureFluid' | cut -d' ' -f13 | tr -d ')'  > pressureFluid_zC
-cat log.outC | grep 'pressureParticle' | cut -d' ' -f13 | tr -d ')'  > pressureParticle_zC
-cat log.outC | grep 'Viscous' | cut -d' ' -f14 | tr -d ')'  > pressureVisc_zC
-
-
-
-
-cat log.outD | grep -w 'Time =' | cut -d' ' -f3 | tr -d '(' > timeD
-cat log.outD | grep 'of mass' | cut -d' ' -f8 | tr -d '('  > xcenterD
-cat log.outD | grep 'of mass' | cut -d' ' -f9 | tr -d '('  > ycenterD
-cat log.outD | grep 'of mass' | cut -d' ' -f10 | tr -d ')'  > zcenterD
-cat log.outD | grep 'Linear' | cut -d' ' -f7 | tr -d '(' > vxD
-cat log.outD | grep 'Linear' | cut -d' ' -f8 | tr -d ' ' > vyD
-cat log.outD | grep 'Linear' | cut -d' ' -f9 | tr -d ')' > vzD
-cat log.outD | grep 'pressureFluid' | cut -d' ' -f13 | tr -d ')'  > pressureFluid_zD
-cat log.outD | grep 'pressureParticle' | cut -d' ' -f13 | tr -d ')'  > pressureParticle_zD
-cat log.outD | grep 'Viscous' | cut -d' ' -f14 | tr -d ')'  > pressureVisc_zD
-
-
-
-
-cat log.outE | grep -w 'Time =' | cut -d' ' -f3 | tr -d '(' > timeE
-cat log.outE | grep 'of mass' | cut -d' ' -f8 | tr -d '('  > xcenterE
-cat log.outE | grep 'of mass' | cut -d' ' -f9 | tr -d '('  > ycenterE
-cat log.outE | grep 'of mass' | cut -d' ' -f10 | tr -d ')'  > zcenterE
-cat log.outE | grep 'Linear' | cut -d' ' -f7 | tr -d '(' > vxE
-cat log.outE | grep 'Linear' | cut -d' ' -f8 | tr -d ' ' > vyE
-cat log.outE | grep 'Linear' | cut -d' ' -f9 | tr -d ')' > vzE
-cat log.outE | grep 'pressureFluid' | cut -d' ' -f13 | tr -d ')'  > pressureFluid_zE
-cat log.outE | grep 'pressureParticle' | cut -d' ' -f13 | tr -d ')'  > pressureParticle_zE
-cat log.outE | grep 'Viscous' | cut -d' ' -f14 | tr -d ')'  > pressureVisc_zE
-
-
+cat log.out | grep -w 'Time =' | cut -d' ' -f3 | tr -d '(' > time.txt
+cat log.out | grep 'of mass' | cut -d' ' -f8 | tr -d '('  > xcenter.txt
+cat log.out | grep 'of mass' | cut -d' ' -f9 | tr -d '('  > ycenter.txt
+cat log.out | grep 'of mass' | cut -d' ' -f10 | tr -d ')'  > zcenter.txt
+cat log.out | grep 'Linear' | cut -d' ' -f7 | tr -d '(' > vx.txt
+cat log.out | grep 'Linear' | cut -d' ' -f8 | tr -d ' ' > vy.txt
+cat log.out | grep 'Linear' | cut -d' ' -f9 | tr -d ')' > vz.txt
+cat log.out | grep 'pressureFluid' | cut -d' ' -f12 | tr -d ')'  > pressureFluid_y.txt
+cat log.out | grep 'pressureParticle' | cut -d' ' -f12 | tr -d ')'  > pressureParticle_y.txt
+cat log.out | grep 'Viscous' | cut -d' ' -f13 | tr -d ')'  > pressureVisc_y.txt
 
 

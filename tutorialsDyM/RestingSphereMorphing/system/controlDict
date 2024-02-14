@@ -32,13 +32,13 @@ deltaT          1e-8;
 //writeInterval   10;
 
 writeControl    adjustableRunTime;
-writeInterval   5e-3;
+writeInterval   1e-2;
 
 purgeWrite      0;
 
 writeFormat     binary;
 
-writePrecision  9;
+writePrecision  13;
 
 writeCompression off;
 
@@ -50,9 +50,9 @@ runTimeModifiable true;
 
 adjustTimeStep  yes;
 
-maxCo           0.005;
-maxAlphaCo      0.005;
-maxDeltaT       1.e-5;
+maxCo           0.01;
+maxAlphaCo      0.01;
+maxDeltaT       3.e-5;
 
 //#include "maxCo"
 

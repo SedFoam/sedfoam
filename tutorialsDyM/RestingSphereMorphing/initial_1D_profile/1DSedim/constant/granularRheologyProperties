@@ -21,26 +21,19 @@ granularDilatancy off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
 
-mus             mus  [ 0 0 0 0 0 0 0 ] 0.4;
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.24;
 
-mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.7;
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.39;
 
-I0              I0  [ 0 0 0 0 0 0 0 ] 0.3;
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.01;
 
-Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.31;
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 1.;
 
-n               n [ 0 0 0 0 0 0 0 ] 2.5;
+n               n [ 0 0 0 0 0 0 0 ] 1.;
 
-Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
+Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
-BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 0e-1;
-
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.e-1;
-
-
-K_dila          K_dila [ 0 0 0 0 0 0 0 ] 0.0;
-
-alpha_c         alpha_c [ 0 0 0 0 0 0 0 ] 0.585;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 
 FrictionModel   MuIv;
 
