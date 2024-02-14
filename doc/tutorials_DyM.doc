@@ -611,7 +611,7 @@ In this subsection we analyze the stresses and the trajectory of an intruder imm
 
 
 
-@image html "2DCylScheme.png" "Figure 8: a) Numerical setup to model the segregation of a large intruder immersed in agranular flow. b) Morphing mesh at the initial time." width=700px
+@image html "2DCylScheme.png" "Figure 8: a) Numerical setup to model the segregation of a large intruder immersed in agranular flow. b) Morphing mesh at the initial time." width=900px
 @image latex "2DCylScheme.png" "Figure 8: a) Numerical setup to model the segregation of a large intruder immersed in agranular flow. b) Morphing mesh at the initial time."
 
 \subsection MeshCyl Mesh generation and setup
