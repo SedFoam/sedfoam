@@ -4,17 +4,17 @@
  * \date        April 25, 2022
  * \brief       index (doc)
  */
-/*! 
-\mainpage 
+/*!
+\mainpage
 <!--sedFOAM Manual-->
 @image html "cylinder3d.png" width=800px
 @image latex "cylinder3d.png"
 <h2>Introduction</h2>
-This documentation describes the three-dimensional two-phase flow solver for sediment transport applications:  SedFoam. The solver is based on twoPhaseEulerFoam solver available in the official release of the open-source CFD software OpenFOAM (based on OF2.4). In this approach the sediment phase is modeled as a continuum, and constitutive laws have to be prescribed for the sediment stresses. In the proposed solver, two different inter-granular stress models are implemented: the kinetic theory of granular flows and the dense granular flow rheology \f$\mu (I)\f$. For the fluid stress, laminar or turbulent flow regimes can be simulated and three different turbulence models are available for sediment transport: a simple mixing length model (one-dimensional configuration only), a \f$\kappa\f$-\f$\varepsilon\f$ and a \f$\kappa\f$-\f$\omega\f$ model. 
+This documentation describes the three-dimensional two-phase flow solver for sediment transport applications:  SedFoam. The solver is based on twoPhaseEulerFoam solver available in the official release of the open-source CFD software OpenFOAM (based on OF2.4). In this approach the sediment phase is modeled as a continuum, and constitutive laws have to be prescribed for the sediment stresses. In the proposed solver, two different inter-granular stress models are implemented: the kinetic theory of granular flows and the dense granular flow rheology \f$\mu (I)\f$. For the fluid stress, laminar or turbulent flow regimes can be simulated and three different turbulence models are available for sediment transport: a simple mixing length model (one-dimensional configuration only), a \f$\kappa\f$-\f$\varepsilon\f$ and a \f$\kappa\f$-\f$\omega\f$ model.
 
 Different laminar flow benchmarks/tutorials_laminar are provided to illustrate the model capabilities e.g. a sedimentation of spherical particles at low Reynolds number, the laminar bed-load problem, as well as turbulent flow benchmarks/tutorials_RAS are proposed. The source code and tutorial cases are disseminated at the public website: https://github.com/sedfoam/sedfoam alongside a detailed description of the tutorials.
 
-This manual is written as the documentation of the open-source solver sedFoam, it includes the installation procedure and a description of the model input/output files. 
+This manual is written as the documentation of the open-source solver sedFoam, it includes the installation procedure and a description of the model input/output files.
 
 The sedfoam solver should be referenced using the GMD paper :
 
@@ -29,15 +29,16 @@ The documentation is divided into two parts, the first one is the user manual:
 <ul>
 <li>Section \ref install explains how to download, compile and install SedFoam.
 <li>Section \ref howtodocker provides a survival guide on how to use SedFoam docker.
-<li>Section \ref governing describes sedFoam governing equations. 
-<li>Section \ref algoSedFoam describes sedFoam algorithm. 
+<li>Section \ref governing describes sedFoam governing equations.
+<li>Section \ref algoSedFoam describes sedFoam algorithm.
 <li>Section \ref tutorials_laminar describes the laminar flow tutorials provided with SedFoam sources including postprocessing using a python toolbox also provided with the source and the expected results.
 <li>Section \ref tutorials_RAS describes turbulent flow tutorials using RAS models provided with SedFoam sources.
 <li>Section \ref tutorials_LES describes turbulent flow tutorials using LES models provided with SedFoam sources.
+<li>Section \ref tutorials_DyM describes dynamic mesh tutorials using SedFoam.
 <li>Section \ref publicationList contains the list of publications using SedFoam.
 <li>Section \ref inputs describes the input parameters for SedFoam.
 <li>Section \ref howtogit provides a survival guide on how to use git to use/develop sedFoam.
-<li>Section \ref faq provides answers to typical Frequently Asked Questions about SedFoam 
+<li>Section \ref faq provides answers to typical Frequently Asked Questions about SedFoam
 </ul>
 
 
@@ -52,10 +53,10 @@ Copyright &copy; 2021 by
 and <a href="credits-contributors.html">contributors.</a><p>
 
 Permission to use, copy, modify, and distribute this software and its
-documentation under the terms of the GNU General Public License is hereby 
-granted. No representations are made about the suitability of this software 
+documentation under the terms of the GNU General Public License is hereby
+granted. No representations are made about the suitability of this software
 for any purpose. It is provided "as is" without express or implied warranty.
-See the 
+See the
 <a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">
 GNU General Public License</a>
 for more details.
@@ -70,4 +71,3 @@ Go to the <a href="install.html">next</a> section.
 \endhtmlonly
 
 */
-

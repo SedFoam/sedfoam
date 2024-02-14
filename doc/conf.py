@@ -7,7 +7,8 @@ STYLESHEETS = [
     '../css/m-dark+documentation.compiled.css'
 ]
 
-MAIN_PROJECT_URL = 'https://github.com/SedFoam/sedfoam'
+#MAIN_PROJECT_URL = 'https://github.com/SedFoam/sedfoam'
+MAIN_PROJECT_URL = 'https://github.com/puigmontella/sedfoam'
 
 LINKS_NAVBAR1 = [
     (None, 'pages', [
@@ -22,6 +23,7 @@ LINKS_NAVBAR1 = [
         ("Laminar flow Tutorials", 'tutorials_laminar'),
         ("Turbulence-averaged flow tutorials", 'tutorials_RAS'),
         ("Turbulence-resolving flow tutorials", 'tutorials_LES'),
+        ("Dynamic mesh tutorials", 'tutorials_DyM'),
         ("Input description", 'inputs')
     ])
 ]

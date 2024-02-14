@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# create input file from 1D computation for funkySetFields
+#mkdir 1d_profil
+#python3 -c "import fluidfoam; fluidfoam.create1dprofil('../../../1DCases/Reference1D_Fr01/', '.', '3', 'Y', ['alpha.a'])"
+
+
+# create the mesh
+blockMesh
+
+# create the intial time folder
+cp -r 0_org 0
+
+# Initialize the alpha field
+funkySetFields -time 0
+#mapFields -sourceTime 3 ../../../1DCases/Reference1D_Fr01
+
+## Write the mesh in folder 0/
+#postProcess -func writeCellCentres -time 0
+#ln -s Cx 0/ccx
+#ln -s Cy 0/ccy
+#ln -s Cz 0/ccz
+
+#mv 0/pointDisplacement.unmapped 0/pointDisplacement
+## Decompose the case in order to run in parallel (on 4 cores)
+decomposePar
+
+## Run sedFoam in parallel
+#mpirun -np 6 sedFoam_rbghMULES -parallel > log&

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * \file        tutorials_laminar.doc
  * \author      Cyrille Bonamy and Julien Chauchat
  * \date        June 03, 2021
@@ -217,7 +217,7 @@ nu              nu [ 0 2 -1 0 0 0 0 ] 2.105e-05;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e0;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
 
 \endverbatim
 
@@ -544,7 +544,7 @@ internalField   #codeStream
 \endverbatim
 
 
-The code is run using the command sedFoam_rbgh in the terminal. The "> log &" allows to run the code in batch and write the output in the file log. The run can be monitored using the command 
+The code is run using the command sedFoam_rbgh in the terminal. The "> log &" allows to run the code in batch and write the output in the file log. The run can be monitored using the command
 
 
 \verbatim
@@ -565,7 +565,7 @@ The postprocessing using python requires the installation of the package fluidfo
 
 \verbatim
 python plot_tuto1DSedim.py
-\endverbatim 
+\endverbatim
 
 and you should see the following figures:
 
@@ -787,7 +787,7 @@ This tutorial is distributed with sedFoam3.2 under the folder *sedFoamDirectory/
 \paragraph meshgenAva Mesh generation
 
 
-Because the avalanche is assumed to be in a stationary state, the simulation can be easily reduced to a one-dimensional problem.  The numerical domain consists of a rectangle of side length L = 0.01 made dimensionless by the domain size in the x-y plane and of height h=1 in the vertical direction z. 
+Because the avalanche is assumed to be in a stationary state, the simulation can be easily reduced to a one-dimensional problem.  The numerical domain consists of a rectangle of side length L = 0.01 made dimensionless by the domain size in the x-y plane and of height h=1 in the vertical direction z.
 
 A uniform mesh of 1 by 1 by 100 cells will be used (see \f$ n_{x}\f$=1 and \f$ n_{z}\f$=100 in figure 7). The block structure is the same as for the Sedimentation test case shown in figure 1.
 
@@ -1101,7 +1101,7 @@ The dilatancy model is turn on in *granularRheologyProperties* to reproduce the 
 \verbatim
 
 K_dila          K_dila [ 0 0 0 0 0 0 0 ] 4.0;
- 
+
 \endverbatim
 
 
@@ -1139,17 +1139,17 @@ the volume fraction, particle velocity and excess of pore pressure along the ver
 
 
 We consider a layer of granular material fully immersed in a viscous liquid. The granular layer
-is inclined so it starts moving down a planar slope as illustrated in figure 13.  
+is inclined so it starts moving down a planar slope as illustrated in figure 13.
 The  geometrical  parameters  and  boundary  conditions  are  set  to reproduce precisely the experimental setup of Pailha et al.(2008).
  In this example, the dense granular flow rheology \f$\mu(I_v)\f$ is considered.
-Additionally, dilatancy effects are included to better reproduce  the initial dynamics of the  granular flow.  Iverson et al.(2000) showed the  initial dynamics of underwater avalanches strongly 
+Additionally, dilatancy effects are included to better reproduce  the initial dynamics of the  granular flow.  Iverson et al.(2000) showed the  initial dynamics of underwater avalanches strongly
 depend on the initial volume fraction: initially loose granular beds are  instantaneously mobilized after tilting the plane whereas
 in initially dense granular beds, the motion of the avalanche is delayed. This mechanism is accompanied by an expansion (initially dense) or contraction  (initially loose)
 of the granular medium that modifies the pore space.  Consequently,  negative (dense packings) or positive (loose packings)
  excess  pore pressures develop within the mixture. In this example, we
- reproduce a dense granular avalanche \f$(\phi_0=0.592)\f$  in 2D. In order to reach an initial equilibrium state, 
+ reproduce a dense granular avalanche \f$(\phi_0=0.592)\f$  in 2D. In order to reach an initial equilibrium state,
  200 seconds are required to let the granular layer deposit by gravity. In order to save up some computational time, the deposition process
- is carried out in a 1D simulation in the *Reference1D* directory. 
+ is carried out in a 1D simulation in the *Reference1D* directory.
 
 
 @image html "schemeAvalanche2DViscous.png" "Figure 13: Schematic section of the 2D immersed avalanche in a viscous fluid flowing down on a uniform slope.  The coordinate system and main lengths are defined." width=500px
@@ -1165,21 +1165,21 @@ This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tut
 
 \subsection sediment1DwetAva 1D Deposition process
 
-The 1D sedimentation test can be launched by executing *Allrun* in the *Reference1D* directory. 
+The 1D sedimentation test can be launched by executing *Allrun* in the *Reference1D* directory.
 
 
-If you want a different initial volume fraction you need to adjust the *0_org/alphaPlastic* file accordingly. 
-Reference values: *alphaPlastic=0.575* leads to \f$\phi_0=0.592\f$, *alphaPlastic=0.545* leads to \f$\phi_0=0.571\f$ 
+If you want a different initial volume fraction you need to adjust the *0_org/alphaPlastic* file accordingly.
+Reference values: *alphaPlastic=0.575* leads to \f$\phi_0=0.592\f$, *alphaPlastic=0.545* leads to \f$\phi_0=0.571\f$
 and *alphaPlastic=0.520* leads to \f$\phi_0=0.566\f$.
 
 
 
 \subsection meshgen2DAvalanche Mesh generation
 
-The numerical domain consists of a rectangle of side length \f$L = 1m\f$ in the x-z plane and height \f$H = 0.07m\f$ in the vertical direction. 
+The numerical domain consists of a rectangle of side length \f$L = 1m\f$ in the x-z plane and height \f$H = 0.07m\f$ in the vertical direction.
 The initial bed depth is  \f$h = 0.0049m\f$. The mesh consists of 1000 elements  in the horizontal direction and 70  elements in  the vertical direction.
 The meshing utility *snappyHexMesh* is  executed to generate a finer mesh in regions of high concentration.
- 
+
 
 The meshing and refinement  process are generated by running:
 
@@ -1192,7 +1192,7 @@ extrudeMesh
 
 \subsection  BC_initi2DAvalanche Boundary and initial conditions
 
-Unlike previous tutorials, this case is set up to start at time t = 200s, time enough to reproduce an initially 
+Unlike previous tutorials, this case is set up to start at time t = 200s, time enough to reproduce an initially
 dense granular bed by a 1D deposition  test.
 The initial fields are retrieved from *Reference1D* directory and transformed to the new 2D geometry  by means of the *mapFields* utility:
 
@@ -1207,9 +1207,9 @@ mapFields -sourceTime 200 Reference1D
 \endverbatim
 
 
-In order to reproduce the experimental setup of Pailha et al. (2008), all the x-y plane  boundaries are set as wall boundaries. 
-The velocities of both phases are set to zero at all boundaries  (lateral, top and bottom) while  a  *fixedFluxPressure* condition is 
-imposed for the excess pore pressure on all boundaries. 
+In order to reproduce the experimental setup of Pailha et al. (2008), all the x-y plane  boundaries are set as wall boundaries.
+The velocities of both phases are set to zero at all boundaries  (lateral, top and bottom) while  a  *fixedFluxPressure* condition is
+imposed for the excess pore pressure on all boundaries.
 An homogeneous Neumann boundary condition (zero gradient) is imposed for all the other quantities.
 
 
@@ -1222,19 +1222,19 @@ The following variables are considered to reproduce the experimental results of 
 
 <table>
 <caption id="multi_row">Main physical parameters.</caption>
-<tr><th>Properties  	<th>Value  	
-<tr><td>Solid density  	<td>\f$\rho_p=2500 \frac{kg}{m^3}\f$  
-<tr><td>Fluid density	  	<td>\f$\rho_f=1041 \frac{kg}{m^3}\f$	
-<tr><td>Fluid viscosity    	<td>\f$\nu^f=9.2 \cdot 10^{-5} \frac{m^2}{s}\f$       
-<tr><td>Mean particle diameter    <td>\f$d=160 \cdot 10^{-6} m\f$    
-<tr><td>Slope inclined at the angle    <td>\f$\theta=25^o \f$       
-<tr><td>Solid phase thickness   <td>\f$h=0.0049 m\f$ 
-<tr><td>Box length   <td>\f$L=1 m\f$ 
-<tr><td>Box height   <td>\f$H=0.07 m\f$ 
-<tr><td>Initial solid volume fraction   <td>\f$\phi=0.592\f$   
-</table> 
+<tr><th>Properties  	<th>Value
+<tr><td>Solid density  	<td>\f$\rho_p=2500 \frac{kg}{m^3}\f$
+<tr><td>Fluid density	  	<td>\f$\rho_f=1041 \frac{kg}{m^3}\f$
+<tr><td>Fluid viscosity    	<td>\f$\nu^f=9.2 \cdot 10^{-5} \frac{m^2}{s}\f$
+<tr><td>Mean particle diameter    <td>\f$d=160 \cdot 10^{-6} m\f$
+<tr><td>Slope inclined at the angle    <td>\f$\theta=25^o \f$
+<tr><td>Solid phase thickness   <td>\f$h=0.0049 m\f$
+<tr><td>Box length   <td>\f$L=1 m\f$
+<tr><td>Box height   <td>\f$H=0.07 m\f$
+<tr><td>Initial solid volume fraction   <td>\f$\phi=0.592\f$
+</table>
 
-  
+
 
 
 Dense granular flow rheology \f$\mu(I_v)\f$ and the dilatancy  model is used as shown in *granularRheologyProperties*:
@@ -1284,7 +1284,7 @@ FluidViscosityModel  BoyerEtAl;
 Like in previous case, you can launch the computation by executing *Allrun*. The simulations will run in parallel on 18 cores.
 
 \verbatim
-# Decompose the case and run in parallel 
+# Decompose the case and run in parallel
 decomposePar
 mpirun -np 18 sedFoam_rbgh -parallel > log&
 \endverbatim

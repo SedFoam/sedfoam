@@ -1,0 +1,71 @@
+name: Generate_Doc
+on:
+  push:
+    branches: ['overSedDyMFoam']
+# Warning : schedule is only for default branch
+#  schedule:
+#    - cron: '0 3 * * 1'
+defaults:
+  run:
+    shell: bash
+env:
+  TZ: 'Europe/Paris'
+  DEBIAN_FRONTEND: 'noninteractive'
+
+jobs:
+
+  docs-build:
+    runs-on: ubuntu-latest
+    container: opencfd/openfoam-dev:2212
+    steps:
+      - name: install docs package
+        run: |
+          sudo apt-get update && sudo apt-get -y install ca-certificates git python3-pip libclang-14-dev &&
+            sudo apt-get -y install ack-grep libclang-cpp14 wget graphviz tex-gyre texlive-base dvisvgm &&
+            sudo DEBIAN_FRONTEND=noninteractive TZ='Europe/Paris' apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended &&
+            sudo pip3 install -U jinja2 Pygments && mkdir -p /github/home
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          path: sedfoam
+      - name: Install doxygen
+        run: |
+          shopt -s expand_aliases &&
+          wget https://sourceforge.net/projects/doxygen/files/rel-1.9.3/doxygen-1.9.3.linux.bin.tar.gz &&
+          tar -xvf doxygen-1.9.3.linux.bin.tar.gz
+      - name: clone m.css and build doc
+        run: |
+          shopt -s expand_aliases && export MYPATH=$PWD &&
+          export PATH=$PWD/doxygen-1.9.3/bin:$PATH &&
+          cd sedfoam/doc &&
+          git clone https://github.com/mosra/m.css &&
+          cd m.css/documentation && cp ../../doxygen.py . &&
+          source /openfoam/bash.rc &&
+          python3 doxygen.py ../../conf.py &&
+          cd ../.. && cp images/* mcssout/html/. && cd mcssout/html &&
+          sed -i "s|$MYPATH/sedfoam/|https://github.com/sedfoam/sedfoam/blob/master/|g" *.html
+#          grep -Z -l "ource file" *html | xargs -0 -n 1 sed -i "s|$MYPATH/sedfoam/|https://github.com/sedfoam/sedfoam/blob/master/|g"
+      - uses: actions/upload-artifact@v2
+        with:
+          name: sedfoam-doc
+          path: sedfoam/doc/mcssout/html
+
+  docs-deploy:
+    runs-on: ubuntu-latest
+    container: opencfd/openfoam-dev:2212
+    needs: docs-build
+    steps:
+      - name: install git
+        run: |
+          sudo apt-get update && sudo apt-get -y install git
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - uses: actions/download-artifact@v2
+        with:
+          name: sedfoam-doc
+          path: html
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: html # The folder the action should deploy.
