@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2106                                 |
+|  \\    /   O peration     | Version:  v2306                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -177,12 +177,13 @@ vertices
  //hex (44 47 50 43 57 60 63 56) (20 40 1) simpleGrading (1 1 1)
  //) ;
  
-rhoA 45;// radial
-rhoB 13; // arc
-rhoC 70; // right length
-rhoD 26; //up
-rhoE 30; //left side
-rhoF 26; //down
+rhoA 68;// radial
+rhoB 20; // arc
+rhoC 105; // right length
+rhoD 39; //up
+rhoE 45; //left side
+rhoF 39; //down
+
  
 
 blocks

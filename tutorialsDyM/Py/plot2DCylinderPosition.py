@@ -35,7 +35,6 @@ plt.rc('text',usetex=True)
 font = {'family':'serif','size':16, 'serif': ['computer modern roman']}
 plt.rc('font',**font)
 plt.rc('legend',**{'fontsize':16})
-matplotlib.rcParams['text.latex.preamble']=[r'\usepackage{amsmath}']
 matplotlib.rcParams["legend.framealpha"] = None
 
 plt.rcParams["figure.figsize"] = (4,6)
