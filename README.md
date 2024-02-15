@@ -27,7 +27,7 @@ Postprocessing plots can be generated using python. To do so, you just have to r
 
 Additional tutorials can be found in `tutorialsDyM`. This folder contains several examples with moving objects interacting with sediment transport processes but not all of them are part of the manuscript "The Role of Moving Objects in Sediment Transport Processes" presented in the OpenFOAM journal.
 
-It is worth mentioning that the python package fluidfoam (https://fluidfoam.readthedocs.io/) is needed for postprocessing of the tutorials. One can easily install fluidfoam by executing the following command:
+It is worth mentioning that the python package fluidfoam ( https://fluidfoam.readthedocs.io/ ) is needed for postprocessing of the tutorials. One can easily install fluidfoam by executing the following command:
 
 ```bash
 pip install fluidfoam --user
