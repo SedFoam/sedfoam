@@ -1,6 +1,4 @@
-from fluidfoam.readpostpro import readforce
 import numpy as np
-import fluidfoam
 
 rhoSolid=1141
 rhof=1000
@@ -38,7 +36,7 @@ def moving_average(data, window_size):
 
 
 
-    
+
 ############## loading overSedDymFoam results ###########
 sol="../RestingSphereMorphing/"
 datatime_Mixt_A = np.genfromtxt(sol+'time.txt',delimiter='\t', names=True)
@@ -80,7 +78,7 @@ mixtTOTAL_z_RefSedim_Ave = moving_average(mixtTOTAL_z_RefSedim_A, window)
 #########################################################################
 
 alhpaV=1
-	
+
 from pylab import matplotlib, plt, show
 
 plt.rcParams.update({'font.size': 16})
@@ -125,7 +123,5 @@ axs[2].legend(loc="upper left",fontsize="12" ,framealpha=0.5)
 
 fig.tight_layout()
 fig.savefig('Figures/RestingSphere.png', dpi=500)
-	
+
 plt.show()
-
-

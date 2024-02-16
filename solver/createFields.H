@@ -627,7 +627,7 @@ volScalarField delta
         IOobject::NO_WRITE
     ),
     mesh,
-    dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
+    dimensionedScalar("zero", dimensionSet(0, -0, -0, 0, 0), 0.0)
 );
 
 volScalarField CohesionDistrb

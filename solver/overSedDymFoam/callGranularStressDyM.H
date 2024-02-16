@@ -111,7 +111,7 @@ if (kineticTheory.on())
              + turbulencea->nut();
     lambdaUa = kineticTheory.lambda();
     pa = kineticTheory.pa();
-    
+
     pS=pa+pff;
 
     if (debugInfo)
@@ -137,7 +137,7 @@ else if (granularRheology.on())
     pa = granularRheology.pa();
     pS=pa+pff;
 
-	
+
     delta=granularRheology.delta();
 
     if (debugInfo)
@@ -160,7 +160,7 @@ else if (granularRheology.on())
 
 // Compute nuEffb the total fluid phase viscosity
     nuEffb = turbulenceb->nut() + granularRheology.nuvb();
-    
+
 }
 //
 //

@@ -1,5 +1,4 @@
 import numpy as np
-from fluidfoam import readmesh, readvector, readscalar, readtensor
 from pylab import matplotlib, plt, show
 import csv
 
@@ -26,7 +25,7 @@ Z_sed=[]
 for i in range(10,len(dataPosz)-10):
 	timeSed.append(datatime[i][0])
 	Z_sed.append( dataPosz[i][0]/diameterPartI)
-		
+
 ##################### plot ####################
 
 plt.rcParams.update({'font.size': 16})
