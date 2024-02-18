@@ -3,7 +3,6 @@ cd "${0%/*}" || exit                                # Run from this directory
 . ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
 #------------------------------------------------------------------------------
 
-
 runApplication blockMesh
 
 # Select cellSets
@@ -15,7 +14,6 @@ cp -r 0_org 0
 
 # Use cellSets to write zoneID
 runApplication setFields
-
 
 #funkySetFields -time 0
 decomposePar
