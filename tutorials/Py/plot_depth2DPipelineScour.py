@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import fluidfoam
 from scipy.interpolate import griddata
 
+
 # Function reading the mesh dimensions
 def readxy(case):
     x, y, z = fluidfoam.readmesh(case)
