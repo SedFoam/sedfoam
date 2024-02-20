@@ -65,7 +65,7 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
 WORKDIR /root/
 
 # Copy a script that we will use to correct permissions after running certain commands
-RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/docker-stacks-foundation/fix-permissions /usr/local/bin/fix-permissions"
+RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/images/docker-stacks-foundation/fix-permissions /usr/local/bin/fix-permissions"
 RUN chmod a+rx /usr/local/bin/fix-permissions
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
