@@ -107,8 +107,8 @@ ARG PYTHON_VERSION=default
 # Do all this in a single RUN command to avoid duplicating all of the
 # files across image layers when the permissions change
 
-# COPY --chown="${NB_UID}:${NB_GID}" /root/sedfoam/docker/docker-stacks/docker-stacks-foundation/initial-condarc "${CONDA_DIR}/.condarc"
-RUN /bin/bash -c "sudo cp /root/sedfoam/docker/docker-stacks/docker-stacks-foundation/initial-condarc /opt/conda/.condarc"
+# COPY --chown="${NB_UID}:${NB_GID}" /root/sedfoam/docker/docker-stacks/images/docker-stacks-foundation/initial-condarc "${CONDA_DIR}/.condarc"
+RUN /bin/bash -c "sudo cp /root/sedfoam/docker/docker-stacks/images/docker-stacks-foundation/initial-condarc /opt/conda/.condarc"
 RUN /bin/bash -c "sudo chown  1000:100 /opt/conda/.condarc"
 WORKDIR /tmp
 RUN set -x && \
@@ -160,8 +160,8 @@ EXPOSE $JUPYTER_PORT
 # CMD ["start-notebook.sh"]
 
 WORKDIR /root/sedfoam/docker/
-RUN /bin/bash -c "sudo cp ./docker-stacks/docker-stacks-foundation/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/"
-RUN /bin/bash -c "sudo mkdir /etc/jupyter && sudo cp /root/sedfoam/docker/docker-stacks/base-notebook/jupyter_server_config.py /root/sedfoam/docker/docker-stacks/base-notebook/docker_healthcheck.py /etc/jupyter/"
+RUN /bin/bash -c "sudo cp ./docker-stacks/images/docker-stacks-foundation/start.sh ./docker-stacks/images/base-notebook/start-notebook.sh ./docker-stacks/images/base-notebook/start-singleuser.sh /usr/local/bin/"
+RUN /bin/bash -c "sudo mkdir /etc/jupyter && sudo cp /root/sedfoam/docker/docker-stacks/images/base-notebook/jupyter_server_config.py /root/sedfoam/docker/docker-stacks/images/base-notebook/docker_healthcheck.py /etc/jupyter/"
 
 # Fix permissions on /etc/jupyter as root
 USER root
