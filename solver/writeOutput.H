@@ -27,10 +27,65 @@ if (runTime.outputTime())
 {
     if (writeTau == 1)
     {
-        Taua = rhoa*(alpha*nuEffa+nuFra)*dev(fvc::grad(Ua));
-        Taub = rhob*(scalar(1.0)-alpha)*nuEffb*dev(fvc::grad(Ub));
+        Taua = fvc::reconstruct(
+                    fvc::interpolate(rhoa*(alpha*nuEffa+nuFra)) *
+                    mesh.magSf()*fvc::snGrad(Ua)) +
+               rhoa*(alpha*nuEffa+nuFra)*dev(gradUaT);
+        Taub = fvc::reconstruct(
+                    fvc::interpolate(rhob*(scalar(1.0)-alpha)*nuEffb) *
+                    mesh.magSf()*fvc::snGrad(Ub)) +
+               rhob*(scalar(1.0)-alpha)*nuEffb*dev(gradUbT);
         Taua.write();
         Taub.write();
+    }
+    if (writeMomentumBudget == 1)
+    {
+
+        volTensorField Rca(
+            "Rca",
+            ((2.0/3.0)*I)*((nuEffa+nuFra/(alpha+alphaSmall))*tr(gradUaT)
+            + spherSigmaSGSa)
+            - (nuEffa+nuFra/(alpha+alphaSmall))*gradUaT
+        );
+
+        volTensorField Rca2(
+            "Rca2",
+            ((2.0/3.0)*I)*((alpha*nuEffa+nuFra)*tr(gradUaT)
+            + alpha*spherSigmaSGSa)
+            - (alpha*nuEffa+nuFra)*gradUaT
+        );
+        volVectorField Ra(
+            "Ra",
+            -nuEffa*fvc::grad(alpha)/(alpha+alphaSmall)
+        );
+        
+        surfaceScalarField phiRa(
+            -fvc::interpolate(nuEffa)*mesh.magSf()*(fvc::snGrad(alpha))
+            /fvc::interpolate(alpha+ alphaSmall)
+        );
+
+        SolidPressureContr = -fvc::grad(pa+pff);
+        ViscStressContr = rhoa*alpha*fvc::laplacian(nuEffa, Ua);
+        FrictContr = rhoa*fvc::laplacian(nuFra, Ua);
+        phiRaContr = -rhoa*alpha*fvc::div(phiRa, Ua, "div(phiRa,Ua)");
+        phiRa2Contr = rhoa*alpha*fvc::Sp(fvc::div(phiRa), Ua);
+        divRcaContr = -rhoa*alpha*fvc::div(Rca);
+        RcaContr = -rhoa*alpha/(alpha+alphaSmall)*(fvc::grad(alpha) & Rca);
+        BulkContr = fvc::grad(lambdaUa*tr(gradUaT));
+        divTauaContr = ViscStressContr + FrictContr + phiRaContr +
+                       phiRa2Contr + divRcaContr + RcaContr + BulkContr;
+
+        gravityContr=alpha/(alpha+alphaSmall)*(rhoa-rhob)*g;
+        DragContr=alpha*beta*K*(Ub-Ua);
+        ExtContr=rhoa*alpha*gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa);
+        SuspContr=-SUS*K*beta*turbulenceb->nut()
+                  *((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha));
+
+        divTauaContr.write();
+        gravityContr.write();
+        DragContr.write();
+        ExtContr.write();
+        SuspContr.write();
     }
     if (granularRheology.on())
     {
