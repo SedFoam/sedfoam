@@ -16,10 +16,10 @@ In this chapter we shall describe in detail the process of setup, simulation and
 
 
 
-Before launching any numerical simulation, make sure OVER is correctly installed and compiled. In case you are only interested in running dynamic mesh cases, the compilation is done by performing the following steps:
+Before launching any numerical simulation, make sure overSedDymFoam_rbgh is correctly installed and compiled. In case you are only interested in running dynamic mesh cases, the compilation is done by performing the following steps:
 
 <ol>
-<li>First, download the overSedDymFoam_rbgh branch:
+<li>First, download the overSedDyMFoam branch:
 
         git clone -b overSedDyMFoam https://github.com/puigmontella/sedfoam.git
 
@@ -35,12 +35,10 @@ Before launching any numerical simulation, make sure OVER is correctly installed
 </ol>
 
 To take full advantage of SedFoam and be able to run the postprocessing scripts make sure Python is installed. Python usually comes pre-installed in Linux. However, if not installed or if you need a specific version, you can install Python with the following command:
-sudo apt install python3
+
+        sudo apt install python3
 
 Further details can be found in section \ref install .
-
-\section  FallingSphereOverset_testcase FallingSphereOverset: Falling sphere in pure fluid using an overset  approach
-
 
 
 \tableofcontents{xml:1}
