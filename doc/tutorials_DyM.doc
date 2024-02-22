@@ -16,7 +16,7 @@ In this chapter we shall describe in detail the process of setup, simulation and
 
 
 
-Before launching any numerical simulation, make sure overSedDymFoam_rbgh is correctly installed and compiled. In case you are only interested in running dynamic mesh cases, the compilation is done by performing the following steps:
+Before launching any numerical simulation, make sure OVER is correctly installed and compiled. In case you are only interested in running dynamic mesh cases, the compilation is done by performing the following steps:
 
 <ol>
 <li>First, download the overSedDymFoam_rbgh branch:
