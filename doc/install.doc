@@ -24,16 +24,12 @@ To take full advantage of SedFoam the following additional tools should be insta
 <li><a href="https://openfoamwiki.net/index.php/Contrib/swak4Foam">swak4Foam</A> extension combines many fonctionalities and is needed for the tutorials
 <li>Python usually comes pre-installed in Linux. However, if not installed or if you need a specific version, you can install Python with the following command:
 
-<code> sudo apt install python3 <code>
+        sudo apt install python3
 
 <li>the python package
     <a href="https://github.com/fluiddyn/fluidfoam">fluidfoam</A>
     is needed for postprocessing of the tutorials.
 </ul>
-
-
-
-
 
 Compilation is now done by performing the following steps:
 

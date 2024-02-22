@@ -32,11 +32,10 @@ Before launching any numerical simulation, make sure overSedDymFoam_rbgh is corr
     The program should compile without problems and the binary
     <code>overSedDymFoam_rbgh</code> and associated libraries
     should be available in the $FOAM_USER_APPBIN and $FOAM_USER_LIBBIN directories.
-
 </ol>
 
 To take full advantage of SedFoam and be able to run the postprocessing scripts make sure Python is installed. Python usually comes pre-installed in Linux. However, if not installed or if you need a specific version, you can install Python with the following command:
-<code> sudo apt install python3 <code>
+sudo apt install python3
 
 Further details can be found in section \ref install .
 
