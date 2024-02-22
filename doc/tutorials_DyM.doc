@@ -6,7 +6,43 @@
  */
 /*! \page tutorials_DyM Dynamic mesh tutorials
 
+
+
+
 In this chapter we shall describe in detail the process of setup, simulation and post-processing for SedFoam test cases using dynamic meshes. All the tutorial cases are located in the *tutorialsDyM* directory.
+
+
+\section  PrerequisitesInst Installation Prerequisites
+
+
+
+Before launching any numerical simulation, make sure overSedDymFoam_rbgh is correctly installed and compiled. In case you are only interested in running dynamic mesh cases, the compilation is done by performing the following steps:
+
+<ol>
+<li>First, download the overSedDymFoam_rbgh branch:
+
+        git clone -b overSedDyMFoam https://github.com/puigmontella/sedfoam.git
+
+<li>Compile the program by running Allwmake:
+
+        cd sedfoam
+        source $FOAM_ETC/bashrc # load the openfoam environment
+        ./Allwmake
+
+    The program should compile without problems and the binary
+    <code>overSedDymFoam_rbgh</code> and associated libraries
+    should be available in the $FOAM_USER_APPBIN and $FOAM_USER_LIBBIN directories.
+
+</ol>
+
+To take full advantage of SedFoam and be able to run the postprocessing scripts make sure Python is installed. Python usually comes pre-installed in Linux. However, if not installed or if you need a specific version, you can install Python with the following command:
+<code> sudo apt install python3 <code>
+
+
+Further details can be found in section \ref install .
+
+\section  FallingSphereOverset_testcase FallingSphereOverset: Falling sphere in pure fluid using an overset  approach
+
 
 
 \tableofcontents{xml:1}

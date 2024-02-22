@@ -12,7 +12,7 @@
 
 \section install_src_unix Compiling from source with supported OpenFOAM (last ESI version)
 
-You need OpenFOAM-v2306 to build the executable. SedFoam versions released after SedFoam-3.3 will be named accordingly to OpenFOAM ESI versions. Currently the latest version is SedFoam-2306.
+You need OpenFOAM-v2306 to build the executable.
 <ul>
 <li>First go to the <a href="https://www.openfoam.com/download">download</a> page of the software
 <li><a href="https://www.openfoam.com/download/installation.php">Install OpenFOAM</a>.
@@ -20,25 +20,27 @@ You need OpenFOAM-v2306 to build the executable. SedFoam versions released after
 
 To take full advantage of SedFoam the following additional tools should be installed.
 
-
 <ul>
 <li><a href="https://openfoamwiki.net/index.php/Contrib/swak4Foam">swak4Foam</A> extension combines many fonctionalities and is needed for the tutorials
 <li>Python usually comes pre-installed in Linux. However, if not installed or if you need a specific version, you can install Python with the following command:
-<ol>
-sudo apt install python3
-</ol>
+
+<code> sudo apt install python3 <code>
+
 <li>the python package
     <a href="https://github.com/fluiddyn/fluidfoam">fluidfoam</A>
     is needed for postprocessing of the tutorials.
 </ul>
+
+
+
+
 
 Compilation is now done by performing the following steps:
 
 <ol>
 <li>Download the official SedFoam package:
 
-        git clone --recurse-submodules https://github.com/puigmontella/sedfoam
-        git clone -b overSedDyMFoam https://github.com/puigmontella/sedfoam.git
+        git clone --recurse-submodules http://github.com/sedfoam/sedfoam
 
 <li>Compile the program by running Allwmake:
 
