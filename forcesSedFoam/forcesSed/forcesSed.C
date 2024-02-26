@@ -348,7 +348,7 @@ Foam::tmp<Foam::volScalarField> Foam::functionObjects::forcesSed::mu() const
 
     if (foundObject<dictionary>("transportProperties"))
     {
-		
+
         const volScalarField& muEff = lookupObject<volScalarField>(muEffName_);
         return muEff;
     }
@@ -422,7 +422,7 @@ void Foam::functionObjects::forcesSed::applyBins
         moment_[1][0] += sum(Md^fNsolid);
         moment_[2][0] += sum(Md^fT);
         moment_[3][0] += sum(Md^fP);
-        
+
     }
     else
     {
@@ -732,17 +732,6 @@ Foam::functionObjects::forcesSed::forcesSed
         setCoordinateSystem(dict);
         Log << endl;
     }
-
-/*
-    // Turn off writing to file
-    writeToFile_ = false;
-
-    forAll(forceSed_, i)
-    {
-        forceSed_[i].setSize(nBin_, vector::zero);
-        moment_[i].setSize(nBin_, vector::zero);
-    }
-*/
 }
 
 
@@ -985,29 +974,29 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
             vectorField fN
             (
                 rho(p)*Sfb[patchi]*(1.*p_rbgh.boundaryField()[patchi]- pRef)
-                
 
-                
+
+
             );
             vectorField fNsolid
             (
                 rho(p)*Sfb[patchi]*(1*pS.boundaryField()[patchi] - pRef)
             );
-            
-            
+
+
             symmTensorField tensorShear
             (
                 devRhoReffb[patchi]
             );
-            
-            		
+
+
             vectorField fT(Sfb[patchi] & tensorShear);
             const vectorField Coordinates
             (
              mesh_.C().boundaryField()[patchi]
             );
-		
-	
+
+
             vectorField fP(Md.size(), Zero);
 
             addToFields(patchi, Md, fN,fNsolid, fT, fP);
@@ -1016,7 +1005,7 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
         }
     }
 
-   
+
 
     Pstream::listCombineGather(forceSed_, plusEqOp<vectorField>());
     Pstream::listCombineGather(moment_, plusEqOp<vectorField>());
