@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Create the mesh
+
+blockMesh
+
+cp -r 0_org 0
+
+mapFields -sourceTime 300 initial_1D_profile/1DSedim/
+decomposePar
+
+# Run sedFoam
+mpirun -np 4 sedFoam_rbgh -parallel > log&
+
+
+
+
+
