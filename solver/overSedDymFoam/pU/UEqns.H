@@ -30,15 +30,15 @@ MRF.correctBoundaryVelocity(U);
 
 // following is general form of mean flow + sine wave and 2nd order stokes waves
 // Add oscilitary pressure gradient
-//gradPOSC =
-//(
-    //gradPMEAN
-  //+ gradPAMP1*Foam::cos(initTheta1*pi/180.0 + 1.0*2.0*pi*runTime.value()/oscpT)
-  //+ gradPAMP2*Foam::cos(initTheta2*pi/180.0 + 2.0*2.0*pi*runTime.value()/oscpT)
-  //+ gradPAMP3*Foam::cos(initTheta3*pi/180.0 + 3.0*2.0*pi*runTime.value()/oscpT)
-  //+ gradPAMP4*Foam::cos(initTheta4*pi/180.0 + 4.0*2.0*pi*runTime.value()/oscpT)
-  //+ gradPAMP5*Foam::cos(initTheta5*pi/180.0 + 5.0*2.0*pi*runTime.value()/oscpT)
-//);
+gradPOSC =
+(
+    gradPMEAN
+  + gradPAMP1*Foam::cos(initTheta1*pi/180.0 + 1.0*2.0*pi*runTime.value()/oscpT)
+  + gradPAMP2*Foam::cos(initTheta2*pi/180.0 + 2.0*2.0*pi*runTime.value()/oscpT)
+  + gradPAMP3*Foam::cos(initTheta3*pi/180.0 + 3.0*2.0*pi*runTime.value()/oscpT)
+  + gradPAMP4*Foam::cos(initTheta4*pi/180.0 + 4.0*2.0*pi*runTime.value()/oscpT)
+  + gradPAMP5*Foam::cos(initTheta5*pi/180.0 + 5.0*2.0*pi*runTime.value()/oscpT)
+);
 
 dimensionedScalar ramp0
 (
@@ -58,17 +58,17 @@ dimensionedScalar expValue
 	dimensionSet(0, 0, 0, 0, 0, 0, 0),
 	Foam::exp(ramp1.value()*runTime.value())
 );
-gradPOSC =
-//min(1, ramp0*(exp(ramp1*runTime.value())-1))*
-min(1,ramp0.value()*(expValue.value()-1))*
-(
-    gradPMEAN
-  + gradPAMP1*Foam::cos(initTheta1*pi/180.0 + 1.0*2.0*pi*runTime.value()/oscpT)
-  + gradPAMP2*Foam::cos(initTheta2*pi/180.0 + 2.0*2.0*pi*runTime.value()/oscpT)
-  + gradPAMP3*Foam::cos(initTheta3*pi/180.0 + 3.0*2.0*pi*runTime.value()/oscpT)
-  + gradPAMP4*Foam::cos(initTheta4*pi/180.0 + 4.0*2.0*pi*runTime.value()/oscpT)
-  + gradPAMP5*Foam::cos(initTheta5*pi/180.0 + 5.0*2.0*pi*runTime.value()/oscpT)
-);
+//gradPOSC =
+////min(1, ramp0*(exp(ramp1*runTime.value())-1))*
+//min(1,ramp0.value()*(expValue.value()-1))*
+//(
+    //gradPMEAN
+  //+ gradPAMP1*Foam::cos(initTheta1*pi/180.0 + 1.0*2.0*pi*runTime.value()/oscpT)
+  //+ gradPAMP2*Foam::cos(initTheta2*pi/180.0 + 2.0*2.0*pi*runTime.value()/oscpT)
+  //+ gradPAMP3*Foam::cos(initTheta3*pi/180.0 + 3.0*2.0*pi*runTime.value()/oscpT)
+  //+ gradPAMP4*Foam::cos(initTheta4*pi/180.0 + 4.0*2.0*pi*runTime.value()/oscpT)
+  //+ gradPAMP5*Foam::cos(initTheta5*pi/180.0 + 5.0*2.0*pi*runTime.value()/oscpT)
+//);
 
 
 

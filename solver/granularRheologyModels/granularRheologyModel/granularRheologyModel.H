@@ -91,6 +91,9 @@ class granularRheologyModel
     //- use dilatancy model or not.
     Switch granularDilatancy_;
 
+    //- use cohesion or not.
+    Switch granularCohesion_;
+
     autoPtr<granularRheologyModels::FrictionModel> FrictionModel_;
     autoPtr<granularRheologyModels::PPressureModel> PPressureModel_;
     autoPtr<granularRheologyModels::FluidViscosityModel> FluidViscosityModel_;
@@ -212,7 +215,10 @@ public:
     {
         return granularDilatancy_;
     }
-
+    bool cohesion() const
+    {
+        return granularCohesion_;
+    }
     const volScalarField& mua() const
     {
         return mua_;

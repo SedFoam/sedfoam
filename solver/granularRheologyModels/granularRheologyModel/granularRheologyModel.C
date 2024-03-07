@@ -66,6 +66,10 @@ Foam::granularRheologyModel::granularRheologyModel
     (
         granularRheologyProperties_.get<Switch>("granularDilatancy")
     ),
+    granularCohesion_
+    (
+        granularRheologyProperties_.get<Switch>("granularCohesion")
+    ),
     FrictionModel_
     (
         granularRheologyModels::FrictionModel::New
@@ -295,7 +299,7 @@ Foam::granularRheologyModel::granularRheologyModel
             IOobject::NO_WRITE
         ),
         alpha_.mesh(),
-        dimensionedScalar("zero", dimensionSet(0, -0, -0, 0, 0), 0.0)
+        dimensionedScalar("zero",  alpha_.dimensions(), 0.0)
     ),
 
     delta_
@@ -436,6 +440,21 @@ void Foam::granularRheologyModel::solve
         delta_.min( 0.4);
         delta_.max(-0.4);
     }
+
+	// Building and solving the cohesion tranport equation
+	if (granularCohesion_)
+    {
+    fvScalarMatrix CohesionEqn
+    (
+         fvm::ddt(CohesionDistrb_)
+         + fvm::div(phia_, CohesionDistrb_, "div(phia,CohesionDistrb_)")
+         - fvm::Sp(fvc::div(phia_), CohesionDistrb_)
+    );
+    CohesionEqn.relax();
+    CohesionEqn.solve();
+	}
+	
+    
     //  Compute the regularized particulate viscosity
     mua_ = (cohesion_*CohesionDistrb_*alpha_/(alpha_+alphaSmall) + muI_* p_p_total_ )/ pow(magD2 + Dsmall2, 0.5);
 

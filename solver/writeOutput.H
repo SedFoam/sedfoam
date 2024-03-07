@@ -64,6 +64,10 @@ if (runTime.outputTime())
             alphaPlastic.write();
             delta.write();
         }
+        if (granularRheology.cohesion())
+        {
+		CohesionDistrb.write();
+		}
     }
     if (kineticTheory.on())
     {
