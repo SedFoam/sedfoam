@@ -136,9 +136,8 @@ else if (granularRheology.on())
 // Particulate pressure and viscosity
     pa = granularRheology.pa();
     pS=pa+pff;
-
-
     delta=granularRheology.delta();
+    CohesionDistrb=granularRheology.CohesionDistrb();
 
     if (debugInfo)
     {

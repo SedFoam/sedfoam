@@ -115,6 +115,7 @@ else if (granularRheology.on())
 
 // Particulate pressure and viscosity
     pa = granularRheology.pa();
+    pS=pa+pff;
     delta=granularRheology.delta();
     CohesionDistrb=granularRheology.CohesionDistrb();
 
@@ -131,6 +132,9 @@ else if (granularRheology.on())
 
     nuEffa = sqr(Ct)*turbulenceb->nut() + nua + turbulencea->nut();
     lambdaUa = nua*rhoa*scalar(0.0);
+
+    muEff =   granularRheology.nuvb()*rhob*(1-alpha)+rho*turbulenceb->nut();
+    muFra =    granularRheology.mua();
 
 // Compute nuEffb the total fluid phase viscosity
     nuEffb = turbulenceb->nut() + granularRheology.nuvb();

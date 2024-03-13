@@ -865,6 +865,18 @@ volScalarField pff
     mesh,
     dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
 );
+volScalarField pS
+(
+    IOobject
+    (
+        "pS",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    pff + pa
+);
 volVectorField SolidPressureContr
 (
     IOobject
@@ -960,6 +972,34 @@ volVectorField ExtContr
          IOobject::NO_WRITE
     ),
     fvc::grad(pff)
+);
+Info<< "Calculating field muEff\n" << endl;
+volScalarField muEff
+(
+    IOobject
+    (
+        "muEff",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimensionSet(1 , -1 ,-1 ,0 , 0), 0.0)
+);
+Info<< "Calculating field muFra\n" << endl;
+volScalarField muFra
+(
+    IOobject
+    (
+        "muFra",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimensionSet(1 , -1 ,-1 ,0 , 0), 0.0)
 );
 volScalarField SUStilde
 (
