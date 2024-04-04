@@ -19,17 +19,10 @@ solvers
 {
     p_rbgh
     {
-        solver          GAMG;
-        tolerance       1e-08;
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-8;
         relTol          0;
-        smoother        DIC;
-        nPreSweeps      0;
-        nPostSweeps     2;
-        nFinestSweeps   2;
-        cacheAgglomeration true;
-        nCellsInCoarsestLevel 10;
-        agglomerator    faceAreaPair;
-        mergeLevels     1;
     }
 
     p_rbghFinal

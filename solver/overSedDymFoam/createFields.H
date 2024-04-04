@@ -901,102 +901,7 @@ volScalarField pS
     ),
     pff + pa
 );
-volVectorField SolidPressureContr
-(
-    IOobject
-    (
-        "SolidPressureContr",
-         runTime.timeName(),
-         mesh,
-         IOobject::NO_READ,
-         IOobject::NO_WRITE
-    ),
-    fvc::grad(p_rbgh)
-);
-volVectorField FluidPressureContr
-(
-    IOobject
-    (
-        "FluidPressureContr",
-         runTime.timeName(),
-         mesh,
-         IOobject::NO_READ,
-         IOobject::NO_WRITE
-    ),
-    fvc::grad(pff)
-);
-volVectorField ViscStressContr
-(
-    IOobject
-    (
-        "ViscStressContr",
-         runTime.timeName(),
-         mesh,
-         IOobject::NO_READ,
-         IOobject::NO_WRITE
-    ),
-    fvc::grad(pff)
-);
-volVectorField FrictContr
-(
-    IOobject
-    (
-        "FrictContr",
-         runTime.timeName(),
-         mesh,
-         IOobject::NO_READ,
-         IOobject::NO_WRITE
-    ),
-    fvc::grad(pff)
-);
-volVectorField gravityContr
-(
-    IOobject
-    (
-        "gravityContr",
-         runTime.timeName(),
-         mesh,
-         IOobject::NO_READ,
-         IOobject::NO_WRITE
-    ),
-    fvc::grad(pff)
-);
-volVectorField DragContr
-(
-    IOobject
-    (
-        "DragContr",
-         runTime.timeName(),
-         mesh,
-         IOobject::NO_READ,
-         IOobject::NO_WRITE
-    ),
-    fvc::grad(pff)
-);
-volVectorField SuspContr
-(
-    IOobject
-    (
-        "SuspContr",
-         runTime.timeName(),
-         mesh,
-         IOobject::NO_READ,
-         IOobject::NO_WRITE
-    ),
-    fvc::grad(pff)
-);
-volVectorField ExtContr
-(
-    IOobject
-    (
-        "ExtContr",
-         runTime.timeName(),
-         mesh,
-         IOobject::NO_READ,
-         IOobject::NO_WRITE
-    ),
-    fvc::grad(pff)
-);
+
 Info<< "Calculating field muEff\n" << endl;
 volScalarField muEff
 (
@@ -1025,6 +930,7 @@ volScalarField muFra
     mesh,
     dimensionedScalar("zero", dimensionSet(1 , -1 ,-1 ,0 , 0), 0.0)
 );
+
 volScalarField SUStilde
 (
     IOobject
@@ -1037,6 +943,176 @@ volScalarField SUStilde
     ),
     mesh,
     dimensionedScalar("one", dimensionSet(0, 0, 0, 0, 0), 1.0)
+);
+
+volVectorField SolidPressureContr
+(
+    IOobject
+    (
+        "SolidPressureContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(p_rbgh)
+);
+
+volVectorField divTauaContr
+(
+    IOobject
+    (
+        "divTauaContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+
+
+volVectorField ViscStressContr
+(
+    IOobject
+    (
+        "ViscStressContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+
+volVectorField FrictContr
+(
+    IOobject
+    (
+        "FrictContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+
+volVectorField phiRaContr
+(
+    IOobject
+    (
+        "phiRaContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+
+volVectorField phiRa2Contr
+(
+    IOobject
+    (
+        "phiRa2Contr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+
+volVectorField divRcaContr
+(
+    IOobject
+    (
+        "divRcaContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+
+volVectorField RcaContr
+(
+    IOobject
+    (
+        "RcaContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+
+volVectorField BulkContr
+(
+    IOobject
+    (
+        "BulkContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+
+volVectorField gravityContr
+(
+    IOobject
+    (
+        "gravityContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+
+volVectorField DragContr
+(
+    IOobject
+    (
+        "DragContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+
+volVectorField SuspContr
+(
+    IOobject
+    (
+        "SuspContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
+);
+
+volVectorField ExtContr
+(
+    IOobject
+    (
+        "ExtContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(pff)
 );
 
 volScalarField p

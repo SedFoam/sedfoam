@@ -44,31 +44,17 @@ divSchemes
     div(phia,alphaPlastic)   Gauss limitedLinear01 1;
 // pa
     div(phia,pa_new_value)   Gauss limitedLinear 1;
-// k and EpsilonEqn
-    div(phi.b,k.b)     Gauss limitedLinear 1;
-    div(phi.b,epsilon.b) Gauss limitedLinear 1;
-// ThetaEqn
-    div(phi,Theta)  Gauss limitedLinear 1;
 }
 
 laplacianSchemes
 {
     default         none;
-// alphaEqn
-    laplacian(Da,alpha.a)  Gauss linear corrected;
 // UEqn
     laplacian(nuEffa,U.a) Gauss linear corrected;
     laplacian(nuEffb,U.b) Gauss linear corrected;
     laplacian(nuFra,U.a)  Gauss linear corrected;
 // pEqn
     laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
-// k and EpsilonEqn 
-    laplacian(DkEff,k) Gauss linear corrected;
-    laplacian(DkEff,beta) Gauss linear corrected;
-    laplacian(DepsilonEff,epsilon) Gauss linear corrected;
-    laplacian(DepsilonEff,beta) Gauss linear corrected;
-//ThetaEqn
-    laplacian(kappa,Theta) Gauss linear corrected;
 }
 
 interpolationSchemes

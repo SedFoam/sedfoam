@@ -29,8 +29,8 @@ divSchemes
 {
     default         none;
 // alphaEqn
-    div(phi,alpha)  Gauss limitedLinear01 1;
-    div(phir,alpha) Gauss limitedLinear01 1;
+    div(phi,alpha)  Gauss vanLeer;
+    div(phir,alpha) Gauss linear;
 // UEqn
     div(phi.a,U.a)    Gauss limitedLinearV 1;
     div(phi.b,U.b)    Gauss limitedLinearV 1;
@@ -69,7 +69,7 @@ laplacianSchemes
     laplacian(DomegaEff,omega) Gauss linear corrected;
 //ThetaEqn
     laplacian(kappa,Theta) Gauss linear corrected;
-    laplacian(kappa2,alpha) Gauss linear corrected;
+    laplacian(kappaAlpha,alpha) Gauss linear corrected;
 }
 
 interpolationSchemes

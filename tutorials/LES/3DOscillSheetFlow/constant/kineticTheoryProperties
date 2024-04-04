@@ -31,20 +31,18 @@ MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 5;
 
 phi             phi [ 0 0 0 0 0 0 0 ] 32; //mus = 0.35 = sin(phi*pi/180)
 
-psi             psi [ 0 0 0 0 0 0 0 ] 0.0;
-
 killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 1;
 
 quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
 
-viscosityModel  GarzoDuftyMod;//Gidaspow;
+viscosityModel  GarzoDufty;//Gidaspow;
 
-conductivityModel GarzoDuftyMod;//Gidaspow;
+conductivityModel GarzoDufty;//Gidaspow;
 
 granularPressureModel Lun;
 
 frictionalStressModel SrivastavaSundaresan;
 
-radialModel     ChialvoSundaresanFric;
+radialModel     ChialvoSundaresan;
 
 // ************************************************************************* //
