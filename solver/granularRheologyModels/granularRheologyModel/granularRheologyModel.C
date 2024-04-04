@@ -453,8 +453,8 @@ void Foam::granularRheologyModel::solve
     CohesionEqn.relax();
     CohesionEqn.solve();
 	}
-	
-    
+
+
     //  Compute the regularized particulate viscosity
     mua_ = (cohesion_*CohesionDistrb_*alpha_/(alpha_+alphaSmall) + muI_* p_p_total_ )/ pow(magD2 + Dsmall2, 0.5);
 

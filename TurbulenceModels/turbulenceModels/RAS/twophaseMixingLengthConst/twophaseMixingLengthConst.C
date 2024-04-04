@@ -70,6 +70,51 @@ twophaseMixingLengthConst<BasicTurbulenceModel>::twophaseMixingLengthConst
         transport,
         propertiesName
     ),
+    Cmu_
+    (
+        dimensioned<scalar>::getOrAddToDict
+        (
+            "Cmu",
+            this->coeffDict_,
+            0.09
+        )
+    ),
+    expoLM_
+    (
+        dimensioned<scalar>::getOrAddToDict
+        (
+            "expoLM",
+            this->coeffDict_,
+            1.0
+        )
+    ),
+    alphaMaxLM_
+    (
+        dimensioned<scalar>::getOrAddToDict
+        (
+            "alphaMaxLM",
+            this->coeffDict_,
+            0.55
+        )
+    ),
+    kappaLM_
+    (
+        dimensioned<scalar>::getOrAddToDict
+        (
+            "kappaLM",
+            this->coeffDict_,
+            0.225
+        )
+    ),
+    d_
+    (
+        dimensioned<scalar>::getOrAddToDict
+        (
+            "d",
+            this->coeffDict_,
+            0.005
+        )
+    ),
     k_
     (
         IOobject
@@ -137,6 +182,8 @@ void twophaseMixingLengthConst<BasicTurbulenceModel>::correct()
     );
 
 // Local references
+    const volScalarField& beta = this->alpha_;
+    const volScalarField alpha = 1 - beta;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
 
@@ -149,17 +196,37 @@ void twophaseMixingLengthConst<BasicTurbulenceModel>::correct()
     volScalarField Y(U.mesh().C().component(vector::Y));
 
     scalar Lm(0.);
-
+    scalar dY;
+    scalar expoLM(expoLM_.value());
+    scalar kappaLMs(kappaLM_.value());
+    scalar d(d_.value());
+    scalar alphaMaxLMs(alphaMaxLM_.value());
+    scalar LmPhi(0.);
     scalar cmu34 = 0.1643;
 
 
     nut.storePrevIter();
     forAll(U, cellI)
     {
-        Lm = 0.2*0.007;
+        if (cellI==0)
+        {
+            dY = Y[cellI+1]-Y[cellI];
+        }
+        else
+        {
+            dY = Y[cellI]-Y[cellI-1];
+        }
+        LmPhi = LmPhi
+              + kappaLMs*max
+              (
+                  scalar(1.0)
+                - Foam::pow(min(alpha[cellI]/alphaMaxLMs, scalar(1.0)),
+                            expoLM), 0.
+              )*dY;
+        Lm = max(LmPhi, 0.2*d);
         nut[cellI] = pow(Lm, 2)*magD[cellI];
         // for kinetic theory k is required
-        k_[cellI] = pow(nut[cellI]/(0.8*max(Lm, 1e-4)), 2);
+        k_[cellI] = pow(nut[cellI]/(0.1*max(Lm, 1e-4)), 2);
         epsilon_[cellI] = cmu34*Foam::pow(k_[cellI], 1.5)/max(Lm, 1e-4);
     }
     nut.relax();
