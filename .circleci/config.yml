@@ -119,8 +119,8 @@ jobs:
           name: Install and configure dependencies
           command: |
             npm install -g --silent gh-pages@2.0.1
-            git config user.email "eduard.puig-montella@univ-grenoble-alpes.fr"
-            git config user.name "puigmontella"
+            git config user.email "cyrille.bonamy@univ-grenoble-alpes.fr"
+            git config user.name "CyrilleBonamy"
       - add_ssh_keys:
           fingerprints:
           - $GITHUB_TOKEN
@@ -336,7 +336,7 @@ workflows:
           filters:
             branches:
               only:
-                - overSedDyMFoam
+                - develop
     jobs:
       - checkstyle
       - build
@@ -352,7 +352,8 @@ workflows:
       - advanced-test2:
           requires:
             - build
-     - docs-build
-     - docs-deploy:
-         requires:
-           - docs-build
+#      - docs-build
+#      - docs-deploy:
+#          requires:
+#            - docs-build
+
