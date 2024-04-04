@@ -884,7 +884,7 @@ volScalarField pff
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
-        IOobject::NO_WRITE
+        IOobject::AUTO_WRITE
     ),
     mesh,
     dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
