@@ -1,7 +1,0 @@
-cat log.out | grep -w 'Time =' | cut -d' ' -f3 | tr -d '(' > time.txt
-cat log.out | grep 'of mass' | cut -d' ' -f8 | tr -d '('  > xcenter.txt
-cat log.out | grep 'of mass' | cut -d' ' -f9 | tr -d '('  > ycenter.txt
-cat log.out | grep 'of mass' | cut -d' ' -f10 | tr -d ')'  > zcenter.txt
-cat log.out | grep 'Linear' | cut -d' ' -f7 | tr -d '(' > vx.txt
-cat log.out | grep 'Linear' | cut -d' ' -f8 | tr -d ' ' > vy.txt
-cat log.out | grep 'Linear' | cut -d' ' -f9 | tr -d ')' > vz.txt
