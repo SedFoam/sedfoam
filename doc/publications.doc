@@ -1,14 +1,21 @@
 ﻿/**
- * \file        install.doc
+ * \file        publications.doc
  * \author      Cyrille Bonamy and Julien Chauchat
  * \date        June 03, 2021
- * \brief       Installation (doc)
+ * \brief       Publication list (doc)
  */
 /*! \page publicationList Publications
 
 @brief Publications using sedFoam
 
 \tableofcontents
+
+\section pubs2023 2023
+
+<ul>
+<li>Montellà, E. P., Chauchat, J., Bonamy, C., Weij, D., Keetels, G. H., and Hsu, T. J. (2023). Numerical investigation of mode failures in submerged granular columns. Flow, 3, E28. DOI : https://doi.org/10.1017/flo.2023.23 
+<li>Chassagne, R., Bonamy, C., and Chauchat, J. (2023). A frictional–collisional model for bedload transport based on kinetic theory of granular flows: Discrete and continuum approaches. Journal of Fluid Mechanics, 964, A27. DOI : https://doi.org/10.1017/jfm.2020.274 
+</ul>
 
 \section pubs2022 2022
 
@@ -63,4 +70,3 @@ Go to the <a href="tutorials_1d.html">next</a> section or return to the
 \endhtmlonly
 
 */
-
