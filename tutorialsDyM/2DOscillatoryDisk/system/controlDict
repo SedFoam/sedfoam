@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-libs            (overset fvMotionSolvers);
+libs            ("liboverset.so");
 
 application     overSedDymFoam_rbgh;
 
@@ -28,10 +28,8 @@ endTime         4.;
 
 deltaT          0.0000025;
 
-//writeControl    timeStep;
-//writeInterval   10;
-
 writeControl    adjustable;
+
 writeInterval   2e-2;
 
 purgeWrite      0;

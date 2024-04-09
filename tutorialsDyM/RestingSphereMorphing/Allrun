@@ -4,7 +4,6 @@
 blockMesh
 cp -r 0_org 0
 
-
 #map the fields
 mapFields -sourceTime 10 initial_1D_profile/1DSedim/
 mv 0/pointDisplacement.unmapped 0/pointDisplacement
@@ -19,3 +18,7 @@ decomposePar
 # Run sedFoam
 mpirun -np 10  overSedDymFoam_rbgh  -parallel > log.out&
 
+#  Postprocessing
+echo "-------------------------------------------------------------------"
+echo "To generate the postprocessing files you need to execute ./makeFiles"
+echo "Then run the python script plotRestingSphere.py located in the folder tutorialsDyM/Py."

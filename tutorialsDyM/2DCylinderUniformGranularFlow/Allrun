@@ -15,3 +15,9 @@ decomposePar
 
 # Run sedFoam in parallel
 mpirun -np 12 overSedDymFoam_rbgh -parallel > log.out&
+
+#  Postprocessing
+echo "-------------------------------------------------------------------"
+echo "To generate the postprocessing files you need to execute ./makeFiles"
+echo "Then run the python script plot2DCylinderPosition.py located in the folder tutorialsDyM/Py."
+

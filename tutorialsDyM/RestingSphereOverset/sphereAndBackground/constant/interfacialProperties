@@ -15,9 +15,9 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dragModela      Ergun;
+dragModela      GidaspowSchillerNaumann;
 
-dragModelb      Ergun;
+dragModelb      GidaspowSchillerNaumann;
 
 dragPhase       a;
 

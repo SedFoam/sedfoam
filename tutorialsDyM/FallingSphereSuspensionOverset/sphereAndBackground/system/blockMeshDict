@@ -15,7 +15,7 @@ FoamFile
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-convertToMeters 0.0075;
+scale 0.0075;
 
 vertices
 (

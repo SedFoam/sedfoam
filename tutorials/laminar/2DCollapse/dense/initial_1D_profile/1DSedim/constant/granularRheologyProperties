@@ -18,6 +18,9 @@ FoamFile
 granularRheology   on;
 
 granularDilatancy on;
+
+granularCohesion  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.41;

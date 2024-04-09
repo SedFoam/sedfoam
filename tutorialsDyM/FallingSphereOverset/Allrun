@@ -7,5 +7,10 @@ cd "${0%/*}" || exit                                # Run from this directory
 
 (cd sphereAndBackground && mpirun -np 4 overSedDymFoam_rbgh -parallel > log.out&)
 
+#  Postprocessing
+echo "-------------------------------------------------------------------"
+echo "To generate the postprocessing files you need to execute ./makeFiles in the sphereAndBackground folder."
+echo "Then run the python script plot3DFallingSphere.py and/or plot3DFallingSphere_comparison.py located in the folder tutorialsDyM/Py."
+
 #------------------------------------------------------------------------------
 

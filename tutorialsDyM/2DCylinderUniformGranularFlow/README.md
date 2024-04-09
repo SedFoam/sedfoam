@@ -24,8 +24,13 @@ Once the Case1D numerical simulation is over, we should come back to tutorialsDy
 
 Postprocessing
 ---------
+To generate the postprocessing files you need to execute makeFiles in the case first. 
 
-We can run the python script plot2DCylinderPosition.py located in the folder tutorialsDyM/Py.
+```bash
+./makeFiles
+```
+
+Then, we can run the python script plot2DCylinderPosition.py located in the folder tutorialsDyM/Py.
 
 ```bash
 python plot2DCylinderPosition.py

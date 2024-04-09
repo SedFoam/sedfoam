@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2306                                 |
-|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|  \\    /   O peration     | Version:  5.x                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -36,7 +36,7 @@ writeFormat     ascii;
 
 writePrecision  6;
 
-writeCompression uncompressed;
+writeCompression off;
 
 timeFormat      general;
 

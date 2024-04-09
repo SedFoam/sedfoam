@@ -28,15 +28,13 @@ endTime         0.7;
 
 deltaT          1e-6;
 
-//writeControl    timeStep;
-//writeInterval   10;
-
 writeControl    adjustableRunTime;
+
 writeInterval   1e-1;
 
 purgeWrite      0;
 
-writeFormat     ascii;
+writeFormat     binary;
 
 writePrecision  9;
 
@@ -51,39 +49,32 @@ runTimeModifiable true;
 adjustTimeStep  yes;
 
 maxCo           0.01;
-maxAlphaCo           0.01;
-maxDeltaT       2.0e-5;
 
+maxAlphaCo           0.01;
+
+maxDeltaT       2.0e-5;
 
 functions
 {
-
 forces1
 {
     type          forcesSed;
-
-    libs          (forcesSed);
-
+    libs          ("libforcesSedFoam.so");
     writeControl  timeStep;
     timeInterval  1;
-
     log           yes;
-
     patches       ("sphere");
     rho           rhoInf;     // Indicates incompressible
     log           true;
     rhoInf        970; // Redundant for incompressible
     origin (0 0 0); 
-    coordinateRotation
+    rotation
         {
-            type            axesRotation;
+            type            axes;
             e3              (0 0 1);
             e1              (1 0 0);
         }
 }
-
-
-    
 }
 
 

@@ -98,9 +98,10 @@ addLayersControls
 
     }
 
+
     expansionRatio 1.02;
-//    finalLayerThickness 1e-9;
-finalLayerThickness 0.02;
+	minMedialAxisAngle 90;
+	finalLayerThickness 0.02;
     finalLayerRatio 0.01;
     minThickness 0.001;
     nGrow 0;

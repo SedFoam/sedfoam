@@ -30,7 +30,7 @@ ZlengthPiston #calc "$R_plus*1*$piValue/180."; //1 degree X pi/180*L
 NegZlengthPiston  #calc "-$ZlengthPiston"; //1 degree X pi/180*L
 
 
-convertToMeters 1;
+scale 1;
  
 vertices
 (

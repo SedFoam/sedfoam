@@ -16,7 +16,10 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 granularRheology   on;
-granularDilatancy off;
+
+granularDilatancy  off;
+
+granularCohesion  off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
 

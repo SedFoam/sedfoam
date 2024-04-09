@@ -4,7 +4,7 @@ import os
 import sys
 
 DynamycMesh="Morphing"
-#DynamycMesh="Overset"
+DynamycMesh="Overset"
 if DynamycMesh=="Overset":
 	DynamycMeshV=DynamycMesh+"/sphereAndBackground"
 else:

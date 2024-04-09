@@ -70,7 +70,7 @@ solvers
     "(U|alpha.a|pa|k|epsilon)Final"
     {
         $U;
-        tolerance       1e-6;
+        tolerance       1e-8;
         relTol          0;
     }
 }

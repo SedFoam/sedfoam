@@ -19,8 +19,13 @@ Once the initial_1D_profile/1DSedim numerical simulation is over, we should come
 
 Postprocessing
 ---------
+To generate the postprocessing files you need to execute makeFiles in the case first. 
 
-We can run the python script plotRestingSphere.py located in the folder tutorialsDyM/Py.
+```bash
+./makeFiles
+```
+
+Then, we can run the python script plotRestingSphere.py located in the folder tutorialsDyM/Py.
 
 ```bash
 python plotRestingSphere.py

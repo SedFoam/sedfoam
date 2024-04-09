@@ -16,16 +16,17 @@ runD = np.genfromtxt("DATA/Yade_D.csv", delimiter=",", names=["time", "posZ"])
 #################### loading overSedDymFoam results  ##############
 
 sol = '../2DCylinderUniformGranularFlow/'
-
+if os.path.exists(sol+'time')==False:
+        print ("b To generate the postprocessing files you need to execute makeFiles in the case first")   
+        sys.exit()
 datatime= np.genfromtxt(sol+'time',delimiter='\t', names=True)
 dataPosz = np.genfromtxt(sol+'zcenter',delimiter='\t', names=True)
-
 timeSed=[]
 Z_sed=[]
 for i in range(10,len(dataPosz)-10):
 	timeSed.append(datatime[i][0])
 	Z_sed.append( dataPosz[i][0]/diameterPartI)
-
+		
 ##################### plot ####################
 
 plt.rcParams.update({'font.size': 16})

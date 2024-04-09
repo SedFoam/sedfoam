@@ -14,7 +14,6 @@ print ("weight contr: ",weigth )
 print ("submerged weight: ",(weigth -weigthBouyancy))
 print ("reduced mass: ",(weigth -weigthBouyancy)/9.81)
 
-
 def moving_average(data, window_size):
     """
     Smooths the curve represented by a list of values using a moving average.
@@ -34,11 +33,12 @@ def moving_average(data, window_size):
         smoothed_data.append(avg)
     return smoothed_data
 
-
-
-
 ############## loading overSedDymFoam results ###########
+
 sol="../RestingSphereMorphing/"
+if os.path.exists(sol+'time.txt')==False:
+        print ("b To generate the postprocessing files you need to execute makeFiles in the case first")   
+        sys.exit()
 datatime_Mixt_A = np.genfromtxt(sol+'time.txt',delimiter='\t', names=True)
 dataVz_Mixt_A = np.genfromtxt(sol+'vy.txt',delimiter='\t', names=True)
 dataPosz_Mixt_A = np.genfromtxt(sol+'ycenter.txt',delimiter='\t', names=True)
@@ -95,21 +95,19 @@ AW=[weigth-weigthBouyancy,weigth-weigthBouyancy]
 plt.rcParams["figure.figsize"] = (9,6)
 
 fig, axs = plt.subplots(3, gridspec_kw=dict(height_ratios=[0.5, 0.5,1]))
-#axs[0].set_title('Sphere position')
+
 axs[0].plot(mixtT_RefSedim_A, mixtPosz_RefSedim_Ave,color='royalblue', linestyle='-',label="Morphing")
 axs[0].set_xlim([-0, AWTime[-1]])
 axs[0].set_xticklabels([])
 axs[0].set_ylabel('y/D [-]',fontsize="16")
 axs[0].grid()
 
-#axs[1].set_title('Sphere velocity')
 axs[1].plot(mixtT_RefSedim_A, mixtUz_RefSedim_Ave,color='royalblue', linestyle='-',label="SedFoam - $\\phi=0$ - Relax=0.4")
 axs[1].set_xticklabels([])
 axs[1].set_ylabel('$v_{sphere}$ [m/s]',fontsize="16")
 axs[1].set_xlim([-0, AWTime[-1]])
 axs[1].grid()
 
-#axs[2].set_title('Total force')
 axs[2].plot(mixtT_RefSedim_A, mixtFPart_z_RefSedim_Ave,color='sienna',linestyle="--",alpha=alhpaV,label="Particle pressure contribution")
 axs[2].plot(mixtT_RefSedim_A, mixtFfluid_z_RefSedim_Ave,color='g',linestyle="-.",alpha=alhpaV,label="Excess of fluid pressure contribution")
 axs[2].plot(mixtT_RefSedim_A, mixtFVisc_z_RefSedim_Ave,color='b',linestyle="--",alpha=alhpaV,label="Viscous and frictional contribution")
@@ -123,5 +121,7 @@ axs[2].legend(loc="upper left",fontsize="12" ,framealpha=0.5)
 
 fig.tight_layout()
 fig.savefig('Figures/RestingSphere.png', dpi=500)
-
+	
 plt.show()
+
+

@@ -15,9 +15,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 
-convertToMeters 1;
-
-
+scale 1;
 
 d 0.0015;
 D #calc "$d*3.3/2"; //this is the radius!
@@ -28,11 +26,9 @@ H #calc "$d*120";
 
 factor_Detp #calc "-0*8*$D";
 
-
 NegH #calc "$h-$H";
 NegD #calc "-$d*3.3/2.";
 NegDY #calc "-$d*3.3/2.+$factor_Detp";
-
 
 vertices
 (
@@ -45,8 +41,6 @@ vertices
 ($L $NegH 0.005)// 6
 ($NegL $NegH 0.005)// 7
  ) ;
-
-
 
 
 blocks

@@ -14,9 +14,8 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-libs            (overset fvMotionSolvers);
 
-application     sedFoam_DriftDyM;
+application     sedFoam;
 
 startFrom       latestTime;
 

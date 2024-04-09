@@ -19,6 +19,8 @@ granularRheology   on;
 
 granularDilatancy  off;
 
+granularCohesion  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.24;
@@ -36,10 +38,8 @@ Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
 
 FrictionModel   none;
-//FrictionModel   MuIv;
 
 PPressureModel  none;
-//PPressureModel  MuIv;
 
 FluidViscosityModel BoyerEtAl;
 

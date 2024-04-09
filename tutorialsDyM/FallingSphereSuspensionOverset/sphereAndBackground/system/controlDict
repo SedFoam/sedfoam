@@ -28,15 +28,13 @@ endTime         0.7;
 
 deltaT          1e-6;
 
-//writeControl    timeStep;
-//writeInterval   10;
-
 writeControl    adjustableRunTime;
+
 writeInterval   0.1;
 
 purgeWrite      0;
 
-writeFormat     ascii;
+writeFormat     binary;
 
 writePrecision  12;
 
@@ -63,7 +61,7 @@ forces1
 {
     type          forcesSed;
 
-    libs          ("libforcesSed.so");
+    libs          ("libforcesSedFoam.so");
 
     writeControl  timeStep;
     timeInterval  1;

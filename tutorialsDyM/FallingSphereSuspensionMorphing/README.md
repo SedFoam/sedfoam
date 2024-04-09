@@ -15,7 +15,13 @@ The numerical case can be executed running the following command:
 Postprocessing
 ---------
 
-We can run the python script plot3DFallingSphere_suspension.py located in the folder tutorialsDyM/Py. Make sure that the chosen mesh in the script is set to DynamycMesh="Morphing".
+To generate the postprocessing files you need to execute makeFiles in the case first. 
+
+```bash
+./makeFiles
+```
+
+Then we can run the python script plot3DFallingSphere_suspension.py located in the folder tutorialsDyM/Py. Make sure that the chosen mesh in the script is set to DynamycMesh="Morphing".
 
 ```bash
 python plot3DFallingSphere_suspension.py

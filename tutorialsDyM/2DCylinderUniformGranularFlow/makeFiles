@@ -1,4 +1,3 @@
-
 cat log.out | grep -w 'Time =' | cut -d' ' -f3 | tr -d '(' > time
 cat log.out | grep 'of mass' | cut -d' ' -f8 | tr -d '('  > xcenter
 cat log.out | grep 'of mass' | cut -d' ' -f9 | tr -d ')'  > zcenter

@@ -84,41 +84,29 @@ solvers
         tolerance       1e-10;
         relTol          0;
     }
-    Theta
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-10;
-        relTol          0;
-    }
-    ThetaFinal
-    {
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-10;
-        relTol          0;
-    }
 
 }
 
 PIMPLE
 {
-    massFluxInterpolation no;
+    oversetAdjustPhi    true;
     momentumPredictor   no; //recommended on for high Reynolds
     correctPhi          no; //off if we use Overset
     nOuterCorrectors    3; //recommended at least 2 for moving bodies
     nCorrectors         3;
-    nNonOrthogonalCorrectors 1;
+    nNonOrthogonalCorrectors 0;
     nOuterCorrectors    1;
     nCorrectors         1;
     nNonOrthogonalCorrectors 1;
-
-    ddtCorr             true;
-
+    massFluxInterpolation true;
+    ddtCorr             false;
+    turbOnFinalIterOnly false;
     pRefPoint           (0.0001 0.0001 0.001);
     pRefValue           0.0;
     correctAlpha    0;
     nAlphaCorr      1;
+    moveMeshOuterCorrectors yes;
+
 }
 
 relaxationFactors

@@ -1,6 +1,6 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | ========= | | \\ / F ield | OpenFOAM: The Open Source CFD Toolbox |
-|  \\    /   O peration     | Version:  v2306                                 |
+|  \\    /   O peration     | Version:  v2312                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -32,11 +32,11 @@ writeInterval   0.5;
 
 purgeWrite      0;
 
-writeFormat     ascii;
+writeFormat     binary;
 
 writePrecision  6;
 
-writeCompression uncompressed;
+writeCompression off;
 
 timeFormat      general;
 
@@ -52,19 +52,12 @@ maxAlphaCo      0.01;
 
 maxDeltaT       1.e-4;
 
-
-
 functions
 {
-    
-
-
 forcesSed
 {
     type          forcesSed;
-
-    libs          (forcesSed);
-
+    libs          ("libforcesSedFoam.so");
     writeControl  timeStep;
     timeInterval  1;
     patches       ("cylinder");
@@ -72,24 +65,15 @@ forcesSed
     log           true;
     rhoInf        2500; // Redundant for incompressible
     origin (0 0 0); 
-    coordinateRotation
+    rotation
         {
-            type            axesRotation;
+            type            axes;
             e3              (0 0 1);
             e1              (1 0 0);
         }
 }
-
-
-    
-    
 }
-libs (
-"libOpenFOAM.so"
-"libsimpleSwakFunctionObjects.so"
-"libswakFunctionObjects.so"
-"libgroovyBC.so"
-);
+
 
  
 // ************************************************************************* //

@@ -14,9 +14,8 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-libs            (overset fvMotionSolvers);
 
-application     overSedDymFoam_rbgh;
+application     sedFoam_rbgh;
 
 startFrom       latestTime;
 

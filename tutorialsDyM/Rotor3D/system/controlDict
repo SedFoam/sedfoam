@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-libs            (overset fvMotionSolvers);
+libs            ("liboverset.so");
 
 application     overSedDymFoam_rbgh;
 
