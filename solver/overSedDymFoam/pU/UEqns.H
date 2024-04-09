@@ -42,35 +42,22 @@ gradPOSC =
 
 dimensionedScalar ramp0
 (
-	"ramp0",
-	dimensionSet(0, 0, 0, 0, 0, 0, 0),
-	2.065813
+"ramp0",
+dimensionSet(0, 0, 0, 0, 0, 0, 0),
+2.065813
 );
 dimensionedScalar ramp1
 (
-	"ramp1",
-	dimensionSet(0, 0, 0, 0, 0, 0, 0),
-	0.025264
+"ramp1",
+dimensionSet(0, 0, 0, 0, 0, 0, 0),
+0.025264
 );
 dimensionedScalar expValue
 (
-	"expValue",
-	dimensionSet(0, 0, 0, 0, 0, 0, 0),
-	Foam::exp(ramp1.value()*runTime.value())
+"expValue",
+dimensionSet(0, 0, 0, 0, 0, 0, 0),
+Foam::exp(ramp1.value()*runTime.value())
 );
-//gradPOSC =
-////min(1, ramp0*(exp(ramp1*runTime.value())-1))*
-//min(1,ramp0.value()*(expValue.value()-1))*
-//(
-    //gradPMEAN
-  //+ gradPAMP1*Foam::cos(initTheta1*pi/180.0 + 1.0*2.0*pi*runTime.value()/oscpT)
-  //+ gradPAMP2*Foam::cos(initTheta2*pi/180.0 + 2.0*2.0*pi*runTime.value()/oscpT)
-  //+ gradPAMP3*Foam::cos(initTheta3*pi/180.0 + 3.0*2.0*pi*runTime.value()/oscpT)
-  //+ gradPAMP4*Foam::cos(initTheta4*pi/180.0 + 4.0*2.0*pi*runTime.value()/oscpT)
-  //+ gradPAMP5*Foam::cos(initTheta5*pi/180.0 + 5.0*2.0*pi*runTime.value()/oscpT)
-//);
-
-
 
 // Compute mixture density
 rho = alpha*rhoa+beta*rhob;

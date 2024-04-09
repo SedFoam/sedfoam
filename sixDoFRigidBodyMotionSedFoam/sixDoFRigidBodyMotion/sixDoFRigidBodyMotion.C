@@ -344,8 +344,7 @@ Foam::tmp<Foam::pointField> Foam::sixDoFRigidBodyMotion::transform
     const pointField& initialPoints
 ) const
 {
-    return
-    (
+    return (
         centreOfRotation()
       + (Q() & initialQ_.T() & (initialPoints - initialCentreOfRotation_))
     );

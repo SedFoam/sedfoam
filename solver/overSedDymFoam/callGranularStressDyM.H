@@ -46,8 +46,6 @@ if (granularRheology.dilatancy())
      fvm::ddt(alphaPlastic)
      + fvm::div(phic, alphaPlastic, "div(phia,alphaPlastic)")
      - fvm::Sp(fvc::div(phicc), alphaPlastic)
-	   //+ fvm::div(phic, alphaPlastic)
-	   //+ fvm::div(-fvc::flux(-phir, (1.0-alpha)), alphaPlastic)
      ==
      -fvc::Sp(delta*magDtensor, alphaPlastic) // explicit term
     );
@@ -62,10 +60,6 @@ else
     alphaPlastic=alphaMinFriction*Unity;
 }
 
-//volScalarField pffNew=pff;
-// Pff corresponds to "contact" pressure which prevent the granular phase from
-// exceeding the maximum volume fraction.
-//pff_new=pff;
 
 pff = pp->pff(alpha, alphaPlastic, alphaMax, Fr_, eta0_, eta1_);
 

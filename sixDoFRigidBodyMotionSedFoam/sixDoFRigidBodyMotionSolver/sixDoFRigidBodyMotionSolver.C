@@ -106,8 +106,8 @@ Foam::sixDoFRigidBodyMotionSolver::sixDoFRigidBodyMotionSolver
         pointMesh::New(mesh),
         dimensionedScalar(dimless, Zero)
     ),
-    curTimeIndex_(-1),
-    cOfGdisplacement_(coeffDict().getOrDefault<word>("cOfGdisplacement", "none"))
+curTimeIndex_(-1),
+cOfGdisplacement_(coeffDict().getOrDefault<word>("cOfGdisplacement", "none"))
 {
     if (rhoName_ == "rhoInf")
     {

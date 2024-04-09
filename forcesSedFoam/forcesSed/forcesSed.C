@@ -75,14 +75,14 @@ void Foam::functionObjects::forcesSed::writeIntegratedHeader
     Ostream& os
 ) const
 {
-    writeHeader(os, header);
-    writeHeaderValue(os, "CofR", coordSysPtr_->origin());
-    writeHeader(os, "");
-    writeCommented(os, "Time");
-    writeTabbed(os, "(total_x total_y total_z)");
-    writeTabbed(os, "(pressureFluid_x pressureFluid_y pressureFluid_z)");
-    writeTabbed(os, "(pressureParticle_x pressureParticle_y pressureParticle_z)");
-    writeTabbed(os, "(viscous_x viscous_y viscous_z)");
+writeHeader(os, header);
+writeHeaderValue(os, "CofR", coordSysPtr_->origin());
+writeHeader(os, "");
+writeCommented(os, "Time");
+writeTabbed(os, "(total_x total_y total_z)");
+writeTabbed(os, "(pressureFluid_x pressureFluid_y pressureFluid_z)");
+writeTabbed(os, "(pressureParticle_x pressureParticle_y pressureParticle_z)");
+writeTabbed(os, "(viscous_x viscous_y viscous_z)");
 
 
     os  << endl;
@@ -129,14 +129,14 @@ void Foam::functionObjects::forcesSed::writeBinHeader
     writeCommented(os, "Time");
 
     for (label j = 0; j < nBin_; j++)
-    {
-        const word jn(Foam::name(j) + ':');
-        os  << tab << jn << "(total_x total_y total_z)"
-            << tab << jn << "(pressureFluid_x pressureFluid_y pressureFluid_z)"
-            << tab << jn << "(pressureParticle_x pressureFluid_y pressureFluid_z)"
-            << tab << jn << "(viscous_x viscous_y viscous_z)";
+{
+const word jn(Foam::name(j) + ':');
+os  << tab << jn << "(total_x total_y total_z)"
+	<< tab << jn << "(pressureFluid_x pressureFluid_y pressureFluid_z)"
+	<< tab << jn << "(pressureParticle_x pressureFluid_y pressureFluid_z)"
+	<< tab << jn << "(viscous_x viscous_y viscous_z)";
 
-    }
+}
 
     os << endl;
 }
@@ -249,7 +249,6 @@ void Foam::functionObjects::forcesSed::initialiseBins()
         }
 
 
-
         reduce(geomMin, minOp<scalar>());
         reduce(geomMax, maxOp<scalar>());
 
@@ -328,8 +327,8 @@ Foam::functionObjects::forcesSed::devRhoReff() const
         const volScalarField& muEff = lookupObject<volScalarField>(muEffName_);
         const volScalarField& muFra = lookupObject<volScalarField>(muFraName_);
 
-        return -muEff*dev(twoSymm(fvc::grad(Ub)))-muFra*dev(twoSymm(fvc::grad(Ua)));
-       // return -muEff*dev(twoSymm(fvc::grad(Ub)))-alpha/0.625*muFra*dev(twoSymm(fvc::grad(Ua)));
+        return -muEff*dev(twoSymm(fvc::grad(Ub)))
+        -muFra*dev(twoSymm(fvc::grad(Ua)));
 
     }
     else
@@ -380,11 +379,12 @@ Foam::tmp<Foam::volScalarField> Foam::functionObjects::forcesSed::rho() const
         );
     }
 
-    return(lookupObject<volScalarField>(rhoName_));
+    return (lookupObject<volScalarField>(rhoName_));
 }
 
 
-Foam::scalar Foam::functionObjects::forcesSed::rho(const volScalarField& p) const
+Foam::scalar Foam::functionObjects::forcesSed::rho(const volScalarField& p)
+ const
 {
     if (p.dimensions() == dimPressure)
     {
@@ -430,7 +430,8 @@ void Foam::functionObjects::forcesSed::applyBins
 
         forAll(dd, i)
         {
-            label bini = min(max(floor(dd[i]/binDx_), 0), forceSed_[0].size() - 1);
+            label bini = min(max(floor(dd[i]/binDx_), 0), 
+            forceSed_[0].size() - 1);
 
             forceSed_[0][bini] += fN[i];
             forceSed_[1][bini] += fNsolid[i];
@@ -530,8 +531,6 @@ void Foam::functionObjects::forcesSed::writeIntegratedForceMoment
             << tab << pressureFluid
             << tab << pressureParticle
             << tab << viscous;
-
-
 
         os  << endl;
     }
@@ -924,7 +923,6 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
 
             scalarField sA(mag(Sfb[patchi]));
 
-            // Normal forceSed = surfaceUnitNormal*(surfaceNormal & forceDensity)
             vectorField fN
             (
                 Sfb[patchi]/sA
@@ -947,7 +945,8 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
 
             addToFields(patchi, Md, fN, fNsolid, fT, fP);
 
-            applyBins(Md, fN, fNsolid, fT, fP, mesh_.C().boundaryField()[patchi]);
+            applyBins(Md, fN, fNsolid, fT, fP, 
+            mesh_.C().boundaryField()[patchi]);
         }
     }
     else
@@ -974,9 +973,6 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
             vectorField fN
             (
                 rho(p)*Sfb[patchi]*(1.*p_rbgh.boundaryField()[patchi]- pRef)
-
-
-
             );
             vectorField fNsolid
             (
@@ -999,12 +995,12 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
 
             vectorField fP(Md.size(), Zero);
 
-            addToFields(patchi, Md, fN,fNsolid, fT, fP);
+            addToFields(patchi, Md, fN, fNsolid, fT, fP);
 
-            applyBins(Md, fN,fNsolid, fT, fP, mesh_.C().boundaryField()[patchi]);
+            applyBins(Md, fN, fNsolid, fT, fP,
+            mesh_.C().boundaryField()[patchi]);
         }
     }
-
 
 
     Pstream::listCombineGather(forceSed_, plusEqOp<vectorField>());
@@ -1016,13 +1012,19 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
 
 Foam::vector Foam::functionObjects::forcesSed::forceEff() const
 {
-    return sum(forceSed_[0]) + sum(forceSed_[1]) + sum(forceSed_[2])+ sum(forceSed_[3]);
+    return sum(forceSed_[0]) + 
+    sum(forceSed_[1]) + 
+    sum(forceSed_[2]) + 
+    sum(forceSed_[3]);
 }
 
 
 Foam::vector Foam::functionObjects::forcesSed::momentEff() const
 {
-    return sum(moment_[0]) + sum(moment_[1]) + sum(moment_[2])+ sum(moment_[3]);
+    return sum(moment_[0]) + 
+    sum(moment_[1]) + 
+    sum(moment_[2]) + 
+    sum(moment_[3]);
 }
 
 

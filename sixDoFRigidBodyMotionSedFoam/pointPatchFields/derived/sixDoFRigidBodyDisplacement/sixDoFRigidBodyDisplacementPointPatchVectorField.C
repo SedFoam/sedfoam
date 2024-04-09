@@ -93,7 +93,7 @@ sixDoFRigidBodyDisplacementPointPatchVectorField
 
     if (dict.found("initialPoints"))
     {
-        initialPoints_ = vectorField("initialPoints", dict , p.size());
+        initialPoints_ = vectorField("initialPoints", dict, p.size());
     }
     else
     {

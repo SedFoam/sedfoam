@@ -36,6 +36,13 @@ blocks
 
 boundary
 (
+    // Dummy patch to trigger overset interpolation before any other bcs
+    oversetPatch
+    {
+        type overset;
+        faces ();
+    }
+
     top
     {
         type wall;

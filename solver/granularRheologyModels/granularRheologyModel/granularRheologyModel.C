@@ -441,8 +441,8 @@ void Foam::granularRheologyModel::solve
         delta_.max(-0.4);
     }
 
-	// Building and solving the cohesion tranport equation
-	if (granularCohesion_)
+    // Building and solving the cohesion tranport equation
+    if (granularCohesion_)
     {
     fvScalarMatrix CohesionEqn
     (
@@ -452,11 +452,11 @@ void Foam::granularRheologyModel::solve
     );
     CohesionEqn.relax();
     CohesionEqn.solve();
-	}
-
+    }
 
     //  Compute the regularized particulate viscosity
-    mua_ = (cohesion_*CohesionDistrb_*alpha_/(alpha_+alphaSmall) + muI_* p_p_total_ )/ pow(magD2 + Dsmall2, 0.5);
+    mua_ = (cohesion_*CohesionDistrb_*alpha_/(alpha_+alphaSmall) 
+    + muI_* p_p_total_ )/ pow(magD2 + Dsmall2, 0.5);
 
     // Compute bulk viscosity (by default BulkFactor = 0)s
     lambda_ = BulkFactor_*p_p_total_ / pow(magD2 + Dsmall2, 0.5);

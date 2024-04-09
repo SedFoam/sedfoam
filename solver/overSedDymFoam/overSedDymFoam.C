@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
 
         #include "gravityRamp.H"
 
-		bool changed = mesh.update();
+        bool changed = mesh.update();
 
         if (changed)
         {
@@ -161,43 +161,43 @@ int main(int argc, char *argv[])
             #include "setCellMask.H"
             #include "setInterpolatedCells.H"
             #include "correctPhiSedFaceMask.H"
-			gh = (g & mesh.C()) - ghRef;
-			ghf = (g & mesh.Cf()) - ghRef;
+            gh = (g & mesh.C()) - ghRef;
+            ghf = (g & mesh.Cf()) - ghRef;
 
             fvc::makeRelative(phia, Ua);
             fvc::makeRelative(phib, Ub);
-			surfaceScalarField alphaf = fvc::interpolate(alpha);
-			surfaceScalarField betaf = scalar(1.0) - alphaf;
-			phi = alphaf*phia + betaf*phib;
-			
-			// Calculate absolute flux from the mapped surface velocity
-			if (correctPhi)
-			{ 
-				Info<< "correctPhi is on" << endl;
-				 #include "correctPhiSed.H"
-			}
+            surfaceScalarField alphaf = fvc::interpolate(alpha);
+            surfaceScalarField betaf = scalar(1.0) - alphaf;
+            phi = alphaf*phia + betaf*phib;
+
+            //Calculate absolute flux from the mapped surface velocity
+            if (correctPhi)
+            {
+               Info<< "correctPhi is on" << endl;
+               #include "correctPhiSed.H"
+            }
             fvc::makeRelative(phi, U);
         }
 
-//      Pressure-velocity PIMPLE corrector loop
+        //Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
         {
             #include "alphaEqn.H"
             #include "liftDragCoeffs.H"
             
-			fvc::makeAbsolute(phia, Ua);
-			fvc::makeAbsolute(phib, Ub);
+            fvc::makeAbsolute(phia, Ua);
+            fvc::makeAbsolute(phib, Ub);
 
-//          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
-//             from Kinetic Theory of granular flows or mu(I) rheology
+            //Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
+            //from Kinetic Theory of granular flows or mu(I) rheology
             #include "callGranularStressDyM.H"
             
-			fvc::makeRelative(phia, Ua);
-			fvc::makeRelative(phib, Ub);
-			fvc::makeRelative(phi, U);
+            fvc::makeRelative(phia, Ua);
+            fvc::makeRelative(phib, Ub);
+            fvc::makeRelative(phi, U);
 
-//          And assemble and solve the pressure poisson equation
-//             and apply the velocity correction step for both phases a and b
+            //And assemble and solve the pressure poisson equation
+            //and apply the velocity correction step for both phases a and b
             if (faceMomentum)
             {
                 #include "pUf/UEqns.H"

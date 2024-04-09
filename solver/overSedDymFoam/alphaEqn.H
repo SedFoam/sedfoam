@@ -26,10 +26,10 @@ License
     word scheme("div(phi,alpha)");
     word schemer("div(phir,alpha)");
 
-    surfaceScalarField phic("phic",phi);
+    surfaceScalarField phic("phic", phi);
     fvc::makeAbsolute(phia, Ua);
     fvc::makeAbsolute(phib, Ub);
-    surfaceScalarField phir("phir",phia - phib);
+    surfaceScalarField phir("phir", phia - phib);
 
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
     {
@@ -74,5 +74,3 @@ License
 }
 
 rho = alpha*rhoa + beta*rhob;
-
-

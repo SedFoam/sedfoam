@@ -121,8 +121,8 @@ dimensionedScalar alphaDiffusion
     (
         "alphaDiffusion",
         dimensionedScalar("alphaDiffusion",
-                          dimensionSet(0, 2, -1, 0, 0, 0, 0),
-                          0e0)
+        dimensionSet(0, 2, -1, 0, 0, 0, 0),
+        0e0)
     )
 );
 
@@ -132,8 +132,8 @@ dimensionedScalar alphaSmall
     (
         "alphaSmall",
         dimensionedScalar("alphaSmall",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          1e-6)
+        dimensionSet(0, 0, 0, 0, 0, 0, 0),
+        1e-6)
     )
 );
 
@@ -143,8 +143,8 @@ dimensionedScalar nuMax
     (
         "nuMax",
         dimensionedScalar("nuMax",
-                          dimensionSet(0, 1, -2, 0, 0, 0, 0),
-                          1e0)
+        dimensionSet(0, 1, -2, 0, 0, 0, 0),
+        1e0)
     )
 );
 
@@ -154,8 +154,8 @@ dimensionedScalar Dsmall
     (
         "Dsmall",
         dimensionedScalar("Dsmall",
-                          dimensionSet(0, 0, -1, 0, 0, 0, 0),
-                          1e-6)
+        dimensionSet(0, 0, -1, 0, 0, 0, 0),
+        1e-6)
     )
 );
 
@@ -165,8 +165,8 @@ dimensionedScalar nuMaxExp
     (
         "nuMaxExp",
         dimensionedScalar("nuMaxExp",
-                          dimensionSet(0, 1, -2, 0, 0, 0, 0),
-                          1e0)
+        dimensionSet(0, 1, -2, 0, 0, 0, 0),
+        1e0)
     )
 );
 // Initialize phase a and b variables
@@ -334,8 +334,8 @@ dimensionedScalar Cvm
     (
         "Cvm",
         dimensionedScalar("Cvm",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0)
+        dimensionSet(0, 0, 0, 0, 0, 0, 0),
+        0)
     )
 );
 
@@ -345,8 +345,8 @@ dimensionedScalar Cl
     (
         "Cl",
         dimensionedScalar("Cl",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0)
+        dimensionSet(0, 0, 0, 0, 0, 0, 0),
+        0)
     )
 );
 
@@ -356,8 +356,8 @@ dimensionedScalar Ct
     (
         "Ct",
         dimensionedScalar("Ct",
-                          dimensionSet(0, 0, 0, 0, 0, 0, 0),
-                          0)
+        dimensionSet(0, 0, 0, 0, 0, 0, 0),
+        0)
     )
 );
 
@@ -477,7 +477,6 @@ Switch writeMomentumBudget
 (
     forceProperties.getOrDefault<Switch>("writeMomentumBudget", false)
 );
-
 
 
 Info<< "Initializing with specified pressure gradient:"
@@ -671,33 +670,30 @@ volVectorField DDtUb
 );
 
 
-
-
 Info<< "Calculating field g.h\n" << endl;
 
 Info<< "\nReading hRef" << endl;
 uniformDimensionedScalarField hRef
 (
-	IOobject
-	(
-		"hRef",
-		runTime.constant(),
-		mesh,
-		IOobject::READ_IF_PRESENT,
-		IOobject::NO_WRITE
-	),
-	dimensionedScalar(dimLength, Zero)
+IOobject
+(
+"hRef",
+runTime.constant(),
+mesh,
+IOobject::READ_IF_PRESENT,
+IOobject::NO_WRITE
+),
+dimensionedScalar(dimLength, Zero)
 );
 dimensionedScalar ghRef
 (
-	mag(gravity.value()) > SMALL
+mag(gravity.value()) > SMALL
   ? gravity & (cmptMag(gravity.value())/mag(gravity.value()))*hRef
   : dimensionedScalar("ghRef", gravity.dimensions()*dimLength, 0)
 );
 
 volScalarField gh("gh", (g & mesh.C()) - ghRef);
 surfaceScalarField ghf("ghf", (g & mesh.Cf()) - ghRef);
-
 
 
 // Read interfacial properties
@@ -914,7 +910,7 @@ volScalarField muEff
         IOobject::AUTO_WRITE
     ),
     mesh,
-    dimensionedScalar("zero", dimensionSet(1 , -1 ,-1 ,0 , 0), 0.0)
+    dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
 );
 Info<< "Calculating field muFra\n" << endl;
 volScalarField muFra
@@ -928,7 +924,7 @@ volScalarField muFra
         IOobject::AUTO_WRITE
     ),
     mesh,
-    dimensionedScalar("zero", dimensionSet(1 , -1 ,-1 ,0 , 0), 0.0)
+    dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
 );
 
 volScalarField SUStilde

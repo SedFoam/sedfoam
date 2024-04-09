@@ -262,7 +262,7 @@ Foam::sixDoFRigidBodyMotion::orientation() const
 
 inline Foam::vector Foam::sixDoFRigidBodyMotion::omega() const
 {
-    return  Q() & (inv(momentOfInertia_) & pi());
+    return Q() & (inv(momentOfInertia_) & pi());
 }
 
 inline const Foam::Time& Foam::sixDoFRigidBodyMotion::time() const
@@ -302,8 +302,7 @@ inline Foam::point Foam::sixDoFRigidBodyMotion::transform
     const point& initialPoint
 ) const
 {
-    return
-    (
+    return (
         centreOfRotation()
       + (Q() & initialQ_.T() & (initialPoint - initialCentreOfRotation_))
     );
