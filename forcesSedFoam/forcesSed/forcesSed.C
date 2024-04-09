@@ -132,9 +132,9 @@ void Foam::functionObjects::forcesSed::writeBinHeader
 {
 const word jn(Foam::name(j) + ':');
 os  << tab << jn << "(total_x total_y total_z)"
-	<< tab << jn << "(pressureFluid_x pressureFluid_y pressureFluid_z)"
-	<< tab << jn << "(pressureParticle_x pressureFluid_y pressureFluid_z)"
-	<< tab << jn << "(viscous_x viscous_y viscous_z)";
+<< tab << jn << "(pressureFluid_x pressureFluid_y pressureFluid_z)"
+<< tab << jn << "(pressureParticle_x pressureFluid_y pressureFluid_z)"
+<< tab << jn << "(viscous_x viscous_y viscous_z)";
 
 }
 
@@ -430,7 +430,7 @@ void Foam::functionObjects::forcesSed::applyBins
 
         forAll(dd, i)
         {
-            label bini = min(max(floor(dd[i]/binDx_), 0), 
+            label bini = min(max(floor(dd[i]/binDx_), 0),
             forceSed_[0].size() - 1);
 
             forceSed_[0][bini] += fN[i];
@@ -945,7 +945,7 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
 
             addToFields(patchi, Md, fN, fNsolid, fT, fP);
 
-            applyBins(Md, fN, fNsolid, fT, fP, 
+            applyBins(Md, fN, fNsolid, fT, fP,
             mesh_.C().boundaryField()[patchi]);
         }
     }
@@ -1012,18 +1012,18 @@ void Foam::functionObjects::forcesSed::calcForcesMoment()
 
 Foam::vector Foam::functionObjects::forcesSed::forceEff() const
 {
-    return sum(forceSed_[0]) + 
-    sum(forceSed_[1]) + 
-    sum(forceSed_[2]) + 
+    return sum(forceSed_[0]) +
+    sum(forceSed_[1]) +
+    sum(forceSed_[2]) +
     sum(forceSed_[3]);
 }
 
 
 Foam::vector Foam::functionObjects::forcesSed::momentEff() const
 {
-    return sum(moment_[0]) + 
-    sum(moment_[1]) + 
-    sum(moment_[2]) + 
+    return sum(moment_[0]) +
+    sum(moment_[1]) +
+    sum(moment_[2]) +
     sum(moment_[3]);
 }
 

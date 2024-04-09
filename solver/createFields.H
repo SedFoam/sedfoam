@@ -889,7 +889,7 @@ volScalarField muEff
         IOobject::AUTO_WRITE
     ),
     mesh,
-    dimensionedScalar("zero", dimensionSet(1, -1, -1 , 0, 0), 0.0)
+    dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
 );
 Info<< "Calculating field muFra\n" << endl;
 volScalarField muFra
@@ -903,7 +903,7 @@ volScalarField muFra
         IOobject::AUTO_WRITE
     ),
     mesh,
-    dimensionedScalar("zero", dimensionSet(1, -1, -1 , 0, 0), 0.0)
+    dimensionedScalar("zero", dimensionSet(1, -1, -1, 0, 0), 0.0)
 );
 
 

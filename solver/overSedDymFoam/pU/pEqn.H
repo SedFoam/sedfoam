@@ -106,7 +106,7 @@ License
                                 *turbulenceb->nut()
                                 *(beta/(alpha + alphaSmall)))
                                 *fvc::snGrad(alpha))*rUaAf*mesh.magSf()
-                                        );     
+                                        );
         }
 
         // Momentum flux at the cell faces for phase b
@@ -221,9 +221,9 @@ License
                 surfaceScalarField SfGradp(pEqn.flux()/Dp);
                 // Compute corrected velocity fluxes at cell faces
                 //       due to pressure gradient
-                surfaceScalarField phias(phiaHbyA 
+                surfaceScalarField phias(phiaHbyA
                 - faceMask*rUaAf*SfGradp/rhoa);
-                surfaceScalarField phibs(phibHbyA 
+                surfaceScalarField phibs(phibHbyA
                 - faceMask*rUbAf*SfGradp/rhob);
                 // Compute mixture velocity flux at cell faces
                 phi = phiHbyA - pEqn.flux();
@@ -313,7 +313,7 @@ License
         phia *= faceMask;
         phib *= faceMask;
         phi *= faceMask;
-           }
+            }
         }
     }
 }

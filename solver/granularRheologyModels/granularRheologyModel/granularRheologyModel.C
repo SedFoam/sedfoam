@@ -455,7 +455,7 @@ void Foam::granularRheologyModel::solve
     }
 
     //  Compute the regularized particulate viscosity
-    mua_ = (cohesion_*CohesionDistrb_*alpha_/(alpha_+alphaSmall) 
+    mua_ = (cohesion_*CohesionDistrb_*alpha_/(alpha_+alphaSmall)
     + muI_* p_p_total_ )/ pow(magD2 + Dsmall2, 0.5);
 
     // Compute bulk viscosity (by default BulkFactor = 0)s
