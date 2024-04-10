@@ -4,11 +4,10 @@ import numpy as np
 import fluidfoam
 from pylab import plt, matplotlib, show
 
-
-plt.rc("text", usetex=True)
-font = {"family": "serif", "size": 16, "serif": ["computer modern roman"]}
-plt.rc("font", **font)
-plt.rc("legend", **{"fontsize": 16})
+matplotlib.rcParams.update({"font.size": 16})
+matplotlib.rcParams["lines.linewidth"] = 3
+matplotlib.rcParams["lines.markersize"] = 5
+matplotlib.rcParams["lines.markeredgewidth"] = 1
 
 ##################################################################
 # Parameters to retreive dimensionless variables

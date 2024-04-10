@@ -14,10 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-convertToMeters 0.01;
-
-
-
+scale 0.01;
 
 vertices        
 (
@@ -40,10 +37,6 @@ blocks
 edges           
 (
 );
-
-
-
-
 
 
 patches         
@@ -70,10 +63,8 @@ patches
     empty frontPlane
     (
     (4 7 6 5)
-  //  (4 5 6 7)
     )
 );
-
 
 mergePatchPairs
 (
