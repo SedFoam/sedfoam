@@ -83,6 +83,17 @@ boundary
             (1 7 8 2)
         );
     }
+    frontAndBackPlanes
+    {
+        type empty;
+        faces
+        (
+            (11 8 7 10)
+            (6 9 10 7)
+            (2 5 4 1)
+            (1 4 3 0)
+        );
+    } 
 );
 
 mergePatchPairs

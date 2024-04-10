@@ -12,7 +12,7 @@ functions
 probes
 {
 // Where to load it from
-functionObjectLibs ( "libsampling.so" );
+libs ( "libsampling.so" );
 
 type        probes;
 

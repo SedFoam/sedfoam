@@ -83,7 +83,7 @@ print("max(uex)=" + str(np.max(uex)) + " m/s")
 # Loading OpenFoam results
 #########################################
 #
-case = "1DBedLoad"
+case = "1DAvalancheMuI"
 basepath = "../laminar/"
 # basepath='../../'
 sol = basepath + case + "/"

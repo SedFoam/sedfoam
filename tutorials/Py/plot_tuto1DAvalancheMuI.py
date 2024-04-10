@@ -73,7 +73,7 @@ tread = output.decode().rstrip().split("\n")[0]
 # Reading SedFoam results
 #########################################
 
-X, Y, Z = fluidfoam.readmesh(sol)
+X, Y, Z = fluidfoam.readmesh(sol, structured=True)
 alpha = fluidfoam.readscalar(sol, tread, "alpha.a")
 Ua = fluidfoam.readvector(sol, tread, "U.a")
 Ub = fluidfoam.readvector(sol, tread, "U.b")
