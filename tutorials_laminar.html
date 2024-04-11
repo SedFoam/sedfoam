@@ -41,6 +41,7 @@
                 <li><a href="tutorials_laminar.html" id="m-navbar-current">Laminar flow tutorials</a></li>
                 <li><a href="tutorials_RAS.html">Reynolds-averaged flow tutorials</a></li>
                 <li><a href="tutorials_LES.html">LES tutorials</a></li>
+                <li><a href="tutorials_DyM.html">Dynamic mesh tutorials</a></li>
                 <li><a href="inputs.html">Input Parameters</a></li>
               </ol>
             </li>
@@ -154,6 +155,7 @@
                 <li><a href="#postAvalanche2D">Post-processing using python</a></li>
               </ul>
             </li>
+            <li><a href="# ">collapse2D 2DCollapse: Granular column collapses</a></li>
           </ul>
         </nav>
 <p>In this chapter we shall describe in detail the process of setup, simulation and post-processing for SedFoam test cases in the laminar flow regime. All the tutorial cases are in the <em>tutorials/laminar</em> directory. The text herein is highly inspired from the OpenFOAM user-guide for the cavity tutorial available at <a href="http://cfd.direct/openfoam/user-guide/cavity/">http:/<wbr />/<wbr />cfd.direct/<wbr />openfoam/<wbr />user-guide/<wbr />cavity/<wbr /></a> but is adapted to the specificity of SedFoam.</p><p>The test cases provided with SedFoam are aimed to facilitate the learning as well as the development of new configurations. If you develop new feature do not hesitate to share your development with us so that we can incorporate them in the github repository and others will benefit from your work the way you benefited from the original SedFoam version!</p><p>A number of one-dimensional test cases are provided with reference solutions, analytical, experimental or numerical, to validate SedFoam implementation and developments. Most of these test cases are used in the contiunous integration procedure to verify new developments in SedFoam.</p><section id="Sedim_testcase"><h2><a href="#Sedim_testcase">1DSedim: Pure sedimentation</a></h2><p>This tutorial will describe how to pre-process, run and post-process a case corresponding to a pure sedimentation problem in a one-dimensional configuration using the two-phase flow equations. The geometry is shown in Figure 1 in which bottom boundary is a wall and the top boundary is an open boundary. Initially, the flow is at rest and will be solved on a uniform mesh using the SedFoam solver for laminar, isothermal, incompressible two-phase flow. The numerical results are compared with experiments to validate the model in terms of settling curves, time evolution of concentration interface, and concentration profiles.</p><section id="preproc"><h3><a href="#preproc">Pre-processing</a></h3><p>Like in OpenFOAM, cases are setup by editing case files using a text editor such as atome, vscode/vscodium, emacs, vi, gedit, nedit, etc. The I/O uses a dictionary format with keywords. A case involves data for mesh, fields, properties, control parameters, etc that are stored in a set of files within a case directory rather than in a single case file. The case directory is given a suitably descriptive name. This tutorial consists of a set of cases located in the SedFoam distribution under the folder <em>sedFoamDirectory/turheolotorials/laminar/1DSedim</em>.</p><section id="meshgen"><h5><a href="#meshgen">Mesh generation</a></h5><p>OpenFOAM always operates in a 3 dimensional Cartesian coordinate system and all geometries are generated in 3 dimensions. OpenFOAM solves the case in 3 dimensions by default but can be instructed to solve in 2 dimensions by specifying a ‘special’ empty boundary condition on boundaries normal to the (3rd) dimension for which no solution is required. In 2 dimensions, the directions x and y are always chosen even if the mesh is given in the x-z plane.</p><p>The sedimentation domain consists of a rectangle of side length L = 0.006 m in the x–y plane and of height h=0.06 m in the vertical direction z. The side length is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 100 cells will be used. The block structure is shown in Figure 1.</p><figure class="m-figure"><img src="Sketch1DSedim.png" alt="Image" style="width: 200px;" /><figcaption>Figure 1: Block structure of the mesh for the 1D sedimentation problem. </figcaption></figure><p>The mesh generator supplied with OpenFOAM, blockMesh, generates meshes from a description specified in an input dictionary, blockMeshDict located in the <em>constant/polyMesh</em> directory for a given case. The <em>blockMeshDict</em> entries for this case are as follows:</p><pre>/*--------------------------------*- C++ -*----------------------------------*\
@@ -295,7 +297,7 @@ nu              nu [ 0 2 -1 0 0 0 0 ] 2.105e-05;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e0;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha </pre><p>The hindrance function exponent of the Richardson-Zaki law can be tuned using the parameter hExp. This is important for this first test case which is in the laminar regime for the drag. The transportModel has to be prescribed when using turbulence model, it is present here for compatibility with the other test cases. The nuMax value is a viscosity limiter for the all the viscosities, it allows the user to control the numerical stability of the solver and will be discussed in the second test case. It is especially important as some shear stress terms are discretized explicitly and the frictional viscosity can reach huge values. The alphaSmall value is used to regularise the division by alpha.a in the source code, the default value is set to <svg class="m-math" style="width: 2.347em; height: 0.987em; vertical-align: -0.000em;" viewBox="0 -9.474739 22.52667 9.474739">
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha</pre><p>The hindrance function exponent of the Richardson-Zaki law can be tuned using the parameter hExp. This is important for this first test case which is in the laminar regime for the drag. The transportModel has to be prescribed when using turbulence model, it is present here for compatibility with the other test cases. The nuMax value is a viscosity limiter for the all the viscosities, it allows the user to control the numerical stability of the solver and will be discussed in the second test case. It is especially important as some shear stress terms are discretized explicitly and the frictional viscosity can reach huge values. The alphaSmall value is used to regularise the division by alpha.a in the source code, the default value is set to <svg class="m-math" style="width: 2.347em; height: 0.987em; vertical-align: -0.000em;" viewBox="0 -9.474739 22.52667 9.474739">
 <title>
 $ 10^{-6} $
 </title>
@@ -416,6 +418,8 @@ eta1             eta1 [ 0 0 0 0 0 0 0 ] 5;
 packingLimiter  no;</pre><p>And the dictionary <em>granularRheologyProperties</em> controls the granular rheology part:</p><pre>granularRheology   on;
 
 granularDilatancy  off;
+
+granularCohesion off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
@@ -727,6 +731,7 @@ alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (
 
 granularDilatancy  off;
 
+granularCohesion off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
@@ -824,7 +829,7 @@ $\mu(I)$
 <use x='11.595296' y='0' xlink:href='#eq9-g0-73'/>
 <use x='17.698078' y='0' xlink:href='#eq9-g1-41'/>
 </g>
-</svg>. Numerical results are contrasted with the analytical solution (Bagnold&#x27;s solution).</p><figure class="m-figure"><img src="schemeAvalanche1DInertial.png" alt="Image" style="width: 500px;" /><figcaption>Figure 7: Schematic section of the dry avalanche flowing down on a uniform slope. The coordinate system and main lengths are defined.</figcaption></figure><section id="preprocAva"><h3><a href="#preprocAva">Pre-processing</a></h3><p>This tutorial is distributed with sedFoam3.3 under the folder <em>sedFoamDirectory/tutorials/laminar/1DAvalancheMuI</em>.</p><section id="meshgenAva"><h5><a href="#meshgenAva">Mesh generation</a></h5><p>Because the avalanche is assumed to be in a stationary state, the simulation can be easily reduced to a one-dimensional problem. The numerical domain consists of a rectangle of side length L = 0.01 made dimensionless by the domain size in the x-y plane and of height h=1 in the vertical direction z.</p><p>A uniform mesh of 1 by 1 by 100 cells will be used (see <svg class="m-math" style="width: 1.224em; height: 0.723em; vertical-align: -0.187em;" viewBox="0 -5.147373 11.754505 6.940636">
+</svg>. Numerical results are contrasted with the analytical solution (Bagnold&#x27;s solution).</p><figure class="m-figure"><img src="schemeAvalanche1DInertial.png" alt="Image" style="width: 500px;" /><figcaption>Figure 7: Schematic section of the dry avalanche flowing down on a uniform slope. The coordinate system and main lengths are defined.</figcaption></figure><section id="preprocAva"><h3><a href="#preprocAva">Pre-processing</a></h3><p>This tutorial is distributed with sedFoam under the folder <em>sedFoamDirectory/tutorials/laminar/1DAvalancheMuI</em>.</p><section id="meshgenAva"><h5><a href="#meshgenAva">Mesh generation</a></h5><p>Because the avalanche is assumed to be in a stationary state, the simulation can be easily reduced to a one-dimensional problem. The numerical domain consists of a rectangle of side length L = 0.01 made dimensionless by the domain size in the x-y plane and of height h=1 in the vertical direction z.</p><p>A uniform mesh of 1 by 1 by 100 cells will be used (see <svg class="m-math" style="width: 1.224em; height: 0.723em; vertical-align: -0.187em;" viewBox="0 -5.147373 11.754505 6.940636">
 <title>
 $ n_{x}$
 </title>
@@ -1054,6 +1059,8 @@ $\mu(I)$
 
 granularDilatancy  off;
 
+granularCohesion off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.38;
@@ -1180,7 +1187,7 @@ $(\phi_0=0.592)$
 <use x='52.769685' y='0' xlink:href='#eq25-g2-50'/>
 <use x='58.622675' y='0' xlink:href='#eq25-g2-41'/>
 </g>
-</svg> in 1D. In order to reach an initial equilibrium state, 200 seconds are required to let the granular layer deposit by gravity.</p><figure class="m-figure"><img src="schemeAvalanche1DVisc.png" alt="Image" style="width: 500px;" /><figcaption>Figure 9: Schematic section of the immersed avalanche in a viscous fluid flowing down on a uniform slope. The coordinate system and main lengths are defined.</figcaption></figure><section id="preprocWetAva"><h3><a href="#preprocWetAva">Pre-processing</a></h3><p>This tutorial is distributed with sedFoam3.3 under the folder <em>sedFoamDirectory/tutorials/laminar/1DWetAvalanche</em>.</p><section id="PhysPropWetAva"><h5><a href="#PhysPropWetAva">Physical properties</a></h5><p>The following variables are considered to reproduce the experimental results of Pailha et al. (2008):</p><table class="m-table"><caption>Main physical parameters.</caption><thead><tr><th>Properties</th><th>Value</th></tr></thead><tbody><tr><td>Solid density</td><td><svg class="m-math" style="width: 6.541em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 62.793991 14.913253">
+</svg> in 1D. In order to reach an initial equilibrium state, 200 seconds are required to let the granular layer deposit by gravity.</p><figure class="m-figure"><img src="schemeAvalanche1DVisc.png" alt="Image" style="width: 500px;" /><figcaption>Figure 9: Schematic section of the immersed avalanche in a viscous fluid flowing down on a uniform slope. The coordinate system and main lengths are defined.</figcaption></figure><section id="preprocWetAva"><h3><a href="#preprocWetAva">Pre-processing</a></h3><p>This tutorial is distributed with SedFoam under the folder <em>sedFoamDirectory/tutorials/laminar/1DWetAvalanche</em>.</p><section id="PhysPropWetAva"><h5><a href="#PhysPropWetAva">Physical properties</a></h5><p>The following variables are considered to reproduce the experimental results of Pailha et al. (2008):</p><table class="m-table"><caption>Main physical parameters.</caption><thead><tr><th>Properties</th><th>Value</th></tr></thead><tbody><tr><td>Solid density</td><td><svg class="m-math" style="width: 6.541em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 62.793991 14.913253">
 <title>
 $\rho_p=2500 \frac{kg}{m^3}$
 </title>
@@ -1283,8 +1290,8 @@ $d=160 \cdot 10^{-6} m$
 </title>
 <defs>
 <path id='eq29-g3-54' d='M1.099875-2.638107C1.099875-3.299626 1.155666-3.881445 1.44259-4.367621C1.681694-4.766127 2.088169-5.092902 2.590286-5.092902C2.749689-5.092902 3.116314-5.068991 3.299626-4.790037C2.940971-4.774097 2.909091-4.503113 2.909091-4.415442C2.909091-4.176339 3.092403-4.040847 3.283686-4.040847C3.427148-4.040847 3.658281-4.128518 3.658281-4.431382C3.658281-4.909589 3.299626-5.300125 2.582316-5.300125C1.474471-5.300125 .350685-4.24807 .350685-2.526526C.350685-.366625 1.354919 .167372 2.12802 .167372C2.510585 .167372 2.925031 .063761 3.283686-.278954C3.602491-.589788 3.873474-.924533 3.873474-1.617933C3.873474-2.662017 3.084433-3.395268 2.199751-3.395268C1.625903-3.395268 1.283188-3.028643 1.099875-2.638107ZM2.12802-.071731C1.705604-.071731 1.44259-.366625 1.323039-.589788C1.139726-.948443 1.123786-1.490411 1.123786-1.793275C1.123786-2.582316 1.554172-3.172105 2.16787-3.172105C2.566376-3.172105 2.805479-2.964882 2.956912-2.685928C3.124284-2.391034 3.124284-2.032379 3.124284-1.625903S3.124284-.868742 2.964882-.581818C2.757659-.215193 2.478705-.071731 2.12802-.071731Z'/>
-<path id='eq29-g1-1' d='M2.295392-2.988792C2.295392-3.335492 2.008468-3.622416 1.661768-3.622416S1.028144-3.335492 1.028144-2.988792S1.315068-2.355168 1.661768-2.355168S2.295392-2.642092 2.295392-2.988792Z'/>
 <path id='eq29-g0-0' d='M5.571108-1.809215C5.69863-1.809215 5.873973-1.809215 5.873973-1.992528S5.69863-2.175841 5.571108-2.175841H1.004234C.876712-2.175841 .70137-2.175841 .70137-1.992528S.876712-1.809215 1.004234-1.809215H5.571108Z'/>
+<path id='eq29-g1-1' d='M2.295392-2.988792C2.295392-3.335492 2.008468-3.622416 1.661768-3.622416S1.028144-3.335492 1.028144-2.988792S1.315068-2.355168 1.661768-2.355168S2.295392-2.642092 2.295392-2.988792Z'/>
 <path id='eq29-g4-48' d='M5.355915-3.825654C5.355915-4.817933 5.296139-5.786301 4.865753-6.694894C4.375592-7.687173 3.514819-7.950187 2.929016-7.950187C2.235616-7.950187 1.3868-7.603487 .944458-6.611208C.609714-5.858032 .490162-5.116812 .490162-3.825654C.490162-2.666002 .573848-1.793275 1.004234-.944458C1.470486-.035866 2.295392 .251059 2.917061 .251059C3.957161 .251059 4.554919-.37061 4.901619-1.06401C5.332005-1.960648 5.355915-3.132254 5.355915-3.825654ZM2.917061 .011955C2.534496 .011955 1.75741-.203238 1.530262-1.506351C1.398755-2.223661 1.398755-3.132254 1.398755-3.969116C1.398755-4.94944 1.398755-5.834122 1.590037-6.539477C1.793275-7.340473 2.402989-7.711083 2.917061-7.711083C3.371357-7.711083 4.064757-7.436115 4.291905-6.40797C4.447323-5.726526 4.447323-4.782067 4.447323-3.969116C4.447323-3.16812 4.447323-2.259527 4.315816-1.530262C4.088667-.215193 3.335492 .011955 2.917061 .011955Z'/>
 <path id='eq29-g4-49' d='M3.443088-7.663263C3.443088-7.938232 3.443088-7.950187 3.203985-7.950187C2.917061-7.627397 2.319303-7.185056 1.08792-7.185056V-6.838356C1.362889-6.838356 1.960648-6.838356 2.618182-7.149191V-.920548C2.618182-.490162 2.582316-.3467 1.530262-.3467H1.159651V0C1.482441-.02391 2.642092-.02391 3.036613-.02391S4.578829-.02391 4.901619 0V-.3467H4.531009C3.478954-.3467 3.443088-.490162 3.443088-.920548V-7.663263Z'/>
 <path id='eq29-g4-54' d='M1.470486-4.160399C1.470486-7.185056 2.940971-7.663263 3.58655-7.663263C4.016936-7.663263 4.447323-7.531756 4.674471-7.173101C4.531009-7.173101 4.076712-7.173101 4.076712-6.682939C4.076712-6.419925 4.25604-6.192777 4.566874-6.192777C4.865753-6.192777 5.068991-6.372105 5.068991-6.718804C5.068991-7.340473 4.614695-7.950187 3.574595-7.950187C2.068244-7.950187 .490162-6.40797 .490162-3.777833C.490162-.490162 1.924782 .251059 2.940971 .251059C4.244085 .251059 5.355915-.884682 5.355915-2.438854C5.355915-4.028892 4.244085-5.092902 3.048568-5.092902C1.984558-5.092902 1.590037-4.172354 1.470486-3.837609V-4.160399ZM2.940971-.071731C2.187796-.071731 1.829141-.74122 1.721544-.992279C1.613948-1.303113 1.494396-1.888917 1.494396-2.725778C1.494396-3.670237 1.924782-4.853798 3.000747-4.853798C3.658281-4.853798 4.004981-4.411457 4.184309-4.004981C4.375592-3.56264 4.375592-2.964882 4.375592-2.450809C4.375592-1.841096 4.375592-1.303113 4.148443-.848817C3.849564-.274969 3.419178-.071731 2.940971-.071731Z'/>
@@ -1414,6 +1421,8 @@ $\mu(I_v)$
 
 granularDilatancy  on;
 
+granularCohesion off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.425;
@@ -1530,7 +1539,7 @@ $K_1 = 4$
 <use x='30.437738' y='0' xlink:href='#eq37-g2-52'/>
 </g>
 </svg>:</p><pre>K_dila          K_dila [ 0 0 0 0 0 0 0 ] 4.0;</pre></section><section id="postWetAvalanche"><h3><a href="#postWetAvalanche">Post-processing using python</a></h3><p>The SedFoam and Pailha et al. (2008) experimental results are obtained running the python script <em>plot_tuto1DWetAvalanche.py</em> located in the folder <em>tutorials/Py</em>:</p><pre>python plot_tuto1DWetAvalanche.py
-</pre><p>and you should see the following figure:</p><figure class="m-figure"><img src="velocityPlot1D_phi0592.png" alt="Image" style="width: 400px;" /><figcaption>Figure 10: Evolution of surface particle velocity. Experimental curves are extracted from Pailha et al.(2008).</figcaption></figure><figure class="m-figure"><img src="pressurePlot1D_phi0592.png" alt="Image" style="width: 400px;" /><figcaption>Figure 11 Evolution of excess of pore pressure with time. Experimental curves are extracted from Pailha et al.(2008).</figcaption></figure><p>In order to illustrate the dilatant effects and the pore pressure feedback mechanism of the avalanche we run the python script <em>plot_tuto1DWetAvalancheVerticalProfiles.py</em>. The resulting figure is depicted below. We observe the evolution of the volume fraction, particle velocity and excess of pore pressure along the vertical axis.</p><figure class="m-figure"><img src="1DWetAvalancheVerticalProfiles.png" alt="Image" style="width: 1000px;" /><figcaption>Figure 12: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical.</figcaption></figure></section></section><section id="wetvalanche2D"><h2><a href="#wetvalanche2D">2DWetAvalancheMuIv: Immersed granular avalanche</a></h2><p>We consider a layer of granular material fully immersed in a viscous liquid. The granular layer is inclined so it starts moving down a planar slope as illustrated in figure 13.<br />The geometrical parameters and boundary conditions are set to reproduce precisely the experimental setup of Pailha et al.(2008). In this example, the dense granular flow rheology <svg class="m-math" style="width: 2.731em; height: 1.245em; vertical-align: -0.312em;" viewBox="0 -8.966376 26.2181 11.955168">
+</pre><p>and you should see the following figure:</p><figure class="m-figure"><img src="velocityPlot1D_phi0592.png" alt="Image" style="width: 400px;" /><figcaption>Figure 10: Evolution of surface particle velocity. Experimental curves are extracted from Pailha et al.(2008).</figcaption></figure><figure class="m-figure"><img src="pressurePlot1D_phi0592.png" alt="Image" style="width: 400px;" /><figcaption>Figure 11 Evolution of excess of pore pressure with time. Experimental curves are extracted from Pailha et al.(2008).</figcaption></figure><p>In order to illustrate the dilatant effects and the pore pressure feedback mechanism of the avalanche we run the python script <em>plot_tuto1DWetAvalancheVerticalProfiles.py</em>. The resulting figure is depicted below. We observe the evolution of the volume fraction, particle velocity and excess of pore pressure along the vertical axis.</p><figure class="m-figure"><img src="1DWetAvalancheVerticalProfiles.png" alt="Image" style="width: 1000px;" /><figcaption>Figure 12: a) Evolution of volume fraction profile, b) particle velocity profile and c) excess of pore pressure along the vertical.</figcaption></figure></section></section><section id="wetvalanche2D"><h2><a href="#wetvalanche2D">2DWetAvalancheMuIv: Immersed granular avalanche</a></h2><p>We consider a layer of granular material fully immersed in a viscous liquid. The granular layer is inclined so it starts moving down a planar slope as illustrated in figure 13. The geometrical parameters and boundary conditions are set to reproduce precisely the experimental setup of Pailha et al.(2008). In this example, the dense granular flow rheology <svg class="m-math" style="width: 2.731em; height: 1.245em; vertical-align: -0.312em;" viewBox="0 -8.966376 26.2181 11.955168">
 <title>
 $\mu(I_v)$
 </title>
@@ -1716,7 +1725,7 @@ cp -r 0_org 200
 
 # Initialize fields
 mapFields -sourceTime 200 Reference1D
-</pre><p>In order to reproduce the experimental setup of Pailha et al. (2008), all the x-y plane boundaries are set as wall boundaries. The velocities of both phases are set to zero at all boundaries (lateral, top and bottom) while a <em>fixedFluxPressure</em> condition is imposed for the excess pore pressure on all boundaries. An homogeneous Neumann boundary condition (zero gradient) is imposed for all the other quantities.</p></section><section id="PhysProp2DAvalanche"><h3><a href="#PhysProp2DAvalanche">Physical properties</a></h3><p>The following variables are considered to reproduce the experimental results of Pailha et al. (2008):</p><table class="m-table"><caption>Main physical parameters.</caption><thead><tr><th>Properties</th><th>Value<br /></th></tr></thead><tbody><tr><td>Solid density</td><td><svg class="m-math" style="width: 6.541em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 62.793991 14.913253">
+</pre><p>In order to reproduce the experimental setup of Pailha et al. (2008), all the x-y plane boundaries are set as wall boundaries. The velocities of both phases are set to zero at all boundaries (lateral, top and bottom) while a <em>fixedFluxPressure</em> condition is imposed for the excess pore pressure on all boundaries. An homogeneous Neumann boundary condition (zero gradient) is imposed for all the other quantities.</p></section><section id="PhysProp2DAvalanche"><h3><a href="#PhysProp2DAvalanche">Physical properties</a></h3><p>The following variables are considered to reproduce the experimental results of Pailha et al. (2008):</p><table class="m-table"><caption>Main physical parameters.</caption><thead><tr><th>Properties</th><th>Value</th></tr></thead><tbody><tr><td>Solid density</td><td><svg class="m-math" style="width: 6.541em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 62.793991 14.913253">
 <title>
 $\rho_p=2500 \frac{kg}{m^3}$
 </title>
@@ -1746,7 +1755,7 @@ $\rho_p=2500 \frac{kg}{m^3}$
 <use x='51.152421' y='4.122632' xlink:href='#eq46-g0-109'/>
 <use x='58.642947' y='1.853371' xlink:href='#eq46-g2-51'/>
 </g>
-</svg><br /></td></tr><tr><td>Fluid density</td><td><svg class="m-math" style="width: 6.612em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 63.47798 14.913253">
+</svg></td></tr><tr><td>Fluid density</td><td><svg class="m-math" style="width: 6.612em; height: 1.553em; vertical-align: -0.431em;" viewBox="0 -10.79062 63.47798 14.913253">
 <title>
 $\rho_f=1041 \frac{kg}{m^3}$
 </title>
@@ -1776,7 +1785,7 @@ $\rho_f=1041 \frac{kg}{m^3}$
 <use x='51.83641' y='4.122632' xlink:href='#eq47-g0-109'/>
 <use x='59.326936' y='1.853371' xlink:href='#eq47-g2-51'/>
 </g>
-</svg><br /></td></tr><tr><td>Fluid viscosity</td><td><svg class="m-math" style="width: 9.082em; height: 1.614em; vertical-align: -0.431em;" viewBox="0 -11.372132 87.182887 15.494764">
+</svg></td></tr><tr><td>Fluid viscosity</td><td><svg class="m-math" style="width: 9.082em; height: 1.614em; vertical-align: -0.431em;" viewBox="0 -11.372132 87.182887 15.494764">
 <title>
 $\nu^f=9.2 \cdot 10^{-5} \frac{m^2}{s}$
 </title>
@@ -1813,14 +1822,14 @@ $\nu^f=9.2 \cdot 10^{-5} \frac{m^2}{s}$
 <rect x='75.541316' y='-3.227886' height='.478187' width='11.641571'/>
 <use x='79.40415' y='4.122632' xlink:href='#eq48-g2-115'/>
 </g>
-</svg><br /></td></tr><tr><td>Mean particle diameter</td><td><svg class="m-math" style="width: 8.467em; height: 0.987em; vertical-align: -0.000em;" viewBox="0 -9.474739 81.28626 9.474739">
+</svg></td></tr><tr><td>Mean particle diameter</td><td><svg class="m-math" style="width: 8.467em; height: 0.987em; vertical-align: -0.000em;" viewBox="0 -9.474739 81.28626 9.474739">
 <title>
 $d=160 \cdot 10^{-6} m$
 </title>
 <defs>
 <path id='eq49-g3-54' d='M1.099875-2.638107C1.099875-3.299626 1.155666-3.881445 1.44259-4.367621C1.681694-4.766127 2.088169-5.092902 2.590286-5.092902C2.749689-5.092902 3.116314-5.068991 3.299626-4.790037C2.940971-4.774097 2.909091-4.503113 2.909091-4.415442C2.909091-4.176339 3.092403-4.040847 3.283686-4.040847C3.427148-4.040847 3.658281-4.128518 3.658281-4.431382C3.658281-4.909589 3.299626-5.300125 2.582316-5.300125C1.474471-5.300125 .350685-4.24807 .350685-2.526526C.350685-.366625 1.354919 .167372 2.12802 .167372C2.510585 .167372 2.925031 .063761 3.283686-.278954C3.602491-.589788 3.873474-.924533 3.873474-1.617933C3.873474-2.662017 3.084433-3.395268 2.199751-3.395268C1.625903-3.395268 1.283188-3.028643 1.099875-2.638107ZM2.12802-.071731C1.705604-.071731 1.44259-.366625 1.323039-.589788C1.139726-.948443 1.123786-1.490411 1.123786-1.793275C1.123786-2.582316 1.554172-3.172105 2.16787-3.172105C2.566376-3.172105 2.805479-2.964882 2.956912-2.685928C3.124284-2.391034 3.124284-2.032379 3.124284-1.625903S3.124284-.868742 2.964882-.581818C2.757659-.215193 2.478705-.071731 2.12802-.071731Z'/>
-<path id='eq49-g1-1' d='M2.295392-2.988792C2.295392-3.335492 2.008468-3.622416 1.661768-3.622416S1.028144-3.335492 1.028144-2.988792S1.315068-2.355168 1.661768-2.355168S2.295392-2.642092 2.295392-2.988792Z'/>
 <path id='eq49-g0-0' d='M5.571108-1.809215C5.69863-1.809215 5.873973-1.809215 5.873973-1.992528S5.69863-2.175841 5.571108-2.175841H1.004234C.876712-2.175841 .70137-2.175841 .70137-1.992528S.876712-1.809215 1.004234-1.809215H5.571108Z'/>
+<path id='eq49-g1-1' d='M2.295392-2.988792C2.295392-3.335492 2.008468-3.622416 1.661768-3.622416S1.028144-3.335492 1.028144-2.988792S1.315068-2.355168 1.661768-2.355168S2.295392-2.642092 2.295392-2.988792Z'/>
 <path id='eq49-g4-48' d='M5.355915-3.825654C5.355915-4.817933 5.296139-5.786301 4.865753-6.694894C4.375592-7.687173 3.514819-7.950187 2.929016-7.950187C2.235616-7.950187 1.3868-7.603487 .944458-6.611208C.609714-5.858032 .490162-5.116812 .490162-3.825654C.490162-2.666002 .573848-1.793275 1.004234-.944458C1.470486-.035866 2.295392 .251059 2.917061 .251059C3.957161 .251059 4.554919-.37061 4.901619-1.06401C5.332005-1.960648 5.355915-3.132254 5.355915-3.825654ZM2.917061 .011955C2.534496 .011955 1.75741-.203238 1.530262-1.506351C1.398755-2.223661 1.398755-3.132254 1.398755-3.969116C1.398755-4.94944 1.398755-5.834122 1.590037-6.539477C1.793275-7.340473 2.402989-7.711083 2.917061-7.711083C3.371357-7.711083 4.064757-7.436115 4.291905-6.40797C4.447323-5.726526 4.447323-4.782067 4.447323-3.969116C4.447323-3.16812 4.447323-2.259527 4.315816-1.530262C4.088667-.215193 3.335492 .011955 2.917061 .011955Z'/>
 <path id='eq49-g4-49' d='M3.443088-7.663263C3.443088-7.938232 3.443088-7.950187 3.203985-7.950187C2.917061-7.627397 2.319303-7.185056 1.08792-7.185056V-6.838356C1.362889-6.838356 1.960648-6.838356 2.618182-7.149191V-.920548C2.618182-.490162 2.582316-.3467 1.530262-.3467H1.159651V0C1.482441-.02391 2.642092-.02391 3.036613-.02391S4.578829-.02391 4.901619 0V-.3467H4.531009C3.478954-.3467 3.443088-.490162 3.443088-.920548V-7.663263Z'/>
 <path id='eq49-g4-54' d='M1.470486-4.160399C1.470486-7.185056 2.940971-7.663263 3.58655-7.663263C4.016936-7.663263 4.447323-7.531756 4.674471-7.173101C4.531009-7.173101 4.076712-7.173101 4.076712-6.682939C4.076712-6.419925 4.25604-6.192777 4.566874-6.192777C4.865753-6.192777 5.068991-6.372105 5.068991-6.718804C5.068991-7.340473 4.614695-7.950187 3.574595-7.950187C2.068244-7.950187 .490162-6.40797 .490162-3.777833C.490162-.490162 1.924782 .251059 2.940971 .251059C4.244085 .251059 5.355915-.884682 5.355915-2.438854C5.355915-4.028892 4.244085-5.092902 3.048568-5.092902C1.984558-5.092902 1.590037-4.172354 1.470486-3.837609V-4.160399ZM2.940971-.071731C2.187796-.071731 1.829141-.74122 1.721544-.992279C1.613948-1.303113 1.494396-1.888917 1.494396-2.725778C1.494396-3.670237 1.924782-4.853798 3.000747-4.853798C3.658281-4.853798 4.004981-4.411457 4.184309-4.004981C4.375592-3.56264 4.375592-2.964882 4.375592-2.450809C4.375592-1.841096 4.375592-1.303113 4.148443-.848817C3.849564-.274969 3.419178-.071731 2.940971-.071731Z'/>
@@ -1841,7 +1850,7 @@ $d=160 \cdot 10^{-6} m$
 <use x='66.314678' y='-4.338437' xlink:href='#eq49-g3-54'/>
 <use x='71.046993' y='0' xlink:href='#eq49-g2-109'/>
 </g>
-</svg><br /></td></tr><tr><td>Slope inclined at the angle</td><td><svg class="m-math" style="width: 3.888em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 37.325681 8.302191">
+</svg></td></tr><tr><td>Slope inclined at the angle</td><td><svg class="m-math" style="width: 3.888em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 37.325681 8.302191">
 <title>
 $\theta=25^o $
 </title>
@@ -1859,7 +1868,7 @@ $\theta=25^o $
 <use x='27.379641' y='0' xlink:href='#eq50-g2-53'/>
 <use x='33.232632' y='-4.338437' xlink:href='#eq50-g0-111'/>
 </g>
-</svg><br /></td></tr><tr><td>Solid phase thickness</td><td><svg class="m-math" style="width: 6.796em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 65.240745 8.302191">
+</svg></td></tr><tr><td>Solid phase thickness</td><td><svg class="m-math" style="width: 6.796em; height: 0.865em; vertical-align: -0.000em;" viewBox="0 -8.302191 65.240745 8.302191">
 <title>
 $h=0.0049 m$
 </title>
@@ -1942,7 +1951,7 @@ $\phi=0.592$
 <use x='37.632054' y='0' xlink:href='#eq54-g1-57'/>
 <use x='43.485044' y='0' xlink:href='#eq54-g1-50'/>
 </g>
-</svg><br /></td></tr></tbody></table><p>Dense granular flow rheology <svg class="m-math" style="width: 2.731em; height: 1.245em; vertical-align: -0.312em;" viewBox="0 -8.966376 26.2181 11.955168">
+</svg></td></tr></tbody></table><p>Dense granular flow rheology <svg class="m-math" style="width: 2.731em; height: 1.245em; vertical-align: -0.312em;" viewBox="0 -8.966376 26.2181 11.955168">
 <title>
 $\mu(I_v)$
 </title>
@@ -1963,6 +1972,8 @@ $\mu(I_v)$
 </svg> and the dilatancy model is used as shown in <em>granularRheologyProperties</em>:</p><pre>granularRheology   on;
 
 granularDilatancy  on;
+
+granularCohesion off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
@@ -1992,11 +2003,195 @@ FrictionModel   MuIv;
 PPressureModel  MuIv;
 
 FluidViscosityModel  BoyerEtAl;
-</pre></section><section id="lauch_2DwetAvalanche"><h3><a href="#lauch_2DwetAvalanche">Computation launching</a></h3><p>Like in previous case, you can launch the computation by executing <em>Allrun</em>. The simulations will run in parallel on 18 cores.</p><pre># Decompose the case and run in parallel 
+</pre></section><section id="lauch_2DwetAvalanche"><h3><a href="#lauch_2DwetAvalanche">Computation launching</a></h3><p>Like in previous case, you can launch the computation by executing <em>Allrun</em>. The simulations will run in parallel on 18 cores.</p><pre># Decompose the case and run in parallel
 decomposePar
 mpirun -np 18 sedFoam_rbgh -parallel &gt; log&amp;
 </pre></section><section id="postAvalanche2D"><h3><a href="#postAvalanche2D">Post-processing using python</a></h3><p>You just have to run the python script <em>plot_tuto2DWetAvalanche.py</em> located in the folder <em>tutorials/Py</em>:</p><pre>python plot_tuto2DWetAvalanche.py
-</pre><p>and you should see the following figures:</p><figure class="m-figure"><img src="2DWetAvalancheResults.png" alt="Image" style="width: 800px;" /><figcaption>Figure 14: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailha et al.(2008).</figcaption></figure></section></section>
+</pre><p>and you should see the following figures:</p><figure class="m-figure"><img src="2DWetAvalancheResults.png" alt="Image" style="width: 800px;" /><figcaption>Figure 14: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailha et al.(2008).</figcaption></figure></section></section><section id=" "><h2><a href="# ">collapse2D 2DCollapse: Granular column collapses</a></h2><p>In this section,sedFoam is used to reproduce initially loose and dense granular column collapses. More specifically, this section consists of reproducing the experimental granular collapses of Rondon et al. (2011). The granular column collapse is used to extend the dilatancy model to a more complex and realistic configuration. Numerical results are published in the work of Montellà et al (2023).</p><p>The experiments performed by Rondon et al. (2011).  investigated  the collapse of a granular column in a viscous liquid.  Initially dense columns resulted in negative pore pressures that slowed down the collapse, while in loose granular packings, the collapsing process was triggered instantaneously with positive pore pressures that enhanced a rapid flow. Although several volume fractions and aspects ratios were analyzed, only two representative cases (an initially loose column with   <svg class="m-math" style="width: 5.008em; height: 1.107em; vertical-align: -0.243em;" viewBox="0 -8.302191 48.076226 10.626798">
+<title>
+$\phi_o=0.55$
+</title>
+<defs>
+<path id='eq56-g2-48' d='M5.355915-3.825654C5.355915-4.817933 5.296139-5.786301 4.865753-6.694894C4.375592-7.687173 3.514819-7.950187 2.929016-7.950187C2.235616-7.950187 1.3868-7.603487 .944458-6.611208C.609714-5.858032 .490162-5.116812 .490162-3.825654C.490162-2.666002 .573848-1.793275 1.004234-.944458C1.470486-.035866 2.295392 .251059 2.917061 .251059C3.957161 .251059 4.554919-.37061 4.901619-1.06401C5.332005-1.960648 5.355915-3.132254 5.355915-3.825654ZM2.917061 .011955C2.534496 .011955 1.75741-.203238 1.530262-1.506351C1.398755-2.223661 1.398755-3.132254 1.398755-3.969116C1.398755-4.94944 1.398755-5.834122 1.590037-6.539477C1.793275-7.340473 2.402989-7.711083 2.917061-7.711083C3.371357-7.711083 4.064757-7.436115 4.291905-6.40797C4.447323-5.726526 4.447323-4.782067 4.447323-3.969116C4.447323-3.16812 4.447323-2.259527 4.315816-1.530262C4.088667-.215193 3.335492 .011955 2.917061 .011955Z'/>
+<path id='eq56-g2-53' d='M1.530262-6.850311C2.044334-6.682939 2.462765-6.670984 2.594271-6.670984C3.945205-6.670984 4.805978-7.663263 4.805978-7.830635C4.805978-7.878456 4.782067-7.938232 4.710336-7.938232C4.686426-7.938232 4.662516-7.938232 4.554919-7.890411C3.88543-7.603487 3.311582-7.567621 3.000747-7.567621C2.211706-7.567621 1.649813-7.806725 1.422665-7.902366C1.338979-7.938232 1.315068-7.938232 1.303113-7.938232C1.207472-7.938232 1.207472-7.866501 1.207472-7.675218V-4.124533C1.207472-3.90934 1.207472-3.837609 1.350934-3.837609C1.41071-3.837609 1.422665-3.849564 1.542217-3.993026C1.876961-4.483188 2.438854-4.770112 3.036613-4.770112C3.670237-4.770112 3.981071-4.184309 4.076712-3.981071C4.27995-3.514819 4.291905-2.929016 4.291905-2.47472S4.291905-1.338979 3.957161-.800996C3.694147-.37061 3.227895-.071731 2.701868-.071731C1.912827-.071731 1.135741-.609714 .920548-1.482441C.980324-1.458531 1.052055-1.446575 1.111831-1.446575C1.315068-1.446575 1.637858-1.566127 1.637858-1.972603C1.637858-2.307347 1.41071-2.49863 1.111831-2.49863C.896638-2.49863 .585803-2.391034 .585803-1.924782C.585803-.908593 1.398755 .251059 2.725778 .251059C4.076712 .251059 5.260274-.884682 5.260274-2.402989C5.260274-3.825654 4.303861-5.009215 3.048568-5.009215C2.367123-5.009215 1.841096-4.710336 1.530262-4.375592V-6.850311Z'/>
+<path id='eq56-g2-61' d='M8.069738-3.873474C8.237111-3.873474 8.452304-3.873474 8.452304-4.088667C8.452304-4.315816 8.249066-4.315816 8.069738-4.315816H1.028144C.860772-4.315816 .645579-4.315816 .645579-4.100623C.645579-3.873474 .848817-3.873474 1.028144-3.873474H8.069738ZM8.069738-1.649813C8.237111-1.649813 8.452304-1.649813 8.452304-1.865006C8.452304-2.092154 8.249066-2.092154 8.069738-2.092154H1.028144C.860772-2.092154 .645579-2.092154 .645579-1.876961C.645579-1.649813 .848817-1.649813 1.028144-1.649813H8.069738Z'/>
+<path id='eq56-g0-111' d='M3.969116-2.13599C3.969116-2.917061 3.411208-3.514819 2.582316-3.514819C1.45056-3.514819 .350685-2.414944 .350685-1.299128C.350685-.486177 .924533 .079701 1.737484 .079701C2.87721 .079701 3.969116-1.036115 3.969116-2.13599ZM1.745455-.143462C1.466501-.143462 .996264-.286924 .996264-1.020174C.996264-1.346949 1.147696-2.207721 1.530262-2.701868C1.920797-3.203985 2.359153-3.291656 2.574346-3.291656C2.901121-3.291656 3.323537-3.092403 3.323537-2.422914C3.323537-2.10411 3.180075-1.346949 2.87721-.868742C2.582316-.414446 2.14396-.143462 1.745455-.143462Z'/>
+<path id='eq56-g1-30' d='M5.140722-8.18929C5.140722-8.296887 5.057036-8.296887 5.021171-8.296887C4.913574-8.296887 4.901619-8.272976 4.853798-8.069738L4.208219-5.499377C4.172354-5.34396 4.160399-5.332005 4.148443-5.32005C4.136488-5.296139 4.052802-5.284184 4.028892-5.284184C2.068244-5.116812 .561893-3.502864 .561893-2.008468C.561893-.71731 1.554172 .071731 2.797509 .143462C2.701868 .514072 2.618182 .896638 2.52254 1.267248C2.355168 1.900872 2.259527 2.295392 2.259527 2.343213C2.259527 2.367123 2.259527 2.438854 2.379078 2.438854C2.414944 2.438854 2.462765 2.438854 2.486675 2.391034C2.510585 2.367123 2.582316 2.080199 2.630137 1.924782L3.072478 .143462C5.116812 .035866 6.670984-1.637858 6.670984-3.144209C6.670984-4.351681 5.762391-5.212453 4.435367-5.296139L5.140722-8.18929ZM4.363636-5.057036C5.152677-5.009215 5.941719-4.566874 5.941719-3.395268C5.941719-2.044334 4.99726-.251059 3.132254-.107597L4.363636-5.057036ZM2.857285-.095641C2.271482-.131507 1.291158-.442341 1.291158-1.75741C1.291158-3.263761 2.379078-4.937484 4.100623-5.045081L2.857285-.095641Z'/>
+<path id='eq56-g1-58' d='M2.199751-.573848C2.199751-.920548 1.912827-1.159651 1.625903-1.159651C1.279203-1.159651 1.0401-.872727 1.0401-.585803C1.0401-.239103 1.327024 0 1.613948 0C1.960648 0 2.199751-.286924 2.199751-.573848Z'/>
+</defs>
+<g id='eq56-page1'>
+<use x='0' y='0' xlink:href='#eq56-g1-30'/>
+<use x='6.928102' y='1.793263' xlink:href='#eq56-g0-111'/>
+<use x='14.840113' y='0' xlink:href='#eq56-g2-61'/>
+<use x='27.265594' y='0' xlink:href='#eq56-g2-48'/>
+<use x='33.118584' y='0' xlink:href='#eq56-g1-58'/>
+<use x='36.370245' y='0' xlink:href='#eq56-g2-53'/>
+<use x='42.223236' y='0' xlink:href='#eq56-g2-53'/>
+</g>
+</svg> and an initially dense packing with    <svg class="m-math" style="width: 5.008em; height: 1.107em; vertical-align: -0.243em;" viewBox="0 -8.302191 48.076226 10.626798">
+<title>
+$\phi_o=0.61$
+</title>
+<defs>
+<path id='eq57-g2-48' d='M5.355915-3.825654C5.355915-4.817933 5.296139-5.786301 4.865753-6.694894C4.375592-7.687173 3.514819-7.950187 2.929016-7.950187C2.235616-7.950187 1.3868-7.603487 .944458-6.611208C.609714-5.858032 .490162-5.116812 .490162-3.825654C.490162-2.666002 .573848-1.793275 1.004234-.944458C1.470486-.035866 2.295392 .251059 2.917061 .251059C3.957161 .251059 4.554919-.37061 4.901619-1.06401C5.332005-1.960648 5.355915-3.132254 5.355915-3.825654ZM2.917061 .011955C2.534496 .011955 1.75741-.203238 1.530262-1.506351C1.398755-2.223661 1.398755-3.132254 1.398755-3.969116C1.398755-4.94944 1.398755-5.834122 1.590037-6.539477C1.793275-7.340473 2.402989-7.711083 2.917061-7.711083C3.371357-7.711083 4.064757-7.436115 4.291905-6.40797C4.447323-5.726526 4.447323-4.782067 4.447323-3.969116C4.447323-3.16812 4.447323-2.259527 4.315816-1.530262C4.088667-.215193 3.335492 .011955 2.917061 .011955Z'/>
+<path id='eq57-g2-49' d='M3.443088-7.663263C3.443088-7.938232 3.443088-7.950187 3.203985-7.950187C2.917061-7.627397 2.319303-7.185056 1.08792-7.185056V-6.838356C1.362889-6.838356 1.960648-6.838356 2.618182-7.149191V-.920548C2.618182-.490162 2.582316-.3467 1.530262-.3467H1.159651V0C1.482441-.02391 2.642092-.02391 3.036613-.02391S4.578829-.02391 4.901619 0V-.3467H4.531009C3.478954-.3467 3.443088-.490162 3.443088-.920548V-7.663263Z'/>
+<path id='eq57-g2-54' d='M1.470486-4.160399C1.470486-7.185056 2.940971-7.663263 3.58655-7.663263C4.016936-7.663263 4.447323-7.531756 4.674471-7.173101C4.531009-7.173101 4.076712-7.173101 4.076712-6.682939C4.076712-6.419925 4.25604-6.192777 4.566874-6.192777C4.865753-6.192777 5.068991-6.372105 5.068991-6.718804C5.068991-7.340473 4.614695-7.950187 3.574595-7.950187C2.068244-7.950187 .490162-6.40797 .490162-3.777833C.490162-.490162 1.924782 .251059 2.940971 .251059C4.244085 .251059 5.355915-.884682 5.355915-2.438854C5.355915-4.028892 4.244085-5.092902 3.048568-5.092902C1.984558-5.092902 1.590037-4.172354 1.470486-3.837609V-4.160399ZM2.940971-.071731C2.187796-.071731 1.829141-.74122 1.721544-.992279C1.613948-1.303113 1.494396-1.888917 1.494396-2.725778C1.494396-3.670237 1.924782-4.853798 3.000747-4.853798C3.658281-4.853798 4.004981-4.411457 4.184309-4.004981C4.375592-3.56264 4.375592-2.964882 4.375592-2.450809C4.375592-1.841096 4.375592-1.303113 4.148443-.848817C3.849564-.274969 3.419178-.071731 2.940971-.071731Z'/>
+<path id='eq57-g2-61' d='M8.069738-3.873474C8.237111-3.873474 8.452304-3.873474 8.452304-4.088667C8.452304-4.315816 8.249066-4.315816 8.069738-4.315816H1.028144C.860772-4.315816 .645579-4.315816 .645579-4.100623C.645579-3.873474 .848817-3.873474 1.028144-3.873474H8.069738ZM8.069738-1.649813C8.237111-1.649813 8.452304-1.649813 8.452304-1.865006C8.452304-2.092154 8.249066-2.092154 8.069738-2.092154H1.028144C.860772-2.092154 .645579-2.092154 .645579-1.876961C.645579-1.649813 .848817-1.649813 1.028144-1.649813H8.069738Z'/>
+<path id='eq57-g0-111' d='M3.969116-2.13599C3.969116-2.917061 3.411208-3.514819 2.582316-3.514819C1.45056-3.514819 .350685-2.414944 .350685-1.299128C.350685-.486177 .924533 .079701 1.737484 .079701C2.87721 .079701 3.969116-1.036115 3.969116-2.13599ZM1.745455-.143462C1.466501-.143462 .996264-.286924 .996264-1.020174C.996264-1.346949 1.147696-2.207721 1.530262-2.701868C1.920797-3.203985 2.359153-3.291656 2.574346-3.291656C2.901121-3.291656 3.323537-3.092403 3.323537-2.422914C3.323537-2.10411 3.180075-1.346949 2.87721-.868742C2.582316-.414446 2.14396-.143462 1.745455-.143462Z'/>
+<path id='eq57-g1-30' d='M5.140722-8.18929C5.140722-8.296887 5.057036-8.296887 5.021171-8.296887C4.913574-8.296887 4.901619-8.272976 4.853798-8.069738L4.208219-5.499377C4.172354-5.34396 4.160399-5.332005 4.148443-5.32005C4.136488-5.296139 4.052802-5.284184 4.028892-5.284184C2.068244-5.116812 .561893-3.502864 .561893-2.008468C.561893-.71731 1.554172 .071731 2.797509 .143462C2.701868 .514072 2.618182 .896638 2.52254 1.267248C2.355168 1.900872 2.259527 2.295392 2.259527 2.343213C2.259527 2.367123 2.259527 2.438854 2.379078 2.438854C2.414944 2.438854 2.462765 2.438854 2.486675 2.391034C2.510585 2.367123 2.582316 2.080199 2.630137 1.924782L3.072478 .143462C5.116812 .035866 6.670984-1.637858 6.670984-3.144209C6.670984-4.351681 5.762391-5.212453 4.435367-5.296139L5.140722-8.18929ZM4.363636-5.057036C5.152677-5.009215 5.941719-4.566874 5.941719-3.395268C5.941719-2.044334 4.99726-.251059 3.132254-.107597L4.363636-5.057036ZM2.857285-.095641C2.271482-.131507 1.291158-.442341 1.291158-1.75741C1.291158-3.263761 2.379078-4.937484 4.100623-5.045081L2.857285-.095641Z'/>
+<path id='eq57-g1-58' d='M2.199751-.573848C2.199751-.920548 1.912827-1.159651 1.625903-1.159651C1.279203-1.159651 1.0401-.872727 1.0401-.585803C1.0401-.239103 1.327024 0 1.613948 0C1.960648 0 2.199751-.286924 2.199751-.573848Z'/>
+</defs>
+<g id='eq57-page1'>
+<use x='0' y='0' xlink:href='#eq57-g1-30'/>
+<use x='6.928102' y='1.793263' xlink:href='#eq57-g0-111'/>
+<use x='14.840113' y='0' xlink:href='#eq57-g2-61'/>
+<use x='27.265594' y='0' xlink:href='#eq57-g2-48'/>
+<use x='33.118584' y='0' xlink:href='#eq57-g1-58'/>
+<use x='36.370245' y='0' xlink:href='#eq57-g2-54'/>
+<use x='42.223236' y='0' xlink:href='#eq57-g2-49'/>
+</g>
+</svg>) will be considered in this work.  The experimental setup consisted of  a tank with a length of   <svg class="m-math" style="width: 2.625em; height: 0.803em; vertical-align: -0.000em;" viewBox="0 -7.704442 25.196909 7.704442">
+<title>
+$0.7 m$
+</title>
+<defs>
+<path id='eq58-g0-58' d='M2.199751-.573848C2.199751-.920548 1.912827-1.159651 1.625903-1.159651C1.279203-1.159651 1.0401-.872727 1.0401-.585803C1.0401-.239103 1.327024 0 1.613948 0C1.960648 0 2.199751-.286924 2.199751-.573848Z'/>
+<path id='eq58-g0-109' d='M2.462765-3.502864C2.486675-3.574595 2.785554-4.172354 3.227895-4.554919C3.53873-4.841843 3.945205-5.033126 4.411457-5.033126C4.889664-5.033126 5.057036-4.674471 5.057036-4.196264C5.057036-4.124533 5.057036-3.88543 4.913574-3.323537L4.614695-2.092154C4.519054-1.733499 4.291905-.848817 4.267995-.71731C4.220174-.537983 4.148443-.227148 4.148443-.179328C4.148443-.011955 4.27995 .119552 4.459278 .119552C4.817933 .119552 4.877709-.155417 4.985305-.585803L5.702615-3.443088C5.726526-3.53873 6.348194-5.033126 7.663263-5.033126C8.141469-5.033126 8.308842-4.674471 8.308842-4.196264C8.308842-3.526775 7.84259-2.223661 7.579577-1.506351C7.47198-1.219427 7.412204-1.06401 7.412204-.848817C7.412204-.310834 7.782814 .119552 8.356663 .119552C9.468493 .119552 9.886924-1.637858 9.886924-1.709589C9.886924-1.769365 9.839103-1.817186 9.767372-1.817186C9.659776-1.817186 9.647821-1.78132 9.588045-1.578082C9.313076-.621669 8.870735-.119552 8.392528-.119552C8.272976-.119552 8.081694-.131507 8.081694-.514072C8.081694-.824907 8.225156-1.207472 8.272976-1.338979C8.488169-1.912827 9.026152-3.323537 9.026152-4.016936C9.026152-4.734247 8.607721-5.272229 7.699128-5.272229C6.898132-5.272229 6.252553-4.817933 5.774346-4.112578C5.738481-4.758157 5.34396-5.272229 4.447323-5.272229C3.383313-5.272229 2.82142-4.519054 2.606227-4.220174C2.570361-4.901619 2.080199-5.272229 1.554172-5.272229C1.207472-5.272229 .932503-5.104857 .705355-4.65056C.490162-4.220174 .32279-3.490909 .32279-3.443088S.37061-3.335492 .454296-3.335492C.549938-3.335492 .561893-3.347447 .633624-3.622416C.812951-4.327771 1.0401-5.033126 1.518306-5.033126C1.793275-5.033126 1.888917-4.841843 1.888917-4.483188C1.888917-4.220174 1.769365-3.753923 1.685679-3.383313L1.350934-2.092154C1.303113-1.865006 1.171606-1.327024 1.111831-1.111831C1.028144-.800996 .896638-.239103 .896638-.179328C.896638-.011955 1.028144 .119552 1.207472 .119552C1.350934 .119552 1.518306 .047821 1.613948-.131507C1.637858-.191283 1.745455-.609714 1.80523-.848817L2.068244-1.924782L2.462765-3.502864Z'/>
+<path id='eq58-g1-48' d='M5.355915-3.825654C5.355915-4.817933 5.296139-5.786301 4.865753-6.694894C4.375592-7.687173 3.514819-7.950187 2.929016-7.950187C2.235616-7.950187 1.3868-7.603487 .944458-6.611208C.609714-5.858032 .490162-5.116812 .490162-3.825654C.490162-2.666002 .573848-1.793275 1.004234-.944458C1.470486-.035866 2.295392 .251059 2.917061 .251059C3.957161 .251059 4.554919-.37061 4.901619-1.06401C5.332005-1.960648 5.355915-3.132254 5.355915-3.825654ZM2.917061 .011955C2.534496 .011955 1.75741-.203238 1.530262-1.506351C1.398755-2.223661 1.398755-3.132254 1.398755-3.969116C1.398755-4.94944 1.398755-5.834122 1.590037-6.539477C1.793275-7.340473 2.402989-7.711083 2.917061-7.711083C3.371357-7.711083 4.064757-7.436115 4.291905-6.40797C4.447323-5.726526 4.447323-4.782067 4.447323-3.969116C4.447323-3.16812 4.447323-2.259527 4.315816-1.530262C4.088667-.215193 3.335492 .011955 2.917061 .011955Z'/>
+<path id='eq58-g1-55' d='M5.678705-7.424159V-7.699128H2.797509C1.350934-7.699128 1.327024-7.854545 1.279203-8.081694H1.016189L.645579-5.69066H.908593C.944458-5.905853 1.052055-6.647073 1.207472-6.77858C1.303113-6.850311 2.199751-6.850311 2.367123-6.850311H4.901619L3.634371-5.033126C3.311582-4.566874 2.10411-2.606227 2.10411-.358655C2.10411-.227148 2.10411 .251059 2.594271 .251059C3.096389 .251059 3.096389-.215193 3.096389-.37061V-.968369C3.096389-2.749689 3.383313-4.136488 3.945205-4.937484L5.678705-7.424159Z'/>
+</defs>
+<g id='eq58-page1'>
+<use x='0' y='0' xlink:href='#eq58-g1-48'/>
+<use x='5.85299' y='0' xlink:href='#eq58-g0-58'/>
+<use x='9.104652' y='0' xlink:href='#eq58-g1-55'/>
+<use x='14.957642' y='0' xlink:href='#eq58-g0-109'/>
+</g>
+</svg>, and a width and height of   <svg class="m-math" style="width: 3.234em; height: 0.803em; vertical-align: -0.000em;" viewBox="0 -7.704442 31.049899 7.704442">
+<title>
+$0.15 m$
+</title>
+<defs>
+<path id='eq59-g0-58' d='M2.199751-.573848C2.199751-.920548 1.912827-1.159651 1.625903-1.159651C1.279203-1.159651 1.0401-.872727 1.0401-.585803C1.0401-.239103 1.327024 0 1.613948 0C1.960648 0 2.199751-.286924 2.199751-.573848Z'/>
+<path id='eq59-g0-109' d='M2.462765-3.502864C2.486675-3.574595 2.785554-4.172354 3.227895-4.554919C3.53873-4.841843 3.945205-5.033126 4.411457-5.033126C4.889664-5.033126 5.057036-4.674471 5.057036-4.196264C5.057036-4.124533 5.057036-3.88543 4.913574-3.323537L4.614695-2.092154C4.519054-1.733499 4.291905-.848817 4.267995-.71731C4.220174-.537983 4.148443-.227148 4.148443-.179328C4.148443-.011955 4.27995 .119552 4.459278 .119552C4.817933 .119552 4.877709-.155417 4.985305-.585803L5.702615-3.443088C5.726526-3.53873 6.348194-5.033126 7.663263-5.033126C8.141469-5.033126 8.308842-4.674471 8.308842-4.196264C8.308842-3.526775 7.84259-2.223661 7.579577-1.506351C7.47198-1.219427 7.412204-1.06401 7.412204-.848817C7.412204-.310834 7.782814 .119552 8.356663 .119552C9.468493 .119552 9.886924-1.637858 9.886924-1.709589C9.886924-1.769365 9.839103-1.817186 9.767372-1.817186C9.659776-1.817186 9.647821-1.78132 9.588045-1.578082C9.313076-.621669 8.870735-.119552 8.392528-.119552C8.272976-.119552 8.081694-.131507 8.081694-.514072C8.081694-.824907 8.225156-1.207472 8.272976-1.338979C8.488169-1.912827 9.026152-3.323537 9.026152-4.016936C9.026152-4.734247 8.607721-5.272229 7.699128-5.272229C6.898132-5.272229 6.252553-4.817933 5.774346-4.112578C5.738481-4.758157 5.34396-5.272229 4.447323-5.272229C3.383313-5.272229 2.82142-4.519054 2.606227-4.220174C2.570361-4.901619 2.080199-5.272229 1.554172-5.272229C1.207472-5.272229 .932503-5.104857 .705355-4.65056C.490162-4.220174 .32279-3.490909 .32279-3.443088S.37061-3.335492 .454296-3.335492C.549938-3.335492 .561893-3.347447 .633624-3.622416C.812951-4.327771 1.0401-5.033126 1.518306-5.033126C1.793275-5.033126 1.888917-4.841843 1.888917-4.483188C1.888917-4.220174 1.769365-3.753923 1.685679-3.383313L1.350934-2.092154C1.303113-1.865006 1.171606-1.327024 1.111831-1.111831C1.028144-.800996 .896638-.239103 .896638-.179328C.896638-.011955 1.028144 .119552 1.207472 .119552C1.350934 .119552 1.518306 .047821 1.613948-.131507C1.637858-.191283 1.745455-.609714 1.80523-.848817L2.068244-1.924782L2.462765-3.502864Z'/>
+<path id='eq59-g1-48' d='M5.355915-3.825654C5.355915-4.817933 5.296139-5.786301 4.865753-6.694894C4.375592-7.687173 3.514819-7.950187 2.929016-7.950187C2.235616-7.950187 1.3868-7.603487 .944458-6.611208C.609714-5.858032 .490162-5.116812 .490162-3.825654C.490162-2.666002 .573848-1.793275 1.004234-.944458C1.470486-.035866 2.295392 .251059 2.917061 .251059C3.957161 .251059 4.554919-.37061 4.901619-1.06401C5.332005-1.960648 5.355915-3.132254 5.355915-3.825654ZM2.917061 .011955C2.534496 .011955 1.75741-.203238 1.530262-1.506351C1.398755-2.223661 1.398755-3.132254 1.398755-3.969116C1.398755-4.94944 1.398755-5.834122 1.590037-6.539477C1.793275-7.340473 2.402989-7.711083 2.917061-7.711083C3.371357-7.711083 4.064757-7.436115 4.291905-6.40797C4.447323-5.726526 4.447323-4.782067 4.447323-3.969116C4.447323-3.16812 4.447323-2.259527 4.315816-1.530262C4.088667-.215193 3.335492 .011955 2.917061 .011955Z'/>
+<path id='eq59-g1-49' d='M3.443088-7.663263C3.443088-7.938232 3.443088-7.950187 3.203985-7.950187C2.917061-7.627397 2.319303-7.185056 1.08792-7.185056V-6.838356C1.362889-6.838356 1.960648-6.838356 2.618182-7.149191V-.920548C2.618182-.490162 2.582316-.3467 1.530262-.3467H1.159651V0C1.482441-.02391 2.642092-.02391 3.036613-.02391S4.578829-.02391 4.901619 0V-.3467H4.531009C3.478954-.3467 3.443088-.490162 3.443088-.920548V-7.663263Z'/>
+<path id='eq59-g1-53' d='M1.530262-6.850311C2.044334-6.682939 2.462765-6.670984 2.594271-6.670984C3.945205-6.670984 4.805978-7.663263 4.805978-7.830635C4.805978-7.878456 4.782067-7.938232 4.710336-7.938232C4.686426-7.938232 4.662516-7.938232 4.554919-7.890411C3.88543-7.603487 3.311582-7.567621 3.000747-7.567621C2.211706-7.567621 1.649813-7.806725 1.422665-7.902366C1.338979-7.938232 1.315068-7.938232 1.303113-7.938232C1.207472-7.938232 1.207472-7.866501 1.207472-7.675218V-4.124533C1.207472-3.90934 1.207472-3.837609 1.350934-3.837609C1.41071-3.837609 1.422665-3.849564 1.542217-3.993026C1.876961-4.483188 2.438854-4.770112 3.036613-4.770112C3.670237-4.770112 3.981071-4.184309 4.076712-3.981071C4.27995-3.514819 4.291905-2.929016 4.291905-2.47472S4.291905-1.338979 3.957161-.800996C3.694147-.37061 3.227895-.071731 2.701868-.071731C1.912827-.071731 1.135741-.609714 .920548-1.482441C.980324-1.458531 1.052055-1.446575 1.111831-1.446575C1.315068-1.446575 1.637858-1.566127 1.637858-1.972603C1.637858-2.307347 1.41071-2.49863 1.111831-2.49863C.896638-2.49863 .585803-2.391034 .585803-1.924782C.585803-.908593 1.398755 .251059 2.725778 .251059C4.076712 .251059 5.260274-.884682 5.260274-2.402989C5.260274-3.825654 4.303861-5.009215 3.048568-5.009215C2.367123-5.009215 1.841096-4.710336 1.530262-4.375592V-6.850311Z'/>
+</defs>
+<g id='eq59-page1'>
+<use x='0' y='0' xlink:href='#eq59-g1-48'/>
+<use x='5.85299' y='0' xlink:href='#eq59-g0-58'/>
+<use x='9.104652' y='0' xlink:href='#eq59-g1-49'/>
+<use x='14.957642' y='0' xlink:href='#eq59-g1-53'/>
+<use x='20.810632' y='0' xlink:href='#eq59-g0-109'/>
+</g>
+</svg>. A removable gate was placed vertically and glass beads were poured behind the gate.  During the experiments, the excess of pore pressure was measured at the bottom at   <svg class="m-math" style="width: 2.201em; height: 0.803em; vertical-align: -0.000em;" viewBox="0 -7.704442 21.130246 7.704442">
+<title>
+$2 cm$
+</title>
+<defs>
+<path id='eq60-g0-99' d='M4.674471-4.495143C4.447323-4.495143 4.339726-4.495143 4.172354-4.351681C4.100623-4.291905 3.969116-4.112578 3.969116-3.921295C3.969116-3.682192 4.148443-3.53873 4.375592-3.53873C4.662516-3.53873 4.985305-3.777833 4.985305-4.25604C4.985305-4.829888 4.435367-5.272229 3.610461-5.272229C2.044334-5.272229 .478207-3.56264 .478207-1.865006C.478207-.824907 1.123786 .119552 2.343213 .119552C3.969116 .119552 4.99726-1.147696 4.99726-1.303113C4.99726-1.374844 4.925529-1.43462 4.877709-1.43462C4.841843-1.43462 4.829888-1.422665 4.722291-1.315068C3.957161-.298879 2.82142-.119552 2.367123-.119552C1.542217-.119552 1.279203-.836862 1.279203-1.43462C1.279203-1.853051 1.482441-3.012702 1.912827-3.825654C2.223661-4.387547 2.86924-5.033126 3.622416-5.033126C3.777833-5.033126 4.435367-5.009215 4.674471-4.495143Z'/>
+<path id='eq60-g0-109' d='M2.462765-3.502864C2.486675-3.574595 2.785554-4.172354 3.227895-4.554919C3.53873-4.841843 3.945205-5.033126 4.411457-5.033126C4.889664-5.033126 5.057036-4.674471 5.057036-4.196264C5.057036-4.124533 5.057036-3.88543 4.913574-3.323537L4.614695-2.092154C4.519054-1.733499 4.291905-.848817 4.267995-.71731C4.220174-.537983 4.148443-.227148 4.148443-.179328C4.148443-.011955 4.27995 .119552 4.459278 .119552C4.817933 .119552 4.877709-.155417 4.985305-.585803L5.702615-3.443088C5.726526-3.53873 6.348194-5.033126 7.663263-5.033126C8.141469-5.033126 8.308842-4.674471 8.308842-4.196264C8.308842-3.526775 7.84259-2.223661 7.579577-1.506351C7.47198-1.219427 7.412204-1.06401 7.412204-.848817C7.412204-.310834 7.782814 .119552 8.356663 .119552C9.468493 .119552 9.886924-1.637858 9.886924-1.709589C9.886924-1.769365 9.839103-1.817186 9.767372-1.817186C9.659776-1.817186 9.647821-1.78132 9.588045-1.578082C9.313076-.621669 8.870735-.119552 8.392528-.119552C8.272976-.119552 8.081694-.131507 8.081694-.514072C8.081694-.824907 8.225156-1.207472 8.272976-1.338979C8.488169-1.912827 9.026152-3.323537 9.026152-4.016936C9.026152-4.734247 8.607721-5.272229 7.699128-5.272229C6.898132-5.272229 6.252553-4.817933 5.774346-4.112578C5.738481-4.758157 5.34396-5.272229 4.447323-5.272229C3.383313-5.272229 2.82142-4.519054 2.606227-4.220174C2.570361-4.901619 2.080199-5.272229 1.554172-5.272229C1.207472-5.272229 .932503-5.104857 .705355-4.65056C.490162-4.220174 .32279-3.490909 .32279-3.443088S.37061-3.335492 .454296-3.335492C.549938-3.335492 .561893-3.347447 .633624-3.622416C.812951-4.327771 1.0401-5.033126 1.518306-5.033126C1.793275-5.033126 1.888917-4.841843 1.888917-4.483188C1.888917-4.220174 1.769365-3.753923 1.685679-3.383313L1.350934-2.092154C1.303113-1.865006 1.171606-1.327024 1.111831-1.111831C1.028144-.800996 .896638-.239103 .896638-.179328C.896638-.011955 1.028144 .119552 1.207472 .119552C1.350934 .119552 1.518306 .047821 1.613948-.131507C1.637858-.191283 1.745455-.609714 1.80523-.848817L2.068244-1.924782L2.462765-3.502864Z'/>
+<path id='eq60-g1-50' d='M5.260274-2.008468H4.99726C4.961395-1.80523 4.865753-1.147696 4.746202-.956413C4.662516-.848817 3.981071-.848817 3.622416-.848817H1.41071C1.733499-1.123786 2.462765-1.888917 2.773599-2.175841C4.590785-3.849564 5.260274-4.471233 5.260274-5.654795C5.260274-7.029639 4.172354-7.950187 2.785554-7.950187S.585803-6.766625 .585803-5.738481C.585803-5.128767 1.111831-5.128767 1.147696-5.128767C1.398755-5.128767 1.709589-5.308095 1.709589-5.69066C1.709589-6.025405 1.482441-6.252553 1.147696-6.252553C1.0401-6.252553 1.016189-6.252553 .980324-6.240598C1.207472-7.053549 1.853051-7.603487 2.630137-7.603487C3.646326-7.603487 4.267995-6.75467 4.267995-5.654795C4.267995-4.638605 3.682192-3.753923 3.000747-2.988792L.585803-.286924V0H4.94944L5.260274-2.008468Z'/>
+</defs>
+<g id='eq60-page1'>
+<use x='0' y='0' xlink:href='#eq60-g1-50'/>
+<use x='5.85299' y='0' xlink:href='#eq60-g0-99'/>
+<use x='10.890979' y='0' xlink:href='#eq60-g0-109'/>
+</g>
+</svg> from the left side of the tank. The numerical setup is presented in the following figure:</p><figure class="m-figure"><img src="SetUpWeijComp.png" alt="Image" /><figcaption>Figure 15: Numerical setup</figcaption></figure><p>to predict the granular collapse of Rondon et al. (2011).&quot; width=500px
+@image latex &quot;SetUpWeijComp.png&quot; &quot;Figure15: Numerical setup  to predict the granular collapse of Rondon et al. (2011).&quot;
+
+@subsection preprocCollapses Pre-processing
+
+This tutorial is distributed with SedFoam under the folder &lt;em&gt;sedFoamDirectory/tutorials/laminar/2DCollapse/&lt;/em&gt; . Inside that folder you can find two cases, the loose and the dense scenarios.
+
+@subsection sediment1DCollapses 1D Deposition process
+
+The 1D sedimentation to prepare the loose and dense cases can be launched by executing &lt;em&gt;Allrun&lt;/em&gt; in the &lt;em&gt;initial_1D_profile/1DSedim/&lt;/em&gt; directory.
+
+@subsection  BC_initi2DCollapse Initial conditions
+
+The initial fields are retrieved from &lt;em&gt;initial_1D_profile/1DSedim/&lt;/em&gt; directory and transformed to the new 2D geometry by means of the &lt;em&gt;mapFields&lt;/em&gt; utility:
+
+@verbatim 
+# create the initial time folder
+cp -r 0_org 0
+# Initialize fields
+mapFields -sourceTime 400 initial_1D_profile/1DSedim/
+\endverbatim
+
+@subsection PhysProp2DCollapse Physical properties
+
+The following variables are considered to reproduce the experimental results of Rondon et al. (2023):
+
+ &lt;table&gt;
+&lt;caption id=&quot;multi_row&quot;&gt;Main physical parameters.&lt;/caption&gt;
+&lt;tr&gt;&lt;th&gt;Properties   &lt;th&gt;Value
+&lt;tr&gt;&lt;td&gt;Solid density   &lt;td&gt; \_form#160
+&lt;tr&gt;&lt;td&gt;Fluid density    &lt;td&gt; \_form#181
+&lt;tr&gt;&lt;td&gt;Fluid viscosity     &lt;td&gt; \_form#182
+&lt;tr&gt;&lt;td&gt;Mean particle diameter    &lt;td&gt; \_form#183&lt;/table&gt;
+
+Dense granular flow rheology \_form#158 and the dilatancy  model is used as shown in &lt;em&gt;granularRheologyProperties&lt;/em&gt;:
+
+@verbatim 
+granularRheology   on;
+
+granularDilatancy on;
+
+granularCohesion  off;
+
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
+
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.425;
+
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.765;
+
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.004;
+
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 1.;
+
+n               n [ 0 0 0 0 0 0 0 ] 2.5;
+
+Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
+
+BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 0e0;
+
+K_dila      K_dila [ 0 0 0 0 0 0 0 ] 40;
+
+alpha_c      alpha_c [ 0 0 0 0 0 0 0 ] 0.57;
+
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1e-0;
+
+FrictionModel   MuIv;
+
+PPressureModel  MuIv;
+
+FluidViscosityModel BoyerEtAl;
+\endverbatim
+
+
+@subsection  lauch_2DCollapsee Computation launching
+You can launch the computation by executing &lt;em&gt;Allrun&lt;/em&gt;. The simulations will run in parallel on 4 cores.
+
+@verbatim 
+# Decompose the case and run in parallel
+decomposePar
+mpirun -np 4 sedFoam_rbgh -parallel &gt; log&amp;
+\endverbatim
+
+@subsection postACollapse2D Post-processing using python
+
+You just have to run the python script &lt;em&gt;plot_tuto2DCollapse.py&lt;/em&gt; located in the folder &lt;em&gt;tutorials/Py&lt;/em&gt;. You will need to launch both loose and dense cases before running the script.
+
+@verbatim 
+python plot_tuto2DCollapse.py
+\endverbatim
+
+and you should see the following figures:
+
+@image html &quot;tuto2DCollapse_Morphology.png&quot; &quot;Figure 16: Evolution of the morphology during the collapse of initially a) dense and b) loose columns.&quot; width=800px
+@image latex &quot;tuto2DCollapse_Morphology.png&quot; &quot;Figure 16: Evolution of the morphology during the collapse of initially a) dense and b) loose columns.&quot; It is worth mentioning that the numerical cases have been significantly coarsened to obtain the results rapidly and illustrate the potential of the dilatancy model. We refer the reader to Montellà et al. (2023) for more detailed data and a thorough analysis</p></section>
       </div>
     </div>
   </div>
