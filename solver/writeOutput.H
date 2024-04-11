@@ -58,7 +58,7 @@ if (runTime.outputTime())
             "Ra",
             -nuEffa*fvc::grad(alpha)/(alpha+alphaSmall)
         );
-        
+
         surfaceScalarField phiRa(
             -fvc::interpolate(nuEffa)*mesh.magSf()*(fvc::snGrad(alpha))
             /fvc::interpolate(alpha+ alphaSmall)

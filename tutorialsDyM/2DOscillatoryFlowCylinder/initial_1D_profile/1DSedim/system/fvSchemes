@@ -1,0 +1,75 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         Euler implicit;
+}
+
+gradSchemes
+{
+        default         Gauss linear;
+}
+
+divSchemes
+{
+    default         Gauss linear;
+// alphaEqn
+    div(phi,alpha)  Gauss upwind;//limitedLinear01 1;
+    div(phir,alpha) Gauss upwind;//limitedLinear01 1;
+// UEqn
+    div(phi.a,U.a)    Gauss limitedLinearV 1;
+    div(phi.b,U.b)    Gauss limitedLinearV 1;
+    div(phiRa,U.a)   Gauss limitedLinear 1;
+    div(phiRb,U.b)   Gauss limitedLinear 1;
+// pEqn
+    div(alpha,nu)   Gauss linear;
+        div(phia,pa_new_value)     Gauss limitedLinear 1;
+
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+// alphaEqn
+    laplacian(Da,alpha.a)  Gauss linear corrected;
+// UEqn
+    laplacian(nuEffa,Ua) Gauss linear corrected;
+    laplacian(nuEffb,Ub) Gauss linear corrected;
+    laplacian(nuFra,Ua)  Gauss linear corrected;
+// pEqn
+    laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default  linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+fluxRequired
+{
+    default         no;
+    p_rbgh               ;
+}
+
+
+// ************************************************************************* //

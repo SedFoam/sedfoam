@@ -41,7 +41,7 @@ The drag parameter \f$K\f$, is modeled following Schiller and Naumann (1933):
 K=0.75 C_d \frac{\rho^b}{d_{eff}} \parallel \mathbf{u^b}-\mathbf{u^a}\parallel\beta^{-h_{Exp}} \tag{5}
 \f]
 
-where \f$d_{eff}= {\psi}d\f$ is the effective sediment diameter, in which \f$\psi\f$ is the shape factor and \f$d\f$ is the particle diameter. The hindrance function \f$\beta^{-h_{Exp}}\f$ represents the drag increase when the particle volume concentration increases. \f$h_{Exp}\f$ is the hindrance exponent that depends on the particulate Reynolds number (Di Felice (1994)). For simplicity, the value of \f$h_{Exp}\f$ is assumed to be constant (default value is 2.65), and its value can be specified from the *constant/transportProperties* file in SedFoam-2212. This hypothesis is valid for particulate Reynolds numbers lower than unity or larger than 300, within this range the exponent value decreases down to \f$h_{Exp}\approx2\f$. The drag coefficient \f$C_d\f$ is calculated as:
+where \f$d_{eff}= {\psi}d\f$ is the effective sediment diameter, in which \f$\psi\f$ is the shape factor and \f$d\f$ is the particle diameter. The hindrance function \f$\beta^{-h_{Exp}}\f$ represents the drag increase when the particle volume concentration increases. \f$h_{Exp}\f$ is the hindrance exponent that depends on the particulate Reynolds number (Di Felice (1994)). For simplicity, the value of \f$h_{Exp}\f$ is assumed to be constant (default value is 2.65), and its value can be specified from the *constant/transportProperties* file in SedFoam-2312. This hypothesis is valid for particulate Reynolds numbers lower than unity or larger than 300, within this range the exponent value decreases down to \f$h_{Exp}\approx2\f$. The drag coefficient \f$C_d\f$ is calculated as:
 
 \f[
 C_d=\left\{
@@ -52,7 +52,7 @@ C_d=\left\{
 \right. \tag{6}
 \f]
 
-in which, the particulate Reynolds number \f$Re_p\f$ is defined as: \f$Re_p=\beta\parallel\mathbf{u^b-u^a}\parallel d_{eff}/\nu^b\f$, where \f$\nu^b\f$ stands for the fluid kinematic viscosity. This drag model can be chosen by the keyword ``GidaspowSchillerNaumann'' in the file *constant/interfacialProperties* and it is especially well adapted for dealing with suspended particles. For situations in which the fluid flow inside the porous sediment bed has to be accurately solved, other drag models are available in SedFoam-2212. The major issue in developing an Eulerian two-phase flow model is to provide closure laws for turbulence closures and granular stress models. This will be extensively discussed in the following subsections, particularly different modeling options available in SedFoam-2212  are presented.
+in which, the particulate Reynolds number \f$Re_p\f$ is defined as: \f$Re_p=\beta\parallel\mathbf{u^b-u^a}\parallel d_{eff}/\nu^b\f$, where \f$\nu^b\f$ stands for the fluid kinematic viscosity. This drag model can be chosen by the keyword ``GidaspowSchillerNaumann'' in the file *constant/interfacialProperties* and it is especially well adapted for dealing with suspended particles. For situations in which the fluid flow inside the porous sediment bed has to be accurately solved, other drag models are available in SedFoam-2312. The major issue in developing an Eulerian two-phase flow model is to provide closure laws for turbulence closures and granular stress models. This will be extensively discussed in the following subsections, particularly different modeling options available in SedFoam-2312  are presented.
 
 
 \subsection fluidstress Fluid phase shear stress 
@@ -78,7 +78,7 @@ and the viscous stress tensor is modeled as:
 \f[
 r_{ij}^{b} =2\rho^b\beta\nu^{mix} \ S_{ij}^b, \tag{10}
 \f]
-In SedFoam-2212, several different viscosity or turbulence closures are implemented, and these models can be selected according to specific flow conditions ranging from laminar to turbulent flows. The mixture viscosity can be selected in combination with a granular rheology model for the granular stresses (see section \ref granularRheo). For the turbulent eddy viscosity, modified turbulence closures are implemented for sediment transport applications.
+In SedFoam-2312, several different viscosity or turbulence closures are implemented, and these models can be selected according to specific flow conditions ranging from laminar to turbulent flows. The mixture viscosity can be selected in combination with a granular rheology model for the granular stresses (see section \ref granularRheo). For the turbulent eddy viscosity, modified turbulence closures are implemented for sediment transport applications.
 
 
 \subsection particleStress Particle phase stress
@@ -103,13 +103,13 @@ Fr\frac{(\alpha-\alpha_{min}^{Fric})^{\eta_0}}{(\alpha_{max}-\alpha)^{\eta_1}}, 
 
 where \f$\alpha_{min}^{Fric}=0.57\f$, \f$\alpha_{max}=0.635\f$ for spheres and \f$Fr\f$, \f$\eta_0\f$ and \f$\eta_1\f$ are empirical coefficients. Following Cheng et al.(2017), the values are set to: \f$Fr=0.05, \eta_0=3\f$ and \f$\eta_1=5\f$. Again, these coefficients can be reset in file *constant/kineticTheoryProperties* or  *constant/granularRheologyProperties* by specifying the keywords and values.
 
-In modern sediment transport modeling framework, the two major threads of modeling approach for shear-induced/collisional particle normal stress and shear stress are the kinetic theory of granular flows and the dense granular flow rheology. They are implemented in this version of SedFoam-2212 (see subsections \ref subkinetic and \ref granularRheo), respectively. As a result of different closures for particle normal stresses \f$p^a\f$, the closure for the total particle shear stress \f$\tilde{\tau}^a_{ij}\f$ also varies, and they are described in the next two subsections.
+In modern sediment transport modeling framework, the two major threads of modeling approach for shear-induced/collisional particle normal stress and shear stress are the kinetic theory of granular flows and the dense granular flow rheology. They are implemented in this version of SedFoam-2312 (see subsections \ref subkinetic and \ref granularRheo), respectively. As a result of different closures for particle normal stresses \f$p^a\f$, the closure for the total particle shear stress \f$\tilde{\tau}^a_{ij}\f$ also varies, and they are described in the next two subsections.
 
 
 
 \subsubsection granularRheo  Dense granular rheology
 
-Concerning the shear-induced contribution to the particle pressure, two different expressions can be adopted depending on the flow regime. Depending on the local Stokes and particulate Reynolds numbers, the regime of the granular flow rheology can change from free fall or grain inertia regime to viscous and turbulent regimes (Andreotti et al., 2013), and the definition of the controlling parameter ‘\f$I\f$’ are different accordingly. In SedFoam-2212, the grain inertia and viscous regimes have been implemented and can be selected using the keywords `MuI' and `MuIv' respectively. Following  the work of Boyer et al. (2011), the shear-induced pressure under the viscous regime can be written as:
+Concerning the shear-induced contribution to the particle pressure, two different expressions can be adopted depending on the flow regime. Depending on the local Stokes and particulate Reynolds numbers, the regime of the granular flow rheology can change from free fall or grain inertia regime to viscous and turbulent regimes (Andreotti et al., 2013), and the definition of the controlling parameter ‘\f$I\f$’ are different accordingly. In SedFoam-2312, the grain inertia and viscous regimes have been implemented and can be selected using the keywords `MuI' and `MuIv' respectively. Following  the work of Boyer et al. (2011), the shear-induced pressure under the viscous regime can be written as:
 
 
  

@@ -14,7 +14,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    container: opencfd/openfoam-dev:2212
+    container: opencfd/openfoam-dev:2312
     steps:
       - name: install git
         run: |
@@ -30,12 +30,12 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: sedfoam-binary
-          path: /usr/lib/openfoam/openfoam2212/site
+          path: /usr/lib/openfoam/openfoam2312/site
 
   test:
     runs-on: ubuntu-latest
     container: 
-      image: opencfd/openfoam-dev:2212
+      image: opencfd/openfoam-dev:2312
     needs: [build, checkstyle, checkpep8]
     defaults:
       run:
@@ -53,10 +53,10 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: sedfoam-binary
-          path: /usr/lib/openfoam/openfoam2212/site
+          path: /usr/lib/openfoam/openfoam2312/site
       - name: chmod sedfoam binary
         run: chmod a+x -R *
-        working-directory: /usr/lib/openfoam/openfoam2212/site
+        working-directory: /usr/lib/openfoam/openfoam2312/site
       - name: sedfoam test1D sedim
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && 
@@ -74,7 +74,7 @@ jobs:
   advanced-test:
     runs-on: ubuntu-latest
     container: 
-      image: opencfd/openfoam-dev:2212
+      image: opencfd/openfoam-dev:2312
     needs: [test]
     defaults:
       run:
@@ -91,10 +91,10 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: sedfoam-binary
-          path: /usr/lib/openfoam/openfoam2212/site
+          path: /usr/lib/openfoam/openfoam2312/site
       - name: chmod sedfoam binary
         run: sudo chmod a+x -R *
-        working-directory: /usr/lib/openfoam/openfoam2212/site
+        working-directory: /usr/lib/openfoam/openfoam2312/site
       - name: sedfoam test1D AvalancheMuI
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && 
@@ -105,7 +105,7 @@ jobs:
   advanced-test1:
     runs-on: ubuntu-latest
     container: 
-      image: opencfd/openfoam-dev:2212
+      image: opencfd/openfoam-dev:2312
     needs: [test]
     defaults:
       run:
@@ -122,10 +122,10 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: sedfoam-binary
-          path: /usr/lib/openfoam/openfoam2212/site
+          path: /usr/lib/openfoam/openfoam2312/site
       - name: chmod sedfoam binary
         run: sudo chmod a+x -R *
-        working-directory: /usr/lib/openfoam/openfoam2212/site
+        working-directory: /usr/lib/openfoam/openfoam2312/site
       - name: sedfoam test 1DBedLoadTurb
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && 
@@ -141,7 +141,7 @@ jobs:
   advanced-test2:
     runs-on: ubuntu-latest
     container: 
-      image: opencfd/openfoam-dev:2212
+      image: opencfd/openfoam-dev:2312
     needs: [test]
     defaults:
       run:
@@ -158,10 +158,10 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: sedfoam-binary
-          path: /usr/lib/openfoam/openfoam2212/site
+          path: /usr/lib/openfoam/openfoam2312/site
       - name: chmod sedfoam binary
         run: sudo chmod a+x -R *
-        working-directory: /usr/lib/openfoam/openfoam2212/site
+        working-directory: /usr/lib/openfoam/openfoam2312/site
       - name: sedfoam test 1DWetAvalanche
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && 
