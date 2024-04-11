@@ -67,7 +67,7 @@ Developers
 *   Cyrille Bonamy
 *   Julien Chauchat
 *   Antoine Mathieu
-*   Eduard Puig Montella
+*   Eduard Puig Montellà
 *   Rémi Chassagne
 *   Zhen Cheng
 *   Tim Nagel

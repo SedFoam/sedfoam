@@ -1,0 +1,92 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     overSedDymFoam_rbgh;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         100;
+
+deltaT          1.e-6;
+
+writeControl    adjustableRunTime;
+
+writeInterval   1;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  7;
+
+writeCompression no;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable on;
+
+adjustTimeStep  yes;
+
+maxCo           0.01;
+
+maxAlphaCo      0.01;
+
+maxDeltaT       1e-3;
+
+libs (
+    "libgroovyBC.so"
+    "libgroovyStandardBCs.so"
+    "libincompressibleTurbulenceModels.so"
+);
+
+functions
+{
+    
+
+
+forcesSed
+{
+    type          forcesSed;
+
+    libs          ("libforcesSedFoam.so");
+
+    writeControl  timeStep;
+    timeInterval  1;
+    patches       ("cylinder");
+    rho           rhoInf;     // Indicates incompressible
+    log           true;
+    rhoInf        1100.0; // Redundant for incompressible
+    origin (0 0 0); 
+    rotation
+        {
+            type            axes;
+            e3              (0 0 1);
+            e1              (1 0 0);
+        }
+}
+
+
+    
+    
+}
+// ************************************************************************* //

@@ -1,0 +1,47 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+expressions
+ (
+        alpha
+        {
+        field alpha.a; //field to initialise
+        fields
+        (
+        y alpha
+        );
+        lookuptables (
+        {
+        name inletprofilealpha;
+        outOfBounds clamp;
+        file "$FOAM_CASE/initial_1D_profile/alpha_0_1d";
+        }
+        );
+        value uniform 0;
+        expression "inletprofilealpha(pos().y)";
+        keepPatches 1;
+        }   
+ );
+
+// ************************************************************************* //
+
+
+
+
+
+
+

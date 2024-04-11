@@ -1,0 +1,81 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  plus                                  |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         Euler;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+divSchemes
+{
+    default         Gauss linear;
+    div(phi,U)      Gauss limitedLinearV 1;
+    div(phia,Ua)      Gauss limitedLinearV 1;
+    div(phi.a,U.a)      Gauss limitedLinearV 1;
+    div(phib,Ub)      Gauss limitedLinearV 1;
+    div(phi.b,U.b)      Gauss limitedLinearV 1;
+    div(phi,k)      Gauss limitedLinear 1;
+    div(phi,epsilon) Gauss limitedLinear 1;
+    div(phi,R)      Gauss limitedLinear 1;
+    div(phi,alpha)      Gauss limitedLinear 1;
+    div(phia,pa_new_value)      Gauss limitedLinear 1;
+    div(phir,alpha)      Gauss limitedLinear 1;
+    div(R)          Gauss limitedLinear 1;
+    div(phi,omega)  Gauss limitedLinear 1;
+    div(phid,p)     Gauss limitedLinear 1;
+    div(phi,K)      Gauss limitedLinear 1;
+    div(phi,e)      Gauss limitedLinear 1;
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+    div((nuEff*dev2(T(grad(U)))))   Gauss linear;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         corrected ;
+}
+
+oversetInterpolation
+{
+    method          inverseDistance;
+    holeLayers          4;
+    useLayer            2;
+}
+
+fluxRequired
+{
+    default         no;
+    pcorr           ;
+    p_rbgh              ;
+}
+
+
+// ************************************************************************* //
