@@ -28,7 +28,8 @@ boundaryField
         refGradient     uniform (0 0 0);
         valueFraction   uniform 1;
         value           uniform (0 0 0);
-        valueExpression "(0.0369/0.41)*log(30.0*mag(pos().y)/(2.5*0.00025))*vector(1,0,0)";
+         variables "yp=pos().y;";
+        valueExpression "(0.0369/0.41)*log(30.0*mag(yp)/(2.5*0.00025))*vector(1,0,0)";
         gradientExpression "vector(0,0,0)";
         fractionExpression "1";
         evaluateDuringConstruction 1;
