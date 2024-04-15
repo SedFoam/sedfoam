@@ -33,11 +33,11 @@ boundaryField
         value           uniform 0.033;
         refGradient     uniform 0;
         valueFraction   uniform 1;
-        valueExpression "inletprofileomega(pos().z)";
+        valueExpression "inletprofileomega(zp)";
         gradientExpression "0";
         fractionExpression "1";
         evaluateDuringConstruction 1;
-        variables       "";
+        variables       "zp=pos().z;";
         timelines       (
 );
         lookuptables    (

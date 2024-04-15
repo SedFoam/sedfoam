@@ -46,11 +46,11 @@ ax3.grid(linestyle=":")
 
 # Numerical data reading
 avg_file = Dataset(os.path.join(sol, "postProcessing", case + "_averaged.nc"))
-phi = avg_file.variables["alpha_a"][:]
-umean_s = avg_file.variables["uaf_a"][:]
-umean_f = avg_file.variables["ubf_a"][:]
-uprim_s = avg_file.variables["uaprimf_a"][:]
-uprim_f = avg_file.variables["ubprimf_a"][:]
+phi = avg_file.variables["alpha.a"][:]
+umean_s = avg_file.variables["uaf.a"][:]
+umean_f = avg_file.variables["ubf.a"][:]
+uprim_s = avg_file.variables["uaprimf.a"][:]
+uprim_f = avg_file.variables["ubprimf.a"][:]
 y = avg_file.variables["y"][:]
 
 # Plot data

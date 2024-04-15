@@ -115,11 +115,11 @@ As for the previous case, you can launch the computation by executing *Allrun* f
 
 \subsection post_Chan Post-processing using python
 
-The post-processing python scripts writedata_tuto3DChannel560.py and plot_tuto3DChannel560.py are located in the folder tutorials/Py. To run this script, the latest output (16s) should be reconstructed.
+The post-processing python scripts *writedata_tuto3DChannel560.py* and *plot_tuto3DChannel560.py* are located in the folder *tutorials/Py*. To run this script, the latest output (16s) should be reconstructed.
 
-The script writedata_tuto3DChannel560.py reads time averaged OpenFoam data, perform a spatial averaging operation and stores the 1D vertical profiles in a netCDF file located in the postProcessing directory of the case.
+The script *writedata_tuto3DChannel560.py* reads time averaged OpenFoam data, perform a spatial averaging operation and stores the 1D vertical profiles in a netCDF file located in the postProcessing directory of the case.
 
-The script plot_tuto3DChannel560.py reads the netCDF file and plots vertical profile of concentration, velocities and Reynolds stresses
+The script *plot_tuto3DChannel560.py* reads the netCDF file and plots vertical profile of concentration, velocities and Reynolds stresses
 
 @image html "tuto3DChannel560.png" "Figure 2: Concentration, velocity and Reynolds stress profiles for the 3DChannel560 tutorial." width=700px
 @image latex "tuto3DChannel560.png" "Figure 2: Concentration, velocity and Reynolds stress profiles for the 3DChannel560 tutorial."
@@ -228,13 +228,15 @@ As for the previous case, you can launch the computation by executing *Allrun*. 
 
 \subsection post_Chan Post-processing using python
 
-The post-processing python scripts writedata_tuto3DOscillSheetFlow.py and plot_tuto3DOscillSheetFlow.py are located in the folder tutorials/Py. To run this script, all the simulation outputs after 20s (and only them) should be reconstructed using the following command:
+The post-processing python scripts *writedata_tuto3DOscillSheetFlow.py* and *plot_tuto3DOscillSheetFlow.py* are located in the folder tutorials/Py. To run this script, all the simulation outputs after 20s (and only them) should be reconstructed using the following command:
 
-*reconstructPar -time '20:'*
+\verbatim
+reconstructPar -time '20:'
+\endverbatim
 
-The script writedata_tuto3DOscillSheetFlow.py reads OpenFoam data, performs a spatial averaging operation, then performs a phase averaging operation taking into account four wave periods and stores the 1D vertical profiles in netCDF files located in the postProcessing directory of the case.
+The script *writedata_tuto3DOscillSheetFlow.py* reads OpenFoam data, performs a spatial averaging operation, then performs a phase averaging operation taking into account four wave periods and stores the 1D vertical profiles in netCDF files located in the postProcessing directory of the case.
 
-The script plot_tuto3DOscillSheetFlow.py reads the netCDF files and plots vertical profile of concentration, velocities and Reynolds stresses at different moments of the wave period.
+The script *plot_tuto3DOscillSheetFlow.py* reads the netCDF files and plots vertical profile of concentration, velocities and Reynolds stresses at different moments of the wave period.
 
 @image html "tuto3DOscillSheetFlow.png" "Figure 4: Concentration and velocity profiles for the 3DOscillSheetFlow tutorial." width=600px
 @image latex "tuto3DOscillSheetFlow.png" "Figure 4: Concentration and velocity profiles for the 3DOscillSheetFlow tutorial."
