@@ -13,7 +13,7 @@ sol = basepath + case + "/"
 #
 
 print("########## Writing averaged data file ##########")
-x, y, z = fluidfoam.readmesh(sol, True, precision=12)
+x, y, z = fluidfoam.readmesh(sol, structured=True, precision=12)
 yi = y[0, :, 0]
 
 dir_list = os.listdir(sol)
@@ -42,7 +42,7 @@ n_div = 20
 # Read data over four periods and average
 #
 
-# alpha_a
+# alpha.a
 if write_alpha:
     rootgrp = Dataset(sol + "/postProcessing/" + case + "_alpha.nc", "w")
     rootgrp.createDimension("n", len(yi))
@@ -51,25 +51,25 @@ if write_alpha:
     phase_file = rootgrp.createVariable("phase", np.float64, "p")
     alpha_file = rootgrp.createVariable("alpha", np.float64, ("n", "p"))
     pos_file[:] = yi
-    phase_file[:] = np.linspace(0, 5, n_div)
+    phase_file[:] = np.linspace(0, period, n_div)
     for i, time in enumerate(time_list[1:n_div]):
-        alpha1 = fluidfoam.readscalar(sol, time, "alpha_a", True, precision=12)
+        alpha1 = fluidfoam.readscalar(sol, time, "alpha.a", structured=True, precision=12)
         alpha2 = fluidfoam.readscalar(
-            sol, time_list[i + n_div + 1], "alpha_a", True, precision=12
+            sol, time_list[i + n_div + 1], "alpha.a", structured=True, precision=12
         )
         alpha3 = fluidfoam.readscalar(
-            sol, time_list[i + 2 * n_div + 1], "alpha_a", True, precision=12
+            sol, time_list[i + 2 * n_div + 1], "alpha.a", structured=True, precision=12
         )
         alpha4 = fluidfoam.readscalar(
-            sol, time_list[i + 3 * n_div + 1], "alpha_a", True, precision=12
+            sol, time_list[i + 3 * n_div + 1], "alpha.a", structured=True, precision=12
         )
-        alpha_a = (
+        alphaA = (
             np.mean(np.mean(alpha1, 2), 0)
             + np.mean(np.mean(alpha2, 2), 0)
             + np.mean(np.mean(alpha3, 2), 0)
             + np.mean(np.mean(alpha4, 2), 0)
         ) / 4
-        alpha_file[:, i] = alpha_a
+        alpha_file[:, i] = alphaA
     rootgrp.close()
 
 # Ub / UbPrim
@@ -93,15 +93,15 @@ if write_ub:
     pos_file_uu[:] = yi
     phase_file_uu[:] = np.linspace(0, 5, n_div)
     for i, time in enumerate(time_list[1:n_div]):
-        ub1 = fluidfoam.readvector(sol, time, "Ub", True, precision=12)
+        ub1 = fluidfoam.readvector(sol, time, "U.b", structured=True, precision=12)
         ub2 = fluidfoam.readvector(
-            sol, time_list[i + n_div + 1], "Ub", True, precision=12
+            sol, time_list[i + n_div + 1], "U.b", structured=True, precision=12
         )
         ub3 = fluidfoam.readvector(
-            sol, time_list[i + 2 * n_div + 1], "Ub", True, precision=12
+            sol, time_list[i + 2 * n_div + 1], "U.b", structured=True, precision=12
         )
         ub4 = fluidfoam.readvector(
-            sol, time_list[i + 3 * n_div + 1], "Ub", True, precision=12
+            sol, time_list[i + 3 * n_div + 1], "U.b", structured=True, precision=12
         )
         ub_a = (
             np.mean(np.mean(ub1, 3), 1)
@@ -204,15 +204,15 @@ if write_ua:
     pos_file_uu[:] = yi
     phase_file_uu[:] = np.linspace(0, 5, n_div)
     for i, time in enumerate(time_list[1:n_div]):
-        ua1 = fluidfoam.readvector(sol, time, "Ua", True, precision=12)
+        ua1 = fluidfoam.readvector(sol, time, "U.a", structured=True, precision=12)
         ua2 = fluidfoam.readvector(
-            sol, time_list[i + n_div + 1], "Ua", True, precision=12
+            sol, time_list[i + n_div + 1], "U.a", structured=True, precision=12
         )
         ua3 = fluidfoam.readvector(
-            sol, time_list[i + 2 * n_div + 1], "Ua", True, precision=12
+            sol, time_list[i + 2 * n_div + 1], "U.a", structured=True, precision=12
         )
         ua4 = fluidfoam.readvector(
-            sol, time_list[i + 3 * n_div + 1], "Ua", True, precision=12
+            sol, time_list[i + 3 * n_div + 1], "U.a", structured=True, precision=12
         )
         ua_a = (
             np.mean(np.mean(ua1, 3), 1)

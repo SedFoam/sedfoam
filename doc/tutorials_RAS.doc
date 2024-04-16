@@ -692,13 +692,13 @@ The post-processing python scripts plot_profiles2DPipelineScour.py and plot_dept
 
 The script _profiles2DPipelineScour.py plots bed profiles at 11s, 18s and 25s compared with experimental data like in the following figure:
 
-@image html "bed_profiles_kEpsilon.png" "Figure 8: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model." width=600px
-@image latex "bed_profiles_kEpsilon.png" "Figure 8: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model."
+@image html "bed_profiles_kOmega.png" "Figure 8: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model." width=600px
+@image latex "bed_profiles_kOmega.png" "Figure 8: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model."
 
 The script plot_depth2DPipelineScour.py plots the maximum scour depth compared with experimental data like in the following figure:
 
-@image html "maximum_depth_kEpsilon.png" "Figure 9: Maximum scour depth using a k-omega turbulence model." width=600px
-@image latex "maximum_depth_kEpsilon.png" "Figure 9: Maximum scour depth using a k-omega turbulence model."
+@image html "maximum_depth_kOmega.png" "Figure 9: Maximum scour depth using a k-omega turbulence model." width=600px
+@image latex "maximum_depth_kOmega.png" "Figure 9: Maximum scour depth using a k-omega turbulence model."
 
 
 \section Scour3DCylinder 3DScourCylinder: Scour around a vertical cylinder

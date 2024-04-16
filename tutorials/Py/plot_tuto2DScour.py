@@ -57,7 +57,7 @@ def readOpenFoam(sol, t0, Nt, Dt, Nx, Ny, Nz, N):
     for t in timeRange:
         print("Reading time: " + str(t) + " s")
         k = k + 1
-        alphad = fluidfoam.readscalar(sol, t + "/", "alpha_a")
+        alphad = fluidfoam.readscalar(sol, t + "/", "alpha.a")
         # if the shape is prescribed, reshape the arrays
         if max(shape) != 1:
             alpha = np.reshape(alphad[toto], shape, order="F")

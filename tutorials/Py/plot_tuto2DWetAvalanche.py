@@ -112,7 +112,7 @@ tolAlpha = 0.55
 tolL = 5e-4
 
 
-for i in range(200, int(final_tread)):
+for i in range(200, int(final_tread)+10):
     if i % 10 == 0:
         time_sim_dila_0.append((i - 200) / timeAdim)
         tread = str(i) + "/"
