@@ -1311,16 +1311,15 @@ and you should see the following figures:
 @image html "2DWetAvalancheResults.png" "Figure 14: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailha et al.(2008)." width=800px
 @image latex "2DWetAvalancheResults.png" "Figure 14: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailha et al.(2008)."
 
+\section  collapseTwoD 2DCollapse: Granular column collapses
 
-\section  twoDCollapse 2DCollapse: Granular column collapses
 
 In this section,sedFoam is used to reproduce initially loose and dense granular column collapses. More specifically, this section consists of reproducing the experimental granular collapses of Rondon et al. (2011). The granular column collapse is used to extend the dilatancy model to a more complex and realistic configuration. Numerical results are published in the work of Montellà et al (2023).
 
 The experiments performed by Rondon et al. (2011).  investigated  the collapse of a granular column in a viscous liquid.  Initially dense columns resulted in negative pore pressures that slowed down the collapse, while in loose granular packings, the collapsing process was triggered instantaneously with positive pore pressures that enhanced a rapid flow. Although several volume fractions and aspects ratios were analyzed, only two representative cases (an initially loose column with  \f$\phi_o=0.55\f$ and an initially dense packing with   \f$\phi_o=0.61\f$) will be considered in this work.  The experimental setup consisted of  a tank with a length of  \f$0.7 m\f$, and a width and height of  \f$0.15 m\f$. A removable gate was placed vertically and glass beads were poured behind the gate.  During the experiments, the excess of pore pressure was measured at the bottom at  \f$2 cm\f$ from the left side of the tank. The numerical setup is presented in the following figure:
-@image html "SetUpWeijComp.png" "Figure 15: Numerical setup
- to predict the granular collapse of Rondon et al. (2011)." width=500px
-@image latex "SetUpWeijComp.png" "Figure15: Numerical setup
- to predict the granular collapse of Rondon et al. (2011)."
+
+@image html "SetUpRondon.png" "Figure 15: Numerical setup to predict the granular collapse of Rondon et al. (2011)." width=500px
+@image latex "SetUpRondon.png" "Figure15: Numerical setup to predict the granular collapse of Rondon et al. (2011)."
 
 \subsection preprocCollapses Pre-processing
 
