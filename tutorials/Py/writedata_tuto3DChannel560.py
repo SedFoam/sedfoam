@@ -20,11 +20,11 @@ uny = int(ny / 2)
 yi = y[0, 0:uny, 0]
 
 # Read temporaly averaged variables
-alpha_ta = fluidfoam.readscalar(sol, tread, "alpha.aMean", structured=True, precision=12)
-ubf_ta = fluidfoam.readvector(sol, tread, "U.bMeanF", structured=True, precision=12)
-uaf_ta = fluidfoam.readvector(sol, tread, "U.aMeanF", structured=True, precision=12)
-ubprimf_ta = fluidfoam.readtensor(sol, tread, "U.bPrime2MeanF", structured=True, precision=12)
-uaprimf_ta = fluidfoam.readtensor(sol, tread, "U.aPrime2MeanF", structured=True, precision=12)
+alpha_ta = fluidfoam.readscalar(sol, tread, "alpha_aMean", structured=True, precision=12)
+ubf_ta = fluidfoam.readvector(sol, tread, "UbMeanF", structured=True, precision=12)
+uaf_ta = fluidfoam.readvector(sol, tread, "UaMeanF", structured=True, precision=12)
+ubprimf_ta = fluidfoam.readtensor(sol, tread, "UbPrime2MeanF", structured=True, precision=12)
+uaprimf_ta = fluidfoam.readtensor(sol, tread, "UaPrime2MeanF", structured=True, precision=12)
 
 # Usable data
 alpha_ta = alpha_ta[:, 0:uny, :]
