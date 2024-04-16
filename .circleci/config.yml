@@ -53,7 +53,7 @@ jobs:
 
   docs-build:
     docker:
-      - image: opencfd/openfoam-dev:2212
+      - image: opencfd/openfoam-dev:2312
 
     environment:
       WM_NCOMPPROCS: 2
@@ -130,7 +130,7 @@ jobs:
 
   build:
     docker:
-      - image: opencfd/openfoam-dev:2212
+      - image: opencfd/openfoam-dev:2312
 
     environment:
       WM_NCOMPPROCS: 2
@@ -162,12 +162,12 @@ jobs:
             shopt -s expand_aliases && source /openfoam/bash.rc &&
             export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group
       - persist_to_workspace:
-          root: /usr/lib/openfoam/openfoam2212
+          root: /usr/lib/openfoam/openfoam2312
           paths: site
 
   test:
     docker:
-      - image: opencfd/openfoam-dev:2212
+      - image: opencfd/openfoam-dev:2312
     working_directory: /root/sedfoam
 
     steps:
@@ -184,7 +184,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /usr/lib/openfoam/openfoam2212
+          at: /usr/lib/openfoam/openfoam2312
 
       - run:
           name: sedfoam test1D sedim
@@ -207,7 +207,7 @@ jobs:
 
   advanced-test:
     docker:
-      - image: opencfd/openfoam-dev:2212
+      - image: opencfd/openfoam-dev:2312
     working_directory: /root/sedfoam
 
     steps:
@@ -224,7 +224,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /usr/lib/openfoam/openfoam2212
+          at: /usr/lib/openfoam/openfoam2312
 
       - run:
           name: sedfoam 1D AvalancheMuI
@@ -237,7 +237,7 @@ jobs:
 
   advanced-test1:
     docker:
-      - image: opencfd/openfoam-dev:2212
+      - image: opencfd/openfoam-dev:2312
     working_directory: /root/sedfoam
 
     steps:
@@ -254,7 +254,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /usr/lib/openfoam/openfoam2212
+          at: /usr/lib/openfoam/openfoam2312
 
       - run:
           name: sedfoam 1DBedLoadTurb
@@ -277,7 +277,7 @@ jobs:
 
   advanced-test2:
     docker:
-      - image: opencfd/openfoam-dev:2212
+      - image: opencfd/openfoam-dev:2312
     working_directory: /root/sedfoam
 
     steps:
@@ -294,7 +294,7 @@ jobs:
           path: /root/sedfoam
 
       - attach_workspace:
-          at: /usr/lib/openfoam/openfoam2212
+          at: /usr/lib/openfoam/openfoam2312
 
       - run:
           name: sedfoam 1DWetAvalanche

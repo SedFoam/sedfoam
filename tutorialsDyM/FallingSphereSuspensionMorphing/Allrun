@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# create the intial time folder
+blockMesh
+cp -r 0_org 0
+
+# Select cellSets for the different zones
+topoSet
+setFields
+
+# Decompose the case in order to run in parallel (on 8 cores)
+decomposePar
+
+# Run sedFoam
+mpirun -np 8  overSedDymFoam_rbgh  -parallel > log.out&
+
+#  Postprocessing
+echo "-------------------------------------------------------------------"
+echo "To generate the postprocessing files you need to execute ./makeFiles"
+echo "Then run the python script plot3DFallingSphere_suspension.py and/or plot3DFallingSphere_comparison.py located in the folder tutorialsDyM/Py."

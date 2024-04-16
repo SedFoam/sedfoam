@@ -1,0 +1,17 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+./Allrun.pre
+
+(cd sphereAndBackground && mpirun -np 4 overSedDymFoam_rbgh -parallel > log.out&)
+
+#  Postprocessing
+echo "-------------------------------------------------------------------"
+echo "To generate the postprocessing files you need to execute ./makeFiles in the sphereAndBackground folder."
+echo "Then run the python script plot3DFallingSphere_suspension.py and/or plot3DFallingSphere_comparison.py located in the folder tutorialsDyM/Py."
+
+#------------------------------------------------------------------------------
+
+

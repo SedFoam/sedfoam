@@ -1,4 +1,4 @@
-FROM cbonamy/sedfoam_2212_ubuntu
+FROM cbonamy/sedfoam_2312_ubuntu
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
@@ -12,17 +12,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-# Miniconda installation
-# Default values can be overridden at build time
-# (ARGS are in lower case to distinguish them from ENV)
-# Check https://repo.anaconda.com/miniconda/
-# Miniconda archive to install
-ARG miniconda_version="4.9.2"
-# Archive MD5 checksum
-ARG miniconda_checksum="122c8c9beb51e124ab32a0fa6426c656"
-# Conda version that can be different from the archive
-ARG conda_version="4.9.2"
-
 # Install all OS dependencies for notebook server that starts but lacks all
 # features (e.g., download as all possible file formats)
 ENV DEBIAN_FRONTEND noninteractive
@@ -30,7 +19,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
   git unzip mercurial libreadline-dev vim nano emacs \
-    texlive dvipng \
+    texlive dvipng npm \
     wget bzip2 ca-certificates sudo locales fonts-liberation run-one \
     libsm6 \
     libxext-dev \
@@ -65,7 +54,7 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
 WORKDIR /root/
 
 # Copy a script that we will use to correct permissions after running certain commands
-RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/docker-stacks-foundation/fix-permissions /usr/local/bin/fix-permissions"
+RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/images/docker-stacks-foundation/fix-permissions /usr/local/bin/fix-permissions"
 RUN chmod a+rx /usr/local/bin/fix-permissions
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
@@ -107,8 +96,8 @@ ARG PYTHON_VERSION=default
 # Do all this in a single RUN command to avoid duplicating all of the
 # files across image layers when the permissions change
 
-# COPY --chown="${NB_UID}:${NB_GID}" /root/sedfoam/docker/docker-stacks/docker-stacks-foundation/initial-condarc "${CONDA_DIR}/.condarc"
-RUN /bin/bash -c "sudo cp /root/sedfoam/docker/docker-stacks/docker-stacks-foundation/initial-condarc /opt/conda/.condarc"
+# COPY --chown="${NB_UID}:${NB_GID}" /root/sedfoam/docker/docker-stacks/images/docker-stacks-foundation/initial-condarc "${CONDA_DIR}/.condarc"
+RUN /bin/bash -c "sudo cp /root/sedfoam/docker/docker-stacks/images/docker-stacks-foundation/initial-condarc /opt/conda/.condarc"
 RUN /bin/bash -c "sudo chown  1000:100 /opt/conda/.condarc"
 WORKDIR /tmp
 RUN set -x && \
@@ -138,11 +127,12 @@ RUN set -x && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
-RUN mamba install --quiet --yes \
+RUN mamba install -c conda-forge --quiet --yes \
     'pandas' \
     'matplotlib' \
     'notebook' \
-    'jupyterhub' \
+    'nbclassic' \
+#    'jupyterhub' \
     'jupyterlab' && \
     jupyter notebook --generate-config && \
     mamba clean --all -f -y && \
@@ -160,8 +150,8 @@ EXPOSE $JUPYTER_PORT
 # CMD ["start-notebook.sh"]
 
 WORKDIR /root/sedfoam/docker/
-RUN /bin/bash -c "sudo cp ./docker-stacks/docker-stacks-foundation/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/"
-RUN /bin/bash -c "sudo mkdir /etc/jupyter && sudo cp /root/sedfoam/docker/docker-stacks/base-notebook/jupyter_server_config.py /root/sedfoam/docker/docker-stacks/base-notebook/docker_healthcheck.py /etc/jupyter/"
+RUN /bin/bash -c "sudo cp ./docker-stacks/images/docker-stacks-foundation/start.sh ./docker-stacks/images/base-notebook/start-notebook.sh ./docker-stacks/images/base-notebook/start-singleuser.sh /usr/local/bin/"
+RUN /bin/bash -c "sudo mkdir /etc/jupyter && sudo cp /root/sedfoam/docker/docker-stacks/images/base-notebook/jupyter_server_config.py /root/sedfoam/docker/docker-stacks/images/base-notebook/docker_healthcheck.py /etc/jupyter/"
 
 # Fix permissions on /etc/jupyter as root
 USER root

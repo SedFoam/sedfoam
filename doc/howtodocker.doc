@@ -23,7 +23,7 @@ This page is organised in two sections:
 
 Operating System : Ubuntu focal
 
-Openfoam version : 2212 (openfoam.com) with all tutorials and source files
+Openfoam version : 2312 (openfoam.com) with all tutorials and source files
 
 sedFoam version : the latest of the develop branch
 
@@ -31,11 +31,11 @@ user : sudofoam (with sudo)
 
 Installed packages : swak4foam, python3-numpy, python3-matplotlib, fluidfoam, vim...
 
-Official link : https://hub.docker.com/r/cbonamy/sedfoam_2212_ubuntu
+Official link : https://hub.docker.com/r/cbonamy/sedfoam_2312_ubuntu
 
 Dockerfile : https://github.com/SedFoam/sedfoam/blob/develop/docker/Dockerfile
 
-Extended docker (supporting notebook) : https://hub.docker.com/r/cbonamy/sedfoam_2212_notebook
+Extended docker (supporting notebook) : https://hub.docker.com/r/cbonamy/sedfoam_2312_notebook
 
 Please note that Paraview is not included in the sedFoam docker. The users are
 encouraged to install and use Paraview on the host machine.
@@ -55,7 +55,7 @@ encouraged to install and use Paraview on the host machine.
 On host :
 - initiate docker :
 \verbatim
-    docker run -p 8888:8888 --name "sedfoam_2212_notebook" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_2212_notebook"
+    docker run -p 8888:8888 --name "sedfoam_2312_notebook" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_2312_notebook"
 \endverbatim
 - use your web browser :
     - The previous command will give you a url like http://127.0.0.1:8888/?token=ae5f299fc77312f079793a9ca818d5973ed4df5a5a85b9fa
@@ -78,7 +78,7 @@ On host :
 \endverbatim
 - initiate docker :
 \verbatim
-    docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_2212" --workdir="/home/sudofoam" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_2212_ubuntu" /bin/bash
+    docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_2312" --workdir="/home/sudofoam" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_2312_ubuntu" /bin/bash
 \endverbatim
 Please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
 
@@ -91,24 +91,24 @@ Please adapt the directories to your configuration. In this example, "/Users/tot
 \endverbatim
 - initiate docker :
 \verbatim
-    docker run -it --net=host --env DISPLAY=$DISPLAY --name "sedfoam_2212" --workdir="/home/sudofoam" -v="c:/mydataspace":/home/sudofoam/workingDir "cbonamy/sedfoam_2212_ubuntu" /bin/bash
+    docker run -it --net=host --env DISPLAY=$DISPLAY --name "sedfoam_2312" --workdir="/home/sudofoam" -v="c:/mydataspace":/home/sudofoam/workingDir "cbonamy/sedfoam_2312_ubuntu" /bin/bash
 \endverbatim
 Please adapt the directories to your configuration. In this example, "c:/mydataspace" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
 
 \subsubsection linux On linux with GUI (graphical interface without paraview):
 
 \verbatim
-    docker run -it --net=host --env DISPLAY=$DISPLAY --volume $XAUTH:/root/.Xauthority --name "sedfoam_2212" --workdir="/home/sudofoam" -v="/home/users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_2212_ubuntu" /bin/bash
+    docker run -it --net=host --env DISPLAY=$DISPLAY --volume $XAUTH:/root/.Xauthority --name "sedfoam_2312" --workdir="/home/sudofoam" -v="/home/users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_2312_ubuntu" /bin/bash
 \endverbatim
 Please adapt the directories to your configuration. In this example, "/home/users/toto" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
 
 \subsection start Start a container (if existing and not running) :
 \verbatim
-    docker container start sedfoam_2212
+    docker container start sedfoam_2312
 \endverbatim
 \subsection attach Attach to a running container (if existing and running):
 \verbatim
-    docker container attach sedfoam_2212
+    docker container attach sedfoam_2312
 \endverbatim
 
 Now hack and enjoy!

@@ -1,11 +1,11 @@
-FROM opencfd/openfoam-default:2212
+FROM opencfd/openfoam-default:2312
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
-  python3-pip python3-venv python-is-python3 ipython3 \
+  python3-pip python3-dev python3-venv python-is-python3 ipython3 \
   unzip git mercurial meld libreadline-dev vim nano emacs \
   texlive dvipng python3-tk cm-super texlive-latex-extra \
   && apt-get clean \
@@ -16,7 +16,7 @@ WORKDIR /root/
 RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
 
 WORKDIR /root
-RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -b feature/port/p2212 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
+RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -b develop && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
 
 WORKDIR /root/swak4Foam
 RUN /bin/bash -c "shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh"

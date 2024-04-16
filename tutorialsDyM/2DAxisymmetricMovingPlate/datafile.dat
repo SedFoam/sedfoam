@@ -1,0 +1,16 @@
+3 //number of data points in the file
+ //Position formatting is not important.  File is based on the character sequence only.
+ //Vectors are not relative.  Each vector is total displacement and total rotation.
+ (
+ //(time_point ( (linear displacement vector)      (rotation vector) ) )
+ //(seconds    ( (following unit system, usually meters)   (radians) ) )
+ (0            ( (0. 0. 0.0)                   (0.0 0.0 0.0) ) )
+ (0.17         ( (0. -0.052 0.0)                    (0.0 0.0 0.0) ) )
+ (10000.27         ( (0. -0.052 0.0)                    (0.0 0.0 0.0) ) )
+ )
+
+
+
+
+
+

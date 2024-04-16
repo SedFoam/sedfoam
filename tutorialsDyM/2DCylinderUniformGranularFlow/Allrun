@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# create the mesh
+blockMesh
+
+# create the intial time folder
+cp -r 0_org 0
+
+# map the fields
+mapFields -sourceTime  3 Case1D/
+mv 0/pointDisplacement.unmapped 0/pointDisplacement
+
+# Decompose the case in order to run in parallel (on 12 cores)
+decomposePar
+
+# Run sedFoam in parallel
+mpirun -np 12 overSedDymFoam_rbgh -parallel > log.out&
+
+#  Postprocessing
+echo "-------------------------------------------------------------------"
+echo "To generate the postprocessing files you need to execute ./makeFiles"
+echo "Then run the python script plot2DCylinderPosition.py located in the folder tutorialsDyM/Py."
+

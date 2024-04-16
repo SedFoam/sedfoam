@@ -229,6 +229,7 @@ addLayersControls
 
     minMedianAxisAngle 90;
 
+    minMedialAxisAngle 90;
 
     nBufferCellsNoExtrude 0;
 

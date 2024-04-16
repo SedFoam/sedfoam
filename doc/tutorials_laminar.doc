@@ -1,4 +1,4 @@
-﻿/**
+/**
  * \file        tutorials_laminar.doc
  * \author      Cyrille Bonamy and Julien Chauchat
  * \date        June 03, 2021
@@ -217,7 +217,7 @@ nu              nu [ 0 2 -1 0 0 0 0 ] 2.105e-05;
 
 nuMax           nuMax [0 2 -1 0 0 0 0] 1e0;      // viscosity limiter for the Frictional model (required for stability)
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
 
 \endverbatim
 
@@ -262,6 +262,8 @@ And the dictionary *granularRheologyProperties* controls the granular rheology p
 granularRheology   on;
 
 granularDilatancy  off;
+
+granularCohesion off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
@@ -544,7 +546,7 @@ internalField   #codeStream
 \endverbatim
 
 
-The code is run using the command sedFoam_rbgh in the terminal. The "> log &" allows to run the code in batch and write the output in the file log. The run can be monitored using the command 
+The code is run using the command sedFoam_rbgh in the terminal. The "> log &" allows to run the code in batch and write the output in the file log. The run can be monitored using the command
 
 
 \verbatim
@@ -565,7 +567,7 @@ The postprocessing using python requires the installation of the package fluidfo
 
 \verbatim
 python plot_tuto1DSedim.py
-\endverbatim 
+\endverbatim
 
 and you should see the following figures:
 
@@ -645,6 +647,7 @@ granularRheology   on;
 
 granularDilatancy  off;
 
+granularCohesion off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
@@ -782,12 +785,12 @@ Numerical results are contrasted with the analytical solution (Bagnold's solutio
 \subsection preprocAva Pre-processing
 
 
-This tutorial is distributed with sedFoam3.3 under the folder *sedFoamDirectory/tutorials/laminar/1DAvalancheMuI*.
+This tutorial is distributed with sedFoam under the folder *sedFoamDirectory/tutorials/laminar/1DAvalancheMuI*.
 
 \paragraph meshgenAva Mesh generation
 
 
-Because the avalanche is assumed to be in a stationary state, the simulation can be easily reduced to a one-dimensional problem.  The numerical domain consists of a rectangle of side length L = 0.01 made dimensionless by the domain size in the x-y plane and of height h=1 in the vertical direction z. 
+Because the avalanche is assumed to be in a stationary state, the simulation can be easily reduced to a one-dimensional problem.  The numerical domain consists of a rectangle of side length L = 0.01 made dimensionless by the domain size in the x-y plane and of height h=1 in the vertical direction z.
 
 A uniform mesh of 1 by 1 by 100 cells will be used (see \f$ n_{x}\f$=1 and \f$ n_{z}\f$=100 in figure 7). The block structure is the same as for the Sedimentation test case shown in figure 1.
 
@@ -872,6 +875,8 @@ Dense granular flow rheology \f$\mu(I)\f$ is used as shown in *granularRheologyP
 granularRheology   on;
 
 granularDilatancy  off;
+
+granularCohesion off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.6;
 
@@ -967,7 +972,7 @@ of the granular medium that modifies the pore space.  Consequently,  negative (d
 \subsection preprocWetAva Pre-processing
 
 
-This tutorial is distributed with sedFoam3.3 under the folder *sedFoamDirectory/tutorials/laminar/1DWetAvalanche*.
+This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/laminar/1DWetAvalanche*.
 
 
 \paragraph PhysPropWetAva Physical properties
@@ -1030,11 +1035,12 @@ The dilatancy model is switched off during the sedimentation process:
 
 
 
-
 \verbatim
 granularRheology   on;
 
 granularDilatancy  on;
+
+granularCohesion off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
@@ -1101,7 +1107,7 @@ The dilatancy model is turn on in *granularRheologyProperties* to reproduce the 
 \verbatim
 
 K_dila          K_dila [ 0 0 0 0 0 0 0 ] 4.0;
- 
+
 \endverbatim
 
 
@@ -1139,17 +1145,17 @@ the volume fraction, particle velocity and excess of pore pressure along the ver
 
 
 We consider a layer of granular material fully immersed in a viscous liquid. The granular layer
-is inclined so it starts moving down a planar slope as illustrated in figure 13.  
+is inclined so it starts moving down a planar slope as illustrated in figure 13.
 The  geometrical  parameters  and  boundary  conditions  are  set  to reproduce precisely the experimental setup of Pailha et al.(2008).
  In this example, the dense granular flow rheology \f$\mu(I_v)\f$ is considered.
-Additionally, dilatancy effects are included to better reproduce  the initial dynamics of the  granular flow.  Iverson et al.(2000) showed the  initial dynamics of underwater avalanches strongly 
+Additionally, dilatancy effects are included to better reproduce  the initial dynamics of the  granular flow.  Iverson et al.(2000) showed the  initial dynamics of underwater avalanches strongly
 depend on the initial volume fraction: initially loose granular beds are  instantaneously mobilized after tilting the plane whereas
 in initially dense granular beds, the motion of the avalanche is delayed. This mechanism is accompanied by an expansion (initially dense) or contraction  (initially loose)
 of the granular medium that modifies the pore space.  Consequently,  negative (dense packings) or positive (loose packings)
  excess  pore pressures develop within the mixture. In this example, we
- reproduce a dense granular avalanche \f$(\phi_0=0.592)\f$  in 2D. In order to reach an initial equilibrium state, 
+ reproduce a dense granular avalanche \f$(\phi_0=0.592)\f$  in 2D. In order to reach an initial equilibrium state,
  200 seconds are required to let the granular layer deposit by gravity. In order to save up some computational time, the deposition process
- is carried out in a 1D simulation in the *Reference1D* directory. 
+ is carried out in a 1D simulation in the *Reference1D* directory.
 
 
 @image html "schemeAvalanche2DViscous.png" "Figure 13: Schematic section of the 2D immersed avalanche in a viscous fluid flowing down on a uniform slope.  The coordinate system and main lengths are defined." width=500px
@@ -1165,16 +1171,17 @@ This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tut
 
 \subsection sediment1DwetAva 1D Deposition process
 
-The 1D sedimentation test can be launched by executing *Allrun* in the *Reference1D* directory. 
+The 1D sedimentation test can be launched by executing *Allrun* in the *Reference1D* directory.
 
 
-If you want a different initial volume fraction you need to adjust the *0_org/alphaPlastic* file accordingly. 
-Reference values: *alphaPlastic=0.575* leads to \f$\phi_0=0.592\f$, *alphaPlastic=0.545* leads to \f$\phi_0=0.571\f$ 
+If you want a different initial volume fraction you need to adjust the *0_org/alphaPlastic* file accordingly.
+Reference values: *alphaPlastic=0.575* leads to \f$\phi_0=0.592\f$, *alphaPlastic=0.545* leads to \f$\phi_0=0.571\f$
 and *alphaPlastic=0.520* leads to \f$\phi_0=0.566\f$.
 
 
 
 \subsection meshgen2DAvalanche Mesh generation
+
 
 The numerical domain consists of a rectangle of side length \f$L = 1m\f$ in the x-z plane and height \f$H = 0.07m\f$ in the vertical direction. 
 The initial bed depth is  \f$h = 0.0049m\f$. The mesh consists of 1000 elements  in the horizontal direction and 70  elements in  the vertical direction.
@@ -1189,13 +1196,11 @@ snappyHexMesh -overwrite
 extrudeMesh
 \endverbatim
 
-
 \subsection  BC_initi2DAvalanche Boundary and initial conditions
 
-Unlike previous tutorials, this case is set up to start at time t = 200s, time enough to reproduce an initially 
+Unlike previous tutorials, this case is set up to start at time t = 200s, time enough to reproduce an initially
 dense granular bed by a 1D deposition  test.
 The initial fields are retrieved from *Reference1D* directory and transformed to the new 2D geometry  by means of the *mapFields* utility:
-
 
 
 \verbatim
@@ -1207,11 +1212,10 @@ mapFields -sourceTime 200 Reference1D
 \endverbatim
 
 
-In order to reproduce the experimental setup of Pailha et al. (2008), all the x-y plane  boundaries are set as wall boundaries. 
-The velocities of both phases are set to zero at all boundaries  (lateral, top and bottom) while  a  *fixedFluxPressure* condition is 
-imposed for the excess pore pressure on all boundaries. 
+In order to reproduce the experimental setup of Pailha et al. (2008), all the x-y plane  boundaries are set as wall boundaries.
+The velocities of both phases are set to zero at all boundaries  (lateral, top and bottom) while  a  *fixedFluxPressure* condition is
+imposed for the excess pore pressure on all boundaries.
 An homogeneous Neumann boundary condition (zero gradient) is imposed for all the other quantities.
-
 
 
 \subsection PhysProp2DAvalanche Physical properties
@@ -1222,19 +1226,19 @@ The following variables are considered to reproduce the experimental results of 
 
 <table>
 <caption id="multi_row">Main physical parameters.</caption>
-<tr><th>Properties  	<th>Value  	
-<tr><td>Solid density  	<td>\f$\rho_p=2500 \frac{kg}{m^3}\f$  
-<tr><td>Fluid density	  	<td>\f$\rho_f=1041 \frac{kg}{m^3}\f$	
-<tr><td>Fluid viscosity    	<td>\f$\nu^f=9.2 \cdot 10^{-5} \frac{m^2}{s}\f$       
-<tr><td>Mean particle diameter    <td>\f$d=160 \cdot 10^{-6} m\f$    
-<tr><td>Slope inclined at the angle    <td>\f$\theta=25^o \f$       
-<tr><td>Solid phase thickness   <td>\f$h=0.0049 m\f$ 
-<tr><td>Box length   <td>\f$L=1 m\f$ 
-<tr><td>Box height   <td>\f$H=0.07 m\f$ 
-<tr><td>Initial solid volume fraction   <td>\f$\phi=0.592\f$   
-</table> 
+<tr><th>Properties  	<th>Value
+<tr><td>Solid density  	<td>\f$\rho_p=2500 \frac{kg}{m^3}\f$
+<tr><td>Fluid density	  	<td>\f$\rho_f=1041 \frac{kg}{m^3}\f$
+<tr><td>Fluid viscosity    	<td>\f$\nu^f=9.2 \cdot 10^{-5} \frac{m^2}{s}\f$
+<tr><td>Mean particle diameter    <td>\f$d=160 \cdot 10^{-6} m\f$
+<tr><td>Slope inclined at the angle    <td>\f$\theta=25^o \f$
+<tr><td>Solid phase thickness   <td>\f$h=0.0049 m\f$
+<tr><td>Box length   <td>\f$L=1 m\f$
+<tr><td>Box height   <td>\f$H=0.07 m\f$
+<tr><td>Initial solid volume fraction   <td>\f$\phi=0.592\f$
+</table>
 
-  
+
 
 
 Dense granular flow rheology \f$\mu(I_v)\f$ and the dilatancy  model is used as shown in *granularRheologyProperties*:
@@ -1245,6 +1249,8 @@ Dense granular flow rheology \f$\mu(I_v)\f$ and the dilatancy  model is used as 
 granularRheology   on;
 
 granularDilatancy  on;
+
+granularCohesion off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
@@ -1284,7 +1290,7 @@ FluidViscosityModel  BoyerEtAl;
 Like in previous case, you can launch the computation by executing *Allrun*. The simulations will run in parallel on 18 cores.
 
 \verbatim
-# Decompose the case and run in parallel 
+# Decompose the case and run in parallel
 decomposePar
 mpirun -np 18 sedFoam_rbgh -parallel > log&
 \endverbatim
@@ -1304,6 +1310,110 @@ and you should see the following figures:
 
 @image html "2DWetAvalancheResults.png" "Figure 14: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailha et al.(2008)." width=800px
 @image latex "2DWetAvalancheResults.png" "Figure 14: a) Evolution of surface particle velocity and b) excess of pore pressure with time. Experimental curves are extracted from Pailha et al.(2008)."
+
+\section  collapseTwoD 2DCollapse: Granular column collapses
+
+
+In this section,sedFoam is used to reproduce initially loose and dense granular column collapses. More specifically, this section consists of reproducing the experimental granular collapses of Rondon et al. (2011). The granular column collapse is used to extend the dilatancy model to a more complex and realistic configuration. Numerical results are published in the work of Montellà et al (2023).
+
+The experiments performed by Rondon et al. (2011).  investigated  the collapse of a granular column in a viscous liquid.  Initially dense columns resulted in negative pore pressures that slowed down the collapse, while in loose granular packings, the collapsing process was triggered instantaneously with positive pore pressures that enhanced a rapid flow. Although several volume fractions and aspects ratios were analyzed, only two representative cases (an initially loose column with  \f$\phi_o=0.55\f$ and an initially dense packing with   \f$\phi_o=0.61\f$) will be considered in this work.  The experimental setup consisted of  a tank with a length of  \f$0.7 m\f$, and a width and height of  \f$0.15 m\f$. A removable gate was placed vertically and glass beads were poured behind the gate.  During the experiments, the excess of pore pressure was measured at the bottom at  \f$2 cm\f$ from the left side of the tank. The numerical setup is presented in the following figure:
+
+@image html "SetUpRondon.png" "Figure 15: Numerical setup to predict the granular collapse of Rondon et al. (2011)." width=500px
+@image latex "SetUpRondon.png" "Figure15: Numerical setup to predict the granular collapse of Rondon et al. (2011)."
+
+\subsection preprocCollapses Pre-processing
+
+This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/laminar/2DCollapse/* . Inside that folder you can find two cases, the loose and the dense scenarios.
+
+\subsection sediment1DCollapses 1D Deposition process
+
+The 1D sedimentation to prepare the loose and dense cases can be launched by executing *Allrun* in the *initial_1D_profile/1DSedim/* directory.
+
+\subsection  BC_initi2DCollapse Initial conditions
+
+The initial fields are retrieved from *initial_1D_profile/1DSedim/* directory and transformed to the new 2D geometry by means of the *mapFields* utility:
+
+\verbatim
+# create the initial time folder
+cp -r 0_org 0
+# Initialize fields
+mapFields -sourceTime 400 initial_1D_profile/1DSedim/
+\endverbatim
+
+\subsection PhysProp2DCollapse Physical properties
+
+The following variables are considered to reproduce the experimental results of Rondon et al. (2023):
+
+<table>
+<caption id="multi_row">Main physical parameters.</caption>
+<tr><th>Properties   <th>Value
+<tr><td>Solid density   <td>\f$\rho_p=2500 \frac{kg}{m^3}\f$
+<tr><td>Fluid density    <td>\f$\rho_f=1010 \frac{kg}{m^3}\f$
+<tr><td>Fluid viscosity     <td>\f$\nu^f=1.2 \cdot 10^{-5} \frac{m^2}{s}\f$
+<tr><td>Mean particle diameter    <td>\f$d=225 \cdot 10^{-6} m\f$</table>
+</table>
+
+Dense granular flow rheology \f$\mu(I_v)\f$ and the dilatancy  model is used as shown in *granularRheologyProperties*:
+
+\verbatim
+granularRheology   on;
+
+granularDilatancy on;
+
+granularCohesion  off;
+
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
+
+mus             mus  [ 0 0 0 0 0 0 0 ] 0.425;
+
+mu2             mu2  [ 0 0 0 0 0 0 0 ] 0.765;
+
+I0              I0  [ 0 0 0 0 0 0 0 ] 0.004;
+
+Bphi            Bphi [ 0 0 0 0 0 0 0 ] 1.;
+
+n               n [ 0 0 0 0 0 0 0 ] 2.5;
+
+Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
+
+BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 0e0;
+
+K_dila      K_dila [ 0 0 0 0 0 0 0 ] 40;
+
+alpha_c      alpha_c [ 0 0 0 0 0 0 0 ] 0.57;
+
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1e-0;
+
+FrictionModel   MuIv;
+
+PPressureModel  MuIv;
+
+FluidViscosityModel BoyerEtAl;
+\endverbatim
+
+
+\subsection  launch_2DCollapsee Computation launching
+You can launch the computation by executing *Allrun*. The simulations will run in parallel on 4 cores.
+
+\verbatim
+# Decompose the case and run in parallel
+decomposePar
+mpirun -np 4 sedFoam_rbgh -parallel > log&
+\endverbatim
+
+\subsection postACollapse2D Post-processing using python
+
+You just have to run the python script *plot_tuto2DCollapse.py* located in the folder *tutorials/Py*. You will need to launch both loose and dense cases before running the script.
+
+\verbatim
+python plot_tuto2DCollapse.py
+\endverbatim
+
+and you should see the following figures:
+
+@image html "tuto2DCollapse_Morphology.png" "Figure 16: Evolution of the morphology during the collapse of initially a) dense and b) loose columns." width=800px
+@image latex "tuto2DCollapse_Morphology.png" "Figure 16: Evolution of the morphology during the collapse of initially a) dense and b) loose columns."
+It is worth mentioning that the numerical cases have been significantly coarsened to obtain the results rapidly and illustrate the potential of the dilatancy model. We refer the reader to Montellà et al. (2023) for more detailed data and a thorough analysis
 
 
 */
