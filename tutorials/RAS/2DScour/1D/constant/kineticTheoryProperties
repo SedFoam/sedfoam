@@ -37,12 +37,12 @@ killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 1;
 
 quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
 
-viscosityModel  GarzoDuftyMod;
+viscosityModel  GarzoDufty;
 
-conductivityModel GarzoDuftyMod;
+conductivityModel GarzoDufty;
 
 granularPressureModel Lun;
 
-radialModel     ChialvoSundaresanFric;
+radialModel     ChialvoSundaresan;
 
 // ************************************************************************* //
