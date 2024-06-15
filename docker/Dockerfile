@@ -7,7 +7,7 @@ RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
   python3-pip python3-dev python3-venv python-is-python3 ipython3 \
   unzip git mercurial meld libreadline-dev vim nano emacs \
-  texlive dvipng python3-tk cm-super texlive-latex-extra \
+  texlive dvipng python3-tk cm-super texlive-latex-extra python3-netcdf4 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 RUN pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy black
