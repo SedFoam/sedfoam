@@ -28,6 +28,7 @@ RUN update-ca-certificates && apt-get update \
     netcat \
     python3-dev \
     python3-netcdf4 \
+    python3-pandas \
     # ---- nbconvert dependencies ----
     texlive-xetex \
     texlive-fonts-recommended \
@@ -142,7 +143,7 @@ RUN mamba install -c conda-forge --quiet --yes \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
 #    fix-permissions "${CONDA_DIR}" && \
 #    fix-permissions "/home/${NB_USER}" && \
-    pip install fluidfoam odfpy
+    pip3 install fluidfoam odfpy
 
 ENV JUPYTER_PORT=8888
 EXPOSE $JUPYTER_PORT
