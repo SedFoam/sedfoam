@@ -556,7 +556,7 @@ volScalarField CohesionDistrb
         runTime.timeName(),
         mesh,
         IOobject::READ_IF_PRESENT,
-        IOobject::NO_WRITE
+        IOobject::AUTO_WRITE
     ),
     mesh,
     dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
