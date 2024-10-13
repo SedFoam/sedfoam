@@ -34,7 +34,8 @@ RUN update-ca-certificates && apt-get update \
     texlive-fonts-recommended \
     texlive-plain-generic \
     tzdata \
-    unzip libhdf5-serial-dev \
+    unzip \
+#    libhdf5-serial-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -124,7 +125,7 @@ RUN set -x && \
         'jupyter_core' && \
     rm micromamba && \
     # Pin major.minor version of python
-    # test BONALY mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
+    mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
