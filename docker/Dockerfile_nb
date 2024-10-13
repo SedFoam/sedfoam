@@ -124,7 +124,7 @@ RUN set -x && \
         'jupyter_core' && \
     rm micromamba && \
     # Pin major.minor version of python
-    mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
+    # mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
@@ -134,6 +134,7 @@ RUN mamba install -c conda-forge --quiet --yes \
     'matplotlib' \
     'notebook' \
     'nbclassic' \
+    'netCDF4' \
 #    'jupyterhub' \
     'jupyterlab' && \
     jupyter notebook --generate-config && \
@@ -162,6 +163,7 @@ USER root
 RUN sed -re "s/c.ServerApp/c.NotebookApp/g" \
     /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
     fix-permissions /etc/jupyter/
+
 
 # HEALTHCHECK documentation: https://docs.docker.com/engine/reference/builder/#healthcheck
 # This healtcheck works well for `lab`, `notebook`, `nbclassic`, `server` and `retro` jupyter commands
