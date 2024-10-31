@@ -14,7 +14,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    container: opencfd/openfoam-dev:2312
+    container: opencfd/openfoam-dev:2406
     steps:
       - name: install git
         run: |
@@ -30,12 +30,12 @@ jobs:
       - uses: actions/upload-artifact@v4.4.3
         with:
           name: sedfoam-binary
-          path: /usr/lib/openfoam/openfoam2312/site
+          path: /usr/lib/openfoam/openfoam2406/site
 
   test:
     runs-on: ubuntu-latest
     container: 
-      image: opencfd/openfoam-dev:2312
+      image: opencfd/openfoam-dev:2406
     needs: [build, checkstyle, checkpep8]
     defaults:
       run:
@@ -45,7 +45,8 @@ jobs:
         run: |
           apt-get update && sudo apt-get install -y git &&
           apt-get -y install python3 python3-pip &&
-          pip3 install fluidfoam 
+          python3 -m venv /home/sudofoam/pyenv &&
+          /home/sudofoam/pyenv/bin/pip3 install fluidfoam 
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
@@ -53,28 +54,28 @@ jobs:
       - uses: actions/download-artifact@v4.1.8
         with:
           name: sedfoam-binary
-          path: /usr/lib/openfoam/openfoam2312/site
+          path: /usr/lib/openfoam/openfoam2406/site
       - name: chmod sedfoam binary
         run: chmod a+x -R *
-        working-directory: /usr/lib/openfoam/openfoam2312/site
+        working-directory: /usr/lib/openfoam/openfoam2406/site
       - name: sedfoam test1D sedim
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && 
           cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
           cp -f system/controlDict.sedim system/controlDict  && sudo chmod -R a+rwX ../* &&
           runuser -u sudofoam -- ./Allrun > /dev/null &&
-          python3 test_Sedimentation.py
+          /home/sudofoam/pyenv/bin/python3 test_Sedimentation.py
       - name: sedfoam test1D bedload
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc &&
           cd test-ci/1DSedim && cp -f constant/forceProperties.bedload constant/forceProperties &&
           cp -f system/controlDict.bedload system/controlDict &&
-          runuser -u sudofoam -- ./Allrun > /dev/null && python3 test_Bedload.py
+          runuser -u sudofoam -- ./Allrun > /dev/null && /home/sudofoam/pyenv/bin/python3 test_Bedload.py
 
   advanced-test:
     runs-on: ubuntu-latest
     container: 
-      image: opencfd/openfoam-dev:2312
+      image: opencfd/openfoam-dev:2406
     needs: [test]
     defaults:
       run:
@@ -83,7 +84,8 @@ jobs:
       - name: install git and python3 packages
         run: |
           apt-get update && apt-get install -y git python3 python3-pip &&
-          pip3 install fluidfoam
+          python3 -m venv /home/sudofoam/pyenv &&
+          /home/sudofoam/pyenv/bin/pip3 install fluidfoam
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
@@ -91,21 +93,21 @@ jobs:
       - uses: actions/download-artifact@v4.1.8
         with:
           name: sedfoam-binary
-          path: /usr/lib/openfoam/openfoam2312/site
+          path: /usr/lib/openfoam/openfoam2406/site
       - name: chmod sedfoam binary
         run: sudo chmod a+x -R *
-        working-directory: /usr/lib/openfoam/openfoam2312/site
+        working-directory: /usr/lib/openfoam/openfoam2406/site
       - name: sedfoam test1D AvalancheMuI
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && 
           chmod -R a+rwX test-ci && cd test-ci/1DAvalancheMuI &&
           runuser -u sudofoam -- ./Allrun > /dev/null &&
-          python3 test_1DAvalancheMuI.py
+          /home/sudofoam/pyenv/bin/python3 test_1DAvalancheMuI.py
 
   advanced-test1:
     runs-on: ubuntu-latest
     container: 
-      image: opencfd/openfoam-dev:2312
+      image: opencfd/openfoam-dev:2406
     needs: [test]
     defaults:
       run:
@@ -114,7 +116,8 @@ jobs:
       - name: install git and python3 packages
         run: |
           apt-get update && apt-get install -y git python3 python3-pip &&
-          pip3 install fluidfoam
+          python3 -m venv /home/sudofoam/pyenv &&
+          /home/sudofoam/pyenv/bin/pip3 install fluidfoam
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
@@ -122,26 +125,26 @@ jobs:
       - uses: actions/download-artifact@v4.1.8
         with:
           name: sedfoam-binary
-          path: /usr/lib/openfoam/openfoam2312/site
+          path: /usr/lib/openfoam/openfoam2406/site
       - name: chmod sedfoam binary
         run: sudo chmod a+x -R *
-        working-directory: /usr/lib/openfoam/openfoam2312/site
+        working-directory: /usr/lib/openfoam/openfoam2406/site
       - name: sedfoam test 1DBedLoadTurb
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && 
           chmod -R a+rwX test-ci && cd test-ci/1DBedLoadTurb &&
           runuser -u sudofoam -- ./Allrun > /dev/null &&
-          python3 test_1DBedLoadTurb.py
+          /home/sudofoam/pyenv/bin/python3 test_1DBedLoadTurb.py
       - name: sedfoam test 1DBoundaryLayer
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && cd test-ci/1DBoundaryLayer &&
           runuser -u sudofoam -- ./Allrun > /dev/null &&
-          python3 test_1DBoundaryLayer.py
+          /home/sudofoam/pyenv/bin/python3 test_1DBoundaryLayer.py
 
   advanced-test2:
     runs-on: ubuntu-latest
     container: 
-      image: opencfd/openfoam-dev:2312
+      image: opencfd/openfoam-dev:2406
     needs: [test]
     defaults:
       run:
@@ -150,7 +153,8 @@ jobs:
       - name: install git and python3 packages
         run: |
           apt-get update && apt-get install -y git python3 python3-pip &&
-          pip3 install fluidfoam
+          python3 -m venv /home/sudofoam/pyenv &&
+          /home/sudofoam/pyenv/bin/pip3 install fluidfoam
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
@@ -158,16 +162,16 @@ jobs:
       - uses: actions/download-artifact@v4.1.8
         with:
           name: sedfoam-binary
-          path: /usr/lib/openfoam/openfoam2312/site
+          path: /usr/lib/openfoam/openfoam2406/site
       - name: chmod sedfoam binary
         run: sudo chmod a+x -R *
-        working-directory: /usr/lib/openfoam/openfoam2312/site
+        working-directory: /usr/lib/openfoam/openfoam2406/site
       - name: sedfoam test 1DWetAvalanche
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && 
           chmod -R a+rwX test-ci && cd test-ci/1DWetAvalanche &&
           runuser -u sudofoam -- ./Allrun > /dev/null &&
-          python3 test_1DWetAvalanche.py
+          /home/sudofoam/pyenv/bin/python3 test_1DWetAvalanche.py
 
   checkpep8:
     runs-on: ubuntu-latest
