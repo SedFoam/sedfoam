@@ -22,8 +22,9 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get -y install ca-certificates git python3-pip libclang-14-dev &&
             sudo apt-get -y install ack-grep libclang-cpp14 wget graphviz tex-gyre texlive-base dvisvgm &&
-            sudo DEBIAN_FRONTEND=noninteractive TZ='Europe/Paris' apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended &&
-            sudo pip3 install -U jinja2 Pygments && mkdir -p /github/home
+            sudo DEBIAN_FRONTEND=noninteractive TZ='Europe/Paris' apt-get -y install texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended python3-venv &&
+            python3 -m venv /home/sudofoam/pyenv &&
+            source /home/sudofoam/pyenv/bin/activate && pip3 install -U jinja2 Pygments && mkdir -p /github/home
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
@@ -41,7 +42,7 @@ jobs:
           cd sedfoam/doc &&
           git clone https://github.com/mosra/m.css &&
           cd m.css/documentation && cp ../../doxygen.py . &&
-          source /openfoam/bash.rc &&
+          source /openfoam/bash.rc && source /home/sudofoam/pyenv/bin/activate &&
           python3 doxygen.py ../../conf.py &&
           cd ../.. && cp images/* mcssout/html/. && cd mcssout/html &&
           sed -i "s|$MYPATH/sedfoam/|https://github.com/sedfoam/sedfoam/blob/master/|g" *.html
