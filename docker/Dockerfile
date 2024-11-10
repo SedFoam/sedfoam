@@ -13,16 +13,16 @@ RUN update-ca-certificates && apt-get update \
 RUN python3 -m venv /home/sudofoam/pyenv \
   && echo "source /home/sudofoam/pyenv/bin/activate" >> /home/sudofoam/.bashrc
 
-RUN pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy black
+RUN /bin/bash -c 'shopt -s expand_aliases && pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy black'
 
 WORKDIR /root/
 RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
 
 WORKDIR /root
-RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -b develop && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
+RUN /bin/bash -c 'hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -b develop && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake'
 
 WORKDIR /root/swak4Foam
-RUN /bin/bash -c "shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh"
+RUN /bin/bash -c 'shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh'
 
 WORKDIR /root/swak4Foam
 RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && export FOAM_USER_APPBIN=$FOAM_SITE_APPBIN && export WM_NCOMPPROCS=1 && ./Allwmake'
