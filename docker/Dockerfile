@@ -1,4 +1,4 @@
-FROM opencfd/openfoam-default:2312
+FROM opencfd/openfoam-default:2406
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 ARG DEBIAN_FRONTEND=noninteractive
@@ -7,9 +7,12 @@ RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
   python3-pip python3-dev python3-venv python-is-python3 ipython3 \
   unzip git mercurial meld libreadline-dev vim nano emacs python3-pandas \
-  texlive dvipng python3-tk cm-super texlive-latex-extra python3-netcdf4 \
+  texlive dvipng python3-tk cm-super texlive-latex-extra python3-netcdf4 python3-venv \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+RUN python3 -m venv /home/sudofoam/pyenv \
+  && echo "source /home/sudofoam/pyenv/bin/activate" >> /home/sudofoam/.bashrc
+
 RUN pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy black
 
 WORKDIR /root/
