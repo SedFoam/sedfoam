@@ -11,7 +11,7 @@
 
 Here is a How To about using the sedFoam docker.
 
-The prerequisites is to install Docker : https://docs.docker.com/engine/install/
+The prerequisites is to install Docker: https://docs.docker.com/engine/install/
 
 This page is organised in two sections:
 
@@ -21,21 +21,21 @@ This page is organised in two sections:
 //****************************************
 \section configuration Configuration of the sedFoam docker
 
-Operating System : Ubuntu focal
+Operating System: Ubuntu focal
 
-Openfoam version : 2406 (openfoam.com) with all tutorials and source files
+Openfoam version: 2406 (openfoam.com) with all tutorials and source files
 
-sedFoam version : the latest of the develop branch
+sedFoam version: the latest of the develop branch
 
-user : sudofoam (with sudo)
+user: sudofoam (with sudo)
 
-Installed packages : swak4foam, python3-numpy, python3-matplotlib, fluidfoam, vim...
+Installed packages: swak4foam, python3-numpy, python3-matplotlib, fluidfoam, vim...
 
-Official link : https://hub.docker.com/r/cbonamy/sedfoam_2406_ubuntu
+Official link: https://hub.docker.com/r/cbonamy/sedfoam_2406_ubuntu
 
-Dockerfile : https://github.com/SedFoam/sedfoam/blob/develop/docker/Dockerfile
+Dockerfile: https://github.com/SedFoam/sedfoam/blob/develop/docker/Dockerfile
 
-Extended docker (supporting notebook) : https://hub.docker.com/r/cbonamy/sedfoam_2406_notebook
+Extended docker (supporting notebook): https://hub.docker.com/r/cbonamy/sedfoam_2406_notebook
 
 Please note that Paraview is not included in the sedFoam docker. The users are
 encouraged to install and use Paraview on the host machine.
@@ -52,12 +52,12 @@ encouraged to install and use Paraview on the host machine.
 
 \subsubsection notebook In jupyter notebook using your web browser (macOS, linux, windows):
 
-On host :
-- initiate docker :
+On host:
+- initiate docker:
 \verbatim
     docker run -p 8888:8888 --name "sedfoam_2406_notebook" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_2406_notebook"
 \endverbatim
-- use your web browser :
+- use your web browser:
     - The previous command will give you a url like http://127.0.0.1:8888/?token=ae5f299fc77312f079793a9ca818d5973ed4df5a5a85b9fa
     - Just copy and paste the link into your web browser
 
@@ -66,30 +66,30 @@ If you use this option, please adapt the directories to your configuration. In t
 
 \subsubsection macOS On macOS with GUI (graphical interface without paraview):
 
-On host :
+On host:
 - configure xquartz
     - install xquartz to allow network connection
-    - in Xquartz : Go to Preferences > Security
+    - in Xquartz: Go to Preferences > Security
     - and Check "allow connections from network clients"
-    - in a terminal : 
+    - in a terminal: 
 \verbatim
     IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
     xhost + $IP
 \endverbatim
-- initiate docker :
+- initiate docker:
 \verbatim
     docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_2406" --workdir="/home/sudofoam" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_2406_ubuntu" /bin/bash
 \endverbatim
 Please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
 
 \subsubsection windows On Windows with GUI (graphical interface without paraview):
-- configure Docker Engine for windows (with all system requirements : WSL2, step 1-5 from https://docs.microsoft.com/en-us/windows/wsl/install-win10)
-- configure vcxsrv : https://sourceforge.net/projects/vcxsrv/ (disable access control in extra settings)
-- Get your IP and set DISPLAY variable :
+- configure Docker Engine for windows (with all system requirements: WSL2, step 1-5 from https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- configure vcxsrv: https://sourceforge.net/projects/vcxsrv/ (disable access control in extra settings)
+- Get your IP and set DISPLAY variable:
 \verbatim
     set-variable -name DISPLAY -value YOUR-IP:0.0
 \endverbatim
-- initiate docker :
+- initiate docker:
 \verbatim
     docker run -it --net=host --env DISPLAY=$DISPLAY --name "sedfoam_2406" --workdir="/home/sudofoam" -v="c:/mydataspace":/home/sudofoam/workingDir "cbonamy/sedfoam_2406_ubuntu" /bin/bash
 \endverbatim
@@ -102,7 +102,7 @@ Please adapt the directories to your configuration. In this example, "c:/mydatas
 \endverbatim
 Please adapt the directories to your configuration. In this example, "/home/users/toto" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
 
-\subsection start Start a container (if existing and not running) :
+\subsection start Start a container (if existing and not running):
 \verbatim
     docker container start sedfoam_2406
 \endverbatim
@@ -111,8 +111,11 @@ Please adapt the directories to your configuration. In this example, "/home/user
     docker container attach sedfoam_2406
 \endverbatim
 
-Now hack and enjoy!
-The sedFoam files will be in /home/sudofoam and the solver is already compiled. Note that the bashrc file from openfoam is here : /openfoam/bash.rc
-
+Now hack and enjoy!\\
+The sedFoam files will be in /home/sudofoam and the solver is already compiled. Note that the bashrc file from openfoam is here: /openfoam/bash.rc\\
+And if you need python with fluidfoam installed, don't hesitate to use the preconfigured python environment:
+\verbatim
+    source /home/sudofoam/pyenv/bin/activate
+\endverbatim
 
 */

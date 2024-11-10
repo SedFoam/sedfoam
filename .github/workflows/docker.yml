@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: sedfoam_2406_ubuntu
-    #needs: build
+    needs: build
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

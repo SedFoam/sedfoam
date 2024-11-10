@@ -10,8 +10,7 @@ RUN update-ca-certificates && apt-get update \
   texlive dvipng python3-tk cm-super texlive-latex-extra python3-netcdf4 python3-venv \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
-RUN python3 -m venv /home/sudofoam/pyenv \
-  && echo "source /home/sudofoam/pyenv/bin/activate" >> /home/sudofoam/.bashrc
+RUN python3 -m venv /home/sudofoam/pyenv
 
 RUN /bin/bash -c 'shopt -s expand_aliases && source /home/sudofoam/pyenv/bin/activate && pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy black'
 
