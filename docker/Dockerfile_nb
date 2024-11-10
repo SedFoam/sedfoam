@@ -1,5 +1,5 @@
 FROM cbonamy/sedfoam_2406_ubuntu
-LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
+LABEL maintainer="cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
 
@@ -14,7 +14,7 @@ USER root
 
 # Install all OS dependencies for notebook server that starts but lacks all
 # features (e.g., download as all possible file formats)
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
@@ -173,7 +173,7 @@ HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
 
 USER $NB_UID
 WORKDIR /home/sudofoam
-ENV HOME /home/sudofoam
+ENV HOME=/home/sudofoam
 ENTRYPOINT ["/bin/bash", "-c"]
 CMD ["source /openfoam/bash.rc && jupyter notebook"]
 

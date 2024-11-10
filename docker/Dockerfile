@@ -1,5 +1,5 @@
 FROM opencfd/openfoam-default:2406
-LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
+LABEL maintainer="cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -13,7 +13,7 @@ RUN update-ca-certificates && apt-get update \
 RUN python3 -m venv /home/sudofoam/pyenv \
   && echo "source /home/sudofoam/pyenv/bin/activate" >> /home/sudofoam/.bashrc
 
-RUN /bin/bash -c 'shopt -s expand_aliases && pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy black'
+RUN /bin/bash -c 'shopt -s expand_aliases && source .bashrc && pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy black'
 
 WORKDIR /root/
 RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
@@ -39,5 +39,5 @@ WORKDIR /home/sudofoam
 RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
 
 WORKDIR /home/sudofoam
-ENV HOME /home/sudofoam
+ENV HOME=/home/sudofoam
 ENTRYPOINT ["/bin/bash", "-c"]
