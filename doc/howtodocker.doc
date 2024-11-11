@@ -112,10 +112,6 @@ Please adapt the directories to your configuration. In this example, "/home/user
 \endverbatim
 
 Now hack and enjoy!\\
-The sedFoam files will be in /home/sudofoam and the solver is already compiled. Note that the bashrc file from openfoam is here: /openfoam/bash.rc\\
-And if you need python with fluidfoam installed, don't hesitate to use the preconfigured python environment:
-\verbatim
-    source /home/sudofoam/pyenv/bin/activate
-\endverbatim
+The sedFoam files will be in /home/sudofoam and the solver is already compiled. Note that the bashrc file from openfoam is here: /openfoam/bash.rc and the python environment here: /home/sudofoam/pyenv\\
 
 */

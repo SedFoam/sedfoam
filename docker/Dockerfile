@@ -15,7 +15,7 @@ RUN python3 -m venv /home/sudofoam/pyenv
 RUN /bin/bash -c 'shopt -s expand_aliases && source /home/sudofoam/pyenv/bin/activate && pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy black'
 
 WORKDIR /root/
-RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
+RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git --depth 1
 
 WORKDIR /root
 RUN /bin/bash -c 'hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -b develop && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake'
@@ -29,13 +29,11 @@ RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export 
 WORKDIR /root/sedfoam
 RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group'
 
-WORKDIR /home/sudofoam
-RUN rm -rf swak4Foam sedfoam
-
-USER 1000
+USER 1001
 
 WORKDIR /home/sudofoam
-RUN git clone --branch develop --recurse-submodules https://github.com/sedfoam/sedfoam.git
+RUN sudo cp -r /root/sedfoam sedfoam && sudo chown -R sudofoam: /home/sudofoam && sudo rm -rf /root/*
+RUN echo "source /home/sudofoam/pyenv/bin/activate" >> .bashrc
 
 WORKDIR /home/sudofoam
 ENV HOME=/home/sudofoam
