@@ -53,7 +53,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: cbonamy/${{ env.IMAGE_NAME }}:latest
-          //context: docker
+          context: docker
 
   docker_nb:
     runs-on: ubuntu-latest
