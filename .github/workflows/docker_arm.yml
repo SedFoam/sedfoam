@@ -11,7 +11,7 @@ defaults:
 jobs:
 
   docker_arm:
-    runs-on: macos-latest
+    runs-on: macos-13
     env:
       IMAGE_NAME: sedfoam_2406_ubuntu
     #needs: build
