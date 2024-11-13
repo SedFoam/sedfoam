@@ -5,9 +5,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
-  python3-pip python3-dev python3-venv python-is-python3 ipython3 \
-  unzip git mercurial meld libreadline-dev vim nano emacs python3-pandas \
-  texlive dvipng python3-tk cm-super texlive-latex-extra python3-netcdf4 python3-venv \
+  python3-pip python3-dev python-is-python3 ipython3 \
+  unzip git mercurial libreadline-dev vim nano emacs python3-venv \
+  #python3-tk cm-super meld \
+  #texlive dvipng texlive-latex-extra python3-netcdf4 python3-pandas \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 RUN python3 -m venv /home/sudofoam/pyenv
@@ -24,7 +25,7 @@ WORKDIR /root/swak4Foam
 RUN /bin/bash -c 'shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh'
 
 WORKDIR /root/swak4Foam
-RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && export FOAM_USER_APPBIN=$FOAM_SITE_APPBIN && export WM_NCOMPPROCS=1 && ./Allwmake'
+RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && export FOAM_USER_APPBIN=$FOAM_SITE_APPBIN && export WM_NCOMPPROCS=4 && ./Allwmake'
 
 WORKDIR /root/sedfoam
 RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group'
