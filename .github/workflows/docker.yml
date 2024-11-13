@@ -56,10 +56,10 @@ jobs:
           context: docker
 
   docker_arm:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     env:
       IMAGE_NAME: sedfoam_2406_ubuntu
-    needs: build
+    #needs: build
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
