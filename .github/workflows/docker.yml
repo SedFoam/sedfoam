@@ -56,16 +56,16 @@ jobs:
           context: docker
 
   docker_arm:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     env:
       IMAGE_NAME: sedfoam_2406_ubuntu
-    #needs: build
+    needs: build
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      #- name: Set up QEMU
-      #  uses: docker/setup-qemu-action@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -79,7 +79,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/arm64
+          platforms: linux/arm64/v8
           push: true
           tags: cbonamy/${{ env.IMAGE_NAME }}:latest
           context: docker
@@ -107,5 +107,5 @@ jobs:
           context: docker
           file: docker/Dockerfile_nb
           push: true
-          platforms: linux/amd64 #,linux/arm64
+          platforms: linux/amd64 #,linux/arm64/v8
           tags: cbonamy/${{ env.IMAGE_NAME }}:latest
