@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: sedfoam_2406_notebook
-    needs: docker-2
+#    needs: docker-2
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
