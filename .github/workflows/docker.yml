@@ -1,4 +1,4 @@
-name: generate_docker_multiarch
+name: generate_docker
 on:
   push:
     branches: ['develop']
