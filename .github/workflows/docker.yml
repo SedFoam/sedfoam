@@ -26,8 +26,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: openfoam_2406_ubuntu
-      REGISTRY_NAME: openfoam_2406_ubuntu
+      REGISTRY_NAME: cbonamy/openfoam_2406_ubuntu
     #needs: build
     strategy:
       fail-fast: false
@@ -71,7 +70,7 @@ jobs:
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           context: docker
           file: docker/Dockerfile_fordev
-          tags: cbonamy/${{ env.REGISTRY_NAME }}:latest
+          #tags: ${{ env.REGISTRY_NAME }}:latest
 
 #      - name: Build and push
 #        uses: docker/build-push-action@v6
@@ -84,7 +83,7 @@ jobs:
       - name: Export digest
         run: |
           mkdir -p /tmp/digests
-          digest="${{ steps.build.outputs.digest }}"
+          digest="${{ steps.docker.outputs.digest }}"
           touch "/tmp/digests/${digest#sha256:}"          
       
       - name: Upload digest
@@ -135,8 +134,7 @@ jobs:
   docker-2:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: sedfoam_2406_ubuntu
-      REGISTRY_NAME: sedfoam_2406_ubuntu
+      REGISTRY_NAME: cbonamy/sedfoam_2406_ubuntu
     needs: merge
     strategy:
       fail-fast: false
@@ -180,7 +178,7 @@ jobs:
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           context: docker
           file: docker/Dockerfile_comp
-          tags: cbonamy/${{ env.REGISTRY_NAME }}:latest
+          #tags: cbonamy/${{ env.REGISTRY_NAME }}:latest
 
 
       - name: Export digest
@@ -237,8 +235,7 @@ jobs:
   docker-nb:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: sedfoam_2406_notebook
-      REGISTRY_NAME: sedfoam_2406_notebook
+      REGISTRY_NAME: cbonamy/sedfoam_2406_notebook
     needs: merge-2
     strategy:
       fail-fast: false
@@ -282,7 +279,7 @@ jobs:
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           context: docker
           file: docker/Dockerfile_nb
-          tags: cbonamy/${{ env.REGISTRY_NAME }}:latest
+          #tags: cbonamy/${{ env.REGISTRY_NAME }}:latest
 
 
       - name: Export digest
