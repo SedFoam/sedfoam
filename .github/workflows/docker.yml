@@ -71,6 +71,7 @@ jobs:
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           context: docker
           file: docker/Dockerfile_fordev
+          tags: cbonamy/${{ env.REGISTRY_NAME }}:latest
 
 #      - name: Build and push
 #        uses: docker/build-push-action@v6
@@ -179,6 +180,8 @@ jobs:
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           context: docker
           file: docker/Dockerfile_comp
+          tags: cbonamy/${{ env.REGISTRY_NAME }}:latest
+
 
       - name: Export digest
         run: |
@@ -279,6 +282,8 @@ jobs:
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           context: docker
           file: docker/Dockerfile_nb
+          tags: cbonamy/${{ env.REGISTRY_NAME }}:latest
+
 
       - name: Export digest
         run: |
