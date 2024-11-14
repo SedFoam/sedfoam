@@ -70,7 +70,7 @@ jobs:
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           context: docker
           file: docker/Dockerfile_fordev
-          tags: ${{ env.REGISTRY_NAME }}:latest
+          tags: ${{ env.REGISTRY_NAME }}
 
 #      - name: Build and push
 #        uses: docker/build-push-action@v6
@@ -178,7 +178,7 @@ jobs:
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           context: docker
           file: docker/Dockerfile_comp
-          tags: ${{ env.REGISTRY_NAME }}:latest
+          tags: ${{ env.REGISTRY_NAME }}
 
 
       - name: Export digest
@@ -279,7 +279,7 @@ jobs:
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           context: docker
           file: docker/Dockerfile_nb
-          tags: ${{ env.REGISTRY_NAME }}:latest
+          tags: ${{ env.REGISTRY_NAME }}
 
 
       - name: Export digest
