@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGISTRY_NAME: cbonamy/openfoam_2406_ubuntu
-    needs: build
+    #needs: build
     strategy:
       fail-fast: false
       matrix:
