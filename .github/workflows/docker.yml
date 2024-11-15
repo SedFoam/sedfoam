@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGISTRY_NAME: cbonamy/openfoam_2406_ubuntu
-    #needs: build
+    needs: build
     strategy:
       fail-fast: false
       matrix:
@@ -71,14 +71,6 @@ jobs:
           context: docker
           file: docker/Dockerfile_fordev
           tags: ${{ env.REGISTRY_NAME }}
-
-#      - name: Build and push
-#        uses: docker/build-push-action@v6
-#        with:
-#          platforms: linux/amd64
-#          push: true
-#          tags: cbonamy/${{ env.IMAGE_NAME }}:latest
-#          context: docker
 
       - name: Export digest
         run: |
@@ -125,8 +117,7 @@ jobs:
         working-directory: /tmp/digests
         run: |
           docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)          
-      
+            $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
       - name: Inspect image
         run: |
           docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }} 
