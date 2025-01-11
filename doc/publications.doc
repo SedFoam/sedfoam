@@ -10,6 +10,12 @@
 
 \tableofcontents
 
+\section pubs2024 2024
+
+<ul>
+<li>Puig Montella, E., Bonamy, C., Chauchat, J., & Hsu, T.-J. (2024). Implementing moving object capability in a two-phase Eulerian model for sediment transport applications. OpenFOAM® Journal, 4, 79–104. https://doi.org/10.51560/ofj.v4.119
+</ul>
+
 \section pubs2023 2023
 
 <ul>
@@ -20,6 +26,7 @@
 \section pubs2022 2022
 
 <ul>
+<li>Mathieu, A., Cheng Z., Chauchat, J., Bonamy, C., Hsu, T. (2022). Numerical investigation of unsteady effects in oscillatory sheet flows. Journal of Fluid Mechanics. vol. 943, https://doi.org/10.1017/jfm.2022.405
 <li>Tsai, B., Mathieu, A., Montellà, E. P., Hsu, T.-J., and Chauchat, J. (2022). An eulerian two-phase flow model investigation on scour onset and backfill of a 2d pipeline. European Journal of Mechanics - B/Fluids, 91:10–26. DOI : https://doi.org/10.1016/j.euromechflu.2021.09.004
 </ul>
 

@@ -290,7 +290,7 @@ jobs:
           path: /tmp/digests/*
           if-no-files-found: error
           retention-days: 1
-        
+
   merge-nb:
     runs-on: ubuntu-latest
     env:
