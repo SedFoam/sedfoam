@@ -84,8 +84,6 @@ Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyConductivity::kappa
     //Total conductivity accounting for saltation
     const volScalarField kappaTot = kappak * kappasalt/(kappak+kappasalt) +
              kappac + kappab;
-    //const volScalarField kappaTot = kappak +
-    //         kappac + kappab;
 
     return rhoa*da*sqrt(Theta)*kappaTot;
 }

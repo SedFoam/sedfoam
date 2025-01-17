@@ -74,12 +74,6 @@ makeRASModel(kEpsilon);
 #include "kOmega.H"
 makeRASModel(kOmega);
 
-#include "kOmegaSST.H"
-makeRASModel(kOmegaSST);
-
-#include "kOmegaSSTSAS.H"
-makeRASModel(kOmegaSSTSAS);
-
 #include "twophasekEpsilon.H"
 makeRASModel(twophasekEpsilon);
 
@@ -97,12 +91,6 @@ makeRASModel(twophasekOmega);
 
 #include "twophasekOmegaSAS.H"
 makeRASModel(twophasekOmegaSAS);
-
-#include "twophasekOmegaSASadv.H"
-makeRASModel(twophasekOmegaSASadv);
-
-#include "twophasekOmegaSASadvzeta1.H"
-makeRASModel(twophasekOmegaSASadvzeta1);
 
 #include "partDynamicLagrangian.H"
 makeLESModel(partDynamicLagrangian);

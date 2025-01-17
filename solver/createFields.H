@@ -1124,6 +1124,4 @@ if (p_rbgh.needReference())
     );
     p_rbgh = p - rhob*gh;
 }
-  
-
 Info<<"end of createFields"<<endl;

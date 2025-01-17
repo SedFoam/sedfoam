@@ -56,7 +56,7 @@ tmp<fvScalarMatrix> twophasekOmegaSAS<BasicTurbulenceModel>::Qsas
     const dimensionedScalar& betaOmega
 ) const
 {
-        volScalarField::Internal L
+    volScalarField::Internal L
     (
         sqrt(this->k_())/(pow025(this->Cmu_)*this->omega_())
     );
@@ -75,7 +75,10 @@ tmp<fvScalarMatrix> twophasekOmegaSAS<BasicTurbulenceModel>::Qsas
                     ROOTVSMALL
                 )
             ),
-            Cs_*sqrt(kappa_*zeta2_/((betaOmega_
+            Cs_*sqrt(kappa_*zeta2_/(((betaOmega_
+            *(scalar(1.0)+scalar(85.0)*mag((-skew(fvc::grad(this->U_)()()) & -skew(fvc::grad(this->U_)()()) & symm(fvc::grad(this->U_)()()))/(pow((this->Cmu_*this->omega_()), 3))))
+                /(scalar(1.0)+scalar(100.0)*mag((-skew(fvc::grad(this->U_)()()) & -skew(fvc::grad(this->U_)()()) & symm(fvc::grad(this->U_)()()))/(pow((this->Cmu_*this->omega_()), 3))))
+            )
             /this->Cmu_) - alphaOmega_))*this->delta()()
 	)
     );

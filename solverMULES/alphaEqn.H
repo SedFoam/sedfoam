@@ -101,14 +101,8 @@ License
         allLambda = 1.0;
 
         // Solve for alpha1
-	fvScalarMatrix alphaEqn
-        (
-             fvm::ddt(alpha)
-	     +fvc::div(alphaPhi1)
-        );
-        alphaEqn.solve();
-	alpha.min(alphaMax);
-        alpha.max(0);
+	solve(fvm::ddt(alpha) + fvc::div(alphaPhi1));
+
         beta = 1.0 - alpha;
 
     }
