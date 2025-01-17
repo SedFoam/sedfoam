@@ -19,6 +19,8 @@ granularRheology   on;
 
 granularDilatancy  on;
 
+granularCohesion  off;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.425;

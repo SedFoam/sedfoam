@@ -3,15 +3,10 @@ import fluidfoam
 from pylab import plt, matplotlib
 from matplotlib.ticker import StrMethodFormatter
 
-plt.rcParams.update({"font.size": 16})
-plt.rc("font", family="serif")
-
-plt.rc("text", usetex=True)
-font = {"family": "serif", "size": 16, "serif": ["computer modern roman"]}
-plt.rc("font", **font)
-plt.rc("legend", **{"fontsize": 16})
-matplotlib.rcParams["text.latex.preamble"] = [r"\usepackage{amsmath}"]
-matplotlib.rcParams["legend.framealpha"] = None
+matplotlib.rcParams.update({"font.size": 16})
+matplotlib.rcParams["lines.linewidth"] = 3
+matplotlib.rcParams["lines.markersize"] = 5
+matplotlib.rcParams["lines.markeredgewidth"] = 1
 
 ##################################################################
 # Parameters to retrieve dimensionless variables

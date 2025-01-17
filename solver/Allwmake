@@ -26,5 +26,6 @@ wmake libso ppModel
 wmake libso kineticTheoryModels
 wmake libso granularRheologyModels
 wmake
-
+cd overSedDymFoam
+wmake
 #------------------------------------------------------------------------------

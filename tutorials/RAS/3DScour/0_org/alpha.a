@@ -29,11 +29,11 @@ boundaryField
     {
         type            groovyBC;
         refValue        uniform 0;
-        valueExpression "inletprofilealpha(pos().z)";
+        valueExpression "inletprofilealpha(zp)";
         gradientExpression "0";
         fractionExpression "1";
         evaluateDuringConstruction 1;
-        variables       "";
+        variables       "zp=pos().z;";
         timelines       (
 );
         lookuptables    (

@@ -154,7 +154,7 @@ relaxPa         | relaxation factor for Pa  |    1.0       | 1e-9-1       |  -  
 Additionally, the switch 'granularDilatancy' found in the file 'granularRheologyProperties' is used to incorporate dilatancy effects in the model. This feature is important to capture the coupling between the pore
 pressure feedback mechanism and the initial dynamics of a granular medium subjected to shear stress. 
 
-
+Finally, the 'granularCohesion' switch found in the 'granularRheologyProperties' file is used to integrate cohesive effects. This feature enables users to introduce cohesive material regions, such as cohesive layers or model fine-grained soils like clay, where cohesive effects cannot be neglected.
 
 
 \subsection kineticTheoryProperties File kineticTheoryProperties
