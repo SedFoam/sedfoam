@@ -431,7 +431,8 @@ void Foam::kineticTheoryModel::solve
                             alphaMax_, muPart_);
     gs0Prime_ = radialModel_->g0prime(min(alpha_, alphaMax_ - alphaSmall),
                                       alphaMax_, muPart_);
-
+    
+    //Info<<"gs0 bug"<< endl;
     //////////////////////////////////////////
     // collisional pressure  (Eq. 3.22, p. 45)
     // ///////////////////////////////////////
@@ -445,7 +446,7 @@ void Foam::kineticTheoryModel::solve
             e_
         )
     );
-
+    //Info<<"collisional pressure bug"<< endl;
     ///////////////////////////////////////
     // Saltation Model
     ///////////////////////////////////////
@@ -454,7 +455,7 @@ void Foam::kineticTheoryModel::solve
                     rhoa_, da_, K+Ksmall);
     kappaSaltCoef_ = saltationModel_->kappasalt(alpha_+alphaSmall,
                     ThetaClip+Tsmall, rhoa_, da_, K+Ksmall);
-
+    //Info<<"saltation bug"<< endl;
     ///////////////////////////////////////
     // Granular viscosity (Table 3.2, p.47)
     // and shear stress
@@ -470,6 +471,7 @@ void Foam::kineticTheoryModel::solve
     (
         2.0*mua_*D + (lambda_ - (2.0/3.0)*mua_)*tr(D)*I
     );
+    //Info<<"granular viscosity bug"<< endl;
 
     //////////////////////////////////////////////
     // Temperature conductivity (Table 3.3, p. 49)
@@ -482,6 +484,7 @@ void Foam::kineticTheoryModel::solve
     //////////////////////////////////////////////
     kappaAlpha_ = pseudoConductivityModel_->kappaAlpha(alpha_, ThetaClip, gs0_,
                     gs0Prime_, rhoa_, da_, e_);
+    //Info<<"conductivity bug"<< endl;
 
     //////////////////////
     // Contact dissipation
@@ -513,6 +516,9 @@ void Foam::kineticTheoryModel::solve
         (3.0*(1.0 - sqr(e_))*sqr(alpha_)*rhoa_*gs0_
             *(4.0/Lc*ThetaSqrt/sqrtPi-tr(D)))
     );
+
+    //Info<<"gamma bug"<< endl;
+
     // Frictional dissipation (Chialvo and Sundaresan (2013) eqs. 22-23)
     //dimensionedScalar f_mu(3./2*muPart_*exp(-3*muPart_));
     // Frictional dissipation (Jenkins & Zhang (2002))
@@ -549,6 +555,8 @@ void Foam::kineticTheoryModel::solve
     // Eq. 3.25, p. 50 J_int = J2 - J1*Theta_
     volScalarField J1(alpha_*(1-alpha_)*K*(3+2*quadraticCorrectionJ1_));
     volScalarField J2(alpha_*(1-alpha_)*K*(2*flucVelCor_*kb));
+    
+    //Info<<"Jint bug"<< endl;
 
     ////////////////////////////////
     // Granular temperature equation
@@ -557,10 +565,48 @@ void Foam::kineticTheoryModel::solve
     (
         1.5*rhoa_*phia_*fvc::interpolate((alpha_+alphaSmall))
     );
+    //Info<<"Start Theta Eq terms"<< endl;
     // construct the granular temperature equation (Eq. 3.20, p. 44)
     // NB. note that there are two typos in Eq. 3.20
     // no grad in front of Ps
     // wrong sign in front of laplacian
+    /*if (fvc::SuSp(-PsCoeff*fvc::div(phia_), Theta_))
+    {
+    Info<<"\n ici1 \n"<< endl;
+    }
+    if (tau && dU)
+    {
+    Info<<"\n ici2 \n"<< endl;
+    }
+    if (fvc::snGrad(Theta_))
+    {
+    Info<<"\n ici2a \n"<< endl;
+    }
+    if (fvc::reconstruct(fvc::interpolate(kappa_)*fvc::snGrad(Theta_)))
+    {
+    Info<<"\n ici2b \n"<< endl;
+    }
+    if (fvc::laplacian(kappa_, Theta_, "laplacian(kappa,Theta)"))
+    {
+    Info<<"\n ici3 \n"<< endl;
+    }
+    if (fvc::laplacian(kappaAlpha_, alpha_, "laplacian(kappaAlpha,alpha)"))
+    {
+    Info<<"\n ici4 \n"<< endl;
+    }
+    if (fvc::Sp(-gammaCoeff, Theta_))
+    {
+    Info<<"\n ici5 \n"<< endl;
+    }
+    if (fvc::Sp(-J1, Theta_))
+    {
+    Info<<"\n ici6 \n"<< endl;
+    }
+    if ((1-killJ2_)*J2)
+    {
+    Info<<"\n ici7 \n"<< endl;
+    }*/
+
     fvScalarMatrix ThetaEqn
     (
        fvm::ddt(1.5*(alpha_+alphaSmall)*rhoa_, Theta_)
@@ -581,6 +627,8 @@ void Foam::kineticTheoryModel::solve
        // transfer of fluctuating kinetic energy from fluid to particles
        + (1-killJ2_)*J2
     );
+    
+    //Info<<"granular temperature bug"<< endl;
 
     if (writeTBudget_)
     {

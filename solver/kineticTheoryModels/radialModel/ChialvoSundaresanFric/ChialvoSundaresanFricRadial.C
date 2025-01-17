@@ -23,20 +23,19 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "GarzoDuftyConductivity.H"
-#include "mathematicalConstants.H"
+#include "ChialvoSundaresanFricRadial.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(GarzoDuftyConductivity, 0);
+    defineTypeNameAndDebug(ChialvoSundaresanFricRadial, 0);
 
     addToRunTimeSelectionTable
     (
-        conductivityModel,
-        GarzoDuftyConductivity,
+        radialModel,
+        ChialvoSundaresanFricRadial,
         dictionary
     );
 }
@@ -44,50 +43,43 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::GarzoDuftyConductivity::GarzoDuftyConductivity(const dictionary& dict)
+Foam::ChialvoSundaresanFricRadial::ChialvoSundaresanFricRadial
+(
+ const dictionary& dict
+)
 :
-    conductivityModel(dict)
+    radialModel(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::GarzoDuftyConductivity::~GarzoDuftyConductivity()
+Foam::ChialvoSundaresanFricRadial::~ChialvoSundaresanFricRadial()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyConductivity::kappa
+Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanFricRadial::g0
 (
     const volScalarField& alpha,
-    const volScalarField& Theta,
-    const volScalarField& g0,
-    const volScalarField& kappasalt,
-    const volScalarField& K,
-    const dimensionedScalar& rhoa,
-    const dimensionedScalar& da,
-    const dimensionedScalar& e
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& muPart
 ) const
 {
-    const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    return (2-alpha)/(2*pow((1-alpha), 3)) +
+     2.71*pow(alpha, 2)/pow(alphaMax-alpha, 1.5);
+}
 
-    //Kinetic conductivity
-    const volScalarField kappak = 25*sqrtPi/64*
-            (1+3./5*pow(1+e, 2)*(2*e-1)*alpha*g0)/
-            ((1-7/16*(1-e))*(1+e)*g0);
-    //Contact conductivity
-    const volScalarField kappac = kappak*6./5*(1+e)*alpha*g0;
-    //Bulk conductivity
-    const volScalarField kappab = 2/sqrtPi*(1+e)*pow(alpha, 2)*g0;
 
-    //Total conductivity accounting for saltation
-    const volScalarField kappaTot = kappak * kappasalt/(kappak+kappasalt) +
-             kappac + kappab;
-    //const volScalarField kappaTot = kappak +
-    //         kappac + kappab;
-
-    return rhoa*da*sqrt(Theta)*kappaTot;
+Foam::tmp<Foam::volScalarField> Foam::ChialvoSundaresanFricRadial::g0prime
+(
+    const volScalarField& alpha,
+    const dimensionedScalar& alphaMax,
+    const dimensionedScalar& muPart
+) const
+{
+    return 3*1.7/(2*alphaMax)*pow(mag(1.0 - alpha/alphaMax), -2.7);
 }
 
 

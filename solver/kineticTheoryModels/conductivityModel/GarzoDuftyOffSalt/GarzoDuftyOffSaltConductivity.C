@@ -23,7 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "GarzoDuftyConductivity.H"
+#include "GarzoDuftyOffSaltConductivity.H"
 #include "mathematicalConstants.H"
 #include "addToRunTimeSelectionTable.H"
 
@@ -31,12 +31,12 @@ License
 
 namespace Foam
 {
-    defineTypeNameAndDebug(GarzoDuftyConductivity, 0);
+    defineTypeNameAndDebug(GarzoDuftyOffSaltConductivity, 0);
 
     addToRunTimeSelectionTable
     (
         conductivityModel,
-        GarzoDuftyConductivity,
+        GarzoDuftyOffSaltConductivity,
         dictionary
     );
 }
@@ -44,7 +44,7 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::GarzoDuftyConductivity::GarzoDuftyConductivity(const dictionary& dict)
+Foam::GarzoDuftyOffSaltConductivity::GarzoDuftyOffSaltConductivity(const dictionary& dict)
 :
     conductivityModel(dict)
 {}
@@ -52,13 +52,13 @@ Foam::GarzoDuftyConductivity::GarzoDuftyConductivity(const dictionary& dict)
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::GarzoDuftyConductivity::~GarzoDuftyConductivity()
+Foam::GarzoDuftyOffSaltConductivity::~GarzoDuftyOffSaltConductivity()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyConductivity::kappa
+Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyOffSaltConductivity::kappa
 (
     const volScalarField& alpha,
     const volScalarField& Theta,
@@ -82,10 +82,10 @@ Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyConductivity::kappa
     const volScalarField kappab = 2/sqrtPi*(1+e)*pow(alpha, 2)*g0;
 
     //Total conductivity accounting for saltation
-    const volScalarField kappaTot = kappak * kappasalt/(kappak+kappasalt) +
-             kappac + kappab;
-    //const volScalarField kappaTot = kappak +
+    //const volScalarField kappaTot = kappak * kappasalt/(kappak+kappasalt) +
     //         kappac + kappab;
+    const volScalarField kappaTot = kappak +
+             kappac + kappab;
 
     return rhoa*da*sqrt(Theta)*kappaTot;
 }

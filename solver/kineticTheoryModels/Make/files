@@ -6,6 +6,8 @@ viscosityModel/Gidaspow/GidaspowViscosity.C
 viscosityModel/Syamlal/SyamlalViscosity.C
 viscosityModel/HrenyaSinclair/HrenyaSinclairViscosity.C
 viscosityModel/GarzoDufty/GarzoDuftyViscosity.C
+viscosityModel/GarzoDuftyOffSalt/GarzoDuftyOffSaltViscosity.C
+viscosityModel/GarzoDuftyMod/GarzoDuftyModViscosity.C
 viscosityModel/Garzo2012/Garzo2012Viscosity.C
 viscosityModel/none/noneViscosity.C
 
@@ -15,6 +17,8 @@ conductivityModel/Gidaspow/GidaspowConductivity.C
 conductivityModel/Syamlal/SyamlalConductivity.C
 conductivityModel/HrenyaSinclair/HrenyaSinclairConductivity.C
 conductivityModel/GarzoDufty/GarzoDuftyConductivity.C
+conductivityModel/GarzoDuftyOffSalt/GarzoDuftyOffSaltConductivity.C
+conductivityModel/GarzoDuftyMod/GarzoDuftyModConductivity.C
 conductivityModel/Garzo2012/Garzo2012Conductivity.C
 
 pseudoConductivityModel/pseudoConductivityModel/pseudoConductivityModel.C
@@ -30,6 +34,7 @@ radialModel/Gidaspow/GidaspowRadial.C
 radialModel/LunSavage/LunSavageRadial.C
 radialModel/SinclairJackson/SinclairJacksonRadial.C
 radialModel/ChialvoSundaresan/ChialvoSundaresanRadial.C
+radialModel/ChialvoSundaresanFric/ChialvoSundaresanFricRadial.C
 
 granularPressureModel/granularPressureModel/granularPressureModel.C
 granularPressureModel/granularPressureModel/newGranularPressureModel.C

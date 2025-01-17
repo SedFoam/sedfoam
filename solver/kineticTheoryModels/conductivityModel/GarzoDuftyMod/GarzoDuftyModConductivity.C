@@ -23,7 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "GarzoDuftyConductivity.H"
+#include "GarzoDuftyModConductivity.H"
 #include "mathematicalConstants.H"
 #include "addToRunTimeSelectionTable.H"
 
@@ -31,12 +31,12 @@ License
 
 namespace Foam
 {
-    defineTypeNameAndDebug(GarzoDuftyConductivity, 0);
+    defineTypeNameAndDebug(GarzoDuftyModConductivity, 0);
 
     addToRunTimeSelectionTable
     (
         conductivityModel,
-        GarzoDuftyConductivity,
+        GarzoDuftyModConductivity,
         dictionary
     );
 }
@@ -44,7 +44,7 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::GarzoDuftyConductivity::GarzoDuftyConductivity(const dictionary& dict)
+Foam::GarzoDuftyModConductivity::GarzoDuftyModConductivity(const dictionary& dict)
 :
     conductivityModel(dict)
 {}
@@ -52,13 +52,13 @@ Foam::GarzoDuftyConductivity::GarzoDuftyConductivity(const dictionary& dict)
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::GarzoDuftyConductivity::~GarzoDuftyConductivity()
+Foam::GarzoDuftyModConductivity::~GarzoDuftyModConductivity()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyConductivity::kappa
+Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyModConductivity::kappa
 (
     const volScalarField& alpha,
     const volScalarField& Theta,
@@ -71,23 +71,21 @@ Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyConductivity::kappa
 ) const
 {
     const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    const scalar pi = constant::mathematical::pi;
 
     //Kinetic conductivity
-    const volScalarField kappak = 25*sqrtPi/64*
-            (1+3./5*pow(1+e, 2)*(2*e-1)*alpha*g0)/
-            ((1-7/16*(1-e))*(1+e)*g0);
+    const volScalarField kappak = 2*(576/(225*sqrtPi)*alpha + 3./5*pow(1+e, 2)*(2*e-1)*alpha*g0)/
+	    ((1-7/16*(1-e))*(1+e)*g0); 
     //Contact conductivity
     const volScalarField kappac = kappak*6./5*(1+e)*alpha*g0;
     //Bulk conductivity
-    const volScalarField kappab = 2/sqrtPi*(1+e)*pow(alpha, 2)*g0;
+    const volScalarField kappab = 2304./(225*pi)*(1+e)*pow(alpha, 2)*g0;
 
-    //Total conductivity accounting for saltation
-    const volScalarField kappaTot = kappak * kappasalt/(kappak+kappasalt) +
+    //Total conductivity
+    const volScalarField kappaTot = kappak +
              kappac + kappab;
-    //const volScalarField kappaTot = kappak +
-    //         kappac + kappab;
 
-    return rhoa*da*sqrt(Theta)*kappaTot;
+    return rhoa*da*sqrt(Theta)*225*sqrtPi/1152*kappaTot;
 }
 
 

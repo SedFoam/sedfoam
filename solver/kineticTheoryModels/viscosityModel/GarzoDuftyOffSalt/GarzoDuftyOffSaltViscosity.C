@@ -23,7 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "GarzoDuftyConductivity.H"
+#include "GarzoDuftyOffSaltViscosity.H"
 #include "mathematicalConstants.H"
 #include "addToRunTimeSelectionTable.H"
 
@@ -31,39 +31,40 @@ License
 
 namespace Foam
 {
-    defineTypeNameAndDebug(GarzoDuftyConductivity, 0);
-
-    addToRunTimeSelectionTable
-    (
-        conductivityModel,
-        GarzoDuftyConductivity,
-        dictionary
-    );
-}
+namespace kineticTheoryModels
+{
+    defineTypeNameAndDebug(GarzoDuftyOffSaltViscosity, 0);
+    addToRunTimeSelectionTable(viscosityModel, GarzoDuftyOffSaltViscosity, dictionary);
+} // End namespace kineticTheoryModels
+} // End namespace Foam
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::GarzoDuftyConductivity::GarzoDuftyConductivity(const dictionary& dict)
+Foam::kineticTheoryModels::GarzoDuftyOffSaltViscosity::GarzoDuftyOffSaltViscosity
+(
+    const dictionary& dict
+)
 :
-    conductivityModel(dict)
+    viscosityModel(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::GarzoDuftyConductivity::~GarzoDuftyConductivity()
+Foam::kineticTheoryModels::GarzoDuftyOffSaltViscosity::~GarzoDuftyOffSaltViscosity()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyConductivity::kappa
+Foam::tmp<Foam::volScalarField>
+Foam::kineticTheoryModels::GarzoDuftyOffSaltViscosity::mua
 (
     const volScalarField& alpha,
     const volScalarField& Theta,
     const volScalarField& g0,
-    const volScalarField& kappasalt,
+    const volScalarField& musalt,
     const volScalarField& K,
     const dimensionedScalar& rhoa,
     const dimensionedScalar& da,
@@ -71,24 +72,43 @@ Foam::tmp<Foam::volScalarField> Foam::GarzoDuftyConductivity::kappa
 ) const
 {
     const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    const scalar pi = constant::mathematical::pi;
 
-    //Kinetic conductivity
-    const volScalarField kappak = 25*sqrtPi/64*
-            (1+3./5*pow(1+e, 2)*(2*e-1)*alpha*g0)/
-            ((1-7/16*(1-e))*(1+e)*g0);
-    //Contact conductivity
-    const volScalarField kappac = kappak*6./5*(1+e)*alpha*g0;
-    //Bulk conductivity
-    const volScalarField kappab = 2/sqrtPi*(1+e)*pow(alpha, 2)*g0;
+    //Kinetic viscosity
+    //const volScalarField muk = 5*sqrtPi/96*(1-2./5*(1+e)*(1-3*e)*alpha*g0)/
+    //          ((1-0.25*pow((1-e), 2)-5./24*(1-pow(e, 2)))*g0);
+    const volScalarField muk = 5*sqrtPi/96*(alpha-2./5*(1+e)*(1-3*e)*alpha*g0)/
+              ((1-0.25*pow((1-e), 2)-5./24*(1-pow(e, 2)))*g0);
+    //Contact viscosity
+    const volScalarField muc = muk*(4./5*(1+e)*alpha*g0);
+    //Bulk viscosity
+    const volScalarField mub = 5*sqrtPi/96*384./(25*pi)*(1+e)*pow(alpha, 2)*g0;
 
-    //Total conductivity accounting for saltation
-    const volScalarField kappaTot = kappak * kappasalt/(kappak+kappasalt) +
-             kappac + kappab;
-    //const volScalarField kappaTot = kappak +
-    //         kappac + kappab;
-
-    return rhoa*da*sqrt(Theta)*kappaTot;
+    //Total viscosity accounting for saltation
+    //const volScalarField muTot = muk*musalt/(musalt+muk) + muc + mub;
+    //Total viscosity accounting for saltation
+    const volScalarField muTot = muk + muc + mub;
+    return rhoa*da*sqrt(Theta)*muTot;
 }
 
+Foam::tmp<Foam::volScalarField>
+Foam::kineticTheoryModels::GarzoDuftyOffSaltViscosity::lambda
+(
+    const volScalarField& alpha,
+    const volScalarField& Theta,
+    const volScalarField& g0,
+    const dimensionedScalar& rhoa,
+    const dimensionedScalar& da,
+    const dimensionedScalar& e
+) const
+{
+    const scalar sqrtPi = sqrt(constant::mathematical::pi);
+    const scalar pi = constant::mathematical::pi;
+
+    return rhoa*da*sqrt(Theta)*5*sqrtPi/96*
+    (
+     1152./(45*pi)*(1+e)*pow(alpha, 2)*g0
+    );
+}
 
 // ************************************************************************* //

@@ -77,6 +77,8 @@ Foam::kineticTheoryModels::GarzoDuftyViscosity::mua
     //Kinetic viscosity
     const volScalarField muk = 5*sqrtPi/96*(1-2./5*(1+e)*(1-3*e)*alpha*g0)/
               ((1-0.25*pow((1-e), 2)-5./24*(1-pow(e, 2)))*g0);
+    //const volScalarField muk = 5*sqrtPi/96*(alpha-2./5*(1+e)*(1-3*e)*alpha*g0)/
+    //          ((1-0.25*pow((1-e), 2)-5./24*(1-pow(e, 2)))*g0);
     //Contact viscosity
     const volScalarField muc = muk*(4./5*(1+e)*alpha*g0);
     //Bulk viscosity
@@ -84,7 +86,8 @@ Foam::kineticTheoryModels::GarzoDuftyViscosity::mua
 
     //Total viscosity accounting for saltation
     const volScalarField muTot = muk*musalt/(musalt+muk) + muc + mub;
-
+    //Total viscosity accounting for saltation
+    //const volScalarField muTot = muk + muc + mub;
     return rhoa*da*sqrt(Theta)*muTot;
 }
 
