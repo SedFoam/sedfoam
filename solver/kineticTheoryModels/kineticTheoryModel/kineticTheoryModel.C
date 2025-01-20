@@ -431,7 +431,7 @@ void Foam::kineticTheoryModel::solve
                             alphaMax_, muPart_);
     gs0Prime_ = radialModel_->g0prime(min(alpha_, alphaMax_ - alphaSmall),
                                       alphaMax_, muPart_);
-    
+
     //////////////////////////////////////////
     // collisional pressure  (Eq. 3.22, p. 45)
     // ///////////////////////////////////////
@@ -454,7 +454,7 @@ void Foam::kineticTheoryModel::solve
                     rhoa_, da_, K+Ksmall);
     kappaSaltCoef_ = saltationModel_->kappasalt(alpha_+alphaSmall,
                     ThetaClip+Tsmall, rhoa_, da_, K+Ksmall);
-    
+
     ///////////////////////////////////////
     // Granular viscosity (Table 3.2, p.47)
     // and shear stress
@@ -482,7 +482,7 @@ void Foam::kineticTheoryModel::solve
     //////////////////////////////////////////////
     kappaAlpha_ = pseudoConductivityModel_->kappaAlpha(alpha_, ThetaClip, gs0_,
                     gs0Prime_, rhoa_, da_, e_);
-    
+
     //////////////////////
     // Contact dissipation
     //////////////////////
