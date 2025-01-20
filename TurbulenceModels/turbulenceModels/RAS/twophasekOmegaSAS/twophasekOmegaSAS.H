@@ -32,10 +32,11 @@ Description
     \verbatim
         k-omega SST-SAS original model:
             Egorov, Y. (2008).
-            Development and Application of SST-SAS Turbulence Model in the DESIDER Project
+            Development and Application of SST-SAS Turbulence Model
+            in the DESIDER Project
             Advances in Hybrid RANS-LES Modelling
 
-	k-omega original model:
+        k-omega original model:
             Wilcox, D. C. (1998).
             Turbulence modeling for CFD
             (Vol. 2, pp. 103-217). La Canada, CA: DCW industries.
@@ -51,7 +52,7 @@ Description
     \verbatim
         twophasekOmegaSASCoeffs
         {
-	    // Default kOmega Wilcox (1998) coefficients
+        // Default kOmega Wilcox (1998) coefficients
             Cmu              0.09;
             alphaOmega       0.52;
             betaOmega        0.072;
@@ -72,14 +73,14 @@ Description
     \verbatim
         twophasekOmegaSASCoeffs
         {
-	    // Default kOmega Wilcox (2006) coefficients
+        // Default kOmega Wilcox (2006) coefficients
             betaOmega        0.0708;
             alphaKomega      0.6;
             Clim             0.875;
             sigmad           0.125
             popeCorrection   True (only for 3D cases)
 
-	    // Default SAS coefficients
+        // Default SAS coefficients
             Cs          0.11;
             kappa       0.41;
             zeta2       3.51;
@@ -168,25 +169,25 @@ protected:
             dimensionedScalar zeta2_;
             dimensionedScalar sigmaPhi_;
             dimensionedScalar C_;
-	    
+
         // Fields
-	    volScalarField k_;
+        volScalarField k_;
             volScalarField omega_;
 
-		//- Run-time selectable delta model
-            	autoPtr<Foam::LESdelta> delta_;
+            //- Run-time selectable delta model
+                autoPtr<Foam::LESdelta> delta_;
 
     // Protected Member Functions
 
         //- SAS omega source
-	virtual tmp<fvScalarMatrix> Qsas
+    virtual tmp<fvScalarMatrix> Qsas
         (
             const volScalarField::Internal& S2,
             const dimensionedScalar& alphaOmega,
             const dimensionedScalar& betaOmega
         ) const;
 
- 	virtual void correctNut();
+    virtual void correctNut();
 
 public:
 
@@ -297,7 +298,7 @@ public:
             return *delta_;
         }
 
-	//- Solve the turbulence equations and correct the turbulence viscosity
+    //- Solve the turbulence equations and correct the turbulence viscosity
         virtual void correct();
 };
 

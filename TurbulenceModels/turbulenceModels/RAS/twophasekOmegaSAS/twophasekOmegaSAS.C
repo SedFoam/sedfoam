@@ -63,7 +63,7 @@ tmp<fvScalarMatrix> twophasekOmegaSAS<BasicTurbulenceModel>::Qsas
 
     volScalarField::Internal Lvk
     (
-	max
+    max
         (
             kappa_*sqrt(S2)
            /(
@@ -76,11 +76,15 @@ tmp<fvScalarMatrix> twophasekOmegaSAS<BasicTurbulenceModel>::Qsas
                 )
             ),
             Cs_*sqrt(kappa_*zeta2_/(((betaOmega_
-            *(scalar(1.0)+scalar(85.0)*mag((-skew(fvc::grad(this->U_)()()) & -skew(fvc::grad(this->U_)()()) & symm(fvc::grad(this->U_)()()))/(pow((this->Cmu_*this->omega_()), 3))))
-                /(scalar(1.0)+scalar(100.0)*mag((-skew(fvc::grad(this->U_)()()) & -skew(fvc::grad(this->U_)()()) & symm(fvc::grad(this->U_)()()))/(pow((this->Cmu_*this->omega_()), 3))))
+            *(scalar(1.0)+scalar(85.0)*mag((-skew(fvc::grad(this->U_)()()) &
+            -skew(fvc::grad(this->U_)()()) & symm(fvc::grad(this->U_)()()))
+            /(pow((this->Cmu_*this->omega_()), 3))))
+            /(scalar(1.0)+scalar(100.0)*mag((-skew(fvc::grad(this->U_)()()) &
+            -skew(fvc::grad(this->U_)()()) & symm(fvc::grad(this->U_)()()))
+            /(pow((this->Cmu_*this->omega_()), 3))))
             )
             /this->Cmu_) - alphaOmega_))*this->delta()()
-	)
+    )
     );
 
     return fvm::Su
@@ -369,7 +373,7 @@ bool twophasekOmegaSAS<BasicTurbulenceModel>::read()
         alphaOmegaOmega_.readIfPresent(this->coeffDict());
         alphaKOmega_.readIfPresent(this->coeffDict());
         alphaOmega_.readIfPresent(this->coeffDict());
-	Cs_.readIfPresent(this->coeffDict());
+        Cs_.readIfPresent(this->coeffDict());
         kappa_.readIfPresent(this->coeffDict());
         sigmaPhi_.readIfPresent(this->coeffDict());
         zeta2_.readIfPresent(this->coeffDict());
