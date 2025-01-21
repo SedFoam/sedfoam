@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#OAR -n 3DScourSqr
+#OAR -l nodes=1/core=10,walltime=24:00:00
+
+source /etc/profile
+module purge
+module load openfoam/2412plus
+
+# Nombre de processus parallèle
+NBCPUS=$(cat ${OAR_NODEFILE} | wc -l)
+
+# Lancement
+mpirun -np ${NBCPUS} -machinefile ${OAR_NODEFILE} sedFoam_rbgh -parallel
