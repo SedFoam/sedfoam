@@ -1,10 +1,10 @@
-FROM cbonamy/sedfoam_2312_ubuntu
-LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
+FROM cbonamy/sedfoam_2406_ubuntu:develop
+LABEL maintainer="cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
 
 ARG NB_USER="sudofoam"
-ARG NB_UID="1000"
+ARG NB_UID="1001"
 ARG NB_GID="100"
 
 # Fix DL4006
@@ -14,7 +14,7 @@ USER root
 
 # Install all OS dependencies for notebook server that starts but lacks all
 # features (e.g., download as all possible file formats)
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
@@ -25,7 +25,6 @@ RUN update-ca-certificates && apt-get update \
     libxext-dev \
     libxrender1 \
     lmodern \
-    netcat \
     python3-dev \
     python3-netcdf4 \
     python3-pandas \
@@ -65,7 +64,7 @@ RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashr
    # Add call to conda init script see https://stackoverflow.com/a/58081608/4413446
    echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc
 
-# Create NB_USER with name jovyan user with UID=1000 and in the 'users' group
+# Create NB_USER with name jovyan user with UID=1001 and in the 'users' group
 # and make sure these dirs are writable by the `users` group.
 RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
@@ -79,13 +78,9 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
 # WORKDIR /home/sudofoam
 # RUN rm -rf .cache
 
-USER 1000
+USER 1001
 ARG PYTHON_VERSION=default
 
-
-# Setup work directory for backward-compatibility
-# RUN mkdir "/home/${NB_USER}/work" && \
-#    fix-permissions "/home/${NB_USER}"
 
 # Download and install Micromamba, and initialize Conda prefix.
 #   <https://github.com/mamba-org/mamba#micromamba>
@@ -100,7 +95,7 @@ ARG PYTHON_VERSION=default
 
 # COPY --chown="${NB_UID}:${NB_GID}" /root/sedfoam/docker/docker-stacks/images/docker-stacks-foundation/initial-condarc "${CONDA_DIR}/.condarc"
 RUN /bin/bash -c "sudo cp /root/sedfoam/docker/docker-stacks/images/docker-stacks-foundation/initial-condarc /opt/conda/.condarc"
-RUN /bin/bash -c "sudo chown  1000:100 /opt/conda/.condarc"
+RUN /bin/bash -c "sudo chown  1001:100 /opt/conda/.condarc"
 WORKDIR /tmp
 RUN set -x && \
     arch=$(uname -m) && \
@@ -124,25 +119,22 @@ RUN set -x && \
         'jupyter_core' && \
     rm micromamba && \
     # Pin major.minor version of python
-    mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
-    mamba clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
+    # mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
+    mamba clean --all -f -y
 
 RUN mamba install -c conda-forge --quiet --yes \
     'pandas' \
     'matplotlib' \
     'notebook' \
     'nbclassic' \
-#    'jupyterhub' \
+    'netCDF4' \
     'jupyterlab' && \
+    mamba update jupyter_client && \
     jupyter notebook --generate-config && \
     mamba clean --all -f -y && \
     npm cache clean --force && \
     jupyter lab clean && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
-#    fix-permissions "${CONDA_DIR}" && \
-#    fix-permissions "/home/${NB_USER}" && \
     pip3 install fluidfoam odfpy
 
 ENV JUPYTER_PORT=8888
@@ -163,6 +155,7 @@ RUN sed -re "s/c.ServerApp/c.NotebookApp/g" \
     /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
     fix-permissions /etc/jupyter/
 
+
 # HEALTHCHECK documentation: https://docs.docker.com/engine/reference/builder/#healthcheck
 # This healtcheck works well for `lab`, `notebook`, `nbclassic`, `server` and `retro` jupyter commands
 # https://github.com/jupyter/docker-stacks/issues/915#issuecomment-1068528799
@@ -171,7 +164,7 @@ HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
 
 USER $NB_UID
 WORKDIR /home/sudofoam
-ENV HOME /home/sudofoam
+ENV HOME=/home/sudofoam
 ENTRYPOINT ["/bin/bash", "-c"]
 CMD ["source /openfoam/bash.rc && jupyter notebook"]
 

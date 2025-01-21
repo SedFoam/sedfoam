@@ -10,7 +10,7 @@ from analytic_coulomb2D import analytic_coulomb2D
 
 
 def RMS(YM, UM, Yex, Uex):
-    UexI = np.interp(YM, Yex, Uex, right=np.NAN)
+    UexI = np.interp(YM, Yex, Uex, right=np.nan)
     RMSU = np.nanstd(UM[:] - UexI[:])
     return RMSU
 
