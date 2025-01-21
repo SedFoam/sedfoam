@@ -122,7 +122,7 @@
             </li>
           </ul>
         </nav>
-<p>In this chapter we shall describe in detail the process of setup, simulation and post-processing for SedFoam test cases using dynamic meshes. All the tutorial cases are located in the <em>tutorialsDyM</em> directory.</p><section id="PrerequisitesInst"><h2><a href="#PrerequisitesInst">Installation Prerequisites</a></h2><p>Before launching any numerical simulation, make sure overSedDymFoam_rbgh is correctly installed and compiled. In case you are only interested in running dynamic mesh cases, the compilation is done by performing the following steps:</p><ol><li><p>First, download the overSedDyMFoam branch:</p><pre>git clone -b overSedDyMFoam https://github.com/puigmontella/sedfoam.git
+<p>In this chapter we shall describe in detail the process of setup, simulation and post-processing for SedFoam test cases using dynamic meshes. All the tutorial cases are located in the <em>tutorialsDyM</em> directory.</p><section id="PrerequisitesInst"><h2><a href="#PrerequisitesInst">Installation Prerequisites</a></h2><p>Before launching any numerical simulation, make sure overSedDymFoam_rbgh is correctly installed and compiled:</p><ol><li><p>First, download the the official SedFoam package:</p><pre>git clone --recurse-submodules http://github.com/sedfoam/sedfoam
 </pre></li><li><p>Compile the program by running Allwmake:</p><pre>cd sedfoam
 source $FOAM_ETC/bashrc # load the openfoam environment
 ./Allwmake
