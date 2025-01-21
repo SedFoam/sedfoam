@@ -277,7 +277,7 @@ twophaseMixingLength    | two-phase flow mixing length model (see chauchat et al
 twophasekEpsilon        | two-phase flow k-epsilon model (see chauchat et al. 2017, GMD)    |
 twophaseLaunderSharmaKE | two-phase flow k-epsilon model from Launder and Sharma            |
 twophasekOmega          | two-phase flow k-omega model (see chauchat et al. 2017, GMD)      |
-twophasekOmegaSAS       | two-phase flow k-omega SAS model (see Gilletta et al. 2024, ADWR) |
+twophasekOmegaSAS       | two-phase flow k-omega SAS model                                  |
 
 Coefficients of the turbulence models can be modified in the file *turbulenceproperties.phaseb* using the dictionaries *twophasekOmegaCoeffs*, *twophasekOmegaSASCoeffs*, *twophaseMixingLengthCoeffs* and *twophasekEpsilonCoeffs*. Values for the different turbulence models can be found in the tutorials.
 

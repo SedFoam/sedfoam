@@ -905,9 +905,9 @@ saltationModel	none;
 radialModel     ChialvoSundaresan;
 \endverbatim
 
-\subsection KT_S3D Turbulence properties
+\subsection Turb_S3D Turbulence properties
 
-The turbulence model is set to kOmegaSAS in *turbulenceProperties.b*:
+The turbulence model is set to twophasekOmegaSAS in *turbulenceProperties.b*:
 
 \verbatim
 
