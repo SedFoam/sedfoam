@@ -66,6 +66,10 @@ Foam::granularRheologyModel::granularRheologyModel
     (
         granularRheologyProperties_.get<Switch>("granularDilatancy")
     ),
+    granularCohesion_
+    (
+        granularRheologyProperties_.get<Switch>("granularCohesion")
+    ),
     FrictionModel_
     (
         granularRheologyModels::FrictionModel::New
@@ -208,6 +212,16 @@ Foam::granularRheologyModel::granularRheologyModel
                           1e-12)
         )
     ),
+    cohesion_
+    (
+        granularRheologyProperties_.getOrDefault
+        (
+            "cohesion",
+            dimensionedScalar("cohesion",
+                          dimensionSet(1, -1, -2, 0, 0, 0, 0),
+                          0)
+        )
+    ),
     muI_
     (
         IOobject
@@ -274,6 +288,19 @@ Foam::granularRheologyModel::granularRheologyModel
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
     ),
+    CohesionDistrb_
+    (
+        IOobject
+        (
+            "CohesionDistrb",
+            alpha_.time().timeName(),
+            alpha_.mesh(),
+            IOobject::READ_IF_PRESENT,
+            IOobject::NO_WRITE
+        ),
+        alpha_.mesh(),
+        dimensionedScalar("zero",  alpha_.dimensions(), 0.0)
+    ),
 
     delta_
     (
@@ -288,7 +315,6 @@ Foam::granularRheologyModel::granularRheologyModel
         alpha_.mesh(),
         dimensionedScalar("zero", alpha_.dimensions(), 0.0)
     ),
-
     nuvb_
     (
         IOobject
@@ -414,8 +440,23 @@ void Foam::granularRheologyModel::solve
         delta_.min( 0.4);
         delta_.max(-0.4);
     }
+
+    // Building and solving the cohesion tranport equation
+    if (granularCohesion_)
+    {
+    fvScalarMatrix CohesionEqn
+    (
+         fvm::ddt(CohesionDistrb_)
+         + fvm::div(phia_, CohesionDistrb_, "div(phia,CohesionDistrb_)")
+         - fvm::Sp(fvc::div(phia_), CohesionDistrb_)
+    );
+    CohesionEqn.relax();
+    CohesionEqn.solve();
+    }
+
     //  Compute the regularized particulate viscosity
-    mua_ = muI_* p_p_total_ / pow(magD2 + Dsmall2, 0.5);
+    mua_ = (cohesion_*CohesionDistrb_*alpha_/(alpha_+alphaSmall)
+    + muI_* p_p_total_ )/ pow(magD2 + Dsmall2, 0.5);
 
     // Compute bulk viscosity (by default BulkFactor = 0)s
     lambda_ = BulkFactor_*p_p_total_ / pow(magD2 + Dsmall2, 0.5);

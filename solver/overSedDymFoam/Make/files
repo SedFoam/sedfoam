@@ -1,0 +1,3 @@
+overSedDymFoam.C
+
+EXE = $(FOAM_MODULE_APPBIN)/overSedDymFoam_rbgh

@@ -30,11 +30,11 @@ boundaryField
     {
         type            groovyBC;
         refValue        uniform   (0 0 0); 
-        valueExpression "vector(inletprofileua(pos().z),0,inletprofilewa(pos().z))";
+        valueExpression "vector(inletprofileua(zp),0,inletprofilewa(zp))";
         gradientExpression "vector(0,0,0)";
         fractionExpression "1";
         evaluateDuringConstruction 1;
-        variables       "";
+        variables       "zp=pos().z;";
         timelines       (
 );
         lookuptables    (

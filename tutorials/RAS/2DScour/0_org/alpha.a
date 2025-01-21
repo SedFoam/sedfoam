@@ -30,11 +30,11 @@ boundaryField
          refGradient     uniform 0;
          valueFraction   uniform 1;
          value           uniform 0;
-         valueExpression "inletprofilealpha(pos().y)/100.";
+         valueExpression "inletprofilealpha(yp)/100.";
          gradientExpression "0";
          fractionExpression "1";
          evaluateDuringConstruction 1;
-         variables       "";
+         variables "yp=pos().y;";
          timelines       (
  );
          lookuptables    (

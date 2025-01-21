@@ -29,35 +29,11 @@ boundaryField
     {
         type            zeroGradient;
     }
-    sides1_half0
+    "(left|right)"
     {
         type            cyclic;
     }
-    sides2_half0
-    {
-        type            cyclic;
-    }
-    inout1_half0
-    {
-        type            cyclic;
-    }
-    inout2_half0
-    {
-        type            cyclic;
-    }
-    sides2_half1
-    {
-        type            cyclic;
-    }
-    sides1_half1
-    {
-        type            cyclic;
-    }
-    inout1_half1
-    {
-        type            cyclic;
-    }
-    inout2_half1
+    "(inlet|outlet)"
     {
         type            cyclic;
     }

@@ -1,0 +1,85 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      dynamicMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// ************************************************************************* //
+dynamicFvMesh       dynamicMotionSolverFvMesh;
+
+motionSolverLibs    (sixDoFRigidBodyMotionSedFoam);
+
+motionSolver        sixDoFRigidBodyMotion;
+
+
+
+//solver          displacementLaplacian;
+
+sixDoFRigidBodyMotionCoeffs
+{
+
+    patches         (cylinder);
+    innerDistance   0;
+    outerDistance   0.1;
+        
+    accelerationRelaxation 4e-1;
+    accelerationDamping 4e-1;
+    
+    //  mass reduced by Buoyancy: (rhosolid - rhofluid ) * VolumeSphere
+    mass	0.00104137182;
+    velocity        ( 0 -0. -0. );
+    centreOfMass    ( 0 0.0 0.0005 );     
+    momentOfInertia ( 1717 591 1717);
+    rho             rhoInf;
+    rhoInf          1100;
+    g               (0 -9.81 0);
+    report          on;
+    reportToFile    on;
+    
+    solver
+    {
+        type Newmark;
+    }
+    
+ constraints
+    {
+
+//        fixedPoint
+  //    {
+    //    sixDoFRigidBodyMotionConstraint point;
+      //  centreOfRotation (0. 0.000 0.005);
+      //}
+        
+
+    //    fixedLine
+      //  {
+        //    sixDoFRigidBodyMotionConstraint line;
+    //      //centreOfRotation (0.5 0.45 0.1);
+       //     direction (0 1 0);
+       //}
+
+        
+        fixedAxis
+        {
+            sixDoFRigidBodyMotionConstraint axis;
+            axis (0 0 1);
+        }
+
+
+
+
+        
+    }
+
+}
+

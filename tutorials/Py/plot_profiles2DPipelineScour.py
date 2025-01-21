@@ -19,7 +19,7 @@ def depth(sol, t, x, y, xi, yi):
         timename = str(int(t)) + "/"
     else:
         timename = str(t) + "/"
-    alpha = fluidfoam.readscalar(sol, timename, "alpha_a")
+    alpha = fluidfoam.readscalar(sol, timename, "alpha.a")
     alphai = griddata((x, y), alpha, (xi, yi))
     for j in range(Nx - 1):
         tab = np.where(alphai[:, j + 1] > 0.5)

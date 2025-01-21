@@ -25,7 +25,9 @@ boundaryField
     {
         type            groovyBC;
         refValue        uniform  (0 0 0);
-        valueExpression "max(min(time()/10.,1),0.01)*vector(1,0,0)";
+        value           uniform  (0 0 0);
+        variables       "t=time();";
+	valueExpression "max(min(t/10.,1),0.01)*vector(1,0,0)";
         gradientExpression "vector(0,0,0)";
         fractionExpression "1";
     }

@@ -25,7 +25,8 @@ echo "  prefix = ${FOAM_MODULE_PREFIX:-default (user)}"
 echo
 
 #------------------------------------------------------------------------------
-
+forcesSedFoam/Allwmake $targetType $*
+sixDoFRigidBodyMotionSedFoam/Allwmake $targetType $*
 TurbulenceModels/Allwmake $targetType $*
 solver/Allwmake $targetType $*
 solverMULES/Allwmake $targetType $*

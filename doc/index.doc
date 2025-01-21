@@ -34,6 +34,7 @@ The documentation is divided into two parts, the first one is the user manual:
 <li>Section \ref tutorials_laminar describes the laminar flow tutorials provided with SedFoam sources including postprocessing using a python toolbox also provided with the source and the expected results.
 <li>Section \ref tutorials_RAS describes turbulent flow tutorials using RAS models provided with SedFoam sources.
 <li>Section \ref tutorials_LES describes turbulent flow tutorials using LES models provided with SedFoam sources.
+<li>Section \ref tutorials_DyM describes dynamic mesh tutorials using SedFoam. 
 <li>Section \ref publicationList contains the list of publications using SedFoam.
 <li>Section \ref inputs describes the input parameters for SedFoam.
 <li>Section \ref howtogit provides a survival guide on how to use git to use/develop sedFoam.
@@ -70,4 +71,3 @@ Go to the <a href="install.html">next</a> section.
 \endhtmlonly
 
 */
-
