@@ -36,7 +36,8 @@ License
         (
              fvm::ddt(alpha)
            + 1/(1-alphaVeg)*fvm::div(phic, alpha, scheme)
-           + 1/(1-alphaVeg)*fvm::div(-fvc::flux(-phir, (1.0-alpha-alphaVeg), schemer), alpha, schemer)
+           + 1/(1-alphaVeg)*fvm::div(
+               -fvc::flux(-phir, (1.0-alpha-alphaVeg), schemer), alpha, schemer)
         );
 
         alphaEqn.relax();

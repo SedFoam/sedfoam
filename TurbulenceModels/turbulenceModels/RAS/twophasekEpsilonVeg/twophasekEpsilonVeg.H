@@ -65,7 +65,8 @@ Description
         }
     \endverbatim
 
-    This file is in the \dir turbulenceModels/RAS/twophasekEpsilonVeg subdirectory
+    This file is in the \dir turbulenceModels/RAS/twophasekEpsilonVeg
+    subdirectory
     inside the \dir turbulenceModels/RAS subdirectory
     inside the \dir turbulenceModels subdirectory
 

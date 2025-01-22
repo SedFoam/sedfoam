@@ -237,15 +237,15 @@ public:
         virtual tmp<volScalarField> omega() const
         {
             return omega_;
-	}
+        }
         virtual tmp<volScalarField> omegas() const
         {
             return omegas_;
-	}
+        }
         virtual tmp<volScalarField> omegaw() const
         {
             return omegaw_;
-	}
+        }
 
         virtual tmp<volScalarField> tmf() const
         {

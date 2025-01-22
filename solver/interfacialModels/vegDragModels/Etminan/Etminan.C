@@ -69,7 +69,7 @@ Foam::tmp<Foam::volScalarField> Foam::Etminan::K
 {
 
     const scalar Pi = constant::mathematical::pi;
-    volScalarField Uc = (1-beta_)/(1-pow(2*beta_/Pi,0.5))*Ua;
+    volScalarField Uc = (1-beta_)/(1-pow(2*beta_/Pi, 0.5))*Ua;
     volScalarField Rec
     (
          max(Uc*phaseb_.d()/phasea_.nu(), scalar(1.0e-9))
@@ -80,7 +80,8 @@ Foam::tmp<Foam::volScalarField> Foam::Etminan::K
      1+10*pow(Rec, -2./3)
     );
 
-    return 2.*Cd*phasea_.rho()/(Pi*alpha_*phaseb_.d())*pow((1-beta_)/(1-pow(2*beta_/Pi,0.5)),2)*Ua;
+    return (2.*Cd*phasea_.rho()/(Pi*alpha_*phaseb_.d())*
+            pow((1-beta_)/(1-pow(2*beta_/Pi, 0.5)), 2)*Ua);
 }
 
 

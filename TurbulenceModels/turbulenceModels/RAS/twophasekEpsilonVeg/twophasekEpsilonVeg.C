@@ -403,13 +403,15 @@ void twophasekEpsilonVeg<BasicTurbulenceModel>::correct()
     // Wake turbulent kinetic energy equation
     tmp<fvScalarMatrix> kwEqn
     (
-	fvm::ddt(kw_)
+    fvm::ddt(kw_)
       + fvm::div(phi, kw_)
       - fvm::Sp(fvc::div(phi), kw_)
       - fvm::laplacian(DkEff(), kw_)
       ==
-      - fvm::SuSp(-KE6_*ESD6_/kw_, kw_) //turbulent production by vegetation drag force
-      + fvm::Sp(-epsilonw_/kw_, kw_) //turbulent dissipation by vegetation drag force
+      //turbulent production by vegetation drag force
+      - fvm::SuSp(-KE6_*ESD6_/kw_, kw_)
+      //turbulent dissipation by vegetation drag force
+      + fvm::Sp(-epsilonw_/kw_, kw_)
       //Spectral shortcut
       + fvc::Sp(KE8_*ESD8_, ks_)
     );

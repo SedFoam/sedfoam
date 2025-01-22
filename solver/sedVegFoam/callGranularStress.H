@@ -133,7 +133,7 @@ else if (granularRheology.on())
     nuEffa = sqr(Ct)*turbulenceb->nut() + nua + turbulencea->nut();
     lambdaUa = nua*rhoa*scalar(0.0);
 
-    muEff = granularRheology.nuvb()*rhob*(1-alpha-alphaVeg) 
+    muEff = granularRheology.nuvb()*rhob*(1-alpha-alphaVeg)
             + rho*turbulenceb->nut();
     muFra = granularRheology.mua();
 

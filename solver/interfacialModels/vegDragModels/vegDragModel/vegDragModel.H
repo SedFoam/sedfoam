@@ -114,7 +114,8 @@ public:
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  //
     // for numerical reasons alpha and beta has been
     // extracted from the dragFunction K,
-    // so you MUST divide K by alpha.beta when implementing the vegetation drag function
+    // so you MUST divide K by alpha.beta when implementing the vegetation
+    // drag function
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  //
     virtual tmp<volScalarField> K(const volScalarField& U) const = 0;
 };

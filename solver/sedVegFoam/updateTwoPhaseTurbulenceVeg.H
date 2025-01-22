@@ -23,9 +23,12 @@ License
 ESD6 = (alphaVeg/rhob*Kveg*Ub) & Ub;
 //Direct dissipation due to the drag force
 //ESD7 = KE7* (alphaVeg/rhob*Kveg);
-//sn = min(dc*(sqrt(constant::mathematical::pi/(4*(alphaVeg+alphaSmall)))-1), dp*(pow(alphaMax/(alpha+alphaSmall), 1.0/3.0)-1));
+//sn = min(
+//  dc*(sqrt(constant::mathematical::pi/(4*(alphaVeg+alphaSmall)))-1),
+//  dp*(pow(alphaMax/(alpha+alphaSmall), 1.0/3.0)-1));
 sn = dc*(sqrt(constant::mathematical::pi/(4*(1-beta+alphaSmall)))-1);
 ESD7 = 1.0 / dc * pos(sn-1.79*dc) + 1.0 /sn * neg(sn-1.79*dc);
-//ESD7 *= alphaVeg/(alphaVeg+alphaSmall) //Dissipation should be zero if alphaVeg=0
+//Dissipation should be zero if alphaVeg=0
+//ESD7 *= alphaVeg/(alphaVeg+alphaSmall)
 // Spectral shortcut
 ESD8 = (alphaVeg/rhob*Kveg);

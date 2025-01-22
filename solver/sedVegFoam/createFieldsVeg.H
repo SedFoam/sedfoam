@@ -39,8 +39,11 @@ beta = 1 - alpha - alphaVeg;
 volScalarField dc = phasec->d()*Unity;
 volScalarField dp = phasea->d()*Unity;
 // Pore space between vegetation cylinders
-//volScalarField sn = min(dc*(sqrt(constant::mathematical::pi/(4*(alphaVeg+alphaSmall)))-1), dp*(pow(alphaMax/(alpha+alphaSmall), 1.0/3.0)-1));
-volScalarField sn = dc*(sqrt(constant::mathematical::pi/(4*(1-beta+alphaSmall)))-1);
+//volScalarField sn = min(
+//      dc*(sqrt(constant::mathematical::pi/(4*(alphaVeg+alphaSmall)))-1),
+//      dp*(pow(alphaMax/(alpha+alphaSmall), 1.0/3.0)-1));
+volScalarField sn = dc*(
+        sqrt(constant::mathematical::pi/(4*(1-beta+alphaSmall)))-1);
 
 autoPtr<vegDragModel> dragbveg = vegDragModel::New
 (
@@ -74,4 +77,3 @@ volVectorField VegDragContr
     ),
     fvc::grad(pff)
 );
-
