@@ -64,6 +64,7 @@ if (runTime.outputTime())
             /fvc::interpolate(alpha+ alphaSmall)
         );
 
+        ExcessPorePressureContr = fvc::grad(p_rbgh);
         SolidPressureContr = -fvc::grad(pa+pff);
         ViscStressContr = rhoa*alpha*fvc::laplacian(nuEffa, Ua);
         FrictContr = rhoa*fvc::laplacian(nuFra, Ua);
@@ -81,6 +82,8 @@ if (runTime.outputTime())
         SuspContr=-SUS*K*beta*turbulenceb->nut()
                   *((SUS_I*iso-SUS_A*aniso) & fvc::grad(alpha));
 
+        ExcessPorePressureContr.write();
+        SolidPressureContr.write();
         divTauaContr.write();
         gravityContr.write();
         DragContr.write();

@@ -556,7 +556,7 @@ volScalarField CohesionDistrb
         runTime.timeName(),
         mesh,
         IOobject::READ_IF_PRESENT,
-        IOobject::NO_WRITE
+        IOobject::AUTO_WRITE
     ),
     mesh,
     dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
@@ -939,6 +939,19 @@ volScalarField SUStilde
     ),
     mesh,
     dimensionedScalar("one", dimensionSet(0, 0, 0, 0, 0), 1.0)
+);
+
+volVectorField ExcessPorePressureContr
+(
+    IOobject
+    (
+        "ExcessPorePressureContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(p_rbgh)
 );
 
 volVectorField SolidPressureContr
