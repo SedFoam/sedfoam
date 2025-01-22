@@ -2,13 +2,13 @@
 cd "${0%/*}" || exit                            # Run from this directory
 #------------------------------------------------------------------------------
 
-module load python/
+module load python
 set -x
 
 umask 22
 rm -rf mcssout html latex man
 pip install -U jinja2 Pygments
-git clone https://github.com/mosra/m.css.git #git://github.com/mosra/m.css
+git clone git://github.com/mosra/m.css
 cd m.css/documentation
 cp ../../doxygen.py .
 python3 doxygen.py ../../conf.py

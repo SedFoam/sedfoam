@@ -101,7 +101,7 @@ License
         allLambda = 1.0;
 
         // Solve for alpha1
-    solve(fvm::ddt(alpha) + fvc::div(alphaPhi1));
+        solve(fvm::ddt(alpha) + fvc::div(alphaPhi1));
 
         beta = 1.0 - alpha;
 

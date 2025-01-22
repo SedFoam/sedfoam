@@ -445,7 +445,7 @@ void Foam::kineticTheoryModel::solve
             e_
         )
     );
-    
+
     ///////////////////////////////////////
     // Saltation Model
     ///////////////////////////////////////
@@ -470,7 +470,7 @@ void Foam::kineticTheoryModel::solve
     (
         2.0*mua_*D + (lambda_ - (2.0/3.0)*mua_)*tr(D)*I
     );
-    
+
     //////////////////////////////////////////////
     // Temperature conductivity (Table 3.3, p. 49)
     //////////////////////////////////////////////
@@ -549,7 +549,7 @@ void Foam::kineticTheoryModel::solve
     // Eq. 3.25, p. 50 J_int = J2 - J1*Theta_
     volScalarField J1(alpha_*(1-alpha_)*K*(3+2*quadraticCorrectionJ1_));
     volScalarField J2(alpha_*(1-alpha_)*K*(2*flucVelCor_*kb));
-    
+
     ////////////////////////////////
     // Granular temperature equation
     // /////////////////////////////
@@ -581,7 +581,7 @@ void Foam::kineticTheoryModel::solve
        // transfer of fluctuating kinetic energy from fluid to particles
        + (1-killJ2_)*J2
     );
-    
+
     if (writeTBudget_)
     {
         #include "writeTBudget.H"
