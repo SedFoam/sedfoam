@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>https://github.com/sedfoam/sedfoam/blob/master/TurbulenceModels/turbulenceModels/RAS/ directory | SedFOAM</title>
+  <title>Foam::RASModels::twophasekOmegaSAS class | SedFOAM</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600&amp;subset=latin-ext" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="sedFoam_favicon.png" type="image/png" />
@@ -70,37 +70,66 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="dir_657a47ef53b06a6bcffa0672f78ad6e9.html">https://github.com/sedfoam/sedfoam/blob/master/TurbulenceModels</a>/</span><span class="m-breadcrumb"><a href="dir_3153bed4dad3b3717c1ff72e2a47d63c.html">turbulenceModels</a>/</span>RAS<span class="m-breadcrumb">/</span> <span class="m-thin">directory</span>
+          <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="twophasekOmegaSAS_8H.html">&lt;https://github.com/sedfoam/sedfoam/blob/master/TurbulenceModels/turbulenceModels/RAS/twophasekOmegaSAS/twophasekOmegaSAS.H&gt;</a></div>
+          <div class="m-doc-template">template&lt;class BasicTurbulenceModel&gt;</div>
+          <span class="m-breadcrumb"><a href="namespaceFoam.html">Foam</a>::<wbr/></span><span class="m-breadcrumb"><a href="namespaceFoam_1_1RASModels.html">RASModels</a>::<wbr/></span>twophasekOmegaSAS <span class="m-thin">class</span>
         </h1>
-        <nav class="m-block m-default">
-          <h3>Contents</h3>
-          <ul>
-            <li>
-              Reference
-              <ul>
-                <li><a href="#subdirs">Directories</a></li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-<p>subdirectory inside the</p>
-        <section id="subdirs">
-          <h2><a href="#subdirs">Directories</a></h2>
-          <dl class="m-doc">
-            <dt>directory <a href="dir_56d5cffcf6969c0c05521f6a5fd582f7.html" class="m-doc">twophasekEpsilon</a>/</dt>
-            <dd></dd>
-            <dt>directory <a href="dir_0cefad5664d615970315d3830515a3ae.html" class="m-doc">twophasekOmega</a>/</dt>
-            <dd></dd>
-            <dt>directory <a href="dir_70ab6746f8cfb856d5eda358a5cd43b0.html" class="m-doc">twophasekOmegaSAS</a>/</dt>
-            <dd></dd>
-            <dt>directory <a href="dir_4ea4cae1e7aa1413fc77480d8404f311.html" class="m-doc">twophaseMixingLength</a>/</dt>
-            <dd></dd>
-            <dt>directory <a href="dir_9bd8b774c59a915279af74a449efd23b.html" class="m-doc">twophaseMixingLengthBerzi</a>/</dt>
-            <dd></dd>
-            <dt>directory <a href="dir_e7e2e8435b39ece242692eaf13c0c8fc.html" class="m-doc">twophaseMixingLengthConst</a>/</dt>
-            <dd></dd>
-          </dl>
-        </section>
+        <p>Standard high Reynolds-number k-omega SAS turbulence model for incompressible and compressible flows.</p>
+<p><a name="Description"></a></p><p>References:</p><pre>    k-omega SST-SAS original model:
+        Egorov, Y. (2008).
+        Development and Application of SST-SAS Turbulence Model
+        in the DESIDER Project
+        Advances in Hybrid RANS-LES Modelling
+
+    k-omega original model:
+        Wilcox, D. C. (1998).
+        Turbulence modeling for CFD
+        (Vol. 2, pp. 103-217). La Canada, CA: DCW industries.
+
+    Two-phase adaptation:
+        Amoudry, L. O. (2014).
+        Extension of k-omega turbulence closure to two-phase sediment
+        transport modelling: Application to oscillatory sheet flows.
+        Advances in Water Ressources, 72, 110-121
+</pre><p>The default model coefficients are</p><pre>    twophasekOmegaSASCoeffs
+    {
+    // Default kOmega Wilcox (1998) coefficients
+        Cmu              0.09;
+        alphaOmega       0.52;
+        betaOmega        0.072;
+        C3om             0.35;
+        C4om             1.0;
+        KE2              1.0;
+        KE4              1.0;
+        alphaKomega      0.5;
+        alphaOmegaOmega  0.5;
+        Clim             0.0;
+        sigmad           0.0
+        popeCorrection   false;
+    }
+</pre><p>For the revisited version of the model from Wilcox (2006), model coefficients should be modified following:</p><pre>    twophasekOmegaSASCoeffs
+    {
+    // Default kOmega Wilcox (2006) coefficients
+        betaOmega        0.0708;
+        alphaKomega      0.6;
+        Clim             0.875;
+        sigmad           0.125
+        popeCorrection   True (only for 3D cases)
+
+    // Default SAS coefficients
+        Cs          0.11;
+        kappa       0.41;
+        zeta2       3.51;
+        sigmaPhi    2.0/3.0;
+        C           2;
+
+        // Delta must be specified for SAS e.g.
+        delta cubeRootVol;
+
+        cubeRootVolCoeffs
+        {}
+    }
+</pre><p>This file is in the</p>
       </div>
     </div>
   </div>
