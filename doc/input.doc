@@ -277,8 +277,9 @@ twophaseMixingLength    | two-phase flow mixing length model (see chauchat et al
 twophasekEpsilon        | two-phase flow k-epsilon model (see chauchat et al. 2017, GMD)    |
 twophaseLaunderSharmaKE | two-phase flow k-epsilon model from Launder and Sharma            |
 twophasekOmega          | two-phase flow k-omega model (see chauchat et al. 2017, GMD)      |
+twophasekOmegaSAS       | two-phase flow k-omega SAS model                                  |
 
-Coefficients of the turbulence models can be modified in the file *turbulenceproperties.phaseb* using the dictionaries *twophasekOmegaCoeffs*, *twophaseMixingLengthCoeffs* and *twophasekEpsilonCoeffs*. Values for the different turbulence models can be found in the tutorials.
+Coefficients of the turbulence models can be modified in the file *turbulenceproperties.phaseb* using the dictionaries *twophasekOmegaCoeffs*, *twophasekOmegaSASCoeffs*, *twophaseMixingLengthCoeffs* and *twophasekEpsilonCoeffs*. Values for the different turbulence models can be found in the tutorials.
 
 If simulationType=LES is selected, the user needs to specify a turbulence model using the keyword 'LESModel' in the 'LES' dictionnary. For the moment, only the dynamic Lagragian sub-grid scale model from Meneveau et al. (1996) can be used with the keyword *fluidDynamicLagrangian*
 

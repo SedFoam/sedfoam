@@ -11,4 +11,9 @@ dragModels/SyamlalOBrien/SyamlalOBrien.C
 dragModels/DallaValle/DallaValle.C
 dragModels/Beetstra/Beetstra.C
 
+vegDragModels/vegDragModel/vegDragModel.C
+vegDragModels/vegDragModel/newVegDragModel.C
+vegDragModels/TaninoNepf/TaninoNepf.C
+vegDragModels/Etminan/Etminan.C
+
 LIB = $(FOAM_MODULE_LIBBIN)/libEulerianInterfacialSedModels

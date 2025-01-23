@@ -1,0 +1,73 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      Theta;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 2 -2 0 0 0 0];
+
+internalField   uniform 1e-6; 
+
+boundaryField
+{
+    cylinder
+    {
+        type            zeroGradient;
+    }
+    inlet
+    {
+        type            groovyBC;
+        refValue        uniform 0;
+        value           uniform 1e-10;
+        refGradient     uniform 0;
+        valueFraction   uniform 1;
+        valueExpression "inletprofiletheta(pos().z)";
+        gradientExpression "0";
+        fractionExpression "1";
+        evaluateDuringConstruction 1;
+        variables       "";
+        timelines       (
+);
+        lookuptables    (
+{
+        name            inletprofiletheta;
+        file            "$FOAM_CASE/1d_profil/Theta.xy";
+        outOfBounds     clamp;
+}
+);
+    }
+    outlet
+    {
+        type            zeroGradient;
+    }
+    lateral
+    {
+        type            cyclic;
+    }
+    symplane
+    {
+        type            cyclic;
+    }
+    bottom
+    {
+        type            zeroGradient;
+    }
+    surface
+    {
+        type            zeroGradient;
+    }
+}
+
+
+// ************************************************************************* //
