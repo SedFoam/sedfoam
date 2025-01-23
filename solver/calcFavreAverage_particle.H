@@ -38,38 +38,38 @@ else
 timeaverage_particle = time_integrate_particle  + deltaT;
 
 
-alphaUaMean  = (time_integrate_particle* alphaUaMean  + alpha* Ua* deltaT) / (timeaverage_particle);
+alphaUaMean_a  = (time_integrate_particle* alphaUaMean_a  + alpha* Ua* deltaT) / (timeaverage_particle);
 
 UaMean       = (time_integrate_particle* UaMean + Ua*deltaT) / (timeaverage_particle);
 
 /* alpha Mean */
-alpha_aMean  = (time_integrate_particle* alpha_aMean + alpha* deltaT) / (timeaverage_particle);
+alpha_aMean_a  = (time_integrate_particle* alpha_aMean_a + alpha* deltaT) / (timeaverage_particle);
 /* *****************  Pressure */
 
 pMean_a      = (time_integrate_particle* pMean_a + pa* deltaT ) / (timeaverage_particle);
 
 /* Favre avrage fields */
 
-UaMeanF = alphaUaMean  / (alpha_aMean + 1e-20);
+UaMeanF_a = alphaUaMean_a  / (alpha_aMean_a + 1e-20);
 
 /* Favre fluactuations in velocities and Pressure  */
 
-UaPrimeF = Ua - UaMeanF;
+UaPrimeF_a = Ua - UaMeanF_a;
 pPrimeF_a  = pa - pMean_a; 
 
 /* *******************  for UbPrimeMean2F or UaPrimeMean2F     ***********  */
 
-alphaSqrUaMean  = (time_integrate_particle* alphaSqrUaMean +  alpha* Ua* Ua* deltaT ) / (timeaverage_particle);
+alphaSqrUaMean_a  = (time_integrate_particle* alphaSqrUaMean_a +  alpha* Ua* Ua* deltaT ) / (timeaverage_particle);
 
-UaPrime2MeanF = (alphaSqrUaMean / (alpha_aMean + 1e-20)) - UaMeanF* UaMeanF;
+UaPrime2MeanF_a = (alphaSqrUaMean_a / (alpha_aMean_a + 1e-20)) - UaMeanF_a* UaMeanF_a;
 
 /* *************** Q and R factor ************ */
 
-volScalarField UaPrimeFx = UaPrimeF.component(vector::X);
-volScalarField UaPrimeFy = UaPrimeF.component(vector::Y);
+volScalarField UaPrimeF_ax = UaPrimeF_a.component(vector::X);
+volScalarField UaPrimeF_ay = UaPrimeF_a.component(vector::Y);
 
-RS2_a  = min(UaPrimeFx* UaPrimeFy* neg(UaPrimeFx), zeroo);
-RS4_a  = min(UaPrimeFx* UaPrimeFy* pos(UaPrimeFx), zeroo);
+RS2_a  = min(UaPrimeF_ax* UaPrimeF_ay* neg(UaPrimeF_ax), zeroo);
+RS4_a  = min(UaPrimeF_ax* UaPrimeF_ay* pos(UaPrimeF_ax), zeroo);
 
 
 RS2Mean_a = (time_integrate_particle* RS2Mean_a + RS2_a* deltaT) / (timeaverage_particle);
@@ -81,28 +81,28 @@ RS4Mean_a = (time_integrate_particle* RS4Mean_a + RS4_a* deltaT) / (timeaverage_
 if (runTime.outputTime())
 {
 
-	alpha_aMean.write();
-	UaMeanF.write();
+	alpha_aMean_a.write();
+	UaMeanF_a.write();
 	RS2_a.write();
 	RS4_a.write();
-	UaPrime2MeanF.write();
+	UaPrime2MeanF_a.write();
 	UaMean.write();
-	UaMeanF.write();
+	UaMeanF_a.write();
 }
 
 /* ******************* Mean Sij or Tij *********** */
 
 
 strainTensor_a        = symm(fvc::grad(Ua));
-strainTensorM_a       = symm(fvc::grad(UaMeanF));
-fluctstrainTensor_a   = symm(fvc::grad(UaPrimeF));
+strainTensorM_a       = symm(fvc::grad(UaMeanF_a));
+fluctstrainTensor_a   = symm(fvc::grad(UaPrimeF_a));
 
 SijaSija = fluctstrainTensor_a && fluctstrainTensor_a;
 
 SijSij_a   = strainTensorM_a &&  strainTensorM_a;
 
-viscDissMeanI_a = 2* alpha* phasea->nu()* (strainTensor_a && fvc::grad(UaPrimeF));
-SGSDissMeanI_a  = 2* alpha* turbulencea->nut()* (strainTensor_a && fvc::grad(UaPrimeF));
+viscDissMeanI_a = 2* alpha* phasea->nu()* (strainTensor_a && fvc::grad(UaPrimeF_a));
+SGSDissMeanI_a  = 2* alpha* turbulencea->nut()* (strainTensor_a && fvc::grad(UaPrimeF_a));
 
 
 /*           ************** Manohar Formula ************* */
@@ -111,19 +111,19 @@ if (favreAverage_particle)
 {
 
 
-	TKEMean_a            =    (time_integrate_particle*TKEMean_a  + deltaT* 0.5* tr(UaPrime2MeanF)) / (timeaverage_particle);
+	TKEMean_a            =    (time_integrate_particle*TKEMean_a  + deltaT* 0.5* tr(UaPrime2MeanF_a)) / (timeaverage_particle);
 
-	TKEMeanProd_a        =    (time_integrate_particle*TKEMeanProd_a  - deltaT*(UaPrime2MeanF && fvc::grad(UaMeanF))) / (timeaverage_particle); 
+	TKEMeanProd_a        =    (time_integrate_particle*TKEMeanProd_a  - deltaT*(UaPrime2MeanF_a && fvc::grad(UaMeanF_a))) / (timeaverage_particle); 
 
-	turbDiffMean_a       =    (time_integrate_particle* turbDiffMean_a - 0.5* alpha* (UaPrimeF* magSqr(UaPrimeF))* deltaT ) / (timeaverage_particle);
+	turbDiffMean_a       =    (time_integrate_particle* turbDiffMean_a - 0.5* alpha* (UaPrimeF_a* magSqr(UaPrimeF_a))* deltaT ) / (timeaverage_particle);
 	
-	pressDiffMean_a      =    (time_integrate_particle* pressDiffMean_a - (alpha/phasea->rho())* (UaPrimeF * p_rbgh)* deltaT ) / (timeaverage_particle); 
+	pressDiffMean_a      =    (time_integrate_particle* pressDiffMean_a - (alpha/phasea->rho())* (UaPrimeF_a * p_rbgh)* deltaT ) / (timeaverage_particle); 
 	
-	pressDiffMeankin_a   =    (time_integrate_particle* pressDiffMeankin_a - (1/phasea->rho())* (UaPrimeF * pa)* deltaT ) / (timeaverage_particle); 
+	pressDiffMeankin_a   =    (time_integrate_particle* pressDiffMeankin_a - (1/phasea->rho())* (UaPrimeF_a * pa)* deltaT ) / (timeaverage_particle); 
 	
-	pressDiffMeancon_a   =    (time_integrate_particle* pressDiffMeancon_a - (1/phasea->rho())* (UaPrimeF * pff)* deltaT ) / (timeaverage_particle); 
+	pressDiffMeancon_a   =    (time_integrate_particle* pressDiffMeancon_a - (1/phasea->rho())* (UaPrimeF_a * pff)* deltaT ) / (timeaverage_particle); 
 	
-	viscDiffMean_a       =    (time_integrate_particle* viscDiffMean_a - 2* alpha* (phasea->nu()* (UaPrimeF & strainTensor_a ))* deltaT ) / (timeaverage_particle);
+	viscDiffMean_a       =    (time_integrate_particle* viscDiffMean_a - 2* alpha* (phasea->nu()* (UaPrimeF_a & strainTensor_a ))* deltaT ) / (timeaverage_particle);
 	
 	viscDissMean_a       =    (time_integrate_particle* viscDissMean_a - (2* alpha* (phasea->nu() + nuFra)* SijaSija)* deltaT) / (timeaverage_particle);
 	
@@ -133,12 +133,12 @@ if (favreAverage_particle)
 	
 	SGSDissMeanJ_a       =    (time_integrate_particle* SGSDissMeanJ_a  - (2* alpha* turbulencea->nut()* SijaSija)* deltaT ) / (timeaverage_particle);
 
-	SGSDiffMean_a        =    (time_integrate_particle* SGSDiffMean_a - 2* alpha* turbulencea->nut()* (UaPrimeF & strainTensor_a )* deltaT ) / (timeaverage_particle);
+	SGSDiffMean_a        =    (time_integrate_particle* SGSDiffMean_a - 2* alpha* turbulencea->nut()* (UaPrimeF_a & strainTensor_a )* deltaT ) / (timeaverage_particle);
 
-	SGSDissMean_a        =    (time_integrate_particle* SGSDissMean_a  + (2* alpha* turbulencea->nut()* (strainTensor_a && (fvc::grad(UaPrimeF)))* deltaT ) )/ (timeaverage_particle);
+	SGSDissMean_a        =    (time_integrate_particle* SGSDissMean_a  + (2* alpha* turbulencea->nut()* (strainTensor_a && (fvc::grad(UaPrimeF_a)))* deltaT ) )/ (timeaverage_particle);
 	
 	
-	pressDiffMeanJ_a     =    (time_integrate_particle* pressDiffMeanJ_a - (alpha/phasea->rho())* (UaPrimeF * pPrimeF_a)* deltaT ) / (timeaverage_particle); 
+	pressDiffMeanJ_a     =    (time_integrate_particle* pressDiffMeanJ_a - (alpha/phasea->rho())* (UaPrimeF_a * pPrimeF_a)* deltaT ) / (timeaverage_particle); 
 
 	SGSDiffMeanJ_a       =    (time_integrate_particle* SGSDiffMeanJ_a - 2* alpha* turbulencea->nut()* (Ua & strainTensor_a )* deltaT ) / (timeaverage_particle);
 	
@@ -190,7 +190,7 @@ if (favreAverage_particle)
 {
 
 
-	pressDiffMeanJ_a       = (time_integrate_particle* pressDiffMeanJ_a - (alpha/phasea->rho())* (UaPrimeF * pPrimeF_a)* deltaT ) / (timeaverage_particle); 
+	pressDiffMeanJ_a       = (time_integrate_particle* pressDiffMeanJ_a - (alpha/phasea->rho())* (UaPrimeF_a * pPrimeF_a)* deltaT ) / (timeaverage_particle); 
 
 	SGSDiffMeanJ_a         = (time_integrate_particle* SGSDiffMeanJ_a - 2* alpha* turbulencea->nut()* (Ua & strainTensor_a )* deltaT ) / (timeaverage_particle);
 	

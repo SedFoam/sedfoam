@@ -75,6 +75,25 @@ volScalarField WacubeMean
     )
 );
 
+volScalarField alpha_aMean_a
+   		(
+       		IOobject
+				(
+            		"alpha_aMean_a",
+            		runTime.timeName(),
+            		mesh,
+            		IOobject::NO_READ,
+					IOobject::NO_WRITE
+        		),
+        	mesh,
+        	dimensionedScalar
+        		(
+            		"alpha_aMean_a",
+            			dimensionSet(0, 0, 0, 0, 0, 0, 0),
+            			0.0
+        		)
+    	);
+
 volScalarField UasquarWbMean
 (
     IOobject
@@ -292,11 +311,11 @@ volScalarField pMean_a
     )
 );
 	
-volTensorField UaPrime2MeanF
+volTensorField UaPrime2MeanF_a
 	(
    			IOobject
    				(
-       				"UaPrime2MeanF",
+       				"UaPrime2MeanF_a",
        				runTime.timeName(),
        				mesh,
        				IOobject::NO_READ,
@@ -305,17 +324,17 @@ volTensorField UaPrime2MeanF
    			mesh,
    			dimensionedTensor
    				(
-       				"UaPrime2MeanF",
+       				"UaPrime2MeanF_a",
        				dimVelocity*dimVelocity,
        				tensor::zero
   				 )
 	);
 
-volTensorField alphaSqrUaMean
+volTensorField alphaSqrUaMean_a
 (
     IOobject
     (
-        "alphaSqrUaMean",
+        "alphaSqrUaMean_a",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
@@ -324,7 +343,7 @@ volTensorField alphaSqrUaMean
     mesh,
     dimensionedTensor
     (
-        "alphaSqrUaMean",
+        "alphaSqrUaMean_a",
         dimVelocity*dimVelocity,
         tensor::zero
     )
@@ -869,11 +888,11 @@ volVectorField viscDiffMeanJ_a
     )
 );
 
-volVectorField UaPrimeF
+volVectorField UaPrimeF_a
 	(
     		IOobject
     			(
-        			"UaPrimeF",
+        			"UaPrimeF_a",
         			runTime.timeName(),
         			mesh,
         			IOobject::NO_READ,
@@ -882,7 +901,7 @@ volVectorField UaPrimeF
     		mesh,
     		dimensionedVector
     			(
-        			"UaPrimeF",
+        			"UaPrimeF_a",
         			dimVelocity,
         			vector (0, 0, 0)
     			)
@@ -890,11 +909,11 @@ volVectorField UaPrimeF
 	
 
 
-volVectorField UaMeanF
+volVectorField UaMeanF_a
 	(
    			IOobject
    				(
-       				"UaMeanF",
+       				"UaMeanF_a",
        				runTime.timeName(),
        				mesh,
        				IOobject::NO_READ,
@@ -903,17 +922,17 @@ volVectorField UaMeanF
    			mesh,
    			dimensionedVector
    				(
-       				"UaMeanF",
+       				"UaMeanF_a",
        				dimVelocity,
        				vector (0, 0, 0)
    				)
 		);
 
-volVectorField alphaUaMean
+volVectorField alphaUaMean_a
    		(
        		IOobject
        			(
-       				"alphaUaMean",
+       				"alphaUaMean_a",
        				runTime.timeName(),
        				mesh,
        				IOobject::NO_READ,
@@ -922,7 +941,7 @@ volVectorField alphaUaMean
    			mesh,
    			dimensionedVector
    				(
-   					"alphaUaMean",
+   					"alphaUaMean_a",
    					dimVelocity,
    					vector (0, 0, 0)
 				)
@@ -1047,22 +1066,22 @@ else
 	Info<<"Manohar is not in Reset Mode = \t"<<runTime.value()<<endl;
 
 
-IOobject alpha_aMeanHeader
+IOobject alpha_aMean_aHeader
     		(
-        		"alpha_aMean",
+        		"alpha_aMean_a",
         		runTime.timeName(),
         		mesh,
         		IOobject::NO_READ
     		);
 
 
-if (alpha_aMeanHeader.typeHeaderOk<volScalarField>(true))
+if (alpha_aMean_aHeader.typeHeaderOk<volScalarField>(true))
 {
-	volScalarField alpha_aMean2
+	volScalarField alpha_aMean_a2
         			(
             				IOobject
             					(
-                					"alpha_aMean",
+                					"alpha_aMean_a",
                 					runTime.timeName(),
                 					mesh,
                 					IOobject::MUST_READ,
@@ -1070,7 +1089,7 @@ if (alpha_aMeanHeader.typeHeaderOk<volScalarField>(true))
             					),
             				mesh
         			);
-    				alpha_aMean = alpha_aMean2;
+    				alpha_aMean_a = alpha_aMean_a2;
 
 
           IOobject RS2Mean_aHeader
@@ -1372,25 +1391,25 @@ pressDiffMeanJ_a = pressDiffMeanJ2_a;
 }
 
 
-	// Checks if field UaMeanF is present
+	// Checks if field UaMeanF_a is present
 	
 			// Checks if field UbMeanF is present
 	
-	IOobject UaMeanFHeader
+	IOobject UaMeanF_aHeader
     				(
-        				"UaMeanF",
+        				"UaMeanF_a",
         				runTime.timeName(),
         				mesh,
         				IOobject::NO_READ
     				);
 	
-	if (UaMeanFHeader.typeHeaderOk<volVectorField>(true))
+	if (UaMeanF_aHeader.typeHeaderOk<volVectorField>(true))
     				{
-        				volVectorField UaMeanF2
+        				volVectorField UaMeanF_a2
         					(
             						IOobject
             							(
-                							"UaMeanF",
+                							"UaMeanF_a",
                 							runTime.timeName(),
                 							mesh,
                 							IOobject::MUST_READ,
@@ -1398,8 +1417,8 @@ pressDiffMeanJ_a = pressDiffMeanJ2_a;
             							),
             						mesh
         					);
-        				UaMeanF = UaMeanF2;
-        				alphaUaMean = UaMeanF*(alpha_aMean);
+        				UaMeanF_a = UaMeanF_a2;
+        				alphaUaMean_a = UaMeanF_a*(alpha_aMean_a);
     				}
 
 		
@@ -1407,21 +1426,21 @@ pressDiffMeanJ_a = pressDiffMeanJ2_a;
 	
 			// Checks if field UbPrime2MeanF is present
 	
-	IOobject UaPrime2MeanFHeader
+	IOobject UaPrime2MeanF_aHeader
     				(
-        				"UaPrime2MeanF",
+        				"UaPrime2MeanF_a",
         				runTime.timeName(),
         				mesh,
         				IOobject::NO_READ
     				);
 
- 	if (UaPrime2MeanFHeader.typeHeaderOk<volTensorField>(true))
+ 	if (UaPrime2MeanF_aHeader.typeHeaderOk<volTensorField>(true))
     				{
-        				volTensorField UaPrime2MeanF2
+        				volTensorField UaPrime2MeanF_a2
         					(
             						IOobject
             							(
-                							"UaPrime2MeanF",
+                							"UaPrime2MeanF_a",
                 							runTime.timeName(),
                 							mesh,
                 							IOobject::MUST_READ,
@@ -1429,13 +1448,13 @@ pressDiffMeanJ_a = pressDiffMeanJ2_a;
             							),
             						mesh
         					);
-        				UaPrime2MeanF = UaPrime2MeanF2;
-				        alphaSqrUaMean = (UaPrime2MeanF+UaMeanF*UaMeanF)*(alpha_aMean);
+        				UaPrime2MeanF_a = UaPrime2MeanF_a2;
+				        alphaSqrUaMean_a = (UaPrime2MeanF_a+UaMeanF_a*UaMeanF_a)*(alpha_aMean_a);
 
 
     				}
 
-	   // Checks if field UaPrime2MeanF is present
+	   // Checks if field UaPrime2MeanF_a is present
     				
   	IOobject viscDissMean_aHeader
     		(
@@ -1462,7 +1481,7 @@ pressDiffMeanJ_a = pressDiffMeanJ2_a;
         		viscDissMean_a = viscDissMean2_a;
     		}
     		
-	   // Checks if field UaPrime2MeanF is present
+	   // Checks if field UaPrime2MeanF_a is present
     				
   	//~ IOobject viscDissMeankin_aHeader
     		//~ (
@@ -1489,7 +1508,7 @@ pressDiffMeanJ_a = pressDiffMeanJ2_a;
         		//~ viscDissMeankin_a = viscDissMeankin2_a;
     		//~ }
 
-	   // Checks if field UaPrime2MeanF is present
+	   // Checks if field UaPrime2MeanF_a is present
     				
   	IOobject viscDissMeancon_aHeader
     		(

@@ -45,12 +45,12 @@ deltaT = runTime.deltaTValue();
 timeaverage_fluid = time_integrate_fluid  + deltaT;
 
 
-betaUbMean  = (time_integrate_fluid* betaUbMean  + beta* Ub* deltaT) / (timeaverage_fluid);
+betaUbMean_F  = (time_integrate_fluid* betaUbMean_F  + beta* Ub* deltaT) / (timeaverage_fluid);
 
 UbMean = (time_integrate_fluid* UbMean + Ub*deltaT) / (timeaverage_fluid);
 
 /* alpha Mean */
-alpha_aMean = (time_integrate_fluid* alpha_aMean + alpha* deltaT) / (timeaverage_fluid);
+alpha_aMean_F = (time_integrate_fluid* alpha_aMean_F + alpha* deltaT) / (timeaverage_fluid);
 beta_bMean  = (time_integrate_fluid* beta_bMean  + beta* deltaT) / (timeaverage_fluid);
 /* *****************  Pressure */
 
@@ -58,31 +58,31 @@ pMean_b = (time_integrate_fluid* pMean_b + p_rbgh* deltaT ) / (timeaverage_fluid
 
 /* Favre avrage fields */
 
-UbMeanF = betaUbMean  / (1 - alpha_aMean);
+UbMeanF_b = betaUbMean_F  / (1 - alpha_aMean_F);
 
 /* Favre fluactuations in velocities and Pressure  */
 
-UbPrimeF = Ub - UbMeanF;
+UbPrimeF_b = Ub - UbMeanF_b;
 pPrimeF_b  = p_rbgh - pMean_b; 
 
 /* *******************  for UbPrimeMean2F or UaPrimeMean2F     ***********  */
 
 
-betaSqrUbMean  = (time_integrate_fluid* betaSqrUbMean +  beta* Ub* Ub* deltaT ) / (timeaverage_fluid);
+betaSqrUbMean_b  = (time_integrate_fluid* betaSqrUbMean_b +  beta* Ub* Ub* deltaT ) / (timeaverage_fluid);
 
-UbPrime2MeanF = (betaSqrUbMean / (1 - alpha_aMean)) - UbMeanF* UbMeanF;
+UbPrime2MeanF_b = (betaSqrUbMean_b / (1 - alpha_aMean_F)) - UbMeanF_b* UbMeanF_b;
 
 /* *************** Q and R factor ************ */
 
 
-volScalarField UbPrimeFx = UbPrimeF.component(vector::X);
-volScalarField UbPrimeFy = UbPrimeF.component(vector::Y);
+volScalarField UbPrimeF_bx = UbPrimeF_b.component(vector::X);
+volScalarField UbPrimeF_by = UbPrimeF_b.component(vector::Y);
 
-UbsquarWbMean = (time_integrate_fluid* UbsquarWbMean + (UbPrimeFx*UbPrimeFx*UbPrimeFy)* deltaT) / (timeaverage_fluid);
-WbcubeMean    = (time_integrate_fluid* WbcubeMean    + (UbPrimeFy*UbPrimeFy*UbPrimeFy)* deltaT) / (timeaverage_fluid);
+UbsquarWbMean = (time_integrate_fluid* UbsquarWbMean + (UbPrimeF_bx*UbPrimeF_bx*UbPrimeF_by)* deltaT) / (timeaverage_fluid);
+WbcubeMean    = (time_integrate_fluid* WbcubeMean    + (UbPrimeF_by*UbPrimeF_by*UbPrimeF_by)* deltaT) / (timeaverage_fluid);
 
-RS2_b  = min(UbPrimeFx* UbPrimeFy* neg(UbPrimeFx), zeroo);
-RS4_b  = min(UbPrimeFx* UbPrimeFy* pos(UbPrimeFx), zeroo);
+RS2_b  = min(UbPrimeF_bx* UbPrimeF_by* neg(UbPrimeF_bx), zeroo);
+RS4_b  = min(UbPrimeF_bx* UbPrimeF_by* pos(UbPrimeF_bx), zeroo);
 
 
 RS2Mean_b = (time_integrate_fluid* RS2Mean_b + RS2_b* deltaT) / (timeaverage_fluid);
@@ -96,11 +96,11 @@ RS4Mean_b = (time_integrate_fluid* RS4Mean_b + RS4_b* deltaT) / (timeaverage_flu
 if (runTime.outputTime())
 {
 
-	alpha_aMean.write();
-	UbMeanF.write();
+	alpha_aMean_F.write();
+	UbMeanF_b.write();
 	RS2_b.write();
 	RS4_b.write();
-	UbPrime2MeanF.write();
+	UbPrime2MeanF_b.write();
 }
 
 
@@ -108,15 +108,15 @@ if (runTime.outputTime())
 
 
 strainTensor_b        = symm(fvc::grad(Ub));
-strainTensorM_b = symm(fvc::grad(UbMeanF));
-fluctstrainTensor_b  = symm(fvc::grad(UbPrimeF));
+strainTensorM_b = symm(fvc::grad(UbMeanF_b));
+fluctstrainTensor_b  = symm(fvc::grad(UbPrimeF_b));
 
 SijbSijb = fluctstrainTensor_b && fluctstrainTensor_b;
 
 SijSij_b   = strainTensorM_b &&  strainTensorM_b;
 
-viscDissMeanI_b = 2* beta* phaseb->nu()* (strainTensor_b && fvc::grad(UbPrimeF));
-SGSDissMeanI_b  = 2* beta* turbulenceb->nut()* (strainTensor_b && fvc::grad(UbPrimeF));
+viscDissMeanI_b = 2* beta* phaseb->nu()* (strainTensor_b && fvc::grad(UbPrimeF_b));
+SGSDissMeanI_b  = 2* beta* turbulenceb->nut()* (strainTensor_b && fvc::grad(UbPrimeF_b));
 
 
 /*           ************** Manohar Formula ************* */
@@ -126,25 +126,25 @@ if (favreAverage_fluid)
 
 
 
-	TKEMean_b         = (time_integrate_fluid* TKEMean_b + deltaT*0.5* tr(UbPrime2MeanF)) / (timeaverage_fluid);
+	TKEMean_b         = (time_integrate_fluid* TKEMean_b + deltaT*0.5* tr(UbPrime2MeanF_b)) / (timeaverage_fluid);
 
-	TKEMeanProd_b     = (time_integrate_fluid*TKEMeanProd_b - deltaT* (UbPrime2MeanF && fvc::grad(UbMeanF))) / (timeaverage_fluid); 
+	TKEMeanProd_b     = (time_integrate_fluid*TKEMeanProd_b - deltaT* (UbPrime2MeanF_b && fvc::grad(UbMeanF_b))) / (timeaverage_fluid); 
 
-	turbDiffMean_b    = (time_integrate_fluid* turbDiffMean_b - 0.5* beta* (UbPrimeF* magSqr(UbPrimeF))* deltaT ) / (timeaverage_fluid);
+	turbDiffMean_b    = (time_integrate_fluid* turbDiffMean_b - 0.5* beta* (UbPrimeF_b* magSqr(UbPrimeF_b))* deltaT ) / (timeaverage_fluid);
 	
 	turbDiffMeanDavid = (time_integrate_fluid* turbDiffMeanDavid - 0.5* beta* (UbsquarWbMean + WbcubeMean)* deltaT ) / (timeaverage_fluid);
 
-	pressDiffMean_b   = (time_integrate_fluid* pressDiffMean_b - (beta/phaseb->rho())* (UbPrimeF * p_rbgh)* deltaT ) / (timeaverage_fluid); 
+	pressDiffMean_b   = (time_integrate_fluid* pressDiffMean_b - (beta/phaseb->rho())* (UbPrimeF_b * p_rbgh)* deltaT ) / (timeaverage_fluid); 
 
-	SGSDiffMean_b     = (time_integrate_fluid* SGSDiffMean_b - 2* beta* turbulenceb->nut()* (UbPrimeF & strainTensor_b )* deltaT ) / (timeaverage_fluid);
+	SGSDiffMean_b     = (time_integrate_fluid* SGSDiffMean_b - 2* beta* turbulenceb->nut()* (UbPrimeF_b & strainTensor_b )* deltaT ) / (timeaverage_fluid);
 	
-	viscDiffMean_b    = (time_integrate_fluid* viscDiffMean_b - 2* beta* phaseb->nu()* (UbPrimeF & strainTensor_b )* deltaT ) / (timeaverage_fluid);
+	viscDiffMean_b    = (time_integrate_fluid* viscDiffMean_b - 2* beta* phaseb->nu()* (UbPrimeF_b & strainTensor_b )* deltaT ) / (timeaverage_fluid);
 
-	viscDissMean_b    = (time_integrate_fluid* viscDissMean_b - (2* beta* phaseb->nu()* (strainTensor_b && (fvc::grad( UbPrimeF))))* deltaT) / (timeaverage_fluid);
+	viscDissMean_b    = (time_integrate_fluid* viscDissMean_b - (2* beta* phaseb->nu()* (strainTensor_b && (fvc::grad( UbPrimeF_b))))* deltaT) / (timeaverage_fluid);
 
-	SGSDissMean_b     = (time_integrate_fluid* SGSDissMean_b  + (2* beta* turbulenceb->nut()* (strainTensor_b && (fvc::grad(UbPrimeF)))* deltaT ) )/ (timeaverage_fluid);
+	SGSDissMean_b     = (time_integrate_fluid* SGSDissMean_b  + (2* beta* turbulenceb->nut()* (strainTensor_b && (fvc::grad(UbPrimeF_b)))* deltaT ) )/ (timeaverage_fluid);
 
-	dragConstbMean    = (time_integrate_fluid* dragConstbMean - (UbPrimeF & (alpha* beta* draga->K(mag(Ub-Ua))* (Ub-Ua))/rhob)* deltaT ) / (timeaverage_fluid);
+	dragConstbMean    = (time_integrate_fluid* dragConstbMean - (UbPrimeF_b & (alpha* beta* draga->K(mag(Ub-Ua))* (Ub-Ua))/rhob)* deltaT ) / (timeaverage_fluid);
 }
 
 
@@ -183,7 +183,7 @@ if (favreAverage_fluid)
 
 
 
-	pressDiffMeanJ_b       = (time_integrate_fluid* pressDiffMeanJ_b - (beta/phaseb->rho())* (UbPrimeF * pPrimeF_b)* deltaT ) / (timeaverage_fluid); 
+	pressDiffMeanJ_b       = (time_integrate_fluid* pressDiffMeanJ_b - (beta/phaseb->rho())* (UbPrimeF_b * pPrimeF_b)* deltaT ) / (timeaverage_fluid); 
 
 	SGSDiffMeanJ_b         = (time_integrate_fluid* SGSDiffMeanJ_b - 2* beta* turbulenceb->nut()* (Ub & strainTensor_b )* deltaT ) / (timeaverage_fluid);
 	

@@ -19,18 +19,25 @@ License
     along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 \*---------------------------------------------------------------------------*/
 
+/*
+if (favreAveraging)
+{
+    #include "calcFavreAverage.H"
+}
+*/
+
 if (favreAverage_fluid)
 {
     #include "calcFavreAverage_fluid.H"
     #include "Random.H"
 }
-
+/*
 if (favreAverage_particle)
 {
     #include "calcFavreAverage_particle.H"
     #include "Random.H"
 }
-
+*/
 if (runTime.outputTime())
 {
     if (writeTau == 1)
