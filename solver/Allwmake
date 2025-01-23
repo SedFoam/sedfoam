@@ -28,4 +28,6 @@ wmake libso granularRheologyModels
 wmake
 cd overSedDymFoam
 wmake
+cd ../sedVegFoam
+wmake
 #------------------------------------------------------------------------------
