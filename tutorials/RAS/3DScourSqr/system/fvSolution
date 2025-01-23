@@ -1,0 +1,124 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+solvers
+{
+    p_rbgh
+    {
+        solver          GAMG;
+        tolerance       1e-06;
+        relTol          0.0001;
+        smoother        DIC;
+        nPreSweeps      0;
+        nPostSweeps     2;
+        nFinestSweeps   2;
+        cacheAgglomeration true;
+        nCellsInCoarsestLevel 10;
+        agglomerator    faceAreaPair;
+        mergeLevels     1;
+    }
+
+    p_rbghFinal
+    {
+        $p_rbgh;
+        tolerance       1e-6;
+        relTol          0;
+    }
+
+    "(k.b|epsilon.b|omega.b)"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-9;
+        relTol          0.000;
+	minIter		1;
+    }
+
+    "(k.b|epsilon.b|omega.b)Final"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-9;
+        relTol          0;
+	minIter		1;
+    }
+
+
+    "U.a|U.aFinal"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-6;
+        relTol          0;
+	minIter		1;
+    }
+
+    "U.b|U.bFinal"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-6;
+        relTol          0;
+	minIter		1;
+    }
+
+    "(alpha.a|alphaPlastic|pa)"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-9;
+        relTol          0;
+	minIter		1;
+    }
+    "(alpha.aFinal|alphaPlasticFinal|paFinal)"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-9;
+        relTol          0;
+	minIter		1;
+    }
+    Theta
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-10;
+        relTol          0;
+	minIter		1;
+    }
+    ThetaFinal
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-10;
+        relTol          0;
+	minIter		1;
+    }
+
+
+
+}
+
+PIMPLE
+{
+    nCorrectors     1;
+    nNonOrthogonalCorrectors 1;
+    nAlphaCorr      1;
+    correctAlpha    yes;
+    faceMomentum    false;
+}
+
+// ************************************************************************* //
