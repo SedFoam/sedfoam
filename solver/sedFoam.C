@@ -89,7 +89,8 @@ int main(int argc, char *argv[])
     #include "createTimeControls.H"
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
-    #include "createFavreAveraging.H"
+    #include "createFavreAverage_fluid.H"
+    #include "createFavreAverage_particle.H"
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     // Test on SUSlocal
