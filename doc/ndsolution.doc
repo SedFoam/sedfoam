@@ -82,9 +82,7 @@ The following tutorials show how to run the sedFOAM tutorials in order to obtain
 
 
 \subsection nd_Sedim_testcase nd1DSedim: Pure sedimentation
-
 The laminar flow tutorial - *1DSedim: Pure sedimentation* is found in the folder *sedFoamDirectory/tutorials/laminar/1DSedim*. The following modifications need to be made in the tutorial input files in order to obtain a non-dimensional solution:
-
 
 \paragraph meshgen_nd_Sedim Mesh generation
  
@@ -219,9 +217,7 @@ and you should see the following figures:
 
 
 \subsection nd_SheetFlow nd1DSheetFlow: Turbulent sheet-flows
-
 The RAS tutorial - *1DSheetFlow: Turbulent sheet-flows* is found in the folder *sedFoamDirectory/tutorials/RAS/1DSheetFlow*. The following modifications need to be made in the tutorial input files in order to obtain a non-dimensional solution:
-
 
 \paragraph meshgen_nd_SheetFlow Mesh generation
 
