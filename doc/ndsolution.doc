@@ -442,7 +442,6 @@ MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 6377.55; // MaxTheta/u_tau^2
 
 \endverbatim
 
-
 The permanent particle contact properties in the file *constant/ppProperties* require the following modification:
 
 \verbatim
@@ -450,7 +449,6 @@ The permanent particle contact properties in the file *constant/ppProperties* re
 Fr               Fr [ 1 -1 -2 0 0 0 0 ] 0.0638;  // C_Fr/(rhob u_tau^2)
 
 \endverbatim
-
 
 The turbulence model properties in both *constant/turbulenceProperties.a* and *constant/turbulenceProperties.b* files require the following modification: 
 
