@@ -38,6 +38,12 @@ if (favreAverage_particle)
     #include "Random.H"
 }
 
+if (favreAverage_mass)
+{
+    #include "calcFavreAverage_mass.H"
+    #include "Random.H"
+}
+
 if (runTime.outputTime())
 {
     if (writeTau == 1)

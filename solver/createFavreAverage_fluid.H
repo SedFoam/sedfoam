@@ -56,13 +56,9 @@ Info<<"Reset fluid Mode = \t"<<Reset_fluid<<endl;
 
 scalar timeaverage_fluid = 0;
 double runtime_fluid     = 0;
-double runtime_sub     = 0;
 scalar deltaT = 0;
 scalar T0 = 0;
-double runtime_Manohar = 0;
 double time_integrate_fluid = 0;
-
-double total_time = 0;
 double time_diff_fluid = 0;
 
 if (AverageMode)
@@ -71,6 +67,27 @@ if (AverageMode)
 }
 
 Info<<"To before else looop in Average fluid non reset mode = \t"<<T0<<endl;
+
+
+volScalarField dragVegMean
+(
+    IOobject
+    (
+        "dragVegMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "dragVegMean",
+        dimVelocity*dimVelocity*dimVelocity/dimLength,
+        0.0
+    )
+);
+
 
 volVectorField betaFluctMean_b
 (
@@ -1778,6 +1795,32 @@ volScalarField alpha_aMean_F2
     mesh
 );
 alpha_aMean_F = alpha_aMean_F2;
+}
+
+IOobject dragVegMeanHeader
+    (
+        "dragVegMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ
+    );
+    if (dragVegMeanHeader.typeHeaderOk<volTensorField>(true))
+    {
+volScalarField dragVegMean2
+(
+    IOobject
+    (
+        "dragVegMean",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh
+);
+
+dragVegMean = dragVegMean2;
+
 }
 			
 }

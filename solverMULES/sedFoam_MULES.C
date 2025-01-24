@@ -94,6 +94,7 @@ int main(int argc, char *argv[])
     #include "createFavreAverage_fluid.H"
     #include "createFavreAverage_particle.H"
     #include "createFavreAverage_momentum.H"
+    #include "createFavreAverage_mass.H"
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     // Test on SUSlocal
