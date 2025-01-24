@@ -41,7 +41,7 @@ exec(open("DATA/exp_lmsgc.py").read())
 #
 #
 #
-#sol = "./"
+
 case = "1DSedim"
 basepath = "../laminar/"
 sol = basepath + case + "/"
@@ -50,7 +50,6 @@ Nx = 1
 Ny = 120
 Nz = 1
 
-#eps_file = ".eps"
 eps_file = sol + case + ".eps"
 
 #
@@ -121,17 +120,22 @@ if Nt > 1:
     #
     figure(num=1, figsize=(figwidth, figheight), dpi=60, facecolor="w", edgecolor="w")
 
-    plot(t_pvb/0.06*0.000228537 + tadj/0.06*0.000228537, zint_pvb/0.06 + 0.1/0.06, "ob", t_pvb/0.06*0.000228537 + tadj/0.06*0.000228537, zint2_pvb/0.06 + 0.1/0.06, "or")
+    plot(
+    t_pvb / 0.06 * 0.000228537 + tadj / 0.06 * 0.000228537,
+    zint_pvb / 0.06 + 0.1 / 0.06,
+    "ob",
+    t_pvb / 0.06 * 0.000228537 + tadj / 0.06 * 0.000228537,
+    zint2_pvb / 0.06 + 0.1 / 0.06,
+    "or",
+    )
     plot(time, zint, "-b", time, zint2, "-r")
     ylabel("y/H")
     xlabel("t*")
     axis([0, tmax/0.06*0.000228537, zmin, zmax])
 
     show(block=False)
-    #savefig("res1_nd_tuto1.png", facecolor="w", edgecolor="w", format="png")
     savefig("Figures/res1_nd_tuto1.png", facecolor="w", edgecolor="w", format="png")
 
-#    toto=raw_input('hit a key to continue')
 #
 # Figure 2: Concentration profiles
 #
@@ -153,7 +157,6 @@ for i in np.arange(4):
         inum = Nt - 1
     else:
         inum = titi[0][0]
-    #print("texp= " + str(t_pvb[0][iexp] + tadj) + "s - tnum=" + str(time[inum]*0.06/0.000228537) + "s")
 
     ax.plot(alphat[:, inum], Y[:], "-r", as_pvb[:, iexp], z_pvb[:, iexp]/0.06 + 0.1/0.06, "--b")
     title("t*=" + str(t_pvb[0][iexp]/0.06*0.000228537 + tadj/0.06*0.000228537))
@@ -168,8 +171,6 @@ for i in np.arange(4):
     else:
         ax.set_xticklabels([""])
 
-
-#savefig("res2_nd_tuto1.png", facecolor="w", edgecolor="w", format="png")
 savefig("Figures/res2_nd_tuto1.png", facecolor="w", edgecolor="w", format="png")
 
 show(block=False)

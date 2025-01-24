@@ -91,7 +91,7 @@ label = "K-Epsilon + Kinetic Theory"
 ############################################
 # case 1
 #
-#solpath = "."
+
 solpath = basepath + casedir
 nt, y, ua, ub, alpha0, Tauxy, Tausxy, k, Theta = readOpenFoam(solpath)
 
@@ -136,7 +136,6 @@ handles2, labels2 = ax2.get_legend_handles_labels()
 ax2.legend(handles2[0:4], labels2[0:4], loc=1, prop={"size": 14})
 ax2.set_yticklabels([])
 xlabel(r"$\alpha$")
-#axis([1e-4, alphasmax, zmin, zmax])
 axis([1e-4, 1, zmin, zmax])
 grid()
 
@@ -171,8 +170,6 @@ xlabel(r"$k^\ast, 3/2\theta^\ast$")
 axis([0, 7.5e-3/0.05**2, zmin, zmax])
 grid()
 
-
-#savefig("res1_nd_tuto3.png", facecolor="w", edgecolor="w", format="png")
 savefig("Figures/res1_nd_tuto3.png", facecolor="w", edgecolor="w", format="png")
 
 show()

@@ -20,9 +20,9 @@ font_legend = matplotlib.font_manager.FontProperties(
 )
 
 h = 0.02
-retau=560
-nu=1e-6
-utau=retau*nu/h
+retau = 560
+nu = 1e-6
+utau = retau * nu / h
 
 # plot 1
 ax1 = plt.subplot(gs[0, 0])
@@ -34,7 +34,6 @@ ax1.grid(linestyle=":")
 
 # plot 2
 ax2 = plt.subplot(gs[0, 1])
-#ax2.axis([0, 0.65, 0, 1])
 ax2.set_xlabel(r"$\langle\tilde u^f\rangle_F$, $\langle\tilde u^s\rangle_F$")
 ax2.set_yticklabels([])
 ax2.grid(linestyle=":")
@@ -42,7 +41,6 @@ ax2.grid(linestyle=":")
 
 # plot 3
 ax3 = plt.subplot(gs[0, 2])
-#ax3.axis([0, 1e-2, 0, 1])
 ax3.axis([-0.35, 1.0, 0, 1])
 ax3.set_xlabel(
     r"$\langle\tilde u^{f'} \tilde v^{f'}\rangle_F$, "
@@ -72,21 +70,19 @@ y_dns_restress = data[:, 3]
 
 
 # Plot data
-ax1.semilogx(phi, ndy , "-k")
-ax2.plot(ndumean_s[0], ndy , "-r", label="LES-Re=560-solid")
-ax2.plot(ndumean_f[0], ndy , "-k", label="LES-Re=560-fluid")
+ax1.semilogx(phi, ndy, "-k")
+ax2.plot(ndumean_s[0], ndy, "-r", label="LES-Re=560-solid")
+ax2.plot(ndumean_f[0], ndy, "-k", label="LES-Re=560-fluid")
 ax2.plot(y_dns_umean, x_dns_umean, linestyle='--', color='b', label="DNS-Re=650-single-phase")
 ax3.plot(-nduprim_s[3, :], ndy, "-r", label="LES-Re=560-solid")
-ax3.plot(-nduprim_f[3, :], ndy , "-k", label="LES-Re=560-fluid")
+ax3.plot(-nduprim_f[3, :], ndy, "-k", label="LES-Re=560-fluid")
 ax3.plot(y_dns_restress, x_dns_restress, linestyle='--', color='b', label="DNS-Re=650-single-phase")
 
 
 ax2.set_xlim(0, 22)
-ax3.set_xlim(0, 1) 
+ax3.set_xlim(0, 1)
 ax2.legend(fontsize='18')
 ax3.legend(fontsize='18')
 
 plt.savefig("Figures/tuto3DChannel560_nd.png", facecolor="w", edgecolor="w", format="png")
 plt.show()
-
-
