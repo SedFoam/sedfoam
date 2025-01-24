@@ -121,12 +121,12 @@ if Nt > 1:
     figure(num=1, figsize=(figwidth, figheight), dpi=60, facecolor="w", edgecolor="w")
 
     plot(
-    t_pvb / 0.06 * 0.000228537 + tadj / 0.06 * 0.000228537,
-    zint_pvb / 0.06 + 0.1 / 0.06,
-    "ob",
-    t_pvb / 0.06 * 0.000228537 + tadj / 0.06 * 0.000228537,
-    zint2_pvb / 0.06 + 0.1 / 0.06,
-    "or",
+        t_pvb / 0.06 * 0.000228537 + tadj / 0.06 * 0.000228537,
+        zint_pvb / 0.06 + 0.1 / 0.06,
+        "ob",
+        t_pvb / 0.06 * 0.000228537 + tadj / 0.06 * 0.000228537,
+        zint2_pvb / 0.06 + 0.1 / 0.06,
+        "or",
     )
     plot(time, zint, "-b", time, zint2, "-r")
     ylabel("y/H")
