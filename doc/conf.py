@@ -22,7 +22,8 @@ LINKS_NAVBAR1 = [
         ("Laminar flow Tutorials", 'tutorials_laminar'),
         ("Turbulence-averaged flow tutorials", 'tutorials_RAS'),
         ("Turbulence-resolving flow tutorials", 'tutorials_LES'),
-        ("Dynamic mesh tutorials", 'tutorials_DyM'), 
+        ("Non-dimensional solution", 'ndsolution'),
+        ("Dynamic mesh tutorials", 'tutorials_DyM'),
         ("Input description", 'inputs')
     ])
 ]
