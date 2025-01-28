@@ -22,9 +22,9 @@ License
 /*
 dimensionedScalar zeroo
 (
-	"zeroo",
-	dimensionSet(0, 2, -2, 0, 0, 0, 0),
-	scalar(0.0)
+  "zeroo",
+  dimensionSet(0, 2, -2, 0, 0, 0, 0),
+  scalar(0.0)
 );
 
 */
@@ -34,18 +34,15 @@ Switch favreAverage_mass
     runTime.controlDict().lookupOrDefault("favreAverage_mass", false)
 );
 
-
 Switch Reset_mass
 (
-	runTime.controlDict().lookupOrDefault("Reset_mass", false)
+  runTime.controlDict().lookupOrDefault("Reset_mass", false)
 );
-
 
 if (Reset_mass)
 {
-	Info<<"Reset Mass options = \t"<<Reset_mass<<endl;
+  Info<<"Reset Mass options = \t"<<Reset_mass<<endl;
 }
-
 
 Info<<"Reset Mass Mode = \t"<<Reset_mass<<endl;
 
@@ -59,120 +56,116 @@ double time_diff_mass = 0;
 double time_integrate_mass = 0;
 
 volVectorField Mean_alphaUa
-   	(
-     	IOobject
-       			(
-       				"Mean_alphaUa",
-       				runTime.timeName(),
-       				mesh,
-       				IOobject::NO_READ,
-       				IOobject::NO_WRITE
-       			),
-       		mesh,
-       		dimensionedVector
-       			(
-       				"Mean_alphaUa",
-       				dimVelocity,
-       				vector (0, 0, 0)
-       			)
-   		);
-
+    (
+      IOobject
+            (
+              "Mean_alphaUa",
+              runTime.timeName(),
+              mesh,
+              IOobject::NO_READ,
+              IOobject::NO_WRITE
+            ),
+          mesh,
+          dimensionedVector
+            (
+              "Mean_alphaUa",
+              dimVelocity,
+              vector (0, 0, 0)
+            )
+      );
 
 volVectorField Mean_UaFalphaF
-   	(
-     	IOobject
-       			(
-       				"Mean_UaFalphaF",
-       				runTime.timeName(),
-       				mesh,
-       				IOobject::NO_READ,
-       				IOobject::NO_WRITE
-       			),
-       		mesh,
-       		dimensionedVector
-       			(
-       				"Mean_UaFalphaF",
-       				dimVelocity,
-       				vector (0, 0, 0)
-       			)
-   		);
-
+    (
+      IOobject
+            (
+              "Mean_UaFalphaF",
+              runTime.timeName(),
+              mesh,
+              IOobject::NO_READ,
+              IOobject::NO_WRITE
+            ),
+          mesh,
+          dimensionedVector
+            (
+              "Mean_UaFalphaF",
+              dimVelocity,
+              vector (0, 0, 0)
+            )
+      );
 
 volVectorField MeanUaF_MeanalphaF
-   	(
-     	IOobject
-       			(
-       				"MeanUaF_MeanalphaF",
-       				runTime.timeName(),
-       				mesh,
-       				IOobject::NO_READ,
-       				IOobject::NO_WRITE
-       			),
-       		mesh,
-       		dimensionedVector
-       			(
-       				"MeanUaF_MeanalphaF",
-       				dimVelocity,
-       				vector (0, 0, 0)
-       			)
-   		);
-   		
-   		
+    (
+      IOobject
+            (
+              "MeanUaF_MeanalphaF",
+              runTime.timeName(),
+              mesh,
+              IOobject::NO_READ,
+              IOobject::NO_WRITE
+            ),
+          mesh,
+          dimensionedVector
+            (
+              "MeanUaF_MeanalphaF",
+              dimVelocity,
+              vector (0, 0, 0)
+            )
+      );
+
 volVectorField MeanUaF
-   	(
-     	IOobject
-       			(
-       				"MeanUaF",
-       				runTime.timeName(),
-       				mesh,
-       				IOobject::NO_READ,
-       				IOobject::NO_WRITE
-       			),
-       		mesh,
-       		dimensionedVector
-       			(
-       				"MeanUaF",
-       				dimVelocity,
-       				vector (0, 0, 0)
-       			)
-   		);
+    (
+      IOobject
+            (
+              "MeanUaF",
+              runTime.timeName(),
+              mesh,
+              IOobject::NO_READ,
+              IOobject::NO_WRITE
+            ),
+          mesh,
+          dimensionedVector
+            (
+              "MeanUaF",
+              dimVelocity,
+              vector (0, 0, 0)
+            )
+      );
 
 volScalarField alphaFMean
-   	(
-       	IOobject
-		(
-        	"alphaFMean",
-        	runTime.timeName(),
-        	mesh,
-        	IOobject::NO_READ,
-			IOobject::NO_WRITE
-        	),
+    (
+        IOobject
+    (
+          "alphaFMean",
+          runTime.timeName(),
+          mesh,
+          IOobject::NO_READ,
+      IOobject::NO_WRITE
+          ),
         mesh,
         dimensionedScalar
         (
-        	"alphaFMean",
-        	dimensionSet(0, 0, 0, 0, 0, 0, 0),
-        	0.0
+          "alphaFMean",
+          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+          0.0
         )
     );
 
-
 volScalarField alphaF
-   	(
-       	IOobject
-		(
-        	"alphaF",
-        	runTime.timeName(),
-        	mesh,
-        	IOobject::NO_READ,
-			IOobject::NO_WRITE
-        	),
+    (
+        IOobject
+    (
+          "alphaF",
+          runTime.timeName(),
+          mesh,
+          IOobject::NO_READ,
+      IOobject::NO_WRITE
+          ),
         mesh,
         dimensionedScalar
         (
-        	"alphaF",
-        	dimensionSet(0, 0, 0, 0, 0, 0, 0),
-        	0.0
+          "alphaF",
+          dimensionSet(0, 0, 0, 0, 0, 0, 0),
+          0.0
         )
     );
 
@@ -185,41 +178,38 @@ runtime_mass = 0;
 
 }
 
-else 
+else
 
 {
 
-	runtime_mass = runTime.value();// 0;// this->runTime.timeName();
+  runtime_mass = runTime.value();// 0;// this->runTime.timeName();
 
-	Info<<"runtime_mass in create file =\t"<<runtime_mass<<endl;
-	Info<<"Manohar is not in Reset Mode = \t"<<runTime.value()<<endl;
-
+  Info<<"runtime_mass in create file =\t"<<runtime_mass<<endl;
+  Info<<"Manohar is not in Reset Mode = \t"<<runTime.value()<<endl;
 
 IOobject alpha_aMeanHeader
-    		(
-        		"alpha_aMean",
-        		runTime.timeName(),
-        		mesh,
-        		IOobject::NO_READ
-    		);
-
+        (
+            "alpha_aMean",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ
+        );
 
 if (alpha_aMeanHeader.typeHeaderOk<volScalarField>(true))
 {
-	volScalarField alpha_aMean2
-        			(
-            				IOobject
-            					(
-                					"alpha_aMean",
-                					runTime.timeName(),
-                					mesh,
-                					IOobject::MUST_READ,
-                					IOobject::NO_WRITE
-            					),
-            				mesh
-        			);
-    				alpha_aMean = alpha_aMean2;
-
+  volScalarField alpha_aMean2
+              (
+                    IOobject
+                      (
+                          "alpha_aMean",
+                          runTime.timeName(),
+                          mesh,
+                          IOobject::MUST_READ,
+                          IOobject::NO_WRITE
+                      ),
+                    mesh
+              );
+            alpha_aMean = alpha_aMean2;
 
     IOobject Mean_alphaUaHeader
     (
@@ -243,8 +233,7 @@ volVectorField Mean_alphaUa2
     mesh
 );
 Mean_alphaUa = Mean_alphaUa2;
-}
-
+    }
 
     IOobject Mean_UaFalphaFHeader
     (
@@ -268,11 +257,7 @@ volVectorField Mean_UaFalphaF2
     mesh
 );
 Mean_UaFalphaF = Mean_UaFalphaF2;
-}    
-
-
-
-
+    }
 
     IOobject MeanUaFHeader
     (
@@ -296,38 +281,35 @@ volVectorField MeanUaF2
     mesh
 );
 MeanUaF = MeanUaF2;
-} 
+    }
 
-  	IOobject alphaFMeanHeader
-    		(
-        		"alphaFMean",
-        		runTime.timeName(),
-        		mesh,
-        		IOobject::NO_READ
-    		);
-    	
-	if (alphaFMeanHeader.typeHeaderOk<volScalarField>(true))
-    		{
-        		volScalarField alphaFMean2
-        			(
-            				IOobject
-            					(
-                					"alphaFMean",
-                					runTime.timeName(),
-                					mesh,
-                					IOobject::MUST_READ,
-                					IOobject::NO_WRITE
-            					),
-            				mesh
-        			);
-        		alphaFMean = alphaFMean2;
-  }
+    IOobject alphaFMeanHeader
+        (
+            "alphaFMean",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ
+        );
 
-		
+  if (alphaFMeanHeader.typeHeaderOk<volScalarField>(true))
+       {
+            volScalarField alphaFMean2
+              (
+                    IOobject
+                      (
+                          "alphaFMean",
+                          runTime.timeName(),
+                          mesh,
+                          IOobject::MUST_READ,
+                          IOobject::NO_WRITE
+                      ),
+                    mesh
+              );
+            alphaFMean = alphaFMean2;
+       }
+
 ///
-			
-}
 
 }
 
-
+}

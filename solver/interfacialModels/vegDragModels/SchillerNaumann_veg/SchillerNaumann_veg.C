@@ -23,26 +23,27 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "GidaspowSchillerNaumann_veg.H"
+#include "SchillerNaumann_veg.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(GidaspowSchillerNaumann_veg, 0);
+    defineTypeNameAndDebug(SchillerNaumann_veg, 0);
 
     addToRunTimeSelectionTable
     (
         vegDragModel,
-        GidaspowSchillerNaumann_veg,
+        SchillerNaumann_veg,
         dictionary
     );
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::GidaspowSchillerNaumann_veg::GidaspowSchillerNaumann_veg
+Foam::SchillerNaumann_veg::SchillerNaumann_veg
 (
     const dictionary& interfaceDict,
     const phaseModel& phasea,
@@ -52,21 +53,24 @@ Foam::GidaspowSchillerNaumann_veg::GidaspowSchillerNaumann_veg
     vegDragModel(interfaceDict, phasea, phaseb)
 {}
 
+
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::GidaspowSchillerNaumann_veg::~GidaspowSchillerNaumann_veg()
+Foam::SchillerNaumann_veg::~SchillerNaumann_veg()
 {}
+
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::volScalarField> Foam::GidaspowSchillerNaumann_veg::K
+Foam::tmp<Foam::volScalarField> Foam::SchillerNaumann_veg::K
 (
     const volScalarField& Ur
 ) const
 {
-    volScalarField beta(max(scalar(1) - phaseb_.alpha(), scalar(1e-6)));
+    //// Here phase b represents the particle phase //
 
-    volScalarField bp(pow(beta, -phaseb_.hExp()));
+    volScalarField Re(max(Ur*phaseb_.d()*phaseb_.sF()/
+    phaseb_.nu(), scalar(1.0e-3)));
 
     const dimensionedScalar dragConst
     (
@@ -81,12 +85,6 @@ Foam::tmp<Foam::volScalarField> Foam::GidaspowSchillerNaumann_veg::K
 
     const dimensionedScalar Coe = dragConst;
 
-       Info<<"dragConst in GidaspowSchiller = \t"<<dragConst<<endl;
-
-    volScalarField Re
-    (
-        max(beta*Ur*phaseb_.d()*phaseb_.sF()/phasea_.nu(), scalar(1.0e-9))
-    );
 
     volScalarField Cds
     (
@@ -94,7 +92,7 @@ Foam::tmp<Foam::volScalarField> Foam::GidaspowSchillerNaumann_veg::K
       + pos(Re - 1000)*0.44
     );
 
-    return 0.75*Coe*Cds*phasea_.rho()*Ur*bp/(phaseb_.d()*phaseb_.sF());
+    return 0.75*Coe*Cds*phasea_.rho()*Ur/(phaseb_.d()*phaseb_.sF());
 }
 
 // ************************************************************************* //

@@ -102,9 +102,7 @@ SGSDissMeanI_a  = 2* alpha* turbulencea->nut()* (strainTensor_a && fvc::grad(UaP
 
 if (favreAverage_particle)
 {
-	
-	TKEMeanProdI_a =  - UaPrime2MeanF && fvc::grad(UaMeanF); 
-
+    TKEMeanProdI_a =  - UaPrime2MeanF && fvc::grad(UaMeanF);
     TKEMean_a            =    (time_integrate_particle*TKEMean_a  + deltaT* 0.5* tr(UaPrime2MeanF_a)) / (timeaverage_particle);
     TKEMeanProd_a        =    (time_integrate_particle*TKEMeanProd_a  - deltaT*(UaPrime2MeanF_a && fvc::grad(UaMeanF_a))) / (timeaverage_particle);
     turbDiffMean_a       =    (time_integrate_particle* turbDiffMean_a - 0.5* alpha* (UaPrimeF_a* magSqr(UaPrimeF_a))* deltaT ) / (timeaverage_particle);
@@ -122,13 +120,13 @@ if (favreAverage_particle)
     viscDiffusionMeanJ_a =    (time_integrate_particle* viscDiffusionMeanJ_a +  alpha* phaseb->nu()* (fvc::laplacian(TKEMean_a) )* deltaT ) / (timeaverage_particle);
     viscDissMeanJ_a      =    (time_integrate_particle* viscDissMeanJ_a - (2* alpha* phasea->nu()* SijaSija)* deltaT) / (timeaverage_particle);
     SGSDissMeanJ_a       =    (time_integrate_particle* SGSDissMeanJ_a  - (2* alpha* turbulenceb->nut()* SijaSija)* deltaT ) / (timeaverage_particle);
-	turbDiffusionMean_a  =    (time_integrate_particle* turbDiffusionMean_a + (fvc::div(turbDiffMean_a))* deltaT ) / (timeaverage_particle);
-	pressDiffusionMean_a =    (time_integrate_particle* pressDiffusionMean_a + (fvc::div(pressDiffMean_a))* deltaT ) / (timeaverage_particle);
-	pressDiffusionMeankin_a =    (time_integrate_particle* pressDiffusionMeankin_a + (fvc::div(pressDiffMeankin_a))* deltaT ) / (timeaverage_particle);
-	pressDiffusionMeancon_a =    (time_integrate_particle* pressDiffusionMeancon_a + (fvc::div(pressDiffMeancon_a))* deltaT ) / (timeaverage_particle);
-	SGSDiffusionMean_a =    (time_integrate_particle* SGSDiffusionMean_a + (fvc::div(SGSDiffMean_a))* deltaT ) / (timeaverage_particle);
-	viscDiffusionMean_a =    (time_integrate_particle* viscDiffusionMean_a + (fvc::div(viscDiffMean_a))* deltaT ) / (timeaverage_particle);
-	
+    turbDiffusionMean_a  =    (time_integrate_particle* turbDiffusionMean_a + (fvc::div(turbDiffMean_a))* deltaT ) / (timeaverage_particle);
+    pressDiffusionMean_a =    (time_integrate_particle* pressDiffusionMean_a + (fvc::div(pressDiffMean_a))* deltaT ) / (timeaverage_particle);
+    pressDiffusionMeankin_a =    (time_integrate_particle* pressDiffusionMeankin_a + (fvc::div(pressDiffMeankin_a))* deltaT ) / (timeaverage_particle);
+    pressDiffusionMeancon_a =    (time_integrate_particle* pressDiffusionMeancon_a + (fvc::div(pressDiffMeancon_a))* deltaT ) / (timeaverage_particle);
+    SGSDiffusionMean_a =    (time_integrate_particle* SGSDiffusionMean_a + (fvc::div(SGSDiffMean_a))* deltaT ) / (timeaverage_particle);
+    viscDiffusionMean_a =    (time_integrate_particle* viscDiffusionMean_a + (fvc::div(viscDiffMean_a))* deltaT ) / (timeaverage_particle);
+
 }
 
 /* Writing the TKE budget variables */

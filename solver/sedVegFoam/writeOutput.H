@@ -19,12 +19,10 @@ License
     along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 \*---------------------------------------------------------------------------*/
 
-
 if (favreAveraging)
 {
     #include "calcFavreAverage.H"
 }
-
 
 if (favreAverage_fluid)
 {
@@ -38,27 +36,22 @@ if (favreAverage_particle)
     #include "Random.H"
 }
 
-
 if (favreAverage_mass)
 {
     #include "calcFavreAverage_mass.H"
     #include "Random.H"
 }
 
-
 if (favreAverage_fluid)
 {
-	dragVegMean       = (time_integrate_fluid* dragVegMean - (UbPrimeF & (beta* alphaVeg* Kveg* (Ub))/rhob)* deltaT ) / (timeaverage_fluid);
+    dragVegMean       = (time_integrate_fluid* dragVegMean - (UbPrimeF & (beta* alphaVeg* Kveg* (Ub))/rhob)* deltaT ) / (timeaverage_fluid);
 }
-
-
 
 if (runTime.outputTime())
 {
 
-	dragVegMean.write();
+    dragVegMean.write();
 }
-
 
 if (runTime.outputTime())
 {

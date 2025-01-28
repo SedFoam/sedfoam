@@ -22,9 +22,9 @@ License
 /*
 dimensionedScalar zeroo
 (
-	"zeroo",
-	dimensionSet(0, 2, -2, 0, 0, 0, 0),
-	scalar(0.0)
+    "zeroo",
+    dimensionSet(0, 2, -2, 0, 0, 0, 0),
+    scalar(0.0)
 );
 
 */
@@ -34,18 +34,15 @@ Switch favreAverage_particle
     runTime.controlDict().lookupOrDefault("favreAverage_particle", false)
 );
 
-
 Switch Reset_particle
 (
-	runTime.controlDict().lookupOrDefault("Reset_particle", false)
+    runTime.controlDict().lookupOrDefault("Reset_particle", false)
 );
-
 
 if (Reset_particle)
 {
-	Info<<"Reset particle options = \t"<<Reset_particle<<endl;
+    Info<<"Reset particle options = \t"<<Reset_particle<<endl;
 }
-
 
 Info<<"Reset particle Mode = \t"<<Reset_particle<<endl;
 
@@ -76,23 +73,23 @@ volScalarField WacubeMean
 );
 
 volScalarField alpha_aMean_a
-   		(
-       		IOobject
-				(
-            		"alpha_aMean_a",
-            		runTime.timeName(),
-            		mesh,
-            		IOobject::NO_READ,
-					IOobject::NO_WRITE
-        		),
-        	mesh,
-        	dimensionedScalar
-        		(
-            		"alpha_aMean_a",
-            			dimensionSet(0, 0, 0, 0, 0, 0, 0),
-            			0.0
-        		)
-    	);
+        (
+            IOobject
+                (
+                    "alpha_aMean_a",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedScalar
+                (
+                    "alpha_aMean_a",
+                        dimensionSet(0, 0, 0, 0, 0, 0, 0),
+                        0.0
+                )
+        );
 
 volScalarField UasquarWbMean
 (
@@ -113,48 +110,45 @@ volScalarField UasquarWbMean
     )
 );
 
-
 volScalarField testVegMean_a
-   	(
-       	IOobject
-		(
-        	"testVegMean_a",
-        	runTime.timeName(),
-        	mesh,
-        	IOobject::NO_READ,
-			IOobject::NO_WRITE
-        	),
+    (
+        IOobject
+        (
+            "testVegMean_a",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+            ),
         mesh,
         dimensionedScalar
         (
-        	"testVegMean_a",
-        	dimensionSet(1, -3, -1, 0, 0, 0, 0),
-        	0.0
+            "testVegMean_a",
+            dimensionSet(1, -3, -1, 0, 0, 0, 0),
+            0.0
         )
     );
 
-
 volVectorField UaMean
-   	(
-     	IOobject
-       			(
-       				"UaMean",
-       				runTime.timeName(),
-       				mesh,
-       				IOobject::NO_READ,
-       				IOobject::NO_WRITE
-       			),
-       		mesh,
-       		dimensionedVector
-       			(
-       				"UaMean",
-       				dimVelocity,
-       				vector (0, 0, 0)
-       			)
-   		);
+    (
+        IOobject
+                (
+                    "UaMean",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedVector
+                (
+                    "UaMean",
+                    dimVelocity,
+                    vector (0, 0, 0)
+                )
+        );
 
-
-///		
+///
 
 volScalarField TKEMean_a
 (
@@ -174,7 +168,6 @@ volScalarField TKEMean_a
         0
     )
 );
-
 
 volScalarField TKEMeanProd_a
 (
@@ -252,7 +245,6 @@ volSymmTensorField strainTensor_a
     )
 );
 
-
 volScalarField viscDissMeanI_a
 (
     IOobject
@@ -271,7 +263,6 @@ volScalarField viscDissMeanI_a
         0.0
     )
 );
-
 
 volScalarField RS2_a
     (
@@ -329,25 +320,25 @@ volScalarField pMean_a
         0
     )
 );
-	
+
 volTensorField UaPrime2MeanF_a
-	(
-   			IOobject
-   				(
-       				"UaPrime2MeanF_a",
-       				runTime.timeName(),
-       				mesh,
-       				IOobject::NO_READ,
-       				IOobject::NO_WRITE
-   				),
-   			mesh,
-   			dimensionedTensor
-   				(
-       				"UaPrime2MeanF_a",
-       				dimVelocity*dimVelocity,
-       				tensor::zero
-  				 )
-	);
+    (
+            IOobject
+                (
+                    "UaPrime2MeanF_a",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedTensor
+                (
+                    "UaPrime2MeanF_a",
+                    dimVelocity*dimVelocity,
+                    tensor::zero
+                 )
+    );
 
 volTensorField alphaSqrUaMean_a
 (
@@ -367,7 +358,6 @@ volTensorField alphaSqrUaMean_a
         tensor::zero
     )
 );
-
 
 volScalarField RS2Mean_a
     (
@@ -408,23 +398,23 @@ volScalarField RS4Mean_a
     );
 
 volScalarField SijaSija
-	(
-    		IOobject
-    			(
-        			"SijaSija",
-        			runTime.timeName(),
-        			mesh,
-        			IOobject::NO_READ,
-        			IOobject::NO_WRITE
-    			),
-    		mesh,
-    		dimensionedScalar
-    			(
-        			"SijaSija",
-        			dimVelocity/dimLength*dimVelocity/dimLength,
-        			0
-   			 )
-	);
+    (
+            IOobject
+                (
+                    "SijaSija",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedScalar
+                (
+                    "SijaSija",
+                    dimVelocity/dimLength*dimVelocity/dimLength,
+                    0
+             )
+    );
 
 volScalarField SGSDissMean_a
 (
@@ -482,7 +472,6 @@ volScalarField SGSDissMeanI_a
         0.0
     )
 );
-
 
 volSymmTensorField strainTensorM_a
 (
@@ -560,7 +549,6 @@ volScalarField pressDiffusionMean_a
     )
 );
 
-
 volScalarField pressDiffusionMeankin_a
 (
     IOobject
@@ -579,7 +567,6 @@ volScalarField pressDiffusionMeankin_a
         0.0
     )
 );
-
 
 volScalarField pressDiffusionMeancon_a
 (
@@ -657,7 +644,6 @@ volScalarField SGSDiffusionMeanJ_a
     )
 );
 
-
 volVectorField turbDiffMean_a
 (
     IOobject
@@ -697,23 +683,23 @@ volVectorField turbDiffMeanJ_a
 );
 
 volScalarField SijSij_a
-	(
-    		IOobject
-    			(
-        			"SijSij_a",
-        			runTime.timeName(),
-        			mesh,
-        			IOobject::NO_READ,
-        			IOobject::NO_WRITE
-    			),
-    		mesh,
-    		dimensionedScalar
-    			(
-        			"SijSij_a",
-        			dimVelocity/dimLength*dimVelocity/dimLength,
-        			0
-   			 )
-	);
+    (
+            IOobject
+                (
+                    "SijSij_a",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedScalar
+                (
+                    "SijSij_a",
+                    dimVelocity/dimLength*dimVelocity/dimLength,
+                    0
+             )
+    );
 
 volVectorField pressDiffMean_a
 (
@@ -734,7 +720,6 @@ volVectorField pressDiffMean_a
     )
 );
 
-
 volVectorField pressDiffMeankin_a
 (
     IOobject
@@ -753,7 +738,6 @@ volVectorField pressDiffMeankin_a
         vector::zero
     )
 );
-
 
 volVectorField pressDiffMeancon_a
 (
@@ -908,142 +892,137 @@ volVectorField viscDiffMeanJ_a
 );
 
 volVectorField UaPrimeF_a
-	(
-    		IOobject
-    			(
-        			"UaPrimeF_a",
-        			runTime.timeName(),
-        			mesh,
-        			IOobject::NO_READ,
-        			IOobject::NO_WRITE
-    			),
-    		mesh,
-    		dimensionedVector
-    			(
-        			"UaPrimeF_a",
-        			dimVelocity,
-        			vector (0, 0, 0)
-    			)
-	);
-	
-
+    (
+            IOobject
+                (
+                    "UaPrimeF_a",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedVector
+                (
+                    "UaPrimeF_a",
+                    dimVelocity,
+                    vector (0, 0, 0)
+                )
+    );
 
 volVectorField UaMeanF_a
-	(
-   			IOobject
-   				(
-       				"UaMeanF_a",
-       				runTime.timeName(),
-       				mesh,
-       				IOobject::NO_READ,
-       				IOobject::NO_WRITE
-   				),
-   			mesh,
-   			dimensionedVector
-   				(
-       				"UaMeanF_a",
-       				dimVelocity,
-       				vector (0, 0, 0)
-   				)
-		);
+    (
+            IOobject
+                (
+                    "UaMeanF_a",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedVector
+                (
+                    "UaMeanF_a",
+                    dimVelocity,
+                    vector (0, 0, 0)
+                )
+        );
 
 volVectorField alphaUaMean_a
-   		(
-       		IOobject
-       			(
-       				"alphaUaMean_a",
-       				runTime.timeName(),
-       				mesh,
-       				IOobject::NO_READ,
-       				IOobject::NO_WRITE
-       			),
-   			mesh,
-   			dimensionedVector
-   				(
-   					"alphaUaMean_a",
-   					dimVelocity,
-   					vector (0, 0, 0)
-				)
-   		);
+        (
+            IOobject
+                (
+                    "alphaUaMean_a",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedVector
+                (
+                    "alphaUaMean_a",
+                    dimVelocity,
+                    vector (0, 0, 0)
+                )
+        );
 
-
-	
 volScalarField viscDissMean_a
-	(
-   			IOobject
-   				(
-       				"viscDissMean_a",
-       				runTime.timeName(),
-       				mesh,
-       				IOobject::NO_READ,
-       				IOobject::NO_WRITE
-   				),
-   			mesh,
-   			dimensionedScalar
-   				(
-       				"viscDissMean_a",
-       				dimVelocity*dimVelocity*dimVelocity/dimLength,
-       				0.0
-   				)
-	);
+    (
+            IOobject
+                (
+                    "viscDissMean_a",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedScalar
+                (
+                    "viscDissMean_a",
+                    dimVelocity*dimVelocity*dimVelocity/dimLength,
+                    0.0
+                )
+    );
 
 //~ volScalarField viscDissMeankin_a
-	//~ (
-   			//~ IOobject
-   				//~ (
-       				//~ "viscDissMeankin_a",
-       				//~ runTime.timeName(),
-       				//~ mesh,
-       				//~ IOobject::NO_READ,
-       				//~ IOobject::NO_WRITE
-   				//~ ),
-   			//~ mesh,
-   			//~ dimensionedScalar
-   				//~ (
-       				//~ "viscDissMeankin_a",
-       				//~ dimVelocity*dimVelocity*dimVelocity/dimLength,
-       				//~ 0.0
-   				//~ )
-	//~ );
+    //~ (
+            //~ IOobject
+                //~ (
+                    //~ "viscDissMeankin_a",
+                    //~ runTime.timeName(),
+                    //~ mesh,
+                    //~ IOobject::NO_READ,
+                    //~ IOobject::NO_WRITE
+                //~ ),
+            //~ mesh,
+            //~ dimensionedScalar
+                //~ (
+                    //~ "viscDissMeankin_a",
+                    //~ dimVelocity*dimVelocity*dimVelocity/dimLength,
+                    //~ 0.0
+                //~ )
+    //~ );
 
 volScalarField viscDissMeancon_a
-	(
-   			IOobject
-   				(
-       				"viscDissMeancon_a",
-       				runTime.timeName(),
-       				mesh,
-       				IOobject::NO_READ,
-       				IOobject::NO_WRITE
-   				),
-   			mesh,
-   			dimensionedScalar
-   				(
-       				"viscDissMeancon_a",
-       				dimVelocity*dimVelocity*dimVelocity/dimLength,
-       				0.0
-   				)
-	);
-
+    (
+            IOobject
+                (
+                    "viscDissMeancon_a",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedScalar
+                (
+                    "viscDissMeancon_a",
+                    dimVelocity*dimVelocity*dimVelocity/dimLength,
+                    0.0
+                )
+    );
 
 volScalarField viscDissMeanJ_a
-	(
-   			IOobject
-   				(
-       				"viscDissMeanJ_a",
-       				runTime.timeName(),
-       				mesh,
-       				IOobject::NO_READ,
-       				IOobject::NO_WRITE
-   				),
-   			mesh,
-   			dimensionedScalar
-   				(
-       				"viscDissMeanJ_a",
-       				dimVelocity*dimVelocity*dimVelocity/dimLength,
-       				0.0
-   				)
-	);
+    (
+            IOobject
+                (
+                    "viscDissMeanJ_a",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedScalar
+                (
+                    "viscDissMeanJ_a",
+                    dimVelocity*dimVelocity*dimVelocity/dimLength,
+                    0.0
+                )
+    );
 
 volScalarField pPrimeF_a
 (
@@ -1064,8 +1043,6 @@ volScalarField pPrimeF_a
     )
 );
 
-
-
 if (Reset_particle)
 {
 
@@ -1075,41 +1052,38 @@ runtime_particle = 0;
 
 }
 
-else 
+else
 
 {
 
-	runtime_particle = runTime.value();// 0;// this->runTime.timeName();
+    runtime_particle = runTime.value();// 0;// this->runTime.timeName();
 
-	Info<<"runtime_particle in create file =\t"<<runtime_particle<<endl;
-	Info<<"Manohar is not in Reset Mode = \t"<<runTime.value()<<endl;
-
+    Info<<"runtime_particle in create file =\t"<<runtime_particle<<endl;
+    Info<<"Manohar is not in Reset Mode = \t"<<runTime.value()<<endl;
 
 IOobject alpha_aMean_aHeader
-    		(
-        		"alpha_aMean_a",
-        		runTime.timeName(),
-        		mesh,
-        		IOobject::NO_READ
-    		);
-
+            (
+                "alpha_aMean_a",
+                runTime.timeName(),
+                mesh,
+                IOobject::NO_READ
+            );
 
 if (alpha_aMean_aHeader.typeHeaderOk<volScalarField>(true))
 {
-	volScalarField alpha_aMean_a2
-        			(
-            				IOobject
-            					(
-                					"alpha_aMean_a",
-                					runTime.timeName(),
-                					mesh,
-                					IOobject::MUST_READ,
-                					IOobject::NO_WRITE
-            					),
-            				mesh
-        			);
-    				alpha_aMean_a = alpha_aMean_a2;
-
+    volScalarField alpha_aMean_a2
+                    (
+                            IOobject
+                                (
+                                    "alpha_aMean_a",
+                                    runTime.timeName(),
+                                    mesh,
+                                    IOobject::MUST_READ,
+                                    IOobject::NO_WRITE
+                                ),
+                            mesh
+                    );
+                    alpha_aMean_a = alpha_aMean_a2;
 
           IOobject RS2Mean_aHeader
     (
@@ -1181,8 +1155,7 @@ volVectorField viscDiffMean2_a
     mesh
 );
 viscDiffMean_a = viscDiffMean2_a;
-}
-
+    }
 
     IOobject viscDiffMeanJ_aHeader
     (
@@ -1206,8 +1179,7 @@ volVectorField viscDiffMeanJ2_a
     mesh
 );
 viscDiffMeanJ_a = viscDiffMeanJ2_a;
-}
-
+    }
 
     IOobject SGSDiffMean_aHeader
     (
@@ -1231,8 +1203,7 @@ volVectorField SGSDiffMean2_a
     mesh
 );
 SGSDiffMean_a = SGSDiffMean2_a;
-}
-
+    }
 
     IOobject SGSDiffMeanJ_aHeader
     (
@@ -1256,7 +1227,7 @@ volVectorField SGSDiffMeanJ2_a
     mesh
 );
 SGSDiffMeanJ_a = SGSDiffMeanJ2_a;
-}
+    }
 
      IOobject turbDiffMean_aHeader
     (
@@ -1267,7 +1238,7 @@ SGSDiffMeanJ_a = SGSDiffMeanJ2_a;
     );
     if (turbDiffMean_aHeader.typeHeaderOk<volVectorField>(true))
     {
- 
+
  volVectorField turbDiffMean2_a
 (
     IOobject
@@ -1281,8 +1252,7 @@ SGSDiffMeanJ_a = SGSDiffMeanJ2_a;
     mesh
 );
 turbDiffMean_a = turbDiffMean2_a;
-}
-
+    }
 
 IOobject turbDiffMeanJ_aHeader
     (
@@ -1293,7 +1263,7 @@ IOobject turbDiffMeanJ_aHeader
     );
     if (turbDiffMeanJ_aHeader.typeHeaderOk<volVectorField>(true))
     {
- 
+
  volVectorField turbDiffMeanJ2_a
 (
     IOobject
@@ -1308,7 +1278,7 @@ IOobject turbDiffMeanJ_aHeader
 );
 
 turbDiffMeanJ_a = turbDiffMeanJ2_a;
-}
+    }
 
      IOobject pressDiffMean_aHeader
     (
@@ -1332,9 +1302,7 @@ volVectorField pressDiffMean2_a
     mesh
 );
 pressDiffMean_a = pressDiffMean2_a;
-}
-
-
+    }
 
      IOobject pressDiffMeankin_aHeader
     (
@@ -1358,8 +1326,7 @@ volVectorField pressDiffMeankin2_a
     mesh
 );
 pressDiffMeankin_a = pressDiffMeankin2_a;
-}
-
+    }
 
      IOobject pressDiffMeancon_aHeader
     (
@@ -1383,7 +1350,7 @@ volVectorField pressDiffMeancon2_a
     mesh
 );
 pressDiffMeancon_a = pressDiffMeancon2_a;
-}
+    }
 
      IOobject pressDiffMeanJ_aHeader
     (
@@ -1407,179 +1374,172 @@ volVectorField pressDiffMeanJ2_a
     mesh
 );
 pressDiffMeanJ_a = pressDiffMeanJ2_a;
-}
+    }
 
+    // Checks if field UaMeanF_a is present
 
-	// Checks if field UaMeanF_a is present
-	
-			// Checks if field UbMeanF is present
-	
-	IOobject UaMeanF_aHeader
-    				(
-        				"UaMeanF_a",
-        				runTime.timeName(),
-        				mesh,
-        				IOobject::NO_READ
-    				);
-	
-	if (UaMeanF_aHeader.typeHeaderOk<volVectorField>(true))
-    				{
-        				volVectorField UaMeanF_a2
-        					(
-            						IOobject
-            							(
-                							"UaMeanF_a",
-                							runTime.timeName(),
-                							mesh,
-                							IOobject::MUST_READ,
-                							IOobject::NO_WRITE
-            							),
-            						mesh
-        					);
-        				UaMeanF_a = UaMeanF_a2;
-        				alphaUaMean_a = UaMeanF_a*(alpha_aMean_a);
-    				}
+            // Checks if field UbMeanF is present
 
-		
-	    
-	
-			// Checks if field UbPrime2MeanF is present
-	
-	IOobject UaPrime2MeanF_aHeader
-    				(
-        				"UaPrime2MeanF_a",
-        				runTime.timeName(),
-        				mesh,
-        				IOobject::NO_READ
-    				);
+    IOobject UaMeanF_aHeader
+                    (
+                        "UaMeanF_a",
+                        runTime.timeName(),
+                        mesh,
+                        IOobject::NO_READ
+                    );
 
- 	if (UaPrime2MeanF_aHeader.typeHeaderOk<volTensorField>(true))
-    				{
-        				volTensorField UaPrime2MeanF_a2
-        					(
-            						IOobject
-            							(
-                							"UaPrime2MeanF_a",
-                							runTime.timeName(),
-                							mesh,
-                							IOobject::MUST_READ,
-                							IOobject::NO_WRITE
-            							),
-            						mesh
-        					);
-        				UaPrime2MeanF_a = UaPrime2MeanF_a2;
-				        alphaSqrUaMean_a = (UaPrime2MeanF_a+UaMeanF_a*UaMeanF_a)*(alpha_aMean_a);
+    if (UaMeanF_aHeader.typeHeaderOk<volVectorField>(true))
+                    {
+                        volVectorField UaMeanF_a2
+                            (
+                                    IOobject
+                                        (
+                                            "UaMeanF_a",
+                                            runTime.timeName(),
+                                            mesh,
+                                            IOobject::MUST_READ,
+                                            IOobject::NO_WRITE
+                                        ),
+                                    mesh
+                            );
+                        UaMeanF_a = UaMeanF_a2;
+                        alphaUaMean_a = UaMeanF_a*(alpha_aMean_a);
+                    }
 
+            // Checks if field UbPrime2MeanF is present
 
-    				}
+    IOobject UaPrime2MeanF_aHeader
+                    (
+                        "UaPrime2MeanF_a",
+                        runTime.timeName(),
+                        mesh,
+                        IOobject::NO_READ
+                    );
 
-	   // Checks if field UaPrime2MeanF_a is present
-    				
-  	IOobject viscDissMean_aHeader
-    		(
-        		"viscDissMean_a",
-        		runTime.timeName(),
-        		mesh,
-        		IOobject::NO_READ
-    		);
-    	
-	if (viscDissMean_aHeader.typeHeaderOk<volScalarField>(true))
-    		{
-        		volScalarField viscDissMean2_a
-        			(
-            				IOobject
-            					(
-                					"viscDissMean_a",
-                					runTime.timeName(),
-                					mesh,
-                					IOobject::MUST_READ,
-                					IOobject::NO_WRITE
-            					),
-            				mesh
-        			);
-        		viscDissMean_a = viscDissMean2_a;
-    		}
-    		
-	   // Checks if field UaPrime2MeanF_a is present
-    				
-  	//~ IOobject viscDissMeankin_aHeader
-    		//~ (
-        		//~ "viscDissMeankin_a",
-        		//~ runTime.timeName(),
-        		//~ mesh,
-        		//~ IOobject::NO_READ
-    		//~ );
-    	
-	//~ if (viscDissMeankin_aHeader.typeHeaderOk<volScalarField>(true))
-    		//~ {
-        		//~ volScalarField viscDissMeankin2_a
-        			//~ (
-            				//~ IOobject
-            					//~ (
-                					//~ "viscDissMeankin_a",
-                					//~ runTime.timeName(),
-                					//~ mesh,
-                					//~ IOobject::MUST_READ,
-                					//~ IOobject::NO_WRITE
-            					//~ ),
-            				//~ mesh
-        			//~ );
-        		//~ viscDissMeankin_a = viscDissMeankin2_a;
-    		//~ }
+    if (UaPrime2MeanF_aHeader.typeHeaderOk<volTensorField>(true))
+                    {
+                        volTensorField UaPrime2MeanF_a2
+                            (
+                                    IOobject
+                                        (
+                                            "UaPrime2MeanF_a",
+                                            runTime.timeName(),
+                                            mesh,
+                                            IOobject::MUST_READ,
+                                            IOobject::NO_WRITE
+                                        ),
+                                    mesh
+                            );
+                        UaPrime2MeanF_a = UaPrime2MeanF_a2;
+                        alphaSqrUaMean_a = (UaPrime2MeanF_a+UaMeanF_a*UaMeanF_a)*(alpha_aMean_a);
 
-	   // Checks if field UaPrime2MeanF_a is present
-    				
-  	IOobject viscDissMeancon_aHeader
-    		(
-        		"viscDissMeancon_a",
-        		runTime.timeName(),
-        		mesh,
-        		IOobject::NO_READ
-    		);
-    	
-	if (viscDissMeancon_aHeader.typeHeaderOk<volScalarField>(true))
-    		{
-        		volScalarField viscDissMeancon2_a
-        			(
-            				IOobject
-            					(
-                					"viscDissMeancon_a",
-                					runTime.timeName(),
-                					mesh,
-                					IOobject::MUST_READ,
-                					IOobject::NO_WRITE
-            					),
-            				mesh
-        			);
-        		viscDissMeancon_a = viscDissMeancon2_a;
-    		}
-    		
-  	IOobject viscDissMeanJ_aHeader
-    		(
-        		"viscDissMeanJ_a",
-        		runTime.timeName(),
-        		mesh,
-        		IOobject::NO_READ
-    		);
-    	
-	if (viscDissMeanJ_aHeader.typeHeaderOk<volScalarField>(true))
-    		{
-        		volScalarField viscDissMeanJ2_a
-        			(
-            				IOobject
-            					(
-                					"viscDissMeanJ_a",
-                					runTime.timeName(),
-                					mesh,
-                					IOobject::MUST_READ,
-                					IOobject::NO_WRITE
-            					),
-            				mesh
-        			);
-        		viscDissMeanJ_a = viscDissMeanJ2_a;
-    		}
+                    }
 
+       // Checks if field UaPrime2MeanF_a is present
 
+    IOobject viscDissMean_aHeader
+            (
+                "viscDissMean_a",
+                runTime.timeName(),
+                mesh,
+                IOobject::NO_READ
+            );
+
+    if (viscDissMean_aHeader.typeHeaderOk<volScalarField>(true))
+            {
+                volScalarField viscDissMean2_a
+                    (
+                            IOobject
+                                (
+                                    "viscDissMean_a",
+                                    runTime.timeName(),
+                                    mesh,
+                                    IOobject::MUST_READ,
+                                    IOobject::NO_WRITE
+                                ),
+                            mesh
+                    );
+                viscDissMean_a = viscDissMean2_a;
+            }
+
+       // Checks if field UaPrime2MeanF_a is present
+
+    //~ IOobject viscDissMeankin_aHeader
+            //~ (
+                //~ "viscDissMeankin_a",
+                //~ runTime.timeName(),
+                //~ mesh,
+                //~ IOobject::NO_READ
+            //~ );
+
+    //~ if (viscDissMeankin_aHeader.typeHeaderOk<volScalarField>(true))
+            //~ {
+                //~ volScalarField viscDissMeankin2_a
+                    //~ (
+                            //~ IOobject
+                                //~ (
+                                    //~ "viscDissMeankin_a",
+                                    //~ runTime.timeName(),
+                                    //~ mesh,
+                                    //~ IOobject::MUST_READ,
+                                    //~ IOobject::NO_WRITE
+                                //~ ),
+                            //~ mesh
+                    //~ );
+                //~ viscDissMeankin_a = viscDissMeankin2_a;
+            //~ }
+
+       // Checks if field UaPrime2MeanF_a is present
+
+    IOobject viscDissMeancon_aHeader
+            (
+                "viscDissMeancon_a",
+                runTime.timeName(),
+                mesh,
+                IOobject::NO_READ
+            );
+
+    if (viscDissMeancon_aHeader.typeHeaderOk<volScalarField>(true))
+            {
+                volScalarField viscDissMeancon2_a
+                    (
+                            IOobject
+                                (
+                                    "viscDissMeancon_a",
+                                    runTime.timeName(),
+                                    mesh,
+                                    IOobject::MUST_READ,
+                                    IOobject::NO_WRITE
+                                ),
+                            mesh
+                    );
+                viscDissMeancon_a = viscDissMeancon2_a;
+            }
+
+    IOobject viscDissMeanJ_aHeader
+            (
+                "viscDissMeanJ_a",
+                runTime.timeName(),
+                mesh,
+                IOobject::NO_READ
+            );
+
+    if (viscDissMeanJ_aHeader.typeHeaderOk<volScalarField>(true))
+            {
+                volScalarField viscDissMeanJ2_a
+                    (
+                            IOobject
+                                (
+                                    "viscDissMeanJ_a",
+                                    runTime.timeName(),
+                                    mesh,
+                                    IOobject::MUST_READ,
+                                    IOobject::NO_WRITE
+                                ),
+                            mesh
+                    );
+                viscDissMeanJ_a = viscDissMeanJ2_a;
+            }
 
 IOobject pMean_aHeader
     (
@@ -1605,8 +1565,7 @@ IOobject pMean_aHeader
     mesh
 );
   pMean_a = pMean2_a;
-}
-
+    }
 
      IOobject pPrimeF_aHeader
     (
@@ -1631,8 +1590,7 @@ IOobject pMean_aHeader
     mesh
 );
 pPrimeF_a = pPrimeF2_a;
-}
-
+    }
 
      IOobject SGSDissMean_aHeader
     (
@@ -1657,8 +1615,7 @@ volScalarField SGSDissMean2_a
     mesh
 );
 SGSDissMean_a = SGSDissMean2_a;
-}
-
+    }
 
      IOobject SGSDissMeanJ_aHeader
     (
@@ -1683,11 +1640,9 @@ volScalarField SGSDissMeanJ2_a
     mesh
 );
 SGSDissMeanJ_a = SGSDissMeanJ2_a;
-}
+    }
 
 /////////////////
-
-
 
  IOobject SGSDiffusionMeanJ_aHeader
     (
@@ -1712,9 +1667,7 @@ volScalarField SGSDiffusionMeanJ2_a
     mesh
 );
 SGSDiffusionMeanJ_a = SGSDiffusionMeanJ2_a;
-}
-
-
+    }
 
      IOobject pressDiffusionMeanJ_aHeader
     (
@@ -1739,8 +1692,7 @@ volScalarField pressDiffusionMeanJ2_a
     mesh
 );
 pressDiffusionMeanJ_a = pressDiffusionMeanJ2_a;
-}
-
+    }
 
   IOobject viscDiffusionMean_aHeader
     (
@@ -1765,9 +1717,7 @@ volScalarField viscDiffusionMean2_a
     mesh
 );
 viscDiffusionMean_a = viscDiffusionMean2_a;
-}
-
-
+    }
 
    IOobject SGSDiffusionMean_aHeader
     (
@@ -1792,7 +1742,7 @@ volScalarField SGSDiffusionMean2_a
     mesh
 );
 SGSDiffusionMean_a = SGSDiffusionMean2_a;
-}
+    }
 
      IOobject turbDiffusionMean_aHeader
     (
@@ -1817,8 +1767,8 @@ volScalarField turbDiffusionMean2_a
     mesh
 );
 turbDiffusionMean_a = turbDiffusionMean2_a;
-}
-     
+    }
+
 IOobject pressDiffusionMean_aHeader
     (
         "pressDiffusionMean_a",
@@ -1842,7 +1792,7 @@ volScalarField pressDiffusionMean2_a
     mesh
 );
 pressDiffusionMean_a = pressDiffusionMean2_a;
-}
+    }
 
 IOobject pressDiffusionMeankin_aHeader
     (
@@ -1867,8 +1817,7 @@ volScalarField pressDiffusionMeankin2_a
     mesh
 );
 pressDiffusionMeankin_a = pressDiffusionMeankin2_a;
-}
-
+    }
 
 IOobject pressDiffusionMeancon_aHeader
     (
@@ -1893,8 +1842,7 @@ volScalarField pressDiffusionMeancon2_a
     mesh
 );
 pressDiffusionMeancon_a = pressDiffusionMeancon2_a;
-}
-
+    }
 
 IOobject viscDiffusionMeanJ_aHeader
     (
@@ -1919,12 +1867,10 @@ volScalarField viscDiffusionMeanJ2_a
     mesh
 );
 viscDiffusionMeanJ_a = viscDiffusionMeanJ2_a;
-}
+    }
 
 /////////////////////////////////
 
 }
 
 }
-
-

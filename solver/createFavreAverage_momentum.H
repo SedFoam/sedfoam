@@ -20,8 +20,6 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-
-
 Switch favreAverage_momentum
 (
     runTime.controlDict().lookupOrDefault("favreAverage_momentum", false)
@@ -29,18 +27,15 @@ Switch favreAverage_momentum
 
 Switch Reset_MomentumBudget
 (
-	runTime.controlDict().lookupOrDefault("Reset_MomentumBudget", false)
+    runTime.controlDict().lookupOrDefault("Reset_MomentumBudget", false)
 );
 
 Info<<"Manohar Momentum Budget in create File = \t"<<favreAverage_momentum<<endl;
-
 
 scalar timeaverage_momentum = 0;
 scalar runtime_momentum     = 0;
 double time_diff_momentum = 0;
 double time_integrate_momentum = 0;
-
-
 
 //~ volVectorField DragContrVeg_b
 //~ (
@@ -92,7 +87,6 @@ volScalarField pA
         0
     )
 );
-
 
 volScalarField pFF
 (
@@ -195,7 +189,6 @@ volVectorField divTauaContr_b
     ),
     fvc::grad(pff)
 );
-
 
 volVectorField ViscStressContr_b
 (
@@ -341,43 +334,42 @@ volVectorField ExtContr_b
 );
 
 volScalarField Errosion
-   		(
-       		IOobject
-				(
-            		"Errosion",
-            		runTime.timeName(),
-            		mesh,
-            		IOobject::NO_READ,
-			IOobject::NO_WRITE
-        		),
-        	mesh,
-        	dimensionedScalar
-        		(
-            		"Errosion",
-            			dimensionSet(0, 1, -1, 0, 0, 0, 0),
-            			0.0
-        		)
+        (
+            IOobject
+                (
+                    "Errosion",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+            IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedScalar
+                (
+                    "Errosion",
+                        dimensionSet(0, 1, -1, 0, 0, 0, 0),
+                        0.0
+                )
  );
 
 volScalarField Deposition
-   		(
-       		IOobject
-				(
-            		"Deposition",
-            		runTime.timeName(),
-            		mesh,
-            		IOobject::NO_READ,
-			IOobject::NO_WRITE
-        		),
-        	mesh,
-        	dimensionedScalar
-        		(
-            		"Deposition",
-            			dimensionSet(0, 1, -1, 0, 0, 0, 0),
-            			0.0
-        		)
-    	);
-
+        (
+            IOobject
+                (
+                    "Deposition",
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+            IOobject::NO_WRITE
+                ),
+            mesh,
+            dimensionedScalar
+                (
+                    "Deposition",
+                        dimensionSet(0, 1, -1, 0, 0, 0, 0),
+                        0.0
+                )
+        );
 
 if (Reset_particle)
 {
@@ -388,38 +380,36 @@ runtime_momentum = 0;
 
 }
 
-else 
+else
 
 {
 
-	runtime_momentum = runTime.value();// 0;// this->runTime.timeName();
-	
-IOobject alpha_aMeanHeader
-    		(
-        		"alpha_aMean",
-        		runTime.timeName(),
-        		mesh,
-        		IOobject::NO_READ
-    		);
+    runtime_momentum = runTime.value();// 0;// this->runTime.timeName();
 
+IOobject alpha_aMeanHeader
+            (
+                "alpha_aMean",
+                runTime.timeName(),
+                mesh,
+                IOobject::NO_READ
+            );
 
 if (alpha_aMeanHeader.typeHeaderOk<volScalarField>(true))
 {
-	volScalarField alpha_aMean2
-        			(
-            				IOobject
-            					(
-                					"alpha_aMean",
-                					runTime.timeName(),
-                					mesh,
-                					IOobject::MUST_READ,
-                					IOobject::NO_WRITE
-            					),
-            				mesh
-        			);
-    				alpha_aMean = alpha_aMean2;
+    volScalarField alpha_aMean2
+                    (
+                            IOobject
+                                (
+                                    "alpha_aMean",
+                                    runTime.timeName(),
+                                    mesh,
+                                    IOobject::MUST_READ,
+                                    IOobject::NO_WRITE
+                                ),
+                            mesh
+                    );
+                    alpha_aMean = alpha_aMean2;
 
-    
   IOobject pMech_bHeader
     (
         "pMech_b",
@@ -442,8 +432,7 @@ volScalarField pMech2
     mesh
 );
 pMech_b = pMech2;
-}
-
+    }
 
 IOobject pAHeader
     (
@@ -467,8 +456,7 @@ volScalarField pA2
     mesh
 );
 pA = pA2;
-}
-
+    }
 
 IOobject pFFHeader
     (
@@ -492,8 +480,7 @@ volScalarField pFF2
     mesh
 );
 pFF = pFF2;
-}
-
+    }
 
 IOobject rho_mixdHeader
     (
@@ -517,8 +504,7 @@ volVectorField rho_mixd2
     mesh
 );
 rho_mixd = rho_mixd2;
-}
-
+    }
 
 IOobject nonl_mixdHeader
     (
@@ -542,7 +528,7 @@ volTensorField nonl_mixd2
     mesh
 );
 nonl_mixd = nonl_mixd2;
-}
+    }
 
 IOobject bouy_mixdHeader
     (
@@ -566,7 +552,7 @@ volVectorField bouy_mixd2
     mesh
 );
 bouy_mixd = bouy_mixd2;
-}
+    }
 
 IOobject SolidPressureContr_bHeader
     (
@@ -590,7 +576,7 @@ volVectorField SolidPressureContr2
     mesh
 );
 SolidPressureContr_b = SolidPressureContr2;
-}
+    }
 
 IOobject divTauaContr_bHeader
     (
@@ -614,8 +600,7 @@ volVectorField divTauaContr2
     mesh
 );
 divTauaContr_b = divTauaContr2;
-}
-
+    }
 
 IOobject ViscStressContr_bHeader
     (
@@ -639,7 +624,7 @@ volVectorField ViscStressContr2
     mesh
 );
 ViscStressContr_b = ViscStressContr2;
-}
+    }
 
 IOobject FrictContr_bHeader
     (
@@ -663,7 +648,7 @@ volVectorField FrictContr2
     mesh
 );
 FrictContr_b = FrictContr2;
-}
+    }
 
 IOobject phiRaContr_bHeader
     (
@@ -687,7 +672,7 @@ volVectorField phiRaContr2
     mesh
 );
 phiRaContr_b = phiRaContr2;
-}
+    }
 
 IOobject phiRa2Contr_bHeader
     (
@@ -711,7 +696,7 @@ volVectorField phiRa2Contr2
     mesh
 );
 phiRa2Contr_b = phiRa2Contr2;
-}
+    }
 
 IOobject divRcaContr_bHeader
     (
@@ -735,7 +720,7 @@ volVectorField divRcaContr2
     mesh
 );
 divRcaContr_b = divRcaContr2;
-}
+    }
 
 IOobject RcaContr_bHeader
     (
@@ -759,7 +744,7 @@ volVectorField RcaContr2
     mesh
 );
 RcaContr_b = RcaContr2;
-}
+    }
 
 IOobject BulkContr_bHeader
     (
@@ -783,8 +768,7 @@ volVectorField BulkContr2
     mesh
 );
 BulkContr_b = BulkContr2;
-}
-
+    }
 
 IOobject gravityContr_bHeader
     (
@@ -808,8 +792,7 @@ volVectorField gravityContr2
     mesh
 );
 gravityContr_b = gravityContr2;
-}
-
+    }
 
 IOobject DragContr_bHeader
     (
@@ -833,8 +816,7 @@ volVectorField DragContr2
     mesh
 );
 DragContr_b = DragContr2;
-}
-
+    }
 
 IOobject SuspContr_bHeader
     (
@@ -858,8 +840,7 @@ volVectorField SuspContr2
     mesh
 );
 SuspContr_b = SuspContr2;
-}
-
+    }
 
 IOobject ExtContr_bHeader
     (
@@ -883,7 +864,7 @@ volVectorField ExtContr2
     mesh
 );
 ExtContr_b = ExtContr2;
-}
+    }
 
 IOobject ErrosionHeader
     (
@@ -907,8 +888,7 @@ volScalarField Errosion2
     mesh
 );
 Errosion = Errosion2;
-}
-
+    }
 
 IOobject DepositionHeader
     (
@@ -932,7 +912,7 @@ volScalarField Deposition2
     mesh
 );
 Deposition = Deposition2;
-}
+    }
 
 /////////////////
 
@@ -958,8 +938,7 @@ volTensorField Taua2
     mesh
 );
 Taua = Taua2;
-}
-
+    }
 
 IOobject TaubHeader
     (
@@ -983,8 +962,7 @@ volTensorField Taub2
     mesh
 );
 Taub = Taub2;
-}
+    }
 
 }
 }
-

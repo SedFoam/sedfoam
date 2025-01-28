@@ -19,12 +19,10 @@ License
     along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 \*---------------------------------------------------------------------------*/
 
-
 if (favreAveraging)
 {
     #include "calcFavreAverage.H"
 }
-
 
 if (favreAverage_fluid)
 {
