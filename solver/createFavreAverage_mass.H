@@ -228,7 +228,7 @@ if (alpha_aMeanHeader.typeHeaderOk<volScalarField>(true))
         mesh,
         IOobject::NO_READ
     );
-    if (Mean_alphaUaHeader.typeHeaderOk<volTensorField>(true))
+    if (Mean_alphaUaHeader.typeHeaderOk<volVectorField>(true))
     {
 volVectorField Mean_alphaUa2
 (
@@ -253,7 +253,7 @@ Mean_alphaUa = Mean_alphaUa2;
         mesh,
         IOobject::NO_READ
     );
-    if (Mean_UaFalphaFHeader.typeHeaderOk<volTensorField>(true))
+    if (Mean_UaFalphaFHeader.typeHeaderOk<volVectorField>(true))
     {
 volVectorField Mean_UaFalphaF2
 (
@@ -281,7 +281,7 @@ Mean_UaFalphaF = Mean_UaFalphaF2;
         mesh,
         IOobject::NO_READ
     );
-    if (MeanUaFHeader.typeHeaderOk<volTensorField>(true))
+    if (MeanUaFHeader.typeHeaderOk<volVectorField>(true))
     {
 volVectorField MeanUaF2
 (
@@ -321,7 +321,7 @@ MeanUaF = MeanUaF2;
             				mesh
         			);
         		alphaFMean = alphaFMean2;
-    		}
+  }
 
 		
 ///
