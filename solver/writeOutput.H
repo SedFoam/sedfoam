@@ -42,6 +42,12 @@ if (favreAverage_mass)
     #include "Random.H"
 }
 
+if (favreAverage_momentum)
+{       
+	#include "calcFavreAverage_momentum.H"
+}
+
+
 if (runTime.outputTime())
 {
     if (writeTau == 1)

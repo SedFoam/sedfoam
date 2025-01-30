@@ -1,0 +1,862 @@
+./solver/calcFavreAverage_fluid.H:48: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:53: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:54: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:57: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:71: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:73: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:81: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:82: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:88: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:89: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:112: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:113: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:120: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:121: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:122: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:123: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:124: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:125: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:126: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:127: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:128: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:129: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:130: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:131: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:132: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:133: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:134: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:171: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:172: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:173: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:174: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:175: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:176: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:177: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_fluid.H:178: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_mass.H:43: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_mass.H:44: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_mass.H:45: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_mass.H:46: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:40: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:41: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:43: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:45: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:49: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:54: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:67: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:68: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:69: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:70: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:71: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:72: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:73: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:74: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:75: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:76: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:77: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:78: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:79: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:80: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:81: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:82: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:84: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:85: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_momentum.H:86: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:40: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:41: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:45: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:49: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:62: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:63: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:73: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:74: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:98: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:99: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:106: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:107: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:108: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:109: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:110: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:111: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:112: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:113: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:114: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:115: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:116: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:117: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:118: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:119: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:120: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:121: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:122: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:123: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:124: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:125: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:126: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:127: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:128: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:164: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:165: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:166: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:167: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:168: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:169: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:170: error L004: line is longer than 80 characters
+./solver/calcFavreAverage_particle.H:171: error L004: line is longer than 80 characters
+./solver/createFavreAverage_fluid.H:1094: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1233: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1258: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1283: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1308: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1333: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1358: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1361: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1385: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1412: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1415: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1439: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1466: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1490: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1515: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1575: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1602: error L004: line is longer than 80 characters
+./solver/createFavreAverage_fluid.H:1661: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1686: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1712: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1717: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1741: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1744: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1769: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1772: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1796: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1799: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1826: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1851: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1854: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1880: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1908: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1911: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1935: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1938: error L005: too many consecutive empty lines
+./solver/createFavreAverage_fluid.H:1962: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:1988: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:2015: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:2065: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:2090: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:2115: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:2141: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_fluid.H:2147: error L003: trailing empty line(s)
+./solver/createFavreAverage_mass.H:25: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:26: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:27: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:40: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:46: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:62: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:63: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:64: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:65: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:66: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:67: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:68: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:69: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:70: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:71: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:72: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:73: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:74: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:75: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:76: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:77: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:78: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:82: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:83: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:84: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:85: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:86: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:87: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:88: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:89: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:90: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:91: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:92: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:93: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:94: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:95: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:96: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:97: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:98: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:102: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:103: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:104: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:105: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:106: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:107: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:108: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:109: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:110: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:111: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:112: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:113: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:114: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:115: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:116: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:117: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:118: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:119: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:120: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:122: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:123: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:124: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:125: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:126: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:127: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:128: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:129: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:130: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:131: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:132: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:133: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:134: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:135: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:136: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:137: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:138: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:141: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:142: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:143: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:144: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:145: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:146: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:147: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:148: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:149: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:153: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:154: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:155: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:161: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:162: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:163: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:164: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:165: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:166: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:167: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:168: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:169: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:173: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:174: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:175: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:188: error L001: trailing whitespace
+./solver/createFavreAverage_mass.H:192: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:194: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:195: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:199: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:200: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:201: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:202: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:203: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:204: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:209: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:210: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:211: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:212: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:213: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:214: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:215: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:216: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:217: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:218: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:219: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:220: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:221: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:246: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_mass.H:271: error L001: trailing whitespace
+./solver/createFavreAverage_mass.H:271: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_mass.H:274: error L005: too many consecutive empty lines
+./solver/createFavreAverage_mass.H:299: error L001: trailing whitespace
+./solver/createFavreAverage_mass.H:299: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_mass.H:301: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:302: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:303: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:304: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:305: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:306: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:307: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:308: error L001: trailing whitespace
+./solver/createFavreAverage_mass.H:308: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:309: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:310: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:311: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:312: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:313: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:314: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:315: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:316: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:317: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:318: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:319: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:320: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:321: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:322: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:323: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:324: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_mass.H:326: error L001: trailing whitespace
+./solver/createFavreAverage_mass.H:326: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:328: error L001: trailing whitespace
+./solver/createFavreAverage_mass.H:328: error L002: horizontal tab used
+./solver/createFavreAverage_mass.H:333: error L003: trailing empty line(s)
+./solver/createFavreAverage_momentum.H:24: error L005: too many consecutive empty lines
+./solver/createFavreAverage_momentum.H:32: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:35: error L004: line is longer than 80 characters
+./solver/createFavreAverage_momentum.H:44: error L005: too many consecutive empty lines
+./solver/createFavreAverage_momentum.H:344: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:345: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:346: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:347: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:348: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:349: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:350: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:351: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:352: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:353: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:354: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:355: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:356: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:357: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:358: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:359: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:363: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:364: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:365: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:366: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:367: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:368: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:369: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:370: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:371: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:372: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:373: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:374: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:375: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:376: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:377: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:378: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:379: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:391: error L001: trailing whitespace
+./solver/createFavreAverage_momentum.H:395: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:396: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:398: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:399: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:400: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:401: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:402: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:403: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:408: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:409: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:410: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:411: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:412: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:413: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:414: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:415: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:416: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:417: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:418: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:419: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:420: error L002: horizontal tab used
+./solver/createFavreAverage_momentum.H:422: error L001: trailing whitespace
+./solver/createFavreAverage_momentum.H:445: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:470: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:495: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:520: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:545: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:569: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:593: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:617: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:642: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:666: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:690: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:714: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:738: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:762: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:786: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:811: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:836: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:861: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:886: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:910: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:935: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:961: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:986: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_momentum.H:990: error L003: trailing empty line(s)
+./solver/createFavreAverage_particle.H:25: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:26: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:27: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:40: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:46: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:79: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:80: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:81: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:82: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:83: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:84: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:85: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:86: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:87: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:88: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:89: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:90: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:91: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:92: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:93: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:94: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:95: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:118: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:119: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:120: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:121: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:122: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:123: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:124: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:125: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:126: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:130: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:131: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:132: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:138: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:139: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:140: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:141: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:142: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:143: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:144: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:145: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:146: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:147: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:148: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:149: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:150: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:151: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:152: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:153: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:154: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:157: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:157: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:332: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:332: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:334: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:335: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:336: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:337: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:338: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:339: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:340: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:341: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:342: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:343: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:344: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:345: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:346: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:347: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:348: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:349: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:350: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:411: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:412: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:413: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:414: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:415: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:416: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:417: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:418: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:419: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:420: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:421: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:422: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:423: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:424: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:425: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:426: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:427: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:700: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:701: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:702: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:703: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:704: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:705: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:706: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:707: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:708: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:709: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:710: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:711: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:712: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:713: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:714: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:715: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:716: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:911: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:912: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:913: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:914: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:915: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:916: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:917: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:918: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:919: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:920: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:921: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:922: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:923: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:924: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:925: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:926: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:927: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:928: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:930: error L005: too many consecutive empty lines
+./solver/createFavreAverage_particle.H:932: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:933: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:934: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:935: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:936: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:937: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:938: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:939: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:940: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:941: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:942: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:943: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:944: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:945: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:946: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:947: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:948: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:951: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:952: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:953: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:954: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:955: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:956: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:957: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:958: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:959: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:960: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:961: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:962: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:963: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:964: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:965: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:966: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:967: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:970: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:970: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:970: error L005: too many consecutive empty lines
+./solver/createFavreAverage_particle.H:972: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:973: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:974: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:975: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:976: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:977: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:978: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:979: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:980: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:981: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:982: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:983: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:984: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:985: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:986: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:987: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:988: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:991: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:992: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:993: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:994: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:995: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:996: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:997: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:998: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:999: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1000: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1001: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1002: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1003: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1004: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1005: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1006: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1007: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1010: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1011: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1012: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1013: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1014: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1015: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1016: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1017: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1018: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1019: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1020: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1021: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1022: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1023: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1024: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1025: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1026: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1030: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1031: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1032: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1033: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1034: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1035: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1036: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1037: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1038: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1039: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1040: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1041: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1042: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1043: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1044: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1045: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1046: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1068: error L005: too many consecutive empty lines
+./solver/createFavreAverage_particle.H:1078: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1082: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1084: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1085: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1089: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1090: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1091: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1092: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1093: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1094: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1099: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1100: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1101: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1102: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1103: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1104: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1105: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1106: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1107: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1108: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1109: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1110: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1111: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1184: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1209: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1234: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1259: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1270: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1284: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1296: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1311: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1335: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1338: error L005: too many consecutive empty lines
+./solver/createFavreAverage_particle.H:1361: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1386: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1410: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1413: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1414: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1415: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1416: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1416: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1417: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1418: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1419: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1420: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1421: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1422: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1423: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1424: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1424: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1425: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1426: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1427: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1428: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1429: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1430: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1431: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1432: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1433: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1434: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1435: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1436: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1437: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1438: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1439: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1440: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1441: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1443: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1443: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1444: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1444: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1444: error L005: too many consecutive empty lines
+./solver/createFavreAverage_particle.H:1445: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1445: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1446: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1447: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1447: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1448: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1449: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1450: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1451: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1452: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1453: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1454: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1456: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1457: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1458: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1459: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1460: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1461: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1462: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1463: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1464: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1465: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1466: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1467: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1468: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1469: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1470: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1471: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1471: error L004: line is longer than 80 characters
+./solver/createFavreAverage_particle.H:1474: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1476: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1477: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1477: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1478: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1479: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1480: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1481: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1482: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1483: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1484: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1485: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1485: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1486: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1487: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1488: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1489: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1490: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1491: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1492: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1493: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1494: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1495: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1496: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1497: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1498: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1499: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1500: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1501: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1502: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1503: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1504: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1504: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1505: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1506: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1507: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1508: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1509: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1510: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1511: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1512: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1512: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1513: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1514: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1515: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1516: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1517: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1518: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1519: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1520: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1521: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1522: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1523: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1524: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1525: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1526: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1527: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1528: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1530: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1531: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1531: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1532: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1533: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1534: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1535: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1536: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1537: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1538: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1539: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1539: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1540: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1541: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1542: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1543: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1544: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1545: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1546: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1547: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1548: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1549: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1550: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1551: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1552: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1553: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1554: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1555: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1556: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1557: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1558: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1559: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1560: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1561: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1562: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1563: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1564: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1564: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1565: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1566: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1567: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1568: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1569: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1570: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1571: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1572: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1573: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1574: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1575: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1576: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1577: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1578: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1579: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1580: error L002: horizontal tab used
+./solver/createFavreAverage_particle.H:1583: error L005: too many consecutive empty lines
+./solver/createFavreAverage_particle.H:1608: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1634: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1660: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1686: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1691: error L005: too many consecutive empty lines
+./solver/createFavreAverage_particle.H:1715: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1718: error L005: too many consecutive empty lines
+./solver/createFavreAverage_particle.H:1742: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1768: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1771: error L005: too many consecutive empty lines
+./solver/createFavreAverage_particle.H:1795: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1820: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1821: error L001: trailing whitespace
+./solver/createFavreAverage_particle.H:1845: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1870: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1896: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1922: error T011: closing curly bracket not in the same line or column
+./solver/createFavreAverage_particle.H:1930: error L003: trailing empty line(s)
+./solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.C:75: error L001: trailing whitespace
+./solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.C:88: error L001: trailing whitespace
+./solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.C:89: error L001: trailing whitespace
+./solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.C:89: error L002: horizontal tab used
+./solver/sedVegFoam/writeOutput.H:51: error L002: horizontal tab used
+./solver/sedVegFoam/writeOutput.H:51: error L004: line is longer than 80 characters
+./solver/sedVegFoam/writeOutput.H:55: error L005: too many consecutive empty lines
+./solver/sedVegFoam/writeOutput.H:59: error L002: horizontal tab used
+10 reports in 319 files.

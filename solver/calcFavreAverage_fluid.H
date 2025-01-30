@@ -44,7 +44,6 @@ deltaT = runTime.deltaTValue();
 
 timeaverage_fluid = time_integrate_fluid  + deltaT;
 
-
 betaUbMean_F  = (time_integrate_fluid* betaUbMean_F  + beta* Ub* deltaT)  \
                  / (timeaverage_fluid);
 
@@ -122,7 +121,7 @@ SGSDissMeanI_b  = 2* beta* turbulenceb->nut()* (strainTensor_b && fvc::grad(UbPr
 
 if (favreAverage_fluid)
 {
-    TKEMeanProdI_b =  - UbPrime2MeanF && fvc::grad(UbMeanF);
+    TKEMeanProdI_b =  - UbPrime2MeanF_b && fvc::grad(UbMeanF_b);
     TKEMean_b         = (time_integrate_fluid* TKEMean_b + deltaT*0.5* tr(UbPrime2MeanF_b)) / (timeaverage_fluid);
     TKEMeanProd_b     = (time_integrate_fluid*TKEMeanProd_b - deltaT* (UbPrime2MeanF_b && fvc::grad(UbMeanF_b))) / (timeaverage_fluid);
     turbDiffMean_b    = (time_integrate_fluid* turbDiffMean_b - 0.5* beta* (UbPrimeF_b* magSqr(UbPrimeF_b))* deltaT ) / (timeaverage_fluid);

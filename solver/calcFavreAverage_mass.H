@@ -39,11 +39,12 @@ else
 
 timeaverage_mass = time_integrate_mass  + deltaT;
 
+
 alphaF = alpha - alpha_aMean;
 Mean_alphaUa     = (time_integrate_mass* Mean_alphaUa  + alpha* Ua* deltaT) / (timeaverage_mass);
-Mean_UaFalphaF   = (time_integrate_mass* Mean_UaFalphaF  + alphaF* UaPrimeF* deltaT) / (timeaverage_mass);
+Mean_UaFalphaF   = (time_integrate_mass* Mean_UaFalphaF  + alphaF* UaPrimeF_a* deltaT) / (timeaverage_mass);
 alphaFMean       = (time_integrate_mass* alphaFMean  + alphaF* deltaT) / (timeaverage_mass);
-MeanUaF          = (time_integrate_mass* MeanUaF  + UaPrimeF* deltaT) / (timeaverage_mass);
+MeanUaF          = (time_integrate_mass* MeanUaF  + UaPrimeF_a* deltaT) / (timeaverage_mass);
 
 if (runTime.outputTime())
 {

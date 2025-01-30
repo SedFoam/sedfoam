@@ -1,0 +1,12 @@
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.C:26:#include "GidaspowSchillerNaumann_veg.H"
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.C:33:    defineTypeNameAndDebug(GidaspowSchillerNaumann_veg, 0);
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.C:38:        GidaspowSchillerNaumann_veg,
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.C:46:Foam::GidaspowSchillerNaumann_veg::GidaspowSchillerNaumann_veg
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.C:59:Foam::GidaspowSchillerNaumann_veg::~GidaspowSchillerNaumann_veg()
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.C:65:Foam::tmp<Foam::volScalarField> Foam::GidaspowSchillerNaumann_veg::K
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.H:45:#ifndef GidaspowSchillerNaumann_veg_H
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.H:46:#define GidaspowSchillerNaumann_veg_H
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.H:59:class GidaspowSchillerNaumann_veg
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.H:67:    TypeName("GidaspowSchillerNaumann_veg");
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.H:73:        GidaspowSchillerNaumann_veg
+solver/interfacialModels/vegDragModels/GidaspowSchillerNaumann_veg/GidaspowSchillerNaumann_veg.H:82:    virtual ~GidaspowSchillerNaumann_veg();

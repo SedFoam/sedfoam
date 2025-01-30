@@ -20,7 +20,6 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-
 /*    This terms compute rho U mean */
 
 time_diff_particle = runtime_particle - T0;
@@ -82,8 +81,6 @@ if (runTime.outputTime())
     RS2_a.write();
     RS4_a.write();
     UaPrime2MeanF_a.write();
-    UaMean.write();
-    UaMeanF_a.write();
 }
 
 /* ******************* Mean Sij or Tij *********** */
@@ -102,7 +99,7 @@ SGSDissMeanI_a  = 2* alpha* turbulencea->nut()* (strainTensor_a && fvc::grad(UaP
 
 if (favreAverage_particle)
 {
-    TKEMeanProdI_a =  - UaPrime2MeanF && fvc::grad(UaMeanF);
+    TKEMeanProdI_a =  - UaPrime2MeanF_a && fvc::grad(UaMeanF_a);
     TKEMean_a            =    (time_integrate_particle*TKEMean_a  + deltaT* 0.5* tr(UaPrime2MeanF_a)) / (timeaverage_particle);
     TKEMeanProd_a        =    (time_integrate_particle*TKEMeanProd_a  - deltaT*(UaPrime2MeanF_a && fvc::grad(UaMeanF_a))) / (timeaverage_particle);
     turbDiffMean_a       =    (time_integrate_particle* turbDiffMean_a - 0.5* alpha* (UaPrimeF_a* magSqr(UaPrimeF_a))* deltaT ) / (timeaverage_particle);

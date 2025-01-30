@@ -34,10 +34,12 @@ Switch favreAverage_fluid
     runTime.controlDict().lookupOrDefault("favreAverage_fluid", false)
 );
 
+
 Switch AverageMode
 (
     runTime.controlDict().lookupOrDefault("AverageMode", false)
 );
+
 
 Switch Reset_fluid
 (
