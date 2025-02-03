@@ -30,23 +30,6 @@ if (favreAverage_fluid)
     #include "Random.H"
 }
 
-if (favreAverage_particle)
-{
-    #include "calcFavreAverage_particle.H"
-    #include "Random.H"
-}
-
-if (favreAverage_mass)
-{
-    #include "calcFavreAverage_mass.H"
-    #include "Random.H"
-}
-
-if (favreAverage_momentum)
-{       
-	#include "calcFavreAverage_momentum.H"
-}
-
 
 if (runTime.outputTime())
 {

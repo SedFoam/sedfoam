@@ -38,7 +38,7 @@ void partDynamicLagrangian<BasicTurbulenceModel>::correctNut
     const tmp<volTensorField>& gradU
 )
 {
-    this->nut_ = min((flma_/fmma_)*sqr(this->delta())*::sqrt(2.0)*mag(dev(symm(gradU))),  // due to symmetric part
+    this->nut_ = min((flma_/fmma_)*sqr(this->delta())*mag(dev(symm(gradU))),
                       nutMax_);
     this->nut_.correctBoundaryConditions();
     fv::options::New(this->mesh_).correct(this->nut_);

@@ -30,30 +30,10 @@ if (favreAverage_fluid)
     #include "Random.H"
 }
 
-if (favreAverage_particle)
-{
-    #include "calcFavreAverage_particle.H"
-    #include "Random.H"
-}
-
-if (favreAverage_mass)
-{
-    #include "calcFavreAverage_mass.H"
-    #include "Random.H"
-}
-
-if (favreAverage_momentum)
-{       
-	#include "calcFavreAverage_momentum.H"
-}
-
 
 if (favreAverage_fluid)
 {
     dragVegMean       = (time_integrate_fluid* dragVegMean - (UbPrimeF_b & (beta* alphaVeg* Kveg* (Ub))/rhob)* deltaT ) / (timeaverage_fluid);
-	Info<<"Remi Veg deltaT = \t"<<deltaT<<endl;
-	Info<<"Remi Veg time_integrate_fluid = \t"<<time_integrate_fluid<<endl;
-	Info<<"Remi Veg timeaverage_fluid = \t"<<timeaverage_fluid<<endl;
 }
 
 if (runTime.outputTime())
