@@ -861,6 +861,7 @@ INPUT                  = index.doc \
                          tutorials_laminar.doc \
                          tutorials_RAS.doc \
                          tutorials_LES.doc \
+                         ndsolution.doc \
                          tutorials_DyM.doc \
                          publications.doc \
                          input.doc \
