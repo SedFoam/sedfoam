@@ -22,7 +22,10 @@ License
 //##include "getTimeIndex.H"
  #include <cstdlib>
 
+
 /* Variables defined for Fluid part in the TKE budget for intiation  */
+
+
 
 dimensionedScalar zeroo
 (
@@ -36,10 +39,12 @@ Switch favreAverage_fluid
     runTime.controlDict().lookupOrDefault("favreAverage_fluid", false)
 );
 
+
 Switch AverageMode
 (
     runTime.controlDict().lookupOrDefault("AverageMode", false)
 );
+
 
 Switch Reset_fluid
 (
@@ -1075,7 +1080,9 @@ volScalarField pPrimeF_b
     )
 );
 
+
 /*     Variable for Mass budget terms for initiations */
+
 
 volVectorField Mean_alphaUa
     (
@@ -1192,6 +1199,9 @@ volScalarField alphaF
     );
 
 /*  Variable initialization for particle phase */
+
+
+
 
 volScalarField WacubeMean
 (
@@ -2506,6 +2516,7 @@ volScalarField Deposition
                 )
         );
 
+
 if (Reset_fluid)
 {
 
@@ -2992,8 +3003,7 @@ pressDiffMeanJ_b = pressDiffMeanJ2_b;
               mesh
             );
           UbPrime2MeanF_b = UbPrime2MeanF_b2;
-          betaSqrUbMean_b = (UbPrime2MeanF_b+UbMeanF_b*UbMeanF_b)*
-                            (1-alpha_aMean_F);
+          betaSqrUbMean_b = (UbPrime2MeanF_b+UbMeanF_b*UbMeanF_b)*(1-alpha_aMean_F);
 
         }
 
@@ -3507,6 +3517,7 @@ dragVegMean = dragVegMean2;
 
     }
 
+
 /* Mean Variable for mass budget  */
 
     IOobject Mean_alphaUaHeader
@@ -3607,6 +3618,7 @@ MeanUaF = MeanUaF2;
        }
 
  /*   Mean variable defined for Particles             */
+
 
           IOobject RS2Mean_aHeader
     (
@@ -3953,9 +3965,8 @@ pressDiffMeanJ_a = pressDiffMeanJ2_a;
                                         ),
                                     mesh
                             );
-                       UaPrime2MeanF_a = UaPrime2MeanF_a2;
-                       alphaSqrUaMean_a = (UaPrime2MeanF_a+UaMeanF_a*UaMeanF_a)
-                                          *(alpha_aMean_a);
+                        UaPrime2MeanF_a = UaPrime2MeanF_a2;
+                        alphaSqrUaMean_a = (UaPrime2MeanF_a+UaMeanF_a*UaMeanF_a)*(alpha_aMean_a);
 
                     }
 
@@ -4946,6 +4957,9 @@ volTensorField Taub2
 );
 Taub = Taub2;
     }
+
+
+
 
 }
 

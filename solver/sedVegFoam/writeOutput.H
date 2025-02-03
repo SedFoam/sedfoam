@@ -30,10 +30,11 @@ if (favreAverage_fluid)
     #include "Random.H"
 }
 
-
 if (favreAverage_fluid)
 {
-    dragVegMean       = (time_integrate_fluid* dragVegMean - (UbPrimeF_b & (beta* alphaVeg* Kveg* (Ub))/rhob)* deltaT ) / (timeaverage_fluid);
+    dragVegMean = (time_integrate_fluid* dragVegMean
+                  - (UbPrimeF_b & (beta* alphaVeg* Kveg* (Ub))/rhob)* deltaT )
+                  / (timeaverage_fluid);
 }
 
 if (runTime.outputTime())
