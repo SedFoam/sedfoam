@@ -241,5 +241,6 @@ The script *plot_tuto3DOscillSheetFlow.py* reads the netCDF files and plots vert
 @image html "tuto3DOscillSheetFlow.png" "Figure 4: Concentration and velocity profiles for the 3DOscillSheetFlow tutorial." width=600px
 @image latex "tuto3DOscillSheetFlow.png" "Figure 4: Concentration and velocity profiles for the 3DOscillSheetFlow tutorial."
 
+\section Modified
 
 */
