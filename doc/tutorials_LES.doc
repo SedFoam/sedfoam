@@ -387,7 +387,7 @@ reconstructPar -time <put the time frame you want to reconstruct>
 
 \subsection FavrePost Post-processing
 
-After obtaining the time frame from sequential simulations or once the reconstruction is completed for parallel simulations, use the *plot_tuto3DChannel180.py* script to compare the data from sedFoam with Direct Numerical Simulation (DNS) data  <a href="https://pubs.aip.org/aip/pof/article-abstract/11/4/943/253866/Direct-numerical-simulation-of-turbulent-channel?redirectedFrom=fulltext"> R. D. Moser, J. Kim & N. N. Mansour, (1998) </a>. 
+After obtaining the time frame from sequential simulations or once the reconstruction is completed for parallel simulations, use the *plot_tuto3DChannel180.py* script to compare the data from sedFoam with Direct Numerical Simulation (DNS) data  (<a href="https://pubs.aip.org/aip/pof/article-abstract/11/4/943/253866/Direct-numerical-simulation-of-turbulent-channel?redirectedFrom=fulltext"> R. D. Moser, J. Kim & N. N. Mansour, (1998) </a>). 
 The Python script reads the data generated from the sedFoam simulation and compares it with the DNS data shown below
 
 
