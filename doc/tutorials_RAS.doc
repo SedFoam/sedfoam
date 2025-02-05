@@ -8,7 +8,7 @@
 
 \tableofcontents{xml:1}
 
-In this chapter multi-dimensional test cases are presented to illustrate the full SedFoam capabilities to deal with complex geometries as well as to provide configuration files to allow for the development of new configurations.
+In this chapter multi-dimensional test cases are presented to illustrate the full SedFoam capabilities to deal with complex geometries as well as to provide configuration files to allow for the development of new configurations. 
 
 
 \section BoundaryLayer 1DBoundaryLayer: Single-phase turbulent boundary layer flow
@@ -579,7 +579,7 @@ This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tut
 
 \subsection meshgen_SP Mesh generation
 
-The numerical domain dimensions are presented in figure 7. A cylinder of diameter \f$ D=5cm \f$ is placed 15 diameters away from the inlet. The overall domain dimensions were 35 diameters long and 6.1 diameters high. The mesh is generated using the OpenFOAM utilities blockMesh and snappyHexMesh. The mesh generated with blockMesh is a simple rectangle with regular grid spacing excepted in the vertical direction where cells are expanding toward the top boundary. The snappyHexMesh utility uses the file Cyl.stl located in the constant/triSurface directory containing the cylinder geometry to remove mesh cells inside it, add layers of cells around the cylinder and refine cells in regions of high concentration gradient at the bed.
+The numerical domain dimensions are presented in figure 7. A cylinder of diameter \f$ D=5cm \f$ is placed 15 diameters away from the inlet. The overall domain dimensions were 35 diameters long and 6.1 diameters high. The mesh is generated using the OpenFOAM utilities blockMesh and snappyHexMesh. The mesh generated with blockMesh is a simple rectangle with regular grid spacing excepted in the vertical direction where cells are expanding toward the top boundary. The snappyHexMesh utility uses the file Cyl.stl located in the constant/triSurface directory containing the cylinder geometry to remove mesh cells inside it, add layers of cells around the cylinder and refine cells in regions of high concentration gradient at the bed. 
 
 @image html "sketch_2DPipelineScour.png" "Figure 7: Sketch of the scour under a submarine pipeline." width=600px
 @image latex "sketch_2DPipelineScour.png" "Figure 7: Sketch of the scour under a submarine pipeline."
@@ -621,7 +621,7 @@ phaseb
 }
 //*********************************************************************** //
 
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-4;  // minimum volume fraction (phase a) for division by alpha
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-4;  // minimum volume fraction (phase a) for division by alpha 
 
 alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
 
@@ -692,24 +692,24 @@ The post-processing python scripts plot_profiles2DPipelineScour.py and plot_dept
 
 The script _profiles2DPipelineScour.py plots bed profiles at 11s, 18s and 25s compared with experimental data like in the following figure:
 
-@image html "bed_profiles_kOmega.png" "Figure 8: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model." width=600px
-@image latex "bed_profiles_kOmega.png" "Figure 8: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model."
+@image html "bed_profiles_kEpsilon.png" "Figure 8: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model." width=600px
+@image latex "bed_profiles_kEpsilon.png" "Figure 8: Sediment bed profiles at 11s (top), 18s (middle) and 25s (bottom) using a \f$ k-\omega \f$ turbulence model."
 
 The script plot_depth2DPipelineScour.py plots the maximum scour depth compared with experimental data like in the following figure:
 
-@image html "maximum_depth_kOmega.png" "Figure 9: Maximum scour depth using a k-omega turbulence model." width=600px
-@image latex "maximum_depth_kOmega.png" "Figure 9: Maximum scour depth using a k-omega turbulence model."
+@image html "maximum_depth_kEpsilon.png" "Figure 9: Maximum scour depth using a k-omega turbulence model." width=600px
+@image latex "maximum_depth_kEpsilon.png" "Figure 9: Maximum scour depth using a k-omega turbulence model."
 
 
 \section Scour3DCylinder 3DScourCylinder: Scour around a vertical cylinder
 
-In this tutorial, the experimental configuration from Roulund et al (2005) is reproduced numerically.
+In this tutorial, the experimental configuration from Roulund et al (2005) is reproduced numerically. 
 
 \subsection preprocS3D Pre-processing
 
 This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/RAS/3DScour*.
 
-A 1D boundary layer simulation needs to be run (see folder 1D and Allrun.pre) for fore information. The result of this simulations is then used to intialize the 3D configuation and to impose the inlet boundary condition.
+A 1D boundary layer simulation needs to be run (see folder 1D and Allrun.pre) for fore information. The result of this simulations is then used to intialize the 3D configuation and to impose the inlet boundary condition. 
 
 \subsection meshgen_S3D Mesh generation
 
@@ -772,7 +772,7 @@ phaseb
     sF              sF   [ 0 0  0 0 0 0 0 ] 1.;
     hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;
 }
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha 
 
 alphaAlpha      alphaAlpha [ 0 0 0 0 0 ] 0;         // surface tension
 
@@ -797,8 +797,6 @@ The granular stress model is set to *granularRheology* using the following param
 granularRheology   on;
 
 granularDilatancy  off;
-
-granularCohesion off;
 
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
 
@@ -837,130 +835,6 @@ As for the previous case, you can launch the computation by executing * Allrun *
 
 The post-processing is mostly performed using paraview. No python script is provided withthi configuration at the moment.
 
-\section Scour3DSqr 3DScourSqr: Scour around a vertical square cylinder
 
-In this tutorial, the hybrid RANS-LES k-omega 2006 SAS is applied to the live-bed configuration of scour around a vertical square cylinder.
-
-\subsection preprocS3D Pre-processing
-
-This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/RAS/3DScourSqr*.
-
-Similarly as the 3DScour configuration, a 1D boundary layer simulation needs to be run and then used to intialize the 3D configuation and to impose the inlet boundary condition.
-
-\subsection meshgen_S3D Mesh generation
-
-A square-based cylinder and \f$ D=10cm \f$ side is placed 4D away from the inlet. Numerical simulations have been performed with the following computational domain : 12D long, 8D wide and 2,5D high. The mesh is generated using the OpenFOAM utilities blockMesh with Lu, Ld and H the upstream, downstream, width length of the computational domain. A sediment bed layer having a thickness of D/2 is initially set-up. The sediments and hydrodynamics are similar as the 3DScour configuration.
-
-\subsection  BC_init_S3D Boundary and initial conditions
-
-The boundary conditions are very close to the 3DScour configuration :
-
-(i) At the inlet, vertical profiles obtained from a 1D vertical simulation are imposed for \f$ u^s, u^f , k , \omega.b, \alpha.a, \Theta \f$. Zero transverse velocity is prescribed.
-
-(ii) At the outlet, Neumann boundary conditions are specified for all quantities, except for the pressure for which a homogeneous Dirichlet boundary condition is imposed for the reduced pressure. For the velocities, a homogeneous Neumann boundary condition is used when the velocity vector points outside of the domain at the outlet, and a homogeneous Dirichlet boundary condition is used otherwise.
-
-(iii) At the top and side boundaries, the same boundary conditions as in the 3DScour case are used.
-
-(iv) At the walls (including the cylinder), zero velocity (no-slip) is imposed for the three components and a small value is imposed for the turbulent kinetic energy (TKE) k.b. The boundary condition for \f$\omega.b\f$ is specified using the classical wall function from openFOAM at the cylinder and using a constant value is imposed at the bottom.
-
-\subsection PhysProp_S3D Physical properties
-
-The transportProperties file for the 3DScourSqr is identical to the 3DScour configuration.
-
-\subsection KT_S3D Kinetic theory
-
-In this tutorial, the kinetic theory is used for the granular stress model and the kineticTheoryProperties reads:
-
-\verbatim
-kineticTheory   on;
-
-limitProduction off;
-
-extended        off;
-
-e               e [ 0 0 0 0 0 0 0 ] 0.7;
-
-muPart          muPart [ 0 0 0 0 0 0 0 ] 0.4;
-
-alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
-
-MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 0.5;
-
-phi             phi [ 0 0 0 0 0 0 0 ] 32;
-
-psi             psi [ 0 0 0 0 0 0 0 ] 0.0;
-
-killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 0;
-
-quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
-
-viscosityModel  GarzoDuftyMod;
-
-conductivityModel GarzoDuftyMod;
-
-granularPressureModel Lun;
-
-saltationModel	none; 
-
-radialModel     ChialvoSundaresan;
-\endverbatim
-
-\subsection Turb_S3D Turbulence properties
-
-The turbulence model is set to twophasekOmegaSAS in *turbulenceProperties.b*:
-
-\verbatim
-
-simulationType  RAS;
-
-RAS
-{
-    RASModel        twophasekOmegaSAS;
-    turbulence      on;
-    printCoeffs     on;
-    twophasekOmegaSASCoeffs
-    {
-        alphaOmega       0.52;
-        betaOmega        0.0708; // original k-omega: 0.072 // k-omega (2006): 0.0708
-        C3om             0.35;
-        C4om             1.0;
-        alphaKomega      0.6; // original k-omega: 0.5 // k-omega (2006): 0.6
-        alphaOmegaOmega  0.5;
-        Clim             0.875; // original k-omega: 0.0 // k-omega (2006): 0.875
-        sigmad           0.125; // original k-omega: 0.0 // k-omega (2006): 0.125
-        Cmu              0.09;
-        KE2              1.0; //turb modulation
-        KE4              1.0; //density stratification g  
-        nutMax           5e-3;
-        popeCorrection   true;
-        
-	    delta           vanDriest;
-    	vanDriestCoeffs
-    	{
-		    delta           cubeRootVol;
-            cubeRootVolCoeffs
-            {
-                deltaCoeff      1;
-            }
-            Aplus           26;
-            Cdelta          0.158;
-    	}
-    }
-}
-
-\endverbatim
-\subsection control_S3D Control
-
-The system/controlDict file indicates that for this case the time step is fixed at 0.0005 s.
-
-\subsection  lauch_S3D Computation launching
-
-As for the previous case, you can launch the computation by executing * Allrun *. The mesh is quite coarse and the simulation can be launched with 10 cores.
-\subsection post_S3D Post-processing using paraview
-
-The post-processing is mostly performed using paraview. No python script is provided within configuration at the moment. A snapshot of the simulation with the hybrid model is shown next:
-
-@image html "3DScourSqrSAS.png" "Figure 11: Sediment interface with volume rendering at 20s using a hybrid \f$ k-\omega 2006 SAS\f$ turbulence model." width=600px
-@image latex "3DScourSqrSAS.png" "Figure 11: Sediment interface with volume rendering at 20s using a hybrid \f$ k-\omega 2006 SAS\f$ turbulence model."
 
 */

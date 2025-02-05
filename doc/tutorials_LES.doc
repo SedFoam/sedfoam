@@ -115,11 +115,11 @@ As for the previous case, you can launch the computation by executing *Allrun* f
 
 \subsection post_Chan Post-processing using python
 
-The post-processing python scripts *writedata_tuto3DChannel560.py* and *plot_tuto3DChannel560.py* are located in the folder *tutorials/Py*. To run this script, the latest output (16s) should be reconstructed.
+The post-processing python scripts writedata_tuto3DChannel560.py and plot_tuto3DChannel560.py are located in the folder tutorials/Py. To run this script, the latest output (16s) should be reconstructed.
 
-The script *writedata_tuto3DChannel560.py* reads time averaged OpenFoam data, perform a spatial averaging operation and stores the 1D vertical profiles in a netCDF file located in the postProcessing directory of the case.
+The script writedata_tuto3DChannel560.py reads time averaged OpenFoam data, perform a spatial averaging operation and stores the 1D vertical profiles in a netCDF file located in the postProcessing directory of the case.
 
-The script *plot_tuto3DChannel560.py* reads the netCDF file and plots vertical profile of concentration, velocities and Reynolds stresses
+The script plot_tuto3DChannel560.py reads the netCDF file and plots vertical profile of concentration, velocities and Reynolds stresses
 
 @image html "tuto3DChannel560.png" "Figure 2: Concentration, velocity and Reynolds stress profiles for the 3DChannel560 tutorial." width=700px
 @image latex "tuto3DChannel560.png" "Figure 2: Concentration, velocity and Reynolds stress profiles for the 3DChannel560 tutorial."
@@ -228,19 +228,171 @@ As for the previous case, you can launch the computation by executing *Allrun*. 
 
 \subsection post_Chan Post-processing using python
 
-The post-processing python scripts *writedata_tuto3DOscillSheetFlow.py* and *plot_tuto3DOscillSheetFlow.py* are located in the folder tutorials/Py. To run this script, all the simulation outputs after 20s (and only them) should be reconstructed using the following command:
+The post-processing python scripts writedata_tuto3DOscillSheetFlow.py and plot_tuto3DOscillSheetFlow.py are located in the folder tutorials/Py. To run this script, all the simulation outputs after 20s (and only them) should be reconstructed using the following command:
 
-\verbatim
-reconstructPar -time '20:'
-\endverbatim
+*reconstructPar -time '20:'*
 
-The script *writedata_tuto3DOscillSheetFlow.py* reads OpenFoam data, performs a spatial averaging operation, then performs a phase averaging operation taking into account four wave periods and stores the 1D vertical profiles in netCDF files located in the postProcessing directory of the case.
+The script writedata_tuto3DOscillSheetFlow.py reads OpenFoam data, performs a spatial averaging operation, then performs a phase averaging operation taking into account four wave periods and stores the 1D vertical profiles in netCDF files located in the postProcessing directory of the case.
 
-The script *plot_tuto3DOscillSheetFlow.py* reads the netCDF files and plots vertical profile of concentration, velocities and Reynolds stresses at different moments of the wave period.
+The script plot_tuto3DOscillSheetFlow.py reads the netCDF files and plots vertical profile of concentration, velocities and Reynolds stresses at different moments of the wave period.
 
 @image html "tuto3DOscillSheetFlow.png" "Figure 4: Concentration and velocity profiles for the 3DOscillSheetFlow tutorial." width=600px
 @image latex "tuto3DOscillSheetFlow.png" "Figure 4: Concentration and velocity profiles for the 3DOscillSheetFlow tutorial."
 
-\section Modified
+
+\section FavreAverage_sec 3DChannel180: Favre average TKE budget of Turbulent channel flow
+
+The Favre average turbulent kinetic energy (TKE) budget can be done during the simulation using the switch in the *controlDict* file inside *system* folder. The details are discuss in the coming sections.
+
+\subsection FavrePre-proces Pre-processing
+
+The tutorial is distributed with sedFoam under the folder sedFaomDirectory/tutorials/3DChanel560. You have to set some parameter to chnage the  \f$ Re_\tau \f$  from \f$ 560 \f$ to  \f$ 180 \f$ discuss in the coming subsections.
+
+\subsection Mesh-boudary Mesh and boundary conditions
+
+The numerical domain and boundary condition details are provided in \ref channel_sec. The mesh consists of \f$ 64 \times 64 \times 64 \f$  elements and is stretched along the  \f$ y -\f$ axis to enhance resolution near the walls. Since the non-dimensional Navier–Stokes equation is being solved, the *blockMeshDict* in the system folder requires the following modifications:
+
+\verbatim
+
+scale 1;
+
+vertices
+(
+    (0 0 0)   
+    (6 0 0)   
+    (0 1 0)   
+    (6 1 0)   
+    (0 2 0)   
+    (6 2 0)   
+    (0 0 3)   
+    (6 0 3)   
+    (0 1 3)   
+    (6 1 3)   
+    (0 2 3)   
+    (6 2 3)   
+);
+
+blocks
+(
+    hex (0 1 3 2 6 7 9   8) (64 32 64) simpleGrading (1 10.7028 1) 
+    hex (2 3 5 4 8 9 11 10) (64 32 64) simpleGrading (1  0.0934 1)
+);
+
+
+\endverbatim
+
+\subsection FavreIntial Initial conditions
+
+The flow is governed by the pressure gradient along the \f$ x - \f$ axis, which is dynamically adjusted at each time step to maintain the bulk velocity \f$ U_b = 1 m.s^{-1}\f$. This adjustment of the bulk velocity is carried out using the *OpenFOAM* *fvOption* utility.
+
+\subsection FavrePhysical Physical properties
+
+The "constant" folder contains all the physical parameters or closures required to solve the flow numerically. To set the Reynolds number \f$ Re_\tau = 180 \f$, you can modify the *transportProperties* file as shown below.
+
+\verbatim
+
+phasea
+{
+    rho             rho [ 1 -3 0 0 0 ]    1000;
+    nu              nu  [ 0 2 -1 0 0 ]    3.6e-4; //1e-6;
+    d               d   [ 0 1 0 0 0 0 0 ] 1.95e-4;
+    sF              sF   [ 0 0  0 0 0 0 0 ] 1;    // shape Factor to adjust settling velocity for non-spherical particles
+    hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;  // hindrance exponent for drag: beta^(-hExp) (2.65 by default)
+}
+// * * * * * * * * * * * * fluid properties * * * * * * * * * * * * //
+phaseb
+{
+    rho             rho [ 1 -3 0 0 0 ] 1000;
+    nu              nu [ 0 2 -1 0 0 ]  3.6e-4; //1.e-6;
+    d               d [ 0 1 0 0 0 0 0 ] 2e-4;
+    sF              sF   [ 0 0  0 0 0 0 0 ] 1;
+    hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;
+}
+//*********************************************************************** //
+transportModel  Newtonian;
+
+nu              nu [ 0 2 -1 0 0 0 0 ] 3.6e-4;
+
+nuMax           nuMax [0 2 -1 0 0 0 0] 1e2;      // viscosity limiter for the Frictional model (required for stability)
+
+alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-3;  // minimum volume fraction (phase a) for division by alpha
+
+// ************************************************************************* //
+   
+\endverbatim
+
+\subsection FavreControl Control
+
+All simulation-related parameters are specified in the controlDict file located inside the system folder. The switch for Favre-averaged turbulent kinetic energy is also found in the controlDict file. To enable Favre averaging, add the following line to the controlDict file as described in Section \ref channel_sec.
+
+
+\verbatim
+
+AverageMode   true;  // To enable Favre average mode keep it true or otherwise keep it false
+
+StartAverageTime 0.0;  // Time from where you wnat to start averaging
+
+favreAverage_fluid  true;   // To save the Favre average files 
+
+\endverbatim
+
+\subsection FavreRun Running the simulation
+
+You can run the *sedFoam* code in both sequential and parallel modes. To start the simulation, you can execute Allrun for turbulence initialization or include the following lines in a bash script.
+
+\verbatim
+
+*** Line to run the simulation in sequential
+# create the mesh
+
+foamCleanPolyMesh
+blockMesh
+
+# create the intial time folder
+
+cp -r 0_org 0
+
+# run the excutable file
+
+sedFoam_rbgh >log&
+
+
+******** Line to run the simulation in parallel
+
+# create the mesh
+
+foamCleanPolyMesh
+blockMesh
+
+# create the intial time folder
+
+cp -r 0_org 0
+
+# Decompose the case in order to run in parallel (on 16 cores)
+
+decomposePar
+
+# Run sedFoam in parallel
+mpirun -np 4 sedFoam_rbgh -parallel > log&
+
+\endverbatim
+
+After completing the simulation in parallel, it is necessary to reconstruct the files obtained from each processor. To do this, first, load the OpenFOAM module and execute the following command in the terminal or include it in a bash script.
+
+\verbatim
+
+reconstructPar -time <put the time frame you want to reconstruct>
+
+\endverbatim
+
+\subsection FavrePost Post-processing
+
+After obtaining the time frame from sequential simulations or once the reconstruction is completed for parallel simulations, use the *plot_tuto3DChannel180.py* script to compare the data from sedFoam with Direct Numerical Simulation (DNS) data  <a href="https://pubs.aip.org/aip/pof/article-abstract/11/4/943/253866/Direct-numerical-simulation-of-turbulent-channel?redirectedFrom=fulltext"> R. D. Moser, J. Kim & N. N. Mansour, (1998) </a>. 
+The Python script reads the data generated from the sedFoam simulation and compares it with the DNS data shown below
+
+
+@image html "3DChannel180_FavreAverage.png" "Figure 5: nondimensional velocity field, shear stress, turbulent kinetic energy (TKE), and loss and gain for 3DChannel180 tutorial." width=700px
+@image latex "3DChannel180_FavreAverage.png" "Figure 5: nondimensional velocity field, shear stress, turbulent kinetic energy (TKE), and loss and gain for 3DChannel180 tutorial."
+
 
 */

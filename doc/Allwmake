@@ -2,7 +2,7 @@
 cd "${0%/*}" || exit                            # Run from this directory
 #------------------------------------------------------------------------------
 
-module load python
+module load python/3.8.2
 set -x
 
 umask 22
@@ -12,10 +12,10 @@ pip install -U jinja2 Pygments
 git clone https://github.com/mosra/m.css.git
 cd m.css/documentation
 cp ../../doxygen.py .
-python3 doxygen.py ../../conf.py 
+python3 doxygen.py ../../conf.py
 cd ../..
 cp images/* mcssout/html/.
-#fix permissions (NB: '+X' and not '+x'!)
+# fix permissions (NB: '+X' and not '+x'!)
 chmod -R a+rX ./
 
 #------------------------------------------------------------------------------
