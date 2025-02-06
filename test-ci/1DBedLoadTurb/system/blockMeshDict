@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-scale 0.183;
+scale 0.144;
 
 vertices        
 (
@@ -30,7 +30,7 @@ vertices
 
 blocks          
 (
-    hex (0 1 5 4 3 2 6 7) (1 1 50) simpleGrading (1 1 1)
+    hex (0 1 5 4 3 2 6 7) (1 1 60) simpleGrading (1 1 1)
 );
 
 edges           
