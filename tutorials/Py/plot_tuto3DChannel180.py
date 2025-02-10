@@ -63,7 +63,7 @@ LES_data = np.loadtxt('./DATA/LES_channel_Retau_180.d')
 ###############################################################################
 fig, ax = plt.subplots(2, 2, figsize=(2*E, 2*F))
 
-ax[0][0].plot(chan_data[:, 4], chan_data[:, 0], 'k', lw=1, 
+ax[0][0].plot(chan_data[:, 4], chan_data[:, 0], 'k', lw=1,
               label=r'$Chan$', dashes=(4, 2))
 ax[0][0].plot(LES_data[:, 4], LES_data[:, 0], 'g', lw=1, label=r'$LES$')
 
@@ -110,13 +110,13 @@ ax[1][1].plot(chan_data[:, 1], chan_data[:, 0], 'k', lw=1,
 ax[1][1].plot(LES_data[:, 1], LES_data[:, 0], 'g', lw=1,
               label=r"$sum[Res + Sgs]$")
 ax[1][1].plot(chan_data[:, 3], chan_data[:, 0], 'r', markersize=3, lw=1,
-              label=r'$Chan[TurbDiff]$', dashes=(4,2))
-ax[1][1].plot(LES_data[:, 3], LES_data[:, 0], '*r', markersize=3, lw=1, 
-	      label=r'$LES[TurbDiff]$')
+              label=r'$Chan[TurbDiff]$', dashes=(4, 2))
+ax[1][1].plot(LES_data[:, 3], LES_data[:, 0], '*r', markersize=3, lw=1,
+              label=r'$LES[TurbDiff]$')
 ax[1][1].plot(chan_data[:, 2], chan_data[:, 0], 'b', markersize=4, lw=1,
-	      label=r'$Chan[Prod]$', dashes=(4, 2))
+              label=r'$Chan[Prod]$', dashes=(4, 2))
 ax[1][1].plot(LES_data[:, 2], LES_data[:, 0], '+b', markersize=4, lw=1,
-	      label=r'$LES[Prod]$')
+              label=r'$LES[Prod]$')
 
 ax[1][1].set_ylabel("$y^+$")
 ax[1][1].set_ylim(0, zmax)
