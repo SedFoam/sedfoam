@@ -391,8 +391,8 @@ After obtaining the time frame from sequential simulations or once the reconstru
 The Python script reads the data generated from the sedFoam simulation and compares it with the DNS data shown below
 
 
-@image html "3DChannel180_FavreAverage.png" "Figure 5: nondimensional velocity field, shear stress, turbulent kinetic energy (TKE), and loss and gain for 3DChannel180 tutorial." width=700px
-@image latex "3DChannel180_FavreAverage.png" "Figure 5: nondimensional velocity field, shear stress, turbulent kinetic energy (TKE), and loss and gain for 3DChannel180 tutorial."
+@image html "tuto3DChannel180_FavreAverage.png" "Figure 5: nondimensional velocity field, shear stress, turbulent kinetic energy (TKE), and loss and gain for 3DChannel180 tutorial." width=700px
+@image latex "tuto3DChannel180_FavreAverage.png" "Figure 5: nondimensional velocity field, shear stress, turbulent kinetic energy (TKE), and loss and gain for 3DChannel180 tutorial."
 
 
 */
