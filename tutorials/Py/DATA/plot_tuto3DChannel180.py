@@ -1,3 +1,4 @@
+
 #!usr/bin/env python3
 from netCDF4 import Dataset
 import fluidfoam
@@ -9,6 +10,8 @@ from fluidfoam import OpenFoamSimu
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from pylab import*
+from diagnostic_function import*
+
 
 A = 10
 E = 3.5
@@ -35,6 +38,7 @@ plt.rc('text', usetex=True)
 
 ###########
 
+
 plt.ion()
 
 ##########################################
@@ -42,6 +46,7 @@ plt.ion()
 #
 #############################
 h = 1
+
 
 case = 180#None
 ReTau_dns = 180
@@ -51,6 +56,7 @@ ustar_dns = ReTau_dns*nu/h
 
 zmax = h*ustar_dns/nu
 
+
 Umax = 25
 Rmax = 1.2
 
@@ -58,16 +64,18 @@ Rmax = 1.2
 
 # load chan180 data
 
-chan_data = np.loadtxt('./DATA/DNS_channel_Retau_180.d', comments = '##')
+chan_data = np.loadtxt('DNS_channel_Retau_180.d', comments = '##')
 
-###############   Load LES 64 data obtained from OpenFoam
+###############   Load LES 64 data obtained from OpenFoam 
 
-LES_data = np.loadtxt('./DATA/LES_channel_Retau_180.d')
+LES_data = np.loadtxt('LES_channel_Retau_180.d')
+
 
 #################################
 ### Plotting
 ###########################
 fig, ax = plt.subplots(2,2, figsize = (2*E,2*F))
+
 
 ax[0][0].plot(chan_data[:, 4], chan_data[:, 0],                 'k', lw = 1, label = r'$Chan$', dashes = (4,2))
 
@@ -101,7 +109,7 @@ fig.tight_layout()
 #################################################
 ax[1][0].plot(chan_data[:, 6], chan_data[:, 0],     'k', lw = 1, label = r'$Chan$', dashes = (4,2))
 
-ax[1][0].plot(LES_data[:, 6], LES_data[:, 0], 'g', lw = 1, label = r"$LES$")
+ax[1][0].plot(LES_data[:, 6], LES_data[:, 0], 'g', lw = 1, label = r"$LES$")	
 
 ax[1][0].set_ylabel("$y^+$")
 ax[1][0].set_xlabel("$TKE/u_*^2$")
@@ -136,7 +144,8 @@ fig.text(0.85, 0.015, 'Gain', ha='center')
 
 fig.tight_layout()
 
-plt.savefig('./Figures/3DChannel180_FavreAverage.pdf')
-plt.savefig('./Figures/3DChannel180_FavreAverage.png')
+
+plt.savefig('3DChannel180_FavreAverage.pdf')
+plt.savefig('3DChannel180_FavreAverage.png')
 
 plt.show()
