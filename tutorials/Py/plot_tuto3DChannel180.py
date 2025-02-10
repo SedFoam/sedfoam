@@ -12,7 +12,6 @@ import matplotlib as mpl
 from pylab import*
 from diagnostic_function import*
 
-
 A = 10
 E = 3.5
 F = 3
@@ -38,7 +37,6 @@ plt.rc('text', usetex=True)
 
 ###########
 
-
 plt.ion()
 
 ##########################################
@@ -47,7 +45,6 @@ plt.ion()
 #############################
 h = 1
 
-
 case = 180#None
 ReTau_dns = 180
 
@@ -55,11 +52,9 @@ nu = 3.6e-4
 ReTau_les64 = 180
 dpdx_les64  = 0.00391054 #0.00402415
 
-
 ustar_dns = ReTau_dns*nu/h
 
 zmax = h*ustar_dns/nu
-
 
 Umax = 25
 Rmax = 1.2
@@ -79,7 +74,7 @@ yRdns,yplusRdns,Ruudns,Rvvdns,Rwwdns,Ruvdns,dum,dum = np.loadtxt('/.fsnet/data/l
 ydns,yplusdns,dissipdns,producdns,pstraindns,pdiffdns,tdiffdns,vdiffdns,bal = np.loadtxt('/.fsnet/data/legi/calcul9/home/sharma6ma/useful/project/17LES_SHEET/manohar/Sheet_Flow/Channel_Flow/data/DNS/chan_data/chan%d/balances/chan%d.kbal'%(case, case),unpack=True)
 
 ################
-###############   Load LES 64 data obtained from OpenFoam 
+###############   Load LES 64 data obtained from OpenFoam
 ##########
 
 path = '/.fsnet/data/legi/calcul9/home/sharma6ma/useful/project/17LES_SHEET/manohar/Sheet_Flow/Channel_Flow/Numerical_data/LES/grid_64_sedfoam_validation/TKE_one_file/start_0'
@@ -94,7 +89,6 @@ ny = len(y[0, :, 0])
 uny = int(ny)
 yi = y[0, 0:uny, 0]
 
-
 ub       = fluidfoam.readvector(path, time_frame, 'UbMeanF_b', True, precision = prec)
 UbPrime2MeanF = fluidfoam.readtensor(path, time_frame, 'UbPrime2MeanF_b', True, precision = prec)
 viscDissMean         = fluidfoam.readscalar(path, time_frame, 'viscDissMeanJ_b', True, precision=prec)
@@ -102,9 +96,7 @@ SGSDissMean         = fluidfoam.readscalar(path, time_frame, 'SGSDissMeanJ_b', T
 TKEMeanProd         = fluidfoam.readscalar(path, time_frame, 'TKEMeanProd_b', True, precision=prec)
 turbDiffusionMean   = fluidfoam.readscalar(path, time_frame, 'turbDiffusionMean_b', True, precision=prec)
 
-
 yb = yi
-
 
 Ubx = ub[0]
 Ubx = np.mean(np.mean(Ubx,2),0)
@@ -118,32 +110,24 @@ SGSDissMean  = np.mean(np.mean(SGSDissMean,2),0)
 TKEProdMean = np.mean(np.mean(TKEMeanProd,2),0)
 turbDiffusionMean = np.mean(np.mean(turbDiffusionMean,2),0)
 
-
-###############   
+###############
 ## compute Yplus
-###############   
-
+###############
 
 yplus  = yb*ustarN_les64/nu
 
-
-
-
-
 ###############
 ## TKE
-############# 
+#############
 
 tke_les64   = 0.5*(UbPrime2[0,:] + UbPrime2[4,:] + UbPrime2[8,:])
 
 tkedns = 0.5*(Ruudns + Rvvdns + Rwwdns)
 
-
 #################################
 ### Plotting
 ###########################
 fig, ax = plt.subplots(2,2, figsize = (2*E,2*F))
-
 
 ax[0][0].plot(Udns, yplusUdns,                 'k', lw = 1, label = r'$Chan$', dashes = (4,2))
 
@@ -177,7 +161,7 @@ fig.tight_layout()
 #################################################
 ax[1][0].plot(tkedns, yplusUdns,     'k', lw = 1, label = r'$Chan$', dashes = (4,2))
 
-ax[1][0].plot(tke_les64/ustarN_les64**2, yplus, 'g', lw = 1, label = r"$LES$")	
+ax[1][0].plot(tke_les64/ustarN_les64**2, yplus, 'g', lw = 1, label = r"$LES$")
 
 ax[1][0].set_ylabel("$y^+$")
 ax[1][0].set_xlabel("$TKE/u_*^2$")
@@ -206,8 +190,6 @@ fig.text(0.70, 0.015, 'Loss', ha='center')
 fig.text(0.85, 0.015, 'Gain', ha='center')
 
 fig.tight_layout()
-
-
 
 plt.savefig('3DChannel180_FavreAverage.pdf')
 plt.savefig('3DChannel180_FavreAverage.png')
