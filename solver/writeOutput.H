@@ -23,6 +23,14 @@ if (favreAveraging)
 {
     #include "calcFavreAverage.H"
 }
+
+if (favreAverage_fluid)
+{
+    #include "calcFavreAverage_fluid.H"
+    #include "Random.H"
+}
+
+
 if (runTime.outputTime())
 {
     if (writeTau == 1)
