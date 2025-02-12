@@ -1,14 +1,7 @@
 #!usr/bin/env python3
-from netCDF4 import Dataset
-import fluidfoam
 import numpy as np
-import os
-import numpy as np
-import fluidfoam
-from fluidfoam import OpenFoamSimu
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-from pylab import *
 
 A = 10
 E = 3.5
@@ -24,8 +17,6 @@ plt.rcParams['ytick.major.size'] = 8
 plt.rcParams['ytick.major.width'] = 1
 plt.rcParams['ytick.minor.size'] = 3
 plt.rcParams['ytick.minor.width'] = 1
-
-rc('axes', linewidth=1)
 
 font = {'family': 'serif', 'weight': 'normal', 'size': A}
 plt.rc('font', **font)
@@ -127,8 +118,5 @@ fig.text(0.70, 0.015, 'Loss', ha='center')
 fig.text(0.85, 0.015, 'Gain', ha='center')
 
 fig.tight_layout()
-
-plt.savefig('./Figures/3DChannel180_FavreAverage.pdf')
-plt.savefig('./Figures/3DChannel180_FavreAverage.png')
 
 plt.show()
