@@ -131,30 +131,7 @@ if (favreAverage_fluid)
     TKEMeanProd_b  = (time_integrate_fluid*TKEMeanProd_b
                          - deltaT* (UbPrime2MeanF_b && fvc::grad(UbMeanF_b)))
                          / (timeaverage_fluid);
-    turbDiffMean_b    = (time_integrate_fluid* turbDiffMean_b
-                        - 0.5* beta* (UbPrimeF_b* magSqr(UbPrimeF_b))* deltaT )
-                         / (timeaverage_fluid);
-    turbDiffMeanDavid = (time_integrate_fluid* turbDiffMeanDavid
-                        - 0.5* beta* (UbsquarWbMean + WbcubeMean)* deltaT )
-                        / (timeaverage_fluid);
-    pressDiffMean_b   = (time_integrate_fluid* pressDiffMean_b
-                        - (beta/phaseb->rho())* (UbPrimeF_b * p_rbgh)* deltaT )
-                        / (timeaverage_fluid);
-    SGSDiffMean_b     = (time_integrate_fluid* SGSDiffMean_b
-                        - 2* beta* turbulenceb->nut()*
-                          (UbPrimeF_b & strainTensor_b )* deltaT )
-                        / (timeaverage_fluid);
-    viscDiffMean_b    = (time_integrate_fluid* viscDiffMean_b
-                        - 2* beta* phaseb->nu()* (UbPrimeF_b & strainTensor_b )
-                        * deltaT ) / (timeaverage_fluid);
-    viscDissMean_b    = (time_integrate_fluid* viscDissMean_b
-                        -(2* beta* phaseb->nu()*
-                         (strainTensor_b && (fvc::grad( UbPrimeF_b))))* deltaT)
-                        / (timeaverage_fluid);
-    SGSDissMean_b     = (time_integrate_fluid* SGSDissMean_b
-                        + (2* beta* turbulenceb->nut()*
-                          (strainTensor_b && (fvc::grad(UbPrimeF_b)))* deltaT))
-                        / (timeaverage_fluid);
+
     dragConstbMean    = (time_integrate_fluid* dragConstbMean
                         - (UbPrimeF_b & (alpha* beta* draga->K(mag(Ub-Ua))*
                           (Ub-Ua))/rhob)* deltaT ) / (timeaverage_fluid);
@@ -166,92 +143,46 @@ if (favreAverage_fluid)
     turbDiffusionMeanDavid = (time_integrate_fluid* turbDiffusionMeanDavid
                          + (fvc::grad(- 0.5* beta*(UbsquarWbMean + WbcubeMean)))
                          * (deltaT)) / (timeaverage_fluid);
-    pressDiffusionMean_b = (time_integrate_fluid* pressDiffusionMean_b +
-                         (fvc::div(-(beta/phaseb->rho())*(UbPrimeF_b*p_rbgh)))
-                         *(deltaT)) / (timeaverage_fluid);
-    SGSDiffusionMean_b   = (time_integrate_fluid* SGSDiffusionMean_b +
-                          (fvc::div(- 2* beta* turbulenceb->nut()*
-                          (UbPrimeF_b & strainTensor_b )))* (deltaT))
-                          / (timeaverage_fluid);
-    viscDiffusionMean_b  = (time_integrate_fluid* viscDiffusionMean_b
-                          + (fvc::div(- 2* beta* phaseb->nu()*
-                            (UbPrimeF_b & strainTensor_b )))* (deltaT))
-                          / (timeaverage_fluid);
 
-}
-
-/* Writing the TKE budget variables */
-
-if (runTime.outputTime())
-
-{
-    TKEMean_b.write();
-    TKEMeanProd_b.write();
-    viscDissMeanI_b.write();
-    SGSDissMeanI_b.write();
-    turbDiffMean_b.write();
-    viscDissMean_b.write();
-    SGSDissMean_b.write();
-    dragConstbMean.write();
-    TKEMeanProdI_b.write();
-
-    //turbDiffusionMean_b = fvc::div(turbDiffMean_b);
-    //turbDiffusionMeanDavid = fvc::grad(turbDiffMeanDavid);
-    //pressDiffusionMean_b = fvc::div(pressDiffMean_b);
-    //SGSDiffusionMean_b = fvc::div(SGSDiffMean_b);
-    //viscDiffusionMean_b = fvc::div(viscDiffMean_b);
-
-    turbDiffusionMean_b.write();
-    turbDiffusionMeanDavid.write();
-    pressDiffusionMean_b.write();
-    SGSDiffusionMean_b.write();
-    viscDiffusionMean_b.write();
-
-}
-
-/*     *********** Julien formulation  ***************  */
-
-if (favreAverage_fluid)
-{
-
-    pressDiffMeanJ_b       = (time_integrate_fluid* pressDiffMeanJ_b
-                             - (beta/phaseb->rho())* (UbPrimeF_b *
-                               pPrimeF_b)* deltaT ) / (timeaverage_fluid);
-    SGSDiffMeanJ_b         = (time_integrate_fluid* SGSDiffMeanJ_b
-                             - 2*beta*turbulenceb->nut()*(Ub & strainTensor_b)*
-                                deltaT ) / (timeaverage_fluid);
-    viscDiffusionMeanJ_b   = (time_integrate_fluid* viscDiffusionMeanJ_b
+    viscDiffusionMean_b   = (time_integrate_fluid* viscDiffusionMean_b
                              +  beta* phaseb->nu()* (fvc::laplacian(TKEMean_b))
                              * deltaT ) / (timeaverage_fluid);
-    viscDissMeanJ_b        = (time_integrate_fluid* viscDissMeanJ_b
+    viscDissMean_b        = (time_integrate_fluid* viscDissMean_b
                              - (2* beta* phaseb->nu()* SijbSijb)* deltaT)
                              / (timeaverage_fluid);
-    SGSDissMeanJ_b         = (time_integrate_fluid* SGSDissMeanJ_b
+    SGSDissMean_b         = (time_integrate_fluid* SGSDissMean_b
                              - (2* beta* turbulenceb->nut()* SijbSijb)* deltaT)
                              / (timeaverage_fluid);
 
-    pressDiffusionMeanJ_b  = (time_integrate_fluid* pressDiffusionMeanJ_b
+    pressDiffusionMean_b  = (time_integrate_fluid* pressDiffusionMean_b
                              + fvc::div(- (beta/phaseb->rho())* (UbPrimeF_b
                              * pPrimeF_b))* deltaT) / (timeaverage_fluid);
-    SGSDiffusionMeanJ_b    = (time_integrate_fluid* SGSDiffusionMeanJ_b
+    SGSDiffusionMean_b    = (time_integrate_fluid* SGSDiffusionMean_b
                              + fvc::div(- 2* beta* turbulenceb->nut()
                              * (Ub & strainTensor_b ))* deltaT)
                              / (timeaverage_fluid);
+
 }
+
 /* Writing the TKE budget variables */
 
 if (runTime.outputTime())
 
 {
-    viscDissMeanJ_b.write();
-    SGSDissMeanJ_b.write();
-    //pressDiffusionMeanJ_b = fvc::div(pressDiffMeanJ_b);
-    //SGSDiffusionMeanJ_b = fvc::div(SGSDiffMeanJ_b);
-   // viscDiffusionMeanJ_b  = fvc::div(viscDiffMeanJ_b);
+    TKEMeanProdI_b.write();
+    TKEMean_b.write();
+    TKEMeanProd_b.write();
+    dragConstbMean.write();
+    turbDiffusionMean_b.write();
+    turbDiffusionMeanDavid.write();
+    viscDiffusionMean_b.write();
+    viscDissMean_b.write();
+    SGSDissMean_b.write();
+    pressDiffusionMean_b.write();
+    SGSDiffusionMean_b.write();
 
-    pressDiffusionMeanJ_b.write();
-    SGSDiffusionMeanJ_b.write();
-    viscDiffusionMeanJ_b.write();
+    viscDissMeanI_b.write();
+    SGSDissMeanI_b.write();
 
 }
 
@@ -363,154 +294,52 @@ if (favreAverage_fluid)
                      - deltaT*(UaPrime2MeanF_a && fvc::grad(UaMeanF_a)))
                      / (timeaverage_fluid);
 
-    turbDiffMean_a = (time_integrate_fluid* turbDiffMean_a
-                     - 0.5* alpha* (UaPrimeF_a* magSqr(UaPrimeF_a))* deltaT )
-                     / (timeaverage_fluid);
-    pressDiffMean_a  = (time_integrate_fluid* pressDiffMean_a
-                     - (alpha/phasea->rho())* (UaPrimeF_a * p_rbgh)* deltaT )
-                     / (timeaverage_fluid);
-    pressDiffMeankin_a = (time_integrate_fluid* pressDiffMeankin_a
-                     - (1/phasea->rho())* (UaPrimeF_a * pa)* deltaT )
-                     / (timeaverage_fluid);
-    pressDiffMeancon_a = (time_integrate_fluid* pressDiffMeancon_a
-                     - (1/phasea->rho())* (UaPrimeF_a * pff)* deltaT )
-                     / (timeaverage_fluid);
-    pressDiffMeanJ_a = (time_integrate_fluid* pressDiffMeanJ_a
-                     - (alpha/phasea->rho())* (UaPrimeF_a * pPrimeF_a)* deltaT)
-                     / (timeaverage_fluid);
-    SGSDiffMeanJ_a   = (time_integrate_fluid* SGSDiffMeanJ_a
-                     - 2* alpha*turbulencea->nut()*(Ua & strainTensor_a )
-                     * deltaT) / (timeaverage_fluid);
-    viscDiffMean_a   = (time_integrate_fluid* viscDiffMean_a
-                     - 2* alpha* (phasea->nu()* (UaPrimeF_a & strainTensor_a ))
-                     * deltaT ) / (timeaverage_fluid);
-    SGSDiffMean_a    = (time_integrate_fluid* SGSDiffMean_a
-                     - 2* alpha* turbulencea->nut()*
-                       (UaPrimeF_a & strainTensor_a )* deltaT )
-                     / (timeaverage_fluid);
+    turbDiffusionMean_a = (time_integrate_fluid* turbDiffusionMean_a
+                    + (fvc::div(- 0.5*alpha*(UaPrimeF_a* magSqr(UaPrimeF_a))))*
+                       deltaT ) / (timeaverage_fluid);
+
+    viscDiffusionMean_a = (time_integrate_fluid* viscDiffusionMean_a
+                    +  alpha* phaseb->nu()* (fvc::laplacian(TKEMean_a) )*
+                       deltaT ) / (timeaverage_fluid);
 
     viscDissMean_a   = (time_integrate_fluid* viscDissMean_a
                      - (2* alpha* (phasea->nu() + nuFra)* SijaSija)* deltaT)
                      / (timeaverage_fluid);
-    viscDissMeancon_a = (time_integrate_fluid* viscDissMeancon_a
-                     - (2* alpha* nuFra* SijaSija)* deltaT)
-                     / (timeaverage_fluid);
-    SGSDissMeanJ_a = (time_integrate_fluid* SGSDissMeanJ_a
+
+    SGSDissMean_a = (time_integrate_fluid* SGSDissMean_a
                      - (2* alpha* turbulencea->nut()* SijaSija)* deltaT )
                      / (timeaverage_fluid);
-    SGSDissMean_a  = (time_integrate_fluid* SGSDissMean_a
-                    +(2* alpha* turbulencea->nut()*
-                     (strainTensor_a && (fvc::grad(UaPrimeF_a)))*
-                      deltaT ) )/ (timeaverage_fluid);
-    viscDissMeanJ_a = (time_integrate_fluid* viscDissMeanJ_a
-                    - (2* alpha* phasea->nu()* SijaSija)* deltaT)
-                    / (timeaverage_fluid);
-    SGSDissMeanJ_a  = (time_integrate_fluid* SGSDissMeanJ_a
-                    - (2* alpha* turbulenceb->nut()* SijaSija)* deltaT )
-                    / (timeaverage_fluid);
 
-    viscDiffusionMeanJ_a = (time_integrate_fluid* viscDiffusionMeanJ_a
-                    +  alpha* phaseb->nu()* (fvc::laplacian(TKEMean_a) )*
-                       deltaT ) / (timeaverage_fluid);
-    turbDiffusionMean_a = (time_integrate_fluid* turbDiffusionMean_a
-                    + (fvc::div(- 0.5*alpha*(UaPrimeF_a* magSqr(UaPrimeF_a))))*
-                       deltaT ) / (timeaverage_fluid);
-    pressDiffusionMean_a = (time_integrate_fluid* pressDiffusionMean_a
-                    + (fvc::div( - (alpha/phasea->rho())*
-                      (UaPrimeF_a * p_rbgh)))* deltaT ) / (timeaverage_fluid);
-    //pressDiffusionMeankin_a = (time_integrate_fluid* pressDiffusionMeankin_a
-                   // + (fvc::div(pressDiffMeankin_a))* deltaT )
-                   //   / (timeaverage_fluid);
-    //pressDiffusionMeancon_a = (time_integrate_fluid* pressDiffusionMeancon_a
-                     // + (fvc::div(pressDiffMeancon_a))* deltaT )
-                     // / (timeaverage_fluid);
-    SGSDiffusionMean_a = (time_integrate_fluid* SGSDiffusionMean_a
-                        + (fvc::div(- 2* alpha* turbulencea->nut()*
-                          (UaPrimeF_a & strainTensor_a )))*
-                          deltaT ) / (timeaverage_fluid);
-    viscDiffusionMean_a = (time_integrate_fluid* viscDiffusionMean_a
-                        + (fvc::div(- 2* alpha* (phasea->nu()*
-                          (UaPrimeF_a & strainTensor_a ))))* deltaT )
-                        / (timeaverage_fluid);
-
-}
-
-/* Writing the TKE budget variables */
-
-if (runTime.outputTime())
-{
-    TKEMean_a.write();
-    TKEMeanProdI_a.write();
-    TKEMeanProd_a.write();
-    viscDissMeanI_a.write();
-    SGSDissMeanI_a.write();
-    turbDiffMean_a.write();
-    viscDissMean_a.write();
-    viscDissMeanJ_a.write();
-    viscDissMeancon_a.write();
-    SGSDissMean_a.write();
-
-    //turbDiffusionMean_a = fvc::div(turbDiffMean_a);
-    //pressDiffusionMean_a = fvc::div(pressDiffMean_a);
-    //pressDiffusionMeankin_a = fvc::div(pressDiffMeankin_a);
-    //pressDiffusionMeancon_a = fvc::div(pressDiffMeancon_a);
-    //SGSDiffusionMean_a = fvc::div(SGSDiffMean_a);
-    //viscDiffusionMean_a = fvc::div(viscDiffMean_a);
-
-    turbDiffusionMean_a.write();
-    pressDiffusionMean_a.write();
-    SGSDiffusionMean_a.write();
-    viscDiffusionMean_a.write();
-}
-
-/*     *********** Julien formulation  ***************  */
-
-if (favreAverage_fluid)
-{
-    pressDiffMeanJ_a       = (time_integrate_fluid* pressDiffMeanJ_a
-                             - (alpha/phasea->rho())* (UaPrimeF_a * pPrimeF_a)*
-                                deltaT ) / (timeaverage_fluid);
-    SGSDiffMeanJ_a         = (time_integrate_fluid* SGSDiffMeanJ_a
-                             - 2* alpha* turbulencea->nut()*
-                               (Ua & strainTensor_a )* deltaT )
-                             / (timeaverage_fluid);
-    viscDiffusionMeanJ_a   = (time_integrate_fluid* viscDiffusionMeanJ_a
-                             + alpha* phasea->nu()* (fvc::laplacian(TKEMean_a))
-                             * deltaT ) / (timeaverage_fluid);
-    viscDissMeanJ_a        = (time_integrate_fluid* viscDissMeanJ_a
-                             - (2* alpha* phasea->nu()* SijaSija)* deltaT)
-                             / (timeaverage_fluid);
-    SGSDissMeanJ_a         = (time_integrate_fluid* SGSDissMeanJ_a
-                             - (2* alpha* turbulencea->nut()* SijaSija)* deltaT)
-                             / (timeaverage_fluid);
-
-    pressDiffusionMeanJ_a  = (time_integrate_fluid* pressDiffusionMeanJ_a
+    pressDiffusionMean_a  = (time_integrate_fluid* pressDiffusionMean_a
                              + (fvc::div(- (alpha/phasea->rho())*
                                (UaPrimeF_a * pPrimeF_a)))* deltaT )
                              / (timeaverage_fluid);
-    SGSDiffusionMeanJ_a    = (time_integrate_fluid* SGSDiffusionMeanJ_a
+
+    SGSDiffusionMean_a    = (time_integrate_fluid* SGSDiffusionMean_a
                              + (fvc::div(- 2* alpha* turbulencea->nut()*
                                (Ua & strainTensor_a )))* deltaT )
                              / (timeaverage_fluid);
-    viscDiffusionMeanJ_a   = (time_integrate_fluid* viscDiffusionMeanJ_a
-                             +  (fvc::div(viscDiffMeanJ_a))* deltaT )
-                             / (timeaverage_fluid);
+
 }
 
 /* Writing the TKE budget variables */
 
 if (runTime.outputTime())
 {
-    viscDissMeanJ_a.write();
-    SGSDissMeanJ_a.write();
+    TKEMeanProdI_a.write();
 
-    //pressDiffusionMeanJ_a = fvc::div(pressDiffMeanJ_a);
-    //SGSDiffusionMeanJ_a = fvc::div(SGSDiffMeanJ_a);
-    //viscDiffusionMeanJ_a = fvc::div(viscDiffMeanJ_a);
+    TKEMean_a.write();
+    TKEMeanProd_a.write();
+    turbDiffusionMean_a.write();
+    viscDiffusionMean_a.write();
+    viscDissMean_a.write();
+    SGSDissMean_a.write();
+    pressDiffusionMean_a.write();
+    SGSDiffusionMean_a.write();
 
-    pressDiffusionMeanJ_a.write();
-    SGSDiffusionMeanJ_a.write();
-    viscDiffusionMeanJ_a.write();
+    viscDissMeanI_a.write();
+    SGSDissMeanI_a.write();
+
 }
 
 /*   Calculation for the momentum budget */
