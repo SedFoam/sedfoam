@@ -23,8 +23,29 @@ if (favreAveraging)
 {
     #include "calcFavreAverage.H"
 }
+
+if (favreAverage_fluid)
+{
+    #include "calcFavreAverage_fluid.H"
+    #include "Random.H"
+}
+
+if (favreAverage_fluid)
+{
+    dragVegMean = (time_integrate_fluid* dragVegMean
+                  - (UbPrimeF_b & (beta* alphaVeg* Kveg* (Ub))/rhob)* deltaT )
+                  / (timeaverage_fluid);
+}
+
 if (runTime.outputTime())
 {
+
+    dragVegMean.write();
+}
+
+if (runTime.outputTime())
+{
+
     if (writeTau == 1)
     {
         Taua = fvc::reconstruct(
