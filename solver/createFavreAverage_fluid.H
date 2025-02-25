@@ -1748,11 +1748,11 @@ volTensorField nonl_mixd
     )
 );
 
-volVectorField bouy_mixd
+volVectorField buoy_mixd
     (
         IOobject
         (
-            "bouy_mixd",
+            "buoy_mixd",
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
@@ -1761,7 +1761,7 @@ volVectorField bouy_mixd
         mesh,
         dimensionedVector
         (
-            "bouy_mixd",
+            "buoy_mixd",
             dimensionSet(1, -2, -2, 0, 0, 0, 0),
             vector (0, 0, 0)
         )
@@ -1936,11 +1936,11 @@ volVectorField ExtContr_b
     fvc::grad(pff)
 );
 
-volScalarField Errosion
+volScalarField Erosion
         (
             IOobject
                 (
-                    "Errosion",
+                    "Erosion",
                     runTime.timeName(),
                     mesh,
                     IOobject::NO_READ,
@@ -1949,7 +1949,7 @@ volScalarField Errosion
             mesh,
             dimensionedScalar
                 (
-                    "Errosion",
+                    "Erosion",
                         dimensionSet(0, 1, -1, 0, 0, 0, 0),
                         0.0
                 )
@@ -3290,20 +3290,20 @@ volTensorField nonl_mixd2
 nonl_mixd = nonl_mixd2;
     }
 
-IOobject bouy_mixdHeader
+IOobject buoy_mixdHeader
     (
-        "bouy_mixd",
+        "buoy_mixd",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ
     );
-    if (bouy_mixdHeader.typeHeaderOk<volVectorField>(true))
+    if (buoy_mixdHeader.typeHeaderOk<volVectorField>(true))
     {
-volVectorField bouy_mixd2
+volVectorField buoy_mixd2
 (
     IOobject
     (
-        "bouy_mixd",
+        "buoy_mixd",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
@@ -3311,7 +3311,7 @@ volVectorField bouy_mixd2
     ),
     mesh
 );
-bouy_mixd = bouy_mixd2;
+buoy_mixd = buoy_mixd2;
     }
 
 IOobject SolidPressureContr_bHeader
@@ -3626,20 +3626,20 @@ volVectorField ExtContr2
 ExtContr_b = ExtContr2;
     }
 
-IOobject ErrosionHeader
+IOobject ErosionHeader
     (
-        "Errosion",
+        "Erosion",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ
     );
-    if (ErrosionHeader.typeHeaderOk<volScalarField>(true))
+    if (ErosionHeader.typeHeaderOk<volScalarField>(true))
     {
-volScalarField Errosion2
+volScalarField Erosion2
 (
     IOobject
     (
-        "Errosion",
+        "Erosion",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
@@ -3647,7 +3647,7 @@ volScalarField Errosion2
     ),
     mesh
 );
-Errosion = Errosion2;
+Erosion = Erosion2;
     }
 
 IOobject DepositionHeader

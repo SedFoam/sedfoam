@@ -17,11 +17,11 @@ The Favre average turbulent kinetic energy (TKE) budget can be done during the s
 
 \subsection FavrePre-proces Pre-processing
 
-The tutorial is distributed with sedFoam under the folder sedFaomDirectory/tutorials/3DChanel180. 
+The tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/3DChanel180. 
 
 \subsection Mesh-boudary Mesh and boundary conditions
 
-The numerical domain and boundary condition details are provided in \ref channel_sec. The mesh consists of \f$ 64 \times 64 \times 64 \f$  elements and is stretched along the  \f$ y -\f$ axis to enhance resolution near the walls.
+The numerical domain and boundary condition details are provided in \ref channel_sec. The mesh consists of \f$ 32 \times 32 \times 32 \f$  elements and is stretched along the  \f$ y -\f$ axis to enhance resolution near the walls.
 
 To be updated
 
@@ -37,7 +37,7 @@ The "constant" folder contains all the physical parameters or closures required 
 
 phasea
 {
-    rho             rho [ 1 -3 0 0 0 ]    1000;
+    rho             rho [ 1 -3 0 0 0 ]    1;
     nu              nu  [ 0 2 -1 0 0 ]    3.6e-4; // 1/Re_tau;
     d               d   [ 0 1 0 0 0 0 0 ] 1.95e-4;
     sF              sF   [ 0 0  0 0 0 0 0 ] 1;    // shape Factor to adjust settling velocity for non-spherical particles
@@ -46,7 +46,7 @@ phasea
 // * * * * * * * * * * * * fluid properties * * * * * * * * * * * * //
 phaseb
 {
-    rho             rho [ 1 -3 0 0 0 ] 1000;
+    rho             rho [ 1 -3 0 0 0 ] 1;
     nu              nu [ 0 2 -1 0 0 ]  3.6e-4; // 1/Re_tau;
     d               d [ 0 1 0 0 0 0 0 ] 2e-4;
     sF              sF   [ 0 0  0 0 0 0 0 ] 1;
@@ -65,10 +65,30 @@ alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (
    
 \endverbatim
 
+\subsection FavreRun Running the simulation
+
+All simulation-related parameters are specified in the controlDict file located inside the system folder. The switch for Favre-averaged turbulent kinetic energy is also found in the controlDict file. To enable Favre averaging, add the following line to the controlDict file as described in Section \ref channel_sec. It is recommended to start by running a warm-up simulation for approximately 100 \f$ T_b = H / U_{bar} = 1 \f$ without averaging.
+
+You can run the *sedFoam* code in parallel mode. To setup the simulation, you can execute Allrun for mesh generation and turbulence initialization. Then you can run the simulation on 16 processors (default set up here) by typing:
+
+\verbatim
+
+# Run sedFoam in parallel
+mpirun -np 16 sedFoam_rbgh -parallel > log&
+
+\endverbatim
+
+After completing the simulation in parallel, it is necessary to reconstruct the files obtained from each processor. To do this, first, load the OpenFOAM module and execute the following command in the terminal or include it in a bash script.
+
+\verbatim
+
+reconstructPar -time 100
+
+\endverbatim
+
 \subsection FavreControl Control
 
-All simulation-related parameters are specified in the controlDict file located inside the system folder. The switch for Favre-averaged turbulent kinetic energy is also found in the controlDict file. To enable Favre averaging, add the following line to the controlDict file as described in Section \ref channel_sec. It is recommended to start by running a warm-up simulation for approximately 100 \f$ T_b = H / U_{bar} = 1 \f$ without averaging and then to rerun the code for another 100 \f$ T_b\f$ by turning on the averaging.
-
+Once the first simulation is finished, rerun the code for another 100 \f$ T_b\f$ by turning on the averaging by setting both keywords AverageMode and favreAverage_fluid to true. You also have to modify the startTime keywork in system/controlDict to 100 and the keyword endTime to 200.
 
 \verbatim
 
@@ -80,59 +100,10 @@ favreAverage_fluid  true;   // To save the Favre average files
 
 \endverbatim
 
-\subsection FavreRun Running the simulation
-
-You can run the *sedFoam* code in both sequential and parallel modes. To start the simulation, you can execute Allrun for turbulence initialization or include the following lines in a bash script.
-
-\verbatim
-
-*** Line to run the simulation in sequential
-# create the mesh
-
-foamCleanPolyMesh
-blockMesh
-
-# create the intial time folder
-
-cp -r 0_org 0
-
-# run the excutable file
-
-sedFoam_rbgh >log&
-
-
-******** Line to run the simulation in parallel
-
-# create the mesh
-
-foamCleanPolyMesh
-blockMesh
-
-# create the intial time folder
-
-cp -r 0_org 0
-
-# Decompose the case in order to run in parallel (on 16 cores)
-
-decomposePar
-
-# Run sedFoam in parallel
-mpirun -np 4 sedFoam_rbgh -parallel > log&
-
-\endverbatim
-
-After completing the simulation in parallel, it is necessary to reconstruct the files obtained from each processor. To do this, first, load the OpenFOAM module and execute the following command in the terminal or include it in a bash script.
-
-\verbatim
-
-reconstructPar -time <put the time frame you want to reconstruct>
-
-\endverbatim
 
 \subsection FavrePost Post-processing
 
-After obtaining the time frame from sequential simulations or once the reconstruction is completed for parallel simulations, use the *plot_tuto3DChannel180.py* script to compare the data from sedFoam with Direct Numerical Simulation (DNS) data  (<a href="https://pubs.aip.org/aip/pof/article-abstract/11/4/943/253866/Direct-numerical-simulation-of-turbulent-channel?redirectedFrom=fulltext"> R. D. Moser, J. Kim & N. N. Mansour, (1998) </a>). 
-The Python script reads the data generated from the sedFoam simulation and compares it with the DNS data shown below
+Once the simulation is completed, use the *plot_tuto3DChannel180.py* script located in the folder *tutorial/Py/* to compare the data from sedFoam with a reference LES with a \f$ 64^3 \f$ using sedFOAM and Direct Numerical Simulation (DNS) data  (<a href="https://pubs.aip.org/aip/pof/article-abstract/11/4/943/253866/Direct-numerical-simulation-of-turbulent-channel?redirectedFrom=fulltext"> R. D. Moser, J. Kim & N. N. Mansour, (1998) </a>). 
 
 
 @image html "tuto3DChannel180_FavreAverage.png" "Figure 5: nondimensional velocity field, shear stress, turbulent kinetic energy (TKE), and loss and gain for 3DChannel180 tutorial." width=700px

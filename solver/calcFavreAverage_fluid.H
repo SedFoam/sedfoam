@@ -22,7 +22,7 @@ License
 
 /*    This terms compute rho U mean */
 
-Info<<"Fluid runTime before the addition = \t"<<runtime_fluid<<endl;
+//Info<<"Fluid runTime before the addition = \t"<<runtime_fluid<<endl;
 
 time_diff_fluid = runtime_fluid - T0;
 
@@ -346,7 +346,7 @@ if (runTime.outputTime())
 
 tensor Ei(1., 0, 0, 0, 1., 0, 0, 0, 1.);
 
-Errosion =  (time_integrate_fluid*Errosion
+Erosion =  (time_integrate_fluid*Erosion
             + deltaT*alpha* U.component(vector::Y))
             / (timeaverage_fluid );
 Deposition = (time_integrate_fluid*Deposition
@@ -424,7 +424,7 @@ rho_mixd = (time_integrate_fluid* rho_mixd  + deltaT* (rhoa* alpha* Ua
                + rhob* beta* Ub)) / (timeaverage_fluid );
 nonl_mixd = (time_integrate_fluid* nonl_mixd + deltaT* (rhoa* alpha* Ua * Ua
                + rhob* beta* Ub * Ub)) / (timeaverage_fluid );
-bouy_mixd = (time_integrate_fluid* bouy_mixd + deltaT* (rhoa* alpha
+buoy_mixd = (time_integrate_fluid* buoy_mixd + deltaT* (rhoa* alpha
                + rhob* beta)* g) / (timeaverage_fluid );
 
 if (runTime.outputTime())
@@ -432,7 +432,7 @@ if (runTime.outputTime())
     Taua.write();
     Taub.write();
 
-    Errosion.write();
+    Erosion.write();
     Deposition.write();
     Rca.write();
     Rca2.write();
@@ -456,7 +456,7 @@ if (runTime.outputTime())
     SuspContr_b.write();
     rho_mixd.write();
     nonl_mixd.write();
-    bouy_mixd.write();
+    buoy_mixd.write();
     rho.write();
 
 }

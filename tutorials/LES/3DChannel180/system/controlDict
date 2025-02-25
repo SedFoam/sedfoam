@@ -1,0 +1,64 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     sedFoam_rbgh;
+
+startFrom       startTime;
+
+startTime       100;
+
+stopAt          endTime;
+
+endTime         200;
+
+deltaT          5e-3;
+
+writeControl    adjustableRunTime;
+
+writeInterval   20;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+adjustTimeStep yes;
+
+maxCo          0.3;
+
+maxAlphaCo     0.3;
+
+maxDeltaT      2e-2;
+
+// Favre averaging section
+
+AverageMode         true;  // To enable Favre average mode keep it true or otherwise keep it false
+
+StartAverageTime    100;  // Time from where you want to start averaging
+
+favreAverage_fluid  true;   // To save the Favre average files 
+
+// ************************************************************************* //
