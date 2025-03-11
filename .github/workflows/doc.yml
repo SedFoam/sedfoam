@@ -1,7 +1,7 @@
 name: Generate_Doc
 on:
   push:
-    branches: ['developJC']
+    branches: ['develop']
 # Warning : schedule is only for default branch
 #  schedule:
 #    - cron: '0 3 * * 1'
