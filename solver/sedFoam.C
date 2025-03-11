@@ -79,7 +79,6 @@ int main(int argc, char *argv[])
     #include "createMesh.H"
     #include "createControl.H"
 
-
     #include "readGravity.H"
     #include "createFields.H"
     #include "createTurbulence.H"
@@ -91,7 +90,7 @@ int main(int argc, char *argv[])
     #include "setInitialDeltaT.H"
     #include "createFavreAveraging.H"
 
-    #include "createFavreAverage_fluid.H"
+    //#include "createFavreAverage_fluid.H"
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     // Test on SUSlocal

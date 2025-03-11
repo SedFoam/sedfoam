@@ -34,7 +34,7 @@ Rmax = 1.2
 # Load DNS chan180 data
 chan_data = np.loadtxt('./DATA/DNS_channel_Retau_180.d', comments='##')
 
-# Load LES 64 data obtained from OpenFoam
+# Load LES 128 data obtained from OpenFoam
 LES_data = np.loadtxt('./DATA/LES_channel_Retau_180.d')
 
 case = "3DChannel180"
@@ -45,37 +45,47 @@ sol = basepath + case + "/"
 #
 tread = "200"
 
+dpdx = 0.00395967
+ustar = np.sqrt(dpdx/h)
+print('ustar_dns=',ustar_dns,' ustar_les=',ustar)
+
 print("########## Reading openfoam data file ##########")
 # Read vertical coordinates
 x, y, z = fluidfoam.readmesh(sol, structured=True, precision=12)
 ny = len(y[0, :, 0])
 uny = int(ny / 2)
-yi = y[0, 0:uny, 0] * ustar_dns/nu
+yi = y[0, 0:uny, 0] * ustar/nu
 
 # Read temporaly averaged variables
-ubf_ta = fluidfoam.readvector(sol, tread, "UbMeanF_b", structured=True, precision=12)
-ubprimf_ta = fluidfoam.readtensor(sol, tread, "UbPrime2MeanF_b", structured=True, precision=12)
+ubf_ta = fluidfoam.readvector(sol, tread, "UbMeanF", structured=True, precision=12)
+ubprimf_ta = fluidfoam.readtensor(sol, tread, "UbPrime2MeanF", structured=True, precision=12)
+ubprimf_ta2 = fluidfoam.readfield(sol, tread, "U.bPrime2Mean", structured=True, precision=12)
 TKEMeanProd_ta = fluidfoam.readscalar(sol, tread, "TKEMeanProd_b", structured=True, precision=12)
 SGSDissMean_ta = fluidfoam.readscalar(sol, tread, "SGSDissMean_b", structured=True, precision=12)
 viscDissMean_ta = fluidfoam.readscalar(sol, tread, "viscDissMean_b", structured=True, precision=12)
 turbDiffusionMean_ta = fluidfoam.readscalar(sol, tread, "turbDiffusionMean_b", structured=True, precision=12)
 
+# symm tensor :   XX , XY , XZ , YY , YZ , ZZ
+#                  0    1    2    3    4    5
 # Averaging
 ubf_ta = ubf_ta[:, :, 0:uny, :]
 ubprimf_ta = ubprimf_ta[:, :, 0:uny, :]
+ubprimf_ta2 = ubprimf_ta2[:, :, 0:uny, :]
 TKEMeanProd_ta = TKEMeanProd_ta[:, 0:uny, :]
 SGSDissMean_ta = SGSDissMean_ta[:, 0:uny, :]
 viscDissMean_ta = viscDissMean_ta[:, 0:uny, :]
 turbDiffusionMean_ta = turbDiffusionMean_ta[:, 0:uny, :]
 
 # Spatial averaging of temporaly averaged variables
-ubf_a = np.mean(np.mean(ubf_ta, 3), 1)/ustar_dns
-ubprimf_a = np.mean(np.mean(ubprimf_ta, 3), 1)/ustar_dns**2
+ubf_a = np.mean(np.mean(ubf_ta, 3), 1)/ustar
+ubprimf_a = np.mean(np.mean(ubprimf_ta, 3), 1)/ustar**2
+ubprimf_a2 = np.mean(np.mean(ubprimf_ta2, 3), 1)/ustar**2
 TKE_a = 0.5*(ubprimf_a[0, :]+ubprimf_a[4, :]+ubprimf_a[8, :])
-TKEMeanProd_a = np.mean(np.mean(TKEMeanProd_ta, 2), 0)*nu/ustar_dns**4
-SGSDissMean_a = np.mean(np.mean(SGSDissMean_ta, 2), 0)*nu/ustar_dns**4
-viscDissMean_a = np.mean(np.mean(viscDissMean_ta, 2), 0)*nu/ustar_dns**4
-turbDiffusionMean_a = np.mean(np.mean(turbDiffusionMean_ta, 2), 0)*nu/ustar_dns**4
+TKE_a2 = 0.5*(ubprimf_a2[0, :]+ubprimf_a2[3, :]+ubprimf_a2[5, :])
+TKEMeanProd_a = np.mean(np.mean(TKEMeanProd_ta, 2), 0)*nu/ustar**4
+SGSDissMean_a = np.mean(np.mean(SGSDissMean_ta, 2), 0)*nu/ustar**4
+viscDissMean_a = np.mean(np.mean(viscDissMean_ta, 2), 0)*nu/ustar**4
+turbDiffusionMean_a = np.mean(np.mean(turbDiffusionMean_ta, 2), 0)*nu/ustar**4
 
 ###############################################################################
 # Plotting
@@ -104,8 +114,10 @@ ax01 = subplot(gs[0, 1])
 ax01.plot(-chan_data[:, 5], chan_data[:, 0], 'ok', markersize = ms,
               label=r'$DNS$')
 ax01.plot(-LES_data[:, 5], LES_data[:, 0], '--b', lw=1,
-              label=r'$LES (64^3)$ ref')
+              label=r'$LES (128^3)$ ref')
 ax01.plot(-ubprimf_a[1, :], yi[:], '-b', lw=2,
+              label=r"$LES (32^3)$")
+ax01.plot(-ubprimf_a2[1, :], yi[:], '--r', lw=2,
               label=r"$LES (32^3)$")
 ax01.set_ylabel("$y^+$")
 ax01.set_xlabel("$R_{xy}/u_*^2$")
@@ -121,8 +133,9 @@ ax10 = subplot(gs[1, 0])
 ax10.plot(chan_data[:, 6], chan_data[:, 0], 'ok', markersize = ms,
               label=r'$DNS$')
 ax10.plot(LES_data[:, 6], LES_data[:, 0], '--b', lw=1,
-              label=r'$LES (64^3)$ ref')
+              label=r'$LES (128^3)$ ref')
 ax10.plot(TKE_a[:], yi[:], '-b', lw=2, label=r"$LES  (32^3)$")
+ax10.plot(TKE_a2[:], yi[:], '--r', lw=2, label=r"$LES  (32^3)$")
 ax10.set_ylabel("$y^+$")
 ax10.set_xlabel("$TKE/u_*^2$")
 ax10.set_xlim(0, 4.5)

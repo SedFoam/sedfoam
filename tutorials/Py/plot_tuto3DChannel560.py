@@ -36,7 +36,7 @@ ax2.grid(linestyle=":")
 
 # plot 3
 ax3 = plt.subplot(gs[0, 2])
-ax3.axis([0, 1e-2, 0, 1])
+ax3.axis([0, 1e-3, 0, 1])
 ax3.set_xlabel(
     r"$\langle\tilde u^{f'} \tilde v^{f'}\rangle_F$, "
     r"$\langle\tilde u^{s'} \tilde v^{s'}\rangle_F$"
@@ -57,9 +57,9 @@ y = avg_file.variables["y"][:]
 ax1.semilogx(phi, y / h, "-k")
 ax2.plot(umean_s[0], y / h, "-r", label="solid")
 ax2.plot(umean_f[0], y / h, "-k", label="fluid")
-ax3.plot(uprim_s[0], y / h, "-r", label="solid")
-ax3.plot(uprim_f[0], y / h, "-k", label="fluid")
-
+ax3.plot(-uprim_s[1], y / h, "-r", label="solid")
+ax3.plot(-uprim_f[1], y / h, "-k", label="fluid")
+ax3.plot(0.0390181*(h-y),y/h,':k', label="dpdx (h-y)")
 ax2.legend()
 ax3.legend()
 

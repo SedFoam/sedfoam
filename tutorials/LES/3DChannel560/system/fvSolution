@@ -110,7 +110,7 @@ PIMPLE
     //pRefPoint       (0.001 0.001 0.0001);
     pRefCell        1001;
     pRefValue       0;
-    faceMomentum    true;
+    faceMomentum    false;
 }
 
 SIMPLE

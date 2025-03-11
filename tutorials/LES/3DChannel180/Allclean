@@ -19,4 +19,4 @@ rm -r postProcessing/*
 rm constant/C*
 
 # Remove logs
-rm  gradPOSC.txt log
+rm  gradPOSC.txt Ebudget.txt log

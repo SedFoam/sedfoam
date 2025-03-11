@@ -27,7 +27,7 @@ gradSchemes
 
 divSchemes
 {
-    default         none;
+    default         Gauss linear;
 // alphaEqn
     div(phi,alpha)  Gauss limitedLinear01 1;
     div(phir,alpha) Gauss limitedLinear01 1;

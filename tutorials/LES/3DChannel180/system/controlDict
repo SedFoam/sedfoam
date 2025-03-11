@@ -19,19 +19,19 @@ application     sedFoam_rbgh;
 
 startFrom       startTime;
 
-startTime       100;
+startTime       0;
 
 stopAt          endTime;
 
-endTime         200;
+endTime         120;
 
-deltaT          5e-3;
+deltaT          1e-4;
 
 writeControl    adjustableRunTime;
 
-writeInterval   20;
+writeInterval   30;
 
-purgeWrite      0;
+purgeWrite      1;
 
 writeFormat     binary;
 
@@ -47,18 +47,44 @@ runTimeModifiable true;
 
 adjustTimeStep yes;
 
-maxCo          0.3;
+maxCo          0.1;
 
-maxAlphaCo     0.3;
+maxAlphaCo     0.1;
 
-maxDeltaT      2e-2;
+maxDeltaT      1e-2;
 
 // Favre averaging section
 
-AverageMode         true;  // To enable Favre average mode keep it true or otherwise keep it false
+favreAveraging     true;  // To enable Favre average mode keep it true or otherwise keep it false
 
-StartAverageTime    100;  // Time from where you want to start averaging
+StartAverageTime   30;  // Time from where you want to start averaging
 
-favreAverage_fluid  true;   // To save the Favre average files 
+favreAverage_fluid true;   // To save the Favre average files 
+TKEbudgetLES_fluid true;   // Compute fluid phase TKE Budget
+favreAverage_solid false;   // To save the Favre average files 
+TKEbudgetLES_solid false;   // Compute solid phase TKE Budget
+
+/*
+functions
+{
+    fieldAverage1
+    {
+        type                fieldAverage;
+        libs                (fieldFunctionObjects);
+        timeStart           100;
+        writeControl        writeTime;
+
+        fields
+        (
+            U.b
+            {
+                mean        on;
+                prime2Mean  on;
+                base        time;
+            }
+        );
+    }
+}
+*/
 
 // ************************************************************************* //

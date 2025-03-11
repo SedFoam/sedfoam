@@ -10,7 +10,7 @@ sol = basepath + case + "/"
 #
 # Reading SedFoam results
 #
-tread = "16"
+tread = "8"
 
 print("########## Writing averaged data file ##########")
 # Read vertical coordinates
