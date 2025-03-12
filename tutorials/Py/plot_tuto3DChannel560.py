@@ -59,7 +59,7 @@ ax2.plot(umean_s[0], y / h, "-r", label="solid")
 ax2.plot(umean_f[0], y / h, "-k", label="fluid")
 ax3.plot(-uprim_s[1], y / h, "-r", label="solid")
 ax3.plot(-uprim_f[1], y / h, "-k", label="fluid")
-ax3.plot(0.0390181*(h-y), y / h,':k', label="dpdx (h-y)")
+ax3.plot(0.0390181*(h-y), y / h, ':k', label="dpdx (h-y)")
 ax2.legend()
 ax3.legend()
 
