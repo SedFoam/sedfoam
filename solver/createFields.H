@@ -504,18 +504,6 @@ OFstream gradPOSCFile
 (
     "gradPOSC.txt"
 );
-
-Switch writeTotalEnergyBudget
-(
-    runTime.controlDict().lookupOrDefault("writeTotalEnergyBudget", false)
-);
-
-// open files to write Energy budget info
-OFstream EbudgetFile
-(
-    "Ebudget.txt"
-);
-
 // Initialize variables
 volScalarField Unity
 (
