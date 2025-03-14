@@ -7,6 +7,7 @@ import os
 
 case = "3DOscillSheetFlow"
 basepath = "../LES/"
+
 sol = basepath + case + "/"
 
 # plot creation and parameters
