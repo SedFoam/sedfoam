@@ -38,7 +38,7 @@ write_ua = True
 period = 5
 
 # Number of divisions per period
-n_div = 20 
+n_div = 20
 
 #
 # Read data over four periods and average
