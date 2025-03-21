@@ -1,7 +1,7 @@
 #!usr/bin/env python3
 import numpy as np
-from pylab import figure, subplot, grid, axis, xlabel, ylabel, show
-from pylab import xticks, savefig
+from pylab import figure, subplot, axis, xlabel, ylabel, show
+from pylab import savefig
 import matplotlib.gridspec as gridspec
 from matplotlib import rc
 from pylab import matplotlib
