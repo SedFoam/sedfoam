@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-24.04, ubuntu-24.04-arm]
-    container: opencfd/openfoam-dev:2406
+    container: opencfd/openfoam-dev:2412
     steps:
       - name: install git
         run: |
