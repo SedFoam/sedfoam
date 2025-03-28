@@ -504,7 +504,6 @@ OFstream gradPOSCFile
 (
     "gradPOSC.txt"
 );
-
 // Initialize variables
 volScalarField Unity
 (
@@ -1137,4 +1136,5 @@ if (p_rbgh.needReference())
     );
     p_rbgh = p - rhob*gh;
 }
+
 Info<<"end of createFields"<<endl;
