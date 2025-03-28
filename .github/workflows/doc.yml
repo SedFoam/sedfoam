@@ -16,7 +16,7 @@ jobs:
 
   docs-build:
     runs-on: ubuntu-latest
-    container: opencfd/openfoam-dev:2406
+    container: opencfd/openfoam-dev:2412
     steps:
       - name: install docs package
         run: |
@@ -54,7 +54,7 @@ jobs:
 
   docs-deploy:
     runs-on: ubuntu-latest
-    container: opencfd/openfoam-dev:2406
+    container: opencfd/openfoam-dev:2412
     needs: docs-build
     steps:
       - name: install git
