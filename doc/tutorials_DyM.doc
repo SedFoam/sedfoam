@@ -321,7 +321,7 @@ and you should see the following figure that shows the trajectory and velocity o
 
 
 @image html "FallingSphereSimpleMorph.png" "Figure 4: Sphere a) trajectory and b) velocity evolution using a morphing mesh." width=700px
-@image latex "FallingSphereSimpleMorph .png" "Figure 4: Sphere a) trajectory and b) velocity evolution using a morphing mesh."
+@image latex "FallingSphereSimpleMorph.png" "Figure 4: Sphere a) trajectory and b) velocity evolution using a morphing mesh."
 
 
 
