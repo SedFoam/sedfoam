@@ -14,4 +14,4 @@ postProcess -func writeCellCentres -time constant
 decomposePar
 
 # Run sedFoam in parallel
-#mpirun -np 16 sedFoam_rbgh -parallel > log&
+mpirun -np 16 sedFoam_rbgh -parallel > log&
