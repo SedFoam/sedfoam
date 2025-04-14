@@ -18,7 +18,7 @@ runApplication mergeMeshes . ../sphereMesh -overwrite
 runApplication topoSet
 mv log.topoSet log.topoSet2
 
-cp -r 0_org 0
+cp -r 0_org/* 0
 
 # Use cellSets to write zoneID
 runApplication setFields
