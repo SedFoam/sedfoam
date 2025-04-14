@@ -64,11 +64,13 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     granularDilatancy_
     (
-        granularRheologyProperties_.get<Switch>("granularDilatancy")
+        granularRheologyProperties_.getOrDefault<Switch>
+        ("granularDilatancy", false)
     ),
     granularCohesion_
     (
-        granularRheologyProperties_.get<Switch>("granularCohesion")
+        granularRheologyProperties_.getOrDefault<Switch>
+        ("granularCohesion", false)
     ),
     FrictionModel_
     (

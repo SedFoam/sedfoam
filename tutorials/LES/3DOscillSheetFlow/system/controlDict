@@ -23,7 +23,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         40;
+endTime         25;
 
 deltaT          2e-4;
 
@@ -31,7 +31,7 @@ writeControl    adjustableRunTime;
 
 writeInterval   0.25;
 
-purgeWrite      0;
+purgeWrite      12;
 
 writeFormat     binary;
 
@@ -53,6 +53,18 @@ maxAlphaCo     0.1;
 
 maxDeltaT      1e-2;
 
+// Favre averaging section
+
+favreAveraging     false;  // To enable Favre average mode keep it true or otherwise keep it false
+
+StartAverageTime   20;  // Time from where you want to start averaging
+
+favreAverage_fluid true;   // To save the Favre average files 
+TKEbudgetLES_fluid false;   // Compute fluid phase TKE Budget
+favreAverage_solid true;   // To save the Favre average files 
+TKEbudgetLES_solid false;   // Compute solid phase TKE Budget
+
+
 functions
 {
 probesVel
@@ -70,8 +82,8 @@ probesVel
 
         fields
         (
-            Ub
-            alpha_a
+            U.b
+            alpha.a
         );
 };
 }

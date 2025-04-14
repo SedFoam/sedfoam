@@ -24,13 +24,6 @@ if (favreAveraging)
     #include "calcFavreAverage.H"
 }
 
-if (favreAverage_fluid)
-{
-    #include "calcFavreAverage_fluid.H"
-    #include "Random.H"
-}
-
-
 if (runTime.outputTime())
 {
     if (writeTau == 1)
@@ -46,6 +39,7 @@ if (runTime.outputTime())
         Taua.write();
         Taub.write();
     }
+    // Remi's version
     if (writeMomentumBudget == 1)
     {
 
