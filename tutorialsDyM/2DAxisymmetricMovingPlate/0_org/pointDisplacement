@@ -1,0 +1,81 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       pointVectorField;
+    object      pointDisplacement;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 0 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    front
+    {
+         type            wedge;
+
+    }
+    back
+    {
+         type            wedge;
+
+    }
+
+    hole
+    {
+        type		zeroGradient;
+    }
+    top
+    {
+//        type            fixedValue;
+  //              value uniform 0;
+        type            zeroGradient;
+
+    }
+    bottom
+    {
+        type            zeroGradient;
+    }
+    
+ 
+
+    ".*"
+    {
+        type            uniformFixedValue;
+        uniformValue    (0 0 0);
+    }
+    overset
+    {
+        patchType       overset;
+        type            zeroGradient;
+    }
+    OuterWall
+    {
+        type            zeroGradient;
+    }
+    walls
+    {
+        type            zeroGradient;
+    }
+    axis
+    {
+        type            empty;
+    }
+    
+    
+	
+	
+
+}
+
+// ************************************************************************* //
