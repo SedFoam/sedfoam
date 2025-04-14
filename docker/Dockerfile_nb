@@ -1,4 +1,4 @@
-FROM cbonamy/sedfoam_2406_ubuntu:develop
+FROM cbonamy/sedfoam_2412_ubuntu:develop
 LABEL maintainer="cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
