@@ -1,0 +1,69 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      zoneID;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   uniform 0;
+
+boundaryField
+{
+
+  front
+    {
+         type            wedge;
+
+    }
+    back
+    {
+         type            wedge;
+
+    }
+
+
+    top
+    {
+//        type            fixedValue;
+  //              value uniform 0;
+        type            zeroGradient;
+
+    }
+    bottom
+    {
+        type            zeroGradient;
+    }
+    
+
+    OuterWall
+    {
+        type            zeroGradient;
+    }
+    axis
+    {
+        type            empty;
+    }
+    overset
+    {
+        patchType       overset;
+        type            zeroGradient;
+    }
+
+    "(walls|hole)"
+    {
+        type            zeroGradient;
+    }
+}
+
+// ************************************************************************* //
