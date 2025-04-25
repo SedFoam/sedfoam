@@ -26,4 +26,4 @@ funkySetFields -time 0
 decomposePar
 
 ## Run sedFoam in parallel
-#mpirun -np 6 sedFoam_rbghMULES -parallel > log&
+mpirun -np 12 sedFoam_rbgh -parallel > log&
