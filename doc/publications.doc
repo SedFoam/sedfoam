@@ -10,17 +10,29 @@
 
 \tableofcontents
 
+\section pubs2025 2025
+
+<ul>
+<li>Gilletta, A., Bonamy, C., Robert M., & Chauchat, J. (2025). Assessment of Hybrid Rans/Les Models for the Prediction of the Flow Around a Wall-Mounted Cylinder at High Reynolds Numbers: A Numerical Study Using Openfoam. Advances in Water Resources, 199, 104934. https://dx.doi.org/10.2139/ssrn.4521912
+<li>Mathieu, A., Kim, Y., Hsu, T.-J., Bonamy, C., & Chauchat, J. (2025). sedInterFoam 1.0: a three-phase numerical model for sediment transport applications with free surfaces. Geoscientific Model Development, 18(5), 1561–1573. https://gmd.copernicus.org/articles/18/1561/2025
+</ul>
+
 \section pubs2024 2024
 
 <ul>
 <li>Puig Montella, E., Bonamy, C., Chauchat, J., & Hsu, T.-J. (2024). Implementing moving object capability in a two-phase Eulerian model for sediment transport applications. OpenFOAM® Journal, 4, 79–104. https://doi.org/10.51560/ofj.v4.119
+<li>Stoecker, Y., Golla, C., Jain, R., Froehlich, J., & Cinnella, P. (2024). Dns-based turbulent closures for sediment transport using symbolic regression. Flow Turbulence and Combustion, 112(1, SI):217–241.
+<li>Qin, C., Duan, L., Wang, D., Duan, B., & Liu, W. (2024). A local scour model for single pile on silty seabed considering soil cohesion (sedcohfoam): Model and validation. Physics Of Fluids, 36(5).
+<li>Salimi-Tarazouj, A., Hsu, T.-J., Traykovski, P., & Chauchat, J. (2024). Investigating wave shape effect on sediment transport over migrating ripples using an eulerian two-phase model. Coastal Engineering, 189.
 </ul>
 
 \section pubs2023 2023
 
 <ul>
-<li>Montellà, E. P., Chauchat, J., Bonamy, C., Weij, D., Keetels, G. H., and Hsu, T. J. (2023). Numerical investigation of mode failures in submerged granular columns. Flow, 3, E28. DOI : https://doi.org/10.1017/flo.2023.23 
+<li>Montellà, E. P., Chauchat, J., Bonamy, C., Weij, D., Keetels, G. H., & Hsu, T.-J. (2023). Numerical investigation of mode failures in submerged granular columns. Flow, 3, E28. DOI : https://doi.org/10.1017/flo.2023.23 
 <li>Chassagne, R., Bonamy, C., and Chauchat, J. (2023). A frictional–collisional model for bedload transport based on kinetic theory of granular flows: Discrete and continuum approaches. Journal of Fluid Mechanics, 964, A27. DOI : https://doi.org/10.1017/jfm.2020.274 
+<li>Ghzayel, A., & Beaudoin, A. (2023). Three-dimensional numerical study of a local scour downstream of a submerged sluice gate using two hydro-morphodynamic models, sedfoam and flow-3d. Comptes Rendus Mécanique, 351:525–550.
+<li>Fatima Khaled, & Sylvain Guillou and Yann Méar and Ferhat Hadri (2023). Numerical investigation of the local impact of hydrokinetic turbine on sediment transport - Comparison between two actuator models. European Journal of Mechanics - B/Fluids, 102:31-45.
 </ul>
 
 \section pubs2022 2022
@@ -28,6 +40,8 @@
 <ul>
 <li>Mathieu, A., Cheng Z., Chauchat, J., Bonamy, C., Hsu, T. (2022). Numerical investigation of unsteady effects in oscillatory sheet flows. Journal of Fluid Mechanics. vol. 943, https://doi.org/10.1017/jfm.2022.405
 <li>Tsai, B., Mathieu, A., Montellà, E. P., Hsu, T.-J., and Chauchat, J. (2022). An eulerian two-phase flow model investigation on scour onset and backfill of a 2d pipeline. European Journal of Mechanics - B/Fluids, 91:10–26. DOI : https://doi.org/10.1016/j.euromechflu.2021.09.004
+<li>Fraga, V. S., Yin, G., Ong, M. C., & Myrhaug, D. (2022). Cfd investigation on scour beneath different configurations of piggyback pipelines under steady current flow. Coastal Engineering, 172.
+<li>Delisle, M.-P. C., Kim, Y., Mieras, R. S., & Gallien, T. W. (2022). Numerical inves- tigation of sheet flow driven by a near-breaking transient wave using sedfoam. European Journal of Mechanics - B/Fluids, 96:51–64.
 </ul>
 
 \section pubs2021 2021
@@ -37,8 +51,8 @@
 <li>Mathieu, A., Chauchat, J., Bonamy, C., Balarac, G. and Hsu, T.-J. (2021). A finite-size correction model for two-fluid large-eddy simulation of particle-laden boundary layer flow. Journal of Fluid Mechanics, DOI : https://doi.org/10.1017/jfm.2021.4
 <li>Salimi Tarazouj, A., Hsu, T.-J., Traykovski, P., Cheng, Z., and Chauchat, J. (2021). A numerical study of onshore ripple migration using a eulerian two-phase model. Journal of Geophysical Research : Oceans, DOI : https://doi.org/10.1029/2020JC016773
 <li>Salimi Tarazouj, A., Hsu, T.-J., Traykovski, P., and Chauchat, J. (2021). Eulerian Two-Phase Model Reveals the Importance of Wave Period in Ripple Evolution and Equilibrium Geometry. Journal of Geophysical Research : Earth Surface, DOI :  https://doi.org/10.1029/2021JF006132
-<li>	Huang, J., Yin, G., Ong, M.C., Myrhaug, D., Jia, X. (2021). Numerical Investigation of Scour Beneath Pipelines Subjected to an Oscillatory Flow Condition. Journal of Marine Science and Engineering, DOI : https://doi.org/10.3390/jmse9101102
-<li>Khaled F., Guillou S.S., Méar Y., Hadri Ferhat (2021), Impact of blockage ratio on the transport of sediments in the presence of a hydrokinetic turbine : numerical modelling of the interaction sediments-turbine, International Journal of Sediment Research 36, 696-710.  https://doi.org/10.1016/j.ijsrc.2021.02.003
+<li>Huang, J., Yin, G., Ong, M.C., Myrhaug, D., Jia, X. (2021). Numerical Investigation of Scour Beneath Pipelines Subjected to an Oscillatory Flow Condition. Journal of Marine Science and Engineering, DOI : https://doi.org/10.3390/jmse9101102
+<li>Khaled F., Guillou S.S., Méar Y., Hadri Ferhat (2021), Impact of blockage ratio on the transport of sediments in the presence of a hydrokinetic turbine : numerical modelling of the interaction sediments-turbine, International Journal of Sediment Research 36, 696-710.  DOI : https://doi.org/10.1016/j.ijsrc.2021.02.003
 </ul>
 
 \section pubs2020 2020
@@ -52,8 +66,7 @@
 
 <ul>
 <li>Mathieu, Antoine; Chauchat, Julien; Bonamy, Cyrille; Nagel, Tim; 2019. Two-Phase Flow Simulation of Tunnel and Lee-Wake Erosion of Scour below a Submarine Pipeline. Water, 11, 1727. https://doi.org/10.3390/w11081727
-<li>Khaled F., Guillou S., Méar Y., Hadri F. (2019), Numerical modelling of the effect of the hydrokinetic turbines on the transport of sediments - Application to the Rhône site, MATEC Web of Conferences, DOI : 10.1051/matecconf/201926105003
-
+<li>Khaled F., Guillou S., Méar Y., Hadri F. (2019), Numerical modelling of the effect of the hydrokinetic turbines on the transport of sediments - Application to the Rhône site, MATEC Web of Conferences, DOI : https://doi.org/10.1051/matecconf/201926105003
 </ul>
 
 \section pubs2018 2018
