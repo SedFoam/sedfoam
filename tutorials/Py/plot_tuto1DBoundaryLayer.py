@@ -1,5 +1,3 @@
-# Import section
-#
 import numpy as np
 import fluidfoam
 from pylab import *

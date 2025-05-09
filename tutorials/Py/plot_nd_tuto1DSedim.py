@@ -1,6 +1,3 @@
-#
-# Import section
-#
 import subprocess
 import sys
 import numpy as np
