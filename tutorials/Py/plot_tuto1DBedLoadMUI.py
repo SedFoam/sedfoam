@@ -5,6 +5,10 @@ import fluidfoam
 from pylab import matplotlib, mpl, figure, subplot, savefig, show
 import matplotlib.gridspec as gridspec
 from analytic_coulomb2D import analytic_coulomb2D
+#
+# Loading Matlab results
+#
+from DATA.BedLoadmuI import yMuI, UMuI, PpMuI
 
 #
 # Change fontsize
@@ -70,12 +74,6 @@ for i in range(nx - 1):
     duexdz = (uex[i] - uex[i - 1]) / (xex[i] - xex[i - 1])
     duxmax = max([duxmax, duexdz])
     nuex[i] = mus * pex[i] / (rho_p * (np.abs(duexdz) + 1e-6))
-
-#
-# Loading Matlab results
-#
-exec(open("DATA/BedLoadmuI.py").read())
-# 'yMuI','UMuI','PpMuI
 #
 # dimensional form
 #
@@ -89,10 +87,7 @@ UMuI = UMuI * U0
 yMuI = yMuI * D
 PpMuI = PpMuI * drho * g * D
 
-
 # Reading SedFoam results
-#
-
 #
 case = "1DBedLoad"
 basepath = "../laminar/"
@@ -131,7 +126,6 @@ U = np.zeros(Ny)
 U = alpha[:] * Ua[0, :] + (1 - alpha[:]) * Ub[0, :]
 
 print("max(Ub)=" + str(np.amax(Ub)) + " m/s")
-
 #
 # figure 1
 #
