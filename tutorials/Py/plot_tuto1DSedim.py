@@ -6,7 +6,12 @@ from pylab import figure, subplot, axis, xlabel, ylabel, show, savefig, plot
 from pylab import title, matplotlib
 import matplotlib.gridspec as gridspec
 import matplotlib as mpl
-
+#########################################
+#
+# Loading experimental results
+#
+from DATA.exp_lmsgc import t_pvb, zint_pvb, zint2_pvb, as_pvb, z_pvb
+#########################################
 #
 # Change fontsize
 #
@@ -25,17 +30,8 @@ gs.update(left=0.1, right=0.95, top=0.95, bottom=0.075, wspace=0.125, hspace=0.1
 figwidth = 12
 figheight = 6
 figheight2 = 12
-
-#########################################
-#
-# Loading experimental results
-#
-from DATA.exp_lmsgc import t_pvb, zint_pvb, zint2_pvb, as_pvb, z_pvb
 #########################################
 # Loading OpenFoam results
-#
-#
-#
 #
 case = "1DSedim"
 basepath = "../laminar/"
