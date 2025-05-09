@@ -37,7 +37,7 @@ internalField   #codeStream
     code
     #{
         const IOdictionary& d = static_cast<const IOdictionary&>(dict);
-	    const fvMesh& mesh = refCast<const fvMesh>(d.db());
+	const fvMesh& mesh = refCast<const fvMesh>(d.db());
         scalarField alpha_a(mesh.nCells(), 0);
 
         forAll(mesh.C(), i)

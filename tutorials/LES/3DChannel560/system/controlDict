@@ -17,7 +17,7 @@ FoamFile
 
 application     sedFoam_rbgh;
 
-startFrom       latestTime;
+startFrom       startTime;
 
 startTime       0;
 
@@ -30,7 +30,7 @@ deltaT          2e-4;
 
 writeControl    runTime;
 
-writeInterval   0.5;
+writeInterval   4.;
 
 purgeWrite      0;
 
@@ -48,6 +48,15 @@ runTimeModifiable true;
 
 maxAlphaCo  1;
 
-favreAveraging false;
+// Favre averaging section
+
+favreAveraging     true;  // To enable Favre average mode keep it true or otherwise keep it false
+
+StartAverageTime   4;  // Time from where you want to start averaging
+
+favreAverage_fluid true;   // To save the Favre average files 
+TKEbudgetLES_fluid false;   // Compute fluid phase TKE Budget
+favreAverage_solid true;   // To save the Favre average files 
+TKEbudgetLES_solid false;   // Compute solid phase TKE Budget
 
 // ************************************************************************* //

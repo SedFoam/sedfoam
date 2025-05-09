@@ -5,7 +5,7 @@ cd "${0%/*}" || exit                                # Run from this directory
 
 runApplication blockMesh
 
-restore0Dir
+cp -r 0_org 0
 
 funkySetFields -time 0
 
