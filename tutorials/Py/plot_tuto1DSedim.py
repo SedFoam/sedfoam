@@ -33,8 +33,7 @@ figheight2 = 12
 #
 # Loading experimental results
 #
-# execfile('DATA/exp_lmsgc.py')
-exec(open("DATA/exp_lmsgc.py").read())
+from DATA.exp_lmsgc import t_pvb, zint_pvb, zint2_pvb, as_pvb, z_pvb
 #########################################
 # Loading OpenFoam results
 #

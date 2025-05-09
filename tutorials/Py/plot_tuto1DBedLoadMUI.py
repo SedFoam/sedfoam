@@ -74,8 +74,8 @@ for i in range(nx - 1):
 #
 # Loading Matlab results
 #
-exec(open("DATA/BedLoadmuI.py").read())
-# 'yMuI','UMuI','PpMuI
+from DATA.BedLoadmuI import yMuI, UMuI, PpMuI
+
 #
 # dimensional form
 #
