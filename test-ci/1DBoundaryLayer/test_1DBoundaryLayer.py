@@ -3,8 +3,10 @@
 #
 import numpy as np
 import fluidfoam
+
+
 def rms(y, x):
-    u = np.trapz(y**2,x)
+    u = np.trapz(y**2, x)
     return np.sqrt(u / np.abs(x[-1]-x[0]))
 
 
