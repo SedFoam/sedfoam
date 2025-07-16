@@ -3,10 +3,9 @@
 #
 import numpy as np
 import fluidfoam
-
-
-def rms(x):
-    return np.sqrt(x.dot(x) / x.size)
+def rms(y, x):
+    u = np.trapz(y**2,x)
+    return np.sqrt(u / np.abs(x[-1]-x[0]))
 
 
 #
@@ -95,11 +94,11 @@ zpepsilonDNS = npzfiles["arr_7"]
 # zpprodDNS    = npzfiles['arr_9']
 
 u_interp = np.interp(zuw, z[:] / H, U[0, :] / Umax)
-rms_u = rms(u_interp - uw)
+rms_u = rms(u_interp[:-1] - uw[:-1], zuw[:-1])
 print("rms_u=", rms_u)
 assert rms_u <= 0.05
 
 k_interp = np.interp(zkw, z[:] / H, k[:] / utau**2)
-rms_k = rms(k_interp - kw)
+rms_k = rms(k_interp[:-1] - kw[:-1], zkw[:-1])
 print("rms_k=", rms_k)
 assert rms_k <= 0.16
