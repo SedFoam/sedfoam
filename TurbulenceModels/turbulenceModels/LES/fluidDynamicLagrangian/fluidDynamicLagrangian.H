@@ -75,6 +75,8 @@ protected:
         volScalarField flmb_;
         volScalarField fmmb_;
         volScalarField Cyb_;
+        volScalarField k_;
+        volSymmTensorField R_;
 
         dimensionedScalar theta_;
         dimensionedScalar D_;
@@ -87,6 +89,8 @@ protected:
 
         dimensionedScalar flmb0_;
         dimensionedScalar fmmb0_;
+
+
 
 
     // Protected Member Functions
@@ -145,7 +149,7 @@ public:
         //- Read model coefficients if they have changed
         virtual bool read();
 
-        //- Return SGS kinetic energy of phase a
+        //- Return SGS kinetic energy of phase b
         tmp<volScalarField> k(const tmp<volTensorField>& gradU) const
         {
             return pow(2.0*flmb_/fmmb_, 2.0/3.0)
@@ -153,10 +157,23 @@ public:
                    * sqr(this->delta())*magSqr(dev(symm(gradU)));
         }
 
-        //- Return SGS kinetic energy
+        //- Return SGS kinetic energy of phase b
         virtual tmp<volScalarField> k() const
         {
             return k(fvc::grad(this->U_));
+        }
+        
+        //- Return SGS Reynolds stress tensor of phase b
+        virtual tmp<volSymmTensorField> R(const tmp<volTensorField>& gradU) const
+		{
+	    return 2. * this->nut_ * dev(symm(gradU))
+		 - (2.0/3.0) * k_ * symmTensor::I;
+		}
+	
+	//- Return SGS Reynolds stress tensor of phase b
+        virtual tmp<volSymmTensorField> R() const
+        {
+            return R(fvc::grad(this->U_));
         }
 
         //- Return the effective diffusivity for k
