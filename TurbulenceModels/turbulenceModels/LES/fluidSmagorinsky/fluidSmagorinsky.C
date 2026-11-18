@@ -122,6 +122,30 @@ fluidSmagorinsky<BasicTurbulenceModel>::fluidSmagorinsky
             dimLength*dimVelocity,
             1e-3
         )
+    ),
+    k_
+    (
+        IOobject
+        (
+            IOobject::groupName("k", this->U_.group()),
+            this->runTime_.timeName(),
+            this->mesh_,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        this->mesh_
+    ),
+    R_
+    (
+        IOobject
+        (
+            IOobject::groupName("R", this->U_.group()),
+            this->runTime_.timeName(),
+            this->mesh_,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        this->mesh_
     )
 {
     if (type == typeName)
@@ -183,6 +207,12 @@ spherSigmaSGS()
     const tmp<volScalarField> spherSigma(Ci_*sqr(this->delta())*magSqrS);
 
     return spherSigma;
+    
+    // SGS kinetic energy of phase b
+    k_ = k();
+   
+    // SGS Reynolds stresses for phase b 
+    R_ = R();
 }
 
 

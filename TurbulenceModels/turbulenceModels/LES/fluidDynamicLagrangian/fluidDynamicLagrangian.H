@@ -170,7 +170,7 @@ public:
 		 - (2.0/3.0) * k_ * symmTensor::I;
 		}
 	
-	//- Return SGS Reynolds stress tensor of phase b
+		//- Return SGS Reynolds stress tensor of phase b
         virtual tmp<volSymmTensorField> R() const
         {
             return R(fvc::grad(this->U_));
