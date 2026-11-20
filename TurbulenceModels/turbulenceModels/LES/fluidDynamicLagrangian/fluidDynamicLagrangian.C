@@ -313,8 +313,8 @@ void fluidDynamicLagrangian<BasicTurbulenceModel>::correct()
     
     // SGS kinetic energy of phase b
     k_ = k();
-   
-    // SGS Reynolds stresses for phase b 
+
+    // SGS Reynolds stresses for phase b
     R_ = R();
 
 }
