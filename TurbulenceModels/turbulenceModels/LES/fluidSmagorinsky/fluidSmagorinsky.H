@@ -102,6 +102,8 @@ protected:
         dimensionedScalar Ck_;
         dimensionedScalar Ci_;
         dimensionedScalar nutMax_;
+        volScalarField k_;
+        volSymmTensorField R_;
 
     // Protected Member Functions
 
@@ -150,6 +152,19 @@ public:
         virtual tmp<volScalarField> k() const
         {
             return k(fvc::grad(this->U_));
+        }
+        
+        //- Return SGS Reynolds stress tensor of phase b
+        virtual tmp<volSymmTensorField> R(const tmp<volTensorField>& gradU) const
+		{
+	    return 2. * this->nut_ * dev(symm(gradU))
+		 - (2.0/3.0) * k_ * symmTensor::I;
+		}
+		
+		//- Return SGS Reynolds stress tensor of phase b
+        virtual tmp<volSymmTensorField> R() const
+        {
+            return R(fvc::grad(this->U_));
         }
 
         //- Correct Eddy-Viscosity and related properties
