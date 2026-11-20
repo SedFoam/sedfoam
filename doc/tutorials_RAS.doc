@@ -837,6 +837,130 @@ As for the previous case, you can launch the computation by executing * Allrun *
 
 The post-processing is mostly performed using paraview. No python script is provided withthi configuration at the moment.
 
+\section Scour3DSqr 3DScourSqr: Scour around a vertical square cylinder
 
+In this tutorial, the hybrid RANS-LES k-omega 2006 SAS is applied to the live-bed configuration of scour around a vertical square cylinder.
+
+\subsection preprocS3D Pre-processing
+
+This tutorial is distributed with SedFoam under the folder *sedFoamDirectory/tutorials/RAS/3DScourSqr*.
+
+Similarly as the 3DScour configuration, a 1D boundary layer simulation needs to be run and then used to intialize the 3D configuation and to impose the inlet boundary condition.
+
+\subsection meshgen_S3D Mesh generation
+
+A square-based cylinder and \f$ D=10cm \f$ side is placed 4D away from the inlet. Numerical simulations have been performed with the following computational domain : 12D long, 8D wide and 2,5D high. The mesh is generated using the OpenFOAM utilities blockMesh with Lu, Ld and H the upstream, downstream, width length of the computational domain. A sediment bed layer having a thickness of D/2 is initially set-up. The sediments and hydrodynamics are similar as the 3DScour configuration.
+
+\subsection  BC_init_S3D Boundary and initial conditions
+
+The boundary conditions are very close to the 3DScour configuration :
+
+(i) At the inlet, vertical profiles obtained from a 1D vertical simulation are imposed for \f$ u^s, u^f , k , \omega.b, \alpha.a, \Theta \f$. Zero transverse velocity is prescribed.
+
+(ii) At the outlet, Neumann boundary conditions are specified for all quantities, except for the pressure for which a homogeneous Dirichlet boundary condition is imposed for the reduced pressure. For the velocities, a homogeneous Neumann boundary condition is used when the velocity vector points outside of the domain at the outlet, and a homogeneous Dirichlet boundary condition is used otherwise.
+
+(iii) At the top and side boundaries, the same boundary conditions as in the 3DScour case are used.
+
+(iv) At the walls (including the cylinder), zero velocity (no-slip) is imposed for the three components and a small value is imposed for the turbulent kinetic energy (TKE) k.b. The boundary condition for \f$\omega.b\f$ is specified using the classical wall function from openFOAM at the cylinder and using a constant value is imposed at the bottom.
+
+\subsection PhysProp_S3D Physical properties
+
+The transportProperties file for the 3DScourSqr is identical to the 3DScour configuration.
+
+\subsection KT_S3D Kinetic theory
+
+In this tutorial, the kinetic theory is used for the granular stress model and the kineticTheoryProperties reads:
+
+\verbatim
+kineticTheory   on;
+
+limitProduction off;
+
+extended        off;
+
+e               e [ 0 0 0 0 0 0 0 ] 0.7;
+
+muPart          muPart [ 0 0 0 0 0 0 0 ] 0.4;
+
+alphaMax        alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
+
+MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 0.5;
+
+phi             phi [ 0 0 0 0 0 0 0 ] 32;
+
+psi             psi [ 0 0 0 0 0 0 0 ] 0.0;
+
+killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 0;
+
+quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
+
+viscosityModel  GarzoDuftyMod;
+
+conductivityModel GarzoDuftyMod;
+
+granularPressureModel Lun;
+
+saltationModel	none; 
+
+radialModel     ChialvoSundaresan;
+\endverbatim
+
+\subsection Turb_S3D Turbulence properties
+
+The turbulence model is set to twophasekOmegaSAS in *turbulenceProperties.b*:
+
+\verbatim
+
+simulationType  RAS;
+
+RAS
+{
+    RASModel        twophasekOmegaSAS;
+    turbulence      on;
+    printCoeffs     on;
+    twophasekOmegaSASCoeffs
+    {
+        alphaOmega       0.52;
+        betaOmega        0.0708; // original k-omega: 0.072 // k-omega (2006): 0.0708
+        C3om             0.35;
+        C4om             1.0;
+        alphaKomega      0.6; // original k-omega: 0.5 // k-omega (2006): 0.6
+        alphaOmegaOmega  0.5;
+        Clim             0.875; // original k-omega: 0.0 // k-omega (2006): 0.875
+        sigmad           0.125; // original k-omega: 0.0 // k-omega (2006): 0.125
+        Cmu              0.09;
+        KE2              1.0; //turb modulation
+        KE4              1.0; //density stratification g  
+        nutMax           5e-3;
+        popeCorrection   true;
+        
+	    delta           vanDriest;
+    	vanDriestCoeffs
+    	{
+		    delta           cubeRootVol;
+            cubeRootVolCoeffs
+            {
+                deltaCoeff      1;
+            }
+            Aplus           26;
+            Cdelta          0.158;
+    	}
+    }
+}
+
+\endverbatim
+\subsection control_S3D Control
+
+The system/controlDict file indicates that for this case the time step is fixed at 0.0005 s.
+
+\subsection  lauch_S3D Computation launching
+
+As for the previous case, you can launch the computation by executing * Allrun *. The mesh is quite coarse and the simulation can be launched with 10 cores.
+\subsection post_S3D Post-processing using paraview
+
+The post-processing is mostly performed using paraview. No python script is provided within configuration at the moment. A snapshot of the simulation with the hybrid model is shown next:
+
+@image html "3DScourSqrSAS.png" "Figure 11: Sediment interface with volume rendering at 20s using a hybrid \f$ k-\omega 2006 SAS\f$ turbulence model." width=600px
+@image latex "3DScourSqrSAS.png" "Figure 11: Sediment interface with volume rendering at 20s using a hybrid \f$ k-\omega 2006 SAS\f$ turbulence model."
 
 */

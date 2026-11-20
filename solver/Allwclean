@@ -11,5 +11,7 @@ wclean libso kineticTheoryModels
 wclean
 cd overSedDymFoam
 wclean
+cd ../sedVegFoam
+wclean
 
 #------------------------------------------------------------------------------

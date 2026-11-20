@@ -27,7 +27,7 @@ gradSchemes
 
 divSchemes
 {
-    default         none;
+    default         Gauss linear;
 // alphaEqn
     div(phi,alpha)  Gauss limitedLinear01 1;
     div(phir,alpha) Gauss limitedLinear01 1;
@@ -72,6 +72,7 @@ laplacianSchemes
     laplacian(DomegaEff,omega.b) Gauss linear corrected;
 //ThetaEqn
     laplacian(kappa,Theta) Gauss linear corrected;
+    laplacian(kappaAlpha,alpha) Gauss linear corrected;
 }
 
 interpolationSchemes

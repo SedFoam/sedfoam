@@ -1,4 +1,4 @@
-from numpy import *
+from numpy import array, uint8, uint16
 
 Nt_pvb = array([[30]], dtype=uint8)
 Nz_pvb = array([[70]], dtype=uint8)

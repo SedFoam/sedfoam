@@ -1,3 +1,5 @@
+import subprocess
+import sys
 import numpy as np
 import fluidfoam
 from pylab import figure, subplot, grid, axis, xlabel, ylabel, show

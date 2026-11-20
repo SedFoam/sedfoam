@@ -6,6 +6,7 @@ import os
 
 case = "3DOscillSheetFlow"
 basepath = "../LES/"
+
 sol = basepath + case + "/"
 
 #
@@ -26,6 +27,7 @@ for directory in dir_list:
     except ValueError:
         pass
 time_list.sort(key=float)
+time_list.pop(0)
 time_list = np.array(time_list)
 
 write_alpha = True
@@ -53,6 +55,8 @@ if write_alpha:
     pos_file[:] = yi
     phase_file[:] = np.linspace(0, period, n_div)
     for i, time in enumerate(time_list[1:n_div]):
+        print(i)
+        print(time_list[i + n_div + 1])
         alpha1 = fluidfoam.readscalar(sol, time, "alpha.a", structured=True, precision=12)
         alpha2 = fluidfoam.readscalar(
             sol, time_list[i + n_div + 1], "alpha.a", structured=True, precision=12

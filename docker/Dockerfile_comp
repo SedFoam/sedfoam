@@ -1,0 +1,21 @@
+FROM cbonamy/openfoam_2412_ubuntu:develop
+LABEL maintainer="cyrille.bonamy@univ-grenoble-alpes.fr"
+ARG WM_NCOMPPROCS=10
+ARG DEBIAN_FRONTEND=noninteractive
+
+USER root
+
+WORKDIR /root/swak4Foam
+RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && export FOAM_USER_APPBIN=$FOAM_SITE_APPBIN && export SWAK_COMPILE_GRAMMAR_OPTION=-O1 && export WM_NCOMPPROCS=1 && ./Allwmake'
+
+WORKDIR /root/sedfoam
+RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group'
+
+USER 1001
+
+WORKDIR /home/sudofoam
+RUN sudo cp -r /root/sedfoam sedfoam && sudo chown -R sudofoam: /home/sudofoam && sudo rm -rf /root/*
+
+WORKDIR /home/sudofoam
+ENV HOME=/home/sudofoam
+ENTRYPOINT ["/bin/bash", "-c"]

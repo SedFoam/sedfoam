@@ -17,7 +17,7 @@ FoamFile
 
 ddtSchemes
 {
-    default         Euler;
+    default         Euler implicit;
 }
 
 gradSchemes
@@ -61,12 +61,6 @@ laplacianSchemes
     laplacian(nuFra,U.a)  Gauss linear corrected;
 // pEqn
     laplacian((rho*(1|A(U))),p_rbgh) Gauss linear corrected;
-// k and EpsilonEqn 
-    laplacian(DkEff,k) Gauss linear corrected;
-    laplacian(DkEff,beta) Gauss linear corrected;
-    laplacian(DepsilonEff,epsilon) Gauss linear corrected;
-    laplacian(DepsilonEff,beta) Gauss linear corrected;
-    laplacian(DomegaEff,omega) Gauss linear corrected;
 //ThetaEqn
     laplacian(kappa,Theta) Gauss linear corrected;
     laplacian(kappaAlpha,alpha) Gauss linear corrected;

@@ -15,8 +15,7 @@ runApplication -s 1 topoSet
 runApplication subsetMesh box -patch hole -overwrite
 
 # Select cellSets
-
-restore0Dir
+cp -r 0_org 0
 
 # Use cellSets to write zoneID
 runApplication setFields

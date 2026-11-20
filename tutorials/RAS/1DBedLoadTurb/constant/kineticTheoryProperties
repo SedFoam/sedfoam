@@ -31,8 +31,10 @@ MaxTheta       MaxTheta [ 0 2 -2 0 0 0 0 ] 0.5;
 
 phi             phi [ 0 0 0 0 0 0 0 ] 20.487; //mus = 0.35 = sin(phi*pi/180)
 
+// Kill transfer of fluctuating kinetic energy from fluid to particles
 killJ2_       killJ2_ [ 0 0 0 0 0 0 0] 1;
 
+// Correct drag term to account for the quadratic nature of the drag force 
 quadraticCorrectionJ1_ quadraticCorrectionJ1_ [ 0 0 0 0 0 0 0 ] 1;
 
 viscosityModel  GarzoDufty;

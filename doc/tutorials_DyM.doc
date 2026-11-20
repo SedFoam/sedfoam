@@ -1,6 +1,6 @@
 /**
  * \file        tutorials_DyM.doc
- * \author      Cyrille Bonamy and Julien Chauchat
+ * \author      Eduard Puig Montellà, Cyrille Bonamy and Julien Chauchat
  * \date        June 03, 2021
  * \brief       Tutorials dynamic (doc)
  */
@@ -16,12 +16,12 @@ In this chapter we shall describe in detail the process of setup, simulation and
 
 
 
-Before launching any numerical simulation, make sure overSedDymFoam_rbgh is correctly installed and compiled. In case you are only interested in running dynamic mesh cases, the compilation is done by performing the following steps:
+Before launching any numerical simulation, make sure overSedDymFoam_rbgh is correctly installed and compiled:
 
 <ol>
-<li>First, download the overSedDyMFoam branch:
+<li>First, download the the official SedFoam package:
 
-        git clone -b overSedDyMFoam https://github.com/puigmontella/sedfoam.git
+        git clone --recurse-submodules http://github.com/sedfoam/sedfoam
 
 <li>Compile the program by running Allwmake:
 
@@ -321,7 +321,7 @@ and you should see the following figure that shows the trajectory and velocity o
 
 
 @image html "FallingSphereSimpleMorph.png" "Figure 4: Sphere a) trajectory and b) velocity evolution using a morphing mesh." width=700px
-@image latex "FallingSphereSimpleMorph .png" "Figure 4: Sphere a) trajectory and b) velocity evolution using a morphing mesh."
+@image latex "FallingSphereSimpleMorph.png" "Figure 4: Sphere a) trajectory and b) velocity evolution using a morphing mesh."
 
 
 

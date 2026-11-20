@@ -504,7 +504,6 @@ OFstream gradPOSCFile
 (
     "gradPOSC.txt"
 );
-
 // Initialize variables
 volScalarField Unity
 (
@@ -637,7 +636,7 @@ volScalarField CohesionDistrb
         runTime.timeName(),
         mesh,
         IOobject::READ_IF_PRESENT,
-        IOobject::NO_WRITE
+        IOobject::AUTO_WRITE
     ),
     mesh,
     dimensionedScalar("zero", dimensionSet(0, 0, 0, 0, 0), 0.0)
@@ -921,6 +920,19 @@ volScalarField SUStilde
     dimensionedScalar("one", dimensionSet(0, 0, 0, 0, 0), 1.0)
 );
 
+volVectorField ExcessPorePressureContr
+(
+    IOobject
+    (
+        "ExcessPorePressureContr",
+         runTime.timeName(),
+         mesh,
+         IOobject::NO_READ,
+         IOobject::NO_WRITE
+    ),
+    fvc::grad(p_rbgh)
+);
+
 volVectorField SolidPressureContr
 (
     IOobject
@@ -1124,4 +1136,5 @@ if (p_rbgh.needReference())
     );
     p_rbgh = p - rhob*gh;
 }
+
 Info<<"end of createFields"<<endl;

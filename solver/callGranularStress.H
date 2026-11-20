@@ -36,7 +36,7 @@ if (granularRheology.dilatancy())
      + fvm::div(phia, alphaPlastic, "div(phia,alphaPlastic)")
      - fvm::Sp(fvc::div(phia), alphaPlastic)
      ==
-     -fvm::SuSp(delta*magDtensor, alphaPlastic)    );
+     -fvc::Sp(delta*magDtensor, alphaPlastic)    );
     phi_pl_Eqn.relax();
     phi_pl_Eqn.solve();
 

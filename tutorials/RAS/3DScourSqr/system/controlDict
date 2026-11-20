@@ -1,0 +1,67 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     sedFoam;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         60;
+
+deltaT          5e-4;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.25;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  8;
+
+writeCompression false;
+
+timeFormat      general;
+
+timePrecision   8;
+
+runTimeModifiable on;
+
+adjustTimeStep  false;
+
+maxCo           0.5;
+
+maxAlphaCo      0.5;
+
+maxDeltaT       5e-4;
+
+favreAveraging false;
+
+libs (
+"libturbulenceModels.so"
+"libgroovyBC.so"
+"libgroovyStandardBCs.so"
+"libtwoPhaseTurbulenceModels.so"
+     );
+
+
+
+// ************************************************************************* //

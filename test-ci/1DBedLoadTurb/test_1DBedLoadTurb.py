@@ -47,20 +47,15 @@ vxPart = fluidfoam.readvector(sol, tread, "U.a")[0]
 vxFluid = fluidfoam.readvector(sol, tread, "U.b")[0]
 T = fluidfoam.readscalar(sol, tread, "Theta")
 
-phi_interp = np.interp(zDATA, z, phi)
-rms_phi = rms(phi_interp - phiDATA)
-assert rms_phi <= 0.02
+rms_phi = rms(phi - phiDATA)
+assert rms_phi <= 0.001
 
-vxPart_interp = np.interp(zDATA, z, vxPart)
-Ind = np.where(zDATA < 17.5 * 0.006)
-rms_vxP = rms(vxPart_interp[Ind] - vxPDATA[Ind])
-assert rms_vxP <= 0.1
+Ind = np.where(phi > 1e-4)
+rms_vxP = rms(vxPart[Ind] - vxPDATA[Ind])
+assert rms_vxP <= 0.001
 
-vxFluid_interp = np.interp(zDATA, z, vxFluid)
-rms_vxF = rms(vxFluid_interp - vxFDATA)
-assert rms_vxF <= 0.1
+rms_vxF = rms(vxFluid - vxFDATA)
+assert rms_vxF <= 0.001
 
-T_interp = np.interp(zDATA, z, T)
-Ind = np.where(zDATA < 17.5 * 0.006)
-rms_T = rms(T_interp[Ind] - TDATA[Ind])
-assert rms_T <= 0.02
+rms_T = rms(T[Ind] - TDATA[Ind])
+assert rms_T <= 0.001
